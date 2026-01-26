@@ -1,0 +1,399 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- if section.settings.use_custom_colors %}
+      --gradient-background: {% if section.settings.gradient_background != blank %}{{ section.settings.gradient_background }}{% else %}{{ section.settings.colors_background }}{% endif %};
+      --color-background: {{ section.settings.colors_background.red }}, {{ section.settings.colors_background.green }}, {{ section.settings.colors_background.blue }};
+      --color-foreground: {{ section.settings.colors_text.red }}, {{ section.settings.colors_text.green }}, {{ section.settings.colors_text.blue }};
+      --color-heading: var(--color-foreground);
+    {% endif -%}
+  }
+
+  .wave-bg-top {
+    display: block;
+    width: 100%;
+    margin-bottom: -1%;
+  }
+  .ugc-videos-section {
+    background: rgb(var(--color-background));
+    background: var(--gradient-background);
+    padding-top: var(--section-padding-top);
+    padding-bottom: var(--section-padding-bottom);
+  }
+  .ugc-videos-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+    text-align: center;
+  }
+  .ugc-videos-header .heading { 
+    margin: 0; 
+  }
+  .ugc-videos-header__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+  .ugc-videos-header__icon {
+    display: inline-flex;
+  }
+  .ugc-videos-header__icon img {
+    width: {{ section.settings.icon_size }}px;
+    height: auto;
+    object-fit: contain;
+  }
+  .ugc-videos-header__content .ugc-desc p { 
+    margin: 0; 
+  }
+  .ugc-videos-slider { 
+    position: relative; 
+  }
+  .ugc-video-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+    height: auto;
+  }
+  .ugc-video-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    {% if section.settings.image_ratio_desktop == 'portrait' %}
+      aspect-ratio: 9/16;
+    {% elsif section.settings.image_ratio_desktop == 'square' %}
+      aspect-ratio: 1/1;
+    {% elsif section.settings.image_ratio_desktop == 'landscape' %}
+      aspect-ratio: 16/9;
+    {% else %}
+      height: {{ section.settings.image_height_desktop }}px;
+    {% endif %}
+  }
+
+  @media screen and (max-width: 749px) {
+    .ugc-video-item video {
+      {% if section.settings.image_ratio_mobile == 'portrait' %}
+        aspect-ratio: 9/16;
+      {% elsif section.settings.image_ratio_mobile == 'square' %}
+        aspect-ratio: 1/1;
+      {% elsif section.settings.image_ratio_mobile == 'landscape' %}
+        aspect-ratio: 16/9;
+      {% else %}
+        height: {{ section.settings.image_height_mobile }}px;
+      {% endif %}
+    }
+  }
+
+  .ugc-video-overlay {
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    cursor: pointer; 
+    z-index: 2;
+  }
+  .ugc-video-play-btn {
+    width: 6rem; 
+    height: 6rem;
+    background: #fff3; 
+    border-radius: 50%;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    transition: transform 0.2s ease, opacity 0.3s ease;
+  }
+  .ugc-video-play-btn.playing { 
+    opacity: 0; 
+    pointer-events: none; 
+  }
+  .ugc-video-play-btn svg { 
+    width: 4rem;
+    height: 4rem;
+    fill: #fff;
+  }
+  .ugc-video-username {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #fff;
+    z-index: 3;
+  }
+  .ugc-video-mute-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 3rem;
+    height: 3rem;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 3;
+    backdrop-filter: blur(10px);
+  }
+  .ugc-video-mute-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: #fff;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ugc-pagination {
+      display: none; 
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ugc-videos-header {
+      margin-bottom: 2rem;
+    }
+    .ugc-videos-header__content {
+      flex-direction: column;
+    }
+    .ugc-videos-header__content .ugc-desc {
+      font-size: 1.4rem;
+    }
+    .ugc-video-username {
+      font-size: 1.2rem;
+    }
+    .ugc-video-mute-btn {
+      width: 2.5rem;
+      height: 2.5rem;
+      padding: 0;
+    }
+    .ugc-video-mute-btn svg {
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+    .ugc-video-play-btn {
+      width: 5rem;
+      height: 5rem;
+    }
+    .ugc-video-play-btn svg {
+      width: 3.5rem;
+      height: 3.5rem;
+    }
+    .ugc-pagination {
+      position: unset;
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    .ugc-pagination .swiper-pagination-bullet {
+      width: 8px;
+      height: 8px;
+      background: rgba(var(--color-dots, 0, 0, 0), 0.3);
+      opacity: 1;
+      margin: 0 0.3rem !important;
+    }
+    .ugc-pagination .swiper-pagination-bullet-active {
+      background: rgb(var(--color-dots, 0, 0, 0));
+    }
+  }
+{%- endstyle -%}
+
+<img src="https://cdn.shopify.com/s/files/1/0872/8906/9899/files/wave_1.svg?v=1767877716" width="" height="" class="wave-bg-top" alt="Wave background">
+<div class="ugc-videos-section">
+  <div class="page-width">
+    {% if section.settings.heading != blank or section.settings.description != blank or section.settings.header_icon != blank %}
+      <div class="ugc-videos-header">
+        {% if section.settings.heading != blank %}
+          <h2 class="h1 heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+        <div class="ugc-videos-header__content">
+          {% if section.settings.header_icon != blank %}
+            <div class="ugc-videos-header__icon">
+              <img src="{{ section.settings.header_icon | image_url: width: 200 }}" width="50" height="50" alt="{{ section.settings.heading }}" loading="lazy">
+            </div>
+          {% endif %}
+          {% if section.settings.description != blank %}
+            <div class="typeset ugc-desc">{{ section.settings.description }}</div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="ugc-videos-slider swiper" 
+         data-autoplay="{{ section.settings.autoplay }}"
+         data-desktop="{{ section.settings.slides_desktop }}"
+         data-tablet="{{ section.settings.slides_tablet }}"
+         data-mobile="{{ section.settings.slides_mobile }}">
+      <div class="ugc-videos-track swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="ugc-video-item swiper-slide" {{ block.shopify_attributes }}>
+            {% if block.settings.username != blank %}
+              <div class="ugc-video-username">{{ block.settings.username }}</div>
+            {% endif %}
+
+            <video class="ugc-video" playsinline loop muted preload="metadata"
+              {% if section.settings.autoplay %}autoplay{% endif %}
+              {% if block.settings.video_poster != blank %}poster="{{ block.settings.video_poster | image_url: width: 800 }}"{% endif %}>
+              {% if block.settings.video_source == 'hosted' and block.settings.video_shopify != blank %}
+                {% for source in block.settings.video_shopify.sources %}
+                  <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                {% endfor %}
+              {% elsif block.settings.video_source == 'url' and block.settings.video_url != blank %}
+                <source src="{{ block.settings.video_url }}" type="video/mp4">
+              {% endif %}
+            </video>
+
+            <div class="ugc-video-overlay">
+              <div class="ugc-video-play-btn {% if section.settings.autoplay %}playing{% endif %}">
+                <svg viewBox="0 0 24 24" class="play-icon"><path d="M8 5v14l11-7z"/></svg>
+                <svg viewBox="0 0 24 24" class="pause-icon" style="display: none;"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+              </div>
+            </div>
+
+            <button class="ugc-video-mute-btn" type="button">
+              <svg viewBox="0 0 24 24" class="unmute-icon" style="display: none;"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+              <svg viewBox="0 0 24 24" class="mute-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+            </button>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="ugc-pagination swiper-pagination-{{ section.id }}"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const sliderEl = document.querySelector('.ugc-videos-slider');
+    if (!sliderEl) return;
+
+    const swiper = new Swiper(sliderEl, {
+      slidesPerView: parseFloat(sliderEl.dataset.mobile),
+      spaceBetween: 10,
+      grabCursor: true,
+      loop: false,
+      pagination: {
+        el: '.swiper-pagination-{{ section.id }}',
+        clickable: true,
+      },
+      breakpoints: {
+        750: { 
+            slidesPerView: parseFloat(sliderEl.dataset.tablet),
+            spaceBetween: 12
+        },
+        990: { 
+            slidesPerView: parseFloat(sliderEl.dataset.desktop),
+            spaceBetween: 16
+        }
+      }
+    });
+
+    const videoItems = sliderEl.querySelectorAll('.ugc-video-item');
+    videoItems.forEach(item => {
+      const video = item.querySelector('video');
+      const overlay = item.querySelector('.ugc-video-overlay');
+      const playBtn = item.querySelector('.ugc-video-play-btn');
+      const muteBtn = item.querySelector('.ugc-video-mute-btn');
+      const unmuteIcon = muteBtn.querySelector('.unmute-icon');
+      const muteIcon = muteBtn.querySelector('.mute-icon');
+
+      overlay.addEventListener('click', () => {
+        if (video.paused) {
+          video.play();
+          playBtn.classList.add('playing');
+        } else {
+          video.pause();
+          playBtn.classList.remove('playing');
+        }
+      });
+
+      muteBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        video.muted = !video.muted;
+        unmuteIcon.style.display = video.muted ? 'none' : 'block';
+        muteIcon.style.display = video.muted ? 'block' : 'none';
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "UGC Videos",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "header", "content": "Section Header" },
+    { "type": "image_picker", "id": "header_icon", "label": "Header Icon" },
+    { "type": "range", "id": "icon_size", "min": 30, "max": 100, "step": 5, "unit": "px", "label": "Icon Size", "default": 50 },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What do our customers say?" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Bobbi, Sylvia, Juvat and 300k+ others already have a Zelesta duvet.</p>" },
+    { "type": "header", "content": "Video Settings" },
+    { "type": "checkbox", "id": "autoplay", "label": "Autoplay videos", "default": false },
+    { "type": "header", "content": "Desktop Settings" },
+    { "type": "range", "id": "slides_desktop", "min": 1, "max": 6, "step": 0.1, "label": "Slides (Desktop)", "default": 4 },
+    { "type": "select", "id": "image_ratio_desktop", "label": "Video Ratio (Desktop)", "options": [
+        { "value": "portrait", "label": "Portrait (9:16)" },
+        { "value": "square", "label": "Square (1:1)" },
+        { "value": "landscape", "label": "Landscape (16:9)" },
+        { "value": "custom", "label": "Custom Height" }
+      ], "default": "portrait"
+    },
+    { "type": "range", "id": "image_height_desktop", "min": 200, "max": 800, "step": 50, "unit": "px", "label": "Custom Height (Desktop)", "default": 500 },
+    { "type": "header", "content": "Tablet Settings" },
+    { "type": "range", "id": "slides_tablet", "min": 1, "max": 4, "step": 0.1, "label": "Slides (Tablet)", "default": 2.5 },
+    { "type": "header", "content": "Mobile Settings" },
+    { "type": "select", "id": "slides_mobile", "label": "Slides (Mobile)", "options": [
+        { "value": "1", "label": "1 slide" },
+        { "value": "1.2", "label": "1.2 slides" },
+        { "value": "1.5", "label": "1.5 slides" },
+        { "value": "2", "label": "2 slides" }
+      ], "default": "1.2"
+    },
+    { "type": "select", "id": "image_ratio_mobile", "label": "Video Ratio (Mobile)", "options": [
+        { "value": "portrait", "label": "Portrait (9:16)" },
+        { "value": "square", "label": "Square (1:1)" },
+        { "value": "landscape", "label": "Landscape (16:9)" },
+        { "value": "custom", "label": "Custom Height" }
+      ], "default": "portrait"
+    },
+    { "type": "range", "id": "image_height_mobile", "min": 200, "max": 600, "step": 50, "unit": "px", "label": "Custom Height (Mobile)", "default": 400 },
+    { "type": "header", "content": "Colors" },
+    { "type": "checkbox", "id": "use_custom_colors", "default": false, "label": "Use custom colors" },
+    { "type": "color", "id": "colors_text", "label": "Text color", "default": "#212326" },
+    { "type": "color", "id": "colors_background", "label": "Background color", "default": "#ffffff" },
+    { "type": "color_background", "id": "gradient_background", "label": "Gradient background" },
+    { "type": "header", "content": "Section Padding" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding top", "default": 36 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding bottom", "default": 36 }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        { "type": "select", "id": "video_source", "label": "Video Source", "options": [
+            { "value": "hosted", "label": "Shopify Hosted Video" },
+            { "value": "url", "label": "Direct MP4 URL" }
+          ], "default": "hosted"
+        },
+        { "type": "video", "id": "video_shopify", "label": "Upload Video" },
+        { "type": "text", "id": "video_url", "label": "Video URL (MP4 only)" },
+        { "type": "image_picker", "id": "video_poster", "label": "Poster Image" },
+        { "type": "text", "id": "username", "label": "Username" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "UGC Videos", "blocks": [{ "type": "video" }, { "type": "video" }, { "type": "video" }, { "type": "video" }] }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,478 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- if section.settings.use_custom_colors %}
+      --gradient-background: {% if section.settings.gradient_background != blank %}{{ section.settings.gradient_background }}{% else %}{{ section.settings.colors_background }}{% endif %};
+      --color-background: {{ section.settings.colors_background.red }}, {{ section.settings.colors_background.green }}, {{ section.settings.colors_background.blue }};
+      --color-foreground: {{ section.settings.colors_text.red }}, {{ section.settings.colors_text.green }}, {{ section.settings.colors_text.blue }};
+      --color-heading: var(--color-foreground);
+    {% endif -%}
+  }
+
+  .wave-btm-top {
+    display: block;
+    width: 100%;
+    margin-top: -1%;
+    transform: scaleY(-1);
+  }
+  .comparison-table-custom-section .comparison-table-wrapper {
+    background: rgb(var(--color-background));
+    background: var(--gradient-background);
+  }
+  .comparison-table-custom-section .comparison-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+  .comparison-table-custom-section .comparison-header .heading {
+    margin-block: 0 1.2rem;
+  }
+  .comparison-table-custom-section .comparison-header .desc p {
+    margin: 0;
+  }
+  .comparison-table-custom-section .comparison-header .desc strong {
+    font-weight: 600;
+  }
+  .comparison-table-custom-section .comparison-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    max-width: 110rem;
+    margin-inline: auto;
+  }
+  .comparison-table-custom-section .comparison-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+  }
+  .comparison-table-custom-section .comparison-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  .comparison-table-custom-section .comparison-icon {
+    width: 4.5rem;
+    height: 4.5rem;
+    min-width: 4.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .comparison-table-custom-section .comparison-icon svg {
+    width: 100%;;
+    height: 100%;
+  }
+  .comparison-table-custom-section .comparison-content h3 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-block: 0;
+    color: rgb(var(--color-foreground));
+  }
+  .comparison-table-custom-section .comparison-content p {
+    font-size: 1.4rem;
+    color: rgb(var(--color-foreground));
+    line-height: 1.4;
+    letter-spacing: 0;
+    margin-block: 1rem 0;
+  }
+  .comparison-table-custom-section .comparison-center {
+    position: relative;
+    max-width: 37rem;
+  }
+  .comparison-table-custom-section .comparison-images {
+    position: relative;
+  }
+  .comparison-table-custom-section .comparison-images img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+  }
+  .comparison-table-custom-section .vs-badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 50%;
+    width: 6.5rem;
+    height: 6.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.4rem;
+    font-weight: 600;
+    line-height: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 2;
+  }
+  .comparison-table-custom-section .left-column .column-title,
+  .comparison-table-custom-section .right-column .column-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-block: 0;
+    color: rgb(var(--color-foreground));
+  }
+  .comparison-table-custom-section .btn-wr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    .comparison-table-custom-section .comparison-header {
+      margin-bottom: 2rem;
+    }
+    .comparison-table-custom-section .comparison-container {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .comparison-table-custom-section .comparison-center {
+      order: -1;
+      max-width: 100%;
+    }
+    .comparison-table-custom-section .left-column {
+      order: 0;
+    }
+    .comparison-table-custom-section .right-column {
+      order: 1;
+    }
+    .comparison-table-custom-section .comparison-column {
+      padding: 0.5rem;
+      gap: 1.5rem;
+    }
+    .comparison-table-custom-section .comparison-item {
+      gap: 1rem;
+    }
+    .comparison-table-custom-section .comparison-icon {
+      width: 3.5rem;
+      height: 3.5rem;
+      min-width: 3.5rem;
+    }
+    .comparison-table-custom-section .comparison-content h3 {
+      font-size: 1.5rem;
+    }
+    .comparison-table-custom-section .comparison-content p {
+      font-size: 1.3rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="comparison-table-custom-section">
+  <div class="comparison-table-wrapper">
+    <div class="section--padding">
+      <div class="page-width">
+        
+        {%- if section.settings.heading != blank or section.settings.description != blank -%}
+        <div class="comparison-header">
+          {%- if section.settings.heading != blank -%}
+            <h2 class="h1 heading">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.description != blank -%}
+            <div class="typeset0 desc">{{ section.settings.description }}</div>
+          {%- endif -%}
+        </div>
+        {%- endif -%}
+
+        <div class="comparison-container">
+          
+          {%- comment -%} Left Column {%- endcomment -%}
+          <div class="comparison-column left-column">
+            {%- if section.settings.left_title != blank -%}
+              <h2 class="column-title">{{ section.settings.left_title }}</h2>
+            {%- endif -%}
+            
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'left_feature' -%}
+                <div class="comparison-item" {{ block.shopify_attributes }}>
+                  <div class="comparison-icon check">
+                    {% render 'check-icon' %}
+                  </div>
+                  <div class="comparison-content">
+                    {%- if block.settings.heading != blank -%}
+                      <h3>{{ block.settings.heading }}</h3>
+                    {%- endif -%}
+                    {%- if block.settings.text != blank -%}
+                      <p>{{ block.settings.text }}</p>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          {%- comment -%} Center Images {%- endcomment -%}
+          <div class="comparison-center">
+            <div class="comparison-images">
+              {%- if section.settings.center_image != blank -%}
+                {{ section.settings.center_image | image_url: width: 800 | image_tag: loading: 'lazy' }}
+              {%- else -%}
+                {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+              <div class="vs-badge">{{ section.settings.vs_text | default: 'VS' }}</div>
+            </div>
+          </div>
+
+          {%- comment -%} Right Column {%- endcomment -%}
+          <div class="comparison-column right-column">
+            {%- if section.settings.right_title != blank -%}
+              <h2 class="column-title">{{ section.settings.right_title }}</h2>
+            {%- endif -%}
+            
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'right_feature' -%}
+                <div class="comparison-item" {{ block.shopify_attributes }}>
+                  <div class="comparison-icon cross">
+                    {% render 'cross-icon' %}
+                  </div>
+                  <div class="comparison-content">
+                    {%- if block.settings.heading != blank -%}
+                      <h3>{{ block.settings.heading }}</h3>
+                    {%- endif -%}
+                    {%- if block.settings.text != blank -%}
+                      <p>{{ block.settings.text }}</p>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+        </div>
+        {% if section.settings.button_label != blank %}
+          <div class="btn-wr">
+            <a class="button" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<img src="https://cdn.shopify.com/s/files/1/0872/8906/9899/files/wave_1.svg?v=1767877716" width="" height="" class="wave-btm-top" alt="Wave background">
+
+{% schema %}
+{
+  "name": "Comparison Table Custom",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Save time and effort every day."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "With our 2-in-1 duvets, you can make your bed in an instant and you no longer have to hassle with duvet covers."
+    },
+    {
+      "type": "header",
+      "content": "Center Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "center_image",
+      "label": "Comparison Image"
+    },
+    {
+      "type": "text",
+      "id": "vs_text",
+      "label": "VS Badge Text",
+      "default": "VS"
+    },
+    {
+      "type": "header",
+      "content": "Column Titles"
+    },
+    {
+      "type": "text",
+      "id": "left_title",
+      "label": "Left Column Title",
+      "default": "Zelesta Duvet"
+    },
+    {
+      "type": "text",
+      "id": "right_title",
+      "label": "Right Column Title",
+      "default": "Traditional Duvet"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_colors",
+      "default": false,
+      "label": "Use custom colors"
+    },
+    {
+      "type": "color",
+      "id": "colors_text",
+      "label": "Text color",
+      "default": "#212326"
+    },
+    {
+      "type": "color",
+      "id": "colors_background",
+      "label": "Background color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color_background",
+      "id": "gradient_background",
+      "label": "Gradient background"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "left_feature",
+      "name": "Left Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Feature heading"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Feature description text goes here."
+        }
+      ]
+    },
+    {
+      "type": "right_feature",
+      "name": "Right Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Feature heading"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Feature description text goes here."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison Table Custom",
+      "blocks": [
+        {
+          "type": "left_feature",
+          "settings": {
+            "heading": "Save energy",
+            "text": "Easily put your duvet in the washing machine in one go."
+          }
+        },
+        {
+          "type": "left_feature",
+          "settings": {
+            "heading": "Save time",
+            "text": "You no longer have to bother changing your duvet cover."
+          }
+        },
+        {
+          "type": "left_feature",
+          "settings": {
+            "heading": "Prevent dust mites",
+            "text": "Bacteria and fungi no longer have a chance to spread."
+          }
+        },
+        {
+          "type": "left_feature",
+          "settings": {
+            "heading": "Prevent excessive sweating",
+            "text": "This breathable duvet is what you're looking for."
+          }
+        },
+        {
+          "type": "right_feature",
+          "settings": {
+            "heading": "Awkward",
+            "text": "It takes a lot of energy every time to take it apart, hang it up separately and put it back together again."
+          }
+        },
+        {
+          "type": "right_feature",
+          "settings": {
+            "heading": "Time consuming",
+            "text": "It takes a lot of time and energy to wash and change."
+          }
+        },
+        {
+          "type": "right_feature",
+          "settings": {
+            "heading": "Not hygienic",
+            "text": "Because you can wash your duvet much faster and easier with Zelesta, and therefore more often."
+          }
+        },
+        {
+          "type": "right_feature",
+          "settings": {
+            "heading": "Bad night's sleep",
+            "text": "Due to poor material, poor ventilation and heavy sweating"
+          }
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer", "custom.overlay"]
+  }
+}
+{% endschema %}

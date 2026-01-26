@@ -1,0 +1,360 @@
+{% comment %} <!-- Swiper CSS -->
+{% if section.settings.slider %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+{% endif %} {% endcomment %}
+<style>
+#shopify-section-{{ section.id }} .swiper-wrapper{
+    display: flex; 
+    {% unless section.settings.slider %}
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    {% endunless %}
+}
+#shopify-section-{{ section.id }} .ts-slide-d5{
+    {% if section.settings.enbg %}
+    border-radius: 25px;
+    {% endif %}
+    background: {{ section.settings.bg }};
+    overflow: hidden;
+}
+.ts-img-d5{
+    width: 100%;
+    aspect-ratio: 1/1;
+}
+.ts-video-d5{
+    aspect-ratio: 0.56;
+}
+.ts-img-d5 img,.ts-img-d5 video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+{% if section.settings.media %}
+#shopify-section-{{ section.id }} .ts-img-d5{
+    background: #fff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 6px 0 rgba(0, 0, 0, 0.19);
+}
+#shopify-section-{{ section.id }} .ts-img-d5 img{
+    object-fit: contain;
+}
+#shopify-section-{{ section.id }} .swiper-slide.ts-slide-d5{
+    padding: 5px 10px;
+}
+{% endif %}
+.ts-content-d5{
+    {% if section.settings.enbg %}
+    padding: 12.5px 20px;
+    {% endif %}
+}
+.ts-block-d5{
+    padding: 5px 0;
+    text-align: center;
+}
+.ts-name-d5{
+    font-size: 1.4rem;
+    margin-top: 5px;
+    padding-top: 10px;
+    border-top: 1px solid #77777738;
+}
+.ts-name-d5 strong {
+    font-weight: 600;
+}
+.ts-stars-d5{
+    font-size: 22px;
+    color: #111;
+    text-align: center;
+    line-height: normal;
+}
+.ts-inner-d5 h2{
+    text-align: center;
+    margin-bottom: 30px;
+}
+.testimonials-section-d5 .title {
+    font-size: 3.9rem;
+    line-height: 1.2;
+  margin-top: 0;
+  margin-bottom: 3rem;
+}
+.testimonials-section-d5 h3 {
+  font-size: 1.85rem;
+}
+.testimonials-section-d5 h3, .testimonials-section-d5 p{
+    margin: 0;
+}
+.testimonials-section-d5{
+    padding: 36px 0;
+    position: relative;
+}
+.testimonials-section-d5 .swiper-pagination-bullet{
+    width: 6px;
+    height: 6px;
+    display: block !important;
+    background: rgba(18, 18, 18, 0.72);
+    border-radius: 50%;
+}
+.testimonials-section-d5 .swiper-pagination-bullet.swiper-pagination-bullet-active{
+    width: 9px;
+    height: 9px;
+    background: #000;
+}
+.testimonials-section-d5 .swiper-pagination{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.swiper-btn-d5{
+    display: block !important;
+}
+.swiper-btn-d5::after{
+    font-size: 15px;
+    font-weight: 600;
+    color: #000;
+    background: #fff;
+    border: 1px solid;
+    width: 35px;
+    display: block;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.ts-row-d5{
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 40px;
+}
+.swiper-button-prev.swiper-btn-d5{
+    left: 20px;
+}
+.swiper-button-next.swiper-btn-d5{
+    right: 20px;
+}
+{% unless section.settings.slider %}
+#shopify-section-{{ section.id }} .swiper-btn-d5, #shopify-section-{{ section.id }} .swiper-pagination{
+    display: none !important;
+}
+{% endunless %}
+.ts-rt-d5{
+    text-align: center;
+}
+@media(max-width: 750px){
+    .testimonials-section-d5 .title {
+      font-size: 2.95rem;
+      margin-bottom: 2.5rem;
+    }
+    {% unless section.settings.sliderm %}
+    #shopify-section-{{ section.id }} .ts-swiper-d5 .swiper-wrapper{
+        flex-direction: column;
+        gap: 20px;
+        display: flex;
+    }
+    #shopify-section-{{ section.id }} .swiper-btn-d5, #shopify-section-{{ section.id }} .swiper-pagination{
+        display: none !important;
+    }
+    {% endunless %}
+    .ts-inner-d5 h2{
+        font-size: 22px;
+        margin: 10px 0;
+    }
+    .swiper-btn-d5::after{
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+    }
+    .swiper-button-prev.swiper-btn-d5{
+        left: 5px;
+    }
+    .swiper-button-next.swiper-btn-d5{
+        right: 5px;
+    }
+    .testimonials-section-d5{
+        padding-top: 20px;
+    }
+    .testimonials-section-d5 p {
+    }
+}
+</style>
+<div class="testimonials-section-d5">
+    <div class="ts-inner-d5 page-width">
+        {% if section.settings.title != blank %}
+        <h2 class="title h1">{{ section.settings.title }}</h2>
+        {% endif %}
+        {% if section.settings.rt != blank %}
+            <div class="ts-rt-d5">{{ section.settings.rt }}</div>
+        {%  endif %}
+        <div class="ts-row-d5">
+            <div class="ts-swiper-d5 ts-swiper-{{ section.id }}-d5">
+                <div class="swiper-wrapper">
+                    {% for block in section.blocks %}
+                        <div class="swiper-slide ts-slide-d5">
+                            {% if block.settings.img != blank or block.settings.video != blank %}
+                            <div class="ts-img-d5 {% if block.settings.video != blank %}ts-video-d5{% endif %}">
+                                {% if block.settings.video != blank %}
+                                {{ block.settings.video | video_tag: autoplay: true, muted: true, loop: true }}
+                                {% else %}
+                                <img src="{{ block.settings.img | image_url: width: 600 }}" width="" height="" loading="lazy" alt="{{ block.settings.heading | strip_html }}">
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                            {% if block.settings.rt != blank or block.settings.heading != blank %}
+                            <div class="ts-content-d5">
+                                <div class="ts-stars-d5 ts-block-d5">
+                                    ★★★★★
+                                </div>
+                                {% if block.settings.heading != blank %}<div class="ts-title-d5 ts-block-d5">{{ block.settings.heading }}</div> {% endif %}
+                                {% if block.settings.rt != blank %}<div class="ts-des-d5 ts-block-d5">{{ block.settings.rt }}</div>{% endif %}
+                                {% if block.settings.name != blank %}<div class="ts-name-d5 ts-block-d5">{{ block.settings.name }}</div>{% endif %}
+                            </div> 
+                        {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if section.settings.slider %}
+                <div class="swiper-button-next swiper-btn-d5"></div>
+                <div class="swiper-button-prev swiper-btn-d5"></div>
+                <div class="swiper-pagination"></div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% if section.settings.slider %}
+<script>
+    {% if section.settings.sliderm %}
+     const swiper = new Swiper('.ts-swiper-{{ section.id }}-d5', {
+  loop: true,
+  spaceBetween: 15,
+  slidesPerView: 3,
+  
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+  autoplay: {
+    delay: 5000,  
+    disableOnInteraction: false,  
+  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  
+});
+{% else %}
+    if(window.innerWidth > 750){
+    const swiper = new Swiper('.ts-swiper-{{ section.id }}-d5', {
+  loop: true,
+  spaceBetween: 40,
+  slidesPerView: 3,
+  
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+  autoplay: {
+    delay: 5000,  
+    disableOnInteraction: false,  
+  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  
+});
+}
+{% endif %}
+</script>
+{% endif %}
+{% schema %}
+{
+    "name": "Testimonials",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "See How Others Are Wearing It"
+        },
+        {
+            "type": "richtext",
+            "id": "rt",
+            "label": "Description"
+        },
+        {
+            "type": "checkbox",
+            "id": "media",
+            "label": "Full Image",
+            "info": "If unchecked image may crop"
+        },
+        {
+            "type": "checkbox",
+            "id": "slider",
+            "label": "Enable slider"
+        },
+        {
+            "type": "checkbox",
+            "id": "sliderm",
+            "label": "Enable slider on mobile",
+            "visible_if": "{{ section.settings.slider == true }}"
+        },
+        {
+            "type": "checkbox",
+            "id": "enbg",
+            "label": "Enable Background",
+            "default": true
+        },
+        {
+            "type": "color",
+            "id": "bg",
+            "label": "slide background: color",
+            "default": "#f6f6f6",
+            "visible_if": "{{ section.settings.enbg == true }}"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "review",
+            "name": "Review",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "img",
+                    "label": "Image"
+                },
+                {
+                    "type": "video",
+                    "id": "video",
+                    "label": "Video"
+                },
+                {
+                    "type": "richtext",
+                    "id": "heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "richtext",
+                    "id": "rt",
+                    "label": "Description"
+                },
+                {
+                    "type": "richtext",
+                    "id": "name",
+                    "label": "Author Name"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "D5 Testimonial"
+        }
+    ]
+}
+{% endschema %}

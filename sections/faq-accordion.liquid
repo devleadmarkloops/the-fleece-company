@@ -1,0 +1,348 @@
+{%- comment -%}
+  IMPROVEMENTS:
+  1. CSS Animation: Changed the transition from 'height' to 'max-height' for better rendering performance.
+     This reduces layout recalculations (reflows) during the animation, resulting in a smoother experience.
+  2. JavaScript Logic: Updated the script to set 'max-height' based on the content's scrollHeight and simplified
+     the class toggling for better readability and efficiency.
+{%- endcomment -%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- if section.settings.use_custom_colors %}
+      --gradient-background: {% if section.settings.gradient_background != blank %}{{ section.settings.gradient_background }}{% else %}{{ section.settings.colors_background }}{% endif %};
+      --color-background: {{ section.settings.colors_background.red }}, {{ section.settings.colors_background.green }}, {{ section.settings.colors_background.blue }};
+      --color-foreground: {{ section.settings.colors_text.red }}, {{ section.settings.colors_text.green }}, {{ section.settings.colors_text.blue }};
+      --color-border: {{ section.settings.colors_border.red }}, {{ section.settings.colors_border.green }}, {{ section.settings.colors_border.blue }};
+      --color-icon: {{ section.settings.colors_icon.red }}, {{ section.settings.colors_icon.green }}, {{ section.settings.colors_icon.blue }};
+      --inner-bg: {{ section.settings.inner_background_color }};
+    {% endif -%}
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --section-padding-top: {{ section.settings.padding_top_mob }}px;
+      --section-padding-bottom: {{ section.settings.padding_bottom_mob }}px;
+    }
+  }
+
+  .faq-section-{{ section.id }} {
+    background: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
+  }
+  .faq-section-{{ section.id }} .section-heading {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .faq-section-{{ section.id }} .section-heading .h1 {
+    margin: 0;
+  }
+  .faq-section-{{ section.id }} .faq-inner {
+    max-width: {{ section.settings.content_max_width }}px;
+    margin: 0 auto;
+    background-color: var(--inner-bg, transparent);
+    padding: 2rem 3rem;
+    border-radius: {{ section.settings.inner_border_radius }}px;
+  }
+  .faq-section-{{ section.id }} .faq-item {
+    border-bottom: 1px solid rgba(var(--color-border, 0, 0, 0), 0.1);
+  }
+  .faq-section-{{ section.id }} .faq-item:last-child {
+    border-bottom: 0;
+  }
+  .faq-section-{{ section.id }} .faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.8rem 0;
+    background: transparent;
+    border: 0;
+    text-align: left;
+    cursor: pointer;
+    font-family: var(--font-heading-family);
+    font-size: 1.6rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: rgb(var(--color-foreground));
+  }
+  .faq-section-{{ section.id }} .faq-question:hover {
+    opacity: 0.85;
+  }
+  .faq-section-{{ section.id }} .faq-question-text {
+    flex: 1;
+    padding-right: 2rem;
+  }
+  .faq-section-{{ section.id }} .faq-icon {
+    flex-shrink: 0;
+    width: 1.1rem;
+    height: 0.7rem;
+    display: flex;
+    align-items: center;
+  }
+  .faq-section-{{ section.id }} .faq-icon svg {
+    width: 100%;
+    height: 100%;
+    fill: rgb(var(--color-icon, 28, 28, 28));
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .faq-section-{{ section.id }} .faq-item.active .faq-icon svg {
+    transform: rotate(180deg);
+  }
+  .faq-section-{{ section.id }} .faq-answer {
+    overflow: hidden;
+    max-height: 0; /* IMPROVEMENT: Changed from height for performance */
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* IMPROVEMENT: Transitioning max-height */
+  }
+  .faq-section-{{ section.id }} .faq-answer-inner {
+    padding-bottom: 2rem;
+  }
+  .faq-section-{{ section.id }} .faq-answer-text {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: rgba(var(--color-foreground), 0.8);
+  }
+
+  @media screen and (max-width: 749px) {
+    .faq-section-{{ section.id }} .faq-inner {
+      padding: 1.5rem;
+    }
+    .faq-section-{{ section.id }} .faq-question {
+      padding: 1.5rem 0;
+      font-size: 1.4rem;
+    }
+    .faq-section-{{ section.id }} .faq-answer-text {
+      font-size: 1.3rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="faq-section faq-section-{{ section.id }}">
+  <div class="section--padding">
+    <div class="page-width">
+      
+      {%- if section.settings.heading != blank -%}
+        <div class="section-heading">
+          <h2 class="h1">{{ section.settings.heading }}</h2>
+        </div>
+      {%- endif -%}
+
+      <div class="faq-inner">
+        {%- for block in section.blocks -%}
+          <div class="faq-item {% if section.settings.open_first_by_default and forloop.first %}active{% endif %}" data-faq-item {{ block.shopify_attributes }}>
+            <button class="faq-question" type="button" aria-expanded="{% if section.settings.open_first_by_default and forloop.first %}true{% else %}false{% endif %}">
+              <span class="faq-question-text">{{ block.settings.question }}</span>
+              <span class="faq-icon">
+                <svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9.08399 0.2808L5.35919 4.0056L1.6344 0.2808C1.26 -0.0936 0.6552 -0.0936 0.2808 0.2808C-0.0936 0.6552 -0.0936 1.26 0.2808 1.6344L4.68719 6.0408C5.06159 6.4152 5.66639 6.4152 6.04079 6.0408L10.4472 1.6344C10.8216 1.26 10.8216 0.6552 10.4472 0.2808C10.0728 -0.084 9.45839 -0.0936 9.08399 0.2808Z" fill="currentColor"/>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                <div class="faq-answer-text">{{ block.settings.answer }}</div>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* IMPROVEMENT: Updated script for max-height animation */
+  (function() {
+    const faqItems = document.querySelectorAll('.faq-section-{{ section.id }} [data-faq-item]');
+    
+    faqItems.forEach(item => {
+      const button = item.querySelector('.faq-question');
+      const answer = item.querySelector('.faq-answer');
+      
+      // Initialize max-height for default open items
+      if (item.classList.contains('active')) {
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+
+      button.addEventListener('click', function() {
+        const isActive = item.classList.toggle('active');
+        button.setAttribute('aria-expanded', isActive);
+        
+        if (isActive) {
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        } else {
+          answer.style.maxHeight = '0';
+        }
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Accordion",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 600,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "label": "Content max width",
+      "default": 800
+    },
+    {
+      "type": "color",
+      "id": "inner_background_color",
+      "label": "Inner Background Color",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "range",
+      "id": "inner_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Inner Border Radius",
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first_by_default",
+      "label": "Open first item by default",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.colors.header.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_colors",
+      "default": true,
+      "label": "t:sections.all.colors.use_custom_colors.label"
+    },
+    {
+      "type": "color",
+      "id": "colors_text",
+      "label": "t:sections.all.colors.colors_text.label",
+      "default": "#212326"
+    },
+    {
+      "type": "color",
+      "id": "colors_background",
+      "label": "t:sections.all.colors.colors_background.label",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "colors_border",
+      "label": "Border color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "colors_icon",
+      "label": "Icon color",
+      "default": "#1C1C1C"
+    },
+    {
+      "type": "color_background",
+      "id": "gradient_background",
+      "label": "t:sections.all.colors.gradient_background.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.header.content"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "t:sections.all.padding.padding_top.unit",
+      "label": "t:sections.all.padding.padding_top.label",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "t:sections.all.padding.padding_bottom.unit",
+      "label": "t:sections.all.padding.padding_bottom.label",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mob",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "t:sections.all.padding.padding_top.unit",
+      "label": "Top padding (mobile)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mob",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "t:sections.all.padding.padding_bottom.unit",
+      "label": "Bottom padding (mobile)",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What makes The Fleece Company products different?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Our products are crafted with premium materials and designed for ultimate comfort and durability."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Accordion",
+      "blocks": [
+        { "type": "faq_item" },
+        { "type": "faq_item" },
+        { "type": "faq_item" }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer", "custom.overlay"]
+  }
+}
+{% endschema %}

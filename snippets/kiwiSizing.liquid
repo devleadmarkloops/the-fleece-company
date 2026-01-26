@@ -1,0 +1,35 @@
+<script>
+  window.KiwiSizing = window.KiwiSizing === undefined ? {} : window.KiwiSizing;
+  KiwiSizing.shop = "{{ shop.permanent_domain }}";
+  {% assign t = template | prepend: '/' | append: '.' %}
+  {% if t contains '/product.' %}
+
+  {% capture custom_variants %} {% endcapture %}
+
+  {% for variant in product.variants %}
+    {% capture variant_object %}
+      {"id": {{ variant.id }}, "title": {{ variant.title | json }}, "available": {{ variant.available }}}
+    {% endcapture %}
+    {% assign custom_variants = custom_variants | append: variant_object %}
+    {% if forloop.last == false %}
+      {% assign custom_variants = custom_variants | append: ',' %}
+    {% endif %}
+  {% endfor %}
+
+  {% assign custom_variants_json = '[' | append: custom_variants | append: ']' %}
+
+  KiwiSizing.data = {
+    collections: "{{ product.collections | map: 'id' | join: ',' }}",
+    tags: {{ product.tags | join: ',' | json }},
+    product: "{{ product.id }}",
+    vendor: {{ product.vendor | json }},
+    type: {{ product.type | json }},
+    title: {{ product.title | json }},
+    images: {{ product.images | json }},
+    options: {{ product.options_with_values | json }},
+    variants: {{ custom_variants_json |  strip_newlines | strip_html }},
+    waitForElementSelector: "",
+    waitForElementDelay: 5,
+  };
+  {% endif %}
+</script>

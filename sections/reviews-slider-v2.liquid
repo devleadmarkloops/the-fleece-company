@@ -1,0 +1,517 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- if section.settings.use_custom_colors %}
+      --gradient-background: {% if section.settings.gradient_background != blank %}{{ section.settings.gradient_background }}{% else %}{{ section.settings.colors_background }}{% endif %};
+      --color-background: {{ section.settings.colors_background.red }}, {{ section.settings.colors_background.green }}, {{ section.settings.colors_background.blue }};
+      --color-foreground: {{ section.settings.colors_text.red }}, {{ section.settings.colors_text.green }}, {{ section.settings.colors_text.blue }};
+      --color-card-background: {{ section.settings.colors_card_background.red }}, {{ section.settings.colors_card_background.green }}, {{ section.settings.colors_card_background.blue }};
+      --color-stars: {{ section.settings.colors_stars.red }}, {{ section.settings.colors_stars.green }}, {{ section.settings.colors_stars.blue }};
+      --color-dots: {{ section.settings.colors_dots.red }}, {{ section.settings.colors_dots.green }}, {{ section.settings.colors_dots.blue }};
+    {% endif -%}
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --section-padding-top: {{ section.settings.padding_top_mob }}px;
+      --section-padding-bottom: {{ section.settings.padding_bottom_mob }}px;
+    }
+  }
+
+  .reviews-v2-slider-{{ section.id }} {
+    background: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
+  }
+  .reviews-v2-slider-{{ section.id }} .review-card {
+    background: rgb(var(--color-card-background, var(--color-background)));
+    padding: 2rem;
+    border-radius: 12px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    text-align: left;
+    box-sizing: border-box;
+  }
+  .reviews-v2-slider-{{ section.id }} .review-stars {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .reviews-v2-slider-{{ section.id }} .review-stars svg {
+    max-width: 8.5rem;
+  }
+  .reviews-v2-slider-{{ section.id }} .review-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-block: 0.5rem;
+  }
+  .reviews-v2-slider-{{ section.id }} .review-text {
+    flex: 1;
+    font-size: 1.4rem;
+    letter-spacing: 0;
+    line-height: 1.5;
+  }
+  .reviews-v2-slider-{{ section.id }} .author-wr {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .reviews-v2-slider-{{ section.id }} .review-author {
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+  .reviews-v2-slider-{{ section.id }} .verified {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .reviews-v2-slider-{{ section.id }} .slider-wrapper {
+    position: relative;
+  }
+  .reviews-v2-slider-{{ section.id }} .swiper {
+  }
+  .reviews-v2-slider-{{ section.id }} .swiper-slide {
+    height: auto;
+  }
+  .reviews-v2-slider-{{ section.id }} .slider-button {
+    width: 3.5rem;
+    height: 3.5rem;
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+  .reviews-v2-slider-{{ section.id }} .slider-button:hover {
+    opacity: 0.7;
+  }
+  .reviews-v2-slider-{{ section.id }} .slider-wrapper:hover .slider-button {
+    opacity: 1;
+    visibility: visible;
+  }
+  .reviews-v2-slider-{{ section.id }} .slider-button--prev {
+    left: -22px;
+  }
+  .reviews-v2-slider-{{ section.id }} .slider-button--prev svg {
+    transform: rotate(180deg);
+  }
+  .reviews-v2-slider-{{ section.id }} .slider-button--next {
+    right: -22px;
+  }
+  .reviews-v2-slider-{{ section.id }} .slider-button svg {
+    width: 100%;
+    height: 100%;
+    fill: rgb(var(--color-arrows, 0, 0, 0));
+  }
+  .reviews-v2-slider-{{ section.id }} .slider-button.swiper-button-disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+  }
+  .reviews-v2-slider-{{ section.id }} .swiper-pagination {
+    position: static;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  .reviews-v2-slider-{{ section.id }} .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background: rgba(var(--color-dots, 0, 0, 0), 0.3);
+    opacity: 1;
+    margin: 0 0.3rem !important;
+  }
+  .reviews-v2-slider-{{ section.id }} .swiper-pagination-bullet-active {
+    background: rgb(var(--color-dots, 0, 0, 0));
+  }
+
+  @media screen and (max-width: 749px) {
+    .reviews-v2-slider-{{ section.id }} .slider-button--desktop {
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .reviews-v2-slider-{{ section.id }} .slider-button--mobile {
+      display: none;
+    }
+    .reviews-v2-slider-{{ section.id }} .swiper-pagination--mobile {
+      display: none;
+    }
+  }
+
+  .reviews-v2-slider-{{ section.id }} .section-heading {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .reviews-v2-slider-{{ section.id }} .section-heading .h1 {
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .reviews-v2-slider-{{ section.id }} .section-heading {
+      margin-bottom: 2rem;
+    }
+    .reviews-v2-slider-{{ section.id }} .review-card {
+      padding: 1.8rem;
+      border-radius: 10px;
+    }
+    .reviews-v2-slider-{{ section.id }} .review-stars svg {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+    .reviews-v2-slider-{{ section.id }} .review-text {
+      font-size: 1.2rem;
+    }
+    .reviews-v2-slider-{{ section.id }} .review-author {
+      font-size: 1.4rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="reviews-v2-slider-section reviews-v2-slider-{{ section.id }}">
+  <div class="section--padding">
+    <div class="page-width">
+      
+      {%- if section.settings.heading != blank -%}
+        <div class="section-heading">
+          <h2 class="h1">{{ section.settings.heading }}</h2>
+        </div>
+      {%- endif -%}
+
+      <div class="slider-wrapper">
+        {%- if section.settings.show_arrows_desktop -%}
+          <div class="slider-button slider-button--prev slider-button--desktop swiper-button-prev-{{ section.id }}">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="14.565" cy="14.5828" rx="14.565" ry="14.5828" transform="matrix(-1 0 0 1 29.3041 0.472412)" fill="white"/>
+              <path d="M19.9876 14.6583L12.9744 7.63649L12.6237 7.2854L11.9808 7.92907L12.3315 8.28016L18.9941 14.9509L12.3315 21.6801L11.9808 21.9727L12.6237 22.6749L12.9744 22.3238L19.9876 15.302L20.3383 14.9509L19.9876 14.6583Z" fill="#27272A"/>
+              <path d="M28.9881 14.9506C28.9881 19.9829 26.3582 24.6056 21.9749 27.1217C17.65 29.6379 12.3317 29.6379 7.94839 27.1217C3.62356 24.6056 0.935146 19.9829 0.935146 14.9506C0.935146 9.97682 3.62356 5.35413 7.94839 2.83798C12.3317 0.321833 17.65 0.321833 21.9749 2.83798C26.3582 5.35413 28.9881 9.97682 28.9881 14.9506ZM4.57764e-05 14.9506C4.57764e-05 20.334 2.86379 25.2493 7.48084 27.941C12.1563 30.6326 17.8254 30.6326 22.4424 27.941C27.1179 25.2493 29.9232 20.334 29.9232 14.9506C29.9232 9.62573 27.1179 4.71046 22.4424 2.01877C17.8254 -0.672924 12.1563 -0.672924 7.48084 2.01877C2.86379 4.71046 4.57764e-05 9.62573 4.57764e-05 14.9506Z" fill="#27272A"/>
+            </svg>
+          </div>
+          <div class="slider-button slider-button--next slider-button--desktop swiper-button-next-{{ section.id }}">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="14.565" cy="14.5828" rx="14.565" ry="14.5828" transform="matrix(-1 0 0 1 29.3041 0.472412)" fill="white"/>
+              <path d="M19.9876 14.6583L12.9744 7.63649L12.6237 7.2854L11.9808 7.92907L12.3315 8.28016L18.9941 14.9509L12.3315 21.6801L11.9808 21.9727L12.6237 22.6749L12.9744 22.3238L19.9876 15.302L20.3383 14.9509L19.9876 14.6583Z" fill="#27272A"/>
+              <path d="M28.9881 14.9506C28.9881 19.9829 26.3582 24.6056 21.9749 27.1217C17.65 29.6379 12.3317 29.6379 7.94839 27.1217C3.62356 24.6056 0.935146 19.9829 0.935146 14.9506C0.935146 9.97682 3.62356 5.35413 7.94839 2.83798C12.3317 0.321833 17.65 0.321833 21.9749 2.83798C26.3582 5.35413 28.9881 9.97682 28.9881 14.9506ZM4.57764e-05 14.9506C4.57764e-05 20.334 2.86379 25.2493 7.48084 27.941C12.1563 30.6326 17.8254 30.6326 22.4424 27.941C27.1179 25.2493 29.9232 20.334 29.9232 14.9506C29.9232 9.62573 27.1179 4.71046 22.4424 2.01877C17.8254 -0.672924 12.1563 -0.672924 7.48084 2.01877C2.86379 4.71046 4.57764e-05 9.62573 4.57764e-05 14.9506Z" fill="#27272A"/>
+            </svg>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.show_arrows_mobile -%}
+          <div class="slider-button slider-button--prev slider-button--mobile swiper-button-prev-mobile-{{ section.id }}">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="14.565" cy="14.5828" rx="14.565" ry="14.5828" transform="matrix(-1 0 0 1 29.3041 0.472412)" fill="white"/>
+              <path d="M19.9876 14.6583L12.9744 7.63649L12.6237 7.2854L11.9808 7.92907L12.3315 8.28016L18.9941 14.9509L12.3315 21.6801L11.9808 21.9727L12.6237 22.6749L12.9744 22.3238L19.9876 15.302L20.3383 14.9509L19.9876 14.6583Z" fill="#27272A"/>
+              <path d="M28.9881 14.9506C28.9881 19.9829 26.3582 24.6056 21.9749 27.1217C17.65 29.6379 12.3317 29.6379 7.94839 27.1217C3.62356 24.6056 0.935146 19.9829 0.935146 14.9506C0.935146 9.97682 3.62356 5.35413 7.94839 2.83798C12.3317 0.321833 17.65 0.321833 21.9749 2.83798C26.3582 5.35413 28.9881 9.97682 28.9881 14.9506ZM4.57764e-05 14.9506C4.57764e-05 20.334 2.86379 25.2493 7.48084 27.941C12.1563 30.6326 17.8254 30.6326 22.4424 27.941C27.1179 25.2493 29.9232 20.334 29.9232 14.9506C29.9232 9.62573 27.1179 4.71046 22.4424 2.01877C17.8254 -0.672924 12.1563 -0.672924 7.48084 2.01877C2.86379 4.71046 4.57764e-05 9.62573 4.57764e-05 14.9506Z" fill="#27272A"/>
+            </svg>
+          </div>
+          <div class="slider-button slider-button--next slider-button--mobile swiper-button-next-mobile-{{ section.id }}">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="14.565" cy="14.5828" rx="14.565" ry="14.5828" transform="matrix(-1 0 0 1 29.3041 0.472412)" fill="white"/>
+              <path d="M19.9876 14.6583L12.9744 7.63649L12.6237 7.2854L11.9808 7.92907L12.3315 8.28016L18.9941 14.9509L12.3315 21.6801L11.9808 21.9727L12.6237 22.6749L12.9744 22.3238L19.9876 15.302L20.3383 14.9509L19.9876 14.6583Z" fill="#27272A"/>
+              <path d="M28.9881 14.9506C28.9881 19.9829 26.3582 24.6056 21.9749 27.1217C17.65 29.6379 12.3317 29.6379 7.94839 27.1217C3.62356 24.6056 0.935146 19.9829 0.935146 14.9506C0.935146 9.97682 3.62356 5.35413 7.94839 2.83798C12.3317 0.321833 17.65 0.321833 21.9749 2.83798C26.3582 5.35413 28.9881 9.97682 28.9881 14.9506ZM4.57764e-05 14.9506C4.57764e-05 20.334 2.86379 25.2493 7.48084 27.941C12.1563 30.6326 17.8254 30.6326 22.4424 27.941C27.1179 25.2493 29.9232 20.334 29.9232 14.9506C29.9232 9.62573 27.1179 4.71046 22.4424 2.01877C17.8254 -0.672924 12.1563 -0.672924 7.48084 2.01877C2.86379 4.71046 4.57764e-05 9.62573 4.57764e-05 14.9506Z" fill="#27272A"/>
+            </svg>
+          </div>
+        {%- endif -%}
+        <div class="swiper reviews-v2-swiper-{{ section.id }}">
+          <div class="swiper-wrapper">
+            {%- for block in section.blocks -%}
+              <div class="swiper-slide" {{ block.shopify_attributes }}>
+                <div class="review-card">
+                  <div class="review-stars">
+                    {% render 'reivew-stars-v2' %}
+                  </div>
+                  <h4 class="review-title">{{ block.settings.review_title }}</h4>
+                  <div class="review-text">{{ block.settings.review_text }}</div>
+                  <div class="author-wr">
+                    <span class="review-author">{{ block.settings.author_name }}</span>
+                    <span class="verified">{% render 'verified-icon' %} Verified customer</span>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+          
+          {%- if section.settings.show_dots_desktop -%}
+            <div class="swiper-pagination swiper-pagination--desktop swiper-pagination-{{ section.id }}"></div>
+          {%- endif -%}
+          
+          {%- if section.settings.show_dots_mobile -%}
+            <div class="swiper-pagination swiper-pagination--mobile swiper-pagination-mobile-{{ section.id }}"></div>
+          {%- endif -%}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const swiper = new Swiper('.reviews-v2-swiper-{{ section.id }}', {
+      slidesPerView: 1,
+      spaceBetween: 10,
+      speed: 500,
+      loop: {{ section.settings.enable_loop }},
+      autoplay: {{ section.settings.enable_autoplay }} ? {
+        delay: {{ section.settings.autoplay_delay | times: 1000 }},
+        disableOnInteraction: false,
+      } : false,
+      breakpoints: {
+        750: {
+          slidesPerView: 2,
+          spaceBetween: 15,
+        },
+        990: {
+          slidesPerView: 3,
+          spaceBetween: 20,
+        }
+      },
+      navigation: {
+        nextEl: window.innerWidth >= 750 ? '.swiper-button-next-{{ section.id }}' : '.swiper-button-next-mobile-{{ section.id }}',
+        prevEl: window.innerWidth >= 750 ? '.swiper-button-prev-{{ section.id }}' : '.swiper-button-prev-mobile-{{ section.id }}',
+      },
+      pagination: {
+        el: window.innerWidth >= 750 ? '.swiper-pagination-{{ section.id }}' : '.swiper-pagination-mobile-{{ section.id }}',
+        clickable: true,
+      },
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Reviews slider v2",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why 18,000+ Beauty Lovers Trust Kaned"
+    },
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_loop",
+      "label": "Enable loop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Enable autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_delay",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Autoplay delay",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Navigation - Desktop"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows_desktop",
+      "label": "Show arrows on desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots_desktop",
+      "label": "Show dots on desktop",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Navigation - Mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows_mobile",
+      "label": "Show arrows on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots_mobile",
+      "label": "Show dots on mobile",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.colors.header.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_colors",
+      "default": false,
+      "label": "t:sections.all.colors.use_custom_colors.label"
+    },
+    {
+      "type": "color",
+      "id": "colors_text",
+      "label": "t:sections.all.colors.colors_text.label",
+      "default": "#212326"
+    },
+    {
+      "type": "color",
+      "id": "colors_background",
+      "label": "t:sections.all.colors.colors_background.label",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "colors_card_background",
+      "label": "Card background color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "colors_stars",
+      "label": "Stars color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "colors_dots",
+      "label": "Dots color",
+      "default": "#000000"
+    },
+    {
+      "type": "color_background",
+      "id": "gradient_background",
+      "label": "t:sections.all.colors.gradient_background.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.header.content"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "t:sections.all.padding.padding_top.unit",
+      "label": "t:sections.all.padding.padding_top.label",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "t:sections.all.padding.padding_bottom.unit",
+      "label": "t:sections.all.padding.padding_bottom.label",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mob",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "t:sections.all.padding.padding_top.unit",
+      "label": "Top padding (mobile)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mob",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "t:sections.all.padding.padding_bottom.unit",
+      "label": "Bottom padding (mobile)",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "review_title",
+          "label": "Review text"
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review text",
+          "default": "I've tried many blankets over the years, but this one truly stands out. The fabric is incredibly soft and breathable, keeping me comfortable all night without overheating."
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Author name",
+          "default": "Nicole"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews slider v2",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "I've tried many blankets over the years, but this one truly stands out. The fabric is incredibly soft and breathable, keeping me comfortable all night without overheating. It drapes beautifully, looks great in my bedroom, and still feels just as good after several washes.",
+            "author_name": "NICOLE"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "I wasn't sure what to expect at first, but the comfort completely exceeded my expectations. The blanket feels warm without being heavy and adjusts well throughout the night. Shipping was fast, packaging was neat, and everything felt well considered. It's one of those purchases that quietly improves everyday life and rest.",
+            "author_name": "SARAH"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "These pajamas are honestly some of the most comfortable sleepwear I've ever tried. They're soft, lightweight, and feel gentle on the skin, making them perfect for sleeping or lounging at home. I love how relaxed yet well made they feel. Even after regular wear, they've kept their shape and softness beautifully.",
+            "author_name": "JULIE"
+          }
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer", "custom.overlay"]
+  }
+}
+{% endschema %}

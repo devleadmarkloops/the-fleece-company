@@ -1,0 +1,268 @@
+{% comment %}
+  Snippet: bf-countdown-block.liquid
+  Used as a product information block countdown
+{% endcomment %}
+
+<div class="bf-countdown-wrapper bf-countdown-wrapper-{{ block.id }}">
+  <div class="bf-countdown-inner">
+    <div class="bf-countdown-heading">
+      {{ block.settings.heading_text }}
+    </div>
+
+    <div class="bf-countdown-timer" id="bf-countdown-{{ block.id }}">
+      <div class="bf-time-block">
+        <span class="bf-time-number" data-unit="days">00</span>
+        <span class="bf-time-label">Days</span>
+      </div>
+      <span class="bf-time-separator">:</span>
+      <div class="bf-time-block">
+        <span class="bf-time-number" data-unit="hours">00</span>
+        <span class="bf-time-label">Hrs</span>
+      </div>
+      <span class="bf-time-separator">:</span>
+      <div class="bf-time-block">
+        <span class="bf-time-number" data-unit="minutes">00</span>
+        <span class="bf-time-label">Mins</span>
+      </div>
+      <span class="bf-time-separator">:</span>
+      <div class="bf-time-block">
+        <span class="bf-time-number" data-unit="seconds">00</span>
+        <span class="bf-time-label">Secs</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .bf-countdown-wrapper-{{ block.id }} {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: {{ block.settings.outer_padding_y | default: 8 }}px {{ block.settings.outer_padding_x | default: 0 }}px;
+  }
+
+  .bf-countdown-wrapper-{{ block.id }} .bf-countdown-inner {
+    background: {{ block.settings.bg_color | default: '#000000' }};
+    color: {{ block.settings.text_color | default: '#ffffff' }};
+    border-radius: {{ block.settings.border_radius | default: 8 }}px;
+    padding: {{ block.settings.inner_padding_y | default: 10 }}px {{ block.settings.inner_padding_x | default: 18 }}px;
+    max-width: {{ block.settings.max_width | default: 800 }}px;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .bf-countdown-wrapper-{{ block.id }} .bf-countdown-heading {
+    font-size: {{ block.settings.heading_font_size | default: 13 }}px;
+    letter-spacing: {{ block.settings.heading_letter_spacing | default: 6 | divided_by: 100.0 }}em;
+    text-transform: uppercase;
+    font-weight: {{ block.settings.heading_weight | default: 600 }};
+    margin-bottom: {{ block.settings.heading_margin_bottom | default: 4 }}px;
+    color: {{ block.settings.heading_color | default: '#FFD700' }};
+  }
+
+  .bf-countdown-wrapper-{{ block.id }} .bf-countdown-timer {
+    display: inline-flex;
+    align-items: baseline;
+    gap: {{ block.settings.gap_between_blocks | default: 6 }}px;
+    {% if block.settings.font_family != 'inherit' %}
+      font-family: {{ block.settings.font_family }};
+    {% else %}
+      font-family: inherit;
+    {% endif %}
+  }
+
+  .bf-countdown-wrapper-{{ block.id }} .bf-time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: {{ block.settings.min_block_width | default: 40 }}px;
+  }
+
+  .bf-countdown-wrapper-{{ block.id }} .bf-time-number {
+    font-size: {{ block.settings.number_font_size | default: 22 }}px;
+    font-weight: {{ block.settings.number_weight | default: 600 }};
+    line-height: 1;
+    color: {{ block.settings.number_color | default: '#ffffff' }};
+  }
+
+  .bf-countdown-wrapper-{{ block.id }} .bf-time-label {
+    font-size: {{ block.settings.label_font_size | default: 11 }}px;
+    margin-top: {{ block.settings.label_margin_top | default: 2 }}px;
+    color: {{ block.settings.label_color | default: '#ffffff' }};
+  }
+
+  .bf-countdown-wrapper-{{ block.id }} .bf-time-separator {
+    font-size: {{ block.settings.separator_font_size | default: 20 }}px;
+    font-weight: {{ block.settings.separator_weight | default: 600 }};
+    padding: 0 {{ block.settings.separator_padding_x | default: 2 }}px;
+    color: {{ block.settings.separator_color | default: '#ffffff' }};
+  }
+
+  @media (max-width: 480px) {
+    .bf-countdown-wrapper-{{ block.id }} .bf-countdown-inner {
+      padding: {{ block.settings.inner_padding_y_mobile | default: 8 }}px {{ block.settings.inner_padding_x_mobile | default: 10 }}px;
+    }
+    .bf-countdown-wrapper-{{ block.id }} .bf-countdown-heading {
+      font-size: {{ block.settings.heading_font_size_mobile | default: 11 }}px;
+    }
+    .bf-countdown-wrapper-{{ block.id }} .bf-time-number {
+      font-size: {{ block.settings.number_font_size_mobile | default: 18 }}px;
+    }
+    .bf-countdown-wrapper-{{ block.id }} .bf-time-label {
+      font-size: {{ block.settings.label_font_size_mobile | default: 11 }}px;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    var container = document.getElementById('bf-countdown-{{ block.id }}');
+    if (!container) return;
+
+    var daysEl    = container.querySelector('[data-unit="days"]');
+    var hoursEl   = container.querySelector('[data-unit="hours"]');
+    var minutesEl = container.querySelector('[data-unit="minutes"]');
+    var secondsEl = container.querySelector('[data-unit="seconds"]');
+
+    function pad(num) {
+      return String(num).padStart(2, '0');
+    }
+
+    // Returns the next local midnight for THIS visitor
+    function getNextMidnight() {
+      var now = new Date();          // visitor's local time
+      var target = new Date(now);
+      // 24:00 today = 00:00 tomorrow in their local timezone
+      target.setHours(24, 0, 0, 0);
+      return target;
+    }
+
+    var targetTime = getNextMidnight();
+
+    function updateCountdown() {
+      var now = new Date();
+
+      // If we've reached/passed the target, move to the next midnight
+      if (now >= targetTime) {
+        targetTime = getNextMidnight();
+      }
+
+      var diffMs = targetTime - now;
+      if (diffMs < 0) diffMs = 0;
+
+      var totalSeconds = Math.floor(diffMs / 1000);
+      var days = Math.floor(totalSeconds / 86400);
+      var hours = Math.floor((totalSeconds % 86400) / 3600);
+      var minutes = Math.floor((totalSeconds % 3600) / 60);
+      var seconds = totalSeconds % 60;
+
+      if (daysEl)    daysEl.textContent    = pad(days);
+      if (hoursEl)   hoursEl.textContent   = pad(hours);
+      if (minutesEl) minutesEl.textContent = pad(minutes);
+      if (secondsEl) secondsEl.textContent = pad(seconds);
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  })();
+</script>
+<script>
+ (function() {
+              'use strict';
+              
+              function initCountdownTimers() {
+                const countdownTimers = document.querySelectorAll('.countdown-timer');
+                
+                if (countdownTimers.length === 0) return;
+                
+                countdownTimers.forEach(function(timer) {
+                  const isPerVisitor = timer.dataset.perVisitor === 'true';
+                  const storageKey = 'countdown_timer_' + window.location.pathname;
+                  
+                  let endDate;
+                  
+                  if (isPerVisitor) {
+                    // Per-visitor timer logic
+                    const storedEndDate = localStorage.getItem(storageKey);
+                    
+                    if (storedEndDate) {
+                      endDate = parseInt(storedEndDate, 10);
+                    } else {
+                      // First visit - calculate end date based on settings
+                      const days = parseInt(timer.dataset.visitorDays) || 0;
+                      const hours = parseInt(timer.dataset.visitorHours) || 0;
+                      const minutes = parseInt(timer.dataset.visitorMinutes) || 0;
+                      const seconds = parseInt(timer.dataset.visitorSeconds) || 0;
+                      
+                      const now = new Date().getTime();
+                      const totalMs = (days * 24 * 60 * 60 * 1000) + 
+                                     (hours * 60 * 60 * 1000) + 
+                                     (minutes * 60 * 1000) + 
+                                     (seconds * 1000);
+                      
+                      endDate = now + totalMs;
+                      localStorage.setItem(storageKey, endDate.toString());
+                    }
+                  } else {
+                    // Fixed date timer logic
+                    const endDateString = timer.dataset.endDate;
+                    
+                    if (!endDateString) {
+                      console.warn('Countdown timer missing end date');
+                      return;
+                    }
+                    
+                    endDate = new Date(endDateString).getTime();
+                  }
+                  
+                  const daysEl = timer.querySelector('[data-days]');
+                  const hoursEl = timer.querySelector('[data-hours]');
+                  const minutesEl = timer.querySelector('[data-minutes]');
+                  const secondsEl = timer.querySelector('[data-seconds]');
+                  
+                  if (!daysEl || !hoursEl || !minutesEl || !secondsEl) {
+                    console.warn('Countdown timer missing required elements');
+                    return;
+                  }
+                  
+                  function updateCountdown() {
+                    const now = new Date().getTime();
+                    const distance = endDate - now;
+                    
+                    if (distance < 0) {
+                      daysEl.textContent = '00';
+                      hoursEl.textContent = '00';
+                      minutesEl.textContent = '00';
+                      secondsEl.textContent = '00';
+                      return;
+                    }
+                    
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    
+                    daysEl.textContent = String(days).padStart(2, '0');
+                    hoursEl.textContent = String(hours).padStart(2, '0');
+                    minutesEl.textContent = String(minutes).padStart(2, '0');
+                    secondsEl.textContent = String(seconds).padStart(2, '0');
+                  }
+                  
+                  updateCountdown();
+                  setInterval(updateCountdown, 1000);
+                });
+              }
+              
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initCountdownTimers);
+              } else {
+                initCountdownTimers();
+              }
+              
+              if (typeof Shopify !== 'undefined' && Shopify.designMode) {
+                document.addEventListener('shopify:section:load', initCountdownTimers);
+                document.addEventListener('shopify:block:select', initCountdownTimers);
+              }
+            })();
+            </script>

@@ -1,0 +1,542 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "content_scrollspy_KjGLRV": {
+      "type": "content-scrollspy",
+      "disabled": true,
+      "name": "t:sections.content_scrollspy.presets.name",
+      "settings": {
+        "heading_selector": ".product__heading, h2.title",
+        "background_color": "#ffffff",
+        "text_color": "#000000",
+        "active_color": "#ffb503",
+        "border_color": "#ffb503",
+        "enable_animations": true,
+        "animation_threshold": 0.6,
+        "hide_on_scroll_up": true,
+        "show_scroll_indicator": true
+      }
+    },
+    "empty-space": {
+      "type": "empty-space",
+      "settings": {
+        "desktop_height": 32,
+        "mobile_height": 0
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "title_size": "h1",
+            "show_price": false,
+            "price_size": "medium"
+          }
+        },
+        "rating_static_jQpEEQ": {
+          "type": "rating_static",
+          "settings": {
+            "rating_text": "(193 Reviews)",
+            "rating_link": ""
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "price_size": "medium",
+            "show_badges": true,
+            "sale_badge_basis": "percentage"
+          }
+        },
+        "text_custom_Vpdkyw": {
+          "type": "text_custom",
+          "settings": {
+            "text_custom": "<strong>Live Now: Buy 1 get 1 FREE</strong>",
+            "text_color": "#a63e3e",
+            "text_size": 16,
+            "text_size_mob": 15,
+            "enable_circle": false
+          }
+        },
+        "icon_text_9Gxbx4": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/pillow.png",
+            "icon_size": 36,
+            "icon_size_mob": 30,
+            "icon_text": "2 Piece Set",
+            "text_color": "#121212",
+            "text_size": 16,
+            "text_size_mob": 14
+          }
+        },
+        "icon_text_KLMX3D": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/air_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "icon_size": 36,
+            "icon_size_mob": 30,
+            "icon_text": "Breathable",
+            "text_color": "#121212",
+            "text_size": 16,
+            "text_size_mob": 14
+          }
+        },
+        "icon_text_R7iXXY": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/health_and_safety_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "icon_size": 36,
+            "icon_size_mob": 30,
+            "icon_text": "Gentle and Skin Friendly",
+            "text_color": "#121212",
+            "text_size": 16,
+            "text_size_mob": 14
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "show_variant_labels": true,
+            "picker_type": "button",
+            "swatch_source": "variant",
+            "swatch_type": "round",
+            "enable_swatch_unavailable_click": false,
+            "enable_limited": true,
+            "limited_heading": "Limited Edition",
+            "size_chart": ""
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": false,
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false
+          }
+        },
+        "countdown_timer_4tCBwt": {
+          "type": "countdown_timer",
+          "settings": {
+            "heading": "Extended Cyber Monday OFFER ENDS IN:",
+            "heading_color": "#ffffff",
+            "background_color": "#c5bbae",
+            "timer_color": "#121212",
+            "label_color": "#121212",
+            "per_visitor_timer": true,
+            "end_date": "2026-01-31 23:59:59",
+            "visitor_days": 0,
+            "visitor_hours": 20,
+            "visitor_minutes": 3,
+            "visitor_seconds": 27,
+            "border_radius": 8,
+            "padding_top": 15,
+            "padding_bottom": 10
+          }
+        },
+        "icon_with_text_NArRNw": {
+          "type": "icon_with_text",
+          "settings": {
+            "icon_1": "shopify://shop_images/local_shipping_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
+            "text_1": "Fast & Tracked Shipping",
+            "icon_2": "shopify://shop_images/undo_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
+            "text_2": "30 Days Money Back",
+            "icon_3": "shopify://shop_images/select_check_box_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
+            "text_3": "100% Muslin Cotton"
+          }
+        },
+        "text_custom_A3eeDw": {
+          "type": "text_custom",
+          "disabled": true,
+          "settings": {
+            "text_custom": "<strong>UPDATE: We're currently going viral on social media</strong> and have limited stock remaining!  Take advantage of our quantity discounts.",
+            "text_color": "",
+            "text_size": 14,
+            "text_size_mob": 13,
+            "enable_circle": false
+          }
+        },
+        "collapsible_tab-0": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "check_mark",
+            "heading": "What is Muslin Cotton?",
+            "content": "<h4><strong>A Fabric Fit for Royalty</strong></h4><p>Originating from ancient Bengal (modern-day Bangladesh and India), muslin was once so rare and coveted that it was called <em>\"woven wind\"</em>—worn by queens, emperors, and aristocrats who prized its <strong>weightless luxury</strong>. The finest muslin was so sheer it could pass through a ring yet so strong it lasted generations. Today, authentic muslin remains a symbol of <strong>timeless elegance and craftsmanship</strong>.</p><h4><strong>Why Is Muslin Cotton Special?</strong></h4><ul><li><strong>Breathable & Lightweight</strong>: Its loose, open weave allows airflow like no other fabric, making it <strong>perfect for temperature regulation</strong>—cool in summer, cozy in winter.</li><li><strong>Luxuriously Soft</strong>: With every wash, muslin becomes even softer, developing a <strong>vintage, lived-in elegance</strong> that only improves with time.</li><li><strong>Gentle Yet Durable</strong>: Despite its delicate feel, high-quality muslin is surprisingly strong, resisting pulls and tears while maintaining its graceful drape.</li></ul><h4><strong>The Ultimate in Elevated Comfort</strong></h4><p>Our muslin pyjamas carry forward this legacy, offering you <strong>a touch of historical opulence with modern comfort</strong>.</p>",
+            "page": "",
+            "custom_liquid": "",
+            "keep_open": false
+          }
+        },
+        "collapsible_tab_TbRiah": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "check_mark",
+            "heading": "Care",
+            "content": "<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your pillowcase for years to come.</p>",
+            "page": "",
+            "custom_liquid": "",
+            "keep_open": false
+          }
+        },
+        "collapsible_tab-1": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "icon": "check_mark",
+            "heading": "Shipping & Returns",
+            "content": "<p>All Orders are fulfilled and then shipped to anywhere in the <strong>US</strong> in <strong>1-3 working days</strong> on average.</p><p>All orders come with tracking information once shipped.</p><p><strong>Returns</strong></p><p>Not happy with your purchase? No worries, we've got you covered!<br/><br/>You may return it within 30 days of delivery for a full refund or exchange, no questions asked. To initiate a return, just contact our customer service team at <a href=\"mailto:support@thefleececompany.com\" target=\"_blank\" title=\"mailto:support@thefleececompany.com\">support@thefleececompany.com</a>.</p>",
+            "page": "",
+            "custom_liquid": "",
+            "keep_open": false
+          }
+        },
+        "shipping_metaobject_tLJRyV": {
+          "type": "shipping_metaobject",
+          "settings": {
+            "icon": "check_mark",
+            "heading": "Shipping & Returns",
+            "shipping_text": "default"
+          }
+        },
+        "sticky_cart": {
+          "type": "sticky_cart",
+          "settings": {
+            "show_quantity_selector": false
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "rating_static_jQpEEQ",
+        "price",
+        "text_custom_Vpdkyw",
+        "icon_text_9Gxbx4",
+        "icon_text_KLMX3D",
+        "icon_text_R7iXXY",
+        "variant_picker",
+        "buy_buttons",
+        "countdown_timer_4tCBwt",
+        "icon_with_text_NArRNw",
+        "text_custom_A3eeDw",
+        "collapsible_tab-0",
+        "collapsible_tab_TbRiah",
+        "collapsible_tab-1",
+        "shipping_metaobject_tLJRyV",
+        "sticky_cart"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "media_position": "left",
+        "media_size": "large",
+        "gallery_layout": "thumbnail_slider",
+        "image_ratio": "square",
+        "show_featured_media": true,
+        "show_thumbnails": false,
+        "hide_variants": false,
+        "enable_image_zoom": false,
+        "enable_video_looping": false,
+        "mobile_image_ratio": "adapt",
+        "show_mobile_thumbnails": false,
+        "padding_top": 0,
+        "padding_bottom": 32
+      }
+    },
+    "image_with_text_v2_D8bENf": {
+      "type": "image-with-text-v2",
+      "blocks": {
+        "heading_bBmAeH": {
+          "type": "heading",
+          "settings": {
+            "heading": "Rest Easy with Muslin",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "text_ziaWGB": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Experience effortless comfort with our 2-Piece Muslin Pillowcase Set, crafted from 100% cotton muslin. Soft, breathable, and gentle on skin and hair — perfect for cool, restful nights and a fresh start every morning.</p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "heading_bBmAeH",
+        "text_ziaWGB"
+      ],
+      "name": "Image with text v2",
+      "settings": {
+        "image": "shopify://shop_images/9_efb78777-b95b-4351-8857-ec1b21f7ba79.png",
+        "image_position": "center center",
+        "layout": "text_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "image_ratio": "adapt",
+        "enable_media_radius": true,
+        "media_radius": 12,
+        "enlarge_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_layout": "image_first",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "auto",
+        "enable_video_looping": false,
+        "video_url": "",
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1b18",
+        "colors_text": "#212326",
+        "colors_background": "#ffffff",
+        "gradient_background": "",
+        "colors_highlight": "#ffb503",
+        "padding_top": 32,
+        "padding_bottom": 0
+      }
+    },
+    "image_with_text_v2_RabiRM": {
+      "type": "image-with-text-v2",
+      "blocks": {
+        "heading_wKRJry": {
+          "type": "heading",
+          "settings": {
+            "heading": "Luxuriously Soft & Leightweight",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "text_CN89GA": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Crafted from 100% natural muslin cotton, the muslin pillowcase envelops you in cloud-like softness. It's gently textured weave creates a breathable embrace that comforts without overheating - offering just the right weight for effortless relaxtation during warm nights and cozy moments year-round.</p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "heading_wKRJry",
+        "text_CN89GA"
+      ],
+      "name": "Image with text v2",
+      "settings": {
+        "image": "shopify://shop_images/11_2c11a9fb-8119-41ad-b3b3-12e3cbbe481b.png",
+        "image_position": "center center",
+        "layout": "image_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "image_ratio": "adapt",
+        "enable_media_radius": true,
+        "media_radius": 12,
+        "enlarge_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_layout": "image_first",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "auto",
+        "enable_video_looping": false,
+        "video_url": "",
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1b18",
+        "colors_text": "#212326",
+        "colors_background": "#ffffff",
+        "gradient_background": "",
+        "colors_highlight": "#ffb503",
+        "padding_top": 4,
+        "padding_bottom": 4
+      }
+    },
+    "image_with_text_v2_tLdkwa": {
+      "type": "image-with-text-v2",
+      "blocks": {
+        "heading_w4UPUz": {
+          "type": "heading",
+          "settings": {
+            "heading": "The Fleece Guarantee",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "text_TDiGmp": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We won’t rest until you're completely happy with your Muslin Pillowcase.</p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "check_list_EmQBcw": {
+          "type": "check_list",
+          "settings": {
+            "bg": "",
+            "list_icon": "shopify://shop_images/check_circle_30dp_C5BBAE_FILL0_wght400_GRAD0_opsz24.svg",
+            "list_text_1": "100% satisfaction guarantee",
+            "list_text_2": "Fast and tracked shipping",
+            "list_text_3": "Easy returns and exchanges",
+            "list_text_4": "We’re here for you, always.",
+            "list_text_5": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_w4UPUz",
+        "text_TDiGmp",
+        "check_list_EmQBcw"
+      ],
+      "name": "Image with text v2",
+      "settings": {
+        "image": "shopify://shop_images/fleece_guarantee_5ce01e72-7b49-4c67-8796-67a8219e9a1e.png",
+        "image_position": "center center",
+        "layout": "text_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "image_ratio": "adapt",
+        "enable_media_radius": true,
+        "media_radius": 12,
+        "enlarge_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_layout": "image_first",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "auto",
+        "enable_video_looping": false,
+        "video_url": "",
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1b18",
+        "colors_text": "#212326",
+        "colors_background": "#ffffff",
+        "gradient_background": "",
+        "colors_highlight": "#ffb503",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "product_list_limit": 4,
+        "show_divider": false,
+        "heading": "You May Also Like",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "image_ratio": "portrait",
+        "image_position": "center center",
+        "enable_image_fill": true,
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_rating": true,
+        "show_quick_buy": true,
+        "enable_quick_view": true,
+        "enable_color_swatches": true,
+        "enable_countdown": true,
+        "colors_highlight": "#ffb503",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "enable_highlight": false,
+        "highlight_style": "marker"
+      }
+    },
+    "reviews_slider_UFEH38": {
+      "type": "reviews-slider",
+      "blocks": {
+        "review_BDtWFn": {
+          "type": "review",
+          "settings": {
+            "review_text": "I bought one set to try and instantly ordered another. The texture is perfect—soft, breathable, and light. It makes my bed feel luxurious.",
+            "author_name": "Samantha"
+          }
+        },
+        "review_AAMEHx": {
+          "type": "review",
+          "settings": {
+            "review_text": "I didn’t expect such a difference! These muslin pillowcases feel airy and soft, and I no longer wake up sweaty at night. Total game changer for light sleepers.",
+            "author_name": "Victoria"
+          }
+        },
+        "review_RRjwad": {
+          "type": "review",
+          "settings": {
+            "review_text": "The fabric feels so gentle on my skin. After a few washes, it’s even softer. I have sensitive skin, and these are the only ones that don’t irritate me.",
+            "author_name": "Nina"
+          }
+        },
+        "review_Wk9qMa": {
+          "type": "review",
+          "settings": {
+            "review_text": "They look so elegant and feel amazing. I sleep cooler and wake up without those pillow lines on my face anymore.",
+            "author_name": "Sophie"
+          }
+        }
+      },
+      "block_order": [
+        "review_BDtWFn",
+        "review_AAMEHx",
+        "review_RRjwad",
+        "review_Wk9qMa"
+      ],
+      "name": "Reviews slider",
+      "settings": {
+        "heading": "Our Customers Speaking",
+        "enable_loop": false,
+        "enable_autoplay": false,
+        "autoplay_delay": 5,
+        "show_arrows_desktop": false,
+        "show_dots_desktop": false,
+        "show_arrows_mobile": false,
+        "show_dots_mobile": true,
+        "use_custom_colors": true,
+        "colors_text": "#212326",
+        "colors_background": "#fcfbf7",
+        "colors_card_background": "#f6f6f6",
+        "colors_stars": "#000000",
+        "colors_dots": "#000000",
+        "gradient_background": "",
+        "padding_top": 40,
+        "padding_bottom": 52,
+        "padding_top_mob": 20,
+        "padding_bottom_mob": 32
+      }
+    }
+  },
+  "order": [
+    "content_scrollspy_KjGLRV",
+    "empty-space",
+    "main",
+    "image_with_text_v2_D8bENf",
+    "image_with_text_v2_RabiRM",
+    "image_with_text_v2_tLdkwa",
+    "product-recommendations",
+    "reviews_slider_UFEH38"
+  ]
+}

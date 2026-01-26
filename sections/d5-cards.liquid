@@ -1,0 +1,105 @@
+<style>
+    .cards-section-d5{
+        background: #f3f3f3;
+        padding: 20px 0;
+    }
+    .cards-section-d5 h2, .cards-section-d5 p{
+        margin: 0;
+        text-align: center;
+    }
+    .cs-title-d5 p{
+        font-size: 16px;
+    }
+    .cs-cards-row-d5{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 40px;
+    }
+    .cs-img-d5{
+        width: 100%;
+        aspect-ratio: 1/1;
+        margin-bottom: 20px;
+    }
+    .cs-img-d5 img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    .cs-title-d5 p{
+        margin: 10px 0 20px;
+    }
+    @media(max-width: 750px){
+        .cs-cards-row-d5{
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .cs-title-d5 p{
+            font-size: 14px;
+        }
+    }
+</style>
+<div class="cards-section-d5">
+    <div class="cs-inner-d5 page-width">
+        <div class="cs-title-d5">
+            <h2 class="h2">{{ section.settings.title }}</h2>
+            <p>{{ section.settings.subtitle }}</p>
+        </div>
+        <div class="cs-cards-row-d5">
+            {% for block in section.blocks %}
+                <div class="cs-card-d5">
+                    {% if block.settings.img != blank %}
+                    <div class="cs-img-d5">
+                        <img src="{{ block.settings.img | image_url: width: 400 }}" loading="lazy" width="" height="" alt="{{ block.settings.txt }}">
+                    </div>
+                    {% endif %}
+                    {% if block.settings.txt != blank %}
+                    <p>{{ block.settings.txt }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% schema %}
+{
+    "name": "Cards",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "The Fleece Company Community"
+        },
+        {
+            "type": "text",
+            "id": "subtitle",
+            "label": "Sub Title",
+            "default": "JOIN OUR GROWING COMMUNITY"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "card",
+            "name": "Card",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "img",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "id": "txt",
+                    "label": "Text"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "D5 Cards"
+        }
+    ]
+}
+{% endschema %}

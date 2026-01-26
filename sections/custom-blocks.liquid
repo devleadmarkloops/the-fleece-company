@@ -1,0 +1,306 @@
+{% comment %}
+  Section: Custom Blocks
+  Author: AI Assistant
+  Version: 2.0
+  Description: A flexible grid of customizable content blocks with an optional overlay layout.
+{% endcomment %}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-bg: {{ section.settings.background_color }};
+    --heading-color: {{ section.settings.heading_color }};
+    --content-color: {{ section.settings.text_color }};
+    --button-bg: {{ section.settings.button_background_color }};
+    --button-text-color: {{ section.settings.button_text_color }};
+    --padding-top: {{ section.settings.padding_top }}px;
+    --padding-bottom: {{ section.settings.padding_bottom }}px;
+    --columns-desktop: {{ section.settings.columns_desktop }};
+    --columns-mobile: {{ section.settings.columns_mobile }};
+    
+    {% if section.settings.enable_overlay %}
+      {% if section.settings.overlay_gradient == 'dark' %}
+        --overlay-content-color: #FFFFFF;
+      {% else %}
+        --overlay-content-color: #212121;
+      {% endif %}
+    {% endif %}
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --padding-top: {{ section.settings.padding_top_mob }}px;
+      --padding-bottom: {{ section.settings.padding_bottom_mob }}px;
+    }
+  }
+
+  .custom-blocks-section {
+    background-color: var(--section-bg);
+    padding-top: var(--padding-top);
+    padding-bottom: var(--padding-bottom);
+  }
+  .custom-blocks-section .section-header {
+    text-align: {{ section.settings.heading_alignment }};
+    margin-bottom: 40px;
+  }
+  .custom-blocks-section .section-header h2 {
+    color: var(--heading-color);
+  }
+  .custom-blocks__grid {
+    display: grid;
+    grid-template-columns: repeat(var(--columns-desktop), 1fr);
+    gap: 30px;
+  }
+  .custom-block__card {
+    color: var(--content-color);
+    text-align: center;
+  }
+  .custom-block__image-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 1/1;
+  }
+  .custom-block__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .custom-block__card:hover .custom-block__image {
+      transform: scale(1.03);
+  }
+  .custom-block__content {
+    padding: 0 10px;
+  }
+  .custom-block__heading {
+    font-size: 2.4rem;
+    font-weight: 500;
+    color: var(--content-color);
+    margin: 0 0 10px;
+  }
+  .custom-block__text {
+    font-size: 1.4rem;
+    letter-spacing: 0;
+    margin: 0 0 1.5rem;
+  }
+  .custom-block__button {
+    display: inline-flex;
+    min-width: unset;
+    align-items: center;
+  }
+  .custom-blocks-section--overlay-enabled .custom-block__card {
+    color: var(--overlay-content-color);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    min-height: 45rem;
+  }
+  .custom-blocks-section--overlay-enabled .custom-block__image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    margin-bottom: 0;
+  }
+  .custom-blocks-section--overlay-enabled .custom-block__image-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+  .custom-blocks-section--overlay-enabled .overlay-gradient--dark::after {
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 40%, transparent 70%);
+  }
+  .custom-blocks-section--overlay-enabled .overlay-gradient--light::after {
+    background: linear-gradient(to top, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.5) 40%, transparent 70%);
+  }
+  .custom-blocks-section--overlay-enabled .custom-block__content {
+    position: relative;
+    z-index: 3;
+    padding: 3rem;
+    padding-bottom: 4rem;
+    width: 100%;
+    margin-top: auto;
+  }
+
+  @media screen and (max-width: 749px) {
+    .custom-blocks__grid {
+      grid-template-columns: repeat(var(--columns-mobile), 1fr);
+      gap: 1rem;
+    }
+    .custom-blocks-section--overlay-enabled .custom-block__card {
+      min-height: 28rem;
+    }
+    .custom-blocks-section--overlay-enabled .custom-block__content {
+      padding: 2rem;
+    }
+    .custom-block__heading {
+      font-size: 2rem;
+    }
+    .custom-block__text {
+      font-size: 1.3rem;
+    }
+  }
+</style>
+
+<div class="custom-blocks-section {% if section.settings.enable_overlay %}custom-blocks-section--overlay-enabled{% endif %}" id="shopify-section-{{ section.id }}">
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <div class="section-header">
+        <h2 class="h2">{{ section.settings.heading | escape }}</h2>
+      </div>
+    {%- endif -%}
+
+    <div class="custom-blocks__grid">
+      {%- for block in section.blocks -%}
+        <div class="custom-block__card" {{ block.shopify_attributes }}>
+          
+          {%- if block.settings.image != blank -%}
+            <div class="custom-block__image-wrapper {% if section.settings.enable_overlay %}overlay-gradient--{{ section.settings.overlay_gradient }}{% endif %}">
+              <img
+                src="{{ block.settings.image | image_url: width: 500 }}"
+                alt="{{ block.settings.image.alt | default: block.settings.heading | escape }}"
+                loading="lazy"
+                class="custom-block__image"
+                width="{{ block.settings.image.width }}"
+                height="{{ block.settings.image.height }}"
+              >
+            </div>
+          {%- endif -%}
+
+          <div class="custom-block__content">
+            {%- if block.settings.heading != blank -%}
+              <h3 class="custom-block__heading">{{ block.settings.heading | escape }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.text != blank -%}
+              <div class="custom-block__text rte">{{ block.settings.text }}</div>
+            {%- endif -%}
+
+            {%- if block.settings.button_text != blank and block.settings.button_link != blank -%}
+              <a href="{{ block.settings.button_link }}" class="button custom-block__button">
+                {{ block.settings.button_text | escape }}
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Blocks",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Features"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" }
+      ],
+      "default": "1"
+    },
+    {
+        "type": "checkbox",
+        "id": "enable_overlay",
+        "label": "Enable content overlay layout",
+        "info": "Places the text and button over the image.",
+        "default": false
+    },
+    {
+        "type": "select",
+        "id": "overlay_gradient",
+        "label": "Overlay gradient style",
+        "info": "Only applies if overlay is enabled.",
+        "options": [
+          { "value": "dark", "label": "Dark" },
+          { "value": "light", "label": "Light" }
+        ],
+        "default": "dark"
+    },
+    {
+      "type": "header",
+      "content": "Color Settings"
+    },
+    { "type": "color", "id": "background_color", "label": "Section background", "default": "#FFFFFF" },
+    { "type": "color", "id": "heading_color", "label": "Heading text", "default": "#333333" },
+    { "type": "color", "id": "text_color", "label": "Content text (standard layout)", "default": "#555555" },
+    { "type": "color", "id": "button_background_color", "label": "Button background", "default": "#333333" },
+    { "type": "color", "id": "button_text_color", "label": "Button text", "default": "#FFFFFF" },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Top padding (desktop)", "default": 60 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bottom padding (desktop)", "default": 60 },
+    { "type": "range", "id": "padding_top_mob", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Top padding (mobile)", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mob", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bottom padding (mobile)", "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "custom_block",
+      "name": "Custom Block",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Feature Title" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Describe your feature or benefit here.</p>" },
+        { "type": "text", "id": "button_text", "label": "Button text" },
+        { "type": "url", "id": "button_link", "label": "Button link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Blocks",
+      "blocks": [
+        { "type": "custom_block" },
+        { "type": "custom_block" },
+        { "type": "custom_block" },
+        { "type": "custom_block" }
+      ]
+    }
+  ]
+}
+{% endschema %}

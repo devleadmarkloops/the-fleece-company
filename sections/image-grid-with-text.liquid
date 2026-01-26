@@ -1,0 +1,317 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --section-bg-color: {{ section.settings.background_color }};
+    --section-content-color: {{ section.settings.text_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --section-padding-top: {{ section.settings.padding_top_mob }}px;
+      --section-padding-bottom: {{ section.settings.padding_bottom_mob }}px;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .image-grid-with-text-section {
+    background-color: var(--section-bg-color);
+    color: var(--section-content-color);
+  }
+
+  #shopify-section-{{ section.id }} .grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .content-side h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0 0 16px 0;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .content-side .subheading {
+    font-size: 1.25rem;
+    margin: 0 0 24px 0;
+    opacity: 0.9;
+  }
+
+  #shopify-section-{{ section.id }} .content-side .description {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+  }
+
+  #shopify-section-{{ section.id }} .media-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .media-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .media-item.large {
+    grid-row: span 2;
+  }
+
+  #shopify-section-{{ section.id }} .media-item img,
+  #shopify-section-{{ section.id }} .media-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .media-item video {
+    border-radius: 12px;
+  }
+
+  @media screen and (max-width: 989px) {
+    #shopify-section-{{ section.id }} .grid-container {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .content-side h2 {
+      font-size: 2rem;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .content-side h2 {
+      font-size: 1.75rem;
+    }
+
+    #shopify-section-{{ section.id }} .content-side .subheading {
+      font-size: 1.125rem;
+    }
+
+    #shopify-section-{{ section.id }} .media-grid {
+      gap: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .grid-container {
+      flex-direction: {{ section.settings.mobile_layout }};
+    }
+  }
+{%- endstyle -%}
+
+<div class="image-grid-with-text-section">
+  <div class="section--padding">
+    <div class="page-width">
+      <div class="grid-container">
+        
+        {%- comment -%} Left Side: Content {%- endcomment -%}
+        <div class="content-side">
+          {%- if section.settings.heading != blank -%}
+            <h2>{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          
+          {%- if section.settings.subheading != blank -%}
+            <p class="subheading">{{ section.settings.subheading }}</p>
+          {%- endif -%}
+          
+          {%- if section.settings.description != blank -%}
+            <div class="description">
+              {{ section.settings.description }}
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} Right Side: Media Grid {%- endcomment -%}
+        <div class="media-grid">
+          {%- comment -%} Large Video (spans 2 rows) {%- endcomment -%}
+          <div class="media-item large">
+            {%- if section.settings.video != blank -%}
+              {{
+                section.settings.video
+                | video_tag:
+                  autoplay: true,
+                  loop: true,
+                  muted: true,
+                  controls: false
+              }}
+            {%- else -%}
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+
+          {%- comment -%} Top Right Image {%- endcomment -%}
+          <div class="media-item">
+            {%- if section.settings.image_1 != blank -%}
+              <img 
+                src="{{ section.settings.image_1 | image_url: width: 800 }}"
+                alt="{{ section.settings.image_1.alt | escape }}"
+                loading="lazy"
+                width="{{ section.settings.image_1.width }}"
+                height="{{ section.settings.image_1.height }}"
+              >
+            {%- else -%}
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+
+          {%- comment -%} Bottom Right Image {%- endcomment -%}
+          <div class="media-item">
+            {%- if section.settings.image_2 != blank -%}
+              <img 
+                src="{{ section.settings.image_2 | image_url: width: 800 }}"
+                alt="{{ section.settings.image_2.alt | escape }}"
+                loading="lazy"
+                width="{{ section.settings.image_2.width }}"
+                height="{{ section.settings.image_2.height }}"
+              >
+            {%- else -%}
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image grid with text",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Maak vanaf nu in 10 seconden je bed op"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Bye frustratie, hallo gemak"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>We weten hoe irritant het is om te worstelen met dekbedovertrekken, te sjouwen met zware dekens en jezelf te verliezen in eindeloze wasmarathons.</p><p>Met Zelesta is die nachtmerrie over. Onze slimme dekbedden met vaste hoes besparen je tijd, energie en geld.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Media Settings"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video (Left large)",
+      "info": "Video will autoplay and loop without controls"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1 (Top right)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2 (Bottom right)"
+    },
+    {
+      "type": "header",
+      "content": "Color Settings"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#6B7B4C"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Mobile Settings"
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Mobile layout",
+      "options": [
+        {
+          "value": "row",
+          "label": "Horizontal"
+        },
+        {
+          "value": "column",
+          "label": "Vertical"
+        }
+      ],
+      "default": "column"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Top padding (desktop)",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom padding (desktop)",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mob",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Top padding (mobile)",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mob",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom padding (mobile)",
+      "default": 32
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image grid with text"
+    }
+  ]
+}
+{% endschema %}
