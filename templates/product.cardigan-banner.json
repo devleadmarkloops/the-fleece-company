@@ -132,7 +132,7 @@
             "swatch_type": "round",
             "swatch_size": "large",
             "enable_swatch_unavailable_click": false,
-            "enable_limited": false,
+            "enable_limited": true,
             "limited_heading": "Limited Edition",
             "size_chart": ""
           }
