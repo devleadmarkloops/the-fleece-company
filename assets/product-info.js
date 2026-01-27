@@ -67,6 +67,9 @@ if (!customElements.get('product-info')) {
       handleOptionValueChange({ data: { event, target, selectedOptionValues } }) {
         if (!this.contains(event.target)) return;
 
+        // Save current scroll position to prevent scroll-to-top on variant change
+        const savedScrollPosition = window.scrollY || window.pageYOffset;
+
         this.resetProductFormState();
 
         const productUrl = target.dataset.productUrl || this.pendingRequestUrl || this.dataset.url;
@@ -80,6 +83,15 @@ if (!customElements.get('product-info')) {
           callback: shouldSwapProduct
             ? this.handleSwapProduct(productUrl, shouldFetchFullPage)
             : this.handleUpdateProductInfo(productUrl),
+        });
+
+        // Restore scroll position after DOM updates to prevent scroll-to-top
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            if (Math.abs(window.scrollY - savedScrollPosition) > 10) {
+              window.scrollTo({ top: savedScrollPosition, behavior: 'instant' });
+            }
+          });
         });
       }
 
@@ -235,12 +247,24 @@ if (!customElements.get('product-info')) {
       }
 
       updateVariantInputs(variantId) {
+        // Save scroll position before updating variant inputs
+        const savedScrollPosition = window.scrollY || window.pageYOffset;
+        
         this.querySelectorAll(
           `#product-form-${this.dataset.section}, #product-form-installment-${this.dataset.section}, #product-form-${this.dataset.section}--alt`
         ).forEach((productForm) => {
           const input = productForm.querySelector('input[name="id"]');
           input.value = variantId ?? '';
           input.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+        
+        // Restore scroll position after variant input update
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            if (Math.abs(window.scrollY - savedScrollPosition) > 10) {
+              window.scrollTo({ top: savedScrollPosition, behavior: 'instant' });
+            }
+          });
         });
       }
 
@@ -330,9 +354,10 @@ if (!customElements.get('product-info')) {
         }
 
         // set featured media as active in the media gallery
+        // Prevent scroll when variant changes programmatically (not user-initiated)
         const mediaGallery = this.querySelector('media-gallery');
         if (mediaGallery != null) {
-          mediaGallery.setActiveMedia?.(`${this.dataset.section}-${variantFeaturedMediaId}`, true);
+          mediaGallery.setActiveMedia?.(`${this.dataset.section}-${variantFeaturedMediaId}`, true, false);
         } else {
           this.querySelector('[id^="Slider-"]')?.scrollTo({ left: 0 });
         }
