@@ -158,6 +158,7 @@
             "text_color": "",
             "text_size": 14,
             "text_size_mob": 13,
+            "enable_normal": true,
             "enable_circle": false
           }
         },
@@ -264,7 +265,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/3_dfc3bc80-345a-451d-9031-e8deb563c7f1.png",
+        "image": "shopify://shop_images/imgi_62_4913df67-dee6-4b34-9c53-6175c2ec7fe5_1_1.png",
         "image_position": "center center",
         "layout": "text_first",
         "text_box_position": "middle",
@@ -324,7 +325,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/2_a31a946e-ac95-4f4e-b17b-3734128d4501.png",
+        "image": "shopify://shop_images/imgi_62_il_1588xN.6406986122_n8l11_1.png",
         "image_position": "center center",
         "layout": "image_first",
         "text_box_position": "middle",
@@ -398,7 +399,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/fleece_guarantee_ce58bf30-3e98-4ac8-9785-2fef3dffe68d.png",
+        "image": "shopify://shop_images/Group19.png",
         "image_position": "center center",
         "layout": "text_first",
         "text_box_position": "middle",
@@ -463,6 +464,7 @@
         "review_BDtWFn": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Absolutely love this shawl. The fabric feels incredibly soft and drapes so beautifully. It instantly elevates even the simplest outfit.",
             "author_name": "Claire B."
           }
@@ -470,6 +472,7 @@
         "review_ixA6iY": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Perfect for layering! It’s lightweight but still warm enough for cooler days. I’ve worn it to work and casual outings – so versatile.",
             "author_name": "Hannah S."
           }
@@ -477,6 +480,7 @@
         "review_nNnfPg": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "The fit is amazing and very flattering. I love how it flows without feeling bulky. Looks much more expensive than it is.",
             "author_name": "Isabella N."
           }
@@ -484,6 +488,7 @@
         "review_LjUU6L": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Such a versatile and well-made shawl. I wear it at home, to work, and while traveling. The quality is excellent and it feels just as good as it looks.",
             "author_name": "Rachel P."
           }
@@ -491,6 +496,7 @@
         "review_gnpPMV": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "This shawl has become a wardrobe staple for me. Elegant, comfortable, and easy to style with jeans or tailored trousers.",
             "author_name": "Natalie P."
           }
@@ -498,6 +504,7 @@
         "review_Ychg3r": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Beautiful quality and very soft on the skin. I was worried it might be too thin, but it’s just perfect for everyday wear.",
             "author_name": "Elena V."
           }
