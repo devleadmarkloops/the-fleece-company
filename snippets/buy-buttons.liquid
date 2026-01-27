@@ -2367,14 +2367,8 @@
               monogramItemsData.forEach(function(itemData, itemIndex) {
                 if (itemData.textInput && itemData.textInput.value.trim()) {
                   let productName = '{{ product.title | escape }}';
-                  let productColor = '';
                   
-                  const colorInputs = productForm.querySelectorAll('input[type="radio"][name*="Color"]:checked, select[name*="Color"]');
-                  if (colorInputs.length > 0) {
-                    productColor = colorInputs[0].value || '';
-                  }
-                  
-                  // Get variant color for this monogram item
+                  // Get variant info for this monogram item
                   const variantInfo = getVariantColorForMonogramItem(itemIndex);
                   
                   monogramItems.push({
@@ -2385,8 +2379,6 @@
                       'Monogram Style': (itemData.styleSelect && itemData.styleSelect.value) || '',
                       'Monogram Color': (itemData.colorSelect && itemData.colorSelect.value) || '',
                       'Product Name': productName,
-                      'Product Color': productColor,
-                      'Variant Color': variantInfo.color || '',
                       'Variant': variantInfo.title || variantInfo.displayText || '',
                       '_form_ref': formId,
                       '_monogram': 'true'
@@ -2625,14 +2617,8 @@
               monogramItemsData.forEach(function(itemData, itemIndex) {
                 if (itemData.textInput && itemData.textInput.value.trim()) {
                   let productName = '{{ product.title | escape }}';
-                  let productColor = '';
                   
-                  const colorInputs = productForm.querySelectorAll('input[type="radio"][name*="Color"]:checked, select[name*="Color"]');
-                  if (colorInputs.length > 0) {
-                    productColor = colorInputs[0].value || '';
-                  }
-                  
-                  // Get variant color for this monogram item
+                  // Get variant info for this monogram item
                   const variantInfo = getVariantColorForMonogramItem(itemIndex);
                   
                   const monogramItem = {
@@ -2643,8 +2629,6 @@
                       'Monogram Style': (itemData.styleSelect && itemData.styleSelect.value) || '',
                       'Monogram Color': (itemData.colorSelect && itemData.colorSelect.value) || '',
                       'Product Name': productName,
-                      'Product Color': productColor,
-                      'Variant Color': variantInfo.color || '',
                       'Variant': variantInfo.title || variantInfo.displayText || '',
                       '_form_ref': formId,
                       '_monogram': 'true'
