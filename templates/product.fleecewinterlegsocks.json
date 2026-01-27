@@ -97,10 +97,10 @@
         "icon_text_R7iXXY": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/knitted_7f48af51-061b-45b1-b313-ed1383c8fce5.png",
+            "icon": "shopify://shop_images/check_1.png",
             "icon_size": 32,
             "icon_size_mob": 28,
-            "icon_text": "Pet-Friendly Vibes",
+            "icon_text": "Cozy Everyday Wear",
             "text_color": "#121212",
             "text_size": 16,
             "text_size_mob": 14
