@@ -1572,31 +1572,136 @@
             return colorSelect.value || null;
           }
           
+          // Get variant ID for a specific bundle item index (using same methods as extractBundleVariantIds)
+          function getBundleVariantIdForItem(itemIndex) {
+            const selectedBundle = document.querySelector('.kaching-bundles__bar--selected');
+            if (!selectedBundle) return null;
+            
+            const variantWrappers = selectedBundle.querySelectorAll('.kaching-bundles__bar-variant-selector-wrapper');
+            if (itemIndex >= variantWrappers.length) return null;
+            
+            const wrapper = variantWrappers[itemIndex];
+            let variantId = null;
+            
+            // Method 1: Try data-variant-id attribute on wrapper
+            const dataVariantId = wrapper.getAttribute('data-variant-id');
+            if (dataVariantId) {
+              const testId = parseInt(dataVariantId);
+              if (!isNaN(testId) && testId > 0) {
+                variantId = testId;
+              }
+            }
+            
+            // Method 2: Try hidden input
+            if (!variantId) {
+              const hiddenInput = wrapper.querySelector('input[type="hidden"]');
+              if (hiddenInput && hiddenInput.value) {
+                const testId = parseInt(hiddenInput.value);
+                if (!isNaN(testId) && testId > 0) {
+                  variantId = testId;
+                }
+              }
+            }
+            
+            // Method 3: Try [name="id"] input
+            if (!variantId) {
+              const idInput = wrapper.querySelector('[name="id"]');
+              if (idInput && idInput.value) {
+                const testId = parseInt(idInput.value);
+                if (!isNaN(testId) && testId > 0) {
+                  variantId = testId;
+                }
+              }
+            }
+            
+            // Method 4: Try select - check selected option value
+            if (!variantId) {
+              const variantSelect = wrapper.querySelector('select');
+              if (variantSelect) {
+                const selectedOption = variantSelect.options[variantSelect.selectedIndex];
+                if (selectedOption && selectedOption.value) {
+                  const testId = parseInt(selectedOption.value);
+                  if (!isNaN(testId) && testId > 0) {
+                    variantId = testId;
+                  }
+                }
+                if (!variantId && variantSelect.value) {
+                  const testId = parseInt(variantSelect.value);
+                  if (!isNaN(testId) && testId > 0) {
+                    variantId = testId;
+                  }
+                }
+              }
+            }
+            
+            // Method 5: Try any input with variant/id in name
+            if (!variantId) {
+              const variantInputs = wrapper.querySelectorAll('input[name*="variant"], input[name*="id"]');
+              variantInputs.forEach(function(input) {
+                if (!variantId && input.value) {
+                  const testId = parseInt(input.value);
+                  if (!isNaN(testId) && testId > 1000000) {
+                    variantId = testId;
+                  }
+                }
+              });
+            }
+            
+            // Method 6: Scan all inputs for large numbers (variant IDs)
+            if (!variantId) {
+              const allInputs = wrapper.querySelectorAll('input, select');
+              allInputs.forEach(function(input) {
+                if (!variantId) {
+                  let value = input.value;
+                  if (!value && input.tagName === 'SELECT') {
+                    const selectedOption = input.options[input.selectedIndex];
+                    value = selectedOption ? selectedOption.value : null;
+                  }
+                  if (!value) {
+                    value = input.getAttribute('value');
+                  }
+                  if (value) {
+                    const testId = parseInt(value);
+                    if (!isNaN(testId) && testId > 1000000) {
+                      variantId = testId;
+                    }
+                  }
+                }
+              });
+            }
+            
+            return variantId;
+          }
+          
           // Get variant color/title for a monogram item
-          // For bundles: gets color from bundle item at itemIndex
-          // For single products: gets color from selected variant
+          // For bundles: gets full variant title from bundle item at itemIndex
+          // For single products: gets full variant title from selected variant
           function getVariantColorForMonogramItem(itemIndex) {
-            let variantColor = '';
             let variantTitle = '';
             
             if (isBundleSelected()) {
-              // Bundle selected - get color from bundle item
-              const bundleColor = getBundleColorForItem(itemIndex);
-              if (bundleColor) {
-                variantColor = bundleColor;
-                // Try to get variant ID from bundle to get full variant title
+              // Bundle selected - get variant ID and then full variant title
+              const variantId = getBundleVariantIdForItem(itemIndex);
+              if (variantId && variantImagesData[variantId] && variantImagesData[variantId].variantTitle) {
+                variantTitle = variantImagesData[variantId].variantTitle;
+                console.log('[Monogram] Got variant title from bundle item', itemIndex, ':', variantTitle);
+              } else {
+                // Fallback: try to construct from selected options
                 const selectedBundle = document.querySelector('.kaching-bundles__bar--selected');
                 if (selectedBundle) {
                   const variantWrappers = selectedBundle.querySelectorAll('.kaching-bundles__bar-variant-selector-wrapper');
                   if (itemIndex < variantWrappers.length) {
                     const wrapper = variantWrappers[itemIndex];
-                    // Try to find variant ID
-                    const variantIdInput = wrapper.querySelector('[name="id"]');
-                    if (variantIdInput && variantIdInput.value) {
-                      const variantId = parseInt(variantIdInput.value);
-                      if (variantImagesData[variantId] && variantImagesData[variantId].variantTitle) {
-                        variantTitle = variantImagesData[variantId].variantTitle;
+                    const optionSelects = wrapper.querySelectorAll('.kaching-bundles__bar-variant-select');
+                    const optionParts = [];
+                    optionSelects.forEach(function(select) {
+                      if (select.value) {
+                        optionParts.push(select.value);
                       }
+                    });
+                    if (optionParts.length > 0) {
+                      variantTitle = optionParts.join(' / ');
+                      console.log('[Monogram] Constructed variant title from bundle options:', variantTitle);
                     }
                   }
                 }
@@ -1618,19 +1723,7 @@
                     const variantIdInt = parseInt(variantId);
                     if (variantImagesData[variantIdInt] && variantImagesData[variantIdInt].variantTitle) {
                       variantTitle = variantImagesData[variantIdInt].variantTitle;
-                      // Extract color from variant title
-                      const colorMatch = variantTitle.match(/\b(Black|White|Red|Blue|Green|Gold|Silver|Navy|Gray|Grey|Brown|Beige|Pink|Purple|Orange|Yellow|Wine Red|Wine|Cream|Ivory|Tan|Maroon|Burgundy|Teal|Turquoise|Coral|Lavender|Mint|Peach|Salmon|Olive|Khaki)\b/i);
-                      if (colorMatch) {
-                        variantColor = colorMatch[1];
-                      }
-                    }
-                    
-                    // Also try to get from form color inputs
-                    if (!variantColor) {
-                      const colorInputs = productForm.querySelectorAll('input[type="radio"][name*="Color"]:checked, select[name*="Color"]');
-                      if (colorInputs.length > 0) {
-                        variantColor = colorInputs[0].value || '';
-                      }
+                      console.log('[Monogram] Got variant title from single product:', variantTitle);
                     }
                   }
                 }
@@ -1638,9 +1731,9 @@
             }
             
             return {
-              color: variantColor,
+              color: '', // Not needed anymore
               title: variantTitle,
-              displayText: variantColor || variantTitle || ''
+              displayText: variantTitle || ''
             };
           }
           
