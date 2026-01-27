@@ -46,7 +46,7 @@
         "rating_static_jQpEEQ": {
           "type": "rating_static",
           "settings": {
-            "rating_text": "(266 Reviews)",
+            "rating_text": "(421 Reviews)",
             "rating_link": ""
           }
         },
@@ -60,7 +60,6 @@
         },
         "text_custom_Vpdkyw": {
           "type": "text_custom",
-          "disabled": true,
           "settings": {
             "text_custom": "<strong>Live Now: Buy 1 get 1 FREE</strong>",
             "text_color": "#a63e3e",
@@ -73,10 +72,10 @@
         "icon_text_9Gxbx4": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/credibility.png",
+            "icon": "shopify://shop_images/clouds.png",
             "icon_size": 32,
             "icon_size_mob": 28,
-            "icon_text": "Premium Faux Fur Feel",
+            "icon_text": "Super Soft & breathable",
             "text_color": "#121212",
             "text_size": 16,
             "text_size_mob": 14
@@ -85,10 +84,10 @@
         "icon_text_KLMX3D": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/cooling.png",
+            "icon": "shopify://shop_images/ggghi.png",
             "icon_size": 32,
             "icon_size_mob": 28,
-            "icon_text": "Warm Without Weight",
+            "icon_text": "Elegant design",
             "text_color": "#121212",
             "text_size": 16,
             "text_size_mob": 14
@@ -97,10 +96,10 @@
         "icon_text_R7iXXY": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/wool.png",
+            "icon": "shopify://shop_images/ruler.png",
             "icon_size": 32,
             "icon_size_mob": 28,
-            "icon_text": "Ultra-Soft Feel",
+            "icon_text": "Effortless one-size fit",
             "text_color": "#121212",
             "text_size": 16,
             "text_size_mob": 14
@@ -110,12 +109,18 @@
           "type": "text_custom",
           "disabled": true,
           "settings": {
-            "text_custom": "Limited units available during our <strong>New Year Sale</strong>",
+            "text_custom": "<strong>Limited units available during our Holiday Sale</strong>",
             "text_color": "#a63e3e",
             "text_size": 16,
             "text_size_mob": 15,
             "enable_normal": true,
             "enable_circle": true
+          }
+        },
+        "custom_liquid_tTUEc4": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<style>\n  /* tweak --lh if your theme's line-height looks different */\n  .special-msg {\n    --lh: 1.35;                    /* line-height for this block */\n    --dot: 8px;                    /* dot size */\n    color: #A63E3E;\n    font-weight: 600;\n    display: block;\n    margin: 5px 0;\n    padding-left: 18px;            /* room for the dot */\n    position: relative;\n    line-height: var(--lh);\n    text-align: left !important;\n    white-space: normal;\n    letter-spacing: .3px;\n  }\n\n  .special-msg::before {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    width: var(--dot);\n    height: var(--dot);\n    border-radius: 50%;\n    background: #A63E3E;\n    /* place the dot centered within the FIRST line only */\n    top: calc((var(--lh) * 1em - var(--dot)) / 2);\n    animation: blink 3.5s infinite ease-in-out;\n  }\n\n@keyframes blink {\n  /* Quick fade in */\n  0%   { opacity: 0; }\n  40%  { opacity: 1; }\n\n  /* Hold bright */\n  60%  { opacity: 1; }\n\n  /* Slow fade out */\n  100% { opacity: 0; }\n}\n\n</style>\n\n<div class=\"special-msg\">\n  Limited units available during our <b>Valentine's Day Sale</b>\n</div>"
           }
         },
         "variant_picker": {
@@ -125,19 +130,11 @@
             "picker_type": "button",
             "swatch_source": "variant",
             "swatch_type": "round",
-            "swatch_size": "medium",
+            "swatch_size": "large",
             "enable_swatch_unavailable_click": false,
             "enable_limited": true,
             "limited_heading": "Limited Edition",
             "size_chart": ""
-          }
-        },
-        "kiwi_size_chart_recommender_kiwi_sizing_Kmah6r": {
-          "type": "shopify://apps/kiwi-size-chart-recommender/blocks/kiwiSizing/b7369922-bf15-44ce-a121-a22a8fcbc4b0",
-          "settings": {
-            "fallbackToBlockPosition": false,
-            "waitForElementSelector": "",
-            "waitForElementDelay": 5
           }
         },
         "buy_buttons": {
@@ -148,23 +145,16 @@
             "show_gift_card_recipient": false
           }
         },
-        "payment_icons_tEfLNf": {
-          "type": "payment_icons",
-          "settings": {
-            "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
-          }
-        },
-        "countdown_timer_4tCBwt": {
+        "countdown_timer_cz8dcx": {
           "type": "countdown_timer",
-          "disabled": true,
           "settings": {
-            "heading": "New YEAR SALE ENDS IN:",
+            "heading": "Valentine's Day Sale ENDS IN:",
             "heading_color": "#ffffff",
             "background_color": "#c5bbae",
-            "timer_color": "#121212",
-            "label_color": "#121212",
+            "timer_color": "#000000",
+            "label_color": "#000000",
             "per_visitor_timer": true,
-            "end_date": "2026-01-31 23:59:59",
+            "end_date": "2026-12-31 23:59:59",
             "visitor_days": 0,
             "visitor_hours": 20,
             "visitor_minutes": 3,
@@ -172,15 +162,24 @@
             "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
           }
         },
+        "text_FEQxUK": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "icon": "none",
+            "text": "UPDATE: We're currently going viral on social media and have limited stock remaining!  Take advantage of our quantity discounts.",
+            "text_style": "body"
+          }
+        },
         "icon_with_text_NArRNw": {
           "type": "icon_with_text",
           "settings": {
             "icon_1": "shopify://shop_images/local_shipping_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
-            "text_1": "Fast & Tracked Shipping",
+            "text_1": "Fast + Tracked Shipping",
             "icon_2": "shopify://shop_images/undo_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
             "text_2": "30 Days Money Back",
             "icon_3": "shopify://shop_images/select_check_box_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
-            "text_3": "100% Satisfaction Guarantee"
+            "text_3": "100 Days Guarantee"
           }
         },
         "text_custom_A3eeDw": {
@@ -196,11 +195,10 @@
         },
         "collapsible_tab-0": {
           "type": "collapsible_tab",
-          "disabled": true,
           "settings": {
             "icon": "check_mark",
-            "heading": "What is Muslin Cotton?",
-            "content": "<h4><strong>A Fabric Fit for Royalty</strong></h4><p>Originating from ancient Bengal (modern-day Bangladesh and India), muslin was once so rare and coveted that it was called <em>\"woven wind\"</em>—worn by queens, emperors, and aristocrats who prized its <strong>weightless luxury</strong>. The finest muslin was so sheer it could pass through a ring yet so strong it lasted generations. Today, authentic muslin remains a symbol of <strong>timeless elegance and craftsmanship</strong>.</p><h4><strong>Why Is Muslin Cotton Special?</strong></h4><ul><li><strong>Breathable & Lightweight</strong>: Its loose, open weave allows airflow like no other fabric, making it <strong>perfect for temperature regulation</strong>—cool in summer, cozy in winter.</li><li><strong>Luxuriously Soft</strong>: With every wash, muslin becomes even softer, developing a <strong>vintage, lived-in elegance</strong> that only improves with time.</li><li><strong>Gentle Yet Durable</strong>: Despite its delicate feel, high-quality muslin is surprisingly strong, resisting pulls and tears while maintaining its graceful drape.</li></ul><h4><strong>The Ultimate in Elevated Comfort</strong></h4><p>Our muslin pyjamas carry forward this legacy, offering you <strong>a touch of historical opulence with modern comfort</strong>.</p>",
+            "heading": "Care & Details",
+            "content": "<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your Fleece Drape Shawl for years to come.</p>",
             "page": "",
             "custom_liquid": "",
             "keep_open": false
@@ -210,8 +208,8 @@
           "type": "collapsible_tab",
           "settings": {
             "icon": "check_mark",
-            "heading": "Care & Details",
-            "content": "<p>Made from soft faux fur with a lightweight, comfortable feel. Designed for everyday warmth without heaviness. Machine wash cold on gentle cycle and lay flat to dry. Avoid heat and fabric softeners to preserve softness and shape.</p>",
+            "heading": "Size",
+            "content": "<p>LENGTH: 158 cm / 62.2 inch</p><p>WIDTH: 110 cm / 43.3 inch</p>",
             "page": "",
             "custom_liquid": "",
             "keep_open": false
@@ -253,11 +251,11 @@
         "icon_text_KLMX3D",
         "icon_text_R7iXXY",
         "text_custom_Lpng9n",
+        "custom_liquid_tTUEc4",
         "variant_picker",
-        "kiwi_size_chart_recommender_kiwi_sizing_Kmah6r",
         "buy_buttons",
-        "payment_icons_tEfLNf",
-        "countdown_timer_4tCBwt",
+        "countdown_timer_cz8dcx",
+        "text_FEQxUK",
         "icon_with_text_NArRNw",
         "text_custom_A3eeDw",
         "collapsible_tab-0",
@@ -289,7 +287,7 @@
         "heading_bBmAeH": {
           "type": "heading",
           "settings": {
-            "heading": "Effortless Winter Style",
+            "heading": "Chic Comfort with The Fleece Drape Shawl",
             "heading_size": "h1",
             "heading_tag": "h2",
             "enable_highlight": false,
@@ -299,7 +297,7 @@
         "text_ziaWGB": {
           "type": "text",
           "settings": {
-            "text": "<p>Designed to move with your day, this coat features soft structure, a flattering tie waist, and plush faux fur cuffs for a refined finish. Warm yet lightweight, it’s an easy layer for crisp mornings, city walks, and polished everyday wear.</p>",
+            "text": "<p>The Fleece Drape Shawl envelopes you in effortless warmth and elegance from the very first wear. Made from soft, premium materials, it drapes naturally over the shoulders, delivering breathable comfort with a polished look. Its versatile design makes it the perfect companion for every occasion.</p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
@@ -313,7 +311,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/imgi_4_A203c41705eff43de845b1d98783516b26.jpg_5326694f-26e5-4b86-b533-a36f2cf65d3f_1.png",
+        "image": "shopify://shop_images/1_547aaf96-69de-4621-8bf1-688a72c3ead0.png",
         "image_position": "center center",
         "layout": "text_first",
         "text_box_position": "middle",
@@ -349,7 +347,7 @@
         "heading_wKRJry": {
           "type": "heading",
           "settings": {
-            "heading": "Soft Structure, Polished Finish",
+            "heading": "Here’s Why Our Shawls Are the Best",
             "heading_size": "h1",
             "heading_tag": "h2",
             "enable_highlight": false,
@@ -359,7 +357,7 @@
         "text_CN89GA": {
           "type": "text",
           "settings": {
-            "text": "<p>Tailored with a wrap-front design and adjustable waist tie, this coat creates a flattering shape without feeling restrictive. Plush faux fur cuffs add a touch of warmth and elegance, making it easy to dress up or down through the colder months.</p>",
+            "text": "<p>Crafted from luxuriously soft fabric that feels as effortless as it looks. The breathable weave keeps you warm without overheating, and its timeless drape makes it perfect for any occasion. Experience everyday elegance with a shawl designed to keep you chic and comfortable everywhere you go.</p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
@@ -373,7 +371,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/imgi_45_IMG_7330_2_1.png",
+        "image": "shopify://shop_images/GRAYCARDIFGAN4.webp",
         "image_position": "center center",
         "layout": "image_first",
         "text_box_position": "middle",
@@ -419,7 +417,7 @@
         "text_TDiGmp": {
           "type": "text",
           "settings": {
-            "text": "<p>Made for warmth, comfort, and everyday wear backed by our Fleece Guarantee for quality you can trust.</p>",
+            "text": "<p>We won’t rest until you're completely happy and unbelievably cozy in your Shawl.</p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
@@ -432,8 +430,8 @@
             "enable_bg": false,
             "bg": "",
             "list_icon": "shopify://shop_images/check_circle_30dp_C5BBAE_FILL0_wght400_GRAD0_opsz24.svg",
-            "list_text_1": "100% Satisfaction Guarantee",
-            "list_text_2": "Fast and tracked shipping",
+            "list_text_1": "100-day satisfaction guarantee",
+            "list_text_2": "Fast and tracked U.S. shipping",
             "list_text_3": "Easy returns and exchanges",
             "list_text_4": "We’re here for you, always.",
             "list_text_5": ""
@@ -447,7 +445,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/Group_6_1.png",
+        "image": "shopify://shop_images/Guarantee_Batch_8b7cad21-ee2b-443c-9a77-60eb3f8c5cbd.png",
         "image_position": "center center",
         "layout": "text_first",
         "text_box_position": "middle",
@@ -512,49 +510,43 @@
         "review_BDtWFn": {
           "type": "review",
           "settings": {
-            "review_title": "",
-            "review_text": "So soft and warm without feeling bulky. The cuffs are beautiful and make the coat look very polished.",
+            "review_text": "I love how light yet warm this shawl feels. It’s perfect for layering in the office and still looks elegant enough for dinner.",
             "author_name": "Emily R."
           }
         },
         "review_AAMEHx": {
           "type": "review",
           "settings": {
-            "review_title": "",
-            "review_text": "I get compliments every time I wear this. The faux fur feels luxurious and the fit is very flattering.",
-            "author_name": "Hannah L."
+            "review_text": "The fabric is incredibly soft and drapes beautifully. I’ve already received several compliments every time I wear it.",
+            "author_name": "Jessica D."
           }
         },
         "review_RRjwad": {
           "type": "review",
           "settings": {
-            "review_title": "",
-            "review_text": "Perfect for cold days when you still want to look put together. Lightweight but surprisingly warm.",
-            "author_name": "Nadia K."
+            "review_text": "It’s warm without being bulky, which makes it ideal for travel. Packs easily into my bag and always looks chic when I throw it on.",
+            "author_name": "Hannah M."
           }
         },
-        "review_9Ntgzp": {
+        "review_f9QYz6": {
           "type": "review",
           "settings": {
-            "review_title": "",
-            "review_text": "The quality honestly surprised me. The fabric is thick, cozy, and doesn’t shed at all.",
-            "author_name": "Laura M."
+            "review_text": "I was worried it might feel heavy, but it’s so breathable and comfortable. The cut is very flattering and goes with everything.",
+            "author_name": "Olivia K."
           }
         },
-        "review_wbxDVi": {
+        "review_hKftdJ": {
           "type": "review",
           "settings": {
-            "review_title": "",
-            "review_text": "Easy to dress up or down. I wear it to work and also on weekends.",
-            "author_name": "Sophie T."
+            "review_text": "Honestly, this has become my go-to piece. Whether at home, running errands, or going out, it always feels polished and cozy.",
+            "author_name": "Eline"
           }
         },
-        "review_WzP3R6": {
+        "review_n4GALz": {
           "type": "review",
           "settings": {
-            "review_title": "",
-            "review_text": "Warm, soft, and very comfortable. The cuffs add such a nice touch.",
-            "author_name": "Amina S."
+            "review_text": "The quality exceeded my expectations. The stitching and finish make it feel like a much more expensive item. Truly timeless.",
+            "author_name": "Maria"
           }
         }
       },
@@ -562,9 +554,9 @@
         "review_BDtWFn",
         "review_AAMEHx",
         "review_RRjwad",
-        "review_9Ntgzp",
-        "review_wbxDVi",
-        "review_WzP3R6"
+        "review_f9QYz6",
+        "review_hKftdJ",
+        "review_n4GALz"
       ],
       "name": "Reviews slider",
       "settings": {
