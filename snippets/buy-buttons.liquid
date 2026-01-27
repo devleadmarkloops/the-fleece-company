@@ -1263,13 +1263,14 @@
             document.addEventListener('change', function(e) {
               if (e.target.matches('input[name^="kaching-bundles-deal"]')) {
                 console.log('[Monogram] Bundle deal radio changed');
+                // Only prevent scroll, let bundle app handle its own updates
+                e.stopPropagation();
                 setTimeout(handleBundleChange, 100);
               }
               
               // Listen for bundle color dropdown changes
               // Listen to any select changes within kaching bundles variant wrappers
               if (e.target.matches('.kaching-bundles__bar-variant-select') && e.target.closest('.kaching-bundles__bar--selected')) {
-                
                 const selectName = e.target.getAttribute('data-name') || '';
                 const wrapper = e.target.closest('.kaching-bundles__bar-variant-selector-wrapper');
                 console.log('[Monogram] Bundle dropdown changed - name:', selectName, 'value:', e.target.value);
@@ -1288,6 +1289,12 @@
                 if (!isColorDropdown) {
                   console.log('[Monogram] Not a color dropdown (name:', selectName, '), ignoring');
                   return;
+                }
+                
+                // Only prevent scroll if we're actually handling monogram updates
+                if (isMonogramBoxOpen && monogramItemsData.length > 0) {
+                  // Stop propagation to prevent scroll-to-top, but allow bundle app to handle variant changes
+                  e.stopPropagation();
                 }
                 
                 console.log('[Monogram] Color dropdown detected, will update corresponding monogram item');
@@ -2003,6 +2010,11 @@
               productForm.addEventListener('change', function(e) {
                 // Check if it's a variant option (not monogram-related)
                 if (e.target.name && e.target.name !== 'id' && !e.target.name.includes('monogram') && !e.target.closest('.monogram-box')) {
+                  // Prevent scroll-to-top behavior when variant options change
+                  // Only prevent if it's a variant selector, not a form submission
+                  if (e.target.type === 'radio' || e.target.tagName === 'SELECT') {
+                    e.stopPropagation();
+                  }
                   console.log('[Monogram] Product option changed:', e.target.name, e.target.value);
                   // Small delay to let variant ID update
                   setTimeout(function() {
