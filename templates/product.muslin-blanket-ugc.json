@@ -366,7 +366,7 @@
         "image_height_desktop": 500,
         "slides_tablet": 2.5,
         "slides_mobile": "1.2",
-        "image_ratio_mobile": "portrait",
+        "image_ratio_mobile": "custom",
         "image_height_mobile": 400,
         "use_custom_colors": false,
         "colors_text": "#212326",
