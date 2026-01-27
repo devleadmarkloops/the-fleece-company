@@ -360,7 +360,7 @@
         "icon_size": 50,
         "heading": "What do our customers say?",
         "description": "",
-        "autoplay": false,
+        "autoplay": true,
         "slides_desktop": 4,
         "image_ratio_desktop": "portrait",
         "image_height_desktop": 500,
