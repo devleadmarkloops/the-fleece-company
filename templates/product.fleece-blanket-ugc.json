@@ -142,7 +142,9 @@
           "settings": {
             "show_quantity_selector": false,
             "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false
+            "show_gift_card_recipient": false,
+            "enable_monogram": false,
+            "monogram_product": ""
           }
         },
         "countdown_timer_4tCBwt": {
@@ -265,6 +267,103 @@
         "padding_bottom": 20
       }
     },
+    "ugc_videos_DbFcTk": {
+      "type": "ugc-videos",
+      "blocks": {
+        "video_QbnQXf": {
+          "type": "video",
+          "settings": {
+            "video_source": "hosted",
+            "video_shopify": "shopify://files/videos/quad_mama_fleeceblanket_FINAL_4.mp4",
+            "video_url": "",
+            "username": ""
+          }
+        },
+        "video_TGTbUt": {
+          "type": "video",
+          "settings": {
+            "video_source": "hosted",
+            "video_shopify": "shopify://files/videos/thepurposeofmotherhood_PaidAds2_fleeceblanket.mov",
+            "video_url": "",
+            "username": ""
+          }
+        },
+        "video_t9cPa7": {
+          "type": "video",
+          "settings": {
+            "video_source": "hosted",
+            "video_shopify": "shopify://files/videos/__mmmmarta__fleeceBLANKET_FINAL_4.MOV",
+            "video_url": "",
+            "username": ""
+          }
+        },
+        "video_Qp8AHf": {
+          "type": "video",
+          "settings": {
+            "video_source": "hosted",
+            "video_shopify": "shopify://files/videos/taylor.lately_PAIDAD1_fleeceblanket.MOV",
+            "video_url": "",
+            "username": ""
+          }
+        },
+        "video_YPjMNT": {
+          "type": "video",
+          "settings": {
+            "video_source": "hosted",
+            "video_shopify": "shopify://files/videos/Toni LaCross_paidad3_Fleece Blanket.mov",
+            "video_url": "",
+            "username": ""
+          }
+        },
+        "video_XXP3Ui": {
+          "type": "video",
+          "settings": {
+            "video_source": "hosted",
+            "video_shopify": "shopify://files/videos/Christina Kessman_paidad2_Fleece Blanket.mov",
+            "video_url": "",
+            "username": ""
+          }
+        },
+        "video_4p7BCz": {
+          "type": "video",
+          "settings": {
+            "video_source": "hosted",
+            "video_shopify": "shopify://files/videos/3ashley_rosies-03.mov",
+            "video_url": "",
+            "username": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_QbnQXf",
+        "video_TGTbUt",
+        "video_t9cPa7",
+        "video_Qp8AHf",
+        "video_YPjMNT",
+        "video_XXP3Ui",
+        "video_4p7BCz"
+      ],
+      "name": "UGC Videos",
+      "settings": {
+        "icon_size": 50,
+        "heading": "What do our customers say?",
+        "description": "",
+        "autoplay": true,
+        "slides_desktop": 4,
+        "image_ratio_desktop": "portrait",
+        "image_height_desktop": 500,
+        "slides_tablet": 2.5,
+        "slides_mobile": "1.2",
+        "image_ratio_mobile": "custom",
+        "image_height_mobile": 400,
+        "use_custom_colors": false,
+        "colors_text": "#212326",
+        "colors_background": "#ffffff",
+        "gradient_background": "",
+        "padding_top": 32,
+        "padding_bottom": 20
+      }
+    },
     "image_with_text_v2_D8bENf": {
       "type": "image-with-text-v2",
       "blocks": {
@@ -333,7 +432,7 @@
         "colors_background": "#ffffff",
         "gradient_background": "",
         "colors_highlight": "#ffb503",
-        "padding_top": 32,
+        "padding_top": 20,
         "padding_bottom": 0,
         "padding_top_mob": 0,
         "padding_bottom_mob": 20
@@ -694,6 +793,7 @@
     "content_scrollspy_KjGLRV",
     "empty-space",
     "main",
+    "ugc_videos_DbFcTk",
     "image_with_text_v2_D8bENf",
     "image_with_text_v2_RabiRM",
     "image_with_text_v2_pcgkbt",
