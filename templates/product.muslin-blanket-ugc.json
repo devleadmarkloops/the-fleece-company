@@ -361,7 +361,7 @@
         "heading": "Our Happy Customers",
         "description": "",
         "autoplay": true,
-        "slides_desktop": 4,
+        "slides_desktop": 3.6,
         "image_ratio_desktop": "portrait",
         "image_height_desktop": 500,
         "slides_tablet": 2.5,
