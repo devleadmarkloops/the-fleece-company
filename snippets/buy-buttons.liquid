@@ -1560,9 +1560,88 @@
             
             const wrapper = variantWrappers[itemIndex];
             const colorSelect = wrapper.querySelector('.kaching-bundles__bar-variant-select[data-name="Color"]');
-            if (!colorSelect) return null;
+            if (!colorSelect) {
+              // Fallback: try Colour or first select
+              const colourSelect = wrapper.querySelector('.kaching-bundles__bar-variant-select[data-name="Colour"]');
+              if (colourSelect) return colourSelect.value || null;
+              const firstSelect = wrapper.querySelector('select.kaching-bundles__bar-variant-select');
+              if (firstSelect) return firstSelect.value || null;
+              return null;
+            }
             
             return colorSelect.value || null;
+          }
+          
+          // Get variant color/title for a monogram item
+          // For bundles: gets color from bundle item at itemIndex
+          // For single products: gets color from selected variant
+          function getVariantColorForMonogramItem(itemIndex) {
+            let variantColor = '';
+            let variantTitle = '';
+            
+            if (isBundleSelected()) {
+              // Bundle selected - get color from bundle item
+              const bundleColor = getBundleColorForItem(itemIndex);
+              if (bundleColor) {
+                variantColor = bundleColor;
+                // Try to get variant ID from bundle to get full variant title
+                const selectedBundle = document.querySelector('.kaching-bundles__bar--selected');
+                if (selectedBundle) {
+                  const variantWrappers = selectedBundle.querySelectorAll('.kaching-bundles__bar-variant-selector-wrapper');
+                  if (itemIndex < variantWrappers.length) {
+                    const wrapper = variantWrappers[itemIndex];
+                    // Try to find variant ID
+                    const variantIdInput = wrapper.querySelector('[name="id"]');
+                    if (variantIdInput && variantIdInput.value) {
+                      const variantId = parseInt(variantIdInput.value);
+                      if (variantImagesData[variantId] && variantImagesData[variantId].variantTitle) {
+                        variantTitle = variantImagesData[variantId].variantTitle;
+                      }
+                    }
+                  }
+                }
+              }
+            } else {
+              // Single product - get from selected variant
+              const productForm = document.getElementById(formId);
+              if (productForm) {
+                const variantIdInput = productForm.querySelector('input[name="id"], select[name="id"]');
+                if (variantIdInput) {
+                  let variantId = null;
+                  if (variantIdInput.tagName === 'SELECT') {
+                    variantId = variantIdInput.options[variantIdInput.selectedIndex]?.value;
+                  } else {
+                    variantId = variantIdInput.value;
+                  }
+                  
+                  if (variantId) {
+                    const variantIdInt = parseInt(variantId);
+                    if (variantImagesData[variantIdInt] && variantImagesData[variantIdInt].variantTitle) {
+                      variantTitle = variantImagesData[variantIdInt].variantTitle;
+                      // Extract color from variant title
+                      const colorMatch = variantTitle.match(/\b(Black|White|Red|Blue|Green|Gold|Silver|Navy|Gray|Grey|Brown|Beige|Pink|Purple|Orange|Yellow|Wine Red|Wine|Cream|Ivory|Tan|Maroon|Burgundy|Teal|Turquoise|Coral|Lavender|Mint|Peach|Salmon|Olive|Khaki)\b/i);
+                      if (colorMatch) {
+                        variantColor = colorMatch[1];
+                      }
+                    }
+                    
+                    // Also try to get from form color inputs
+                    if (!variantColor) {
+                      const colorInputs = productForm.querySelectorAll('input[type="radio"][name*="Color"]:checked, select[name*="Color"]');
+                      if (colorInputs.length > 0) {
+                        variantColor = colorInputs[0].value || '';
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            
+            return {
+              color: variantColor,
+              title: variantTitle,
+              displayText: variantColor || variantTitle || ''
+            };
           }
           
           // Extract color name from strings like "Limited Edition: Purple" -> "Purple"
@@ -2285,7 +2364,7 @@
               
               // Build monogram items array
               const monogramItems = [];
-              monogramItemsData.forEach(function(itemData) {
+              monogramItemsData.forEach(function(itemData, itemIndex) {
                 if (itemData.textInput && itemData.textInput.value.trim()) {
                   let productName = '{{ product.title | escape }}';
                   let productColor = '';
@@ -2294,6 +2373,9 @@
                   if (colorInputs.length > 0) {
                     productColor = colorInputs[0].value || '';
                   }
+                  
+                  // Get variant color for this monogram item
+                  const variantInfo = getVariantColorForMonogramItem(itemIndex);
                   
                   monogramItems.push({
                     id: parseInt(monogramProductId),
@@ -2304,6 +2386,8 @@
                       'Monogram Color': (itemData.colorSelect && itemData.colorSelect.value) || '',
                       'Product Name': productName,
                       'Product Color': productColor,
+                      'Variant Color': variantInfo.color || '',
+                      'Variant': variantInfo.title || variantInfo.displayText || '',
                       '_form_ref': formId,
                       '_monogram': 'true'
                     }
@@ -2538,7 +2622,7 @@
                 }
               }
               
-              monogramItemsData.forEach(function(itemData) {
+              monogramItemsData.forEach(function(itemData, itemIndex) {
                 if (itemData.textInput && itemData.textInput.value.trim()) {
                   let productName = '{{ product.title | escape }}';
                   let productColor = '';
@@ -2547,6 +2631,9 @@
                   if (colorInputs.length > 0) {
                     productColor = colorInputs[0].value || '';
                   }
+                  
+                  // Get variant color for this monogram item
+                  const variantInfo = getVariantColorForMonogramItem(itemIndex);
                   
                   const monogramItem = {
                     id: parseInt(monogramProductId),
@@ -2557,6 +2644,8 @@
                       'Monogram Color': (itemData.colorSelect && itemData.colorSelect.value) || '',
                       'Product Name': productName,
                       'Product Color': productColor,
+                      'Variant Color': variantInfo.color || '',
+                      'Variant': variantInfo.title || variantInfo.displayText || '',
                       '_form_ref': formId,
                       '_monogram': 'true'
                     }
