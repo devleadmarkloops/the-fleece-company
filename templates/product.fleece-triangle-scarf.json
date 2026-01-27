@@ -46,7 +46,7 @@
         "rating_static_jQpEEQ": {
           "type": "rating_static",
           "settings": {
-            "rating_text": "(187 Reviews)",
+            "rating_text": "(127 Reviews)",
             "rating_link": ""
           }
         },
@@ -140,6 +140,7 @@
             "text_color": "",
             "text_size": 16,
             "text_size_mob": 15,
+            "enable_normal": true,
             "enable_circle": false
           }
         },
@@ -456,6 +457,7 @@
         "review_BDtWFn": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Beautiful scarf! The colors are rich and vibrant, and it feels amazing to wear. Definitely a statement piece.",
             "author_name": "Manuele L."
           }
@@ -463,6 +465,7 @@
         "review_AAMEHx": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I’ve worn it almost every day since it arrived. Soft, comfortable, and easy to style with different outfits.",
             "author_name": "Clara B."
           }
@@ -470,6 +473,7 @@
         "review_RRjwad": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Bought this as a gift for my wife and she loves it. The quality looks high-end and the design is very unique.",
             "author_name": "Julia K."
           }
@@ -477,6 +481,7 @@
         "review_6Q3bVX": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Perfect for the in-between seasons. It’s lightweight but still keeps me warm on chilly mornings.",
             "author_name": "Sophie R."
           }
@@ -484,6 +489,7 @@
         "review_EGc6L6": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "The cotton feels great on the skin and doesn’t irritate like some scarves do. I get compliments whenever I wear it.",
             "author_name": "Daniela F."
           }
@@ -491,6 +497,7 @@
         "review_NQ8KdR": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Stylish and versatile. I like that it works for both casual days and more dressed-up looks.",
             "author_name": "Clara D."
           }
