@@ -58,25 +58,13 @@
             "sale_badge_basis": "percentage"
           }
         },
-        "icon_text_9Gxbx4": {
-          "type": "icon_text",
-          "settings": {
-            "icon": "shopify://shop_images/Cotton_Icon_1.png",
-            "icon_size": 32,
-            "icon_size_mob": 28,
-            "icon_text": "100% Cotton",
-            "text_color": "#121212",
-            "text_size": 16,
-            "text_size_mob": 14
-          }
-        },
         "icon_text_KLMX3D": {
           "type": "icon_text",
           "settings": {
             "icon": "shopify://shop_images/clouds.png",
             "icon_size": 32,
             "icon_size_mob": 28,
-            "icon_text": "Incredibly Soft",
+            "icon_text": "Soft Knit Comfort",
             "text_color": "#121212",
             "text_size": 16,
             "text_size_mob": 14
@@ -85,7 +73,19 @@
         "icon_text_R7iXXY": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/arrow-up.webp",
+            "icon": "shopify://shop_images/lightweight_6d461284-eb56-44ae-8ec1-081d3cf43d8c.png",
+            "icon_size": 32,
+            "icon_size_mob": 28,
+            "icon_text": "Lightweight Warmth",
+            "text_color": "#121212",
+            "text_size": 16,
+            "text_size_mob": 14
+          }
+        },
+        "icon_text_9Gxbx4": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/arrow-up.png",
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Breathable",
@@ -197,9 +197,9 @@
         "title",
         "rating_static_jQpEEQ",
         "price",
-        "icon_text_9Gxbx4",
         "icon_text_KLMX3D",
         "icon_text_R7iXXY",
+        "icon_text_9Gxbx4",
         "variant_picker",
         "buy_buttons",
         "payment_icons_3JdQRB",
