@@ -144,23 +144,12 @@
             "enable_circle": false
           }
         },
-        "collapsible_tab-0": {
-          "type": "collapsible_tab",
-          "settings": {
-            "icon": "check_mark",
-            "heading": "The Elegance of Cotton",
-            "content": "<p>Crafted from 100% cotton, this scarf combines breathable comfort with natural warmth. Its smooth weave drapes effortlessly, while the bold pattern and refined details make it a standout accessory. Versatile enough for every season, it adds a touch of sophistication whether styled casually or dressed up.</p>",
-            "page": "",
-            "custom_liquid": "",
-            "keep_open": false
-          }
-        },
         "collapsible_tab_TbRiah": {
           "type": "collapsible_tab",
           "settings": {
             "icon": "check_mark",
             "heading": "Care & Details",
-            "content": "<p>To maintain the softness and shape of your scarf, we recommend gentle hand washing in cold water with a mild detergent. Lay flat to dry on a clean towel, away from direct heat or sunlight. Avoid wringing or twisting to keep the fibers smooth. For best results, store folded rather than hanging to preserve its drape and design. With proper care, your scarf will remain a timeless accessory for years to come.</p><p><br/><strong>Size:</strong> 185 × 65 cm (approx. 73” × 26”)</p>",
+            "content": "<p>Machine wash cold on a gentle cycle. Tumble dry on low heat. Avoid ironing or using fabric softeners to help keep the fabric soft, smooth, and comfortable wear after wear.</p>",
             "page": "",
             "custom_liquid": "",
             "keep_open": false
@@ -205,7 +194,6 @@
         "payment_icons_3JdQRB",
         "icon_with_text_NArRNw",
         "text_custom_A3eeDw",
-        "collapsible_tab-0",
         "collapsible_tab_TbRiah",
         "collapsible_tab-1",
         "shipping_metaobject_tLJRyV",
@@ -258,7 +246,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/9_dd4dd2e8-5056-4dc4-8c73-1c23abbaaebb.webp",
+        "image": "shopify://shop_images/imgi_111_H21379s4_1_1.png",
         "image_position": "center center",
         "layout": "text_first",
         "text_box_position": "middle",
@@ -318,7 +306,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/Produktbild.webp",
+        "image": "shopify://shop_images/imgi_124_71eSjwSXxrL._AC_SL1500__2.png",
         "image_position": "center center",
         "layout": "image_first",
         "text_box_position": "middle",
