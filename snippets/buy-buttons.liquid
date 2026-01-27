@@ -2013,7 +2013,18 @@
                   // Prevent scroll-to-top behavior when variant options change
                   // Only prevent if it's a variant selector, not a form submission
                   if (e.target.type === 'radio' || e.target.tagName === 'SELECT') {
+                    // Save scroll position and restore it after variant change
+                    const savedScrollPosition = window.scrollY || window.pageYOffset;
                     e.stopPropagation();
+                    
+                    // Restore scroll position after variant change processing
+                    requestAnimationFrame(function() {
+                      requestAnimationFrame(function() {
+                        if (Math.abs(window.scrollY - savedScrollPosition) > 10) {
+                          window.scrollTo({ top: savedScrollPosition, behavior: 'instant' });
+                        }
+                      });
+                    });
                   }
                   console.log('[Monogram] Product option changed:', e.target.name, e.target.value);
                   // Small delay to let variant ID update
