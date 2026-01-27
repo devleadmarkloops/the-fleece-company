@@ -129,8 +129,11 @@ if (!customElements.get('product-info')) {
             callback(html);
           })
           .then(() => {
-            // set focus to last clicked option value
-            document.querySelector(`#${targetId}`)?.focus();
+            // set focus to last clicked option value (prevent scroll to avoid page jumping)
+            const targetElement = document.querySelector(`#${targetId}`);
+            if (targetElement) {
+              targetElement.focus({ preventScroll: true });
+            }
           })
           .catch((error) => {
             if (error.name === 'AbortError') {
