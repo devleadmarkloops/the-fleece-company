@@ -85,10 +85,10 @@
         "icon_text_9Gxbx4": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/check_1.png",
-            "icon_size": 26,
-            "icon_size_mob": 22,
-            "icon_text": "100% Skin Friendly Materials",
+            "icon": "shopify://shop_images/health_and_safety_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "icon_size": 32,
+            "icon_size_mob": 28,
+            "icon_text": "Gentle and Skin Friendly",
             "text_color": "#121212",
             "text_size": 16,
             "text_size_mob": 14
