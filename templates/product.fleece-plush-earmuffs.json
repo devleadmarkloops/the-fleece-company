@@ -61,10 +61,10 @@
         "icon_text_KLMX3D": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/clouds.png",
+            "icon": "shopify://shop_images/wool.png",
             "icon_size": 32,
             "icon_size_mob": 28,
-            "icon_text": "Soft Knit Comfort",
+            "icon_text": "Ultra-Soft Feel",
             "text_color": "#121212",
             "text_size": 16,
             "text_size_mob": 14
@@ -73,10 +73,10 @@
         "icon_text_R7iXXY": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/lightweight_6d461284-eb56-44ae-8ec1-081d3cf43d8c.png",
+            "icon": "shopify://shop_images/snowflake.png",
             "icon_size": 32,
             "icon_size_mob": 28,
-            "icon_text": "Lightweight Warmth",
+            "icon_text": "Perfect for Winter",
             "text_color": "#121212",
             "text_size": 16,
             "text_size_mob": 14
@@ -85,10 +85,10 @@
         "icon_text_9Gxbx4": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/arrow-up.png",
-            "icon_size": 32,
-            "icon_size_mob": 28,
-            "icon_text": "Breathable",
+            "icon": "shopify://shop_images/check_1.png",
+            "icon_size": 26,
+            "icon_size_mob": 22,
+            "icon_text": "100% Skin Friendly Materials",
             "text_color": "#121212",
             "text_size": 16,
             "text_size_mob": 14
