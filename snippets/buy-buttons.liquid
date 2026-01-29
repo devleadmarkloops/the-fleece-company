@@ -68,9 +68,7 @@
               data-monogram-price="{{ monogram_variant.price }}"
             >
               <div class="monogram-box" id="monogram-box-{{ section.id }}" style="display: none;">
-                <div class="monogram-processing-notice-wrapper" style="margin-bottom: 15px; text-align: center;">
-                  <p class="monogram-processing-notice" style="margin: 0; font-size: 14px;">Please note Monogrammed items take an additional 4-6 business days for processing.</p>
-                </div>
+              
                 <div class="monogram-items-container" id="monogram-items-container-{{ section.id }}">
                   {%- comment -%} Monogram items will be dynamically generated here based on bundle selection {%- endcomment -%}
                 </div>
@@ -193,7 +191,9 @@
                   </div>
                 </div>
               </div>
-
+  <div class="monogram-processing-notice-wrapper" style="margin-bottom: 15px; text-align: center;">
+                  <p class="monogram-processing-notice" style="margin: 0; font-size: 14px;">Please note Monogrammed items take an additional 4-6 business days for processing.</p>
+                </div>
               <button type="button" class="monogram-toggle-btn" id="monogram-toggle-{{ section.id }}">
                 <span class="monogram-btn-text">Add Monogram</span>
               </button>
