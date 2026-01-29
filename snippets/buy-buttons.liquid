@@ -153,13 +153,23 @@
                         <label class="monogram-label-item">Font Style</label>
                         <select class="monogram-style-select monogram-style-select-item">
                           <option value="">Choose a style</option>
-                          {%- if shop.metaobjects.monogram_fonts.values != blank -%}
-                            {%- for font in shop.metaobjects.monogram_fonts.values -%}
-                              <option value="{{ font.font_name.value }}" data-url="{{ font.font_url1.value }}">
-                                {{ font.font_name.value }}
-                              </option>
-                            {%- endfor -%}
-                          {%- endif -%}
+                          {%- comment -%}
+                            Hardcoded monogram fonts:
+                            - Classic Serif → Playfair Display Regular 400
+                            - Elegant Script → Pinyon Script Regular 400
+                          {%- endcomment -%}
+                          <option
+                            value="Classic Serif"
+                            data-url="https://app.unpkg.com/@fontsource/playfair-display@5.1.0/files/files/playfair-display-cyrillic-400-normal.woff2"
+                          >
+                            Classic Serif
+                          </option>
+                          <option
+                            value="Elegant Script"
+                            data-url="https://en.bestfonts.pro/fonts_files/5ca3933e949620047003fc68/files/PinyonScript.woff2"
+                          >
+                            Elegant Script
+                          </option>
                         </select>
 
                         <label class="monogram-label-item">Text Color</label>
