@@ -551,7 +551,9 @@
         "colors_background": "#ffffff",
         "gradient_background": "",
         "padding_top": 40,
-        "padding_bottom": 28
+        "padding_bottom": 28,
+        "padding_top_mob": 20,
+        "padding_bottom_mob": 20
       }
     },
     "image_with_text_v2_RabiRM": {
