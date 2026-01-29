@@ -493,6 +493,9 @@
   {%- if monogram_product_check != blank -%}
     {%- assign monogram_variant_check = monogram_product_check.selected_or_first_available_variant -%}
     {%- if monogram_variant_check.available -%}
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
       <style>
         .product-form__submit.monogram-disabled {
           pointer-events: none;
@@ -1042,10 +1045,16 @@
                   console.log('[Monogram] Loading font:', fontName, fontUrl);
                   loadFont(fontName, fontUrl).then(function() {
                     console.log('[Monogram] Font loaded successfully:', fontName);
-                    itemData.previewText.style.fontFamily = '"' + fontName + '", sans-serif';
+                    // Re-apply font to be sure
+                    itemData.previewText.style.fontFamily = '"' + fontName + '", serif';
                   }).catch(function(err) {
                     console.error('[Monogram] Font loading failed for:', fontName, err);
+                    // Fallback to Google Fonts if it's one of ours
+                    itemData.previewText.style.fontFamily = '"' + fontName + '", serif';
                   });
+                } else {
+                  // If no URL, assume it might be a system/Google font already loaded
+                  itemData.previewText.style.fontFamily = '"' + fontName + '", serif';
                 }
               } else {
                 itemData.previewText.style.fontFamily = 'inherit';
