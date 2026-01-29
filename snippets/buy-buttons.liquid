@@ -825,9 +825,7 @@
             if (!totalPriceDisplay || !totalPriceValue) return;
             
             if (isMonogramBoxOpen) {
-              const monogramCount = countMonogramsWithText();
-              // By default show the price of at least one monogram
-              const displayCount = Math.max(1, monogramCount);
+              const displayCount = Math.max(1, monogramItemsData.length);
               
               // Get current price in current currency
               const monogramUnitPrice = getMonogramUnitPrice();
