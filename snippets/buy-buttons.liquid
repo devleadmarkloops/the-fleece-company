@@ -1032,20 +1032,28 @@
               
               if (itemData.styleSelect && itemData.styleSelect.value) {
                 const fontName = itemData.styleSelect.value;
-                itemData.previewText.style.fontFamily = fontName + ', sans-serif';
+                // Use quotes for font names with spaces
+                itemData.previewText.style.fontFamily = '"' + fontName + '", sans-serif';
                 
                 const selectedOption = itemData.styleSelect.options[itemData.styleSelect.selectedIndex];
                 const fontUrl = selectedOption ? selectedOption.dataset.url : null;
                 
                 if (fontUrl && fontName) {
+                  console.log('[Monogram] Loading font:', fontName, fontUrl);
                   loadFont(fontName, fontUrl).then(function() {
-                    itemData.previewText.style.fontFamily = fontName + ', sans-serif';
+                    console.log('[Monogram] Font loaded successfully:', fontName);
+                    itemData.previewText.style.fontFamily = '"' + fontName + '", sans-serif';
                   }).catch(function(err) {
-                    console.error('[Monogram] Font loading failed:', err);
+                    console.error('[Monogram] Font loading failed for:', fontName, err);
                   });
                 }
+              } else {
+                itemData.previewText.style.fontFamily = 'inherit';
               }
             }
+            
+            // Initial update
+            updateItemPreviewText();
             
             if (itemData.textInput) {
               itemData.textInput.addEventListener('input', function() {
