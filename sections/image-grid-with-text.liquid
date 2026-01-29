@@ -98,6 +98,12 @@
     #shopify-section-{{ section.id }} .grid-container {
       flex-direction: {{ section.settings.mobile_layout }};
     }
+    #shopify-section-{{ section.id }} .media-item {
+      border-radius: 10px;
+    }
+    #shopify-section-{{ section.id }} .media-item video {
+      border-radius: 80px 10px 10px 10px;
+    }
   }
 {%- endstyle -%}
 
