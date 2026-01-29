@@ -461,7 +461,7 @@
         "colors_text": "#212326",
         "colors_background": "#f8f4f0",
         "gradient_background": "",
-        "padding_top": 32,
+        "padding_top": 20,
         "padding_bottom": 40
       }
     },
