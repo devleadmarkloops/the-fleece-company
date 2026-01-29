@@ -480,7 +480,7 @@
         "text_color": "#121212",
         "mobile_layout": "column",
         "padding_top": 60,
-        "padding_bottom": 32,
+        "padding_bottom": 40,
         "padding_top_mob": 32,
         "padding_bottom_mob": 20
       }
@@ -550,7 +550,7 @@
         "colors_text": "#212326",
         "colors_background": "#ffffff",
         "gradient_background": "",
-        "padding_top": 32,
+        "padding_top": 40,
         "padding_bottom": 28
       }
     },
