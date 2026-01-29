@@ -495,7 +495,7 @@
     {%- if monogram_variant_check.available -%}
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:wght@400&display=swap" rel="stylesheet">
       <style>
         .product-form__submit.monogram-disabled {
           pointer-events: none;
@@ -1034,26 +1034,30 @@
               }
               
               if (itemData.styleSelect && itemData.styleSelect.value) {
-                const fontName = itemData.styleSelect.value;
-                // Use quotes for font names with spaces
-                itemData.previewText.style.fontFamily = '"' + fontName + '", sans-serif';
-                
+                let fontName = itemData.styleSelect.value;
                 const selectedOption = itemData.styleSelect.options[itemData.styleSelect.selectedIndex];
                 const fontUrl = selectedOption ? selectedOption.dataset.url : null;
                 
-                if (fontUrl && fontName) {
-                  console.log('[Monogram] Loading font:', fontName, fontUrl);
+                // Logic to handle Google Fonts specifically and bypass potential broken Metaobject URLs
+                const isPlayfair = fontName.toLowerCase().includes('playfair');
+                const isPinyon = fontName.toLowerCase().includes('pinyon');
+                
+                if (isPlayfair) {
+                  itemData.previewText.style.fontFamily = '"Playfair Display", serif';
+                  console.log('[Monogram] Applied Playfair Display via Google Fonts');
+                } else if (isPinyon) {
+                  itemData.previewText.style.fontFamily = '"Pinyon Script", cursive';
+                  console.log('[Monogram] Applied Pinyon Script via Google Fonts');
+                } else if (fontUrl && fontName) {
+                  console.log('[Monogram] Loading custom font:', fontName, fontUrl);
                   loadFont(fontName, fontUrl).then(function() {
-                    console.log('[Monogram] Font loaded successfully:', fontName);
-                    // Re-apply font to be sure
+                    console.log('[Monogram] Custom font loaded successfully:', fontName);
                     itemData.previewText.style.fontFamily = '"' + fontName + '", serif';
                   }).catch(function(err) {
-                    console.error('[Monogram] Font loading failed for:', fontName, err);
-                    // Fallback to Google Fonts if it's one of ours
+                    console.error('[Monogram] Custom font loading failed for:', fontName, err);
                     itemData.previewText.style.fontFamily = '"' + fontName + '", serif';
                   });
                 } else {
-                  // If no URL, assume it might be a system/Google font already loaded
                   itemData.previewText.style.fontFamily = '"' + fontName + '", serif';
                 }
               } else {
