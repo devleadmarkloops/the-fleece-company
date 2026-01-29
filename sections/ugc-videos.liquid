@@ -212,7 +212,7 @@
   }
 {%- endstyle -%}
 
-{% comment %} <img src="https://cdn.shopify.com/s/files/1/0872/8906/9899/files/wave_1.svg?v=1767877716" width="" height="" class="wave-bg-top" alt="Wave background"> {% endcomment %}
+{% if section.settings.enable_top_wave %}<img src="https://cdn.shopify.com/s/files/1/0872/8906/9899/files/wave_1.svg?v=1767877716" width="" height="" class="wave-bg-top" alt="Wave background">{% endif %}
 <div class="ugc-videos-section">
   <div class="page-width">
     {% if section.settings.heading != blank or section.settings.description != blank or section.settings.header_icon != blank %}
@@ -337,6 +337,7 @@
   "tag": "section",
   "class": "section",
   "settings": [
+    { "type": "checkbox", "id": "enable_top_wave", "default": false, "label": "Enable section top wave" },
     { "type": "header", "content": "Section Header" },
     { "type": "image_picker", "id": "header_icon", "label": "Header Icon" },
     { "type": "range", "id": "icon_size", "min": 30, "max": 100, "step": 5, "unit": "px", "label": "Icon Size", "default": 50 },
