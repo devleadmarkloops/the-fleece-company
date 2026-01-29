@@ -153,13 +153,17 @@
                         <label class="monogram-label-item">Font Style</label>
                         <select class="monogram-style-select monogram-style-select-item">
                           <option value="">Choose a style</option>
-                          {%- if shop.metaobjects.monogram_fonts.values != blank -%}
-                            {%- for font in shop.metaobjects.monogram_fonts.values -%}
-                              <option value="{{ font.font_name.value }}" data-url="{{ font.font_url1.value }}">
-                                {{ font.font_name.value }}
-                              </option>
-                            {%- endfor -%}
-                          {%- endif -%}
+                          {%- comment -%}
+                            Fixed storefront font choices for monogram:
+                            - Elegant Script (Pinyon Script, Regular 400)
+                            - Classic Serif (Playfair Display, Regular 400)
+                          {%- endcomment -%}
+                          <option value="Elegant Script">
+                            Elegant Script
+                          </option>
+                          <option value="Classic Serif">
+                            Classic Serif
+                          </option>
                         </select>
 
                         <label class="monogram-label-item">Text Color</label>
@@ -741,18 +745,14 @@
             return '$' + dollars;
           }
           
-          // Check if any monogram text fields are empty
-          function hasEmptyMonogramTextFields() {
+          // Check if there is at least one monogram text filled in
+          function hasAnyMonogramText() {
             if (!monogramBox || monogramBox.style.display === 'none') {
               return false;
             }
-            for (let i = 0; i < monogramItemsData.length; i++) {
-              const itemData = monogramItemsData[i];
-              if (itemData.textInput && !itemData.textInput.value.trim()) {
-                return true;
-              }
-            }
-            return false;
+            return monogramItemsData.some(function(itemData) {
+              return itemData.textInput && itemData.textInput.value.trim();
+            });
           }
           
           // Update button disable state
@@ -761,18 +761,18 @@
             
             const boxIsOpen = monogramBox && monogramBox.style.display !== 'none';
             const checkboxChecked = checkboxTerms && checkboxTerms.checked;
-            const hasEmptyFields = hasEmptyMonogramTextFields();
+            const hasMonogramText = hasAnyMonogramText();
             
-            console.log('[Monogram] updateATCButtonState:', { boxIsOpen, checkboxChecked, hasEmptyFields });
+            console.log('[Monogram] updateATCButtonState:', { boxIsOpen, checkboxChecked, hasMonogramText });
             
             // Check if button was disabled by theme for product unavailability (before our changes)
             const hasDataUnavailable = atcButton.hasAttribute('data-unavailable') && atcButton.getAttribute('data-unavailable') === 'true';
             
-            if (boxIsOpen && (!checkboxChecked || hasEmptyFields)) {
-              // Monogram box is open but requirements not met - disable
+            if (boxIsOpen && hasMonogramText && !checkboxChecked) {
+              // Monogram box is open, at least one monogram entered, but terms not accepted - disable
               atcButton.classList.add('monogram-disabled');
               atcButton.disabled = true;
-              console.log('[Monogram] Button disabled - checkbox:', checkboxChecked, 'emptyFields:', hasEmptyFields);
+              console.log('[Monogram] Button disabled - checkbox:', checkboxChecked, 'hasMonogramText:', hasMonogramText);
             } else if (!hasDataUnavailable) {
               // Requirements met OR box is closed, and product is available - enable
               atcButton.classList.remove('monogram-disabled');
@@ -1017,18 +1017,17 @@
               }
               
               if (itemData.styleSelect && itemData.styleSelect.value) {
-                const fontName = itemData.styleSelect.value;
-                itemData.previewText.style.fontFamily = fontName + ', sans-serif';
-                
-                const selectedOption = itemData.styleSelect.options[itemData.styleSelect.selectedIndex];
-                const fontUrl = selectedOption ? selectedOption.dataset.url : null;
-                
-                if (fontUrl && fontName) {
-                  loadFont(fontName, fontUrl).then(function() {
-                    itemData.previewText.style.fontFamily = fontName + ', sans-serif';
-                  }).catch(function(err) {
-                    console.error('[Monogram] Font loading failed:', err);
-                  });
+                const styleName = itemData.styleSelect.value;
+                // Map storefront names to actual font families
+                if (styleName === 'Elegant Script') {
+                  // Pinyon Script, Regular 400
+                  itemData.previewText.style.fontFamily = '"Pinyon Script", cursive';
+                } else if (styleName === 'Classic Serif') {
+                  // Playfair Display, Regular 400
+                  itemData.previewText.style.fontFamily = '"Playfair Display", "Times New Roman", serif';
+                } else {
+                  // Fallback
+                  itemData.previewText.style.fontFamily = 'inherit';
                 }
               }
             }
@@ -1263,14 +1262,13 @@
             document.addEventListener('change', function(e) {
               if (e.target.matches('input[name^="kaching-bundles-deal"]')) {
                 console.log('[Monogram] Bundle deal radio changed');
-                // Only prevent scroll, let bundle app handle its own updates
-                e.stopPropagation();
                 setTimeout(handleBundleChange, 100);
               }
               
               // Listen for bundle color dropdown changes
               // Listen to any select changes within kaching bundles variant wrappers
               if (e.target.matches('.kaching-bundles__bar-variant-select') && e.target.closest('.kaching-bundles__bar--selected')) {
+                
                 const selectName = e.target.getAttribute('data-name') || '';
                 const wrapper = e.target.closest('.kaching-bundles__bar-variant-selector-wrapper');
                 console.log('[Monogram] Bundle dropdown changed - name:', selectName, 'value:', e.target.value);
@@ -1289,12 +1287,6 @@
                 if (!isColorDropdown) {
                   console.log('[Monogram] Not a color dropdown (name:', selectName, '), ignoring');
                   return;
-                }
-                
-                // Only prevent scroll if we're actually handling monogram updates
-                if (isMonogramBoxOpen && monogramItemsData.length > 0) {
-                  // Stop propagation to prevent scroll-to-top, but allow bundle app to handle variant changes
-                  e.stopPropagation();
                 }
                 
                 console.log('[Monogram] Color dropdown detected, will update corresponding monogram item');
@@ -1560,181 +1552,9 @@
             
             const wrapper = variantWrappers[itemIndex];
             const colorSelect = wrapper.querySelector('.kaching-bundles__bar-variant-select[data-name="Color"]');
-            if (!colorSelect) {
-              // Fallback: try Colour or first select
-              const colourSelect = wrapper.querySelector('.kaching-bundles__bar-variant-select[data-name="Colour"]');
-              if (colourSelect) return colourSelect.value || null;
-              const firstSelect = wrapper.querySelector('select.kaching-bundles__bar-variant-select');
-              if (firstSelect) return firstSelect.value || null;
-              return null;
-            }
+            if (!colorSelect) return null;
             
             return colorSelect.value || null;
-          }
-          
-          // Get variant ID for a specific bundle item index (using same methods as extractBundleVariantIds)
-          function getBundleVariantIdForItem(itemIndex) {
-            const selectedBundle = document.querySelector('.kaching-bundles__bar--selected');
-            if (!selectedBundle) return null;
-            
-            const variantWrappers = selectedBundle.querySelectorAll('.kaching-bundles__bar-variant-selector-wrapper');
-            if (itemIndex >= variantWrappers.length) return null;
-            
-            const wrapper = variantWrappers[itemIndex];
-            let variantId = null;
-            
-            // Method 1: Try data-variant-id attribute on wrapper
-            const dataVariantId = wrapper.getAttribute('data-variant-id');
-            if (dataVariantId) {
-              const testId = parseInt(dataVariantId);
-              if (!isNaN(testId) && testId > 0) {
-                variantId = testId;
-              }
-            }
-            
-            // Method 2: Try hidden input
-            if (!variantId) {
-              const hiddenInput = wrapper.querySelector('input[type="hidden"]');
-              if (hiddenInput && hiddenInput.value) {
-                const testId = parseInt(hiddenInput.value);
-                if (!isNaN(testId) && testId > 0) {
-                  variantId = testId;
-                }
-              }
-            }
-            
-            // Method 3: Try [name="id"] input
-            if (!variantId) {
-              const idInput = wrapper.querySelector('[name="id"]');
-              if (idInput && idInput.value) {
-                const testId = parseInt(idInput.value);
-                if (!isNaN(testId) && testId > 0) {
-                  variantId = testId;
-                }
-              }
-            }
-            
-            // Method 4: Try select - check selected option value
-            if (!variantId) {
-              const variantSelect = wrapper.querySelector('select');
-              if (variantSelect) {
-                const selectedOption = variantSelect.options[variantSelect.selectedIndex];
-                if (selectedOption && selectedOption.value) {
-                  const testId = parseInt(selectedOption.value);
-                  if (!isNaN(testId) && testId > 0) {
-                    variantId = testId;
-                  }
-                }
-                if (!variantId && variantSelect.value) {
-                  const testId = parseInt(variantSelect.value);
-                  if (!isNaN(testId) && testId > 0) {
-                    variantId = testId;
-                  }
-                }
-              }
-            }
-            
-            // Method 5: Try any input with variant/id in name
-            if (!variantId) {
-              const variantInputs = wrapper.querySelectorAll('input[name*="variant"], input[name*="id"]');
-              variantInputs.forEach(function(input) {
-                if (!variantId && input.value) {
-                  const testId = parseInt(input.value);
-                  if (!isNaN(testId) && testId > 1000000) {
-                    variantId = testId;
-                  }
-                }
-              });
-            }
-            
-            // Method 6: Scan all inputs for large numbers (variant IDs)
-            if (!variantId) {
-              const allInputs = wrapper.querySelectorAll('input, select');
-              allInputs.forEach(function(input) {
-                if (!variantId) {
-                  let value = input.value;
-                  if (!value && input.tagName === 'SELECT') {
-                    const selectedOption = input.options[input.selectedIndex];
-                    value = selectedOption ? selectedOption.value : null;
-                  }
-                  if (!value) {
-                    value = input.getAttribute('value');
-                  }
-                  if (value) {
-                    const testId = parseInt(value);
-                    if (!isNaN(testId) && testId > 1000000) {
-                      variantId = testId;
-                    }
-                  }
-                }
-              });
-            }
-            
-            return variantId;
-          }
-          
-          // Get variant color/title for a monogram item
-          // For bundles: gets full variant title from bundle item at itemIndex
-          // For single products: gets full variant title from selected variant
-          function getVariantColorForMonogramItem(itemIndex) {
-            let variantTitle = '';
-            
-            if (isBundleSelected()) {
-              // Bundle selected - get variant ID and then full variant title
-              const variantId = getBundleVariantIdForItem(itemIndex);
-              if (variantId && variantImagesData[variantId] && variantImagesData[variantId].variantTitle) {
-                variantTitle = variantImagesData[variantId].variantTitle;
-                console.log('[Monogram] Got variant title from bundle item', itemIndex, ':', variantTitle);
-              } else {
-                // Fallback: try to construct from selected options
-                const selectedBundle = document.querySelector('.kaching-bundles__bar--selected');
-                if (selectedBundle) {
-                  const variantWrappers = selectedBundle.querySelectorAll('.kaching-bundles__bar-variant-selector-wrapper');
-                  if (itemIndex < variantWrappers.length) {
-                    const wrapper = variantWrappers[itemIndex];
-                    const optionSelects = wrapper.querySelectorAll('.kaching-bundles__bar-variant-select');
-                    const optionParts = [];
-                    optionSelects.forEach(function(select) {
-                      if (select.value) {
-                        optionParts.push(select.value);
-                      }
-                    });
-                    if (optionParts.length > 0) {
-                      variantTitle = optionParts.join(' / ');
-                      console.log('[Monogram] Constructed variant title from bundle options:', variantTitle);
-                    }
-                  }
-                }
-              }
-            } else {
-              // Single product - get from selected variant
-              const productForm = document.getElementById(formId);
-              if (productForm) {
-                const variantIdInput = productForm.querySelector('input[name="id"], select[name="id"]');
-                if (variantIdInput) {
-                  let variantId = null;
-                  if (variantIdInput.tagName === 'SELECT') {
-                    variantId = variantIdInput.options[variantIdInput.selectedIndex]?.value;
-                  } else {
-                    variantId = variantIdInput.value;
-                  }
-                  
-                  if (variantId) {
-                    const variantIdInt = parseInt(variantId);
-                    if (variantImagesData[variantIdInt] && variantImagesData[variantIdInt].variantTitle) {
-                      variantTitle = variantImagesData[variantIdInt].variantTitle;
-                      console.log('[Monogram] Got variant title from single product:', variantTitle);
-                    }
-                  }
-                }
-              }
-            }
-            
-            return {
-              color: '', // Not needed anymore
-              title: variantTitle,
-              displayText: variantTitle || ''
-            };
           }
           
           // Extract color name from strings like "Limited Edition: Purple" -> "Purple"
@@ -2182,22 +2002,6 @@
               productForm.addEventListener('change', function(e) {
                 // Check if it's a variant option (not monogram-related)
                 if (e.target.name && e.target.name !== 'id' && !e.target.name.includes('monogram') && !e.target.closest('.monogram-box')) {
-                  // Prevent scroll-to-top behavior when variant options change
-                  // Only prevent if it's a variant selector, not a form submission
-                  if (e.target.type === 'radio' || e.target.tagName === 'SELECT') {
-                    // Save scroll position and restore it after variant change
-                    const savedScrollPosition = window.scrollY || window.pageYOffset;
-                    e.stopPropagation();
-                    
-                    // Restore scroll position after variant change processing
-                    requestAnimationFrame(function() {
-                      requestAnimationFrame(function() {
-                        if (Math.abs(window.scrollY - savedScrollPosition) > 10) {
-                          window.scrollTo({ top: savedScrollPosition, behavior: 'instant' });
-                        }
-                      });
-                    });
-                  }
                   console.log('[Monogram] Product option changed:', e.target.name, e.target.value);
                   // Small delay to let variant ID update
                   setTimeout(function() {
@@ -2457,12 +2261,15 @@
               
               // Build monogram items array
               const monogramItems = [];
-              monogramItemsData.forEach(function(itemData, itemIndex) {
+              monogramItemsData.forEach(function(itemData) {
                 if (itemData.textInput && itemData.textInput.value.trim()) {
                   let productName = '{{ product.title | escape }}';
+                  let productColor = '';
                   
-                  // Get variant info for this monogram item
-                  const variantInfo = getVariantColorForMonogramItem(itemIndex);
+                  const colorInputs = productForm.querySelectorAll('input[type="radio"][name*="Color"]:checked, select[name*="Color"]');
+                  if (colorInputs.length > 0) {
+                    productColor = colorInputs[0].value || '';
+                  }
                   
                   monogramItems.push({
                     id: parseInt(monogramProductId),
@@ -2472,7 +2279,7 @@
                       'Monogram Style': (itemData.styleSelect && itemData.styleSelect.value) || '',
                       'Monogram Color': (itemData.colorSelect && itemData.colorSelect.value) || '',
                       'Product Name': productName,
-                      'Variant': variantInfo.title || variantInfo.displayText || '',
+                      'Product Color': productColor,
                       '_form_ref': formId,
                       '_monogram': 'true'
                     }
@@ -2707,12 +2514,15 @@
                 }
               }
               
-              monogramItemsData.forEach(function(itemData, itemIndex) {
+              monogramItemsData.forEach(function(itemData) {
                 if (itemData.textInput && itemData.textInput.value.trim()) {
                   let productName = '{{ product.title | escape }}';
+                  let productColor = '';
                   
-                  // Get variant info for this monogram item
-                  const variantInfo = getVariantColorForMonogramItem(itemIndex);
+                  const colorInputs = productForm.querySelectorAll('input[type="radio"][name*="Color"]:checked, select[name*="Color"]');
+                  if (colorInputs.length > 0) {
+                    productColor = colorInputs[0].value || '';
+                  }
                   
                   const monogramItem = {
                     id: parseInt(monogramProductId),
@@ -2722,7 +2532,7 @@
                       'Monogram Style': (itemData.styleSelect && itemData.styleSelect.value) || '',
                       'Monogram Color': (itemData.colorSelect && itemData.colorSelect.value) || '',
                       'Product Name': productName,
-                      'Variant': variantInfo.title || variantInfo.displayText || '',
+                      'Product Color': productColor,
                       '_form_ref': formId,
                       '_monogram': 'true'
                     }
