@@ -191,7 +191,7 @@
                   </div>
                 </div>
               </div>
-  <div class="monogram-processing-notice-wrapper" style="margin-bottom: 15px; text-align: center;">
+                <div class="monogram-processing-notice-wrapper" style="margin-bottom: 15px; text-align: center; display: none;">
                   <p class="monogram-processing-notice" style="margin: 0; font-size: 14px;">Please note Monogrammed items take an additional 4-6 business days for processing.</p>
                 </div>
               <button type="button" class="monogram-toggle-btn" id="monogram-toggle-{{ section.id }}">
@@ -688,6 +688,7 @@
           const monogramItemsContainer = document.getElementById('monogram-items-container-{{ section.id }}');
           const monogramItemTemplate = document.getElementById('monogram-item-template-{{ section.id }}');
           const checkboxTerms = document.getElementById('pod-terms-{{ section.id }}');
+          const processingNotice = wrapper.querySelector('.monogram-processing-notice-wrapper');
           // Get ATC button with fallback selectors
           const atcButton = document.querySelector('#ProductSubmitButton-{{ section_id }}') || 
                            document.querySelector('#ProductSubmitButton-{{ section.id }}') ||
@@ -1154,6 +1155,9 @@
               const wasVisible = monogramBox.style.display !== 'none';
               isMonogramBoxOpen = !wasVisible;
               monogramBox.style.display = wasVisible ? 'none' : 'block';
+              if (processingNotice) {
+                processingNotice.style.display = wasVisible ? 'none' : 'block';
+              }
               console.log('[Monogram] Monogram box display set to:', monogramBox.style.display);
               
               if (monogramBox.style.display === 'block') {
