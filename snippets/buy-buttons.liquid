@@ -68,11 +68,11 @@
               data-monogram-price="{{ monogram_variant.price }}"
             >
               <div class="monogram-box" id="monogram-box-{{ section.id }}" style="display: none;">
-                <div class="monogram-items-container" id="monogram-items-container-{{ section.id }}">
-                  {%- comment -%} Monogram items will be dynamically generated here based on bundle selection {%- endcomment -%}
-                </div>
                 <div class="monogram-total-price" id="monogram-total-price-{{ section.id }}" style="display: none;">
                   <strong>Total: <span class="monogram-total-price-value"></span></strong>
+                </div>
+                <div class="monogram-items-container" id="monogram-items-container-{{ section.id }}">
+                  {%- comment -%} Monogram items will be dynamically generated here based on bundle selection {%- endcomment -%}
                 </div>
 
                 {%- comment -%} Template for single monogram item (hidden, used as template) {%- endcomment -%}
@@ -153,23 +153,13 @@
                         <label class="monogram-label-item">Font Style</label>
                         <select class="monogram-style-select monogram-style-select-item">
                           <option value="">Choose a style</option>
-                          {%- comment -%}
-                            Hardcoded monogram fonts loaded via Google Fonts:
-                            - Classic Serif → Playfair Display Regular 400
-                            - Elegant Script → Pinyon Script Regular 400
-                          {%- endcomment -%}
-                          <option
-                            value="Classic Serif"
-                            data-font-family="'Playfair Display', serif"
-                          >
-                            Classic Serif
-                          </option>
-                          <option
-                            value="Elegant Script"
-                            data-font-family="'Pinyon Script', cursive"
-                          >
-                            Elegant Script
-                          </option>
+                          {%- if shop.metaobjects.monogram_fonts.values != blank -%}
+                            {%- for font in shop.metaobjects.monogram_fonts.values -%}
+                              <option value="{{ font.font_name.value }}" data-url="{{ font.font_url1.value }}">
+                                {{ font.font_name.value }}
+                              </option>
+                            {%- endfor -%}
+                          {%- endif -%}
                         </select>
 
                         <label class="monogram-label-item">Text Color</label>
@@ -501,7 +491,6 @@
   {%- if monogram_product_check != blank -%}
     {%- assign monogram_variant_check = monogram_product_check.selected_or_first_available_variant -%}
     {%- if monogram_variant_check.available -%}
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&family=Pinyon+Script&display=swap">
       <style>
         .product-form__submit.monogram-disabled {
           pointer-events: none;
@@ -528,9 +517,9 @@
           color: #fff;
         }
         .monogram-total-price {
-          margin-top: 20px;
-          padding-top: 20px;
-          border-top: 1px solid #eee;
+          margin-bottom: 20px;
+          padding-bottom: 20px;
+          border-bottom: 1px solid #eee;
           font-size: 16px;
           text-align: right;
         }
@@ -825,12 +814,16 @@
           // Update total price
           function updateMonogramTotalPrice() {
             if (!totalPriceDisplay || !totalPriceValue) return;
-            const monogramCount = countMonogramsWithText();
-            if (monogramCount > 0 && isMonogramBoxOpen) {
+            
+            if (isMonogramBoxOpen) {
+              const monogramCount = countMonogramsWithText();
+              // By default show the price of at least one monogram
+              const displayCount = Math.max(1, monogramCount);
+              
               // Get current price in current currency
               const monogramUnitPrice = getMonogramUnitPrice();
-              const totalPrice = monogramUnitPrice * monogramCount;
-              totalPriceValue.textContent = formatMoney(totalPrice) + ' (' + monogramCount + ' monogram' + (monogramCount > 1 ? 's' : '') + ')';
+              const totalPrice = monogramUnitPrice * displayCount;
+              totalPriceValue.textContent = formatMoney(totalPrice) + ' (' + displayCount + ' monogram' + (displayCount > 1 ? 's' : '') + ')';
               totalPriceDisplay.style.display = 'block';
             } else {
               totalPriceDisplay.style.display = 'none';
@@ -1028,10 +1021,18 @@
               }
               
               if (itemData.styleSelect && itemData.styleSelect.value) {
+                const fontName = itemData.styleSelect.value;
+                itemData.previewText.style.fontFamily = fontName + ', sans-serif';
+                
                 const selectedOption = itemData.styleSelect.options[itemData.styleSelect.selectedIndex];
-                const fontFamily = selectedOption ? selectedOption.dataset.fontFamily : null;
-                if (fontFamily) {
-                  itemData.previewText.style.fontFamily = fontFamily;
+                const fontUrl = selectedOption ? selectedOption.dataset.url : null;
+                
+                if (fontUrl && fontName) {
+                  loadFont(fontName, fontUrl).then(function() {
+                    itemData.previewText.style.fontFamily = fontName + ', sans-serif';
+                  }).catch(function(err) {
+                    console.error('[Monogram] Font loading failed:', err);
+                  });
                 }
               }
             }
