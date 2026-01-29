@@ -66,15 +66,16 @@
             "text_color": "#a63e3e",
             "text_size": 16,
             "text_size_mob": 15,
+            "enable_normal": true,
             "enable_circle": false
           }
         },
         "icon_text_9Gxbx4": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/svgviewer-output.svg",
-            "icon_size": 24,
-            "icon_size_mob": 20,
+            "icon": "shopify://shop_images/check-mark_1.png",
+            "icon_size": 22,
+            "icon_size_mob": 18,
             "icon_text": "100% Skin friendly materials",
             "text_color": "#121212",
             "text_size": 16,
@@ -84,9 +85,9 @@
         "icon_text_KLMX3D": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/svgviewer-output.svg",
-            "icon_size": 24,
-            "icon_size_mob": 20,
+            "icon": "shopify://shop_images/check-mark_1.png",
+            "icon_size": 22,
+            "icon_size_mob": 18,
             "icon_text": "Super soft, breathable fleece",
             "text_color": "#121212",
             "text_size": 16,
@@ -96,9 +97,9 @@
         "icon_text_R7iXXY": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/svgviewer-output.svg",
-            "icon_size": 24,
-            "icon_size_mob": 20,
+            "icon": "shopify://shop_images/check-mark_1.png",
+            "icon_size": 22,
+            "icon_size_mob": 18,
             "icon_text": "Helps improve your mood",
             "text_color": "#121212",
             "text_size": 16,
@@ -113,6 +114,7 @@
             "text_color": "#a63e3e",
             "text_size": 16,
             "text_size_mob": 14,
+            "enable_normal": true,
             "enable_circle": true
           }
         },
@@ -135,7 +137,9 @@
           "settings": {
             "show_quantity_selector": true,
             "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false
+            "show_gift_card_recipient": false,
+            "enable_monogram": false,
+            "monogram_product": ""
           }
         },
         "countdown_timer_4tCBwt": {
@@ -174,6 +178,7 @@
             "text_color": "",
             "text_size": 14,
             "text_size_mob": 13,
+            "enable_normal": true,
             "enable_circle": false
           }
         },
@@ -558,6 +563,7 @@
         "review_BDtWFn": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Love my blanket. Not too hot or cold, best blanket purchase yet",
             "author_name": "Cheryl D"
           }
@@ -565,6 +571,7 @@
         "review_AAMEHx": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Exactly what I wanted. So soft and big. This is a family cuddle blanket",
             "author_name": "Daniela S"
           }
@@ -572,6 +579,7 @@
         "review_RRjwad": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I've been wanting to get one of these since seeing it at a friend's house, & I'm obsessed. I'm 6'2\", & no blanket is ever really big enough. This thing goes on for days, it's incredible.",
             "author_name": "Derek H"
           }
@@ -579,6 +587,7 @@
         "review_QaX4R7": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Wonderful. Love the color",
             "author_name": "Alyssa S"
           }
@@ -586,6 +595,7 @@
         "review_GaEwEt": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Love the blankets. I bought one for myself and had to buy one for my husband because I love mine to much to share even though it’s big enough for both of us. Definitely have recommended these blankets to family and friends.",
             "author_name": "Author"
           }
@@ -593,6 +603,7 @@
         "review_YzwiiN": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "These blankets are amazing! I have bought 3 and I don’t think I’ll ever be able to go back to any other kind. They keep me cool at night and I don’t have to fight for my side of the blanket because they’re so big. They’re very soft and feel slightly weighted but probably because of the size.",
             "author_name": "Ramon"
           }
@@ -600,6 +611,7 @@
         "review_HbQh3y": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Can't live without it!!!",
             "author_name": "Tristan"
           }
@@ -607,6 +619,7 @@
         "review_TmKd3r": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "This blanket is so soft! It’s cozy, and it doesn’t get too hot.",
             "author_name": "April J"
           }
@@ -614,6 +627,7 @@
         "review_67a9fC": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Amazing quality and the embroidery is very nice and clean. Its actually threaded and stitched rather than just screen printed!",
             "author_name": "Colt G"
           }
@@ -621,6 +635,7 @@
         "review_BqEFtb": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "These blankets are the absolute best",
             "author_name": "Jessie P"
           }
