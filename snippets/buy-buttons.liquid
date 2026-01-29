@@ -154,19 +154,19 @@
                         <select class="monogram-style-select monogram-style-select-item">
                           <option value="">Choose a style</option>
                           {%- comment -%}
-                            Hardcoded monogram fonts:
+                            Hardcoded monogram fonts loaded via Google Fonts:
                             - Classic Serif → Playfair Display Regular 400
                             - Elegant Script → Pinyon Script Regular 400
                           {%- endcomment -%}
                           <option
                             value="Classic Serif"
-                            data-url="https://app.unpkg.com/@fontsource/playfair-display@5.1.0/files/files/playfair-display-cyrillic-400-normal.woff2"
+                            data-font-family="'Playfair Display', serif"
                           >
                             Classic Serif
                           </option>
                           <option
                             value="Elegant Script"
-                            data-url="https://en.bestfonts.pro/fonts_files/5ca3933e949620047003fc68/files/PinyonScript.woff2"
+                            data-font-family="'Pinyon Script', cursive"
                           >
                             Elegant Script
                           </option>
@@ -501,6 +501,7 @@
   {%- if monogram_product_check != blank -%}
     {%- assign monogram_variant_check = monogram_product_check.selected_or_first_available_variant -%}
     {%- if monogram_variant_check.available -%}
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&family=Pinyon+Script&display=swap">
       <style>
         .product-form__submit.monogram-disabled {
           pointer-events: none;
@@ -1027,18 +1028,10 @@
               }
               
               if (itemData.styleSelect && itemData.styleSelect.value) {
-                const fontName = itemData.styleSelect.value;
-                itemData.previewText.style.fontFamily = fontName + ', sans-serif';
-                
                 const selectedOption = itemData.styleSelect.options[itemData.styleSelect.selectedIndex];
-                const fontUrl = selectedOption ? selectedOption.dataset.url : null;
-                
-                if (fontUrl && fontName) {
-                  loadFont(fontName, fontUrl).then(function() {
-                    itemData.previewText.style.fontFamily = fontName + ', sans-serif';
-                  }).catch(function(err) {
-                    console.error('[Monogram] Font loading failed:', err);
-                  });
+                const fontFamily = selectedOption ? selectedOption.dataset.fontFamily : null;
+                if (fontFamily) {
+                  itemData.previewText.style.fontFamily = fontFamily;
                 }
               }
             }
