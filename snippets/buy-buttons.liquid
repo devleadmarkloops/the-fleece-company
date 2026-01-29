@@ -68,7 +68,10 @@
               data-monogram-price="{{ monogram_variant.price }}"
             >
               <div class="monogram-box" id="monogram-box-{{ section.id }}" style="display: none;">
-              
+                <div class="monogram-total-price" id="monogram-total-price-{{ section.id }}" style="display: none;">
+                  <strong>Total: <span class="monogram-total-price-value"></span></strong>
+                  <p class="monogram-processing-notice" style="margin: 5px 0 0 0; font-size: 14px;">Please note Monogrammed items take an additional 4-6 business days for processing.</p>
+                </div>
                 <div class="monogram-items-container" id="monogram-items-container-{{ section.id }}">
                   {%- comment -%} Monogram items will be dynamically generated here based on bundle selection {%- endcomment -%}
                 </div>
@@ -145,7 +148,7 @@
 
                       <div class="monogram-options-panel">
                         <div class="monogram-item-header">
-                          <h4 class="monogram-item-title">Monogram <span class="monogram-item-number">1</span> <span class="monogram-item-price-bracket"></span></h4>
+                          <h4 class="monogram-item-title">Monogram <span class="monogram-item-number">1</span></h4>
                         </div>
 
                         <label class="monogram-label-item">Font Style</label>
@@ -191,9 +194,6 @@
                   </div>
                 </div>
               </div>
-                <div class="monogram-processing-notice-wrapper" style="margin-bottom: 15px; text-align: center; display: none;">
-                  <p class="monogram-processing-notice" style="margin: 0; font-size: 14px;">Please note Monogrammed items take an additional 4-6 business days for processing.</p>
-                </div>
               <button type="button" class="monogram-toggle-btn" id="monogram-toggle-{{ section.id }}">
                 <span class="monogram-btn-text">Add Monogram</span>
               </button>
@@ -938,10 +938,6 @@
               if (itemNumberSpan) {
                 itemNumberSpan.textContent = (i + 1);
               }
-              const priceBracketSpan = monogramItem.querySelector('.monogram-item-price-bracket');
-              if (priceBracketSpan) {
-                priceBracketSpan.textContent = '(' + formatMoney(getMonogramUnitPrice()) + ')';
-              }
               
               const styleSelect = monogramItem.querySelector('.monogram-style-select-item');
               const colorSelect = monogramItem.querySelector('.monogram-color-select-item');
@@ -1176,9 +1172,6 @@
               const wasVisible = monogramBox.style.display !== 'none';
               isMonogramBoxOpen = !wasVisible;
               monogramBox.style.display = wasVisible ? 'none' : 'block';
-              if (processingNotice) {
-                processingNotice.style.display = wasVisible ? 'none' : 'block';
-              }
               console.log('[Monogram] Monogram box display set to:', monogramBox.style.display);
               
               if (monogramBox.style.display === 'block') {
