@@ -2482,7 +2482,11 @@
                     quantity: 1,
                     properties: {
                       'Monogram Text': itemData.textInput.value.trim() || '',
-                      'Monogram Style': (itemData.styleSelect && itemData.styleSelect.value) || '',
+                      'Monogram Style': (function(val) {
+                        if (val === 'Playfair Display') return 'Classic Serif';
+                        if (val === 'Pinyon Script') return 'Elegant Script';
+                        return val;
+                      })((itemData.styleSelect && itemData.styleSelect.value) || ''),
                       'Monogram Color': (itemData.colorSelect && itemData.colorSelect.value) || '',
                       'Product Name': productName,
                       'Variant': variantInfo.title || variantInfo.displayText || '',
@@ -2732,7 +2736,11 @@
                     quantity: 1,
                     properties: {
                       'Monogram Text': itemData.textInput.value.trim() || '',
-                      'Monogram Style': (itemData.styleSelect && itemData.styleSelect.value) || '',
+                      'Monogram Style': (function(val) {
+                        if (val === 'Playfair Display') return 'Classic Serif';
+                        if (val === 'Pinyon Script') return 'Elegant Script';
+                        return val;
+                      })((itemData.styleSelect && itemData.styleSelect.value) || ''),
                       'Monogram Color': (itemData.colorSelect && itemData.colorSelect.value) || '',
                       'Product Name': productName,
                       'Variant': variantInfo.title || variantInfo.displayText || '',
