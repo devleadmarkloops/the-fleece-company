@@ -1658,7 +1658,7 @@ deferred-media {
   padding: 0.6rem 2rem;
   padding-top: calc(0.6rem + var(--font-button-baseline));
   /* min-height: 4rem; */
-  min-width: 16rem;
+  min-width: 15rem;
 }
 
 @media screen and (max-width: 749px) {
