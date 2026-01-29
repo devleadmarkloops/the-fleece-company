@@ -341,7 +341,7 @@
       "name": "Reviews slider v2",
       "settings": {
         "heading": "",
-        "enable_loop": true,
+        "enable_loop": false,
         "enable_autoplay": false,
         "autoplay_delay": 5,
         "show_arrows_desktop": true,
