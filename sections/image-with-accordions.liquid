@@ -72,7 +72,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.7rem;
     font-size: 1.8rem;
     font-weight: 600;
   }
@@ -98,6 +98,9 @@
     max-height: 0;
     opacity: 0;
     transition: max-height 0.35s ease, opacity 0.35s ease, padding 0.35s ease;
+  }
+  .image-with-accordions-section .faq-accordion-content .rte {
+    padding-bottom: 1.5rem;
   }
 
   @media screen and (min-width: 750px) {
@@ -216,14 +219,12 @@
       requestAnimationFrame(() => {
         content.style.maxHeight = content.scrollHeight + 'px';
         content.style.opacity = '1';
-        content.style.paddingBottom = '20px'; 
       });
     }
 
     function closeItem(detail, content) {
       content.style.maxHeight = '0px';
       content.style.opacity = '0';
-      content.style.paddingBottom = '0px';
       setTimeout(() => { detail.removeAttribute('open'); }, 350); 
     }
   });
