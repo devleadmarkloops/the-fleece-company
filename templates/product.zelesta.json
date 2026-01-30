@@ -893,7 +893,7 @@
       "settings": {
         "heading": "Frequently Asked Questions",
         "description": "<p>Can’t find the answer you’re looking for? Feel free to <a href=\"/pages/contact\" title=\"Contact\">contact us</a> anytime, we’re happy to help.</p>",
-        "header_alignment": "center",
+        "header_alignment": "left",
         "image": "shopify://shop_images/Veelgestelde_Vragen-new.webp",
         "use_custom_colors": false,
         "colors_text": "#212326",
