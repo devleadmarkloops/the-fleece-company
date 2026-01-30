@@ -788,7 +788,7 @@
         "icon_item_ENjpcB": {
           "type": "icon_item",
           "settings": {
-            "icon_image": "shopify://shop_images/icon-calendar-glass.svg",
+            "icon_image": "shopify://shop_images/final-calendar-icon.svg",
             "icon_svg": "",
             "heading": "30 Day Returns",
             "text": "You can return your items to Zelesta worry-free within 30 days!"
@@ -797,7 +797,7 @@
         "icon_item_UagQ64": {
           "type": "icon_item",
           "settings": {
-            "icon_image": "shopify://shop_images/icon-smile-glass.svg",
+            "icon_image": "shopify://shop_images/final-smile-icon.svg",
             "icon_svg": "",
             "heading": "Satisfied Customers",
             "text": "In NL/BE we already have 750,000+ satisfied customers!"
@@ -806,7 +806,7 @@
         "icon_item_WztbQi": {
           "type": "icon_item",
           "settings": {
-            "icon_image": "shopify://shop_images/icon-truck-glass.svg",
+            "icon_image": "shopify://shop_images/final-truck-icon.svg",
             "icon_svg": "",
             "heading": "Free Shipping from 100,-",
             "text": "Free shipping on all orders over €100"
@@ -832,7 +832,7 @@
         "icon_padding": 14,
         "icon_border_radius": 50,
         "icon_background_color": "#e9e5d8",
-        "icon_color": "#3F51B5",
+        "icon_color": "#3f51b5",
         "use_custom_colors": true,
         "colors_text": "#ffffff",
         "colors_background": "#c5bbae",
