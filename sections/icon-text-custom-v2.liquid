@@ -12,7 +12,7 @@
     {% endif -%}
   }
 
-  .itc-ugc-wave-bg-top {
+  .itc-wave-bg-top {
     display: block;
     width: 100%;
     margin-bottom: -1%;
@@ -141,7 +141,7 @@
   }
 {%- endstyle -%}
 
-{% if section.settings.enable_top_wave %}<img src="https://cdn.shopify.com/s/files/1/0872/8906/9899/files/wave_2.svg?v=1769760888" width="" height="" class="itc-ugc-wave-bg-top" alt="Wave background">{% endif %}
+<img src="https://cdn.shopify.com/s/files/1/0872/8906/9899/files/wave_2.svg?v=1769760888" width="" height="" class="itc-wave-bg-top" alt="Wave background">
 <div class="icon-text-custom-v2-section">
   <div class="icon-text-wrapper">
     <div class="section--padding">
@@ -190,6 +190,7 @@
     </div>
   </div>
 </div>
+<img src="https://cdn.shopify.com/s/files/1/0872/8906/9899/files/wave_3.svg?v=1769761492" width="" height="" class="itc-wave-bg-btm" alt="Wave background">
 
 {% schema %}
 {
@@ -197,11 +198,6 @@
   "tag": "section",
   "class": "section",
   "settings": [
-    { "type": "checkbox",
-      "id": "enable_top_wave",
-      "default": false,
-      "label": "Enable section top wave" 
-    },
     {
       "type": "header",
       "content": "Section Header"
