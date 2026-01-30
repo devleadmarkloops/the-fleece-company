@@ -2,11 +2,13 @@
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
-    
+    --icon-size-desktop: {{ section.settings.icon_size_desktop }}px;
+    --icon-size-mobile: {{ section.settings.icon_size_mobile }}px;
     {%- if section.settings.use_custom_colors %}
       --gradient-background: {% if section.settings.gradient_background != blank %}{{ section.settings.gradient_background }}{% else %}{{ section.settings.colors_background }}{% endif %};
       --color-background: {{ section.settings.colors_background.red }}, {{ section.settings.colors_background.green }}, {{ section.settings.colors_background.blue }};
       --color-foreground: {{ section.settings.colors_text.red }}, {{ section.settings.colors_text.green }}, {{ section.settings.colors_text.blue }};
+      --color-heading: var(--color-foreground);
     {% endif -%}
   }
 
@@ -17,64 +19,64 @@
     }
   }
 
-  /* --- Custom Styles for Inner Content --- */
+  /* --- Custom Styles for this Section Content Only --- */
   
-  /* Apply background to the main wrapper if custom colors are used */
-  #shopify-section-{{ section.id }} .image-with-accordions-section {
+  /* Apply background color/gradient to the main wrapper if needed, 
+     otherwise it inherits from global section settings */
+  .image-with-accordions-section {
     background: var(--gradient-background);
     background-color: rgb(var(--color-background));
     color: rgb(var(--color-foreground));
   }
 
-  /* Header Styling */
-  .cw-section-header {
+  /* Header Styles */
+  .faq-header {
     margin-bottom: 40px;
-    max-width: 800px;
   }
-  .cw-section-header.text-left { margin-right: auto; text-align: left; }
-  .cw-section-header.text-center { margin-left: auto; margin-right: auto; text-align: center; }
-  .cw-section-header.text-right { margin-left: auto; text-align: right; }
+  .faq-header.text-left { text-align: left; }
+  .faq-header.text-center { text-align: center; }
+  .faq-header.text-right { text-align: right; }
 
-  .cw-section-header h2 {
-    margin: 0 0 10px;
+  .faq-header h2 {
+    font-size: calc(var(--font-heading-scale) * 2.4rem); /* Using theme scaling if avail, else fallback */
+    margin-bottom: 1rem;
     color: rgb(var(--color-foreground));
-    /* Optional: Inherit heading sizes from theme or set fixed */
-    font-size: calc(var(--font-heading-scale) * 2.4rem); 
   }
-
-  /* Grid Layout */
-  .cw-faq-grid {
+  
+  /* Content Grid */
+  .faq-content-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 50px;
+    gap: 60px;
     align-items: start;
   }
 
   /* Image Column */
-  .cw-image-wrapper {
-    position: relative;
-    border-radius: 20px; /* Rounded corners as per screenshot */
+  .faq-image-container {
+    width: 100%;
+    border-radius: 20px; /* Matching screenshot */
     overflow: hidden;
     line-height: 0;
   }
-  .cw-image-wrapper img {
+  .faq-image-container img {
     width: 100%;
     height: auto;
     object-fit: cover;
+    display: block;
   }
 
   /* Accordion Column */
-  .cw-accordion-list {
+  .faq-accordion-list {
     display: flex;
     flex-direction: column;
-    border-top: 1px solid rgba(var(--color-foreground), 0.15);
+    border-top: 1px solid rgba(var(--color-foreground), 0.1);
   }
 
-  .cw-accordion-item {
-    border-bottom: 1px solid rgba(var(--color-foreground), 0.15);
+  .faq-accordion-item {
+    border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
   }
 
-  .cw-summary {
+  .faq-accordion-summary {
     list-style: none;
     padding: 20px 0;
     cursor: pointer;
@@ -82,38 +84,31 @@
     justify-content: space-between;
     align-items: center;
     font-weight: 600;
-    font-size: 1.1rem;
-    color: rgb(var(--color-foreground));
   }
-  .cw-summary::-webkit-details-marker { display: none; }
+  .faq-accordion-summary::-webkit-details-marker { display: none; }
 
-  /* Icon Animation */
-  .cw-icon {
+  /* Icon */
+  .faq-icon {
     width: 14px;
     height: 14px;
     transition: transform 0.3s ease;
-    flex-shrink: 0;
+    display: flex;
+    align-items: center;
   }
-  details[open] .cw-icon {
+  details[open] .faq-accordion-summary .faq-icon {
     transform: rotate(180deg);
   }
 
-  /* Content Animation */
-  .cw-content {
+  /* Animated Content */
+  .faq-accordion-content {
     overflow: hidden;
     max-height: 0;
     opacity: 0;
-    transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
-  }
-  details[open] .cw-content {
-    /* These are handled by JS, but defaults for no-js fallback */
-    opacity: 1;
-    padding-bottom: 20px;
+    transition: max-height 0.35s ease, opacity 0.35s ease, padding 0.35s ease;
   }
 
-  /* Mobile */
   @media screen and (max-width: 768px) {
-    .cw-faq-grid {
+    .faq-content-wrapper {
       grid-template-columns: 1fr;
       gap: 30px;
     }
@@ -124,11 +119,10 @@
   <div class="section--padding">
     <div class="page-width">
       
-      {%- comment -%} Header Section {%- endcomment -%}
       {%- if section.settings.heading != blank or section.settings.description != blank -%}
-        <div class="cw-section-header text-{{ section.settings.header_alignment }}">
+        <div class="faq-header text-{{ section.settings.header_alignment }}">
           {%- if section.settings.heading != blank -%}
-            <h2 class="h2">{{ section.settings.heading }}</h2>
+            <h2>{{ section.settings.heading | escape }}</h2>
           {%- endif -%}
           {%- if section.settings.description != blank -%}
             <div class="rte">{{ section.settings.description }}</div>
@@ -136,45 +130,36 @@
         </div>
       {%- endif -%}
 
-      {%- comment -%} Main Content Grid {%- endcomment -%}
-      <div class="cw-faq-grid">
-        
-        <div class="cw-image-column">
-          <div class="cw-image-wrapper">
-            {%- if section.settings.image != blank -%}
-              {{ section.settings.image | image_url: width: 800 | image_tag: 
-                loading: 'lazy', 
-                sizes: '(min-width: 768px) 50vw, 100vw',
-                widths: '375, 550, 750, 1100'
-              }}
-            {%- else -%}
-              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-            {%- endif -%}
-          </div>
+      <div class="faq-content-wrapper">
+        <div class="faq-image-container">
+          {%- if section.settings.image != blank -%}
+            {{ section.settings.image | image_url: width: 800 | image_tag: 
+              loading: 'lazy', 
+              sizes: '(min-width: 768px) 50vw, 100vw', 
+              widths: '375, 550, 750, 1100'
+            }}
+          {%- else -%}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
         </div>
 
-        <div class="cw-accordion-column">
-          <div class="cw-accordion-list">
-            {%- for block in section.blocks -%}
-              <details class="cw-accordion-item" {{ block.shopify_attributes }}>
-                <summary class="cw-summary">
-                  <span>{{ block.settings.heading | escape }}</span>
-                  <span class="cw-icon">
-                    <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret" viewBox="0 0 10 6" style="width: 14px; height: auto; display: block; fill: currentColor;">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path>
-                    </svg>
-                  </span>
-                </summary>
-                <div class="cw-content">
-                  <div class="rte" style="padding-bottom: 20px;">
-                    {{ block.settings.text }}
-                  </div>
-                </div>
-              </details>
-            {%- endfor -%}
-          </div>
+        <div class="faq-accordion-list">
+          {%- for block in section.blocks -%}
+            <details class="faq-accordion-item" {{ block.shopify_attributes }}>
+              <summary class="faq-accordion-summary">
+                <span>{{ block.settings.question | escape }}</span>
+                <span class="faq-icon">
+                  <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </summary>
+              <div class="faq-accordion-content">
+                <div class="rte">{{ block.settings.answer }}</div>
+              </div>
+            </details>
+          {%- endfor -%}
         </div>
-
       </div>
 
     </div>
@@ -182,61 +167,49 @@
 </div>
 
 <script>
-  // Simple vanilla JS for smooth accordion animation
   document.addEventListener('DOMContentLoaded', function() {
     const sectionContainer = document.querySelector('#shopify-section-{{ section.id }}');
-    if (!sectionContainer) return;
+    if(!sectionContainer) return;
 
     const details = sectionContainer.querySelectorAll('details');
 
     details.forEach((targetDetail) => {
       const summary = targetDetail.querySelector('summary');
-      const content = targetDetail.querySelector('.cw-content');
+      const content = targetDetail.querySelector('.faq-accordion-content');
 
       summary.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevent default instant toggle
-
-        // Optional: Close others when opening one (Accordion behavior)
-        const isClosing = targetDetail.hasAttribute('open');
+        e.preventDefault();
         
-        // Close all others
-        details.forEach((otherDetail) => {
-          if (otherDetail !== targetDetail && otherDetail.hasAttribute('open')) {
-            closeAccordion(otherDetail);
+        // Optional: Close others (Accordian behavior)
+        details.forEach((d) => {
+          if (d !== targetDetail && d.hasAttribute('open')) {
+            const c = d.querySelector('.faq-accordion-content');
+            closeItem(d, c);
           }
         });
 
-        // Toggle current
-        if (isClosing) {
-          closeAccordion(targetDetail);
+        if (targetDetail.hasAttribute('open')) {
+          closeItem(targetDetail, content);
         } else {
-          openAccordion(targetDetail);
+          openItem(targetDetail, content);
         }
       });
     });
 
-    function openAccordion(el) {
-      const content = el.querySelector('.cw-content');
-      el.setAttribute('open', '');
-      
-      // Wait for browser to acknowledge attribute change
+    function openItem(detail, content) {
+      detail.setAttribute('open', '');
       requestAnimationFrame(() => {
-        // Calculate the height needed
-        const height = content.scrollHeight;
-        content.style.maxHeight = height + 'px';
+        content.style.maxHeight = content.scrollHeight + 'px';
         content.style.opacity = '1';
+        content.style.paddingBottom = '20px'; 
       });
     }
 
-    function closeAccordion(el) {
-      const content = el.querySelector('.cw-content');
+    function closeItem(detail, content) {
       content.style.maxHeight = '0px';
       content.style.opacity = '0';
-      
-      // Remove open attribute after transition finishes (400ms match css)
-      setTimeout(() => {
-        el.removeAttribute('open');
-      }, 400);
+      content.style.paddingBottom = '0px';
+      setTimeout(() => { detail.removeAttribute('open'); }, 350); 
     }
   });
 </script>
@@ -249,7 +222,7 @@
   "settings": [
     {
       "type": "header",
-      "content": "Section Content"
+      "content": "Section Header"
     },
     {
       "type": "text",
@@ -261,12 +234,12 @@
       "type": "richtext",
       "id": "description",
       "label": "Description",
-      "default": "<p>Can't find your answer here? Check out our FAQ page.</p>"
+      "default": "<p>Can't find your question here? Check out our FAQ page.</p>"
     },
     {
       "type": "select",
       "id": "header_alignment",
-      "label": "Header Alignment",
+      "label": "Heading Alignment",
       "options": [
         { "value": "left", "label": "Left" },
         { "value": "center", "label": "Center" },
@@ -275,9 +248,13 @@
       "default": "left"
     },
     {
+      "type": "header",
+      "content": "Image Settings"
+    },
+    {
       "type": "image_picker",
       "id": "image",
-      "label": "Main Image"
+      "label": "Section Image"
     },
     {
       "type": "header",
@@ -358,15 +335,15 @@
       "settings": [
         {
           "type": "text",
-          "id": "heading",
+          "id": "question",
           "label": "Question",
-          "default": "How do I wash this?"
+          "default": "How do I wash this product?"
         },
         {
           "type": "richtext",
-          "id": "text",
+          "id": "answer",
           "label": "Answer",
-          "default": "<p>Add your answer here.</p>"
+          "default": "<p>Write your answer here.</p>"
         }
       ]
     }
