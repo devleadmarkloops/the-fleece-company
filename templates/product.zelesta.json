@@ -781,6 +781,67 @@
         "padding_top_mob": 20,
         "padding_bottom_mob": 32
       }
+    },
+    "icon_text_custom_v2_AyKDX7": {
+      "type": "icon-text-custom-v2",
+      "blocks": {
+        "icon_item_ENjpcB": {
+          "type": "icon_item",
+          "settings": {
+            "icon_image": "shopify://shop_images/calendar-icon-white.svg",
+            "icon_svg": "",
+            "heading": "30 Day Returns",
+            "text": "You can return your items to Zelesta worry-free within 30 days!"
+          }
+        },
+        "icon_item_UagQ64": {
+          "type": "icon_item",
+          "settings": {
+            "icon_image": "shopify://shop_images/smile-icon-white.svg",
+            "icon_svg": "",
+            "heading": "Satisfied Customers",
+            "text": "In NL/BE we already have 750,000+ satisfied customers!"
+          }
+        },
+        "icon_item_WztbQi": {
+          "type": "icon_item",
+          "settings": {
+            "icon_image": "shopify://shop_images/shipping-truck-icon-white.svg",
+            "icon_svg": "",
+            "heading": "Free Shipping from 100,-",
+            "text": "Free shipping on all orders over €100"
+          }
+        }
+      },
+      "block_order": [
+        "icon_item_ENjpcB",
+        "icon_item_UagQ64",
+        "icon_item_WztbQi"
+      ],
+      "name": "Icon text custom v2",
+      "settings": {
+        "heading": "Why choose us",
+        "description": "",
+        "columns_desktop": 3,
+        "columns_mobile": "1",
+        "column_gap": 40,
+        "text_alignment": "left",
+        "use_icon_background": true,
+        "icon_size_desktop": 80,
+        "icon_size_mobile": 60,
+        "icon_padding": 14,
+        "icon_border_radius": 50,
+        "icon_background_color": "#e9e5d8",
+        "icon_color": "#3F51B5",
+        "use_custom_colors": true,
+        "colors_text": "#ffffff",
+        "colors_background": "#c5bbae",
+        "gradient_background": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36
+      }
     }
   },
   "order": [
@@ -793,6 +854,7 @@
     "icon_text_custom_CzLMQk",
     "image_with_text_v2_RabiRM",
     "product-recommendations",
-    "reviews_slider_UFEH38"
+    "reviews_slider_UFEH38",
+    "icon_text_custom_v2_AyKDX7"
   ]
 }
