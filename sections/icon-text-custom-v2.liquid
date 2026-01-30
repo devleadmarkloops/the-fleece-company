@@ -12,39 +12,39 @@
     {% endif -%}
   }
 
-  .icon-text-custom-section .icon-text-wrapper {
+  .icon-text-custom-v2-section .icon-text-wrapper {
     background: rgb(var(--color-background));
     background: var(--gradient-background);
   }
-  .icon-text-custom-section .section-header {
+  .icon-text-custom-v2-section .section-header {
     text-align: center;
     margin-bottom: 40px;
   }
-  .icon-text-custom-section .section-header h2 {
+  .icon-text-custom-v2-section .section-header h2 {
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 12px;
     color: rgb(var(--color-foreground));
   }
-  .icon-text-custom-section .section-header p {
+  .icon-text-custom-v2-section .section-header p {
     font-size: 1rem;
     color: rgb(var(--color-foreground));
     opacity: 0.8;
   }
-  .icon-text-custom-section .icon-text-grid {
+  .icon-text-custom-v2-section .icon-text-grid {
     display: grid;
     grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
     gap: {{ section.settings.column_gap }}px;
     /* max-width: 110rem; */
     margin-inline: auto;
   }
-  .icon-text-custom-section .icon-text-item {
+  .icon-text-custom-v2-section .icon-text-item {
     text-align: {{ section.settings.text_alignment }};
     display: flex;
     flex-direction: column;
     align-items: {{ section.settings.text_alignment }};
   }
-  .icon-text-custom-section .icon-wrapper {
+  .icon-text-custom-v2-section .icon-wrapper {
     width: var(--icon-size-desktop);
     height: var(--icon-size-desktop);
     display: flex;
@@ -58,7 +58,7 @@
       padding: {{ section.settings.icon_padding }}px;
     {% endif %}
   }
-  .icon-text-custom-section .icon-wrapper svg {
+  .icon-text-custom-v2-section .icon-wrapper svg {
     {% if section.settings.use_icon_background %}
       width: 100%;
       height: 100%;
@@ -68,7 +68,7 @@
     {% endif %}
     color: {{ section.settings.icon_color }};
   }
-  .icon-text-custom-section .icon-wrapper img {
+  .icon-text-custom-v2-section .icon-wrapper img {
     {% if section.settings.use_icon_background %}
       width: 100%;
       height: 100%;
@@ -78,13 +78,13 @@
     {% endif %}
     object-fit: contain;
   }
-  .icon-text-custom-section .icon-text-content h3 {
+  .icon-text-custom-v2-section .icon-text-content h3 {
     font-size: 2rem;
     font-weight: 600;
     margin-block: 0 1rem;
     color: rgb(var(--color-foreground));
   }
-  .icon-text-custom-section .icon-text-content p {
+  .icon-text-custom-v2-section .icon-text-content p {
     font-size: 1.6rem;
     color: rgb(var(--color-foreground));
     /* opacity: 0.75; */
@@ -94,22 +94,22 @@
   }
 
   @media screen and (max-width: 989px) {
-    .icon-text-custom-section .icon-text-grid {
+    .icon-text-custom-v2-section .icon-text-grid {
       grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr);
       gap: 2rem 2.5rem;
     }
-    .icon-text-custom-section .icon-wrapper {
+    .icon-text-custom-v2-section .icon-wrapper {
       width: var(--icon-size-mobile);
       height: var(--icon-size-mobile);
       margin-bottom: 1.5rem;
     }
-    .icon-text-custom-section .section-header h2 {
+    .icon-text-custom-v2-section .section-header h2 {
       font-size: 1.5rem;
     }
-    .icon-text-custom-section .icon-text-content h3 {
+    .icon-text-custom-v2-section .icon-text-content h3 {
       font-size: 1.6rem;
     }
-    .icon-text-custom-section .icon-text-content p {
+    .icon-text-custom-v2-section .icon-text-content p {
       font-size: 1.3rem;
     }
   }
@@ -122,7 +122,7 @@
   }
 {%- endstyle -%}
 
-<div class="icon-text-custom-section">
+<div class="icon-text-custom-v2-section">
   <div class="icon-text-wrapper">
     <div class="section--padding">
       <div class="page-width">
