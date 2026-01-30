@@ -842,6 +842,60 @@
         "padding_top_mob": 24,
         "padding_bottom_mob": 32
       }
+    },
+    "image_with_accordions_VVyB6L": {
+      "type": "image-with-accordions",
+      "blocks": {
+        "accordion_item_pn63MJ": {
+          "type": "accordion_item",
+          "settings": {
+            "question": "How do I wash a Zelesta duvet?",
+            "answer": "<p>Our duvets are machine washable. Simply wash on a gentle cycle with cold water and tumble dry on low heat.</p>"
+          }
+        },
+        "accordion_item_nQwwLg": {
+          "type": "accordion_item",
+          "settings": {
+            "question": "Which duvet prevents night sweats?",
+            "answer": "<p>Our temperature-regulating duvets with moisture-wicking properties are perfect for preventing night sweats.</p>"
+          }
+        },
+        "accordion_item_L7Dqt7": {
+          "type": "accordion_item",
+          "settings": {
+            "question": "Why are Zelesta duvets better for hygiene?",
+            "answer": "<p>Zelesta duvets are hypoallergenic and antimicrobial, creating a cleaner sleeping environment.</p>"
+          }
+        },
+        "accordion_item_fKFHAd": {
+          "type": "accordion_item",
+          "settings": {
+            "question": "What are the benefits of a lightweight duvet?",
+            "answer": "<p>Lightweight duvets provide comfort without excess weight, perfect for year-round use and easy care.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "accordion_item_pn63MJ",
+        "accordion_item_nQwwLg",
+        "accordion_item_L7Dqt7",
+        "accordion_item_fKFHAd"
+      ],
+      "name": "Image with Accordions",
+      "settings": {
+        "heading": "Frequently Asked Questions",
+        "description": "<p>Can't find your question here? Check out our FAQ page or send us a message via live chat. We're happy to help!</p>",
+        "header_alignment": "left",
+        "image": "shopify://shop_images/Veelgestelde_Vragen-new.webp",
+        "use_custom_colors": false,
+        "colors_text": "#212326",
+        "colors_background": "#ffffff",
+        "gradient_background": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36
+      }
     }
   },
   "order": [
@@ -855,6 +909,7 @@
     "image_with_text_v2_RabiRM",
     "product-recommendations",
     "reviews_slider_UFEH38",
-    "icon_text_custom_v2_AyKDX7"
+    "icon_text_custom_v2_AyKDX7",
+    "image_with_accordions_VVyB6L"
   ]
 }
