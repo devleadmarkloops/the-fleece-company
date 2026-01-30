@@ -820,7 +820,6 @@
       ],
       "name": "Icon text custom v2",
       "settings": {
-        "enable_top_wave": true,
         "heading": "Why choose us",
         "description": "",
         "columns_desktop": 3,
@@ -839,9 +838,9 @@
         "colors_background": "#c5bbae",
         "gradient_background": "",
         "padding_top": 32,
-        "padding_bottom": 32,
-        "padding_top_mob": 20,
-        "padding_bottom_mob": 20
+        "padding_bottom": 40,
+        "padding_top_mob": 24,
+        "padding_bottom_mob": 32
       }
     }
   },
