@@ -849,36 +849,36 @@
         "accordion_XXawxx": {
           "type": "accordion",
           "settings": {
-            "heading": "How do I wash this?",
-            "text": "<p>Add your answer here.</p>"
+            "question": "How do I wash this product?",
+            "answer": "<p>Write your answer here.</p>"
           }
         },
         "accordion_TjyCBj": {
           "type": "accordion",
           "settings": {
-            "heading": "How do I wash this?",
-            "text": "<p>Add your answer here.</p>"
+            "question": "How do I wash this product?",
+            "answer": "<p>Write your answer here.</p>"
           }
         },
         "accordion_99P7QK": {
           "type": "accordion",
           "settings": {
-            "heading": "How do I wash this?",
-            "text": "<p>Add your answer here.</p>"
+            "question": "How do I wash this product?",
+            "answer": "<p>Write your answer here.</p>"
           }
         },
         "accordion_GRkkGM": {
           "type": "accordion",
           "settings": {
-            "heading": "How do I wash this?",
-            "text": "<p>Add your answer here.</p>"
+            "question": "How do I wash this product?",
+            "answer": "<p>Write your answer here.</p>"
           }
         },
         "accordion_7MrNLX": {
           "type": "accordion",
           "settings": {
-            "heading": "How do I wash this?",
-            "text": "<p>Add your answer here.</p>"
+            "question": "How do I wash this product?",
+            "answer": "<p>Write your answer here.</p>"
           }
         }
       },
@@ -892,7 +892,7 @@
       "name": "Image with Accordions",
       "settings": {
         "heading": "Frequently Asked Questions",
-        "description": "<p>Can't find your question here? Check out our FAQ page or send us a message via live chat. We're happy to help!</p>",
+        "description": "<p>Can’t find the answer you’re looking for? Feel free to <a href=\"/pages/contact\" title=\"Contact\">contact us</a> anytime, we’re happy to help.</p>",
         "header_alignment": "left",
         "image": "shopify://shop_images/Veelgestelde_Vragen-new.webp",
         "use_custom_colors": false,
