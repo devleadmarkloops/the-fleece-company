@@ -3,15 +3,10 @@
     --section-padding-top: {{ section.settings.padding_top }}px;
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
     
-    /* Use custom colors or fallback to theme settings if not checked */
     {%- if section.settings.use_custom_colors %}
+      --gradient-background: {% if section.settings.gradient_background != blank %}{{ section.settings.gradient_background }}{% else %}{{ section.settings.colors_background }}{% endif %};
       --color-background: {{ section.settings.colors_background.red }}, {{ section.settings.colors_background.green }}, {{ section.settings.colors_background.blue }};
       --color-foreground: {{ section.settings.colors_text.red }}, {{ section.settings.colors_text.green }}, {{ section.settings.colors_text.blue }};
-      --gradient-background: {% if section.settings.gradient_background != blank %}{{ section.settings.gradient_background }}{% else %}{{ section.settings.colors_background }}{% endif %};
-    {%- else -%}
-       /* Fallbacks usually inherit from theme.css, but defining basic vars here just in case */
-       --color-foreground: 33, 35, 38; 
-       --color-background: 255, 255, 255;
     {% endif -%}
   }
 
@@ -22,174 +17,164 @@
     }
   }
 
-  /* --- Main Layout Styles --- */
-  .section-{{ section.id }}-padding {
-    padding-top: var(--section-padding-top);
-    padding-bottom: var(--section-padding-bottom);
-    background: var(--gradient-background, rgb(var(--color-background)));
+  /* --- Custom Styles for Inner Content --- */
+  
+  /* Apply background to the main wrapper if custom colors are used */
+  #shopify-section-{{ section.id }} .image-with-accordions-section {
+    background: var(--gradient-background);
+    background-color: rgb(var(--color-background));
     color: rgb(var(--color-foreground));
   }
 
-  .faq-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
-
-  /* Header Styles */
-  .faq-header {
+  /* Header Styling */
+  .cw-section-header {
     margin-bottom: 40px;
-    max-width: 800px; /* Prevent text from getting too wide on centered layouts */
+    max-width: 800px;
   }
-  .faq-header.text-left { text-align: left; margin-right: auto; }
-  .faq-header.text-center { text-align: center; margin-left: auto; margin-right: auto; }
-  .faq-header.text-right { text-align: right; margin-left: auto; }
+  .cw-section-header.text-left { margin-right: auto; text-align: left; }
+  .cw-section-header.text-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .cw-section-header.text-right { margin-left: auto; text-align: right; }
 
-  .faq-header h2 {
-    font-size: 2.4rem;
-    margin-bottom: 1rem;
-    line-height: 1.2;
+  .cw-section-header h2 {
+    margin: 0 0 10px;
     color: rgb(var(--color-foreground));
-  }
-  .faq-header .rte {
-    font-size: 1.1rem;
-    opacity: 0.85;
-  }
-  .faq-header .rte a {
-    text-decoration: underline;
-    color: inherit;
+    /* Optional: Inherit heading sizes from theme or set fixed */
+    font-size: calc(var(--font-heading-scale) * 2.4rem); 
   }
 
-  /* Content Grid (Image + Accordion) */
-  .faq-content-wrapper {
+  /* Grid Layout */
+  .cw-faq-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    gap: 50px;
     align-items: start;
   }
 
-  /* Left Column: Image */
-  .faq-image-container {
+  /* Image Column */
+  .cw-image-wrapper {
     position: relative;
-    width: 100%;
-    border-radius: 20px; /* Matching the screenshot rounded corners */
+    border-radius: 20px; /* Rounded corners as per screenshot */
     overflow: hidden;
     line-height: 0;
   }
-  .faq-image-container img {
+  .cw-image-wrapper img {
     width: 100%;
     height: auto;
     object-fit: cover;
-    display: block;
   }
 
-  /* Right Column: Accordion */
-  .faq-accordion-list {
+  /* Accordion Column */
+  .cw-accordion-list {
     display: flex;
     flex-direction: column;
-    border-top: 1px solid rgba(var(--color-foreground), 0.1);
+    border-top: 1px solid rgba(var(--color-foreground), 0.15);
   }
 
-  .faq-accordion-item {
-    border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+  .cw-accordion-item {
+    border-bottom: 1px solid rgba(var(--color-foreground), 0.15);
   }
 
-  .faq-accordion-summary {
+  .cw-summary {
     list-style: none;
     padding: 20px 0;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-weight: 600;
     font-size: 1.1rem;
-    font-weight: 500;
+    color: rgb(var(--color-foreground));
   }
-  
-  /* Remove default details marker */
-  .faq-accordion-summary::-webkit-details-marker { display: none; }
+  .cw-summary::-webkit-details-marker { display: none; }
 
-  /* Icon rotation */
-  .faq-icon {
-    width: 12px;
-    height: 12px;
+  /* Icon Animation */
+  .cw-icon {
+    width: 14px;
+    height: 14px;
     transition: transform 0.3s ease;
-    opacity: 0.6;
+    flex-shrink: 0;
   }
-  details[open] .faq-accordion-summary .faq-icon {
+  details[open] .cw-icon {
     transform: rotate(180deg);
   }
 
-  /* Smooth Animation Logic */
-  .faq-accordion-content {
+  /* Content Animation */
+  .cw-content {
     overflow: hidden;
-    max-height: 0; /* JS will toggle this */
+    max-height: 0;
     opacity: 0;
-    transition: max-height 0.35s ease, opacity 0.35s ease, padding 0.35s ease;
+    transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
   }
-  
-  details[open] .faq-accordion-content {
-    /* These styles are handled by JS for smooth calculation, 
-       but we keep defaults here for fallback */
+  details[open] .cw-content {
+    /* These are handled by JS, but defaults for no-js fallback */
     opacity: 1;
     padding-bottom: 20px;
   }
 
-  /* Mobile Responsive */
+  /* Mobile */
   @media screen and (max-width: 768px) {
-    .faq-content-wrapper {
+    .cw-faq-grid {
       grid-template-columns: 1fr;
       gap: 30px;
     }
-    .faq-header h2 { font-size: 1.8rem; }
   }
 {%- endstyle -%}
 
-<div class="section-{{ section.id }}-padding">
-  <div class="faq-container">
-    
-    {%- comment -%} HEADER SECTION {%- endcomment -%}
-    {%- if section.settings.heading != blank or section.settings.description != blank -%}
-      <div class="faq-header text-{{ section.settings.header_alignment }}">
-        {%- if section.settings.heading != blank -%}
-          <h2>{{ section.settings.heading | escape }}</h2>
-        {%- endif -%}
-        {%- if section.settings.description != blank -%}
-          <div class="rte">{{ section.settings.description }}</div>
-        {%- endif -%}
-      </div>
-    {%- endif -%}
-
-    {%- comment -%} MAIN CONTENT {%- endcomment -%}
-    <div class="faq-content-wrapper">
+<div class="image-with-accordions-section">
+  <div class="section--padding">
+    <div class="page-width">
       
-      <div class="faq-image-container">
-        {%- if section.settings.image != blank -%}
-          {{ section.settings.image | image_url: width: 800 | image_tag: 
-            loading: 'lazy', 
-            sizes: '(min-width: 768px) 50vw, 100vw', 
-            widths: '375, 550, 750, 1100'
-          }}
-        {%- else -%}
-          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-        {%- endif -%}
-      </div>
+      {%- comment -%} Header Section {%- endcomment -%}
+      {%- if section.settings.heading != blank or section.settings.description != blank -%}
+        <div class="cw-section-header text-{{ section.settings.header_alignment }}">
+          {%- if section.settings.heading != blank -%}
+            <h2 class="h2">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.description != blank -%}
+            <div class="rte">{{ section.settings.description }}</div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
 
-      <div class="faq-accordion-list">
-        {%- for block in section.blocks -%}
-          <details class="faq-accordion-item" {{ block.shopify_attributes }}>
-            <summary class="faq-accordion-summary">
-              <span>{{ block.settings.question | escape }}</span>
-              <span class="faq-icon">
-                <svg viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:14px; height:auto; display:block;">
-                  <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span>
-            </summary>
-            <div class="faq-accordion-content">
-              <div class="rte">{{ block.settings.answer }}</div>
-            </div>
-          </details>
-        {%- endfor -%}
+      {%- comment -%} Main Content Grid {%- endcomment -%}
+      <div class="cw-faq-grid">
+        
+        <div class="cw-image-column">
+          <div class="cw-image-wrapper">
+            {%- if section.settings.image != blank -%}
+              {{ section.settings.image | image_url: width: 800 | image_tag: 
+                loading: 'lazy', 
+                sizes: '(min-width: 768px) 50vw, 100vw',
+                widths: '375, 550, 750, 1100'
+              }}
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+        </div>
+
+        <div class="cw-accordion-column">
+          <div class="cw-accordion-list">
+            {%- for block in section.blocks -%}
+              <details class="cw-accordion-item" {{ block.shopify_attributes }}>
+                <summary class="cw-summary">
+                  <span>{{ block.settings.heading | escape }}</span>
+                  <span class="cw-icon">
+                    <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret" viewBox="0 0 10 6" style="width: 14px; height: auto; display: block; fill: currentColor;">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path>
+                    </svg>
+                  </span>
+                </summary>
+                <div class="cw-content">
+                  <div class="rte" style="padding-bottom: 20px;">
+                    {{ block.settings.text }}
+                  </div>
+                </div>
+              </details>
+            {%- endfor -%}
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -197,67 +182,74 @@
 </div>
 
 <script>
+  // Simple vanilla JS for smooth accordion animation
   document.addEventListener('DOMContentLoaded', function() {
-    const sectionId = '{{ section.id }}';
-    const container = document.querySelector(`#shopify-section-${sectionId}`);
-    const detailsElements = container.querySelectorAll('details');
+    const sectionContainer = document.querySelector('#shopify-section-{{ section.id }}');
+    if (!sectionContainer) return;
 
-    detailsElements.forEach((detail) => {
-      const summary = detail.querySelector('summary');
-      const content = detail.querySelector('.faq-accordion-content');
+    const details = sectionContainer.querySelectorAll('details');
+
+    details.forEach((targetDetail) => {
+      const summary = targetDetail.querySelector('summary');
+      const content = targetDetail.querySelector('.cw-content');
 
       summary.addEventListener('click', (e) => {
-        e.preventDefault(); // Stop default instant toggle
+        e.preventDefault(); // Prevent default instant toggle
+
+        // Optional: Close others when opening one (Accordion behavior)
+        const isClosing = targetDetail.hasAttribute('open');
         
-        // 1. Close other open accordions (Accordion behavior)
-        detailsElements.forEach((otherDetail) => {
-          if (otherDetail !== detail && otherDetail.hasAttribute('open')) {
-            const otherContent = otherDetail.querySelector('.faq-accordion-content');
-            closeAccordion(otherDetail, otherContent);
+        // Close all others
+        details.forEach((otherDetail) => {
+          if (otherDetail !== targetDetail && otherDetail.hasAttribute('open')) {
+            closeAccordion(otherDetail);
           }
         });
 
-        // 2. Toggle current
-        if (detail.hasAttribute('open')) {
-          closeAccordion(detail, content);
+        // Toggle current
+        if (isClosing) {
+          closeAccordion(targetDetail);
         } else {
-          openAccordion(detail, content);
+          openAccordion(targetDetail);
         }
       });
     });
 
-    function openAccordion(detail, content) {
-      detail.setAttribute('open', '');
-      // Wait a tick for the attribute to apply, then animate
+    function openAccordion(el) {
+      const content = el.querySelector('.cw-content');
+      el.setAttribute('open', '');
+      
+      // Wait for browser to acknowledge attribute change
       requestAnimationFrame(() => {
-        content.style.maxHeight = content.scrollHeight + 'px';
+        // Calculate the height needed
+        const height = content.scrollHeight;
+        content.style.maxHeight = height + 'px';
         content.style.opacity = '1';
-        content.style.paddingBottom = '20px'; // Match CSS
       });
     }
 
-    function closeAccordion(detail, content) {
+    function closeAccordion(el) {
+      const content = el.querySelector('.cw-content');
       content.style.maxHeight = '0px';
       content.style.opacity = '0';
-      content.style.paddingBottom = '0px';
       
-      // Remove 'open' attribute after animation finishes
+      // Remove open attribute after transition finishes (400ms match css)
       setTimeout(() => {
-        detail.removeAttribute('open');
-      }, 350); // Match transition duration in CSS
+        el.removeAttribute('open');
+      }, 400);
     }
   });
 </script>
 
 {% schema %}
 {
-  "name": "Image with FAQ Accordion",
+  "name": "Icon text custom v2",
   "tag": "section",
   "class": "section",
   "settings": [
     {
       "type": "header",
-      "content": "Section Header"
+      "content": "Section Content"
     },
     {
       "type": "text",
@@ -269,7 +261,7 @@
       "type": "richtext",
       "id": "description",
       "label": "Description",
-      "default": "<p>Can't find your answer? Check out our FAQ page.</p>"
+      "default": "<p>Can't find your answer here? Check out our FAQ page.</p>"
     },
     {
       "type": "select",
@@ -283,13 +275,9 @@
       "default": "left"
     },
     {
-      "type": "header",
-      "content": "Main Image"
-    },
-    {
       "type": "image_picker",
       "id": "image",
-      "label": "Left Side Image"
+      "label": "Main Image"
     },
     {
       "type": "header",
@@ -311,7 +299,7 @@
       "type": "color",
       "id": "colors_background",
       "label": "Background color",
-      "default": "#f4f6fa"
+      "default": "#ffffff"
     },
     {
       "type": "color_background",
@@ -365,36 +353,36 @@
   ],
   "blocks": [
     {
-      "type": "accordion_item",
-      "name": "Question",
+      "type": "accordion",
+      "name": "Accordion Item",
       "settings": [
         {
           "type": "text",
-          "id": "question",
+          "id": "heading",
           "label": "Question",
-          "default": "How do I wash a Zelesta duvet?"
+          "default": "How do I wash this?"
         },
         {
           "type": "richtext",
-          "id": "answer",
+          "id": "text",
           "label": "Answer",
-          "default": "<p>Simply put it in the machine at 40 degrees.</p>"
+          "default": "<p>Add your answer here.</p>"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Image with FAQ Accordion",
+      "name": "Icon text custom v2",
       "blocks": [
-        { "type": "accordion_item" },
-        { "type": "accordion_item" },
-        { "type": "accordion_item" }
+        {"type": "accordion"},
+        {"type": "accordion"},
+        {"type": "accordion"}
       ]
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": ["header", "footer", "custom.overlay"]
   }
 }
 {% endschema %}
