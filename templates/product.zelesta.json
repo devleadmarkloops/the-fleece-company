@@ -846,40 +846,48 @@
     "image_with_accordions_VVyB6L": {
       "type": "image-with-accordions",
       "blocks": {
-        "accordion_item_pn63MJ": {
-          "type": "accordion_item",
+        "accordion_XXawxx": {
+          "type": "accordion",
           "settings": {
-            "question": "How do I wash a Zelesta duvet?",
-            "answer": "<p>Our duvets are machine washable. Simply wash on a gentle cycle with cold water and tumble dry on low heat.</p>"
+            "heading": "How do I wash this?",
+            "text": "<p>Add your answer here.</p>"
           }
         },
-        "accordion_item_nQwwLg": {
-          "type": "accordion_item",
+        "accordion_TjyCBj": {
+          "type": "accordion",
           "settings": {
-            "question": "Which duvet prevents night sweats?",
-            "answer": "<p>Our temperature-regulating duvets with moisture-wicking properties are perfect for preventing night sweats.</p>"
+            "heading": "How do I wash this?",
+            "text": "<p>Add your answer here.</p>"
           }
         },
-        "accordion_item_L7Dqt7": {
-          "type": "accordion_item",
+        "accordion_99P7QK": {
+          "type": "accordion",
           "settings": {
-            "question": "Why are Zelesta duvets better for hygiene?",
-            "answer": "<p>Zelesta duvets are hypoallergenic and antimicrobial, creating a cleaner sleeping environment.</p>"
+            "heading": "How do I wash this?",
+            "text": "<p>Add your answer here.</p>"
           }
         },
-        "accordion_item_fKFHAd": {
-          "type": "accordion_item",
+        "accordion_GRkkGM": {
+          "type": "accordion",
           "settings": {
-            "question": "What are the benefits of a lightweight duvet?",
-            "answer": "<p>Lightweight duvets provide comfort without excess weight, perfect for year-round use and easy care.</p>"
+            "heading": "How do I wash this?",
+            "text": "<p>Add your answer here.</p>"
+          }
+        },
+        "accordion_7MrNLX": {
+          "type": "accordion",
+          "settings": {
+            "heading": "How do I wash this?",
+            "text": "<p>Add your answer here.</p>"
           }
         }
       },
       "block_order": [
-        "accordion_item_pn63MJ",
-        "accordion_item_nQwwLg",
-        "accordion_item_L7Dqt7",
-        "accordion_item_fKFHAd"
+        "accordion_XXawxx",
+        "accordion_TjyCBj",
+        "accordion_99P7QK",
+        "accordion_GRkkGM",
+        "accordion_7MrNLX"
       ],
       "name": "Image with Accordions",
       "settings": {
