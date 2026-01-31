@@ -508,7 +508,7 @@
           width: 100%;
           padding: 12px 24px;
           background: transparent;
-          border: 2px solid #000;
+          border: 1px solid #000;
           color: #000;
           font-family: var(--font-body-family);
           font-weight: 600;
@@ -519,10 +519,20 @@
           margin-bottom: 15px;
           border-radius:8px;
           transition: all 0.3s ease;
+          position:relative;
+          background:#f6f3ee;
+          color:#000;
         }
-        .monogram-toggle-btn:hover {
-          background: #000;
-          color: #fff;
+        .monogram-toggle-btn:before {
+          border: 1px solid #000;
+          content: "";
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          width: calc(100% - 6px);
+          height: calc(100% - 6px);
+          border-radius:6px;
         }
         .monogram-total-price {
           margin-bottom: 20px;
