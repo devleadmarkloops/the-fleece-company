@@ -46,7 +46,7 @@
         "rating_static_jQpEEQ": {
           "type": "rating_static",
           "settings": {
-            "rating_text": "(1329 Reviews)",
+            "rating_text": "(199 Reviews)",
             "rating_link": ""
           }
         },
@@ -66,6 +66,7 @@
             "text_color": "#a63e3e",
             "text_size": 16,
             "text_size_mob": 15,
+            "enable_normal": true,
             "enable_circle": false
           }
         },
@@ -113,6 +114,7 @@
             "text_color": "#a63e3e",
             "text_size": 16,
             "text_size_mob": 14,
+            "enable_normal": true,
             "enable_circle": true
           }
         },
@@ -174,6 +176,7 @@
             "text_color": "",
             "text_size": 14,
             "text_size_mob": 13,
+            "enable_normal": true,
             "enable_circle": false
           }
         },
@@ -182,7 +185,7 @@
           "settings": {
             "icon": "check_mark",
             "heading": "Care & Details",
-            "content": "<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your blanket for years to come.</p>",
+            "content": "<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your Bed sheet for years to come.</p>",
             "page": "",
             "custom_liquid": "",
             "keep_open": false
@@ -247,7 +250,7 @@
         "heading_bBmAeH": {
           "type": "heading",
           "settings": {
-            "heading": "The Ultimate Cozy Fleece Blanket: Bigger, Softer, and Cozier.",
+            "heading": "The Ultimate Cozy Fleece Bed Sheet",
             "heading_size": "h1",
             "heading_tag": "h2",
             "enable_highlight": false,
@@ -257,7 +260,7 @@
         "text_ziaWGB": {
           "type": "text",
           "settings": {
-            "text": "<p>Wrap yourself in comfort with our oversized premium fleece blanket. This ultra-soft, all-season blanket is designed to keep you warm and snug year-round.</p>",
+            "text": "<p>Wrap your bed in comfort with our premium fleece bed sheet. This ultra-soft, breathable sheet is designed to keep you warm, cozy, and relaxed all night long perfect for colder nights and year-round comfort lovers.</p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
@@ -272,8 +275,8 @@
             "list_icon": "shopify://shop_images/check_circle_30dp_C5BBAE_FILL0_wght400_GRAD0_opsz24.svg",
             "list_text_1": "Wrinkle resistant",
             "list_text_2": "Calms the nervous system",
-            "list_text_3": "Larger than standard blankets",
-            "list_text_4": "Super soft, breathable fleece",
+            "list_text_3": "Warm yet breathable",
+            "list_text_4": "Ultra-soft premium fleece",
             "list_text_5": ""
           }
         }
@@ -285,7 +288,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/Blanket-Flaxen07.jpg",
+        "image": "shopify://shop_images/3_ad860e7d-2736-49a9-a4eb-e04c853c0e50.png",
         "image_position": "center center",
         "layout": "text_first",
         "text_box_position": "middle",
@@ -321,7 +324,7 @@
         "heading_wKRJry": {
           "type": "heading",
           "settings": {
-            "heading": "Here’s Why Our Fleece Blankets Are the Best",
+            "heading": "Here’s Why Our Fleece Bed Sheets Are the Best",
             "heading_size": "h1",
             "heading_tag": "h2",
             "enable_highlight": false,
@@ -331,7 +334,7 @@
         "text_CN89GA": {
           "type": "text",
           "settings": {
-            "text": "<p>Crafted from luxuriously soft fleece that’s so cozy even clouds would be envious. The fluffy texture is breathable to keep you cool while staying snug, and it’s pet-friendly—perfect for hiding your furry friend’s hair.</p><p>Experience ultimate comfort with a blanket designed for both you and your pets!</p>",
+            "text": "<p>Made from ultra soft fleece that feels warm and gentle on your skin. The breathable fabric keeps you cozy while supporting a comfortable sleep temperature.</p><p>Designed to fit smoothly on your mattress and stay in place all night. For deeper comfort and better sleep every night.</p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
@@ -345,7 +348,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/Blanket-Flaxen12_04_8a4c1c1f-b7de-45f2-af5e-1bf29260b936.webp",
+        "image": "shopify://shop_images/1_07380dfb-ff2a-41cf-9e16-4c34fa1fdba3.png",
         "image_position": "center center",
         "layout": "image_first",
         "text_box_position": "middle",
@@ -391,7 +394,7 @@
         "text_TDiGmp": {
           "type": "text",
           "settings": {
-            "text": "<p>Our oversized fleece blankets are designed to fit in a standard washing machine, making it easy to keep them clean and cozy. Just toss it in, wash, tumbler and you’re good to go.</p>",
+            "text": "<p>Our fleece bed sheets are designed to fit easily in a standard washing machine, making everyday care simple and stress free. Just wash, tumble dry, and enjoy a fresh, cozy bed again.</p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
@@ -465,7 +468,7 @@
         "text_EpmqdD": {
           "type": "text",
           "settings": {
-            "text": "<p>We won’t rest until you're completely happy and unbelievably cozy in your Fleece Blanket.</p>",
+            "text": "<p>We won’t rest until you're completely happy and unbelievably cozy in your Fleece Bed sheet.</p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
@@ -558,6 +561,7 @@
         "review_BDtWFn": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Love my blanket. Not too hot or cold, best blanket purchase yet",
             "author_name": "Cheryl D"
           }
@@ -565,6 +569,7 @@
         "review_AAMEHx": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Exactly what I wanted. So soft and big. This is a family cuddle blanket",
             "author_name": "Daniela S"
           }
@@ -572,6 +577,7 @@
         "review_RRjwad": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I've been wanting to get one of these since seeing it at a friend's house, & I'm obsessed. I'm 6'2\", & no blanket is ever really big enough. This thing goes on for days, it's incredible.",
             "author_name": "Derek H"
           }
@@ -579,6 +585,7 @@
         "review_QaX4R7": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Wonderful. Love the color",
             "author_name": "Alyssa S"
           }
@@ -586,6 +593,7 @@
         "review_GaEwEt": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Love the blankets. I bought one for myself and had to buy one for my husband because I love mine to much to share even though it’s big enough for both of us. Definitely have recommended these blankets to family and friends.",
             "author_name": "Author"
           }
@@ -593,6 +601,7 @@
         "review_YzwiiN": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "These blankets are amazing! I have bought 3 and I don’t think I’ll ever be able to go back to any other kind. They keep me cool at night and I don’t have to fight for my side of the blanket because they’re so big. They’re very soft and feel slightly weighted but probably because of the size.",
             "author_name": "Ramon"
           }
@@ -600,6 +609,7 @@
         "review_HbQh3y": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Can't live without it!!!",
             "author_name": "Tristan"
           }
@@ -607,6 +617,7 @@
         "review_TmKd3r": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "This blanket is so soft! It’s cozy, and it doesn’t get too hot.",
             "author_name": "April J"
           }
@@ -614,6 +625,7 @@
         "review_67a9fC": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Amazing quality and the embroidery is very nice and clean. Its actually threaded and stitched rather than just screen printed!",
             "author_name": "Colt G"
           }
@@ -621,6 +633,7 @@
         "review_BqEFtb": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "These blankets are the absolute best",
             "author_name": "Jessie P"
           }
