@@ -2569,7 +2569,7 @@ span.alert-box:before {
   background: #fee4e7;
   transform: rotate(45deg);
   border-radius: 0px 2px;
-  left: -6px;
+  left: -5px;
   top: 10px;
   border: 1px solid;
   border-top: 0;
