@@ -861,7 +861,7 @@
         }
         .monogram-preview-text {
           position: absolute;
-          top: 60%;
+          top: 77%;
           left: 50%;
           transform: translate(-50%, -50%);
           font-size: 24px;
@@ -1358,13 +1358,13 @@
                 textInput: textInput,
                 previewText: previewText,
                 imageContainer: imageContainer,
-                position: { x: 50, y: 50 }
+                position: { x: 50, y: 77 }
               };
               monogramItemsData.push(itemData);
               
               if (previewText) {
                 previewText.style.position = 'absolute';
-                previewText.style.top = '60%';
+                previewText.style.top = '77%';
                 previewText.style.left = '50%';
                 previewText.style.transform = 'translate(-50%, -50%)';
                 previewText.style.color = '#000000';
@@ -1714,7 +1714,7 @@
             const existingPreviewText = itemData.textInput ? itemData.textInput.value : '';
             const existingFont = itemData.styleSelect ? itemData.styleSelect.value : '';
             const existingColor = itemData.colorSelect ? itemData.colorSelect.value : '';
-            const position = itemData.position || { x: 50, y: 60 };
+            const position = itemData.position || { x: 50, y: 77 };
             
             // Prepare font-family CSS with fallbacks
             const fontFamilyCSS = existingFont ? "'" + existingFont + "', cursive, serif" : 'inherit';
@@ -1934,7 +1934,7 @@
               startMouseY = e.clientY;
               
               const left = parseFloat(previewEl.style.left) || 50;
-              const top = parseFloat(previewEl.style.top) || 60;
+              const top = parseFloat(previewEl.style.top) || 77;
               startXPercent = left;
               startYPercent = top;
             });
@@ -2027,7 +2027,7 @@
               if (data.styleSelect) data.styleSelect.value = '';
               if (data.colorSelect) data.colorSelect.value = '';
               if (data.textInput) data.textInput.value = '';
-              data.position = { x: 50, y: 60 };
+              data.position = { x: 50, y: 77 };
             }
             
             console.log('[Monogram] Monogram removed for index:', currentEditingIndex);
