@@ -46,7 +46,7 @@
         "rating_static_jQpEEQ": {
           "type": "rating_static",
           "settings": {
-            "rating_text": "(1392 Reviews)",
+            "rating_text": "(139 Reviews)",
             "rating_link": ""
           }
         },
@@ -422,7 +422,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/THE_FLEECE_BLANKET_1.png",
+        "image": "shopify://shop_images/9_0c7958ec-429b-4f9b-8e75-cd369e350648.png",
         "image_position": "center center",
         "layout": "text_first",
         "text_box_position": "middle",
@@ -496,7 +496,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/hvhvhvhvhv.png",
+        "image": "shopify://shop_images/10_feffdb78-3af1-4306-ba4b-90eab8c3f70b.png",
         "image_position": "center center",
         "layout": "image_first",
         "text_box_position": "middle",
