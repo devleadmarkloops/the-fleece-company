@@ -95,8 +95,20 @@
                 {% if product.selected_or_first_available_variant.metafields.custom.stock_alert_number != blank %}
                   {% assign limited_colors = product.metafields.custom.limited_edition_colors.value %}
                   {% assign selected_variant = product.selected_or_first_available_variant %}
-                  
-                  : <span class="stock-alert" data-variant="{{ product.selected_or_first_available_variant.title | handleize }}" data-initial="{{ product.selected_or_first_available_variant.metafields.custom.stock_alert_number }}">{{ product.selected_or_first_available_variant.metafields.custom.stock_alert_number }} </span>
+                  {% assign is_limited_edition = false %}
+
+                  {% for option in selected_variant.options %}
+                    {% for color in limited_colors %}
+                      {% if option == color %}
+                        {% assign is_limited_edition = true %}
+                        {% break %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endfor %}
+
+                  {% if is_limited_edition %}
+                    <span class="stock-alert" data-variant="{{ selected_variant.title }}" data-initial="19">19</span>
+                  {% endif %}
                 {% endif %}
               </legend>
             {%- endif -%}
