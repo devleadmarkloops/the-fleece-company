@@ -2552,10 +2552,12 @@ product-gallery .product__media-toggle {
 span.alert-box {
   background: #FFE4E7;
   color: #A63E3E;
-  padding: 5px 10px;
+  padding: 0 10px;
   border-radius: 5px;
   border: 1px solid;
   position: relative;
+  height: 30px;
+  line-height: 30px;
 }
 
 span.alert-box:before {
