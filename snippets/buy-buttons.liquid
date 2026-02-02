@@ -770,20 +770,31 @@
           border-color: #22c55e;
           background: #f0fdf4;
         }
-        .monogram-selection-item.is-completed::after {
-          content: '✓';
+        .monogram-item-remove-badge {
           position: absolute;
           top: 8px;
           right: 8px;
-          width: 20px;
-          height: 20px;
-          background: #22c55e;
+          width: 24px;
+          height: 24px;
+          background: #ef4444;
           color: #fff;
+          border: none;
           border-radius: 50%;
-          font-size: 12px;
           display: flex;
           align-items: center;
           justify-content: center;
+          cursor: pointer;
+          z-index: 5;
+          transition: all 0.2s ease;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .monogram-item-remove-badge:hover {
+          background: #dc2626;
+          transform: scale(1.1);
+        }
+        .monogram-item-remove-badge svg {
+          width: 14px;
+          height: 14px;
         }
         .monogram-selection-item {
           position: relative;
@@ -1792,6 +1803,13 @@
               
               const itemHtml = `
                 <button type="button" class="monogram-selection-item${completedClass}" data-item-index="${index}">
+                  ${isCompleted ? `
+                    <div class="monogram-item-remove-badge" data-remove-index="${index}" title="Remove monogram">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                      </svg>
+                    </div>
+                  ` : ''}
                   <div class="monogram-item-add-icon">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                       <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -1810,7 +1828,16 @@
             
             // Add click handlers to selection items
             selectionGrid.querySelectorAll('.monogram-selection-item').forEach(function(btn) {
-              btn.addEventListener('click', function() {
+              btn.addEventListener('click', function(e) {
+                // If clicked on remove badge, handle that separately
+                if (e.target.closest('.monogram-item-remove-badge')) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  const removeIndex = parseInt(e.target.closest('.monogram-item-remove-badge').getAttribute('data-remove-index'));
+                  removeMonogramDirectly(removeIndex);
+                  return;
+                }
+
                 const itemIndex = parseInt(btn.getAttribute('data-item-index'));
                 openDetailModal(itemIndex);
               });
@@ -2194,6 +2221,29 @@
             saveBtn.disabled = !hasText;
           }
           
+          // Remove monogram directly from selection grid
+          function removeMonogramDirectly(index) {
+            console.log('[Monogram] removeMonogramDirectly called for index:', index);
+            
+            // Mark as incomplete
+            monogramCompletedItems[index] = false;
+            
+            // Reset data for this index
+            if (monogramItemsData[index]) {
+              const data = monogramItemsData[index];
+              if (data.styleSelect) data.styleSelect.value = '';
+              if (data.colorSelect) data.colorSelect.value = '';
+              if (data.textInput) data.textInput.value = '';
+              data.position = { x: 50, y: 77 };
+            }
+            
+            // Refresh the grid
+            populateSelectionGrid();
+            
+            // Update trigger button count
+            updateTriggerButtonState();
+          }
+
           // Update trigger button to show active monograms count
           function updateTriggerButtonState() {
             if (!toggleBtn) return;
