@@ -181,3 +181,81 @@ if (!customElements.get('product-form')) {
     }
   );
 }
+
+class StockAlertCountdown {
+  constructor() {
+    this.timers = new Map();
+    this.init();
+    this.observeChanges();
+  }
+
+  init() {
+    document.querySelectorAll('.stock-alert').forEach(el => this.setupAlert(el));
+  }
+
+  setupAlert(el) {
+    const variantTitle = el.dataset.variant;
+    const initial = parseInt(el.dataset.initial, 10);
+    const storageKey = `stock-alert-${variantTitle}`;
+    
+    // Clear any existing timer for this variant
+    if (this.timers.has(variantTitle)) {
+      clearInterval(this.timers.get(variantTitle));
+    }
+
+    // Get saved value or use current
+    let currentValue = sessionStorage.getItem(storageKey);
+    if (currentValue !== null) {
+      currentValue = parseInt(currentValue, 10);
+    } else {
+      currentValue = initial;
+    }
+
+    // Update display
+    el.textContent = currentValue;
+
+    // Start countdown
+    const timer = setInterval(() => {
+      currentValue--;
+      
+      // Reset when reaching 2
+      if (currentValue <= 2) {
+        currentValue = initial;
+      }
+      
+      // Save to session
+      sessionStorage.setItem(storageKey, currentValue);
+      
+      // Update display if element still exists
+      const currentEl = document.querySelector(`.stock-alert[data-variant="${variantTitle}"]`);
+      if (currentEl) {
+        currentEl.textContent = currentValue;
+      }
+    }, 5000);
+
+    this.timers.set(variantTitle, timer);
+  }
+
+  observeChanges() {
+    // Watch for variant changes / re-renders
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach(mutation => {
+        mutation.addedNodes.forEach(node => {
+          if (node.nodeType === 1) {
+            if (node.classList?.contains('stock-alert')) {
+              this.setupAlert(node);
+            }
+            node.querySelectorAll?.('.stock-alert').forEach(el => this.setupAlert(el));
+          }
+        });
+      });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  new StockAlertCountdown();
+});
