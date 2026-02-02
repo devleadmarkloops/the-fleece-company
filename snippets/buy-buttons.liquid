@@ -712,15 +712,35 @@
           -webkit-overflow-scrolling: touch;
         }
         .monogram-notice {
-          background: #FFF9F0;
+          background: #FFFBF2;
           border: 1px solid #E6B56E;
-          padding: 16px 20px;
+          padding: 14px 18px;
           margin-bottom: 24px;
           border-radius: 12px;
+          display: flex;
+          gap: 12px;
+          align-items: flex-start;
+        }
+        .monogram-notice::before {
+          content: 'i';
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 20px;
+          height: 20px;
+          background: #E6B56E;
+          color: #fff;
+          border-radius: 50%;
+          font-family: serif;
+          font-style: italic;
+          font-weight: bold;
+          font-size: 14px;
+          flex-shrink: 0;
+          margin-top: 2px;
         }
         .monogram-notice p {
           font-size: 13px;
-          line-height: 1.6;
+          line-height: 1.5;
           color: #856404;
           margin: 0;
         }
@@ -974,47 +994,86 @@
         /* ========== RESPONSIVE ========== */
         @media (max-width: 640px) {
           .monogram-modal-overlay {
-            padding: 0;
-            align-items: flex-end;
+            padding: 16px;
+            align-items: center;
           }
           .monogram-modal {
-            max-height: 90vh;
-            min-height: 50vh;
-            border-radius: 16px 16px 0 0;
-            margin-top: auto;
+            max-height: 85vh;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+          }
+          .monogram-modal-header {
+            padding: 14px 16px;
           }
           .monogram-modal-body {
-            max-height: calc(90vh - 120px);
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
+            padding: 16px;
           }
           .monogram-notice {
-            font-size: 12px;
+            padding: 12px 14px;
+            margin-bottom: 16px;
+            gap: 10px;
           }
           .monogram-notice p {
             font-size: 12px;
-            line-height: 1.5;
+          }
+          .monogram-selection-subtitle {
+            margin-bottom: 16px;
+            font-size: 13px;
           }
           .monogram-selection-grid {
             grid-template-columns: 1fr;
+            gap: 10px;
+          }
+          .monogram-selection-item {
+            flex-direction: row;
+            justify-content: flex-start;
+            padding: 14px 16px;
+            min-height: auto;
+            text-align: left;
+            gap: 12px;
+          }
+          .monogram-selection-label {
+            margin-bottom: 0;
+            flex-grow: 1;
+            font-size: 14px;
+          }
+          .monogram-selection-price {
+            font-weight: 500;
+          }
+          .monogram-item-add-icon {
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             width: 24px;
+             height: 24px;
+             background: #f5f5f5;
+             border-radius: 50%;
+             color: #666;
+             flex-shrink: 0;
+          }
+          .monogram-selection-item.is-completed .monogram-item-add-icon {
+            background: #22c55e;
+            color: #fff;
           }
           .monogram-detail-content {
             flex-direction: column;
-            gap: 16px;
-          }
-          .monogram-detail-image-wrap {
-            flex: none;
-            max-width: 100%;
+            gap: 20px;
           }
           .monogram-detail-image-container {
-            max-width: 240px;
-            margin: 0 auto;
+            max-width: 100%;
+          }
+          .monogram-detail-title {
+            font-size: 14px;
+            margin-bottom: 12px;
           }
           .monogram-modal-footer {
-            padding: 12px 16px;
+            padding: 16px;
           }
-          .monogram-terms-label {
-            font-size: 12px;
+          .monogram-modal-footer-btns {
+            flex-direction: column-reverse;
+          }
+          .monogram-save-btn, .monogram-remove-btn {
+            width: 100%;
           }
         }
 
@@ -1650,9 +1709,15 @@
               
               const itemHtml = `
                 <button type="button" class="monogram-selection-item${completedClass}" data-item-index="${index}">
+                  <div class="monogram-item-add-icon">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                  </div>
                   <div class="monogram-selection-label">
                     Add monogram for <strong>${item.color}</strong>
-                    ${item.size ? '<br>' + item.size : ''}
+                    ${item.size ? '<br><small style="color:#666; font-size:11px;">' + item.size + '</small>' : ''}
                   </div>
                   <div class="monogram-selection-price">+${formatMoney(monogramPrice)}</div>
                 </button>
