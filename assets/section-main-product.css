@@ -2571,6 +2571,9 @@ span.alert-box:before {
   border-radius: 0px 2px;
   left: -5px;
   top: 10px;
+  border: 1px solid;
+  border-top: 0;
+  border-right: 0;
 }
 @media(max-width:767px){
   span.alert-box {
