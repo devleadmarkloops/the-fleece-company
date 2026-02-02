@@ -80,6 +80,18 @@
                   <span class="monogram-trigger-price">+{{ monogram_variant.price | money }} per monogram</span>
                 </span>
               </button>
+              
+              <div class="monogram-summary-container" id="monogram-summary-{{ section.id }}" style="display: none;">
+                <div class="monogram-total-summary">
+                  <strong>Monogram Total: <span class="monogram-total-summary-value"></span></strong>
+                </div>
+                <div class="monogram-terms-container">
+                  <label class="monogram-terms-label">
+                    <input type="checkbox" id="pod-terms-{{ section.id }}" class="pod-terms-checkbox-{{ section.id }}">
+                    <span class="monogram-terms-text">I have double checked all of my information and understand monogram items are not eligible for return or exchange.</span>
+                  </label>
+                </div>
+              </div>
 
               {%- comment -%} ========== STEP 2: SELECTION POPUP (Choose which items to monogram) ========== {%- endcomment -%}
               <div class="monogram-modal-overlay" id="monogram-selection-overlay-{{ section.id }}" style="display: none;">
@@ -128,12 +140,6 @@
                     </div>
                   </div>
                   <div class="monogram-modal-footer">
-                    <div class="monogram-terms-container">
-                      <label class="monogram-terms-label">
-                        <input type="checkbox" id="pod-terms-{{ section.id }}" class="pod-terms-checkbox-{{ section.id }}">
-                        <span class="monogram-terms-text">I have double checked all of my information and understand monogram items are not eligible for return or exchange.</span>
-                      </label>
-                    </div>
                     <div class="monogram-modal-footer-btns">
                       <button type="button" class="monogram-remove-btn" id="monogram-remove-{{ section.id }}" style="display: none;">
                         Remove Monogram
@@ -1080,6 +1086,38 @@
           }
         }
 
+        /* ========== SUMMARY CONTAINER (Main Page) ========== */
+        .monogram-summary-container {
+          margin-top: 12px;
+          padding: 18px;
+          background: #f0fdf4; /* Subtle green to match success state */
+          border: 1px solid #22c55e;
+          border-radius: 10px;
+          animation: monogramSlideUp 0.3s ease;
+        }
+        .monogram-total-summary {
+          margin-bottom: 14px;
+          padding-bottom: 12px;
+          border-bottom: 1px solid rgba(34, 197, 94, 0.2);
+          font-size: 16px;
+          color: #166534;
+        }
+        .monogram-total-summary-value {
+          font-weight: 700;
+          color: #166534;
+        }
+        .monogram-summary-container .monogram-terms-container {
+          margin-bottom: 0;
+        }
+        .monogram-summary-container .monogram-terms-label {
+          font-weight: 500;
+          color: #166534;
+        }
+        .monogram-summary-container .monogram-terms-text {
+          font-size: 13px;
+          line-height: 1.5;
+        }
+
         /* ========== LEGACY COMPAT (hidden) ========== */
         .monogram-items-container,
         .monogramTotal,
@@ -1267,6 +1305,13 @@
             // Price is now shown inline on the trigger button and in the modals
             // This function updates the hidden total for cart calculation
             const completedCount = Object.values(monogramCompletedItems).filter(Boolean).length;
+            const summaryValue = document.querySelector('.monogram-total-summary-value');
+            if (summaryValue) {
+              const monogramUnitPrice = getMonogramUnitPrice();
+              const totalPrice = monogramUnitPrice * completedCount;
+              summaryValue.textContent = formatMoney(totalPrice);
+            }
+            
             if (totalPriceDisplay && totalPriceValue) {
               const monogramUnitPrice = getMonogramUnitPrice();
               const totalPrice = monogramUnitPrice * completedCount;
@@ -1792,7 +1837,6 @@
               <div class="monogram-detail-image-wrap">
                 <div class="monogram-detail-image-container" data-item-index="${itemIndex}">
                   ${itemData.imageContainer ? itemData.imageContainer.innerHTML : ''}
-                  <span class="monogram-preview-text" style="left: ${position.x}%; top: ${position.y}%; font-family: ${fontFamilyCSS}; color: ${existingColor === 'White' ? '#fff' : '#000'};">${existingPreviewText.toUpperCase()}</span>
                 </div>
               </div>
               <div class="monogram-detail-form">
@@ -1826,11 +1870,11 @@
               console.log('[Monogram] Loading saved font:', existingFont);
               loadFont(existingFont, '').then(function() {
                 // Force re-apply the font after loading
-                const previewText = detailContent.querySelector('.monogram-preview-text');
-                if (previewText) {
-                  previewText.style.fontFamily = "'" + existingFont + "', cursive, serif";
-                }
+                updateDetailPreviewText(itemIndex);
               });
+            } else {
+              // Ensure preview text is initialized with correct styling even if no font
+              updateDetailPreviewText(itemIndex);
             }
             
             // Update image based on color
@@ -1953,6 +1997,12 @@
               if (colorSelect && colorSelect.value) {
                 previewText.style.color = colorSelect.value.toLowerCase() === 'white' ? '#fff' : '#000';
               }
+              
+              const itemData = monogramItemsData[itemIndex];
+              if (itemData && itemData.position) {
+                previewText.style.left = itemData.position.x + '%';
+                previewText.style.top = itemData.position.y + '%';
+              }
             }
           }
           
@@ -2051,11 +2101,8 @@
           function saveMonogramAndGoBack() {
             if (currentEditingIndex < 0) return;
             
-            // Check if terms are accepted
-            if (checkboxTerms && !checkboxTerms.checked) {
-              alert('Please accept the terms and conditions before saving.');
-              return;
-            }
+            // Mark as completed
+            monogramCompletedItems[currentEditingIndex] = true;
             
             // Check if text is entered
             const textInput = detailContent.querySelector('.monogram-text-input');
@@ -2064,8 +2111,7 @@
               return;
             }
             
-            // Mark as completed
-            monogramCompletedItems[currentEditingIndex] = true;
+
             
             // Check if all items are now completed
             const totalItems = monogramItemsData.length;
@@ -2110,9 +2156,7 @@
             
             const textInput = detailContent ? detailContent.querySelector('.monogram-text-input') : null;
             const hasText = textInput && textInput.value.trim();
-            const checkboxChecked = checkboxTerms && checkboxTerms.checked;
-            
-            saveBtn.disabled = !hasText || !checkboxChecked;
+            saveBtn.disabled = !hasText;
           }
           
           // Update trigger button to show active monograms count
@@ -2135,11 +2179,19 @@
               
               // Update isMonogramBoxOpen state
               isMonogramBoxOpen = true;
+              
+              // Show summary container (total + checkbox)
+              const summaryContainer = document.getElementById('monogram-summary-{{ section.id }}');
+              if (summaryContainer) summaryContainer.style.display = 'block';
             } else {
               toggleBtn.classList.remove('has-monograms');
               const badge = toggleBtn.querySelector('.monogram-active-count');
               if (badge) badge.remove();
               isMonogramBoxOpen = false;
+              
+              // Hide summary container
+              const summaryContainer = document.getElementById('monogram-summary-{{ section.id }}');
+              if (summaryContainer) summaryContainer.style.display = 'none';
             }
             
             updateATCButtonState();
