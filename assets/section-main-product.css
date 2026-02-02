@@ -2549,3 +2549,27 @@ product-gallery .product__media-toggle {
     max-height: 35px; */
   }
 }
+span.alert-box {
+  background: #FFE4E7;
+  color: #A63E3E;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid;
+  position: relative;
+}
+
+span.alert-box:before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #fee4e7;
+  transform: rotate(45deg);
+  border-radius: 0px 2px;
+  left: -6px;
+  top: 10px;
+  border: 1px solid;
+  border-top: 0;
+  border-right: 0;
+}
