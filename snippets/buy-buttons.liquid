@@ -714,38 +714,21 @@
         .monogram-notice {
           background: #FFFBF2;
           border: 1px solid #E6B56E;
-          padding: 14px 18px;
+          padding: 16px 20px;
           margin-bottom: 24px;
           border-radius: 12px;
-          display: flex;
-          gap: 12px;
-          align-items: flex-start;
-        }
-        .monogram-notice::before {
-          content: 'i';
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 20px;
-          height: 20px;
-          background: #E6B56E;
-          color: #fff;
-          border-radius: 50%;
-          font-family: serif;
-          font-style: italic;
-          font-weight: bold;
-          font-size: 14px;
-          flex-shrink: 0;
-          margin-top: 2px;
         }
         .monogram-notice p {
           font-size: 13px;
-          line-height: 1.5;
+          line-height: 1.6;
           color: #856404;
           margin: 0;
         }
         .monogram-notice strong {
           color: #856404;
+        }
+        .monogram-item-add-icon {
+          display: none;
         }
         .monogram-selection-subtitle {
           font-size: 14px;
@@ -1012,9 +995,29 @@
             padding: 12px 14px;
             margin-bottom: 16px;
             gap: 10px;
+            display: flex;
+            align-items: flex-start;
+          }
+          .monogram-notice::before {
+            content: 'i';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            background: #E6B56E;
+            color: #fff;
+            border-radius: 50%;
+            font-family: serif;
+            font-style: italic;
+            font-weight: bold;
+            font-size: 14px;
+            flex-shrink: 0;
+            margin-top: 2px;
           }
           .monogram-notice p {
             font-size: 12px;
+            line-height: 1.5;
           }
           .monogram-selection-subtitle {
             margin-bottom: 16px;
