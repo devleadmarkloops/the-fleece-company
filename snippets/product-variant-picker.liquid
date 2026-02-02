@@ -107,7 +107,7 @@
                   {% endfor %}
 
                   {% if is_limited_edition %}
-                    <span class="stock-alert" data-variant="{{ selected_variant.title }}" data-initial="19">19</span>
+                    <span class="stock-alert" data-variant="{{ selected_variant.title }}" data-initial="{{selected_variant.metafields.custom.stock_alert_number }}">{{selected_variant.metafields.custom.stock_alert_number }}</span>
                   {% endif %}
                 {% endif %}
               </legend>
