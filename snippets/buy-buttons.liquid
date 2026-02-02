@@ -81,17 +81,7 @@
                 </span>
               </button>
               
-              <div class="monogram-summary-container" id="monogram-summary-{{ section.id }}" style="display: none;">
-                <div class="monogram-total-summary">
-                  <strong>Total: <span class="monogram-total-summary-value"></span> (<span class="monogram-total-count"></span>)</strong>
-                </div>
-                <div class="monogram-terms-container">
-                  <label class="monogram-terms-label">
-                    <input type="checkbox" id="pod-terms-{{ section.id }}" class="pod-terms-checkbox-{{ section.id }}">
-                    <span class="monogram-terms-text">I have double checked all of my information and understand monogram items are not eligible for return or exchange.</span>
-                  </label>
-                </div>
-              </div>
+{%- comment -%} Monogram summary removed from here {%- endcomment -%}
 
               {%- comment -%} ========== STEP 2: SELECTION POPUP (Choose which items to monogram) ========== {%- endcomment -%}
               <div class="monogram-modal-overlay" id="monogram-selection-overlay-{{ section.id }}" style="display: none;">
@@ -145,6 +135,12 @@
                     </div>
                   </div>
                   <div class="monogram-modal-footer">
+                    <div class="monogram-terms-container">
+                      <label class="monogram-terms-label">
+                        <input type="checkbox" id="pod-terms-{{ section.id }}" class="pod-terms-checkbox-{{ section.id }}">
+                        <span class="monogram-terms-text">I have double checked all of my information and understand monogram items are not eligible for return or exchange.</span>
+                      </label>
+                    </div>
                     <div class="monogram-modal-footer-btns">
                       <button type="button" class="monogram-remove-btn" id="monogram-remove-{{ section.id }}" style="display: none;">
                         Remove Monogram
@@ -1106,66 +1102,53 @@
           }
         }
 
-        /* ========== SUMMARY CONTAINER (Main Page) ========== */
-        .monogram-summary-container {
-          margin-top: 20px;
+        /* ========== TERMS CHECKBOX (In Modal) ========== */
+        .monogram-terms-container {
+          margin-bottom: 20px;
           padding: 0;
           background: none;
           border: none;
-          animation: monogramFadeIn 0.3s ease;
         }
-        .monogram-total-summary {
-          margin-bottom: 12px;
-          font-size: 16px;
-          color: #000;
-          font-family: inherit;
-        }
-        .monogram-total-summary strong {
-          font-weight: 700;
-        }
-        .monogram-summary-container .monogram-terms-container {
-          margin-top: 15px;
-        }
-        .monogram-summary-container .monogram-terms-label {
+        .monogram-terms-label {
           display: flex;
           align-items: flex-start;
-          gap: 15px;
+          gap: 12px;
           cursor: pointer;
-          color: #000;
+          color: #111;
           font-weight: 400;
         }
-        .monogram-summary-container .monogram-terms-text {
-          font-size: 15px;
+        .monogram-terms-text {
+          font-size: 14px;
           line-height: 1.4;
-          padding-top: 2px;
+          padding-top: 1px;
         }
         /* Custom large checkbox styling */
-        .monogram-summary-container .monogram-terms-label input[type="checkbox"] {
+        .monogram-terms-label input[type="checkbox"] {
           appearance: none;
           -webkit-appearance: none;
-          width: 32px;
-          height: 32px;
-          border: 1px solid #ddd;
-          border-radius: 8px;
+          width: 28px;
+          height: 28px;
+          border: 1px solid #ccc;
+          border-radius: 6px;
           background: #fff;
           cursor: pointer;
           position: relative;
           flex-shrink: 0;
           transition: all 0.2s ease;
         }
-        .monogram-summary-container .monogram-terms-label input[type="checkbox"]:checked {
+        .monogram-terms-label input[type="checkbox"]:checked {
           background: #151515;
           border-color: #151515;
         }
-        .monogram-summary-container .monogram-terms-label input[type="checkbox"]:checked::after {
+        .monogram-terms-label input[type="checkbox"]:checked::after {
           content: '';
           position: absolute;
-          left: 10px;
-          top: 6px;
-          width: 8px;
-          height: 14px;
+          left: 9px;
+          top: 4px;
+          width: 7px;
+          height: 13px;
           border: solid #fff;
-          border-width: 0 3px 3px 0;
+          border-width: 0 2px 2px 0;
           transform: rotate(45deg);
         }
 
@@ -2194,15 +2177,21 @@
           function saveMonogramAndGoBack() {
             if (currentEditingIndex < 0) return;
             
-            // Mark as completed
-            monogramCompletedItems[currentEditingIndex] = true;
-            
             // Check if text is entered
             const textInput = detailContent.querySelector('.monogram-text-input');
             if (!textInput || !textInput.value.trim()) {
               alert('Please enter monogram text before saving.');
               return;
             }
+            
+            // Check if terms are accepted
+            if (checkboxTerms && !checkboxTerms.checked) {
+              alert('Please accept the terms and conditions before saving.');
+              return;
+            }
+            
+            // Mark as completed
+            monogramCompletedItems[currentEditingIndex] = true;
             
 
             
@@ -2249,7 +2238,9 @@
             
             const textInput = detailContent ? detailContent.querySelector('.monogram-text-input') : null;
             const hasText = textInput && textInput.value.trim();
-            saveBtn.disabled = !hasText;
+            const checkboxChecked = checkboxTerms && checkboxTerms.checked;
+            
+            saveBtn.disabled = !hasText || !checkboxChecked;
           }
           
           // Remove monogram directly from selection grid
@@ -2293,21 +2284,12 @@
               }
               badge.textContent = completedCount + ' added';
               
-              // Update isMonogramBoxOpen state
               isMonogramBoxOpen = true;
-              
-              // Show summary container (total + checkbox)
-              const summaryContainer = document.getElementById('monogram-summary-{{ section.id }}');
-              if (summaryContainer) summaryContainer.style.display = 'block';
             } else {
               toggleBtn.classList.remove('has-monograms');
               const badge = toggleBtn.querySelector('.monogram-active-count');
               if (badge) badge.remove();
               isMonogramBoxOpen = false;
-              
-              // Hide summary container
-              const summaryContainer = document.getElementById('monogram-summary-{{ section.id }}');
-              if (summaryContainer) summaryContainer.style.display = 'none';
             }
             
             updateATCButtonState();
