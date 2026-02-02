@@ -718,7 +718,8 @@
           grid-template-columns: repeat(2, 1fr);
           gap: 12px;
         }
-        .monogram-selection-item {
+        /* Reset button styles and apply grid item styling */
+        button.monogram-selection-item {
           position: relative;
           display: flex;
           flex-direction: column;
@@ -732,28 +733,37 @@
           text-align: center;
           transition: all 0.2s ease;
           min-height: 100px;
+          width: 100%;
+          overflow: hidden;
+          box-sizing: border-box;
+          font-family: var(--font-body-family);
         }
-        .monogram-selection-item:hover {
+        button.monogram-selection-item:hover {
           border-color: #333;
         }
-        .monogram-selection-item.is-completed {
+        button.monogram-selection-item.is-completed {
           border-color: #22c55e;
           background: #f0fdf4;
         }
-        .monogram-selection-label {
+        button.monogram-selection-item .monogram-selection-label {
           font-size: 14px;
           color: #000;
           line-height: 1.4;
           margin-bottom: 4px;
+          width: 100%;
+          word-wrap: break-word;
+          display: block;
         }
-        .monogram-selection-label strong {
+        button.monogram-selection-item .monogram-selection-label strong {
           font-weight: 600;
         }
-        .monogram-selection-price {
+        button.monogram-selection-item .monogram-selection-price {
           font-size: 13px;
           color: #666;
+          width: 100%;
+          display: block;
         }
-        .monogram-selection-item.is-completed .monogram-selection-price {
+        button.monogram-selection-item.is-completed .monogram-selection-price {
           color: #22c55e;
           font-weight: 500;
         }
