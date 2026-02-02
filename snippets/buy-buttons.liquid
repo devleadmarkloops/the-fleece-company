@@ -134,14 +134,9 @@
                         <span class="monogram-terms-text">I have double checked all of my information and understand monogram items are not eligible for return or exchange.</span>
                       </label>
                     </div>
-                    <div class="monogram-modal-footer-btns">
-                      <button type="button" class="monogram-remove-btn" id="monogram-remove-{{ section.id }}" style="display: none;">
-                        Remove Monogram
-                      </button>
-                      <button type="button" class="monogram-save-btn" id="monogram-save-{{ section.id }}">
-                        Save Monogram
-                      </button>
-                    </div>
+                    <button type="button" class="monogram-save-btn" id="monogram-save-{{ section.id }}">
+                      Save Monogram
+                    </button>
                   </div>
                 </div>
               </div>
@@ -900,13 +895,8 @@
           cursor: pointer;
           accent-color: #000;
         }
-        .monogram-modal-footer-btns {
-          display: flex;
-          gap: 12px;
-          width: 100%;
-        }
         .monogram-save-btn {
-          flex: 2;
+          width: 100%;
           padding: 14px 24px;
           background: #000;
           color: #fff;
@@ -920,34 +910,12 @@
           transition: all 0.2s ease;
           font-family: var(--font-body-family);
         }
-        .monogram-remove-btn {
-          flex: 1;
-          padding: 14px 12px;
-          background: #fff;
-          color: #cc0000;
-          border: 1px solid #cc0000;
-          border-radius: 6px;
-          font-size: 13px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-family: var(--font-body-family);
-        }
-        .monogram-remove-btn:hover {
-          background: #fff0f0;
-        }
-        .monogram-save-btn:hover:not(:disabled) {
+        .monogram-save-btn:hover {
           background: #333;
         }
         .monogram-save-btn:disabled {
           background: #ccc;
           cursor: not-allowed;
-          opacity: 0.7;
         }
 
         /* ========== ACTIVE BADGE FOR TRIGGER ========== */
@@ -1055,7 +1023,6 @@
           const detailCloseBtn = document.getElementById('monogram-detail-close-{{ section.id }}');
           const detailContent = document.getElementById('monogram-detail-content-{{ section.id }}');
           const saveBtn = document.getElementById('monogram-save-{{ section.id }}');
-          const removeBtn = document.getElementById('monogram-remove-{{ section.id }}');
           
           // Track current editing state
           let currentEditingIndex = -1;
@@ -1773,15 +1740,6 @@
               }
             }, 100);
             
-            // Update buttons based on completed state
-            const isCompleted = monogramCompletedItems[itemIndex];
-            if (saveBtn) {
-              saveBtn.textContent = isCompleted ? 'Update Monogram' : 'Save Monogram';
-            }
-            if (removeBtn) {
-              removeBtn.style.display = isCompleted ? 'flex' : 'none';
-            }
-            
             // Hide selection, show detail
             if (selectionOverlay) selectionOverlay.style.display = 'none';
             detailOverlay.style.display = 'flex';
@@ -2014,28 +1972,6 @@
             }
           }
           
-          // Remove monogram
-          function removeMonogram() {
-            if (currentEditingIndex < 0) return;
-            
-            // Mark as incomplete
-            monogramCompletedItems[currentEditingIndex] = false;
-            
-            // Reset data for this index
-            if (monogramItemsData[currentEditingIndex]) {
-              const data = monogramItemsData[currentEditingIndex];
-              if (data.styleSelect) data.styleSelect.value = '';
-              if (data.colorSelect) data.colorSelect.value = '';
-              if (data.textInput) data.textInput.value = '';
-              data.position = { x: 50, y: 60 };
-            }
-            
-            console.log('[Monogram] Monogram removed for index:', currentEditingIndex);
-            
-            // Return to selection
-            goBackToSelection();
-          }
-          
           // Update save button state
           function updateSaveButtonState() {
             if (!saveBtn) return;
@@ -2139,14 +2075,6 @@
             saveBtn.addEventListener('click', function(e) {
               e.preventDefault();
               saveMonogramAndGoBack();
-            });
-          }
-          
-          // Remove button
-          if (removeBtn) {
-            removeBtn.addEventListener('click', function(e) {
-              e.preventDefault();
-              removeMonogram();
             });
           }
           
