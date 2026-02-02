@@ -719,6 +719,7 @@
           gap: 12px;
         }
         .monogram-selection-item {
+          position: relative;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -739,24 +740,6 @@
           border-color: #22c55e;
           background: #f0fdf4;
         }
-        .monogram-selection-item.is-completed::after {
-          content: '✓';
-          position: absolute;
-          top: 8px;
-          right: 8px;
-          width: 20px;
-          height: 20px;
-          background: #22c55e;
-          color: #fff;
-          border-radius: 50%;
-          font-size: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .monogram-selection-item {
-          position: relative;
-        }
         .monogram-selection-label {
           font-size: 14px;
           color: #000;
@@ -769,6 +752,10 @@
         .monogram-selection-price {
           font-size: 13px;
           color: #666;
+        }
+        .monogram-selection-item.is-completed .monogram-selection-price {
+          color: #22c55e;
+          font-weight: 500;
         }
 
         /* ========== DETAIL CONTENT (Step 3) ========== */
@@ -982,9 +969,6 @@
         .monogram-remove-btn:hover {
           background: #dc2626;
           transform: scale(1.1);
-        }
-        .monogram-selection-item.is-completed::after {
-          display: none; /* Hide the checkmark when remove button is present */
         }
 
         /* ========== NOTE STYLES ========== */
@@ -1583,19 +1567,14 @@
               const isCompleted = monogramCompletedItems[index] || false;
               const completedClass = isCompleted ? ' is-completed' : '';
               
-              // Add remove button for completed items
+              // Only show remove button for completed items (minus badge in corner)
               const removeBtn = isCompleted ? `<button type="button" class="monogram-remove-btn" data-remove-index="${index}" title="Remove monogram">−</button>` : '';
-              
-              // Change label for completed items
-              const labelText = isCompleted 
-                ? `Edit monogram for <strong>${item.color}</strong>` 
-                : `Add monogram for <strong>${item.color}</strong>`;
               
               const itemHtml = `
                 <button type="button" class="monogram-selection-item${completedClass}" data-item-index="${index}">
                   ${removeBtn}
                   <div class="monogram-selection-label">
-                    ${labelText}
+                    Add monogram for <strong>${item.color}</strong>
                     ${item.size ? '<br>' + item.size : ''}
                   </div>
                   <div class="monogram-selection-price">${isCompleted ? '✓ Added' : '+' + formatMoney(monogramPrice)}</div>
