@@ -91,7 +91,7 @@
           {% if option.name == product.metafields.custom.limited_stock_option_title and product.metafields.custom.limited_edition_colors != blank and block.settings.enable_limited %}
             {%- if block.settings.show_variant_labels -%}
               <legend class="form__label" style="margin-top: 1.5rem;">
-                {{ block.settings.limited_heading }}{% if product.selected_or_first_available_variant.metafields.custom.stock_alert_number != blank %}: <span class="stock-alert" data-variant="{{ product.selected_or_first_available_variant.title | handleize }}">{{ product.selected_or_first_available_variant.metafields.custom.stock_alert_number }} </span>{% endif %}
+                {{ block.settings.limited_heading }}{% if product.selected_or_first_available_variant.metafields.custom.stock_alert_number != blank %}: <span class="stock-alert" data-variant="{{ product.selected_or_first_available_variant.title | handleize }}" data-initial="{{ product.selected_or_first_available_variant.metafields.custom.stock_alert_number }}">{{ product.selected_or_first_available_variant.metafields.custom.stock_alert_number }} </span>{% endif %}
               </legend>
             {%- endif -%}
             {% render 'product-variant-options-limited',
