@@ -3538,12 +3538,12 @@
             productForm.addEventListener('submit', function(e) {
               console.log('[Monogram] product-form submit event captured (capture phase)');
               
-              const boxIsOpen = monogramBox && monogramBox.style.display !== 'none';
-              const hasMonogramText = monogramItemsData.some(function(item) {
-                return item.textInput && item.textInput.value.trim();
+              // Check if any monograms have been added and have text
+              const hasMonogramText = monogramItemsData.some(function(item, index) {
+                return monogramCompletedItems[index] && item.textInput && item.textInput.value.trim();
               });
               
-              if (!boxIsOpen || !hasMonogramText) {
+              if (!isMonogramBoxOpen || !hasMonogramText) {
                 console.log('[Monogram] Monogram not active or no text entered - letting theme handle submission');
                 return; 
               }
