@@ -67,198 +67,139 @@
               data-section-id="{{ section.id }}"
               data-monogram-price="{{ monogram_variant.price }}"
             >
-              {%- comment -%} ========== STEP 1: TRIGGER BUTTON ========== {%- endcomment -%}
-              <button type="button" class="monogram-trigger-btn" id="monogram-toggle-{{ section.id }}">
-                <span class="monogram-trigger-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 20h9"></path>
-                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-                  </svg>
-                </span>
-                <span class="monogram-trigger-content">
-                  <span class="monogram-trigger-label">Add monograms for Blankets</span>
-                  <span class="monogram-trigger-price">+{{ monogram_variant.price | money }} per monogram</span>
-                </span>
-              </button>
-              
-              <div class="monogram-summary-container" id="monogram-summary-{{ section.id }}" style="display: none;">
-                <div class="monogram-total-summary">
-                  <strong>Total: <span class="monogram-total-summary-value"></span> (<span class="monogram-total-count"></span>)</strong>
-                </div>
-                <div class="monogram-terms-container">
-                  <label class="monogram-terms-label">
-                    <input type="checkbox" id="pod-terms-{{ section.id }}" class="pod-terms-checkbox-{{ section.id }}">
-                    <span class="monogram-terms-text">I have double checked all of my information and understand monogram items are not eligible for return or exchange.</span>
-                  </label>
-                </div>
-              </div>
-
-              {%- comment -%} ========== STEP 2: SELECTION POPUP (Choose which items to monogram) ========== {%- endcomment -%}
-              <div class="monogram-modal-overlay" id="monogram-selection-overlay-{{ section.id }}" style="display: none;">
-                <div class="monogram-modal monogram-selection-modal">
-                  <div class="monogram-modal-header">
-                    <h3 class="monogram-modal-title">Add Monogram</h3>
-                    <button type="button" class="monogram-modal-close" id="monogram-selection-close-{{ section.id }}">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                      </svg>
-                    </button>
-                  </div>
-                  <div class="monogram-modal-body">
-                    <div class="monogram-notice">
-                      <p><strong>Please note:</strong> If 'Match Piping' is the color selection, the color in the preview is a sample. Our team will select the color that best matches the piping or print during production. Please double check your selections before submitting. Once submitted monogram orders cannot be changed or canceled. Items with Monogram are final sale and not eligible for a return.</p>
-                    </div>
-                    <p class="monogram-selection-subtitle">Select a blanket to add monogram. Each blanket can have its own custom message.</p>
-                    <div class="monogram-selection-grid" id="monogram-selection-grid-{{ section.id }}">
-                      {%- comment -%} Selection boxes will be dynamically generated here {%- endcomment -%}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {%- comment -%} ========== STEP 3: DETAIL POPUP (Configure the monogram) ========== {%- endcomment -%}
-              <div class="monogram-modal-overlay" id="monogram-detail-overlay-{{ section.id }}" style="display: none;">
-                <div class="monogram-modal monogram-detail-modal">
-                  <div class="monogram-modal-header">
-                    <button type="button" class="monogram-modal-back" id="monogram-detail-back-{{ section.id }}">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                      </svg>
-                      Back
-                    </button>
-                    <button type="button" class="monogram-modal-close" id="monogram-detail-close-{{ section.id }}">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                      </svg>
-                    </button>
-                  </div>
-                  <div class="monogram-modal-body">
-                    <div class="monogram-detail-content" id="monogram-detail-content-{{ section.id }}">
-                      {%- comment -%} Detail form will be dynamically populated here {%- endcomment -%}
-                    </div>
-                  </div>
-                  <div class="monogram-modal-footer">
-                    <div class="monogram-modal-footer-btns">
-                      <button type="button" class="monogram-remove-btn" id="monogram-remove-{{ section.id }}" style="display: none;">
-                        Remove Monogram
-                      </button>
-                      <button type="button" class="monogram-save-btn" id="monogram-save-{{ section.id }}">
-                        Save Monogram
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {%- comment -%} Hidden container for monogram data (used by JS logic) {%- endcomment -%}
               <div class="monogram-box" id="monogram-box-{{ section.id }}" style="display: none;">
-                <div class="monogram-items-container" id="monogram-items-container-{{ section.id }}"></div>
+                <div class="monogram-total-price">
+                  <strong>Mongramming: <span> +$10 / monogram </span></strong>                  
+                  <p class="monogram-processing-notice" style="margin: 5px 0 0 0; font-size: 14px;">Please note Monogrammed items take an additional 4-6 business days for processing.</p>
+                </div>
+                <div class="monogram-items-container" id="monogram-items-container-{{ section.id }}">
+                  {%- comment -%} Monogram items will be dynamically generated here based on bundle selection {%- endcomment -%}
+                </div>
+
+                {%- comment -%} Template for single monogram item (hidden, used as template) {%- endcomment -%}
+                <div id="monogram-item-template-{{ section.id }}" style="display: none !important;">
+                  <div class="monogram-item" data-item-index="">
+                    <div class="monogram-content-wrapper">
+                      <div class="monogram-image-container monogram-image-container-item">
+                        {%- comment -%} 
+                          Monogram Images - Priority Order:
+                          1. Variant-level metafields (custom.variant_monogram_images) - MOST ACCURATE
+                          2. Product-level metafields (custom.monogram_images) - FALLBACK
+                          3. Product featured image - FINAL FALLBACK
+                        {%- endcomment -%}
+                        {%- assign current_variant = product.selected_or_first_available_variant -%}
+                        {%- assign variant_images = current_variant.metafields.custom.variant_monogram_images -%}
+                        {%- assign product_images = product.metafields.custom.monogram_images -%}
+                        
+                        {%- if variant_images != blank and variant_images.value.size > 0 -%}
+                          {%- comment -%} Use variant-specific images (BEST APPROACH) {%- endcomment -%}
+                          {%- for img in variant_images.value -%}
+                            <img
+                              class="monogram-base-image"
+                              data-variant-id="{{ current_variant.id }}"
+                              data-image-source="variant"
+                              src="{{ img | image_url: width: 600 }}"
+                              alt="{{ product.title }} - {{ current_variant.title }}"
+                              loading="lazy"
+                              width="600"
+                              height="600"
+                              style="display: none;"
+                            >
+                          {%- endfor -%}
+                        {%- elsif product_images != blank and product_images.value.size > 0 -%}
+                          {%- comment -%} Product-level images - all hidden initially, JS will show matching color {%- endcomment -%}
+                          {%- assign monogram_colors = product.metafields.custom.monogram_colors1.value -%}
+                          {%- for img in product_images.value -%}
+                            {%- assign color_index = forloop.index0 -%}
+                            {%- if monogram_colors[color_index] != blank -%}
+                              {%- assign image_color = monogram_colors[color_index] -%}
+                            {%- else -%}
+                              {%- assign image_color = 'default' -%}
+                            {%- endif -%}
+                            <img
+                              class="monogram-base-image"
+                              data-color="{{ image_color | escape }}"
+                              data-color-index="{{ color_index }}"
+                              data-image-source="product"
+                              src="{{ img | image_url: width: 600 }}"
+                              alt="{{ product.title }} - {{ image_color }}"
+                              loading="lazy"
+                              width="600"
+                              height="600"
+                              style="display: none;"
+                            >
+                          {%- endfor -%}
+                        {%- else -%}
+                          {%- comment -%} Final fallback - only shown if no metafield images exist {%- endcomment -%}
+                          <img
+                            class="monogram-base-image"
+                            data-color="default"
+                            data-image-source="fallback"
+                            src="{{ product.featured_image | image_url: width: 600 }}"
+                            alt="{{ product.title }}"
+                            loading="lazy"
+                            width="600"
+                            height="600"
+                            style="display: none;"
+                          >
+                        {%- endif -%}
+                        <span class="monogram-preview-text monogram-preview-text-item"></span>
+                      </div>
+
+                      <div class="monogram-options-panel">
+                        <div class="monogram-item-header">
+                          <h4 class="monogram-item-title">Monogram <span class="monogram-item-number">1</span></h4>
+                        </div>
+
+                        <label class="monogram-label-item">Font Style</label>
+                        <select class="monogram-style-select monogram-style-select-item">
+                          <option value="">Choose a style</option>
+                          {%- if shop.metaobjects.monogram_fonts.values != blank -%}
+                            {%- for font in shop.metaobjects.monogram_fonts.values -%}
+                              {%- assign font_display_name = font.font_name.value -%}
+                              {%- if font_display_name == 'Playfair Display' -%}{%- assign font_display_name = 'Classic Serif' -%}{%- elsif font_display_name == 'Pinyon Script' -%}{%- assign font_display_name = 'Elegant Script' -%}{%- endif -%}
+                              <option value="{{ font.font_name.value }}" data-url="{{ font.font_url1.value }}">
+                                {{ font_display_name }}
+                              </option>
+                            {%- endfor -%}
+                          {%- endif -%}
+                        </select>
+
+                        <label class="monogram-label-item">Text Color</label>
+                        <select class="monogram-color-select monogram-color-select-item">
+                          <option value="">Choose a color</option>
+                          <option value="Black">Black</option>
+                          <option value="White">White</option>
+                        </select>
+
+                        <label class="monogram-label-item">Monogram Text</label>
+                        <input
+                          type="text"
+                          class="monogram-text-input monogram-text-input-item"
+                          name="monogram_text"
+                          maxlength="10"
+                          placeholder="Enter text (max 10 characters)"
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div class="monogramTotal" id="monogram-total-price-{{ section.id }}" style="display: none;">
                   <strong>Total: <span class="monogram-total-price-value"></span></strong>
                 </div>
-              </div>
-
-              {%- comment -%} Template for single monogram item (hidden, used as template) {%- endcomment -%}
-              <div id="monogram-item-template-{{ section.id }}" style="display: none !important;">
-                <div class="monogram-item" data-item-index="">
-                  <div class="monogram-content-wrapper">
-                    <div class="monogram-image-container monogram-image-container-item">
-                      {%- assign current_variant = product.selected_or_first_available_variant -%}
-                      {%- assign variant_images = current_variant.metafields.custom.variant_monogram_images -%}
-                      {%- assign product_images = product.metafields.custom.monogram_images -%}
-                      
-                      {%- if variant_images != blank and variant_images.value.size > 0 -%}
-                        {%- for img in variant_images.value -%}
-                          <img
-                            class="monogram-base-image"
-                            data-variant-id="{{ current_variant.id }}"
-                            data-image-source="variant"
-                            src="{{ img | image_url: width: 600 }}"
-                            alt="{{ product.title }} - {{ current_variant.title }}"
-                            loading="lazy"
-                            width="600"
-                            height="600"
-                            style="display: none;"
-                          >
-                        {%- endfor -%}
-                      {%- elsif product_images != blank and product_images.value.size > 0 -%}
-                        {%- assign monogram_colors = product.metafields.custom.monogram_colors1.value -%}
-                        {%- for img in product_images.value -%}
-                          {%- assign color_index = forloop.index0 -%}
-                          {%- if monogram_colors[color_index] != blank -%}
-                            {%- assign image_color = monogram_colors[color_index] -%}
-                          {%- else -%}
-                            {%- assign image_color = 'default' -%}
-                          {%- endif -%}
-                          <img
-                            class="monogram-base-image"
-                            data-color="{{ image_color | escape }}"
-                            data-color-index="{{ color_index }}"
-                            data-image-source="product"
-                            src="{{ img | image_url: width: 600 }}"
-                            alt="{{ product.title }} - {{ image_color }}"
-                            loading="lazy"
-                            width="600"
-                            height="600"
-                            style="display: none;"
-                          >
-                        {%- endfor -%}
-                      {%- else -%}
-                        <img
-                          class="monogram-base-image"
-                          data-color="default"
-                          data-image-source="fallback"
-                          src="{{ product.featured_image | image_url: width: 600 }}"
-                          alt="{{ product.title }}"
-                          loading="lazy"
-                          width="600"
-                          height="600"
-                          style="display: none;"
-                        >
-                      {%- endif -%}
-                      <span class="monogram-preview-text monogram-preview-text-item"></span>
-                    </div>
-
-                    <div class="monogram-options-panel">
-                      <div class="monogram-item-header">
-                        <h4 class="monogram-item-title">MONOGRAM <span class="monogram-item-number">1</span></h4>
-                      </div>
-
-                      <label class="monogram-label-item">FONT STYLE</label>
-                      <select class="monogram-style-select monogram-style-select-item">
-                        <option value="">Choose a style</option>
-                        {%- if shop.metaobjects.monogram_fonts.values != blank -%}
-                          {%- for font in shop.metaobjects.monogram_fonts.values -%}
-                            {%- assign font_display_name = font.font_name.value -%}
-                            {%- if font_display_name == 'Playfair Display' -%}{%- assign font_display_name = 'Classic Serif' -%}{%- elsif font_display_name == 'Pinyon Script' -%}{%- assign font_display_name = 'Elegant Script' -%}{%- endif -%}
-                            <option value="{{ font.font_name.value }}" data-url="{{ font.font_url1.value }}">
-                              {{ font_display_name }}
-                            </option>
-                          {%- endfor -%}
-                        {%- endif -%}
-                      </select>
-
-                      <label class="monogram-label-item">TEXT COLOR</label>
-                      <select class="monogram-color-select monogram-color-select-item">
-                        <option value="">Choose a color</option>
-                        <option value="Black">Black</option>
-                        <option value="White">White</option>
-                      </select>
-
-                      <label class="monogram-label-item">MONOGRAM TEXT</label>
-                      <input
-                        type="text"
-                        class="monogram-text-input monogram-text-input-item"
-                        name="monogram_text"
-                        maxlength="10"
-                        placeholder="Enter text (max 10 cha"
-                      >
-                    </div>
+                <div class="pod-description-d5">
+                  {% comment %} <p>Please note: If 'Match Piping' is the color selection, the color in the preview is a sample. Our team will select the color that best matches the piping or print during production.
+                  Please double check your selections before submitting. Once submitted monogram orders cannot be changed or canceled. Items with Monogram are final sale and not eligible for a return.
+                  </p> {% endcomment %}
+                  <div class="pod-terms-box-d5">
+                    <input type="checkbox" id="pod-terms-{{ section.id }}" class="pod-terms-checkbox-{{ section.id }}">
+                    <label for="pod-terms-{{ section.id }}">I have double checked all of my information and understand monogram items are not eligible for return or exchange.</label>
                   </div>
                 </div>
               </div>
+              <button type="button" class="monogram-toggle-btn" id="monogram-toggle-{{ section.id }}">
+                <span class="monogram-btn-text">Add Monogram</span>
+              </button>
             </div>
             {%- endif -%}
           {%- endif -%}
@@ -559,602 +500,193 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:wght@400&display=swap" rel="stylesheet">
       <style>
-        /* ========== CORE / UTILITY ========== */
         .product-form__submit.monogram-disabled {
           pointer-events: none;
           opacity: 0.7;
         }
         .monogram-wrapper-{{ section.id }} {
+          margin-bottom: 0;
+        }
+        .monogram-toggle-btn {
+          width: 100%;
+          padding: 12px 24px;
+          background: transparent;
+          border: 1px solid #000;
+          color: #000;
+          font-family: var(--font-body-family);
+          font-weight: 600;
+          font-size: 16px;
+          cursor: pointer;
+          text-transform: uppercase;
+          letter-spacing: 1px;
           margin-bottom: 15px;
+          border-radius:8px;
+          transition: all 0.3s ease;
+          position:relative;
+          background:#f6f3ee;
+          color:#000;
+        }
+        .monogram-toggle-btn:before {
+          border: 1px solid #000;
+          content: "";
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          width: calc(100% - 6px);
+          height: calc(100% - 6px);
+          border-radius:6px;
+        }
+        .monogram-total-price {
+          margin-bottom: 20px;
+          padding-bottom: 20px;
+          border-bottom: 1px solid #eee;
+          font-size: 16px;
+        }
+        .monogram-total-price strong {
+          font-weight: 600;
+        }
+        .monogram-total-price-value {
+          font-weight: 600;
         }
         .monogram-box {
-          display: none !important;
-        }
-
-        /* ========== STEP 1: TRIGGER BUTTON ========== */
-        .monogram-trigger-btn {
-          display: flex;
-          align-items: flex-start;
-          gap: 12px;
-          width: 100%;
-          padding: 16px 20px;
-          background: #fff;
-          border: 1px solid #e5e5e5;
-          border-radius: 8px;
-          cursor: pointer;
-          text-align: left;
-          transition: all 0.2s ease;
-          font-family: var(--font-body-family);
-        }
-        .monogram-trigger-btn:hover {
-          border-color: #333;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        .monogram-trigger-icon {
-          flex-shrink: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-top: 2px;
-          color: #666;
-        }
-        .monogram-trigger-icon svg {
-          width: 20px;
-          height: 20px;
-        }
-        .monogram-trigger-content {
-          display: flex;
-          flex-direction: column;
-          gap: 2px;
-        }
-        .monogram-trigger-label {
-          font-size: 15px;
-          font-weight: 500;
-          color: #000;
-          line-height: 1.3;
-        }
-        .monogram-trigger-price {
-          font-size: 13px;
-          color: #666;
-          line-height: 1.3;
-        }
-
-        /* ========== MODAL OVERLAY ========== */
-        .monogram-modal-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.5);
-          z-index: 9999;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 20px;
-          animation: monogramFadeIn 0.2s ease;
-        }
-        @keyframes monogramFadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        .monogram-modal {
-          background: #fff;
-          border-radius: 12px;
-          max-width: 600px;
-          width: 100%;
-          max-height: 90vh;
-          overflow: hidden;
-          display: flex;
-          flex-direction: column;
-          animation: monogramSlideUp 0.25s ease;
-          box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-        }
-        @keyframes monogramSlideUp {
-          from { 
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to { 
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .monogram-detail-modal {
-          max-width: 700px;
-        }
-
-        /* ========== MODAL HEADER ========== */
-        .monogram-modal-header {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 16px 20px;
-          border-bottom: 1px solid #eee;
-        }
-        .monogram-modal-title {
-          font-size: 18px;
-          font-weight: 600;
-          margin: 0;
-          color: #000;
-        }
-        .monogram-modal-close {
-          background: none;
-          border: none;
-          cursor: pointer;
-          padding: 4px;
-          color: #666;
-          transition: color 0.2s ease;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .monogram-modal-close:hover {
-          color: #000;
-        }
-        .monogram-modal-back {
-          display: flex;
-          align-items: center;
-          gap: 4px;
-          background: none;
-          border: none;
-          cursor: pointer;
-          padding: 4px 8px;
-          margin-left: -8px;
-          color: #666;
-          font-size: 14px;
-          font-family: var(--font-body-family);
-          transition: color 0.2s ease;
-        }
-        .monogram-modal-back:hover {
-          color: #000;
-        }
-
-        /* ========== MODAL BODY ========== */
-        .monogram-modal-body {
-          padding: 20px;
-          overflow-y: auto;
-          flex: 1;
-          -webkit-overflow-scrolling: touch;
-        }
-        .monogram-notice {
-          background: #FFFBF2;
-          border: 1px solid #E6B56E;
-          padding: 16px 20px;
-          margin-bottom: 24px;
-          border-radius: 12px;
-        }
-        .monogram-notice p {
-          font-size: 13px;
-          line-height: 1.6;
-          color: #856404;
-          margin: 0;
-        }
-        .monogram-notice strong {
-          color: #856404;
-        }
-        .monogram-item-add-icon {
-          display: none;
-        }
-        .monogram-selection-subtitle {
-          font-size: 14px;
-          color: #666;
-          margin: 0 0 20px 0;
-          text-align: center;
-        }
-
-        /* ========== SELECTION GRID (Step 2) ========== */
-        .monogram-selection-grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 12px;
-        }
-        .monogram-selection-item {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          padding: 20px 16px;
-          background: #fff;
-          border: 2px solid #e5e5e5;
-          border-radius: 8px;
-          cursor: pointer;
-          text-align: center;
-          transition: all 0.2s ease;
-          min-height: 100px;
-        }
-        .monogram-selection-item:hover {
-          border-color: #333;
-        }
-        .monogram-selection-item.is-completed {
-          border-color: #22c55e;
-          background: #f0fdf4;
-        }
-        .monogram-selection-item.is-completed::after {
-          content: '✓';
-          position: absolute;
-          top: 8px;
-          right: 8px;
-          width: 20px;
-          height: 20px;
-          background: #22c55e;
-          color: #fff;
-          border-radius: 50%;
-          font-size: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .monogram-selection-item {
-          position: relative;
-        }
-        .monogram-selection-label {
-          font-size: 14px;
-          color: #000;
-          line-height: 1.4;
-          margin-bottom: 4px;
-        }
-        .monogram-selection-label strong {
-          font-weight: 600;
-        }
-        .monogram-selection-price {
-          font-size: 13px;
-          color: #666;
-        }
-
-        /* ========== DETAIL CONTENT (Step 3) ========== */
-        .monogram-detail-content {
-          display: flex;
-          gap: 24px;
-        }
-        .monogram-detail-image-wrap {
-          flex: 0 0 280px;
-          max-width: 280px;
-        }
-        .monogram-detail-image-container {
-          position: relative;
-          background: #f5f5f5;
-          border-radius: 8px;
-          overflow: hidden;
-          aspect-ratio: 1;
-        }
-        .monogram-detail-image-container .monogram-base-image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-        .monogram-detail-form {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          gap: 0;
-        }
-        .monogram-detail-title {
-          font-size: 16px;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          margin: 0 0 20px 0;
-          color: #000;
-        }
-        .monogram-detail-form .monogram-label-item {
-          display: block;
-          font-size: 12px;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          color: #000;
-          margin-bottom: 6px;
-          margin-top: 16px;
-        }
-        .monogram-detail-form .monogram-label-item:first-of-type {
-          margin-top: 0;
-        }
-        .monogram-detail-form .monogram-style-select,
-        .monogram-detail-form .monogram-color-select,
-        .monogram-detail-form .monogram-text-input {
-          width: 100%;
-          padding: 12px 14px;
           border: 1px solid #ddd;
-          border-radius: 4px;
-          font-size: 14px;
-          font-family: var(--font-body-family);
+          padding: 20px;
+          margin-bottom: 20px;
           background: #fff;
-          transition: border-color 0.2s ease;
         }
-        .monogram-detail-form .monogram-style-select:focus,
-        .monogram-detail-form .monogram-color-select:focus,
-        .monogram-detail-form .monogram-text-input:focus {
-          outline: none;
-          border-color: #000;
+        .monogram-items-container {
+          display: flex;
+          flex-direction: column;
+          gap: 30px;
+        }
+        .monogram-item {
+          border-bottom: 1px solid #eee;
+          padding-bottom: 30px;
+        }
+        .monogram-item:last-child {
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+        .monogram-item-header {
+          margin-bottom: 15px;
+        }
+        .monogram-item-title {
+          font-size: 16px;
+          font-weight: 600;
+          margin: 0 0 15px 0;
+          text-transform: uppercase;
+        }
+        .monogram-content-wrapper {
+          display: flex;
+          gap: 30px;
+          margin-bottom: 0;
+        }
+        .monogram-image-container {
+          position: relative;
+          flex: 0 0 300px;
+          max-width: 300px;
+          border: 1px solid #eee;
+          background: #f9f9f9;
+          min-height: 300px;
+          cursor: crosshair;
+        }
+        .monogram-base-image {
+          max-width: 100%;
+          width: 100%;
+          height: auto;
+          /* Note: display is controlled via inline styles for visibility toggling */
         }
         .monogram-preview-text {
           position: absolute;
-          top: 77%;
-          left: 50%;
+          top: 78%;
+          left: 64%;
           transform: translate(-50%, -50%);
-          font-size: 24px;
+          font-size: 16px;
           font-weight: 400;
+          text-transform: uppercase;
           user-select: none;
           white-space: nowrap;
           cursor: move;
           z-index: 10;
-          color: #000;
-          text-transform: none;
+          color: #000000;
+          display: block;
+          min-width: 1px;
+          min-height: 1px;
         }
-
-        /* ========== MODAL FOOTER ========== */
-        .monogram-modal-footer {
-          padding: 16px 20px;
-          border-top: 1px solid #eee;
-          background: #fafafa;
-        }
-        .monogram-terms-container {
-          margin-bottom: 12px;
-        }
-        .monogram-terms-label {
-          display: flex;
-          align-items: flex-start;
-          gap: 10px;
-          cursor: pointer;
-          font-size: 13px;
-          color: #444;
-          line-height: 1.4;
-        }
-        .monogram-terms-label input[type="checkbox"] {
-          flex-shrink: 0;
-          width: 18px;
-          height: 18px;
-          margin: 0;
-          cursor: pointer;
-          accent-color: #000;
-        }
-        .monogram-modal-footer-btns {
-          display: flex;
-          gap: 12px;
-          width: 100%;
-        }
-        .monogram-save-btn {
-          flex: 2;
-          padding: 14px 24px;
-          background: #000;
-          color: #fff;
-          border: none;
-          border-radius: 6px;
-          font-size: 14px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          font-family: var(--font-body-family);
-        }
-        .monogram-remove-btn {
+        .monogram-options-panel {
           flex: 1;
-          padding: 14px 12px;
-          background: #fff;
-          color: #cc0000;
-          border: 1px solid #cc0000;
-          border-radius: 6px;
-          font-size: 13px;
+        }
+        .monogram-options-panel label {
+          display: block;
+          margin-top: 15px;
+          margin-bottom: 5px;
           font-weight: 600;
+          font-size: 14px;
           text-transform: uppercase;
           letter-spacing: 0.5px;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-family: var(--font-body-family);
         }
-        .monogram-remove-btn:hover {
-          background: #fff0f0;
+        .monogram-options-panel label:first-child {
+          margin-top: 0;
         }
-        .monogram-save-btn:hover:not(:disabled) {
-          background: #333;
+        .monogram-style-select,
+        .monogram-color-select,
+        .monogram-text-input {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #ccc;
+          font-size: 14px;
+          margin-bottom: 5px;
         }
-        .monogram-save-btn:disabled {
-          background: #ccc;
-          cursor: not-allowed;
-          opacity: 0.7;
-        }
-
-        /* ========== ACTIVE BADGE FOR TRIGGER ========== */
-        .monogram-trigger-btn.has-monograms {
-          border-color: #22c55e;
-          background: #f0fdf4;
-        }
-        .monogram-trigger-btn.has-monograms .monogram-trigger-icon {
-          color: #22c55e;
-        }
-        .monogram-active-count {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          background: #22c55e;
-          color: #fff;
-          font-size: 11px;
-          font-weight: 600;
-          padding: 2px 8px;
-          border-radius: 10px;
-          margin-left: 8px;
-        }
-
-        /* ========== RESPONSIVE ========== */
-        @media (max-width: 640px) {
-          .monogram-modal-overlay {
-            padding: 16px;
-            align-items: center;
-          }
-          .monogram-modal {
-            max-height: 85vh;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-          }
-          .monogram-modal-header {
-            padding: 14px 16px;
-          }
-          .monogram-modal-body {
-            padding: 16px;
-          }
-          .monogram-notice {
-            padding: 12px 14px;
-            margin-bottom: 16px;
-            gap: 10px;
-            display: flex;
-            align-items: flex-start;
-          }
-          .monogram-notice::before {
-            content: 'i';
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 20px;
-            height: 20px;
-            background: #E6B56E;
-            color: #fff;
-            border-radius: 50%;
-            font-family: serif;
-            font-style: italic;
-            font-weight: bold;
-            font-size: 14px;
-            flex-shrink: 0;
-            margin-top: 2px;
-          }
-          .monogram-notice p {
-            font-size: 12px;
-            line-height: 1.5;
-          }
-          .monogram-selection-subtitle {
-            margin-bottom: 16px;
-            font-size: 13px;
-          }
-          .monogram-selection-grid {
-            grid-template-columns: 1fr;
-            gap: 10px;
-          }
-          .monogram-selection-item {
-            flex-direction: row;
-            justify-content: flex-start;
-            padding: 14px 16px;
-            min-height: auto;
-            text-align: left;
-            gap: 12px;
-          }
-          .monogram-selection-label {
-            margin-bottom: 0;
-            flex-grow: 1;
-            font-size: 14px;
-          }
-          .monogram-selection-price {
-            font-weight: 500;
-          }
-          .monogram-item-add-icon {
-             display: flex;
-             align-items: center;
-             justify-content: center;
-             width: 24px;
-             height: 24px;
-             background: #f5f5f5;
-             border-radius: 50%;
-             color: #666;
-             flex-shrink: 0;
-          }
-          .monogram-selection-item.is-completed .monogram-item-add-icon {
-            background: #22c55e;
-            color: #fff;
-          }
-          .monogram-detail-content {
-            flex-direction: column;
-            gap: 20px;
-          }
-          .monogram-detail-image-container {
-            max-width: 100%;
-          }
-          .monogram-detail-title {
-            font-size: 14px;
-            margin-bottom: 12px;
-          }
-          .monogram-modal-footer {
-            padding: 16px;
-          }
-          .monogram-modal-footer-btns {
-            flex-direction: column-reverse;
-          }
-          .monogram-save-btn, .monogram-remove-btn {
-            width: 100%;
-          }
-        }
-
-        /* ========== SUMMARY CONTAINER (Main Page) ========== */
-        .monogram-summary-container {
-          margin-top: 20px;
-          padding: 0;
-          background: none;
-          border: none;
-          animation: monogramFadeIn 0.3s ease;
-        }
-        .monogram-total-summary {
-          margin-bottom: 12px;
-          font-size: 16px;
-          color: #000;
-          font-family: inherit;
-        }
-        .monogram-total-summary strong {
-          font-weight: 700;
-        }
-        .monogram-summary-container .monogram-terms-container {
-          margin-top: 15px;
-        }
-        .monogram-summary-container .monogram-terms-label {
-          display: flex;
-          align-items: flex-start;
-          gap: 15px;
-          cursor: pointer;
-          color: #000;
-          font-weight: 400;
-        }
-        .monogram-summary-container .monogram-terms-text {
-          font-size: 15px;
-          line-height: 1.4;
-          padding-top: 2px;
-        }
-        /* Custom large checkbox styling */
-        .monogram-summary-container .monogram-terms-label input[type="checkbox"] {
-          appearance: none;
-          -webkit-appearance: none;
-          width: 32px;
-          height: 32px;
+        .pod-description-d5 input {
+          all: unset;
           border: 1px solid #ddd;
           border-radius: 8px;
+          min-width: 27px;
+          max-width: 27px;
+          height: 27px;
           background: #fff;
+        }
+        .pod-description-d5 label {
+          line-height: 1.3;
           cursor: pointer;
-          position: relative;
-          flex-shrink: 0;
-          transition: all 0.2s ease;
         }
-        .monogram-summary-container .monogram-terms-label input[type="checkbox"]:checked {
-          background: #fff;
-          border-color: #000;
+        .pod-description-d5 input:checked {
+          background: #111;
         }
-        .monogram-summary-container .monogram-terms-label input[type="checkbox"]:checked::after {
-          content: '';
-          position: absolute;
-          left: 10px;
-          top: 5px;
-          width: 8px;
-          height: 14px;
-          border: solid #000;
-          border-width: 0 3px 3px 0;
-          transform: rotate(45deg);
+        .pod-description-d5 input:checked:after {
+          content: '✓';
+          width: 27px;
+          height: 27px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #fff;
+          font-weight: 700;
         }
-
-        /* ========== LEGACY COMPAT (hidden) ========== */
-        .monogram-items-container,
-        .monogramTotal,
-        .monogram-item-template,
-        #monogram-item-template-{{ section.id }} {
-          display: none !important;
+        .pod-terms-box-d5 {
+          display: flex;
+          align-items: unset;
+          gap: 15px;
+          cursor: pointer;
+          margin-bottom: 20px;
+          margin-top: 10px;
+        }
+        .monogramTotal{
+          margin-top:10px;
+        }
+        @media (max-width: 767px) {
+          .monogram-content-wrapper {
+            flex-direction: column;
+          }
+          .monogram-image-container {
+            flex: 1;
+            max-width: 100%;
+            min-height: 250px;
+          }
+          .monogram-text-input {
+            font-size: 16px;
+          }
         }
       </style>
 
@@ -1176,22 +708,6 @@
           const monogramItemTemplate = document.getElementById('monogram-item-template-{{ section.id }}');
           const checkboxTerms = document.getElementById('pod-terms-{{ section.id }}');
           const processingNotice = wrapper.querySelector('.monogram-processing-notice-wrapper');
-          
-          // NEW: Modal elements for 3-step popup flow
-          const selectionOverlay = document.getElementById('monogram-selection-overlay-{{ section.id }}');
-          const selectionCloseBtn = document.getElementById('monogram-selection-close-{{ section.id }}');
-          const selectionGrid = document.getElementById('monogram-selection-grid-{{ section.id }}');
-          const detailOverlay = document.getElementById('monogram-detail-overlay-{{ section.id }}');
-          const detailBackBtn = document.getElementById('monogram-detail-back-{{ section.id }}');
-          const detailCloseBtn = document.getElementById('monogram-detail-close-{{ section.id }}');
-          const detailContent = document.getElementById('monogram-detail-content-{{ section.id }}');
-          const saveBtn = document.getElementById('monogram-save-{{ section.id }}');
-          const removeBtn = document.getElementById('monogram-remove-{{ section.id }}');
-          
-          // Track current editing state
-          let currentEditingIndex = -1;
-          let monogramCompletedItems = {}; // Track which items have been completed
-          
           // Get ATC button with fallback selectors
           const atcButton = document.querySelector('#ProductSubmitButton-{{ section_id }}') || 
                            document.querySelector('#ProductSubmitButton-{{ section.id }}') ||
@@ -1250,21 +766,15 @@
             return '$' + dollars;
           }
           
-          // Check if any monogram text fields are empty (for completed items)
+          // Check if any monogram text fields are empty
           function hasEmptyMonogramTextFields() {
-            // In the new popup flow, we check if any completed items have empty text
-            const completedCount = Object.values(monogramCompletedItems).filter(Boolean).length;
-            if (completedCount === 0) {
-              return false; // No monograms added, so no empty fields
+            if (!monogramBox || monogramBox.style.display === 'none') {
+              return false;
             }
-            
-            // Check completed items for empty text
             for (let i = 0; i < monogramItemsData.length; i++) {
-              if (monogramCompletedItems[i]) {
-                const itemData = monogramItemsData[i];
-                if (itemData && itemData.textInput && !itemData.textInput.value.trim()) {
-                  return true;
-                }
+              const itemData = monogramItemsData[i];
+              if (itemData.textInput && !itemData.textInput.value.trim()) {
+                return true;
               }
             }
             return false;
@@ -1274,24 +784,22 @@
           function updateATCButtonState() {
             if (!atcButton) return;
             
-            // In new popup flow, check if user has added any monograms
-            const completedCount = Object.values(monogramCompletedItems).filter(Boolean).length;
-            const hasMonograms = completedCount > 0;
+            const boxIsOpen = monogramBox && monogramBox.style.display !== 'none';
             const checkboxChecked = checkboxTerms && checkboxTerms.checked;
             const hasEmptyFields = hasEmptyMonogramTextFields();
             
-            console.log('[Monogram] updateATCButtonState:', { hasMonograms, checkboxChecked, hasEmptyFields, completedCount });
+            console.log('[Monogram] updateATCButtonState:', { boxIsOpen, checkboxChecked, hasEmptyFields });
             
-            // Check if button was disabled by theme for product unavailability
+            // Check if button was disabled by theme for product unavailability (before our changes)
             const hasDataUnavailable = atcButton.hasAttribute('data-unavailable') && atcButton.getAttribute('data-unavailable') === 'true';
             
-            if (hasMonograms && (!checkboxChecked || hasEmptyFields)) {
-              // User has added monograms but requirements not met - disable
+            if (boxIsOpen && (!checkboxChecked || hasEmptyFields)) {
+              // Monogram box is open but requirements not met - disable
               atcButton.classList.add('monogram-disabled');
               atcButton.disabled = true;
               console.log('[Monogram] Button disabled - checkbox:', checkboxChecked, 'emptyFields:', hasEmptyFields);
             } else if (!hasDataUnavailable) {
-              // Requirements met OR no monograms added, and product is available - enable
+              // Requirements met OR box is closed, and product is available - enable
               atcButton.classList.remove('monogram-disabled');
               atcButton.disabled = false;
               console.log('[Monogram] Button enabled');
@@ -1311,46 +819,37 @@
           const totalPriceDisplay = document.getElementById('monogram-total-price-{{ section.id }}');
           const totalPriceValue = totalPriceDisplay ? totalPriceDisplay.querySelector('.monogram-total-price-value') : null;
           
-          // Count monograms with text (only completed items)
+          // Count monograms with text
           function countMonogramsWithText() {
             let count = 0;
-            for (let i = 0; i < monogramItemsData.length; i++) {
-              if (monogramCompletedItems[i]) {
-                const itemData = monogramItemsData[i];
-                if (itemData && itemData.textInput && itemData.textInput.value.trim()) {
-                  count++;
-                }
+            monogramItemsData.forEach(function(itemData) {
+              if (itemData.textInput && itemData.textInput.value.trim()) {
+                count++;
               }
-            }
+            });
             return count;
           }
           
-          // Update button text (legacy - no longer used in new popup flow)
+          // Update button text
           function updateMonogramButton() {
-            // This function is kept for compatibility but is no longer used
-            // The trigger button state is now managed by updateTriggerButtonState()
+            if (!toggleBtn || !btnTextSpan) return;
+            btnTextSpan.textContent = isMonogramBoxOpen ? 'Remove Monogram' : 'Add Monogram';
           }
           
-          // Update total price (for legacy hidden elements - kept for cart submission)
+          // Update total price
           function updateMonogramTotalPrice() {
-            // Price is now shown inline on the trigger button and in the modals
-            // This function updates the hidden total for cart calculation
-            const completedCount = Object.values(monogramCompletedItems).filter(Boolean).length;
-            const summaryValue = document.querySelector('.monogram-total-summary-value');
-            const summaryCount = document.querySelector('.monogram-total-count');
-            if (summaryValue) {
-              const monogramUnitPrice = getMonogramUnitPrice();
-              const totalPrice = monogramUnitPrice * completedCount;
-              summaryValue.textContent = formatMoney(totalPrice);
-            }
-            if (summaryCount) {
-              summaryCount.textContent = completedCount + (completedCount === 1 ? ' monogram' : ' monograms');
-            }
+            if (!totalPriceDisplay || !totalPriceValue) return;
             
-            if (totalPriceDisplay && totalPriceValue) {
+            if (isMonogramBoxOpen) {
+              const displayCount = Math.max(1, monogramItemsData.length);
+              
+              // Get current price in current currency
               const monogramUnitPrice = getMonogramUnitPrice();
-              const totalPrice = monogramUnitPrice * completedCount;
-              totalPriceValue.textContent = formatMoney(totalPrice);
+              const totalPrice = monogramUnitPrice * displayCount;
+              totalPriceValue.textContent = formatMoney(totalPrice) + ' (' + displayCount + ' monogram' + (displayCount > 1 ? 's' : '') + ')';
+              totalPriceDisplay.style.display = 'block';
+            } else {
+              totalPriceDisplay.style.display = 'none';
             }
           }
           
@@ -1500,13 +999,13 @@
                 textInput: textInput,
                 previewText: previewText,
                 imageContainer: imageContainer,
-                position: { x: 50, y: 77 }
+                position: { x: 50, y: 50 }
               };
               monogramItemsData.push(itemData);
               
               if (previewText) {
                 previewText.style.position = 'absolute';
-                previewText.style.top = '77%';
+                previewText.style.top = '60%';
                 previewText.style.left = '50%';
                 previewText.style.transform = 'translate(-50%, -50%)';
                 previewText.style.color = '#000000';
@@ -1662,655 +1161,106 @@
             document.addEventListener('mouseup', handleMouseUp);
           }
           
-          // Load font with fallback to Google Fonts
+          // Load font
           function loadFont(fontName, fontUrl) {
             if (loadedFonts[fontName]) {
-              console.log('[Monogram] Font already loaded:', fontName);
               return Promise.resolve();
             }
-            
-            // Fallback Google Fonts URLs if metafield URL is missing
-            const googleFontUrls = {
-              'Playfair Display': 'https://fonts.gstatic.com/s/playfairdisplay/v30/nuFiD-vYSZviVYUb_rj3ij__anPXDTjYgEM86xQ.woff2',
-              'Pinyon Script': 'https://fonts.gstatic.com/s/pinyonscript/v17/6xKpdSJbL9-e9LuoeQiDRQR8WOXaPw.woff2'
-            };
-            
-            const urlToUse = fontUrl || googleFontUrls[fontName];
-            
-            if (!urlToUse) {
-              console.warn('[Monogram] No font URL available for:', fontName);
-              return Promise.resolve();
-            }
-            
-            console.log('[Monogram] Loading font:', fontName, 'from:', urlToUse);
             
             return new Promise(function(resolve, reject) {
-              try {
-                const fontFace = new FontFace(fontName, `url(${urlToUse})`);
-                fontFace.load().then(function(loadedFace) {
-                  document.fonts.add(loadedFace);
-                  loadedFonts[fontName] = true;
-                  console.log('[Monogram] Font loaded successfully:', fontName);
-                  resolve();
-                }).catch(function(err) {
-                  console.error('[Monogram] Font load error for', fontName, ':', err);
-                  // Try Google Font fallback if metafield URL failed
-                  if (fontUrl && googleFontUrls[fontName]) {
-                    console.log('[Monogram] Trying Google Fonts fallback for:', fontName);
-                    const fallbackFace = new FontFace(fontName, `url(${googleFontUrls[fontName]})`);
-                    fallbackFace.load().then(function(loadedFace) {
-                      document.fonts.add(loadedFace);
-                      loadedFonts[fontName] = true;
-                      resolve();
-                    }).catch(function() {
-                      resolve(); // Continue even if font failed
-                    });
-                  } else {
-                    resolve(); // Continue even if font failed
-                  }
-                });
-              } catch (e) {
-                console.error('[Monogram] Font Face API error:', e);
+              const fontFace = new FontFace(fontName, `url(${fontUrl})`);
+              fontFace.load().then(function(loadedFace) {
+                document.fonts.add(loadedFace);
+                loadedFonts[fontName] = true;
                 resolve();
-              }
+              }).catch(reject);
             });
           }
           
-          // Preload both fonts on page load for better UX
-          function preloadMonogramFonts() {
-            console.log('[Monogram] Preloading fonts...');
-            loadFont('Playfair Display', '');
-            loadFont('Pinyon Script', '');
-          }
-          
-          // Preload fonts after a short delay (non-blocking)
-          setTimeout(preloadMonogramFonts, 1000);
-          
-          // ========== NEW: POPUP MODAL FUNCTIONS ==========
-          
-          // Get bundle item info (color, size) for each item
-          function getBundleItemsInfo() {
-            const items = [];
-            const selectedBundle = document.querySelector('.kaching-bundles__bar--selected');
-            
-            if (selectedBundle) {
-              const variantWrappers = selectedBundle.querySelectorAll('.kaching-bundles__bar-variant-selector-wrapper');
-              variantWrappers.forEach(function(wrapper, index) {
-                let color = '';
-                let size = '';
-                
-                // Get color
-                let colorSelect = wrapper.querySelector('.kaching-bundles__bar-variant-select[data-name="Color"]');
-                if (!colorSelect) colorSelect = wrapper.querySelector('.kaching-bundles__bar-variant-select[data-name="Colour"]');
-                if (!colorSelect) colorSelect = wrapper.querySelector('select.kaching-bundles__bar-variant-select');
-                if (colorSelect) color = colorSelect.value || colorSelect.options[colorSelect.selectedIndex]?.text || '';
-                
-                // Get size
-                let sizeSelect = wrapper.querySelector('.kaching-bundles__bar-variant-select[data-name="Size"]');
-                if (sizeSelect) size = sizeSelect.value || sizeSelect.options[sizeSelect.selectedIndex]?.text || '';
-                
-                items.push({ color, size, index });
-              });
-            }
-            
-            // Fallback for single product (no bundle)
-            if (items.length === 0) {
-              const productForm = document.getElementById(formId);
-              if (productForm) {
-                const variantIdInput = productForm.querySelector('input[name="id"], select[name="id"]');
-                let color = '';
-                let size = '';
-                
-                // Try to get color/size from variant selects
-                const colorRadio = document.querySelector('input[name="Color"]:checked, input[name="Colour"]:checked');
-                const sizeRadio = document.querySelector('input[name="Size"]:checked');
-                
-                if (colorRadio) color = colorRadio.value;
-                if (sizeRadio) size = sizeRadio.value;
-                
-                items.push({ color: color || 'Selected', size: size || '', index: 0 });
-              } else {
-                items.push({ color: 'Selected', size: '', index: 0 });
-              }
-            }
-            
-            return items;
-          }
-          
-          // Populate selection grid with blanket items
-          function populateSelectionGrid() {
-            if (!selectionGrid) return;
-            
-            const items = getBundleItemsInfo();
-            const monogramPrice = getMonogramUnitPrice();
-            
-            selectionGrid.innerHTML = '';
-            
-            items.forEach(function(item, index) {
-              const isCompleted = monogramCompletedItems[index] || false;
-              const completedClass = isCompleted ? ' is-completed' : '';
-              
-              const itemHtml = `
-                <button type="button" class="monogram-selection-item${completedClass}" data-item-index="${index}">
-                  <div class="monogram-item-add-icon">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                      <line x1="12" y1="5" x2="12" y2="19"></line>
-                      <line x1="5" y1="12" x2="19" y2="12"></line>
-                    </svg>
-                  </div>
-                  <div class="monogram-selection-label">
-                    Add monogram for <strong>${item.color}</strong>
-                    ${item.size ? '<br><small style="color:#666; font-size:11px;">' + item.size + '</small>' : ''}
-                  </div>
-                  <div class="monogram-selection-price">+${formatMoney(monogramPrice)}</div>
-                </button>
-              `;
-              selectionGrid.insertAdjacentHTML('beforeend', itemHtml);
-            });
-            
-            // Add click handlers to selection items
-            selectionGrid.querySelectorAll('.monogram-selection-item').forEach(function(btn) {
-              btn.addEventListener('click', function() {
-                const itemIndex = parseInt(btn.getAttribute('data-item-index'));
-                openDetailModal(itemIndex);
-              });
-            });
-          }
-          
-          // Open selection modal (Step 2)
-          function openSelectionModal() {
-            if (!selectionOverlay) return;
-            
-            // Generate monogram items data if not already done
-            currentBundleItemCount = getSelectedBundleItemCount();
-            if (monogramItemsData.length !== currentBundleItemCount) {
-              generateMonogramItems(currentBundleItemCount);
-            }
-            
-            populateSelectionGrid();
-            selectionOverlay.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-            isMonogramBoxOpen = true;
-          }
-          
-          // Close selection modal
-          function closeSelectionModal() {
-            if (!selectionOverlay) return;
-            selectionOverlay.style.display = 'none';
-            document.body.style.overflow = '';
-            
-            // Update trigger button state
-            updateTriggerButtonState();
-          }
-          
-          // Open detail modal (Step 3)
-          function openDetailModal(itemIndex) {
-            if (!detailOverlay || !detailContent) return;
-            
-            currentEditingIndex = itemIndex;
-            const items = getBundleItemsInfo();
-            const itemInfo = items[itemIndex] || { color: 'Blanket', size: '' };
-            
-            // Get monogram item data
-            const itemData = monogramItemsData[itemIndex];
-            if (!itemData) {
-              console.error('[Monogram] No monogram item data for index:', itemIndex);
-              return;
-            }
-            
-            // Get existing preview text and position
-            const existingPreviewText = itemData.textInput ? itemData.textInput.value : '';
-            const existingFont = itemData.styleSelect ? itemData.styleSelect.value : '';
-            const existingColor = itemData.colorSelect ? itemData.colorSelect.value : '';
-            const position = itemData.position || { x: 50, y: 77 };
-            
-            // Prepare font-family CSS with fallbacks
-            const fontFamilyCSS = existingFont ? "'" + existingFont + "', cursive, serif" : 'inherit';
-            
-            // Clone the form elements from the template
-            const formHtml = `
-              <div class="monogram-detail-image-wrap">
-                <div class="monogram-detail-image-container" data-item-index="${itemIndex}">
-                  ${itemData.imageContainer ? itemData.imageContainer.innerHTML : ''}
-                </div>
-              </div>
-              <div class="monogram-detail-form">
-                <h4 class="monogram-detail-title">MONOGRAM ${itemIndex + 1}</h4>
-                
-                <label class="monogram-label-item">FONT STYLE</label>
-                <select class="monogram-style-select" data-item-index="${itemIndex}">
-                  <option value="">Choose a style</option>
-                  ${getStyleOptions(itemData.styleSelect ? itemData.styleSelect.value : '')}
-                </select>
-                
-                <label class="monogram-label-item">TEXT COLOR</label>
-                <select class="monogram-color-select" data-item-index="${itemIndex}">
-                  <option value="">Choose a color</option>
-                  <option value="Black"${itemData.colorSelect && itemData.colorSelect.value === 'Black' ? ' selected' : ''}>Black</option>
-                  <option value="White"${itemData.colorSelect && itemData.colorSelect.value === 'White' ? ' selected' : ''}>White</option>
-                </select>
-                
-                <label class="monogram-label-item">MONOGRAM TEXT</label>
-                <input type="text" class="monogram-text-input" data-item-index="${itemIndex}" maxlength="10" placeholder="Enter text (max 10 chars)" value="${itemData.textInput ? itemData.textInput.value : ''}">
-              </div>
-            `;
-            
-            detailContent.innerHTML = formHtml;
-            
-            // Setup event listeners for the form
-            setupDetailFormListeners(itemIndex);
-            
-            // If there's an existing font, make sure it's loaded
-            if (existingFont) {
-              console.log('[Monogram] Loading saved font:', existingFont);
-              loadFont(existingFont, '').then(function() {
-                // Force re-apply the font after loading
-                updateDetailPreviewText(itemIndex);
-              });
-            } else {
-              // Ensure preview text is initialized with correct styling even if no font
-              updateDetailPreviewText(itemIndex);
-            }
-            
-            // Update image based on color
-            setTimeout(function() {
-              const color = itemInfo.color;
-              if (color) {
-                updateDetailModalImage(itemIndex, color);
-              }
-            }, 100);
-            
-            // Update buttons based on completed state
-            const isCompleted = monogramCompletedItems[itemIndex];
-            if (saveBtn) {
-              saveBtn.textContent = isCompleted ? 'Update Monogram' : 'Save Monogram';
-            }
-            if (removeBtn) {
-              removeBtn.style.display = isCompleted ? 'flex' : 'none';
-            }
-            
-            // Hide selection, show detail
-            if (selectionOverlay) selectionOverlay.style.display = 'none';
-            detailOverlay.style.display = 'flex';
-            
-            // Update save button state
-            setTimeout(updateSaveButtonState, 50);
-          }
-          
-          // Get style options HTML
-          function getStyleOptions(selectedValue) {
-            let optionsHtml = '';
-            const styleSelect = monogramItemTemplate ? monogramItemTemplate.querySelector('.monogram-style-select') : null;
-            if (styleSelect) {
-              styleSelect.querySelectorAll('option').forEach(function(opt) {
-                if (opt.value) {
-                  const selected = opt.value === selectedValue ? ' selected' : '';
-                  optionsHtml += `<option value="${opt.value}" data-url="${opt.getAttribute('data-url') || ''}"${selected}>${opt.textContent}</option>`;
-                }
-              });
-            }
-            return optionsHtml;
-          }
-          
-          // Setup detail form listeners
-          function setupDetailFormListeners(itemIndex) {
-            const styleSelect = detailContent.querySelector('.monogram-style-select');
-            const colorSelect = detailContent.querySelector('.monogram-color-select');
-            const textInput = detailContent.querySelector('.monogram-text-input');
-            const previewText = detailContent.querySelector('.monogram-preview-text');
-            const imageContainer = detailContent.querySelector('.monogram-detail-image-container');
-            
-            // Style change
-            if (styleSelect) {
-              styleSelect.addEventListener('change', function() {
-                const fontName = this.value;
-                const fontUrl = this.options[this.selectedIndex]?.getAttribute('data-url') || '';
-                
-                console.log('[Monogram] Style changed to:', fontName, 'URL:', fontUrl || '(using fallback)');
-                
-                // Update original data
-                if (monogramItemsData[itemIndex] && monogramItemsData[itemIndex].styleSelect) {
-                  monogramItemsData[itemIndex].styleSelect.value = fontName;
-                }
-                
-                // Always try to load font (function has fallback URLs)
-                if (fontName) {
-                  loadFont(fontName, fontUrl).then(function() {
-                    console.log('[Monogram] Applying font:', fontName);
-                    updateDetailPreviewText(itemIndex);
-                  });
-                } else {
-                  updateDetailPreviewText(itemIndex);
-                }
-              });
-            }
-            
-            // Color change
-            if (colorSelect) {
-              colorSelect.addEventListener('change', function() {
-                if (monogramItemsData[itemIndex] && monogramItemsData[itemIndex].colorSelect) {
-                  monogramItemsData[itemIndex].colorSelect.value = this.value;
-                }
-                updateDetailPreviewText(itemIndex);
-              });
-            }
-            
-            // Text input
-            if (textInput) {
-              textInput.addEventListener('input', function() {
-                if (monogramItemsData[itemIndex] && monogramItemsData[itemIndex].textInput) {
-                  monogramItemsData[itemIndex].textInput.value = this.value;
-                }
-                updateDetailPreviewText(itemIndex);
-                updateSaveButtonState(); // Update save button based on text entry
-              });
-            }
-            
-            // Make preview text draggable
-            const preview = detailContent.querySelector('.monogram-preview-text');
-            if (preview && imageContainer) {
-              setupDragForDetailPreview(preview, imageContainer, itemIndex);
-            }
-          }
-          
-          // Update preview text in detail modal
-          function updateDetailPreviewText(itemIndex) {
-            const styleSelect = detailContent.querySelector('.monogram-style-select');
-            const colorSelect = detailContent.querySelector('.monogram-color-select');
-            const textInput = detailContent.querySelector('.monogram-text-input');
-            const previewText = detailContent.querySelector('.monogram-preview-text');
-            
-            if (previewText && textInput) {
-              previewText.textContent = textInput.value.toUpperCase();
-              
-              if (styleSelect && styleSelect.value) {
-                const fontFamily = "'" + styleSelect.value + "', cursive, serif";
-                previewText.style.fontFamily = fontFamily;
-                console.log('[Monogram] Applied font-family:', fontFamily);
-              }
-              
-              if (colorSelect && colorSelect.value) {
-                previewText.style.color = colorSelect.value.toLowerCase() === 'white' ? '#fff' : '#000';
-              }
-              
-              const itemData = monogramItemsData[itemIndex];
-              if (itemData && itemData.position) {
-                previewText.style.left = itemData.position.x + '%';
-                previewText.style.top = itemData.position.y + '%';
-              }
-            }
-          }
-          
-          // Update image in detail modal based on color
-          function updateDetailModalImage(itemIndex, color) {
-            const imageContainer = detailContent.querySelector('.monogram-detail-image-container');
-            if (!imageContainer) return;
-            
-            const images = imageContainer.querySelectorAll('.monogram-base-image');
-            let foundMatch = false;
-            
-            images.forEach(function(img) {
-              const imgColor = img.getAttribute('data-color') || '';
-              const colorLower = color.toLowerCase();
-              const imgColorLower = imgColor.toLowerCase();
-              
-              // Match logic
-              if (imgColorLower === colorLower || 
-                  imgColorLower.includes(colorLower) || 
-                  colorLower.includes(imgColorLower)) {
-                img.style.display = 'block';
-                foundMatch = true;
-              } else {
-                img.style.display = 'none';
-              }
-            });
-            
-            // Fallback: show first image if no match
-            if (!foundMatch && images.length > 0) {
-              images[0].style.display = 'block';
-            }
-          }
-          
-          // Setup drag for detail preview
-          function setupDragForDetailPreview(previewEl, containerEl, itemIndex) {
-            if (!previewEl || !containerEl) return;
-            
-            let isDragging = false;
-            let startXPercent, startYPercent, startMouseX, startMouseY;
-            
-            previewEl.addEventListener('mousedown', function(e) {
-              e.preventDefault();
-              isDragging = true;
-              
-              const rect = containerEl.getBoundingClientRect();
-              startMouseX = e.clientX;
-              startMouseY = e.clientY;
-              
-              const left = parseFloat(previewEl.style.left) || 50;
-              const top = parseFloat(previewEl.style.top) || 77;
-              startXPercent = left;
-              startYPercent = top;
-            });
-            
-            document.addEventListener('mousemove', function(e) {
-              if (!isDragging) return;
-              
-              const rect = containerEl.getBoundingClientRect();
-              const deltaX = ((e.clientX - startMouseX) / rect.width) * 100;
-              const deltaY = ((e.clientY - startMouseY) / rect.height) * 100;
-              
-              let newX = startXPercent + deltaX;
-              let newY = startYPercent + deltaY;
-              
-              newX = Math.max(10, Math.min(90, newX));
-              newY = Math.max(10, Math.min(90, newY));
-              
-              previewEl.style.left = newX + '%';
-              previewEl.style.top = newY + '%';
-              
-              // Update original data position
-              if (monogramItemsData[itemIndex]) {
-                monogramItemsData[itemIndex].position = { x: newX, y: newY };
-              }
-            });
-            
-            document.addEventListener('mouseup', function() {
-              isDragging = false;
-            });
-          }
-          
-          // Close detail modal
-          function closeDetailModal() {
-            if (!detailOverlay) return;
-            detailOverlay.style.display = 'none';
-            currentEditingIndex = -1;
-          }
-          
-          // Go back from detail to selection
-          function goBackToSelection() {
-            closeDetailModal();
-            openSelectionModal();
-          }
-          
-          // Save monogram and go back to selection
-          function saveMonogramAndGoBack() {
-            if (currentEditingIndex < 0) return;
-            
-            // Mark as completed
-            monogramCompletedItems[currentEditingIndex] = true;
-            
-            // Check if text is entered
-            const textInput = detailContent.querySelector('.monogram-text-input');
-            if (!textInput || !textInput.value.trim()) {
-              alert('Please enter monogram text before saving.');
-              return;
-            }
-            
-
-            
-            // Check if all items are now completed
-            const totalItems = monogramItemsData.length;
-            const completedCount = Object.values(monogramCompletedItems).filter(Boolean).length;
-            
-            if (completedCount >= totalItems) {
-              // All items completed - close the entire popup flow
-              console.log('[Monogram] All items completed, closing popup');
-              closeDetailModal();
-              closeSelectionModal();
-            } else {
-              // Still have items to complete - go back to selection
-              goBackToSelection();
-            }
-          }
-          
-          // Remove monogram
-          function removeMonogram() {
-            if (currentEditingIndex < 0) return;
-            
-            // Mark as incomplete
-            monogramCompletedItems[currentEditingIndex] = false;
-            
-            // Reset data for this index
-            if (monogramItemsData[currentEditingIndex]) {
-              const data = monogramItemsData[currentEditingIndex];
-              if (data.styleSelect) data.styleSelect.value = '';
-              if (data.colorSelect) data.colorSelect.value = '';
-              if (data.textInput) data.textInput.value = '';
-              data.position = { x: 50, y: 77 };
-            }
-            
-            console.log('[Monogram] Monogram removed for index:', currentEditingIndex);
-            
-            // Return to selection
-            goBackToSelection();
-          }
-          
-          // Update save button state
-          function updateSaveButtonState() {
-            if (!saveBtn) return;
-            
-            const textInput = detailContent ? detailContent.querySelector('.monogram-text-input') : null;
-            const hasText = textInput && textInput.value.trim();
-            saveBtn.disabled = !hasText;
-          }
-          
-          // Update trigger button to show active monograms count
-          function updateTriggerButtonState() {
-            if (!toggleBtn) return;
-            
-            const completedCount = Object.values(monogramCompletedItems).filter(Boolean).length;
-            
-            if (completedCount > 0) {
-              toggleBtn.classList.add('has-monograms');
-              
-              // Add or update count badge
-              let badge = toggleBtn.querySelector('.monogram-active-count');
-              if (!badge) {
-                badge = document.createElement('span');
-                badge.className = 'monogram-active-count';
-                toggleBtn.querySelector('.monogram-trigger-label').appendChild(badge);
-              }
-              badge.textContent = completedCount + ' added';
-              
-              // Update isMonogramBoxOpen state
-              isMonogramBoxOpen = true;
-              
-              // Show summary container (total + checkbox)
-              const summaryContainer = document.getElementById('monogram-summary-{{ section.id }}');
-              if (summaryContainer) summaryContainer.style.display = 'block';
-            } else {
-              toggleBtn.classList.remove('has-monograms');
-              const badge = toggleBtn.querySelector('.monogram-active-count');
-              if (badge) badge.remove();
-              isMonogramBoxOpen = false;
-              
-              // Hide summary container
-              const summaryContainer = document.getElementById('monogram-summary-{{ section.id }}');
-              if (summaryContainer) summaryContainer.style.display = 'none';
-            }
-            
-            updateATCButtonState();
-            updateMonogramTotalPrice();
-          }
-          
-          // ========== EVENT LISTENERS FOR MODALS ==========
-          
-          // Trigger button opens selection modal
-          if (toggleBtn) {
+          // Toggle monogram box
+          if (toggleBtn && monogramBox) {
             toggleBtn.addEventListener('click', function(e) {
               e.preventDefault();
               e.stopPropagation();
-              console.log('[Monogram] Trigger button clicked - opening selection modal');
-              openSelectionModal();
-            });
-          }
-          
-          // Close selection modal
-          if (selectionCloseBtn) {
-            selectionCloseBtn.addEventListener('click', function(e) {
-              e.preventDefault();
-              closeSelectionModal();
-            });
-          }
-          
-          // Close on overlay click (selection)
-          if (selectionOverlay) {
-            selectionOverlay.addEventListener('click', function(e) {
-              if (e.target === selectionOverlay) {
-                closeSelectionModal();
+              console.log('[Monogram] Toggle button clicked');
+              const wasVisible = monogramBox.style.display !== 'none';
+              isMonogramBoxOpen = !wasVisible;
+              monogramBox.style.display = wasVisible ? 'none' : 'block';
+              console.log('[Monogram] Monogram box display set to:', monogramBox.style.display);
+              
+              if (monogramBox.style.display === 'block') {
+                // Get bundle item count - will parse from bundle title if needed
+                currentBundleItemCount = getSelectedBundleItemCount();
+                console.log('[Monogram] Opening monogram box, generating', currentBundleItemCount, 'monogram items');
+                generateMonogramItems(currentBundleItemCount);
+                updateATCButtonState();
+                
+                // After generating items, update images based on bundle colors or variant
+                setTimeout(function() {
+                  // Priority 1: If bundle is selected, use bundle colors for each item INDIVIDUALLY
+                  if (isBundleSelected() && monogramItemsData.length > 0) {
+                    console.log('[Monogram] Bundle is selected - initializing each item with its own bundle color');
+                    const selectedBundle = document.querySelector('.kaching-bundles__bar--selected');
+                    if (selectedBundle) {
+                      const variantWrappers = selectedBundle.querySelectorAll('.kaching-bundles__bar-variant-selector-wrapper');
+                      console.log('[Monogram] Found', variantWrappers.length, 'bundle variant wrappers');
+                      
+                      variantWrappers.forEach(function(wrapper, index) {
+                        if (index < monogramItemsData.length) {
+                          // Try multiple selectors for color dropdown
+                          let colorSelect = wrapper.querySelector('.kaching-bundles__bar-variant-select[data-name="Color"]');
+                          if (!colorSelect) {
+                            colorSelect = wrapper.querySelector('.kaching-bundles__bar-variant-select[data-name="Colour"]');
+                          }
+                          if (!colorSelect) {
+                            // Fallback: get the first select in the wrapper
+                            colorSelect = wrapper.querySelector('select.kaching-bundles__bar-variant-select');
+                          }
+                          
+                          if (colorSelect) {
+                            const colorValue = colorSelect.value;
+                            console.log('[Monogram] Bundle item', index, '- found color:', colorValue);
+                            if (colorValue) {
+                              updateSingleMonogramItemImage(index, colorValue);
+                            }
+                          } else {
+                            console.warn('[Monogram] No color select found for bundle item', index);
+                          }
+                        }
+                      });
+                    } else {
+                      console.warn('[Monogram] Selected bundle element not found');
+                    }
+                  } else {
+                    // Priority 2: Use main product variant
+                    const productForm = document.getElementById(formId);
+                    if (productForm) {
+                      const variantIdInput = productForm.querySelector('input[name="id"], select[name="id"]');
+                      let currentVariantId = null;
+                      if (variantIdInput) {
+                        if (variantIdInput.tagName === 'SELECT') {
+                          currentVariantId = variantIdInput.options[variantIdInput.selectedIndex]?.value;
+                        } else {
+                          currentVariantId = variantIdInput.value;
+                        }
+                      }
+                      if (currentVariantId && monogramItemsData.length > 0) {
+                        const variantIdInt = parseInt(currentVariantId);
+                        console.log('[Monogram] Updating images for current variant after opening box:', variantIdInt);
+                        updateMonogramImagesForVariant(variantIdInt);
+                      }
+                    }
+                  }
+                }, 150);
+              } else {
+                updateATCButtonState();
               }
+              
+              updateMonogramButton();
+              updateMonogramTotalPrice();
             });
-          }
-          
-          // Detail modal back button
-          if (detailBackBtn) {
-            detailBackBtn.addEventListener('click', function(e) {
-              e.preventDefault();
-              goBackToSelection();
-            });
-          }
-          
-          // Detail modal close button
-          if (detailCloseBtn) {
-            detailCloseBtn.addEventListener('click', function(e) {
-              e.preventDefault();
-              closeDetailModal();
-              closeSelectionModal();
-            });
-          }
-          
-          // Close on overlay click (detail)
-          if (detailOverlay) {
-            detailOverlay.addEventListener('click', function(e) {
-              if (e.target === detailOverlay) {
-                closeDetailModal();
-                closeSelectionModal();
-              }
-            });
-          }
-          
-          // Save button
-          if (saveBtn) {
-            saveBtn.addEventListener('click', function(e) {
-              e.preventDefault();
-              saveMonogramAndGoBack();
-            });
-          }
-          
-          // Remove button
-          if (removeBtn) {
-            removeBtn.addEventListener('click', function(e) {
-              e.preventDefault();
-              removeMonogram();
-            });
-          }
-          
-          // Checkbox change
-          if (checkboxTerms) {
-            checkboxTerms.addEventListener('change', function() {
-              updateATCButtonState();
-              updateSaveButtonState(); // Also update save button in detail modal
-            });
+          } else {
+            console.error('[Monogram] Cannot setup toggle - toggleBtn:', !!toggleBtn, 'monogramBox:', !!monogramBox);
           }
           
           // Bundle detection
@@ -3537,7 +2487,7 @@
           if (productForm) {
             // Function to add only monogram items to cart (used when bundle app handles bundle items separately)
             function addMonogramItemsToCart() {
-              console.log('[Monogram] addMonogramItemsToCart called (delayed/fallback)');
+              console.log('[Monogram] Adding monogram items to cart (bundle app handled bundle items)');
               
               if (typeof fetchConfig === 'undefined') {
                 console.error('[Monogram] fetchConfig is not available.');
@@ -3550,11 +2500,10 @@
                 return Promise.resolve();
               }
               
-              // Build monogram items array (only completed items from popup flow)
+              // Build monogram items array
               const monogramItems = [];
               monogramItemsData.forEach(function(itemData, itemIndex) {
-                // Only include items that were marked as completed in the popup flow
-                if (monogramCompletedItems[itemIndex] && itemData.textInput && itemData.textInput.value.trim()) {
+                if (itemData.textInput && itemData.textInput.value.trim()) {
                   let productName = '{{ product.title | escape }}';
                   
                   // Get variant info for this monogram item
@@ -3688,26 +2637,18 @@
                 });
             }
             
-            // Intercept form submission to add monogram items in capture phase 
-            // to ensure we run before theme Ajax logic and can stop propagation.
             productForm.addEventListener('submit', function(e) {
-              console.log('[Monogram] product-form submit event captured (capture phase)');
-              
-              // Check if any monograms have been added and have text
-              const hasMonogramText = monogramItemsData.some(function(item, index) {
-                return monogramCompletedItems[index] && item.textInput && item.textInput.value.trim();
+              const monogramEnabled = monogramBox && monogramBox.style.display !== 'none' && monogramItemsData.length > 0;
+              const hasMonogramText = monogramItemsData.some(function(item) {
+                return item.textInput && item.textInput.value.trim();
               });
               
-              if (!isMonogramBoxOpen || !hasMonogramText) {
-                console.log('[Monogram] Monogram not active or no text entered - letting theme handle submission');
-                return; 
+              if (!monogramEnabled || !hasMonogramText) {
+                return; // Let default form submission proceed
               }
               
-              // Terms checkbox validation - ALWAYS block if not checked
-              if (checkboxTerms && !checkboxTerms.checked) {
-                console.log('[Monogram] Terms not checked, blocking submission');
+              if (!checkboxTerms || !checkboxTerms.checked) {
                 e.preventDefault();
-                e.stopImmediatePropagation();
                 alert('Please confirm that you have double-checked your information and understand that monogram items are not eligible for return or exchange.');
                 return;
               }
@@ -3721,29 +2662,26 @@
                 const extractedVariantIds = extractBundleVariantIds();
                 bundleItemsFound = extractedVariantIds.length > 0;
                 console.log('[Monogram] Bundle items found in DOM:', bundleItemsFound, 'Count:', extractedVariantIds.length);
+                if (bundleItemsFound) {
+                  console.log('[Monogram] Extracted variant IDs:', extractedVariantIds);
+                }
               }
               
-              // CASE 1: Bundle is selected but we can't find its items in DOM.
-              // We must let the bundle app/theme handle the main product, then we add monograms after.
+              // If bundle is selected but items not found, let bundle app handle it first, then add monogram items
               if (bundleSelected && !bundleItemsFound) {
                 console.log('[Monogram] Bundle selected but items not found in DOM - letting bundle app handle form submission');
-                console.log('[Monogram] Will add monogram items after bundle app completes (1000ms delay)');
-                
-                // We DON'T call preventDefault or stopImmediatePropagation here.
-                // This allows the theme/bundle app listeners to run and add the bundle.
-                
+                console.log('[Monogram] Will add monogram items after bundle app completes (800ms delay)');
+                // Don't prevent default - let bundle app handle the form submission
+                // Wait for bundle app to finish, then add monogram items
                 setTimeout(function() {
                   console.log('[Monogram] Delayed monogram add triggered');
-                  addMonogramItemsToCart().catch(err => console.error('[Monogram] Delayed add failed:', err));
-                }, 1000); 
-                return; 
+                  addMonogramItemsToCart();
+                }, 800); // Wait 800ms for bundle app to finish
+                return; // Let default form submission proceed
               }
               
-              // CASE 2: We have all the info we need (Single product OR Bundle with visible items).
-              // We take EXCLUSIVE control to add everything in one go for better UX.
-              console.log('[Monogram] Taking full control of submission');
               e.preventDefault();
-              e.stopImmediatePropagation();
+              e.stopPropagation();
               
               // Check if fetchConfig is available (theme requirement)
               if (typeof fetchConfig === 'undefined') {
@@ -3759,17 +2697,14 @@
                 atcButton.disabled = true;
               }
               
-              // Determine main product variant ID and quantity
               const variantIdInput = productForm.querySelector('input[name="id"], select[name="id"]');
-              const currentVariantId = variantIdInput ? (variantIdInput.value || (variantIdInput.options && variantIdInput.options[variantIdInput.selectedIndex]?.value)) : null;
-              const currentVariantIdInt = currentVariantId ? parseInt(currentVariantId) : {{ product.selected_or_first_available_variant.id | default: 0 }};
+              const currentVariantId = variantIdInput ? (variantIdInput.value || (variantIdInput.options && variantIdInput.options[variantIdInput.selectedIndex]?.value)) : mainProductId;
+              const currentVariantIdInt = parseInt(currentVariantId);
               
               const quantityInput = productForm.querySelector('input[name="quantity"]');
               const quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
               
-              console.log('[Monogram] Submission values - Main Variant:', currentVariantIdInt, 'Qty:', quantity, 'Monogram Product:', monogramProductId);
-              
-              if (!currentVariantIdInt || isNaN(currentVariantIdInt) || !monogramProductId || isNaN(monogramProductId) || currentVariantIdInt <= 0 || monogramProductId <= 0) {
+              if (isNaN(currentVariantIdInt) || isNaN(monogramProductId) || currentVariantIdInt <= 0 || monogramProductId <= 0) {
                 if (atcButton) {
                   atcButton.classList.remove('loading');
                   atcButton.removeAttribute('aria-disabled');
@@ -3821,10 +2756,8 @@
                 }
               }
               
-              // Add monogram items (only completed items from popup flow)
               monogramItemsData.forEach(function(itemData, itemIndex) {
-                // Only include items that were marked as completed in the popup flow
-                if (monogramCompletedItems[itemIndex] && itemData.textInput && itemData.textInput.value.trim()) {
+                if (itemData.textInput && itemData.textInput.value.trim()) {
                   let productName = '{{ product.title | escape }}';
                   
                   // Get variant info for this monogram item
