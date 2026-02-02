@@ -1,0 +1,430 @@
+<script>
+  (function() {
+    'use strict';
+    
+    // Theme Global Config
+    const sectionId = '{{ section.id }}';
+    const formId = '{{ product_form_id }}';
+    const monogramProductId = {{ monogram_variant.id }};
+    const mainProductId = {{ product.selected_or_first_available_variant.id }};
+    let monogramBasePrice = {{ monogram_variant.price }};
+    
+    // Store Monogram Item Data (Array of objects for bundles)
+    let monogramItemsData = []; 
+    let loadedFonts = {};
+    let isMonogramBoxOpen = false;
+
+    // Liquid Data Injection
+    const variantImagesData = {
+      {%- for variant in product.variants -%}
+        {{ variant.id }}: [
+          {%- if variant.metafields.custom.variant_monogram_images.value -%}
+            {%- for img in variant.metafields.custom.variant_monogram_images.value -%}
+              {{ img | image_url: width: 800 | json }}{%- unless forloop.last -%},{%- endunless -%}
+            {%- endfor -%}
+          {%- endif -%}
+        ],
+      {%- endfor -%}
+    };
+
+    const productImagesData = [
+      {%- if product.metafields.custom.monogram_images.value -%}
+        {%- assign colors = product.metafields.custom.monogram_colors1.value -%}
+        {%- for img in product.metafields.custom.monogram_images.value -%}
+          { src: {{ img | image_url: width: 800 | json }}, color: {{ colors[forloop.index0] | default: 'Default' | json }} },
+        {%- endfor -%}
+      {%- endif -%}
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Elements
+      const wrapper = document.querySelector('.monogram-wrapper-' + sectionId);
+      if (!wrapper) return;
+
+      const modal = document.getElementById('monogram-modal-' + sectionId);
+      const toggleBtn = document.getElementById('monogram-toggle-' + sectionId);
+      const closeBtn = modal.querySelector('.monogram-modal-close');
+      const overlay = modal.querySelector('.monogram-modal-overlay');
+      const applyBtn = modal.querySelector('.monogram-apply-btn');
+      const selectionStep = document.getElementById('monogram-selection-' + sectionId);
+      const editorStep = document.getElementById('monogram-editor-' + sectionId);
+      const selectionGrid = document.getElementById('monogram-selection-grid-' + sectionId);
+      const backToSelection = modal.querySelector('.monogram-back-to-selection');
+      const totalPriceVal = modal.querySelector('.monogram-total-price-value');
+      const checkboxTerms = document.getElementById('pod-terms-' + sectionId);
+
+      // Editor Elements
+      const editorPreview = modal.querySelector('.monogram-editor-preview');
+      const imageContainer = editorPreview.querySelector('.monogram-image-container');
+      const previewText = imageContainer.querySelector('.monogram-preview-text');
+      const styleSelect = modal.querySelector('.monogram-style-select');
+      const colorSelect = modal.querySelector('.monogram-color-select');
+      const textInput = modal.querySelector('.monogram-text-input');
+      const saveItemBtn = modal.querySelector('.monogram-save-item');
+      const itemTitleName = modal.querySelector('.current-item-name');
+
+      let currentEditingIndex = -1;
+
+      // --- Initialization ---
+
+      function init() {
+        toggleBtn.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+        overlay.addEventListener('click', closeModal);
+        applyBtn.addEventListener('click', closeModal);
+        backToSelection.addEventListener('click', () => showStep('selection'));
+        checkboxTerms.addEventListener('change', updateFooter);
+        
+        saveItemBtn.addEventListener('click', saveCurrentItem);
+        textInput.addEventListener('input', updatePreview);
+        styleSelect.addEventListener('change', updatePreview);
+        colorSelect.addEventListener('change', updatePreview);
+
+        // Bundle observer (re-init if bundle changes)
+        const bundleBar = document.querySelector('.kaching-bundles__bar');
+        if (bundleBar) {
+          const observer = new MutationObserver(() => {
+             if (modal.style.display === 'flex') renderSelectionGrid();
+          });
+          observer.observe(bundleBar, { childList: true, subtree: true, attributes: true });
+        }
+      }
+
+      function openModal() {
+        initItemsData(); // Check bundle count
+        showStep('selection');
+        updateFooter();
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+
+      function showStep(step) {
+        if (step === 'selection') {
+          selectionStep.style.display = 'block';
+          editorStep.style.display = 'none';
+          renderSelectionGrid();
+        } else {
+          selectionStep.style.display = 'none';
+          editorStep.style.display = 'block';
+        }
+      }
+
+      // --- Data Management ---
+
+      function initItemsData() {
+        const count = getBundleItemCount();
+        if (monogramItemsData.length !== count) {
+          // Reset array if count changes, or preserve existing if possible?
+          // For safety, let's rebuild but try to keep data if index matches
+          const newArray = [];
+          for (let i = 0; i < count; i++) {
+             if (monogramItemsData[i]) newArray.push(monogramItemsData[i]);
+             else newArray.push({ index: i, text: '', style: '', color: '', posX: 50, posY: 60 });
+          }
+          monogramItemsData = newArray;
+        }
+      }
+
+      function getBundleItemCount() {
+        const selectedBundle = document.querySelector('.kaching-bundles__bar--selected');
+        if (!selectedBundle) return 1;
+        const wrappers = selectedBundle.querySelectorAll('.kaching-bundles__bar-variant-selector-wrapper');
+        return wrappers.length || 1;
+      }
+
+      // --- Render Logic ---
+
+      function renderSelectionGrid() {
+        selectionGrid.innerHTML = '';
+        const wrappers = getBundleWrappers();
+        
+        monogramItemsData.forEach((item, idx) => {
+           let label = 'Default';
+           let size = '';
+           
+           if (wrappers && wrappers[idx]) {
+              const colorEl = wrappers[idx].querySelector('[data-name="Color"], [data-name="Colour"]');
+              const sizeEl = wrappers[idx].querySelector('[data-name="Size"]');
+              if (colorEl) label = colorEl.value;
+              if (sizeEl) size = sizeEl.value;
+           } else if (!wrappers) {
+              // Single product
+              const f = document.querySelector('product-form');
+              const colorInp = f?.querySelector('[name*="Color"], [name*="Colour"], [name="options[Color]"]');
+              // Try getting from radio buttons too
+              if (!colorInp) {
+                 const checkedRadio = f?.querySelector('input[name*="Color"]:checked');
+                 if (checkedRadio) label = checkedRadio.value;
+              } else {
+                 label = colorInp.value;
+              }
+           }
+
+           const card = document.createElement('div');
+           card.className = `monogram-selection-card ${item.text ? 'has-monogram' : ''}`;
+           card.innerHTML = `
+             <span class="item-label">Add monogram for ${label}</span>
+             <span class="item-price">${size ? size + ' selected' : ''}</span>
+             <span class="item-price" style="margin-top:auto; font-weight:600;">+${formatMoney(monogramPrice)} each</span>
+             ${item.text ? '<span class="edit-badge">Added</span>' : ''}
+           `;
+           card.onclick = () => openEditor(idx, label);
+           selectionGrid.appendChild(card);
+        });
+      }
+
+      function getBundleWrappers() {
+        const selectedBundle = document.querySelector('.kaching-bundles__bar--selected');
+        if (!selectedBundle) return null;
+        return selectedBundle.querySelectorAll('.kaching-bundles__bar-variant-selector-wrapper');
+      }
+
+      // --- Editor Logic ---
+
+      function openEditor(idx, colorName) {
+        currentEditingIndex = idx;
+        const data = monogramItemsData[idx];
+        
+        itemTitleName.textContent = colorName;
+        textInput.value = data.text;
+        styleSelect.value = data.style;
+        colorSelect.value = data.color;
+        
+        // Load Image
+        updateEditorImage(idx, colorName);
+        updatePreview();
+        showStep('editor');
+      }
+
+      function updateEditorImage(idx, colorName) {
+        // Clear old images
+        const imgs = imageContainer.querySelectorAll('img');
+        imgs.forEach(i => i.remove());
+
+        // 1. Try Variant Metafields
+        let found = false;
+        const variantId = getVariantIdForIndex(idx);
+        if (variantImagesData[variantId] && variantImagesData[variantId].length > 0) {
+           variantImagesData[variantId].forEach(src => {
+              const img = document.createElement('img');
+              img.src = src;
+              img.className = 'monogram-base-image';
+              imageContainer.prepend(img); // Prepend to keep text on top
+              found = true;
+           });
+        }
+        
+        // 2. Try Product Metafield Match
+        if (!found && productImagesData.length > 0) {
+           const match = productImagesData.find(d => d.color.toLowerCase() === colorName.toLowerCase()) 
+                         || productImagesData.find(d => colorName.toLowerCase().includes(d.color.toLowerCase()))
+                         || productImagesData[0];
+           
+           if (match) {
+              const img = document.createElement('img');
+              img.src = match.src;
+              img.className = 'monogram-base-image';
+              imageContainer.prepend(img);
+           }
+        }
+        
+        // 3. Fallback (Featured Image)
+        if (!found && productImagesData.length === 0 && imageContainer.querySelectorAll('img').length === 0) {
+           // Use liquid fallback if possible, but JS doesn't have it easily.
+           // We'll assume the HTML template has a fallback img we can clone?
+           // Actually, let's just use the product featured image URL injected via liquid
+           const img = document.createElement('img');
+           img.src = "{{ product.featured_image | image_url: width: 800 }}";
+           img.className = 'monogram-base-image';
+           imageContainer.prepend(img);
+        }
+      }
+
+      function getVariantIdForIndex(idx) {
+         const wrappers = getBundleWrappers();
+         if (wrappers && wrappers[idx]) {
+            const idInp = wrappers[idx].querySelector('[name="id"]');
+            return idInp ? idInp.value : mainProductId;
+         }
+         // Main product form
+         const mainInp = document.querySelector('input[name="id"]');
+         return mainInp ? mainInp.value : mainProductId;
+      }
+
+      function updatePreview() {
+        const text = textInput.value;
+        const style = styleSelect.value;
+        const color = colorSelect.value;
+        
+        previewText.textContent = text;
+        previewText.style.color = color;
+        
+        if (style) {
+           // Font logic
+           if (style === 'Playfair Display') previewText.style.fontFamily = '"Playfair Display", serif';
+           else if (style === 'Pinyon Script') previewText.style.fontFamily = '"Pinyon Script", cursive';
+           else {
+              const opt = styleSelect.options[styleSelect.selectedIndex];
+              const url = opt.getAttribute('data-url');
+              if (url) {
+                 loadFont(style, url).then(() => {
+                    previewText.style.fontFamily = `"${style}", serif`;
+                 });
+              }
+           }
+        }
+        
+        // Position
+        const data = monogramItemsData[currentEditingIndex];
+        previewText.style.left = data.posX + '%';
+        previewText.style.top = data.posY + '%';
+        previewText.style.transform = 'translate(-50%, -50%)';
+      }
+
+      function saveCurrentItem() {
+         const data = monogramItemsData[currentEditingIndex];
+         data.text = textInput.value;
+         data.style = styleSelect.value;
+         data.color = colorSelect.value;
+         showStep('selection');
+         updateFooter();
+      }
+
+      // --- Utilities ---
+
+      function updateFooter() {
+         const activeCount = monogramItemsData.filter(i => i.text.trim().length > 0).length;
+         const total = activeCount * monogramPrice;
+         totalPriceVal.textContent = formatMoney(total);
+         
+         // Validation
+         applyBtn.disabled = !checkboxTerms.checked;
+      }
+
+      function loadFont(name, url) {
+         if (loadedFonts[name]) return Promise.resolve();
+         const f = new FontFace(name, `url(${url})`);
+         return f.load().then(l => { document.fonts.add(l); loadedFonts[name] = true; });
+      }
+
+      function formatMoney(cents) {
+        if (typeof window.Shopify !== 'undefined' && window.Shopify.formatMoney) {
+          return window.Shopify.formatMoney(cents, '{{ shop.money_format }}');
+        }
+        return '$' + (cents / 100).toFixed(2);
+      }
+
+      // --- Drag Logic ---
+      let isDragging = false;
+      previewText.addEventListener('mousedown', (e) => {
+         isDragging = true;
+         e.preventDefault();
+      });
+      document.addEventListener('mousemove', (e) => {
+         if (!isDragging) return;
+         const rect = imageContainer.getBoundingClientRect();
+         let x = ((e.clientX - rect.left) / rect.width) * 100;
+         let y = ((e.clientY - rect.top) / rect.height) * 100;
+         
+         x = Math.max(0, Math.min(100, x));
+         y = Math.max(0, Math.min(100, y)); // Limit to bounds
+         
+         const data = monogramItemsData[currentEditingIndex];
+         data.posX = x;
+         data.posY = y;
+         
+         previewText.style.left = x + '%';
+         previewText.style.top = y + '%';
+      });
+      document.addEventListener('mouseup', () => isDragging = false);
+
+
+      // --- Cart Interception ---
+      
+      const form = document.getElementById(formId);
+      if (form) {
+         form.addEventListener('submit', function(e) {
+            const activeItems = monogramItemsData.filter(i => i.text.trim().length > 0);
+            if (activeItems.length === 0) return; // Standard submit if no monograms
+            
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            
+            if (!checkboxTerms.checked) {
+               alert('Please accept the terms for monogrammed items.');
+               openModal();
+               return;
+            }
+
+            const atcBtn = form.querySelector('[type="submit"]');
+            if (atcBtn) { atcBtn.classList.add('loading'); atcBtn.disabled = true; }
+
+            // Build Payload
+            const itemsToAdd = [];
+            const bundleSelected = document.querySelector('.kaching-bundles__bar--selected');
+            
+            // 1. Main Products
+            if (bundleSelected) {
+               const wrappers = getBundleWrappers();
+               wrappers.forEach(w => {
+                  const id = w.querySelector('[name="id"]').value;
+                  itemsToAdd.push({ id: parseInt(id), quantity: 1 });
+               });
+            } else {
+               const id = form.querySelector('[name="id"]').value;
+               const qty = form.querySelector('[name="quantity"]')?.value || 1;
+               itemsToAdd.push({ id: parseInt(id), quantity: parseInt(qty) });
+            }
+
+            // 2. Monogram Service Products
+            activeItems.forEach(item => {
+               itemsToAdd.push({
+                  id: monogramProductId,
+                  quantity: 1,
+                  properties: {
+                     'Monogram Text': item.text,
+                     'Font Style': item.style,
+                     'Text Color': item.color,
+                     '_monogram': 'true'
+                  }
+               });
+            });
+
+            // Send AJAX
+            fetch(window.Shopify.routes.root + 'cart/add.js', {
+               method: 'POST',
+               headers: { 'Content-Type': 'application/json' },
+               body: JSON.stringify({ items: itemsToAdd })
+            })
+            .then(r => r.json())
+            .then(data => {
+               // Update UI
+               if (window.miniCart && typeof window.miniCart.renderContents === 'function') {
+                  window.miniCart.renderContents(data);
+               } else {
+                  // Fallback
+                  window.location.href = '/cart';
+               }
+               // Event dispatch
+               if (typeof publish !== 'undefined') publish('cart:update', { cart: data });
+            })
+            .catch(err => {
+               console.error(err);
+               alert('Error adding to cart.');
+            })
+            .finally(() => {
+               if (atcBtn) { atcBtn.classList.remove('loading'); atcBtn.disabled = false; }
+            });
+
+         }, true); // Capture phase!
+      }
+
+      init();
+    });
+  })();
+</script>
