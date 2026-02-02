@@ -2571,7 +2571,17 @@ span.alert-box:before {
   border-radius: 0px 2px;
   left: -5px;
   top: 10px;
-  border: 1px solid;
-  border-top: 0;
-  border-right: 0;
+}
+@media(max-width:767px){
+  span.alert-box {
+    height: 25px;
+    line-height: 25px;
+    font-size: 11px;
+  }
+  span.alert-box:before {
+    width: 8px;
+    height: 8px;
+    left: -4px;
+    top: 7.5px;
+  }
 }
