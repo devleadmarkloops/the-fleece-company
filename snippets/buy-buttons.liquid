@@ -114,6 +114,11 @@
                       {%- comment -%} Selection boxes will be dynamically generated here {%- endcomment -%}
                     </div>
                   </div>
+                  <div class="monogram-modal-footer">
+                    <button type="button" class="button monogram-selection-done-btn" id="monogram-selection-done-{{ section.id }}">
+                      Done
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -609,8 +614,8 @@
         }
         .monogram-trigger-label {
           font-size: 15px;
-          font-weight: 500;
-          color: #000;
+          font-weight: var(--font-medium);
+          color: rgb(var(--color-foreground));
           line-height: 1.3;
         }
         .monogram-trigger-price {
@@ -801,12 +806,12 @@
         }
         .monogram-selection-label {
           font-size: 14px;
-          color: #000;
+          color: rgb(var(--color-foreground));
           line-height: 1.4;
           margin-bottom: 4px;
         }
         .monogram-selection-label strong {
-          font-weight: 600;
+          font-weight: var(--font-bold);
         }
         .monogram-selection-price {
           font-size: 13px;
@@ -1108,11 +1113,11 @@
         .monogram-total-summary {
           margin-bottom: 12px;
           font-size: 16px;
-          color: #000;
+          color: rgb(var(--color-foreground));
           font-family: inherit;
         }
         .monogram-total-summary strong {
-          font-weight: 700;
+          font-weight: var(--font-bold);
         }
         .monogram-summary-container .monogram-terms-container {
           margin-top: 15px;
@@ -1122,8 +1127,8 @@
           align-items: flex-start;
           gap: 15px;
           cursor: pointer;
-          color: #000;
-          font-weight: 400;
+          color: rgb(var(--color-foreground));
+          font-weight: var(--font-normal);
         }
         .monogram-summary-container .monogram-terms-text {
           font-size: 15px;
@@ -1145,8 +1150,8 @@
           transition: all 0.2s ease;
         }
         .monogram-summary-container .monogram-terms-label input[type="checkbox"]:checked {
-          background: #151515;
-          border-color: #151515;
+          background: rgb(var(--color-foreground));
+          border-color: rgb(var(--color-foreground));
         }
         .monogram-summary-container .monogram-terms-label input[type="checkbox"]:checked::after {
           content: '';
@@ -1155,9 +1160,14 @@
           top: 6px;
           width: 8px;
           height: 14px;
-          border: solid #fff;
+          border: solid rgb(var(--color-background));
           border-width: 0 3px 3px 0;
           transform: rotate(45deg);
+        }
+
+        .monogram-selection-done-btn {
+          width: 100%;
+          justify-content: center;
         }
 
         /* ========== LEGACY COMPAT (hidden) ========== */
@@ -1191,6 +1201,7 @@
           // NEW: Modal elements for 3-step popup flow
           const selectionOverlay = document.getElementById('monogram-selection-overlay-{{ section.id }}');
           const selectionCloseBtn = document.getElementById('monogram-selection-close-{{ section.id }}');
+          const selectionDone = document.getElementById('monogram-selection-done-{{ section.id }}');
           const selectionGrid = document.getElementById('monogram-selection-grid-{{ section.id }}');
           const detailOverlay = document.getElementById('monogram-detail-overlay-{{ section.id }}');
           const detailBackBtn = document.getElementById('monogram-detail-back-{{ section.id }}');
@@ -1842,6 +1853,24 @@
                 openDetailModal(itemIndex);
               });
             });
+            
+            updateSelectionDoneButton();
+          }
+
+          // Update the "Done" button text in selection modal
+          function updateSelectionDoneButton() {
+            if (!selectionDone) return;
+            
+            const completedCount = Object.values(monogramCompletedItems).filter(Boolean).length;
+            const monogramPrice = getMonogramUnitPrice();
+            const totalPrice = completedCount * monogramPrice;
+            
+            if (completedCount > 0) {
+              const countText = completedCount === 1 ? '1 Monogram Selected' : completedCount + ' Monograms Selected';
+              selectionDone.textContent = `Done - ${countText} (${formatMoney(totalPrice)})`;
+            } else {
+              selectionDone.textContent = 'Done';
+            }
           }
           
           // Open selection modal (Step 2)
@@ -2355,6 +2384,14 @@
             });
           }
           
+          // Selection done button
+          if (selectionDone) {
+            selectionDone.addEventListener('click', function(e) {
+              e.preventDefault();
+              closeSelectionModal();
+            });
+          }
+
           // Checkbox change
           if (checkboxTerms) {
             checkboxTerms.addEventListener('change', function() {
