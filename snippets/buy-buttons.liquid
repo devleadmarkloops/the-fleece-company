@@ -69,7 +69,7 @@
             >
               <div class="monogram-box" id="monogram-box-{{ section.id }}" style="display: none;">
                 <div class="monogram-total-price">
-                  <strong>Mongramming: <span> +$10 / monogram </span></strong>                  
+                  <strong>Mongramming: <span class="monogram-unit-price-display"> +{{ monogram_variant.price | money }} / monogram </span></strong>                  
                   <p class="monogram-processing-notice" style="margin: 5px 0 0 0; font-size: 14px;">Please note Monogrammed items take an additional 4-6 business days for processing.</p>
                 </div>
                 <div class="monogram-items-container" id="monogram-items-container-{{ section.id }}">
@@ -837,17 +837,22 @@
             btnTextSpan.textContent = isMonogramBoxOpen ? 'Remove Monogram' : 'Add Monogram';
           }
           
-          // Update total price
+          // Update total price and unit price display
           function updateMonogramTotalPrice() {
             if (!totalPriceDisplay || !totalPriceValue) return;
+            
+            // Update the unit price display at the top as well
+            const unitPriceSpan = wrapper.querySelector('.monogram-unit-price-display');
+            const monogramUnitPrice = getMonogramUnitPrice();
+            if (unitPriceSpan) {
+              unitPriceSpan.textContent = ' +' + formatMoney(monogramUnitPrice) + ' / monogram';
+            }
             
             if (isMonogramBoxOpen) {
               const textFilledCount = countMonogramsWithText();
               const displayCount = Math.max(0, textFilledCount);
               
               if (displayCount > 0) {
-                // Get current price in current currency
-                const monogramUnitPrice = getMonogramUnitPrice();
                 const totalPrice = monogramUnitPrice * displayCount;
                 totalPriceValue.textContent = formatMoney(totalPrice) + ' (' + displayCount + ' monogram' + (displayCount > 1 ? 's' : '') + ')';
                 totalPriceDisplay.style.display = 'block';
