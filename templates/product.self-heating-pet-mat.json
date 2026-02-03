@@ -421,6 +421,7 @@
         "text_TDiGmp",
         "check_list_EmQBcw"
       ],
+      "disabled": true,
       "name": "Image with text v2",
       "settings": {
         "image": "shopify://shop_images/9_0c7958ec-429b-4f9b-8e75-cd369e350648.png",
@@ -499,7 +500,7 @@
       "settings": {
         "image": "shopify://shop_images/10_feffdb78-3af1-4306-ba4b-90eab8c3f70b.png",
         "image_position": "center center",
-        "layout": "image_first",
+        "layout": "text_first",
         "text_box_position": "middle",
         "text_alignment": "left",
         "image_ratio": "adapt",
