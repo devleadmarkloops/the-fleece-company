@@ -819,11 +819,12 @@
           const totalPriceDisplay = document.getElementById('monogram-total-price-{{ section.id }}');
           const totalPriceValue = totalPriceDisplay ? totalPriceDisplay.querySelector('.monogram-total-price-value') : null;
           
-          // Count monograms with text
+          // Count monograms with text (strictly trimmed)
           function countMonogramsWithText() {
             let count = 0;
+            if (!monogramItemsData) return 0;
             monogramItemsData.forEach(function(itemData) {
-              if (itemData.textInput && itemData.textInput.value.trim()) {
+              if (itemData && itemData.textInput && itemData.textInput.value.trim().length > 0) {
                 count++;
               }
             });
@@ -2508,7 +2509,8 @@
               // Build monogram items array
               const monogramItems = [];
               monogramItemsData.forEach(function(itemData, itemIndex) {
-                if (itemData.textInput && itemData.textInput.value.trim()) {
+                const textValue = itemData.textInput ? itemData.textInput.value.trim() : '';
+                if (textValue.length > 0) {
                   let productName = '{{ product.title | escape }}';
                   
                   // Get variant info for this monogram item
@@ -2518,7 +2520,7 @@
                     id: parseInt(monogramProductId),
                     quantity: 1,
                     properties: {
-                      'Monogram Text': itemData.textInput.value.trim() || '',
+                      'Monogram Text': textValue,
                       'Monogram Style': (function(val) {
                         if (val === 'Playfair Display') return 'Classic Serif';
                         if (val === 'Pinyon Script') return 'Elegant Script';
@@ -2762,7 +2764,8 @@
               }
               
               monogramItemsData.forEach(function(itemData, itemIndex) {
-                if (itemData.textInput && itemData.textInput.value.trim()) {
+                const textValue = itemData.textInput ? itemData.textInput.value.trim() : '';
+                if (textValue.length > 0) {
                   let productName = '{{ product.title | escape }}';
                   
                   // Get variant info for this monogram item
@@ -2772,7 +2775,7 @@
                     id: parseInt(monogramProductId),
                     quantity: 1,
                     properties: {
-                      'Monogram Text': itemData.textInput.value.trim() || '',
+                      'Monogram Text': textValue,
                       'Monogram Style': (function(val) {
                         if (val === 'Playfair Display') return 'Classic Serif';
                         if (val === 'Pinyon Script') return 'Elegant Script';
