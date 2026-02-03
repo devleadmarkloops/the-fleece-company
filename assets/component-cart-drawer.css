@@ -396,8 +396,8 @@ details[open].menu-opening > .cart-drawer {
 
 .mini-cart__navigation dd {
   margin-inline-start: 0rem;
-  line-height: 1;
-  margin: 3.5px 0;
+  line-height: normal;
+  margin: 0 3.5px;
 }
 
 .mini-cart__navigation .cart-item__discounted-prices {
