@@ -46,7 +46,7 @@
         "rating_static_jQpEEQ": {
           "type": "rating_static",
           "settings": {
-            "rating_text": "(1392 Reviews)",
+            "rating_text": "(198 Reviews)",
             "rating_link": ""
           }
         },
@@ -185,7 +185,7 @@
           "settings": {
             "icon": "check_mark",
             "heading": "Care & Details",
-            "content": "<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your Blanket for years to come.</p>",
+            "content": "<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your Bed sheet for years to come.</p>",
             "page": "",
             "custom_liquid": "",
             "keep_open": false
@@ -250,7 +250,7 @@
         "heading_bBmAeH": {
           "type": "heading",
           "settings": {
-            "heading": "The Ultimate Cozy Fleece Blanket: Bigger, Softer, and Cozier.",
+            "heading": "The Ultimate Cozy Fleece Bed Sheet",
             "heading_size": "h1",
             "heading_tag": "h2",
             "enable_highlight": false,
@@ -260,7 +260,7 @@
         "text_ziaWGB": {
           "type": "text",
           "settings": {
-            "text": "<p>Wrap yourself in comfort with our oversized premium fleece blanket. This ultra-soft, all-season blanket is designed to keep you warm and snug year-round.</p>",
+            "text": "<p>Wrap your bed in comfort with our premium fleece bed sheet. This ultra-soft, breathable sheet is designed to keep you warm, cozy, and relaxed all night long perfect for colder nights and year-round comfort lovers.</p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
@@ -274,9 +274,9 @@
             "bg": "",
             "list_icon": "shopify://shop_images/check_circle_30dp_C5BBAE_FILL0_wght400_GRAD0_opsz24.svg",
             "list_text_1": "Wrinkle resistant",
-            "list_text_2": "Calms the nervous system",
-            "list_text_3": "Larger than standard blankets",
-            "list_text_4": "Super soft, breathable fleece",
+            "list_text_2": "Promotes relaxation & better sleep",
+            "list_text_3": "Warm yet breathable",
+            "list_text_4": "Ultra-soft premium fleece",
             "list_text_5": ""
           }
         }
@@ -288,7 +288,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/Blanket-Flaxen07.jpg",
+        "image": "shopify://shop_images/3_ad860e7d-2736-49a9-a4eb-e04c853c0e50.png",
         "image_position": "center center",
         "layout": "text_first",
         "text_box_position": "middle",
@@ -324,7 +324,7 @@
         "heading_wKRJry": {
           "type": "heading",
           "settings": {
-            "heading": "Here’s Why Our Fleece Blankets Are the Best",
+            "heading": "Here’s Why Our Fleece Bed Sheets Are the Best",
             "heading_size": "h1",
             "heading_tag": "h2",
             "enable_highlight": false,
@@ -334,7 +334,7 @@
         "text_CN89GA": {
           "type": "text",
           "settings": {
-            "text": "<p>Crafted from luxuriously soft fleece that’s so cozy even clouds would be envious. The fluffy texture is breathable to keep you cool while staying snug, and it’s pet-friendly perfect for hiding your furry friend’s hair.</p><p>Experience ultimate comfort with a blanket designed for both you and your pets!</p>",
+            "text": "<p>Made from ultra soft fleece that feels warm and gentle on your skin. The breathable fabric keeps you cozy while supporting a comfortable sleep temperature.</p><p>Designed to fit smoothly on your mattress and stay in place all night. For deeper comfort and better sleep every night.</p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
@@ -348,7 +348,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/Blanket-Flaxen08.jpg",
+        "image": "shopify://shop_images/1_07380dfb-ff2a-41cf-9e16-4c34fa1fdba3.png",
         "image_position": "center center",
         "layout": "image_first",
         "text_box_position": "middle",
@@ -468,9 +468,9 @@
         "text_EpmqdD": {
           "type": "text",
           "settings": {
-            "text": "<p>We won’t rest until you're completely happy and unbelievably cozy in your Fleece Blanket</p>",
+            "text": "<p>We won’t rest until you're completely happy and unbelievably cozy in your Fleece Bed sheet.</p>",
             "text_size": "typeset",
-            "secondary_color": false,
+            "secondary_color": true,
             "enable_highlight": false,
             "highlight_style": "marker"
           }
@@ -496,7 +496,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/hvhvhvhvhv.png",
+        "image": "shopify://shop_images/fleece_guarantee_5bbe0ae9-28eb-4aed-a9a1-241b3189f28b.png",
         "image_position": "center center",
         "layout": "image_first",
         "text_box_position": "middle",
