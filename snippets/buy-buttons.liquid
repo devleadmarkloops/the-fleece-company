@@ -80,7 +80,10 @@
                 <div id="monogram-item-template-{{ section.id }}" style="display: none !important;">
                   <div class="monogram-item" data-item-index="">
                     <div class="monogram-accordion-header">
-                      <h4 class="monogram-item-title">Monogram <span class="monogram-item-number">1</span></h4>
+                      <div class="monogram-header-left">
+                        <h4 class="monogram-item-title">Monogram <span class="monogram-item-number">1</span></h4>
+                        <span class="monogram-added-badge" style="display: none;">Added</span>
+                      </div>
                       <span class="monogram-accordion-icon">
                         <svg viewBox="0 0 10 6" class="icon icon-chevron-down"><path d="m9 1-4 4-4-4" fill="none" stroke="currentColor" stroke-width="1.2"></path></svg>
                       </span>
@@ -594,9 +597,23 @@
           justify-content: center;
           transition: transform 0.3s ease;
         }
-        .monogram-accordion-icon svg {
-          width: 12px;
-          height: 12px;
+        .monogram-header-left {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .monogram-added-badge {
+          background: #000;
+          color: #fff;
+          font-size: 10px;
+          padding: 2px 8px;
+          border-radius: 12px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          font-weight: 700;
+        }
+        .monogram-item.is-open .monogram-added-badge {
+          display: none !important; /* Hide badge when accordion is open */
         }
         .monogram-item.is-open .monogram-accordion-icon {
           transform: rotate(180deg);
@@ -1041,6 +1058,7 @@
               const itemData = {
                 index: i,
                 header: itemClone.querySelector('.monogram-accordion-header'),
+                addedBadge: itemClone.querySelector('.monogram-added-badge'),
                 styleSelect: styleSelect,
                 colorSelect: colorSelect,
                 textInput: textInput,
@@ -1087,6 +1105,11 @@
             function updateItemPreviewText() {
               const text = itemData.textInput ? itemData.textInput.value : '';
               itemData.previewText.textContent = text;
+              
+              // Toggle "Added" badge
+              if (itemData.addedBadge) {
+                itemData.addedBadge.style.display = text.trim().length > 0 ? 'inline-block' : 'none';
+              }
               
               if (itemData.colorSelect && itemData.colorSelect.value) {
                 const color = itemData.colorSelect.value.toLowerCase();
