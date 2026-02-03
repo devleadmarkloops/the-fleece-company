@@ -1,0 +1,381 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --icon-size-desktop: {{ section.settings.icon_size_desktop }}px;
+    --icon-size-mobile: {{ section.settings.icon_size_mobile }}px;
+    {%- if section.settings.use_custom_colors %}
+      --gradient-background: {% if section.settings.gradient_background != blank %}{{ section.settings.gradient_background }}{% else %}{{ section.settings.colors_background }}{% endif %};
+      --color-background: {{ section.settings.colors_background.red }}, {{ section.settings.colors_background.green }}, {{ section.settings.colors_background.blue }};
+      --color-foreground: {{ section.settings.colors_text.red }}, {{ section.settings.colors_text.green }}, {{ section.settings.colors_text.blue }};
+      --color-heading: var(--color-foreground);
+    {% endif -%}
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --section-padding-top: {{ section.settings.padding_top_mob }}px;
+      --section-padding-bottom: {{ section.settings.padding_bottom_mob }}px;
+    }
+  }
+
+  .image-with-accordions-section {
+    background: var(--gradient-background);
+    background-color: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
+  }
+  .image-with-accordions-section .faq-header {
+    margin-bottom: 3rem;
+  }
+  .image-with-accordions-section .faq-header.text-left { text-align: left; }
+  .image-with-accordions-section .faq-header.text-center { text-align: center; }
+  .image-with-accordions-section .faq-header.text-right { text-align: right; }
+
+  .image-with-accordions-section .faq-header h2 {
+    font-size: 2.92rem;
+    line-height: 1.24;
+    letter-spacing: 0.9px; 
+    margin-block: 0 1.2rem;
+    color: rgb(var(--color-foreground));
+  }
+  .image-with-accordions-section .faq-content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .image-with-accordions-section .faq-image-container {
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    line-height: 0;
+  }
+  .image-with-accordions-section .faq-image-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+  }
+  .image-with-accordions-section .faq-accordion-list {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    border-top: 1px solid rgba(var(--color-foreground), 0.1);
+  }
+  .image-with-accordions-section .faq-accordion-item {
+    border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+  }
+  .image-with-accordions-section .faq-accordion-summary {
+    list-style: none;
+    padding: 1.5rem 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .image-with-accordions-section .faq-accordion-summary::-webkit-details-marker { 
+    display: none; 
+  }
+  .image-with-accordions-section .faq-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+  }
+  .image-with-accordions-section .faq-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+  .image-with-accordions-section details[open] .faq-accordion-summary .faq-icon {
+    transform: rotate(180deg);
+  }
+  .image-with-accordions-section .faq-accordion-content {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.35s ease, opacity 0.35s ease, padding 0.35s ease;
+  }
+  .image-with-accordions-section .faq-accordion-content .rte {
+    padding-bottom: 1.5rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .image-with-accordions-section .faq-header h2 {
+      font-size: 3.9rem;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .image-with-accordions-section .faq-header {
+      text-align: center !important;
+      margin-bottom: 2rem;
+    }
+    .image-with-accordions-section .faq-content-wrapper {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .image-with-accordions-section .faq-accordion-summary {
+      padding: 1.2rem 0;
+      font-size: 1.6rem;
+    }
+    .image-with-accordions-section .faq-accordion-content {
+      font-size: 1.4rem;
+    }
+    .image-with-accordions-section .faq-icon {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="image-with-accordions-section">
+  <div class="section--padding">
+    <div class="page-width">
+      
+      {%- if section.settings.heading != blank or section.settings.description != blank -%}
+        <div class="faq-header text-{{ section.settings.header_alignment }}">
+          {%- if section.settings.heading != blank -%}
+            <h2>{{ section.settings.heading | escape }}</h2>
+          {%- endif -%}
+          {%- if section.settings.description != blank -%}
+            <div class="rte">{{ section.settings.description }}</div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <div class="faq-content-wrapper">
+        <div class="faq-image-container">
+          {%- if section.settings.image != blank -%}
+            {{ section.settings.image | image_url: width: 800 | image_tag: 
+              loading: 'lazy', 
+              sizes: '(min-width: 768px) 50vw, 100vw', 
+              widths: '375, 550, 750, 1100'
+            }}
+          {%- else -%}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
+        </div>
+
+        <div class="faq-accordion-list">
+          {%- for block in section.blocks -%}
+            <details class="faq-accordion-item" {{ block.shopify_attributes }}>
+              <summary class="faq-accordion-summary">
+                <span>{{ block.settings.question | escape }}</span>
+                <span class="faq-icon">
+                  <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </summary>
+              <div class="faq-accordion-content">
+                <div class="rte">{{ block.settings.answer }}</div>
+              </div>
+            </details>
+          {%- endfor -%}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const sectionContainer = document.querySelector('#shopify-section-{{ section.id }}');
+    if(!sectionContainer) return;
+
+    const details = sectionContainer.querySelectorAll('details');
+
+    details.forEach((targetDetail) => {
+      const summary = targetDetail.querySelector('summary');
+      const content = targetDetail.querySelector('.faq-accordion-content');
+
+      summary.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Optional: Close others (Accordian behavior)
+        details.forEach((d) => {
+          if (d !== targetDetail && d.hasAttribute('open')) {
+            const c = d.querySelector('.faq-accordion-content');
+            closeItem(d, c);
+          }
+        });
+
+        if (targetDetail.hasAttribute('open')) {
+          closeItem(targetDetail, content);
+        } else {
+          openItem(targetDetail, content);
+        }
+      });
+    });
+
+    function openItem(detail, content) {
+      detail.setAttribute('open', '');
+      requestAnimationFrame(() => {
+        content.style.maxHeight = content.scrollHeight + 'px';
+        content.style.opacity = '1';
+      });
+    }
+
+    function closeItem(detail, content) {
+      content.style.maxHeight = '0px';
+      content.style.opacity = '0';
+      setTimeout(() => { detail.removeAttribute('open'); }, 350); 
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Icon text custom v2",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions:"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Can't find your question here? Check out our FAQ page.</p>"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Heading Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Image Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Section Image"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_colors",
+      "default": false,
+      "label": "Use custom colors"
+    },
+    {
+      "type": "color",
+      "id": "colors_text",
+      "label": "Text color",
+      "default": "#212326"
+    },
+    {
+      "type": "color",
+      "id": "colors_background",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color_background",
+      "id": "gradient_background",
+      "label": "Gradient background"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mob",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top (mobile)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mob",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom (mobile)",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion",
+      "name": "Accordion Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How do I wash this product?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Write your answer here.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon text custom v2",
+      "blocks": [
+        {"type": "accordion"},
+        {"type": "accordion"},
+        {"type": "accordion"}
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer", "custom.overlay"]
+  }
+}
+{% endschema %}

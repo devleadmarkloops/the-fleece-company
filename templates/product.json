@@ -73,9 +73,9 @@
         "icon_text_9Gxbx4": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/svgviewer-output.svg",
-            "icon_size": 24,
-            "icon_size_mob": 20,
+            "icon": "shopify://shop_images/check-mark_1.png",
+            "icon_size": 22,
+            "icon_size_mob": 18,
             "icon_text": "100% Skin friendly materials",
             "text_color": "#121212",
             "text_size": 16,
@@ -85,9 +85,9 @@
         "icon_text_KLMX3D": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/svgviewer-output.svg",
-            "icon_size": 24,
-            "icon_size_mob": 20,
+            "icon": "shopify://shop_images/check-mark_1.png",
+            "icon_size": 22,
+            "icon_size_mob": 18,
             "icon_text": "Super soft, breathable fleece",
             "text_color": "#121212",
             "text_size": 16,
@@ -97,9 +97,9 @@
         "icon_text_R7iXXY": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/svgviewer-output.svg",
-            "icon_size": 24,
-            "icon_size_mob": 20,
+            "icon": "shopify://shop_images/check-mark_1.png",
+            "icon_size": 22,
+            "icon_size_mob": 18,
             "icon_text": "Helps improve your mood",
             "text_color": "#121212",
             "text_size": 16,
@@ -137,7 +137,9 @@
           "settings": {
             "show_quantity_selector": true,
             "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false
+            "show_gift_card_recipient": false,
+            "enable_monogram": false,
+            "monogram_product": ""
           }
         },
         "countdown_timer_4tCBwt": {
