@@ -917,7 +917,7 @@
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          font-size: 24px;
+          font-size: 20px;
           font-weight: 400;
           user-select: none;
           white-space: nowrap;
@@ -1160,7 +1160,7 @@
           font-weight: 400;
         }
         .monogram-terms-text {
-          font-size: 14px;
+          font-size: 13px;
           line-height: 1.4;
           padding-top: 1px;
         }
@@ -1186,6 +1186,13 @@
           flex-shrink: 0;
           transition: all 0.2s ease;
         }
+        @media (max-width: 640px) {
+          .monogram-terms-label input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+          }
+        }
         .monogram-terms-label input[type="checkbox"]:checked {
           background: #151515;
           border-color: #151515;
@@ -1200,6 +1207,14 @@
           border: solid #fff;
           border-width: 0 2px 2px 0;
           transform: rotate(45deg);
+        }
+        @media (max-width: 640px) {
+          .monogram-terms-label input[type="checkbox"]:checked::after {
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+          }
         }
 
         /* ========== LEGACY COMPAT (hidden) ========== */
@@ -1570,7 +1585,7 @@
                 previewText.style.color = '#000000';
                 previewText.style.display = 'block';
                 previewText.style.zIndex = '10';
-                previewText.style.fontSize = '28px';
+                previewText.style.fontSize = '22px';
                 previewText.style.fontWeight = '400';
                 previewText.style.textTransform = 'none';
                 previewText.style.whiteSpace = 'nowrap';
