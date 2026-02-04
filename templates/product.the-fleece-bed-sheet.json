@@ -566,14 +566,6 @@
             "author_name": "Anina D"
           }
         },
-        "review_mR6jaa": {
-          "type": "review",
-          "settings": {
-            "review_title": "",
-            "review_text": "I've tried many blankets over the years, but this one truly stands out. The fabric is incredibly soft and breathable, keeping me comfortable all night without overheating.",
-            "author_name": "Nicole"
-          }
-        },
         "review_AAMEHx": {
           "type": "review",
           "settings": {
@@ -645,7 +637,6 @@
       },
       "block_order": [
         "review_BDtWFn",
-        "review_mR6jaa",
         "review_AAMEHx",
         "review_QaX4R7",
         "review_GaEwEt",
