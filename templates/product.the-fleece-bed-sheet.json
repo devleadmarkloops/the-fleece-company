@@ -562,31 +562,31 @@
           "type": "review",
           "settings": {
             "review_title": "",
-            "review_text": "Love my blanket. Not too hot or cold, best blanket purchase yet",
-            "author_name": "Cheryl D"
+            "review_text": "You can feel the difference right away. It makes the bed feel warmer, softer, and more comfortable overall. I would absolutely recommend it.",
+            "author_name": "Anina D"
+          }
+        },
+        "review_mR6jaa": {
+          "type": "review",
+          "settings": {
+            "review_title": "",
+            "review_text": "I've tried many blankets over the years, but this one truly stands out. The fabric is incredibly soft and breathable, keeping me comfortable all night without overheating.",
+            "author_name": "Nicole"
           }
         },
         "review_AAMEHx": {
           "type": "review",
           "settings": {
             "review_title": "",
-            "review_text": "Exactly what I wanted. So soft and big. This is a family cuddle blanket",
-            "author_name": "Daniela S"
-          }
-        },
-        "review_RRjwad": {
-          "type": "review",
-          "settings": {
-            "review_title": "",
-            "review_text": "I've been wanting to get one of these since seeing it at a friend's house, & I'm obsessed. I'm 6'2\", & no blanket is ever really big enough. This thing goes on for days, it's incredible.",
-            "author_name": "Derek H"
+            "review_text": "The sheet fits the mattress really well and doesn’t move around during the night. Everything still looks smooth in the morning.",
+            "author_name": "Daniela L."
           }
         },
         "review_QaX4R7": {
           "type": "review",
           "settings": {
             "review_title": "",
-            "review_text": "Wonderful. Love the color",
+            "review_text": "The fabric feels high quality and well made. No shedding, no rough spots, and it still looks great after washing. Definitely feels premium.",
             "author_name": "Alyssa S"
           }
         },
@@ -594,7 +594,7 @@
           "type": "review",
           "settings": {
             "review_title": "",
-            "review_text": "Love the blankets. I bought one for myself and had to buy one for my husband because I love mine to much to share even though it’s big enough for both of us. Definitely have recommended these blankets to family and friends.",
+            "review_text": "I’ve been sleeping much better since using this bed sheet. It keeps me warm without overheating and stays in place all night. Very happy with this purchase.",
             "author_name": "Author"
           }
         },
@@ -602,12 +602,13 @@
           "type": "review",
           "settings": {
             "review_title": "",
-            "review_text": "These blankets are amazing! I have bought 3 and I don’t think I’ll ever be able to go back to any other kind. They keep me cool at night and I don’t have to fight for my side of the blanket because they’re so big. They’re very soft and feel slightly weighted but probably because of the size.",
+            "review_text": "I honestly didn’t expect it to feel this soft. The fleece is incredibly gentle on the skin and makes the bed feel much more inviting, especially on cooler nights.",
             "author_name": "Ramon"
           }
         },
         "review_HbQh3y": {
           "type": "review",
+          "disabled": true,
           "settings": {
             "review_title": "",
             "review_text": "Can't live without it!!!",
@@ -616,6 +617,7 @@
         },
         "review_TmKd3r": {
           "type": "review",
+          "disabled": true,
           "settings": {
             "review_title": "",
             "review_text": "This blanket is so soft! It’s cozy, and it doesn’t get too hot.",
@@ -624,6 +626,7 @@
         },
         "review_67a9fC": {
           "type": "review",
+          "disabled": true,
           "settings": {
             "review_title": "",
             "review_text": "Amazing quality and the embroidery is very nice and clean. Its actually threaded and stitched rather than just screen printed!",
@@ -632,6 +635,7 @@
         },
         "review_BqEFtb": {
           "type": "review",
+          "disabled": true,
           "settings": {
             "review_title": "",
             "review_text": "These blankets are the absolute best",
@@ -641,8 +645,8 @@
       },
       "block_order": [
         "review_BDtWFn",
+        "review_mR6jaa",
         "review_AAMEHx",
-        "review_RRjwad",
         "review_QaX4R7",
         "review_GaEwEt",
         "review_YzwiiN",
