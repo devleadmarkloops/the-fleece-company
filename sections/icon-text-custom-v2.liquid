@@ -1,0 +1,492 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --icon-size-desktop: {{ section.settings.icon_size_desktop }}px;
+    --icon-size-mobile: {{ section.settings.icon_size_mobile }}px;
+    {%- if section.settings.use_custom_colors %}
+      --gradient-background: {% if section.settings.gradient_background != blank %}{{ section.settings.gradient_background }}{% else %}{{ section.settings.colors_background }}{% endif %};
+      --color-background: {{ section.settings.colors_background.red }}, {{ section.settings.colors_background.green }}, {{ section.settings.colors_background.blue }};
+      --color-foreground: {{ section.settings.colors_text.red }}, {{ section.settings.colors_text.green }}, {{ section.settings.colors_text.blue }};
+      --color-heading: var(--color-foreground);
+    {% endif -%}
+  }
+
+  .itc-wave-bg-top {
+    display: block;
+    width: 100%;
+    margin-bottom: -0.5%;
+  }
+  .itc-wave-bg-btm {
+    display: block;
+    width: 100%;
+    margin-top: -0.5%;
+  }
+  .icon-text-custom-v2-section .icon-text-wrapper {
+    background: rgb(var(--color-background));
+    background: var(--gradient-background);
+  }
+  .icon-text-custom-v2-section .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .icon-text-custom-v2-section .section-header h2 {
+    font-size: 2.92rem;
+    line-height: 1.24;
+    letter-spacing: 0.9px; 
+    margin: 0;
+    color: rgb(var(--color-foreground));
+  }
+  .icon-text-custom-v2-section .section-header p {
+    font-size: 1.5rem;
+    color: rgb(var(--color-foreground));
+    margin-block: 1rem 0;
+  }
+  .icon-text-custom-v2-section .icon-text-grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+    gap: {{ section.settings.column_gap }}px;
+    /* max-width: 110rem; */
+    margin-inline: auto;
+  }
+  .icon-text-custom-v2-section .icon-text-item {
+    text-align: {{ section.settings.text_alignment }};
+    display: flex;
+    flex-direction: column;
+    align-items: {{ section.settings.text_alignment }};
+  }
+  .icon-text-custom-v2-section .icon-wrapper {
+    width: var(--icon-size-desktop);
+    height: var(--icon-size-desktop);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    flex-shrink: 0;
+    {% if section.settings.use_icon_background %}
+      border-radius: {{ section.settings.icon_border_radius }}%;
+      background: {{ section.settings.icon_background_color }};
+      padding: {{ section.settings.icon_padding }}px;
+    {% endif %}
+  }
+  .icon-text-custom-v2-section .icon-wrapper svg {
+    {% if section.settings.use_icon_background %}
+      width: 100%;
+      height: 100%;
+    {% else %}
+      width: 100%;
+      height: 100%;
+    {% endif %}
+    color: {{ section.settings.icon_color }};
+  }
+  .icon-text-custom-v2-section .icon-wrapper img {
+    {% if section.settings.use_icon_background %}
+      width: 100%;
+      height: 100%;
+    {% else %}
+      width: 100%;
+      height: 100%;
+    {% endif %}
+    object-fit: contain;
+  }
+  .icon-text-custom-v2-section .icon-text-content h3 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-block: 0 1rem;
+    color: rgb(var(--color-foreground));
+  }
+  .icon-text-custom-v2-section .icon-text-content p {
+    font-size: 1.6rem;
+    color: rgb(var(--color-foreground));
+    /* opacity: 0.75; */
+    line-height: 1.6;
+    letter-spacing: 0.7px;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .icon-text-custom-v2-section .section-header h2 {
+      font-size: 3.9rem;
+    }
+    .icon-text-custom-v2-section .section-header p {
+      font-size: 1.6rem;
+    }
+  }
+
+  @media screen and (max-width: 989px) {
+    .icon-text-custom-v2-section .section-header {
+      margin-bottom: 1.5rem;
+    }
+    .icon-text-custom-v2-section .icon-text-grid {
+      grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr);
+      gap: 2rem 2.5rem;
+    }
+    .icon-text-custom-v2-section .icon-text-item {
+      align-items: center;
+      text-align: center;
+    }
+    .icon-text-custom-v2-section .icon-wrapper {
+      width: var(--icon-size-mobile);
+      height: var(--icon-size-mobile);
+      margin-bottom: 1.2rem;
+    }
+    .icon-text-custom-v2-section .icon-text-content h3 {
+      font-size: 1.8rem;
+    }
+    .icon-text-custom-v2-section .icon-text-content p {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --section-padding-top: {{ section.settings.padding_top_mob }}px;
+      --section-padding-bottom: {{ section.settings.padding_bottom_mob }}px;
+    }
+  }
+{%- endstyle -%}
+
+<img src="https://cdn.shopify.com/s/files/1/0872/8906/9899/files/wave_2_1_1.svg?v=1769768481" width="" height="" class="itc-wave-bg-top" alt="Wave background">
+<div class="icon-text-custom-v2-section">
+  <div class="icon-text-wrapper">
+    <div class="section--padding">
+      <div class="page-width">
+        
+        {%- if section.settings.heading != blank or section.settings.description != blank -%}
+        <div class="section-header">
+          {%- if section.settings.heading != blank -%}
+            <h2>{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.description != blank -%}
+            <p>{{ section.settings.description }}</p>
+          {%- endif -%}
+        </div>
+        {%- endif -%}
+
+        <div class="icon-text-grid">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'icon_item' -%}
+              <div class="icon-text-item" {{ block.shopify_attributes }}>
+                <div class="icon-wrapper">
+                  {%- if block.settings.icon_image != blank -%}
+                    {{ block.settings.icon_image | image_url: width: 200 | image_tag: loading: 'lazy', alt: block.settings.heading }}
+                  {%- elsif block.settings.icon_svg != blank -%}
+                    {{ block.settings.icon_svg }}
+                  {%- else -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                  {%- endif -%}
+                </div>
+                <div class="icon-text-content">
+                  {%- if block.settings.heading != blank -%}
+                    <h3>{{ block.settings.heading }}</h3>
+                  {%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    <p>{{ block.settings.text }}</p>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<img src="https://cdn.shopify.com/s/files/1/0872/8906/9899/files/wave_2_1_2.svg?v=1769768574" width="" height="" class="itc-wave-bg-btm" alt="Wave background">
+
+{% schema %}
+{
+  "name": "Icon text custom v2",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "label": "Number of columns on desktop",
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Number of columns on mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 column"
+        },
+        {
+          "value": "2",
+          "label": "2 columns"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Column gap",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Icon Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_icon_background",
+      "label": "Use icon background",
+      "default": true,
+      "info": "Disable if your icon images already have backgrounds"
+    },
+    {
+      "type": "range",
+      "id": "icon_size_desktop",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Icon size on desktop",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "icon_size_mobile",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Icon size on mobile",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "icon_padding",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon padding",
+      "default": 16,
+      "info": "Only applies when icon background is enabled"
+    },
+    {
+      "type": "range",
+      "id": "icon_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "%",
+      "label": "Icon border radius",
+      "default": 50,
+      "info": "0% = square, 50% = circle. Only applies when icon background is enabled"
+    },
+    {
+      "type": "color",
+      "id": "icon_background_color",
+      "label": "Icon background color",
+      "default": "#E8EAF6",
+      "info": "Only applies when icon background is enabled"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#3F51B5"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_colors",
+      "default": false,
+      "label": "Use custom colors"
+    },
+    {
+      "type": "color",
+      "id": "colors_text",
+      "label": "Text color",
+      "default": "#212326"
+    },
+    {
+      "type": "color",
+      "id": "colors_background",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color_background",
+      "id": "gradient_background",
+      "label": "Gradient background"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mob",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top (mobile)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mob",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom (mobile)",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon_item",
+      "name": "Icon Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon Image",
+          "info": "Upload a custom icon image. Recommended: square PNG with transparent background."
+        },
+        {
+          "type": "html",
+          "id": "icon_svg",
+          "label": "Icon SVG Code",
+          "info": "Paste SVG code if not using an image. Example: <svg>...</svg>"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Feature heading"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Feature description text goes here."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon text custom v2",
+      "blocks": [
+        {
+          "type": "icon_item",
+          "settings": {
+            "icon_svg": "<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'><rect x='3' y='3' width='7' height='7' rx='1'/><rect x='14' y='3' width='7' height='7' rx='1'/><rect x='14' y='14' width='7' height='7' rx='1'/><rect x='3' y='14' width='7' height='7' rx='1'/></svg>",
+            "heading": "Washable and quick-drying",
+            "text": "Simple maintenance in the washing machine and dryer."
+          }
+        },
+        {
+          "type": "icon_item",
+          "settings": {
+            "icon_svg": "<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4'/></svg>",
+            "heading": "Duvet and cover in one",
+            "text": "Never again the hassle of awkward covers."
+          }
+        },
+        {
+          "type": "icon_item",
+          "settings": {
+            "icon_svg": "<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z'/></svg>",
+            "heading": "Smart filling",
+            "text": "Lightweight with optimal temperature regulation."
+          }
+        },
+        {
+          "type": "icon_item",
+          "settings": {
+            "icon_svg": "<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'/></svg>",
+            "heading": "Healthy night's sleep",
+            "text": "Recommended by experts for hygienic sleep."
+          }
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer", "custom.overlay"]
+  }
+}
+{% endschema %}

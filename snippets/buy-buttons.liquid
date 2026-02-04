@@ -69,7 +69,7 @@
             >
               <div class="monogram-box" id="monogram-box-{{ section.id }}" style="display: none;">
                 <div class="monogram-total-price">
-                  <strong>Mongramming: <span> +$10 / monogram </span></strong>                  
+                  <strong>Mongramming: <span class="monogram-unit-price-display"> +{{ monogram_variant.price | money }} / monogram </span></strong>                  
                   <p class="monogram-processing-notice" style="margin: 5px 0 0 0; font-size: 14px;">Please note Monogrammed items take an additional 4-6 business days for processing.</p>
                 </div>
                 <div class="monogram-items-container" id="monogram-items-container-{{ section.id }}">
@@ -766,14 +766,14 @@
             return '$' + dollars;
           }
           
-          // Check if any monogram text fields are empty
-          function hasEmptyMonogramTextFields() {
+          // Check if at least one monogram text field is filled
+          function hasAnyMonogramText() {
             if (!monogramBox || monogramBox.style.display === 'none') {
               return false;
             }
             for (let i = 0; i < monogramItemsData.length; i++) {
               const itemData = monogramItemsData[i];
-              if (itemData.textInput && !itemData.textInput.value.trim()) {
+              if (itemData.textInput && itemData.textInput.value.trim()) {
                 return true;
               }
             }
@@ -786,18 +786,18 @@
             
             const boxIsOpen = monogramBox && monogramBox.style.display !== 'none';
             const checkboxChecked = checkboxTerms && checkboxTerms.checked;
-            const hasEmptyFields = hasEmptyMonogramTextFields();
+            const hasText = hasAnyMonogramText();
             
-            console.log('[Monogram] updateATCButtonState:', { boxIsOpen, checkboxChecked, hasEmptyFields });
+            console.log('[Monogram] updateATCButtonState:', { boxIsOpen, checkboxChecked, hasText });
             
             // Check if button was disabled by theme for product unavailability (before our changes)
             const hasDataUnavailable = atcButton.hasAttribute('data-unavailable') && atcButton.getAttribute('data-unavailable') === 'true';
             
-            if (boxIsOpen && (!checkboxChecked || hasEmptyFields)) {
-              // Monogram box is open but requirements not met - disable
+            if (boxIsOpen && (!checkboxChecked || !hasText)) {
+              // Monogram box is open but requirements not met (need checkbox AND at least one text filled)
               atcButton.classList.add('monogram-disabled');
               atcButton.disabled = true;
-              console.log('[Monogram] Button disabled - checkbox:', checkboxChecked, 'emptyFields:', hasEmptyFields);
+              console.log('[Monogram] Button disabled - checkbox:', checkboxChecked, 'hasText:', hasText);
             } else if (!hasDataUnavailable) {
               // Requirements met OR box is closed, and product is available - enable
               atcButton.classList.remove('monogram-disabled');
@@ -819,11 +819,12 @@
           const totalPriceDisplay = document.getElementById('monogram-total-price-{{ section.id }}');
           const totalPriceValue = totalPriceDisplay ? totalPriceDisplay.querySelector('.monogram-total-price-value') : null;
           
-          // Count monograms with text
+          // Count monograms with text (strictly trimmed)
           function countMonogramsWithText() {
             let count = 0;
+            if (!monogramItemsData) return 0;
             monogramItemsData.forEach(function(itemData) {
-              if (itemData.textInput && itemData.textInput.value.trim()) {
+              if (itemData && itemData.textInput && itemData.textInput.value.trim().length > 0) {
                 count++;
               }
             });
@@ -836,18 +837,28 @@
             btnTextSpan.textContent = isMonogramBoxOpen ? 'Remove Monogram' : 'Add Monogram';
           }
           
-          // Update total price
+          // Update total price and unit price display
           function updateMonogramTotalPrice() {
             if (!totalPriceDisplay || !totalPriceValue) return;
             
+            // Update the unit price display at the top as well
+            const unitPriceSpan = wrapper.querySelector('.monogram-unit-price-display');
+            const monogramUnitPrice = getMonogramUnitPrice();
+            if (unitPriceSpan) {
+              unitPriceSpan.textContent = ' +' + formatMoney(monogramUnitPrice) + ' / monogram';
+            }
+            
             if (isMonogramBoxOpen) {
-              const displayCount = Math.max(1, monogramItemsData.length);
+              const textFilledCount = countMonogramsWithText();
+              const displayCount = Math.max(0, textFilledCount);
               
-              // Get current price in current currency
-              const monogramUnitPrice = getMonogramUnitPrice();
-              const totalPrice = monogramUnitPrice * displayCount;
-              totalPriceValue.textContent = formatMoney(totalPrice) + ' (' + displayCount + ' monogram' + (displayCount > 1 ? 's' : '') + ')';
-              totalPriceDisplay.style.display = 'block';
+              if (displayCount > 0) {
+                const totalPrice = monogramUnitPrice * displayCount;
+                totalPriceValue.textContent = formatMoney(totalPrice) + ' (' + displayCount + ' monogram' + (displayCount > 1 ? 's' : '') + ')';
+                totalPriceDisplay.style.display = 'block';
+              } else {
+                totalPriceDisplay.style.display = 'none';
+              }
             } else {
               totalPriceDisplay.style.display = 'none';
             }
@@ -2503,7 +2514,8 @@
               // Build monogram items array
               const monogramItems = [];
               monogramItemsData.forEach(function(itemData, itemIndex) {
-                if (itemData.textInput && itemData.textInput.value.trim()) {
+                const textValue = itemData.textInput ? itemData.textInput.value.trim() : '';
+                if (textValue.length > 0) {
                   let productName = '{{ product.title | escape }}';
                   
                   // Get variant info for this monogram item
@@ -2513,7 +2525,7 @@
                     id: parseInt(monogramProductId),
                     quantity: 1,
                     properties: {
-                      'Monogram Text': itemData.textInput.value.trim() || '',
+                      'Monogram Text': textValue,
                       'Monogram Style': (function(val) {
                         if (val === 'Playfair Display') return 'Classic Serif';
                         if (val === 'Pinyon Script') return 'Elegant Script';
@@ -2757,7 +2769,8 @@
               }
               
               monogramItemsData.forEach(function(itemData, itemIndex) {
-                if (itemData.textInput && itemData.textInput.value.trim()) {
+                const textValue = itemData.textInput ? itemData.textInput.value.trim() : '';
+                if (textValue.length > 0) {
                   let productName = '{{ product.title | escape }}';
                   
                   // Get variant info for this monogram item
@@ -2767,7 +2780,7 @@
                     id: parseInt(monogramProductId),
                     quantity: 1,
                     properties: {
-                      'Monogram Text': itemData.textInput.value.trim() || '',
+                      'Monogram Text': textValue,
                       'Monogram Style': (function(val) {
                         if (val === 'Playfair Display') return 'Classic Serif';
                         if (val === 'Pinyon Script') return 'Elegant Script';

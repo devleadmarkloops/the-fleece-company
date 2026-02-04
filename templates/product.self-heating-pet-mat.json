@@ -46,7 +46,7 @@
         "rating_static_jQpEEQ": {
           "type": "rating_static",
           "settings": {
-            "rating_text": "(1392 Reviews)",
+            "rating_text": "(139 Reviews)",
             "rating_link": ""
           }
         },
@@ -73,10 +73,10 @@
         "icon_text_9Gxbx4": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/check-mark_1.png",
-            "icon_size": 22,
-            "icon_size_mob": 18,
-            "icon_text": "100% Skin friendly materials",
+            "icon": "shopify://shop_images/svgviewer-output.svg",
+            "icon_size": 24,
+            "icon_size_mob": 20,
+            "icon_text": "Ultra-soft, pet-safe materials",
             "text_color": "#121212",
             "text_size": 16,
             "text_size_mob": 14
@@ -85,10 +85,10 @@
         "icon_text_KLMX3D": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/check-mark_1.png",
-            "icon_size": 22,
-            "icon_size_mob": 18,
-            "icon_text": "Super soft, breathable fleece",
+            "icon": "shopify://shop_images/svgviewer-output.svg",
+            "icon_size": 24,
+            "icon_size_mob": 20,
+            "icon_text": "Self-warming comfort using body heat",
             "text_color": "#121212",
             "text_size": 16,
             "text_size_mob": 14
@@ -97,10 +97,10 @@
         "icon_text_R7iXXY": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/check-mark_1.png",
-            "icon_size": 22,
-            "icon_size_mob": 18,
-            "icon_text": "Helps improve your mood",
+            "icon": "shopify://shop_images/svgviewer-output.svg",
+            "icon_size": 24,
+            "icon_size_mob": 20,
+            "icon_text": "Helps pets feel calm, relaxed, and secure",
             "text_color": "#121212",
             "text_size": 16,
             "text_size_mob": 14
@@ -137,9 +137,7 @@
           "settings": {
             "show_quantity_selector": true,
             "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false,
-            "enable_monogram": false,
-            "monogram_product": ""
+            "show_gift_card_recipient": false
           }
         },
         "countdown_timer_4tCBwt": {
@@ -187,7 +185,7 @@
           "settings": {
             "icon": "check_mark",
             "heading": "Care & Details",
-            "content": "<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your Blanket for years to come.</p>",
+            "content": "<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your Pet Mat for years to come.</p>",
             "page": "",
             "custom_liquid": "",
             "keep_open": false
@@ -252,7 +250,7 @@
         "heading_bBmAeH": {
           "type": "heading",
           "settings": {
-            "heading": "The Ultimate Cozy Fleece Blanket: Bigger, Softer, and Cozier.",
+            "heading": "The Ultimate Cozy Pet Mat: Softer, Warmer, and Made for Comfort.",
             "heading_size": "h1",
             "heading_tag": "h2",
             "enable_highlight": false,
@@ -262,7 +260,7 @@
         "text_ziaWGB": {
           "type": "text",
           "settings": {
-            "text": "<p>Wrap yourself in comfort with our oversized premium fleece blanket. This ultra-soft, all-season blanket is designed to keep you warm and snug year-round.</p>",
+            "text": "<p>A premium self-warming mat that reflects your pet’s body heat to keep them cozy and relaxed no electricity needed.</p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
@@ -271,6 +269,7 @@
         },
         "check_list_Px7x8w": {
           "type": "check_list",
+          "disabled": true,
           "settings": {
             "enable_bg": false,
             "bg": "",
@@ -290,7 +289,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/Blanket-Flaxen07.jpg",
+        "image": "shopify://shop_images/13_041ce2a3-e9fc-4206-92b7-74136d202ac7.png",
         "image_position": "center center",
         "layout": "text_first",
         "text_box_position": "middle",
@@ -326,7 +325,7 @@
         "heading_wKRJry": {
           "type": "heading",
           "settings": {
-            "heading": "Here’s Why Our Fleece Blankets Are the Best",
+            "heading": "Here’s Why Our Self-Warming Pet Mat Stands Out",
             "heading_size": "h1",
             "heading_tag": "h2",
             "enable_highlight": false,
@@ -336,7 +335,7 @@
         "text_CN89GA": {
           "type": "text",
           "settings": {
-            "text": "<p>Crafted from luxuriously soft fleece that’s so cozy even clouds would be envious. The fluffy texture is breathable to keep you cool while staying snug, and it’s pet-friendly perfect for hiding your furry friend’s hair.</p><p>Experience ultimate comfort with a blanket designed for both you and your pets!</p>",
+            "text": "<p>Made with ultra-soft, pet-friendly fleece that feels cozy from the first touch. The plush surface reflects your pet’s natural body heat to keep them warm and comfortable without electricity. Perfect for everyday lounging, naps, and colder days.</p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
@@ -350,7 +349,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/Blanket-Flaxen08.jpg",
+        "image": "shopify://shop_images/14_c6077da7-2d4c-4716-956c-ca6b261a8e4a.png",
         "image_position": "center center",
         "layout": "image_first",
         "text_box_position": "middle",
@@ -396,7 +395,7 @@
         "text_TDiGmp": {
           "type": "text",
           "settings": {
-            "text": "<p>Our oversized fleece blankets are designed to fit in a standard washing machine, making it easy to keep them clean and cozy. Just toss it in, wash, tumbler and you’re good to go.</p>",
+            "text": "<p>Our self-warming pet mat is easy to clean and made for everyday use. Simply toss it in the washing machine to keep it fresh, soft, and cozy no special care needed.</p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
@@ -422,9 +421,10 @@
         "text_TDiGmp",
         "check_list_EmQBcw"
       ],
+      "disabled": true,
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/THE_FLEECE_BLANKET_1.png",
+        "image": "shopify://shop_images/9_0c7958ec-429b-4f9b-8e75-cd369e350648.png",
         "image_position": "center center",
         "layout": "text_first",
         "text_box_position": "middle",
@@ -470,7 +470,7 @@
         "text_EpmqdD": {
           "type": "text",
           "settings": {
-            "text": "<p>We won’t rest until you're completely happy and unbelievably cozy in your Fleece Blanket</p>",
+            "text": "<p>We won’t rest until you're completely happy and unbelievably cozy in your Pet Mat</p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
@@ -498,9 +498,9 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/hvhvhvhvhv.png",
+        "image": "shopify://shop_images/10_feffdb78-3af1-4306-ba4b-90eab8c3f70b.png",
         "image_position": "center center",
-        "layout": "image_first",
+        "layout": "text_first",
         "text_box_position": "middle",
         "text_alignment": "left",
         "image_ratio": "adapt",

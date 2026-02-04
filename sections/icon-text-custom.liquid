@@ -35,7 +35,7 @@
     display: grid;
     grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
     gap: {{ section.settings.column_gap }}px;
-    max-width: 110rem;
+    /* max-width: 110rem; */
     margin-inline: auto;
   }
   .icon-text-custom-section .icon-text-item {
@@ -81,14 +81,15 @@
   .icon-text-custom-section .icon-text-content h3 {
     font-size: 2rem;
     font-weight: 600;
-    margin-block: 0 1.2rem;
+    margin-block: 0 1rem;
     color: rgb(var(--color-foreground));
   }
   .icon-text-custom-section .icon-text-content p {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     color: rgb(var(--color-foreground));
     /* opacity: 0.75; */
-    line-height: 1.5;
+    line-height: 1.6;
+    letter-spacing: 0.7px;
     margin: 0;
   }
 
@@ -110,6 +111,13 @@
     }
     .icon-text-custom-section .icon-text-content p {
       font-size: 1.3rem;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --section-padding-top: {{ section.settings.padding_top_mob }}px;
+      --section-padding-bottom: {{ section.settings.padding_bottom_mob }}px;
     }
   }
 {%- endstyle -%}
@@ -357,6 +365,26 @@
       "step": 4,
       "unit": "px",
       "label": "Padding bottom",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mob",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top (mobile)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mob",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom (mobile)",
       "default": 36
     }
   ],
