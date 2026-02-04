@@ -82,7 +82,10 @@
               <div class="monogram-modal-overlay" id="monogram-selection-overlay-{{ section.id }}" style="display: none;">
                 <div class="monogram-modal monogram-selection-modal">
                   <div class="monogram-modal-header">
-                    <h3 class="monogram-modal-title">Add Monogram</h3>
+                    <div class="monogram-header-title-group">
+                      <h3 class="monogram-modal-title">Add Monogram</h3>
+                      <p class="monogram-processing-notice">Please note Monogrammed items take an additional 4-6 business days for processing.</p>
+                    </div>
                     <button type="button" class="monogram-modal-close" id="monogram-selection-close-{{ section.id }}">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -696,6 +699,17 @@
           font-weight: 600;
           margin: 0;
           color: #000;
+          line-height: 1.2;
+        }
+        .monogram-processing-notice {
+          font-size: 11px;
+          color: #cc0000;
+          margin: 4px 0 0 0;
+          font-weight: 500;
+          line-height: 1.3;
+        }
+        .monogram-header-title-group {
+          flex: 1;
         }
         .monogram-modal-close {
           background: none;
@@ -907,10 +921,11 @@
           font-weight: 400;
           user-select: none;
           white-space: nowrap;
-          cursor: move;
+          cursor: default;
           z-index: 10;
           color: #000;
           text-transform: none;
+          pointer-events: none;
         }
 
         /* ========== MODAL FOOTER ========== */
@@ -1148,6 +1163,14 @@
           font-size: 14px;
           line-height: 1.4;
           padding-top: 1px;
+        }
+        @media (max-width: 640px) {
+          .monogram-terms-text {
+            font-size: 11px;
+            line-height: 1.3;
+            padding-top: 0;
+            color: #555;
+          }
         }
         /* Custom large checkbox styling */
         .monogram-terms-label input[type="checkbox"] {
@@ -1551,8 +1574,8 @@
                 previewText.style.fontWeight = '400';
                 previewText.style.textTransform = 'none';
                 previewText.style.whiteSpace = 'nowrap';
-                previewText.style.cursor = 'move';
-                previewText.style.pointerEvents = 'auto';
+                previewText.style.cursor = 'default';
+                previewText.style.pointerEvents = 'none';
               }
               
               initMonogramItemInteractions(itemData);
@@ -1643,58 +1666,7 @@
             // Store sync function for external calls
             itemData.syncImageWithBundle = syncImageWithBundleColor;
             
-            // Drag and drop for text positioning
-            let isDragging = false;
-            let dragStartX = 0;
-            let dragStartY = 0;
-            let startX = 0;
-            let startY = 0;
-            
-            itemData.previewText.addEventListener('mousedown', function(e) {
-              isDragging = true;
-              dragStartX = e.clientX;
-              dragStartY = e.clientY;
-              
-              const rect = itemData.imageContainer.getBoundingClientRect();
-              const currentLeft = parseFloat(itemData.previewText.style.left) || 50;
-              const currentTop = parseFloat(itemData.previewText.style.top) || 50;
-              
-              startX = (currentLeft / 100) * rect.width;
-              startY = (currentTop / 100) * rect.height;
-              
-              e.preventDefault();
-            });
-            
-            const handleMouseMove = function(e) {
-              if (!isDragging || !itemData.previewText || !itemData.imageContainer) return;
-              
-              const rect = itemData.imageContainer.getBoundingClientRect();
-              const deltaX = e.clientX - dragStartX;
-              const deltaY = e.clientY - dragStartY;
-              
-              let newX = startX + deltaX;
-              let newY = startY + deltaY;
-              
-              newX = Math.max(0, Math.min(rect.width, newX));
-              newY = Math.max(0, Math.min(rect.height, newY));
-              
-              const percentX = (newX / rect.width) * 100;
-              const percentY = (newY / rect.height) * 100;
-              
-              itemData.previewText.style.left = percentX + '%';
-              itemData.previewText.style.top = percentY + '%';
-              itemData.previewText.style.transform = 'translate(-50%, -50%)';
-              
-              itemData.position.x = percentX;
-              itemData.position.y = percentY;
-            };
-            
-            const handleMouseUp = function() {
-              isDragging = false;
-            };
-            
-            document.addEventListener('mousemove', handleMouseMove);
-            document.addEventListener('mouseup', handleMouseUp);
+            // Sync image with bundle color (for bundle items)
           }
           
           // Load font with fallback to Google Fonts
@@ -2101,11 +2073,8 @@
               });
             }
             
-            // Make preview text draggable
-            const preview = detailContent.querySelector('.monogram-preview-text');
-            if (preview && imageContainer) {
-              setupDragForDetailPreview(preview, imageContainer, itemIndex);
-            }
+            // Update preview text
+            updateDetailPreviewText(itemIndex);
           }
           
           // Update preview text in detail modal
@@ -2166,53 +2135,7 @@
             }
           }
           
-          // Setup drag for detail preview
-          function setupDragForDetailPreview(previewEl, containerEl, itemIndex) {
-            if (!previewEl || !containerEl) return;
-            
-            let isDragging = false;
-            let startXPercent, startYPercent, startMouseX, startMouseY;
-            
-            previewEl.addEventListener('mousedown', function(e) {
-              e.preventDefault();
-              isDragging = true;
-              
-              const rect = containerEl.getBoundingClientRect();
-              startMouseX = e.clientX;
-              startMouseY = e.clientY;
-              
-              const left = parseFloat(previewEl.style.left) || 50;
-              const top = parseFloat(previewEl.style.top) || 50;
-              startXPercent = left;
-              startYPercent = top;
-            });
-            
-            document.addEventListener('mousemove', function(e) {
-              if (!isDragging) return;
-              
-              const rect = containerEl.getBoundingClientRect();
-              const deltaX = ((e.clientX - startMouseX) / rect.width) * 100;
-              const deltaY = ((e.clientY - startMouseY) / rect.height) * 100;
-              
-              let newX = startXPercent + deltaX;
-              let newY = startYPercent + deltaY;
-              
-              newX = Math.max(10, Math.min(90, newX));
-              newY = Math.max(10, Math.min(90, newY));
-              
-              previewEl.style.left = newX + '%';
-              previewEl.style.top = newY + '%';
-              
-              // Update original data position
-              if (monogramItemsData[itemIndex]) {
-                monogramItemsData[itemIndex].position = { x: newX, y: newY };
-              }
-            });
-            
-            document.addEventListener('mouseup', function() {
-              isDragging = false;
-            });
-          }
+          // Close detail modal
           
           // Close detail modal
           function closeDetailModal() {
@@ -2244,18 +2167,8 @@
 
             
             // Check if all items are now completed
-            const totalItems = monogramItemsData.length;
-            const completedCount = Object.values(monogramCompletedItems).filter(Boolean).length;
-            
-            if (completedCount >= totalItems) {
-              // All items completed - close the entire popup flow
-              console.log('[Monogram] All items completed, closing popup');
-              closeDetailModal();
-              closeSelectionModal();
-            } else {
-              // Still have items to complete - go back to selection
-              goBackToSelection();
-            }
+            // Always return to selection screen to allow user to check terms and click "Done"
+            goBackToSelection();
           }
           
           // Remove monogram
@@ -2447,6 +2360,7 @@
           if (checkboxTerms) {
             checkboxTerms.addEventListener('change', function() {
               updateATCButtonState();
+              updateSelectionDoneButton(); // Crucial: Update Done button state immediately
               updateSaveButtonState(); // Also update save button in detail modal
             });
           }
