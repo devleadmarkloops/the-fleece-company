@@ -44,15 +44,17 @@
     max-width: 8.5rem;
   }
   .reviews-v2-slider-{{ section.id }} .review-title {
-    font-size: 1.6rem;
-    font-weight: 600;
-    margin-block: 0.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    margin-block: 0.3rem 0.1rem;
   }
   .reviews-v2-slider-{{ section.id }} .review-text {
     flex: 1;
     font-size: 1.4rem;
-    letter-spacing: 0;
-    line-height: 1.5;
+    letter-spacing: 0.9px;
+    line-height: 1.6;
+    /* text-align: justify; */
   }
   .reviews-v2-slider-{{ section.id }} .author-wr {
     width: 100%;
@@ -63,16 +65,18 @@
   }
   .reviews-v2-slider-{{ section.id }} .review-author {
     font-size: 1.5rem;
-    font-weight: 500;
-    letter-spacing: 0;
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: 0.95px;
   }
   .reviews-v2-slider-{{ section.id }} .verified {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    font-size: 1.2rem;
+    gap: 0.3rem;
+    font-size: 1.4rem;
     font-weight: 400;
     letter-spacing: 0;
+    line-height: 1;
   }
   .reviews-v2-slider-{{ section.id }} .slider-wrapper {
     position: relative;
@@ -175,14 +179,19 @@
       border-radius: 10px;
     }
     .reviews-v2-slider-{{ section.id }} .review-stars svg {
-      width: 1.2rem;
-      height: 1.2rem;
+      max-width: 7.5rem;
+    }
+    .reviews-v2-slider-{{ section.id }} .review-title {
+      font-size: 1.6rem;
     }
     .reviews-v2-slider-{{ section.id }} .review-text {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
     }
     .reviews-v2-slider-{{ section.id }} .review-author {
       font-size: 1.4rem;
+    }
+    .reviews-v2-slider-{{ section.id }} .verified {
+      font-size: 1.3rem;
     }
   }
 {%- endstyle -%}

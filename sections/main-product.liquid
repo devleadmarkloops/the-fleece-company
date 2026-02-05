@@ -1617,13 +1617,40 @@
               {%- when 'sibling_products' -%}
                 {%- render 'sibling-products', block: block, product: product, section_id: section.id -%}
               {%- when 'buy_buttons' -%}
-                {% render 'buy-buttons',
-                  block: block,
-                  product: product,
-                  section_id: section.id,
-                  product_form_id: product_form_id,
-                  show_pickup_availability: true
-                %}
+                {%- case block.settings.buy_buttons_version -%}
+                  {%- when 'v1' -%}
+                    {% render 'buy-buttons-v1',
+                      block: block,
+                      product: product,
+                      section_id: section.id,
+                      product_form_id: product_form_id,
+                      show_pickup_availability: true
+                    %}
+                  {%- when 'v2' -%}
+                    {% render 'buy-buttons-v2',
+                      block: block,
+                      product: product,
+                      section_id: section.id,
+                      product_form_id: product_form_id,
+                      show_pickup_availability: true
+                    %}
+                  {%- when 'v3' -%}
+                    {% render 'buy-buttons-v3',
+                      block: block,
+                      product: product,
+                      section_id: section.id,
+                      product_form_id: product_form_id,
+                      show_pickup_availability: true
+                    %}
+                  {%- else -%}
+                    {% render 'buy-buttons',
+                      block: block,
+                      product: product,
+                      section_id: section.id,
+                      product_form_id: product_form_id,
+                      show_pickup_availability: true
+                    %}
+                {%- endcase -%}
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
                   {% liquid
@@ -3144,6 +3171,26 @@ if (nextBtn) {
       "limit": 1,
       "settings": [
         {
+          "type": "select",
+          "id": "buy_buttons_version",
+          "label": "Buy buttons version",
+          "options": [
+            {
+              "value": "v1",
+              "label": "v1"
+            },
+            {
+              "value": "v2",
+              "label": "v2"
+            },
+            {
+              "value": "v3",
+              "label": "v3"
+            }
+          ],
+          "default": "v1"
+        },
+        {
           "type": "checkbox",
           "id": "show_quantity_selector",
           "default": true,
@@ -3162,6 +3209,21 @@ if (nextBtn) {
           "default": false,
           "label": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.label",
           "info": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.info"
+        },
+        {
+          "type": "header",
+          "content": "Monogram"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_monogram",
+          "default": false,
+          "label": "Enable monogram"
+        },
+        {
+          "type": "product",
+          "id": "monogram_product",
+          "label": "Monogram product"
         }
       ]
     },

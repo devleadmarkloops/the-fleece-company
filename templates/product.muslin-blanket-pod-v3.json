@@ -140,10 +140,11 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
+            "buy_buttons_version": "v3",
             "show_quantity_selector": false,
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": false,
-            "enable_monogram": false,
+            "enable_monogram": true,
             "monogram_product": "monogram-test-product"
           }
         },

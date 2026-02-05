@@ -27,7 +27,11 @@ if (!customElements.get('product-thumbnails')) {
       if (this.stickyHeader) {
         this.stickyHeader.dispatchEvent(new Event('preventHeaderReveal'));
       }
-      window.setTimeout(() => { newMedia.scrollIntoView({ behavior: "smooth" }); });
+      // Only scroll if this is a user-initiated click (not programmatic variant change)
+      // Check if the click was from a user action, not from variant change
+      if (event.isTrusted) {
+        window.setTimeout(() => { newMedia.scrollIntoView({ behavior: "smooth", block: "nearest" }); });
+      }
 
       // deferred-media
       const deferredMedia = newMedia.querySelector(`#Deferred-Poster-${thumbnail.dataset.mediaId}`);

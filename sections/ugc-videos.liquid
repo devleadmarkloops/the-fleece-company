@@ -10,7 +10,7 @@
     {% endif -%}
   }
 
-  .wave-bg-top {
+  .ugc-wave-bg-top {
     display: block;
     width: 100%;
     margin-bottom: -1%;
@@ -25,11 +25,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 3.5rem;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
     text-align: center;
   }
-  .ugc-videos-header .heading { 
+  .ugc-videos-header .heading {
+    font-size: 2.92rem;
+    line-height: 1.24;
+    letter-spacing: 0.9px; 
     margin: 0; 
   }
   .ugc-videos-header__content {
@@ -152,6 +155,9 @@
   }
 
   @media screen and (min-width: 750px) {
+    .ugc-videos-header .heading {
+      font-size: 3.9rem;
+    }
     .ugc-pagination {
       display: none; 
     }
@@ -159,7 +165,7 @@
 
   @media screen and (max-width: 749px) {
     .ugc-videos-header {
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
     .ugc-videos-header__content {
       flex-direction: column;
@@ -206,7 +212,7 @@
   }
 {%- endstyle -%}
 
-<img src="https://cdn.shopify.com/s/files/1/0872/8906/9899/files/wave_1.svg?v=1767877716" width="" height="" class="wave-bg-top" alt="Wave background">
+{% if section.settings.enable_top_wave %}<img src="https://cdn.shopify.com/s/files/1/0872/8906/9899/files/wave_1.svg?v=1767877716" width="" height="" class="ugc-wave-bg-top" alt="Wave background">{% endif %}
 <div class="ugc-videos-section">
   <div class="page-width">
     {% if section.settings.heading != blank or section.settings.description != blank or section.settings.header_icon != blank %}
@@ -331,6 +337,7 @@
   "tag": "section",
   "class": "section",
   "settings": [
+    { "type": "checkbox", "id": "enable_top_wave", "default": false, "label": "Enable section top wave" },
     { "type": "header", "content": "Section Header" },
     { "type": "image_picker", "id": "header_icon", "label": "Header Icon" },
     { "type": "range", "id": "icon_size", "min": 30, "max": 100, "step": 5, "unit": "px", "label": "Icon Size", "default": 50 },

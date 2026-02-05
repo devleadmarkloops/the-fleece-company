@@ -143,7 +143,7 @@
             "show_quantity_selector": false,
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": false,
-            "enable_monogram": false,
+            "enable_monogram": true,
             "monogram_product": "monogram-test-product"
           }
         },
@@ -277,6 +277,103 @@
         "show_mobile_thumbnails": false,
         "padding_top": 0,
         "padding_bottom": 20
+      }
+    },
+    "ugc_videos_GW3Ytt": {
+      "type": "ugc-videos",
+      "blocks": {
+        "video_c97LmR": {
+          "type": "video",
+          "settings": {
+            "video_source": "hosted",
+            "video_shopify": "shopify://files/videos/ashley v.mp4",
+            "video_url": "",
+            "username": ""
+          }
+        },
+        "video_VC6PYC": {
+          "type": "video",
+          "settings": {
+            "video_source": "hosted",
+            "video_shopify": "shopify://files/videos/4_cicii_mitchell.mp4",
+            "video_url": "",
+            "username": ""
+          }
+        },
+        "video_3WhrpV": {
+          "type": "video",
+          "settings": {
+            "video_source": "hosted",
+            "video_shopify": "shopify://files/videos/10_muslinblanket_momentsbyjemma.mp4",
+            "video_url": "",
+            "username": ""
+          }
+        },
+        "video_wrtJQf": {
+          "type": "video",
+          "settings": {
+            "video_source": "hosted",
+            "video_shopify": "shopify://files/videos/Copy of thepurposeofmotherhood_muslinblanket_FINAL_04.mp4",
+            "video_url": "",
+            "username": ""
+          }
+        },
+        "video_bfeMzH": {
+          "type": "video",
+          "settings": {
+            "video_source": "hosted",
+            "video_shopify": "shopify://files/videos/Copy of ashley.vanpevenage_PaidAd2_muslinblanket.mp4",
+            "video_url": "",
+            "username": ""
+          }
+        },
+        "video_B4wdUD": {
+          "type": "video",
+          "settings": {
+            "video_source": "hosted",
+            "video_shopify": "shopify://files/videos/IG_reel_ambermfernandes__muslinblanket.mp4",
+            "video_url": "",
+            "username": ""
+          }
+        },
+        "video_akRKr9": {
+          "type": "video",
+          "settings": {
+            "video_source": "hosted",
+            "video_shopify": "shopify://files/videos/shanie2.mp4",
+            "video_url": "",
+            "username": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_c97LmR",
+        "video_VC6PYC",
+        "video_3WhrpV",
+        "video_wrtJQf",
+        "video_bfeMzH",
+        "video_B4wdUD",
+        "video_akRKr9"
+      ],
+      "name": "UGC Videos",
+      "settings": {
+        "icon_size": 50,
+        "heading": "Our Happy Customers",
+        "description": "",
+        "autoplay": true,
+        "slides_desktop": 3.6,
+        "image_ratio_desktop": "portrait",
+        "image_height_desktop": 500,
+        "slides_tablet": 2.5,
+        "slides_mobile": "1.2",
+        "image_ratio_mobile": "custom",
+        "image_height_mobile": 400,
+        "use_custom_colors": false,
+        "colors_text": "#212326",
+        "colors_background": "#ffffff",
+        "gradient_background": "",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "image_with_text_v2_D8bENf": {
@@ -584,6 +681,7 @@
     "content_scrollspy_KjGLRV",
     "empty-space",
     "main",
+    "ugc_videos_GW3Ytt",
     "image_with_text_v2_D8bENf",
     "image_with_text_v2_RabiRM",
     "image_with_text_v2_tLdkwa",
