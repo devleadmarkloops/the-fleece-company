@@ -274,7 +274,7 @@
             "bg": "",
             "list_icon": "shopify://shop_images/check_circle_30dp_C5BBAE_FILL0_wght400_GRAD0_opsz24.svg",
             "list_text_1": "Wrinkle resistant",
-            "list_text_2": "Promotes relaxation & better sleep",
+            "list_text_2": "Promotes better sleep",
             "list_text_3": "Warm yet breathable",
             "list_text_4": "Ultra-soft premium fleece",
             "list_text_5": ""
@@ -288,7 +288,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/3_ad860e7d-2736-49a9-a4eb-e04c853c0e50.png",
+        "image": "shopify://shop_images/7_801a5a2c-451a-4c8d-b004-6f3e035e2c9f.png",
         "image_position": "center center",
         "layout": "text_first",
         "text_box_position": "middle",
@@ -348,7 +348,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/1_07380dfb-ff2a-41cf-9e16-4c34fa1fdba3.png",
+        "image": "shopify://shop_images/1_5fc7687e-0851-447c-a60e-b62d48849f0f.png",
         "image_position": "center center",
         "layout": "image_first",
         "text_box_position": "middle",
@@ -496,7 +496,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/fleece_guarantee_5bbe0ae9-28eb-4aed-a9a1-241b3189f28b.png",
+        "image": "shopify://shop_images/fleece_guarantee_1_b3230501-7082-4b0a-9781-6db90d164d5f.png",
         "image_position": "center center",
         "layout": "image_first",
         "text_box_position": "middle",
@@ -562,31 +562,23 @@
           "type": "review",
           "settings": {
             "review_title": "",
-            "review_text": "Love my blanket. Not too hot or cold, best blanket purchase yet",
-            "author_name": "Cheryl D"
+            "review_text": "You can feel the difference right away. It makes the bed feel warmer, softer, and more comfortable overall. I would absolutely recommend it.",
+            "author_name": "Anina D"
           }
         },
         "review_AAMEHx": {
           "type": "review",
           "settings": {
             "review_title": "",
-            "review_text": "Exactly what I wanted. So soft and big. This is a family cuddle blanket",
-            "author_name": "Daniela S"
-          }
-        },
-        "review_RRjwad": {
-          "type": "review",
-          "settings": {
-            "review_title": "",
-            "review_text": "I've been wanting to get one of these since seeing it at a friend's house, & I'm obsessed. I'm 6'2\", & no blanket is ever really big enough. This thing goes on for days, it's incredible.",
-            "author_name": "Derek H"
+            "review_text": "The sheet fits the mattress really well and doesn’t move around during the night. Everything still looks smooth in the morning.",
+            "author_name": "Daniela L."
           }
         },
         "review_QaX4R7": {
           "type": "review",
           "settings": {
             "review_title": "",
-            "review_text": "Wonderful. Love the color",
+            "review_text": "The fabric feels high quality and well made. No shedding, no rough spots, and it still looks great after washing. Definitely feels premium.",
             "author_name": "Alyssa S"
           }
         },
@@ -594,20 +586,21 @@
           "type": "review",
           "settings": {
             "review_title": "",
-            "review_text": "Love the blankets. I bought one for myself and had to buy one for my husband because I love mine to much to share even though it’s big enough for both of us. Definitely have recommended these blankets to family and friends.",
-            "author_name": "Author"
+            "review_text": "The fleece feels incredibly soft and gentle. It’s one of those small upgrades that makes a big difference in everyday comfort.",
+            "author_name": "Karen L."
           }
         },
         "review_YzwiiN": {
           "type": "review",
           "settings": {
             "review_title": "",
-            "review_text": "These blankets are amazing! I have bought 3 and I don’t think I’ll ever be able to go back to any other kind. They keep me cool at night and I don’t have to fight for my side of the blanket because they’re so big. They’re very soft and feel slightly weighted but probably because of the size.",
-            "author_name": "Ramon"
+            "review_text": "I honestly didn’t expect it to feel this soft. The fleece is incredibly gentle on the skin and makes the bed feel much more inviting, especially on cooler nights.",
+            "author_name": "Kyile H."
           }
         },
         "review_HbQh3y": {
           "type": "review",
+          "disabled": true,
           "settings": {
             "review_title": "",
             "review_text": "Can't live without it!!!",
@@ -616,6 +609,7 @@
         },
         "review_TmKd3r": {
           "type": "review",
+          "disabled": true,
           "settings": {
             "review_title": "",
             "review_text": "This blanket is so soft! It’s cozy, and it doesn’t get too hot.",
@@ -624,6 +618,7 @@
         },
         "review_67a9fC": {
           "type": "review",
+          "disabled": true,
           "settings": {
             "review_title": "",
             "review_text": "Amazing quality and the embroidery is very nice and clean. Its actually threaded and stitched rather than just screen printed!",
@@ -632,6 +627,7 @@
         },
         "review_BqEFtb": {
           "type": "review",
+          "disabled": true,
           "settings": {
             "review_title": "",
             "review_text": "These blankets are the absolute best",
@@ -642,7 +638,6 @@
       "block_order": [
         "review_BDtWFn",
         "review_AAMEHx",
-        "review_RRjwad",
         "review_QaX4R7",
         "review_GaEwEt",
         "review_YzwiiN",

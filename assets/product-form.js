@@ -231,7 +231,7 @@ class StockAlertCountdown {
       if (currentEl) {
         currentEl.textContent = currentValue;
       }
-    }, 5000);
+    }, 300000);
 
     this.timers.set(variantTitle, timer);
   }
