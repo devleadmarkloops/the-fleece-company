@@ -136,15 +136,19 @@
               endif
             -%}
             <ul id="product-grid" data-id="{{ section.id }}" class="product-grid {{ grid_class }}" role="list">
-              {%- assign rendered_product_ids = '' -%}
+              {%- comment -%}
+                TWO-PASS APPROACH:
+                Pass 1: Render all products with color_as_products enabled (all colors together)
+                Pass 2: Render all regular products
+                This ensures color variants are grouped together.
+              {%- endcomment -%}
+              
+              {%- assign rendered_product_ids_array = '' -%}
+              {%- assign product_counter = 0 -%}
+              
+              {%- comment -%} PASS 1: Render products with color_as_products enabled {%- endcomment -%}
               {%- for product in collection.products -%}
                 {%- liquid
-                  assign lazy_load = true
-                  if forloop.first
-                    assign lazy_load = false
-                  endif
-                  
-                  assign product_id_string = product.id | append: ','
                   assign should_render_colors = false
                   if section.settings.enable_color_as_products or product.metafields.custom.color_as_products.value == true
                     assign should_render_colors = true
@@ -152,20 +156,28 @@
                 -%}
                 
                 {%- if should_render_colors -%}
-                  {%- comment -%} 
-                    Check if we already rendered this product's colors.
-                    This prevents duplicate rendering when the same product appears multiple times in the collection.
-                  {%- endcomment -%}
-                  {%- if rendered_product_ids contains product_id_string -%}
-                    {%- comment -%} Skip - already rendered all colors for this product {%- endcomment -%}
-                  {%- else -%}
-                    {%- assign rendered_product_ids = rendered_product_ids | append: product_id_string -%}
+                  {%- comment -%} Check if this product ID was already rendered {%- endcomment -%}
+                  {%- assign this_product_id = product.id | append: '' -%}
+                  {%- assign already_rendered = false -%}
+                  
+                  {%- comment -%} Manual check for duplicate by splitting the string {%- endcomment -%}
+                  {%- if rendered_product_ids_array != '' -%}
+                    {%- assign id_check = this_product_id | prepend: '|' | append: '|' -%}
+                    {%- assign ids_with_pipes = rendered_product_ids_array | prepend: '|' | append: '|' -%}
+                    {%- if ids_with_pipes contains id_check -%}
+                      {%- assign already_rendered = true -%}
+                    {%- endif -%}
+                  {%- endif -%}
+                  
+                  {%- unless already_rendered -%}
+                    {%- comment -%} Add this product ID to the rendered list {%- endcomment -%}
+                    {%- if rendered_product_ids_array == '' -%}
+                      {%- assign rendered_product_ids_array = this_product_id -%}
+                    {%- else -%}
+                      {%- assign rendered_product_ids_array = rendered_product_ids_array | append: '|' | append: this_product_id -%}
+                    {%- endif -%}
                     
-                    {%- comment -%}
-                      Using Shopify's native approach: iterate through product.variants
-                      and extract unique colors to display each as a separate card.
-                      This is the officially recommended way per Shopify documentation.
-                    {%- endcomment -%}
+                    {%- comment -%} Find color option index {%- endcomment -%}
                     {%- assign color_option_index = nil -%}
                     {%- for option in product.options_with_values -%}
                       {%- if option.name == 'Color' or option.name == 'Colour' -%}
@@ -179,12 +191,21 @@
                       {%- assign color_index = 0 -%}
                       {%- for variant in product.variants -%}
                         {%- assign color_value = variant.options[color_option_index] -%}
-                        {%- assign color_key = color_value | handleize | append: ',' -%}
+                        {%- assign color_key = color_value | handleize | append: '|' -%}
                         
                         {%- unless seen_colors contains color_key -%}
                           {%- assign seen_colors = seen_colors | append: color_key -%}
                           {%- assign color_index = color_index | plus: 1 -%}
-                          <li class="flex-grid__item" data-product-id="{{ product.id }}" data-product-title="{{ product.title | escape }}" data-color-index="{{ color_index }}" data-variant-id="{{ variant.id }}">
+                          {%- assign product_counter = product_counter | plus: 1 -%}
+                          
+                          {%- liquid
+                            assign lazy_load = true
+                            if product_counter <= 4
+                              assign lazy_load = false
+                            endif
+                          -%}
+                          
+                          <li class="flex-grid__item" data-product-id="{{ product.id }}" data-product-title="{{ product.title | escape }}" data-color-index="{{ color_index }}" data-variant-id="{{ variant.id }}" data-pass="1">
                             {% render 'd5-card-variant',
                               card_product: product,
                               value: color_value,
@@ -206,7 +227,14 @@
                       {%- endfor -%}
                     {%- else -%}
                       {%- comment -%} No color option found, render as single product card {%- endcomment -%}
-                      <li class="flex-grid__item">
+                      {%- assign product_counter = product_counter | plus: 1 -%}
+                      {%- liquid
+                        assign lazy_load = true
+                        if product_counter <= 4
+                          assign lazy_load = false
+                        endif
+                      -%}
+                      <li class="flex-grid__item" data-pass="1">
                         {% render 'card-product',
                           card_product: product,
                           card_collection: collection,
@@ -223,9 +251,28 @@
                         %}
                       </li>
                     {%- endif -%}
-                  {%- endif -%}
-                {% else %}
-                  <li class="flex-grid__item">
+                  {%- endunless -%}
+                {%- endif -%}
+              {%- endfor -%}
+              
+              {%- comment -%} PASS 2: Render regular products (without color_as_products) {%- endcomment -%}
+              {%- for product in collection.products -%}
+                {%- liquid
+                  assign should_render_colors = false
+                  if section.settings.enable_color_as_products or product.metafields.custom.color_as_products.value == true
+                    assign should_render_colors = true
+                  endif
+                -%}
+                
+                {%- unless should_render_colors -%}
+                  {%- assign product_counter = product_counter | plus: 1 -%}
+                  {%- liquid
+                    assign lazy_load = true
+                    if product_counter <= 4
+                      assign lazy_load = false
+                    endif
+                  -%}
+                  <li class="flex-grid__item" data-pass="2">
                     {% render 'card-product',
                       card_product: product,
                       card_collection: collection,
@@ -241,7 +288,7 @@
                       lazy_load: lazy_load
                     %}
                   </li>
-                {% endif %}
+                {%- endunless -%}
               {%- endfor -%}
             </ul>
 
