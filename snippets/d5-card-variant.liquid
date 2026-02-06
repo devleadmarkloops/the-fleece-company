@@ -52,6 +52,28 @@
     assign card_url = card_product.url | within: card_collection
     assign card_url_with_default = card_product.url | within: card_collection | default: '#'
   endif
+
+  comment
+    Find the variant that matches the passed color value
+  endcomment
+  assign matched_variant = nil
+  assign color_value_string = value | default: ''
+  if color_value_string != blank
+    for variant in card_product.variants
+      for option in variant.options
+        if option == color_value_string
+          assign matched_variant = variant
+          break
+        endif
+      endfor
+      if matched_variant
+        break
+      endif
+    endfor
+  endif
+  if matched_variant == nil
+    assign matched_variant = card_product.selected_or_first_available_variant
+  endif
 -%}
 {% assign enable_color_swatches = false %}
 
@@ -184,12 +206,12 @@
                 {% endif -%}
 
                 {%- if card_product.available and enable_quick_buy_2nd %}
-                  data-variant-id="{{ value.variant.id }}"
+                  data-variant-id="{{ value.variant.id | default: matched_variant.id }}"
                   data-product-handle="{{ card_product.handle | escape }}"
                   data-collection-handle="{{ collection.handle | escape }}"
                 {% endif -%}
               >
-                <a href="{{ value.variant.url }}" tabindex="-1">
+                <a href="{{ value.variant.url | default: matched_variant.url }}" tabindex="-1">
                   <span class="visually-hidden">{{ value }}</span>
                 </a>
               </color-swatch>
@@ -343,7 +365,7 @@
           </deferred-media>
         </div>
       {% endif %}
-      <a href="{{ card_url }}?variant={{ value.variant.id }}"{% if disable_image_click %} onclick="if (!theme.config.mqlSmall) { return false; }"{% endif %} class="card__media media-wrapper" tabindex="-1" aria-label="{{ card_product.title | escape }}">
+      <a href="{{ card_url }}?variant={{ matched_variant.id }}"{% if disable_image_click %} onclick="if (!theme.config.mqlSmall) { return false; }"{% endif %} class="card__media media-wrapper" tabindex="-1" aria-label="{{ card_product.title | escape }}">
         <div {% if card_product_media.media_type == 'video' or card_product_media.media_type == 'external_video' %} style="display: none"{% endif %} class="card--image-animate image-animate media media--{{ media_size }} media--hover-effect{% unless enable_image_fill %} media--image-contain{% endunless %}"
           {%- if media_size == 'adapt' %} style="--image-ratio-percent: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;"{% endif -%}
           >
@@ -352,7 +374,7 @@
               media="(min-resolution: 2dppx) and (max-width: 749px)"
               
               sizes="{{ sizes }}">
-            {{ value.variant.featured_media | image_url: width: 1100 | image_tag: loading: image_loading, class: 'motion-reduce', sizes: sizes, widths: widths, alt: alt, is: 'lazy-image' }}
+            {{ matched_variant.featured_media | image_url: width: 1100 | image_tag: loading: image_loading, class: 'motion-reduce', sizes: sizes, widths: widths, alt: alt, is: 'lazy-image' }}
           </picture>
           {%- if card_product.media[1] != nil and show_secondary_image -%}
             {%- liquid
@@ -398,7 +420,7 @@
         </div>
       {%- endif -%}
 
-      <a href="{{ card_url }}?variant={{ value.variant.id }}" class="card-information__text h4" tabindex="-1">
+      <a href="{{ card_url }}?variant={{ matched_variant.id }}" class="card-information__text h4" tabindex="-1">
         {{ card_product.title | escape }} - <strong>{{ value }}</strong>
       </a>
 
@@ -474,7 +496,7 @@
                 </svg>
               </quick-view-button>
             {%- else -%}
-              <a href="{{ card_url }}?variant={{ value.variant.id }}" class="{{ button_class }}" tabindex="-1">
+              <a href="{{ card_url }}?variant={{ matched_variant.id }}" class="{{ button_class }}" tabindex="-1">
                 {{ 'products.product.view' | t }}
                 <svg class="icon icon-cart" aria-hidden="true" focusable="false">
                   <use href="#icon-cart"></use>
