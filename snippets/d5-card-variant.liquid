@@ -55,9 +55,10 @@
 
   comment
     Find the variant that matches the passed color value
+    Handle both string values and object values (for newer Shopify API)
   endcomment
   assign matched_variant = nil
-  assign color_value_string = value | default: ''
+  assign color_value_string = value.name | default: value | default: ''
   if color_value_string != blank
     for variant in card_product.variants
       for option in variant.options
@@ -218,7 +219,7 @@
             {%- endif -%}
             {%- assign color_count = color_count | plus: 1 -%}
           {%- endfor -%}
-          {%- if color_count > max_count -%}
+          {%- if color_co unt > max_count -%}
             <a class="link link--text" href="{{ card_url }}" tabindex="-1">
               <small>+{{ color_count | minus: max_count }}</small>
             </a>
@@ -421,7 +422,7 @@
       {%- endif -%}
 
       <a href="{{ card_url }}?variant={{ matched_variant.id }}" class="card-information__text h4" tabindex="-1">
-        {{ card_product.title | escape }} - <strong>{{ value }}</strong>
+        {{ card_product.title | escape }} - <strong>{{ color_value_string }}</strong>
       </a>
 
       {% if card_product.metafields.custom.subtitle != blank %}
