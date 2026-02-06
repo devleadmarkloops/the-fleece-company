@@ -143,7 +143,7 @@
                     assign lazy_load = false
                   endif
                 -%}
-                {% if product.metafields.custom.color_as_products.value == true %}
+                {% if section.settings.enable_color_as_products or product.metafields.custom.color_as_products.value == true %}
                   {% for option in product.options_with_values %}
                     {% if option.name == 'Color' or option.name == 'Colour' %}
                       {% for value in option.values %}
@@ -426,6 +426,13 @@
       "default": "center center",
       "label": "t:sections.all.image_position.label",
       "info": "t:sections.all.image_position.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_color_as_products",
+      "default": false,
+      "label": "Enable \"Color as Products\"",
+      "info": "Splits each color variant into a separate product card. Can also be enabled per-product via metafield."
     },
     {
       "type": "checkbox",
