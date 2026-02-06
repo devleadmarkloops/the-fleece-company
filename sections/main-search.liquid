@@ -213,105 +213,57 @@
                     assign grid_class = grid_class | append: ' flex-grid--3-col-tablet flex-grid--4-col-desktop'
                   endif
                 -%}
-                <ul id="product-grid" data-id="{{ section.id }}" class="product-grid {{ grid_class }}" role="list" data-ordering-system="bulletproof-v2">
-                  {%- liquid
-                    assign unique_product_ids_str = "|"
-                    for item in search.results
-                      if item.object_type == 'product'
-                        assign pid = item.id | append: "|"
-                        unless unique_product_ids_str contains pid
-                          assign unique_product_ids_str = unique_product_ids_str | append: pid
-                        endunless
-                      endif
-                    endfor
-                    assign unique_ids = unique_product_ids_str | remove_first: "|" | split: "|"
-                    
-                    assign card_counter = 0
-                  -%}
-
-                  {%- for target_id_str in unique_ids -%}
-                    {%- if target_id_str == blank -%}{%- continue -%}{%- endif -%}
-                    {%- assign target_id = target_id_str | plus: 0 -%}
-                    {%- assign seen_colors_for_id = "" -%}
-                    
-                    {%- for search_item in search.results -%}
-                      {%- if search_item.object_type == 'product' and search_item.id == target_id -%}
+                {%- assign current_item_index = 0 -%}
+                <ul id="product-grid" data-id="{{ section.id }}" class="product-grid {{ grid_class }}" role="list">
+                  {%- for item in search.results -%}
+                    {%- case item.object_type -%}
+                      {%- when 'product' -%}
                         {%- liquid
-                          assign should_render_colors = false
-                          if section.settings.enable_color_as_products or search_item.metafields.custom.color_as_products.value == true
-                            assign should_render_colors = true
+                          assign color_rendered = false
+                          if section.settings.enable_color_as_products or item.metafields.custom.color_as_products.value == true
+                            for option in item.options_with_values
+                              assign downcase_name = option.name | downcase
+                              if downcase_name == 'color' or downcase_name == 'colour'
+                                for value in option.values
+                                  assign color_rendered = true
+                                  # Find the first variant that matches this color value
+                                  assign variant_for_value = null
+                                  for variant in item.variants
+                                    if variant.options contains value.name or variant.options contains value
+                                      assign variant_for_value = variant
+                                      break
+                                    endif
+                                  endfor
+                                  
+                                  if variant_for_value != blank
+                                    assign current_item_index = current_item_index | plus: 1
+                                    assign lazy_load = true
+                                    if current_item_index <= products_per_row
+                                      assign lazy_load = false
+                                    endif
+
+                                    echo '<li class="flex-grid__item" data-index="' | append: current_item_index | append: '">'
+                                    render 'd5-card-variant', card_variant: variant_for_value, card_product: item, value: value, card_collection: collection, media_size: section.settings.image_ratio, show_secondary_image: section.settings.show_secondary_image, show_quick_buy: section.settings.show_quick_buy, show_vendor: section.settings.show_vendor, show_rating: section.settings.show_rating, enable_quick_view: section.settings.enable_quick_view, enable_color_swatches: section.settings.enable_color_swatches, enable_countdown: section.settings.enable_countdown, enable_image_fill: section.settings.enable_image_fill, lazy_load: lazy_load
+                                    echo '</li>'
+                                  endif
+                                endfor
+                                break
+                              endif
+                            endfor
                           endif
                         -%}
-                        
-                        {%- if should_render_colors -%}
-                          {%- assign color_option_index = nil -%}
-                          {%- for option in search_item.options_with_values -%}
-                            {%- if option.name == 'Color' or option.name == 'Colour' -%}
-                              {%- assign color_option_index = forloop.index0 -%}
-                              {%- break -%}
-                            {%- endif -%}
-                          {%- endfor -%}
-                          
-                          {%- if color_option_index != nil -%}
-                            {%- assign sorted_variants = search_item.variants | sort: 'position' -%}
-                            {%- for variant in sorted_variants -%}
-                              {%- assign color_value = variant.options[color_option_index] -%}
-                              {%- assign color_key = color_value | handleize | append: '|' -%}
-                              
-                              {%- unless seen_colors_for_id contains color_key -%}
-                                {%- assign seen_colors_for_id = seen_colors_for_id | append: color_key -%}
-                                {%- assign card_counter = card_counter | plus: 1 -%}
-                                {%- liquid
-                                  assign lazy_load = true
-                                  if card_counter <= 4
-                                    assign lazy_load = false
-                                  endif
-                                -%}
-                                <li class="flex-grid__item" data-product-id="{{ search_item.id }}" data-color="{{ color_value | escape }}">
-                                  {% render 'd5-card-variant',
-                                    card_product: search_item,
-                                    value: color_value,
-                                    variant: variant,
-                                    card_collection: collection,
-                                    media_size: section.settings.image_ratio,
-                                    show_secondary_image: section.settings.show_secondary_image,
-                                    show_quick_buy: section.settings.show_quick_buy,
-                                    show_vendor: section.settings.show_vendor,
-                                    show_rating: section.settings.show_rating,
-                                    enable_quick_view: section.settings.enable_quick_view,
-                                    enable_color_swatches: section.settings.enable_color_swatches,
-                                    enable_countdown: section.settings.enable_countdown,
-                                    enable_image_fill: section.settings.enable_image_fill,
-                                    lazy_load: lazy_load
-                                  %}
-                                </li>
-                              {%- endunless -%}
-                            {%- endfor -%}
-                          {%- else -%}
-                            {%- assign card_counter = card_counter | plus: 1 -%}
-                            <li class="flex-grid__item">
-                              {% render 'card-product',
-                                card_product: search_item,
-                                card_collection: collection,
-                                media_size: section.settings.image_ratio,
-                                show_secondary_image: section.settings.show_secondary_image,
-                                show_quick_buy: section.settings.show_quick_buy,
-                                show_vendor: section.settings.show_vendor,
-                                show_rating: section.settings.show_rating,
-                                enable_quick_view: section.settings.enable_quick_view,
-                                enable_color_swatches: section.settings.enable_color_swatches,
-                                enable_countdown: section.settings.enable_countdown,
-                                enable_image_fill: section.settings.enable_image_fill,
-                                lazy_load: lazy_load
-                              %}
-                            </li>
-                            {%- break -%}
-                          {%- endif -%}
-                        {%- else -%}
-                          {%- assign card_counter = card_counter | plus: 1 -%}
-                          <li class="flex-grid__item">
+
+                        {%- unless color_rendered -%}
+                          {%- liquid
+                            assign current_item_index = current_item_index | plus: 1
+                            assign lazy_load = true
+                            if current_item_index <= products_per_row
+                              assign lazy_load = false
+                            endif
+                          -%}
+                          <li class="flex-grid__item" data-index="{{ current_item_index }}">
                             {% render 'card-product',
-                              card_product: search_item,
+                              card_product: item,
                               card_collection: collection,
                               media_size: section.settings.image_ratio,
                               show_secondary_image: section.settings.show_secondary_image,
@@ -325,73 +277,97 @@
                               lazy_load: lazy_load
                             %}
                           </li>
-                          {%- break -%}
-                        {%- endif -%}
-                      {%- endif -%}
-                    {%- endfor -%}
-                  {%- endfor -%}
-
-                  {%- comment -%} Non-product results (articles, pages) {%- endcomment -%}
-                  {%- for item in search.results -%}
-                    {%- if item.object_type != 'product' -%}
-                      <li class="flex-grid__item">
-                        {%- case item.object_type -%}
-                          {%- when 'article' -%}
-                            <div class="card-wrapper">
-                              <a href="{{ item.url }}" class="full-unstyled-link">
-                                <span class="visually-hidden">{{ item.title | truncate: 50 | escape }}</span>
-                              </a>
-                              <div class="card card--product card--search{% if item.image == nil %} card--text{% endif %}" tabindex="-1">
-                                {%- if item.image -%}
-                                  {%- liquid
-                                    assign featured_media_aspect_ratio = item.image.aspect_ratio
-                                    if item.image.aspect_ratio == nil
-                                      assign featured_media_aspect_ratio = 1
-                                    endif
-                                  -%}
-                                  <use-animate data-animate="zoom-fade-small" class="card__media media-wrapper">
-                                    <a href="{{ item.url }}" class="image-animate media media--{{ section.settings.image_ratio }} media--hover-effect"
-                                      tabindex="-1"
-                                      aria-label="{{ item.title | escape }}"
-                                      {%- if section.settings.image_ratio == 'adapt' %} style="--image-ratio-percent: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;"{% endif -%}
-                                    >
-                                      {%- capture sizes -%}(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc((100vw - 10rem) / 2),{% if section.settings.columns_mobile == '1' %} calc((100vw - 3rem){% else %} calc((100vw - 3rem) / 2){% endif %}{%- endcapture -%}
-                                      {{ item.image | image_url: width: 1100 | image_tag: loading: 'lazy', sizes: sizes, widths: '165, 360, 535, 750, 940, 1100' }}
-                                    </a>
-                                  </use-animate>
-                                {%- else -%}
-                                  <div class="media media--{{ section.settings.image_ratio }}">
-                                    <div class="card__content">
-                                      <h3 class="card-information__text h3">{{ item.title | truncate: 50 | escape }}</h3>
-                                    </div>
+                        {%- endunless -%}
+                      {%- when 'article' -%}
+                        {%- liquid
+                          assign current_item_index = current_item_index | plus: 1
+                        -%}
+                        <li class="flex-grid__item" data-index="{{ current_item_index }}">
+                          <div class="card-wrapper">
+                            <a href="{{ item.url }}" class="full-unstyled-link">
+                              <span class="visually-hidden">{{ item.title | truncate: 50 | escape }}</span>
+                            </a>
+                            <div class="card card--product card--search{% if item.image == nil %} card--text{% endif %}" tabindex="-1">
+                              {%- if item.image -%}
+                                {%- liquid
+                                  assign featured_media_aspect_ratio = item.image.aspect_ratio
+                                  if item.image.aspect_ratio == nil
+                                    assign featured_media_aspect_ratio = 1
+                                  endif
+                                -%}
+                                <use-animate data-animate="zoom-fade-small" class="card__media media-wrapper">
+                                  <a href="{{ item.url }}" class="image-animate media media--{{ section.settings.image_ratio }} media--hover-effect"
+                                    tabindex="-1"
+                                    aria-label="{{ item.title | escape }}"
+                                    {%- if section.settings.image_ratio == 'adapt' %} style="--image-ratio-percent: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;"{% endif -%}
+                                  >
+                                    {%- capture sizes -%}(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc((100vw - 10rem) / 2),{% if section.settings.columns_mobile == '1' %} calc((100vw - 3rem){% else %} calc((100vw - 3rem) / 2){% endif %}{%- endcapture -%}
+                                    {{ item.image | image_url: width: 1100 | image_tag:
+                                      loading: 'lazy',
+                                      sizes: sizes,
+                                      widths: '165, 360, 535, 750, 940, 1100'
+                                    }}
+                                  </a>
+                                </use-animate>
+                              {%- else -%}
+                                <div class="media media--{{ section.settings.image_ratio }}">
+                                  <div class="card__content">
+                                    <h3 class="card-information__text h3">{{ item.title | truncate: 50 | escape }}</h3>
                                   </div>
-                                {%- endif -%}
-                                <div class="card__badge">
-                                  <div>
-                                    <span class="badge">{{ 'blogs.article.blog' | t }}</span>
-                                  </div>
+                                </div>
+                              {%- endif -%}
+      
+                              <div class="card__badge">
+                                <div>
+                                  <span class="badge">{{ 'blogs.article.blog' | t }}</span>
                                 </div>
                               </div>
                             </div>
-                          {%- when 'page' -%}
-                            <a href="{{ item.url }}" class="card-wrapper">
-                              <div class="card card--page card--text">
-                                <div class="card__media">
-                                  <div class="media media--{{ section.settings.image_ratio }}"></div>
-                                  <div class="card__badge">
-                                    <span class="badge color-background-1">{{ 'templates.search.page' | t }}</span>
-                                  </div>
+                            <div class="card-information">
+                              <div class="card-information__wrapper">
+                                <div class="card-article-info caption-with-letter-spacing h5 light">
+                                  {%- if section.settings.article_show_date -%}
+                                    <span class="circle-divider">{{ item.published_at | time_tag: format: 'month_day_year' }}</span>
+                                  {%- endif -%}
+                                  {%- if section.settings.article_show_author -%}
+                                    <span class="circle-divider">{{ item.author }}</span>
+                                  {%- endif -%}
+                                  {%- if section.settings.article_show_comment_count and item.comments_count > 0 -%}
+                                    <span class="circle-divider">{{ 'blogs.article.comments' | t: count: item.comments_count }}</span>
+                                  {%- endif -%}
+                                </div>
+        
+                                {%- if item.image -%}
+                                  <a href="{{ item.url }}" class="card-information__text h4">
+                                    {{ item.title | truncate: 50 | escape }}
+                                  </a>
+                                {%- endif -%}
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      {%- when 'page' -%}
+                        {%- liquid
+                          assign current_item_index = current_item_index | plus: 1
+                        -%}
+                        <li class="flex-grid__item" data-index="{{ current_item_index }}">
+                          <a href="{{ item.url }}" class="card-wrapper">
+                            <div class="card card--page card--text">
+                              <div class="card__media">
+                                <div class="media media--{{ section.settings.image_ratio }}"></div>
+                                <div class="card__badge">
+                                  <span class="badge color-background-1">{{ 'templates.search.page' | t }}</span>
                                 </div>
                               </div>
-                              <div class="card-information">
-                                <div class="card-information__wrapper">
-                                  <h3 class="card-information__text h3">{{ item.title | truncate: 50 | escape }}</h3>
-                                </div>
+                            </div>
+                            <div class="card-information">
+                              <div class="card-information__wrapper">
+                                <h3 class="card-information__text h3">{{ item.title | truncate: 50 | escape }}</h3>
                               </div>
-                            </a>
-                        {%- endcase -%}
-                      </li>
-                    {%- endif -%}
+                            </div>
+                          </a>
+                        </li>
+                    {%- endcase -%}
                   {%- endfor -%}
                 </ul>
 
@@ -649,6 +625,13 @@
       "id": "show_quick_buy",
       "default": true,
       "label": "t:sections.all.product_card.show_quick_buy.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_color_as_products",
+      "default": false,
+      "label": "Enable \"Color as Products\"",
+      "info": "Splits each color variant into a separate product card. Can also be enabled per-product via metafield."
     },
     {
       "type": "checkbox",
