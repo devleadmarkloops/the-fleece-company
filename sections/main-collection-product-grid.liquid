@@ -135,14 +135,9 @@
                 assign grid_class = grid_class | append: ' flex-grid--3-col-tablet flex-grid--4-col-desktop'
               endif
             -%}
+            {%- assign current_card_index = 0 -%}
             <ul id="product-grid" data-id="{{ section.id }}" class="product-grid {{ grid_class }}" role="list">
               {%- for product in collection.products -%}
-                {%- liquid
-                  assign lazy_load = true
-                  if forloop.first
-                    assign lazy_load = false
-                  endif
-                -%}
                 {%- liquid
                   assign color_rendered = false
                   if section.settings.enable_color_as_products or product.metafields.custom.color_as_products.value == true
@@ -161,7 +156,13 @@
                           endfor
                           
                           if variant_for_value != blank
-                            echo '<li class="flex-grid__item">'
+                            assign current_card_index = current_card_index | plus: 1
+                            assign lazy_load = true
+                            if current_card_index <= products_per_row
+                              assign lazy_load = false
+                            endif
+
+                            echo '<li class="flex-grid__item" data-index="' | append: current_card_index | append: '">'
                             render 'd5-card-variant', card_variant: variant_for_value, card_product: product, value: value, card_collection: collection, media_size: section.settings.image_ratio, show_secondary_image: section.settings.show_secondary_image, show_quick_buy: section.settings.show_quick_buy, show_vendor: section.settings.show_vendor, show_rating: section.settings.show_rating, enable_quick_view: section.settings.enable_quick_view, enable_color_swatches: section.settings.enable_color_swatches, enable_countdown: section.settings.enable_countdown, enable_image_fill: section.settings.enable_image_fill, lazy_load: lazy_load
                             echo '</li>'
                           endif
@@ -173,7 +174,14 @@
                 -%}
 
                 {%- unless color_rendered -%}
-                  <li class="flex-grid__item">
+                  {%- liquid
+                    assign current_card_index = current_card_index | plus: 1
+                    assign lazy_load = true
+                    if current_card_index <= products_per_row
+                      assign lazy_load = false
+                    endif
+                  -%}
+                  <li class="flex-grid__item" data-index="{{ current_card_index }}">
                     {% render 'card-product',
                       card_product: product,
                       card_collection: collection,
