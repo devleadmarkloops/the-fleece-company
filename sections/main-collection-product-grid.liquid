@@ -135,109 +135,72 @@
                 assign grid_class = grid_class | append: ' flex-grid--3-col-tablet flex-grid--4-col-desktop'
               endif
             -%}
-            <ul id="product-grid" data-id="{{ section.id }}" class="product-grid {{ grid_class }}" role="list" data-ordering-system="bulletproof-v2">
+            <ul id="product-grid" data-id="{{ section.id }}" class="product-grid {{ grid_class }}" role="list" data-ordering-system="bulletproof-v4">
               {%- liquid
-                assign unique_product_ids_str = "|"
-                for product in collection.products
-                  assign pid = product.id | append: "|"
-                  unless unique_product_ids_str contains pid
-                    assign unique_product_ids_str = unique_product_ids_str | append: pid
-                  endunless
-                endfor
-                assign unique_ids = unique_product_ids_str | remove_first: "|" | split: "|"
-                
+                assign rendered_product_ids = ""
                 assign card_counter = 0
               -%}
-              
-              {%- for target_id_str in unique_ids -%}
-                {%- if target_id_str == blank -%}{%- continue -%}{%- endif -%}
-                {%- assign target_id = target_id_str | plus: 0 -%}
-                {%- assign seen_colors_for_id = "" -%}
+
+              {%- for item in collection.products -%}
+                {%- assign pid_check = item.id | append: "|" -%}
                 
-                {%- for product_entry in collection.products -%}
-                  {%- if product_entry.id == target_id -%}
-                    {%- liquid
-                      assign should_render_colors = false
-                      if section.settings.enable_color_as_products or product_entry.metafields.custom.color_as_products.value == true
-                        assign should_render_colors = true
-                      endif
-                    -%}
-                    
-                    {%- if should_render_colors -%}
-                      {%- assign color_option_index = nil -%}
-                      {%- for option in product_entry.options_with_values -%}
-                        {%- if option.name == 'Color' or option.name == 'Colour' -%}
-                          {%- assign color_option_index = forloop.index0 -%}
-                          {%- break -%}
-                        {%- endif -%}
-                      {%- endfor -%}
-                      
-                      {%- if color_option_index != nil -%}
-                        {%- assign sorted_variants = product_entry.variants | sort: 'position' -%}
-                        {%- for variant in sorted_variants -%}
-                          {%- assign color_value = variant.options[color_option_index] -%}
-                          {%- assign color_key = color_value | handleize | append: '|' -%}
-                          
-                          {%- unless seen_colors_for_id contains color_key -%}
-                            {%- assign seen_colors_for_id = seen_colors_for_id | append: color_key -%}
-                            {%- assign card_counter = card_counter | plus: 1 -%}
-                            
-                            {%- liquid
-                              assign lazy_load = true
-                              if card_counter <= 4
-                                assign lazy_load = false
-                              endif
-                            -%}
-                            
-                            <li class="flex-grid__item" data-product-id="{{ product_entry.id }}" data-color-value="{{ color_value | escape }}">
-                              {% render 'd5-card-variant',
-                                card_product: product_entry,
-                                value: color_value,
-                                variant: variant,
-                                card_collection: collection,
-                                media_size: section.settings.image_ratio,
-                                show_secondary_image: section.settings.show_secondary_image,
-                                show_quick_buy: section.settings.show_quick_buy,
-                                show_vendor: section.settings.show_vendor,
-                                show_rating: section.settings.show_rating,
-                                enable_quick_view: section.settings.enable_quick_view,
-                                enable_color_swatches: section.settings.enable_color_swatches,
-                                enable_countdown: section.settings.enable_countdown,
-                                enable_image_fill: section.settings.enable_image_fill,
-                                lazy_load: lazy_load
-                              %}
-                            </li>
-                          {%- endunless -%}
-                        {%- endfor -%}
-                      {%- else -%}
-                        {%- comment -%} No color option found, render as single product card {%- endcomment -%}
-                        {%- assign card_counter = card_counter | plus: 1 -%}
-                        {%- liquid
-                          assign lazy_load = true
-                          if card_counter <= 4
-                            assign lazy_load = false
-                          endif
-                        -%}
-                        <li class="flex-grid__item">
-                          {% render 'card-product',
-                            card_product: product_entry,
-                            card_collection: collection,
-                            media_size: section.settings.image_ratio,
-                            show_secondary_image: section.settings.show_secondary_image,
-                            show_quick_buy: section.settings.show_quick_buy,
-                            show_vendor: section.settings.show_vendor,
-                            show_rating: section.settings.show_rating,
-                            enable_quick_view: section.settings.enable_quick_view,
-                            enable_color_swatches: section.settings.enable_color_swatches,
-                            enable_countdown: section.settings.enable_countdown,
-                            enable_image_fill: section.settings.enable_image_fill,
-                            lazy_load: lazy_load
-                          %}
-                        </li>
-                        {%- break -%} {%- comment -%} Only render one card for IDs without color options {%- endcomment -%}
+                {%- unless rendered_product_ids contains pid_check -%}
+                  {%- assign rendered_product_ids = rendered_product_ids | append: pid_check -%}
+                  
+                  {%- liquid
+                    assign should_render_colors = false
+                    if section.settings.enable_color_as_products or item.metafields.custom.color_as_products.value == true
+                      assign should_render_colors = true
+                    endif
+                  -%}
+                  
+                  {%- if should_render_colors -%}
+                    {%- assign color_option_index = nil -%}
+                    {%- for option in item.options_with_values -%}
+                      {%- if option.name == 'Color' or option.name == 'Colour' -%}
+                        {%- assign color_option_index = forloop.index0 -%}
+                        {%- break -%}
                       {%- endif -%}
+                    {%- endfor -%}
+                    
+                    {%- if color_option_index != nil -%}
+                      {%- assign sorted_variants = item.variants | sort: 'position' -%}
+                      {%- assign seen_colors = "" -%}
+                      
+                      {%- for variant in sorted_variants -%}
+                        {%- assign color_value = variant.options[color_option_index] -%}
+                        {%- assign color_key = color_value | handleize | append: '|' -%}
+                        
+                        {%- unless seen_colors contains color_key -%}
+                          {%- assign seen_colors = seen_colors | append: color_key -%}
+                          {%- assign card_counter = card_counter | plus: 1 -%}
+                          {%- liquid
+                            assign lazy_load = true
+                            if card_counter <= 4
+                              assign lazy_load = false
+                            endif
+                          -%}
+                          <li class="flex-grid__item" data-product-id="{{ item.id }}" data-color-value="{{ color_value | escape }}">
+                            {% render 'd5-card-variant',
+                              card_product: item,
+                              value: color_value,
+                              variant: variant,
+                              card_collection: collection,
+                              media_size: section.settings.image_ratio,
+                              show_secondary_image: section.settings.show_secondary_image,
+                              show_quick_buy: section.settings.show_quick_buy,
+                              show_vendor: section.settings.show_vendor,
+                              show_rating: section.settings.show_rating,
+                              enable_quick_view: section.settings.enable_quick_view,
+                              enable_color_swatches: section.settings.enable_color_swatches,
+                              enable_countdown: section.settings.enable_countdown,
+                              enable_image_fill: section.settings.enable_image_fill,
+                              lazy_load: lazy_load
+                            %}
+                          </li>
+                        {%- endunless -%}
+                      {%- endfor -%}
                     {%- else -%}
-                      {%- comment -%} Not showing colors as products {%- endcomment -%}
                       {%- assign card_counter = card_counter | plus: 1 -%}
                       {%- liquid
                         assign lazy_load = true
@@ -245,9 +208,9 @@
                           assign lazy_load = false
                         endif
                       -%}
-                      <li class="flex-grid__item">
+                      <li class="flex-grid__item" data-product-id="{{ item.id }}">
                         {% render 'card-product',
-                          card_product: product_entry,
+                          card_product: item,
                           card_collection: collection,
                           media_size: section.settings.image_ratio,
                           show_secondary_image: section.settings.show_secondary_image,
@@ -261,10 +224,33 @@
                           lazy_load: lazy_load
                         %}
                       </li>
-                      {%- break -%} {%- comment -%} Only render one card for IDs not using color-as-products {%- endcomment -%}
                     {%- endif -%}
+                  {%- else -%}
+                    {%- assign card_counter = card_counter | plus: 1 -%}
+                    {%- liquid
+                      assign lazy_load = true
+                      if card_counter <= 4
+                        assign lazy_load = false
+                      endif
+                    -%}
+                    <li class="flex-grid__item" data-product-id="{{ item.id }}">
+                      {% render 'card-product',
+                        card_product: item,
+                        card_collection: collection,
+                        media_size: section.settings.image_ratio,
+                        show_secondary_image: section.settings.show_secondary_image,
+                        show_quick_buy: section.settings.show_quick_buy,
+                        show_vendor: section.settings.show_vendor,
+                        show_rating: section.settings.show_rating,
+                        enable_quick_view: section.settings.enable_quick_view,
+                        enable_color_swatches: section.settings.enable_color_swatches,
+                        enable_countdown: section.settings.enable_countdown,
+                        enable_image_fill: section.settings.enable_image_fill,
+                        lazy_load: lazy_load
+                      %}
+                    </li>
                   {%- endif -%}
-                {%- endfor -%}
+                {%- endunless -%}
               {%- endfor -%}
             </ul>
 
