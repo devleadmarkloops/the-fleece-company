@@ -330,7 +330,7 @@
                   </li>
                 {%- endif -%}
                 {%- for media in product.media -%}
-                  {% if section.settings.enable_variant_specific_media
+                  {% if media
                   %}
                     {% assign v_title = product.selected_or_first_available_variant.title
                       | downcase
