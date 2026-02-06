@@ -143,7 +143,7 @@
                     assign lazy_load = false
                   endif
                 -%}
-                {% if section.settings.enable_color_as_products or product.metafields.custom.color_as_products.value == true %}
+                {% if section.settings.enable_color_as_products and product.metafields.custom.color_as_products.value == true %}
                   {% for option in product.options_with_values %}
                     {% if option.name == 'Color' or option.name == 'Colour' %}
                       {% for value in option.values %}
