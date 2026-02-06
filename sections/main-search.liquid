@@ -213,76 +213,32 @@
                     assign grid_class = grid_class | append: ' flex-grid--3-col-tablet flex-grid--4-col-desktop'
                   endif
                 -%}
-                {%- assign current_item_index = 0 -%}
                 <ul id="product-grid" data-id="{{ section.id }}" class="product-grid {{ grid_class }}" role="list">
                   {%- for item in search.results -%}
-                    {%- case item.object_type -%}
-                      {%- when 'product' -%}
-                        {%- liquid
-                          assign color_rendered = false
-                          if section.settings.enable_color_as_products or item.metafields.custom.color_as_products.value == true
-                            for option in item.options_with_values
-                              assign downcase_name = option.name | downcase
-                              if downcase_name == 'color' or downcase_name == 'colour'
-                                for value in option.values
-                                  assign color_rendered = true
-                                  # Find the first variant that matches this color value
-                                  assign variant_for_value = null
-                                  for variant in item.variants
-                                    if variant.options contains value.name or variant.options contains value
-                                      assign variant_for_value = variant
-                                      break
-                                    endif
-                                  endfor
-                                  
-                                  if variant_for_value != blank
-                                    assign current_item_index = current_item_index | plus: 1
-                                    assign lazy_load = true
-                                    if current_item_index <= products_per_row
-                                      assign lazy_load = false
-                                    endif
-
-                                    echo '<li class="flex-grid__item" data-index="' | append: current_item_index | append: '">'
-                                    render 'd5-card-variant', card_variant: variant_for_value, card_product: item, value: value, card_collection: collection, media_size: section.settings.image_ratio, show_secondary_image: section.settings.show_secondary_image, show_quick_buy: section.settings.show_quick_buy, show_vendor: section.settings.show_vendor, show_rating: section.settings.show_rating, enable_quick_view: section.settings.enable_quick_view, enable_color_swatches: section.settings.enable_color_swatches, enable_countdown: section.settings.enable_countdown, enable_image_fill: section.settings.enable_image_fill, lazy_load: lazy_load
-                                    echo '</li>'
-                                  endif
-                                endfor
-                                break
-                              endif
-                            endfor
-                          endif
-                        -%}
-
-                        {%- unless color_rendered -%}
-                          {%- liquid
-                            assign current_item_index = current_item_index | plus: 1
-                            assign lazy_load = true
-                            if current_item_index <= products_per_row
-                              assign lazy_load = false
-                            endif
-                          -%}
-                          <li class="flex-grid__item" data-index="{{ current_item_index }}">
-                            {% render 'card-product',
-                              card_product: item,
-                              card_collection: collection,
-                              media_size: section.settings.image_ratio,
-                              show_secondary_image: section.settings.show_secondary_image,
-                              show_quick_buy: section.settings.show_quick_buy,
-                              show_vendor: section.settings.show_vendor,
-                              show_rating: section.settings.show_rating,
-                              enable_quick_view: section.settings.enable_quick_view,
-                              enable_color_swatches: section.settings.enable_color_swatches,
-                              enable_countdown: section.settings.enable_countdown,
-                              enable_image_fill: section.settings.enable_image_fill,
-                              lazy_load: lazy_load
-                            %}
-                          </li>
-                        {%- endunless -%}
-                      {%- when 'article' -%}
-                        {%- liquid
-                          assign current_item_index = current_item_index | plus: 1
-                        -%}
-                        <li class="flex-grid__item" data-index="{{ current_item_index }}">
+                    {%- liquid
+                      assign lazy_load = true
+                      if forloop.first
+                        assign lazy_load = false
+                      endif
+                    -%}
+                    <li class="flex-grid__item">
+                      {%- case item.object_type -%}
+                        {%- when 'product' -%}
+                          {% render 'card-product',
+                            card_product: item,
+                            card_collection: collection,
+                            media_size: section.settings.image_ratio,
+                            show_secondary_image: section.settings.show_secondary_image,
+                            show_quick_buy: section.settings.show_quick_buy,
+                            show_vendor: section.settings.show_vendor,
+                            show_rating: section.settings.show_rating,
+                            enable_quick_view: section.settings.enable_quick_view,
+                            enable_color_swatches: section.settings.enable_color_swatches,
+                            enable_countdown: section.settings.enable_countdown,
+                            enable_image_fill: section.settings.enable_image_fill,
+                            lazy_load: lazy_load
+                          %}
+                        {%- when 'article' -%}
                           <div class="card-wrapper">
                             <a href="{{ item.url }}" class="full-unstyled-link">
                               <span class="visually-hidden">{{ item.title | truncate: 50 | escape }}</span>
@@ -291,6 +247,7 @@
                               {%- if item.image -%}
                                 {%- liquid
                                   assign featured_media_aspect_ratio = item.image.aspect_ratio
+                        
                                   if item.image.aspect_ratio == nil
                                     assign featured_media_aspect_ratio = 1
                                   endif
@@ -345,12 +302,7 @@
                               </div>
                             </div>
                           </div>
-                        </li>
-                      {%- when 'page' -%}
-                        {%- liquid
-                          assign current_item_index = current_item_index | plus: 1
-                        -%}
-                        <li class="flex-grid__item" data-index="{{ current_item_index }}">
+                        {%- when 'page' -%}
                           <a href="{{ item.url }}" class="card-wrapper">
                             <div class="card card--page card--text">
                               <div class="card__media">
@@ -366,8 +318,8 @@
                               </div>
                             </div>
                           </a>
-                        </li>
-                    {%- endcase -%}
+                      {%- endcase -%}
+                    </li>
                   {%- endfor -%}
                 </ul>
 
@@ -625,13 +577,6 @@
       "id": "show_quick_buy",
       "default": true,
       "label": "t:sections.all.product_card.show_quick_buy.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_color_as_products",
-      "default": false,
-      "label": "Enable \"Color as Products\"",
-      "info": "Splits each color variant into a separate product card. Can also be enabled per-product via metafield."
     },
     {
       "type": "checkbox",
