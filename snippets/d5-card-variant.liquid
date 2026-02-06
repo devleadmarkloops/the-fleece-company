@@ -54,16 +54,27 @@
   endif
 
   comment
-    Find the variant that matches the passed color value
+    Find the variant that matches the passed color value.
+    If a variant was passed directly, use that.
+    Otherwise, search for the matching variant based on color value.
     Handle both string values and object values (for newer Shopify API)
   endcomment
   assign matched_variant = nil
   assign color_value_string = value.name | default: value | default: ''
-  if color_value_string != blank
-    for variant in card_product.variants
-      for option in variant.options
+  
+  comment
+    First, check if a variant was passed directly from the parent template
+  endcomment
+  if variant != blank and variant.id != blank
+    assign matched_variant = variant
+  elsif color_value_string != blank
+    comment
+      Fallback: search for the variant that matches the color value
+    endcomment
+    for var in card_product.variants
+      for option in var.options
         if option == color_value_string
-          assign matched_variant = variant
+          assign matched_variant = var
           break
         endif
       endfor
@@ -72,6 +83,7 @@
       endif
     endfor
   endif
+  
   if matched_variant == nil
     assign matched_variant = card_product.selected_or_first_available_variant
   endif

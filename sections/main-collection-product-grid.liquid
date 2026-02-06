@@ -152,18 +152,43 @@
                 -%}
                 
                 {%- if should_render_colors -%}
-                  {%- comment -%} Check if we already rendered this product's colors {%- endcomment -%}
+                  {%- comment -%} 
+                    Check if we already rendered this product's colors.
+                    This prevents duplicate rendering when the same product appears multiple times in the collection.
+                  {%- endcomment -%}
                   {%- if rendered_product_ids contains product_id_string -%}
-                    {%- comment -%} Skip - already rendered {%- endcomment -%}
+                    {%- comment -%} Skip - already rendered all colors for this product {%- endcomment -%}
                   {%- else -%}
                     {%- assign rendered_product_ids = rendered_product_ids | append: product_id_string -%}
-                    {% for option in product.options_with_values %}
-                      {% if option.name == 'Color' or option.name == 'Colour' %}
-                        {% for value in option.values %}
-                          <li class="flex-grid__item" data-product-id="{{ product.id }}" data-product-title="{{ product.title | escape }}" data-color-index="{{ forloop.index }}">
+                    
+                    {%- comment -%}
+                      Using Shopify's native approach: iterate through product.variants
+                      and extract unique colors to display each as a separate card.
+                      This is the officially recommended way per Shopify documentation.
+                    {%- endcomment -%}
+                    {%- assign color_option_index = nil -%}
+                    {%- for option in product.options_with_values -%}
+                      {%- if option.name == 'Color' or option.name == 'Colour' -%}
+                        {%- assign color_option_index = forloop.index0 -%}
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                    
+                    {%- if color_option_index != nil -%}
+                      {%- assign seen_colors = '' -%}
+                      {%- assign color_index = 0 -%}
+                      {%- for variant in product.variants -%}
+                        {%- assign color_value = variant.options[color_option_index] -%}
+                        {%- assign color_key = color_value | handleize | append: ',' -%}
+                        
+                        {%- unless seen_colors contains color_key -%}
+                          {%- assign seen_colors = seen_colors | append: color_key -%}
+                          {%- assign color_index = color_index | plus: 1 -%}
+                          <li class="flex-grid__item" data-product-id="{{ product.id }}" data-product-title="{{ product.title | escape }}" data-color-index="{{ color_index }}" data-variant-id="{{ variant.id }}">
                             {% render 'd5-card-variant',
                               card_product: product,
-                              value: value,
+                              value: color_value,
+                              variant: variant,
                               card_collection: collection,
                               media_size: section.settings.image_ratio,
                               show_secondary_image: section.settings.show_secondary_image,
@@ -177,9 +202,27 @@
                               lazy_load: lazy_load
                             %}
                           </li>
-                        {% endfor %}
-                      {% endif %}
-                    {% endfor %}
+                        {%- endunless -%}
+                      {%- endfor -%}
+                    {%- else -%}
+                      {%- comment -%} No color option found, render as single product card {%- endcomment -%}
+                      <li class="flex-grid__item">
+                        {% render 'card-product',
+                          card_product: product,
+                          card_collection: collection,
+                          media_size: section.settings.image_ratio,
+                          show_secondary_image: section.settings.show_secondary_image,
+                          show_quick_buy: section.settings.show_quick_buy,
+                          show_vendor: section.settings.show_vendor,
+                          show_rating: section.settings.show_rating,
+                          enable_quick_view: section.settings.enable_quick_view,
+                          enable_color_swatches: section.settings.enable_color_swatches,
+                          enable_countdown: section.settings.enable_countdown,
+                          enable_image_fill: section.settings.enable_image_fill,
+                          lazy_load: lazy_load
+                        %}
+                      </li>
+                    {%- endif -%}
                   {%- endif -%}
                 {% else %}
                   <li class="flex-grid__item">
