@@ -330,7 +330,8 @@
                   </li>
                 {%- endif -%}
                 {%- for media in product.media -%}
-                  {% if media
+                  {% assign def = true %}
+                  {% if def
                   %}
                     {% assign v_title = product.selected_or_first_available_variant.title
                       | downcase
