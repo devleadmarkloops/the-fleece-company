@@ -253,7 +253,8 @@
                           {%- endfor -%}
                           
                           {%- if color_option_index != nil -%}
-                            {%- for variant in search_item.variants -%}
+                            {%- assign sorted_variants = search_item.variants | sort: 'position' -%}
+                            {%- for variant in sorted_variants -%}
                               {%- assign color_value = variant.options[color_option_index] -%}
                               {%- assign color_key = color_value | handleize | append: '|' -%}
                               
