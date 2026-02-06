@@ -136,6 +136,8 @@
               endif
             -%}
             <ul id="product-grid" data-id="{{ section.id }}" class="product-grid {{ grid_class }}" role="list">
+              {% comment %} {% if results.sort_by == 'best-s' %} {% endcomment %}
+               {{ results.sort_by }}
               {% assign counter = 1 %}
               {%- for product in collection.products -%}
                 {%- liquid
