@@ -275,7 +275,7 @@
 
                   assign mobile_image_ratio = section.settings.mobile_image_ratio
                 -%}
-
+                  {% assign featured_media = product.selected_or_first_available_variant.featured_media %}
                 {%- if featured_media != blank -%}
                   {%- liquid
                     assign gang_option_name = ''
