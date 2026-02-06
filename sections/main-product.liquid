@@ -330,7 +330,8 @@
                   </li>
                 {%- endif -%}
                 {%- for media in product.media -%}
-                  {% if section.settings.enable_variant_specific_media and product.metafields.custom.variant_specific_media.value == true %}
+                  {% if section.settings.enable_variant_specific_media
+                  %}
                     {% assign v_title = product.selected_or_first_available_variant.title
                       | downcase
                       | replace: ' ', ''
@@ -561,7 +562,9 @@
                   </li>
                 {%- endif -%}
                 {%- for media in product.media -%}
-                  {% if section.settings.enable_variant_specific_media or product.metafields.custom.variant_specific_media.value == true %}
+                  {% if section.settings.enable_variant_specific_media
+                    or product.metafields.custom.variant_specific_media.value == true
+                  %}
                     {% assign v_title = product.selected_or_first_available_variant.title
                       | downcase
                       | replace: ' ', ''
@@ -1042,47 +1045,48 @@
                   {% endif %}
                 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const ratingLinks = document.querySelectorAll('.rating-link-scroll');
-    
-    ratingLinks.forEach(function(link) {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Find the reviews slider section
-        const reviewsSection = document.querySelector('[class*="reviews-slider"]') || 
-                              document.querySelector('.reviews-slider-wr') ||
-                              document.querySelector('[data-section-type="reviews"]');
-        
-        if (reviewsSection) {
-          reviewsSection.scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-  });
-</script>
+                <script>
+                  document.addEventListener('DOMContentLoaded', function () {
+                    const ratingLinks = document.querySelectorAll('.rating-link-scroll');
 
-<style>
-  .rating-link-scroll {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-  }
-  
-  .rating-static-wr {
-    position: relative;
-  }
-</style>
+                    ratingLinks.forEach(function (link) {
+                      link.addEventListener('click', function (e) {
+                        e.preventDefault();
+
+                        // Find the reviews slider section
+                        const reviewsSection =
+                          document.querySelector('[class*="reviews-slider"]') ||
+                          document.querySelector('.reviews-slider-wr') ||
+                          document.querySelector('[data-section-type="reviews"]');
+
+                        if (reviewsSection) {
+                          reviewsSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start',
+                          });
+                        }
+                      });
+                    });
+                  });
+                </script>
+
+                <style>
+                  .rating-link-scroll {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                    padding: 0;
+                  }
+
+                  .rating-static-wr {
+                    position: relative;
+                  }
+                </style>
               {%- when 'text_custom' -%}
                 <div
                   class="text-custom-wr {% if block.settings.enable_circle %} blink-circle{% endif %}{% if block.settings.enable_normal %} normal{% endif %}"
@@ -2294,16 +2298,15 @@
     };
     const nextBtn = document.querySelector('thumbnail-slider .slider-button.slider-button--next');
 
-if (nextBtn) {
-  const observer = new MutationObserver(() => {
-    if (nextBtn.hasAttribute('disabled')) {
-      nextBtn.removeAttribute('disabled');
+    if (nextBtn) {
+      const observer = new MutationObserver(() => {
+        if (nextBtn.hasAttribute('disabled')) {
+          nextBtn.removeAttribute('disabled');
+        }
+      });
+
+      observer.observe(nextBtn, { attributes: true, attributeFilter: ['disabled', 'class'] });
     }
-  });
-
-  observer.observe(nextBtn, { attributes: true, attributeFilter: ['disabled', 'class'] });
-}
-
   </script>
   <script type="application/ld+json">
     {{ product | structured_data }}
