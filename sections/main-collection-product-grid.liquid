@@ -136,18 +136,20 @@
               endif
             -%}
             <ul id="product-grid" data-id="{{ section.id }}" class="product-grid {{ grid_class }}" role="list">
+              {% assign count = 1 %}
               {%- for product in collection.products -%}
                 {%- liquid
                   assign lazy_load = true
                   if forloop.first
                     assign lazy_load = false
                   endif
+                  assign counter = count | plus: 1
                 -%}
                 {% if section.settings.enable_color_as_products or product.metafields.custom.color_as_products.value == true %}
                   {% for option in product.options_with_values %}
                     {% if option.name == 'Color' or option.name == 'Colour' %}
                       {% for value in option.values %}
-                        <li class="flex-grid__item" order="{{ forloop.index }}-d5">
+                        <li class="flex-grid__item" order="{{ counter }}-d5">
                           {% render 'd5-card-variant',
                             card_product: product,
                             value: value,
