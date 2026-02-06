@@ -330,8 +330,8 @@
                   </li>
                 {%- endif -%}
                 {%- for media in product.media -%}
-                  {% assign def = true %}
-                  {% if def
+                  {% if section.settings.enable_variant_specific_media
+                    and product.metafields.custom.variant_specific_media.value == true
                   %}
                     {% assign v_title = product.selected_or_first_available_variant.title
                       | downcase
