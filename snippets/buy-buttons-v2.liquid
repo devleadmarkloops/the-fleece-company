@@ -2091,7 +2091,7 @@
             const previewText = detailContent.querySelector('.monogram-preview-text');
             
             if (previewText && textInput) {
-              previewText.textContent = textInput.value.toUpperCase();
+              previewText.textContent = textInput.value;
               
               if (styleSelect && styleSelect.value) {
                 const fontFamily = "'" + styleSelect.value + "', cursive, serif";
