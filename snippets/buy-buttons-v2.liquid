@@ -924,6 +924,7 @@
           cursor: default;
           z-index: 10;
           color: #000;
+          text-transform: none;
           pointer-events: none;
         }
 
@@ -1579,6 +1580,7 @@
                 previewText.style.zIndex = '10';
                 previewText.style.fontSize = '22px';
                 previewText.style.fontWeight = '400';
+                previewText.style.textTransform = 'none';
                 previewText.style.whiteSpace = 'nowrap';
                 previewText.style.cursor = 'default';
                 previewText.style.pointerEvents = 'none';
@@ -2092,7 +2094,7 @@
             
             if (previewText && textInput) {
               previewText.textContent = textInput.value;
-              
+                            
               if (styleSelect && styleSelect.value) {
                 const fontFamily = "'" + styleSelect.value + "', cursive, serif";
                 previewText.style.fontFamily = fontFamily;
