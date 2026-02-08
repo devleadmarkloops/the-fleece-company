@@ -1600,7 +1600,7 @@
             
             function updateItemPreviewText() {
               const text = itemData.textInput ? itemData.textInput.value : '';
-              itemData.previewText.textContent = text;
+              itemData.previewText.textContent = text + 'Test';
               
               if (itemData.colorSelect && itemData.colorSelect.value) {
                 const color = itemData.colorSelect.value.toLowerCase();
