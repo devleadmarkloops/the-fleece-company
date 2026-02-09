@@ -233,8 +233,7 @@
                       <select class="monogram-style-select monogram-style-select-item">
                         <option value="">Choose a style</option>
                         {%- if shop.metaobjects.monogram_fonts.values != blank -%}
-                          {%- assign sorted_fonts = shop.metaobjects.monogram_fonts.values | sort: "font_name.value" | reverse -%}
-                          {%- for font in sorted_fonts -%}
+                          {%- for font in shop.metaobjects.monogram_fonts.values -%}
                             {%- assign font_display_name = font.font_name.value -%}
                             {%- if font_display_name == 'Playfair Display' -%}{%- assign font_display_name = 'Classic Serif' -%}{%- elsif font_display_name == 'Pinyon Script' -%}{%- assign font_display_name = 'Elegant Script' -%}{%- endif -%}
                             <option value="{{ font.font_name.value }}" data-url="{{ font.font_url1.value }}">
@@ -970,11 +969,11 @@
         }
         .monogram-modal-footer-btns {
           display: flex;
-          gap: 10px;
+          gap: 0px;
           width: 100%;
         }
         .monogram-save-btn {
-          flex: 1;
+          flex: 2;
           padding: 14px 24px;
           background: #000;
           color: #fff;
@@ -1336,13 +1335,7 @@
           
           // Update button disable state
           function updateATCButtonState() {
-            // Re-query button to ensure we have the latest element (in case of dynamic DOM updates)
-            const atcButtonCurrent = document.querySelector('#ProductSubmitButton-{{ section_id }}') || 
-                             document.querySelector('#ProductSubmitButton-{{ section.id }}') ||
-                             wrapper?.closest('product-form')?.querySelector('button[type="submit"][name="add"]') ||
-                             document.querySelector('button[type="submit"][name="add"]');
-            
-            if (!atcButtonCurrent) return;
+            if (!atcButton) return;
             
             // In new popup flow, check if user has added any monograms
             const completedCount = Object.values(monogramCompletedItems).filter(Boolean).length;
@@ -1353,21 +1346,21 @@
             console.log('[Monogram] updateATCButtonState:', { hasMonograms, checkboxChecked, hasEmptyFields, completedCount });
             
             // Check if button was disabled by theme for product unavailability
-            const hasDataUnavailable = atcButtonCurrent.hasAttribute('data-unavailable') && atcButtonCurrent.getAttribute('data-unavailable') === 'true';
+            const hasDataUnavailable = atcButton.hasAttribute('data-unavailable') && atcButton.getAttribute('data-unavailable') === 'true';
             
             if (hasMonograms && (!checkboxChecked || hasEmptyFields)) {
               // User has added monograms but requirements not met - disable
-              atcButtonCurrent.classList.add('monogram-disabled');
-              atcButtonCurrent.disabled = true;
+              atcButton.classList.add('monogram-disabled');
+              atcButton.disabled = true;
               console.log('[Monogram] Button disabled - checkbox:', checkboxChecked, 'emptyFields:', hasEmptyFields);
             } else if (!hasDataUnavailable) {
               // Requirements met OR no monograms added, and product is available - enable
-              atcButtonCurrent.classList.remove('monogram-disabled');
-              atcButtonCurrent.disabled = false;
+              atcButton.classList.remove('monogram-disabled');
+              atcButton.disabled = false;
               console.log('[Monogram] Button enabled');
             } else {
               // Product is unavailable - keep disabled but remove monogram-disabled class
-              atcButtonCurrent.classList.remove('monogram-disabled');
+              atcButton.classList.remove('monogram-disabled');
               console.log('[Monogram] Button kept disabled (product unavailable)');
             }
           }
@@ -1496,7 +1489,6 @@
             
             monogramItemsContainer.innerHTML = '';
             monogramItemsData = [];
-            monogramCompletedItems = {}; // Reset completed status when regenerating items
             
             const templateItem = monogramItemTemplate.querySelector('.monogram-item');
             if (!templateItem) return;
@@ -1581,7 +1573,7 @@
               if (previewText) {
                 previewText.style.position = 'absolute';
                 previewText.style.top = '50%';
-                previewText.style.left = '50%';
+                previewText.style.left = '35%';
                 previewText.style.transform = 'translate(-50%, -50%)';
                 previewText.style.color = '#000000';
                 previewText.style.display = 'block';
@@ -1601,7 +1593,6 @@
             updateMonogramButton();
             updateMonogramTotalPrice();
             updateATCButtonState();
-            updateTriggerButtonState(); // Ensure button text is updated (e.g. resets to Add Monogram)
           }
           
           // Initialize monogram item interactions
@@ -1935,15 +1926,6 @@
               return;
             }
             
-            // Apply defaults if empty
-            if (!itemData.styleSelect.value) {
-              itemData.styleSelect.value = 'Playfair Display';
-            }
-            if (!itemData.colorSelect.value) {
-              // Try to find 'Black' in options, otherwise use first option logic later (though usually Black is standard)
-              itemData.colorSelect.value = 'Black'; 
-            }
-
             // Get existing preview text and position
             const existingPreviewText = itemData.textInput ? itemData.textInput.value : '';
             const existingFont = itemData.styleSelect ? itemData.styleSelect.value : '';
