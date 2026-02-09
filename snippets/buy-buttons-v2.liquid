@@ -233,7 +233,8 @@
                       <select class="monogram-style-select monogram-style-select-item">
                         <option value="">Choose a style</option>
                         {%- if shop.metaobjects.monogram_fonts.values != blank -%}
-                          {%- for font in shop.metaobjects.monogram_fonts.values -%}
+                          {%- assign sorted_fonts = shop.metaobjects.monogram_fonts.values | sort: "font_name.value" | reverse -%}
+                          {%- for font in sorted_fonts -%}
                             {%- assign font_display_name = font.font_name.value -%}
                             {%- if font_display_name == 'Playfair Display' -%}{%- assign font_display_name = 'Classic Serif' -%}{%- elsif font_display_name == 'Pinyon Script' -%}{%- assign font_display_name = 'Elegant Script' -%}{%- endif -%}
                             <option value="{{ font.font_name.value }}" data-url="{{ font.font_url1.value }}">
