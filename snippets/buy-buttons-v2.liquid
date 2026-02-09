@@ -2429,19 +2429,17 @@
               setTimeout(function() {
                 const itemCount = getSelectedBundleItemCount();
                 currentBundleItemCount = itemCount;
-                console.log('[Monogram] New bundle has', itemCount, 'monogram items');
+                console.log('[Monogram] New bundle has', itemCount, 'monogram items. Regenerating monogram state.');
                 
-                if (isMonogramBoxOpen) {
-                  // Regenerate monogram items for the new bundle
-                  console.log('[Monogram] Regenerating', itemCount, 'monogram items');
-                  generateMonogramItems(itemCount);
-                  
-                  // After regenerating, read colors from the new bundle and update images
-                  setTimeout(function() {
-                    console.log('[Monogram] Reading colors from newly selected bundle');
+                // Regenerate monogram items for the new bundle
+                generateMonogramItems(itemCount);
+                
+                // After regenerating, if we're in bundle mode, update images
+                setTimeout(function() {
+                  if (typeof updateAllMonogramItemsFromBundleColors === 'function') {
                     updateAllMonogramItemsFromBundleColors();
-                  }, 200);
-                }
+                  }
+                }, 200);
               }, 150); // Wait for DOM to update
             }
             
