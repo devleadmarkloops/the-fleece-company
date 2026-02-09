@@ -868,31 +868,38 @@
           
           // Update button disable state
           function updateATCButtonState() {
-            if (!atcButton) return;
+            // Re-query button to ensure we have the latest element (in case of dynamic DOM updates)
+            const atcButtonCurrent = document.querySelector('#ProductSubmitButton-{{ section_id }}') || 
+                             document.querySelector('#ProductSubmitButton-{{ section.id }}') ||
+                             wrapper?.closest('product-form')?.querySelector('button[type="submit"][name="add"]') ||
+                             document.querySelector('button[type="submit"][name="add"]');
+
+             if (!atcButtonCurrent) return;
             
-            const boxIsOpen = monogramBox && monogramBox.style.display !== 'none';
             const checkboxChecked = checkboxTerms && checkboxTerms.checked;
             const hasText = hasAnyMonogramText();
             
-            console.log('[Monogram] updateATCButtonState:', { boxIsOpen, checkboxChecked, hasText });
+            console.log('[Monogram] updateATCButtonState:', { checkboxChecked, hasText });
             
-            // Check if button was disabled by theme for product unavailability (before our changes)
-            const hasDataUnavailable = atcButton.hasAttribute('data-unavailable') && atcButton.getAttribute('data-unavailable') === 'true';
+            // Check if button was disabled by theme for product unavailability
+            const isSoldOut = atcButtonCurrent.hasAttribute('data-unavailable') && atcButtonCurrent.getAttribute('data-unavailable') === 'true';
+            const buttonText = atcButtonCurrent.textContent.toLowerCase();
+            const isActuallySoldOut = isSoldOut || buttonText.includes('sold out') || buttonText.includes('unavailable');
             
             if (hasText && !checkboxChecked) {
-              // User has added monogram text but hasn't checked the terms checkbox
-              atcButton.classList.add('monogram-disabled');
-              atcButton.disabled = true;
-              console.log('[Monogram] Button disabled - checkbox required for added monogram text');
-            } else if (!hasDataUnavailable) {
-              // Requirements met OR box is closed, and product is available - enable
-              atcButton.classList.remove('monogram-disabled');
-              atcButton.disabled = false;
-              console.log('[Monogram] Button enabled');
+              // Only disable if user has text but hasn't checked terms
+              atcButtonCurrent.classList.add('monogram-disabled');
+              atcButtonCurrent.disabled = true;
+              console.log('[Monogram] Button disabled - checkbox required for text');
             } else {
-              // Product is unavailable - keep disabled but remove monogram-disabled class
-              atcButton.classList.remove('monogram-disabled');
-              console.log('[Monogram] Button kept disabled (product unavailable)');
+              // Enable if not sold out
+              atcButtonCurrent.classList.remove('monogram-disabled');
+              if (!isActuallySoldOut) {
+                atcButtonCurrent.disabled = false;
+                console.log('[Monogram] Button enabled');
+              } else {
+                console.log('[Monogram] Button kept disabled (sold out/unavailable)');
+              }
             }
           }
 
