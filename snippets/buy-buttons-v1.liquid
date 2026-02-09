@@ -153,12 +153,11 @@
 
                         <label class="monogram-label-item">Font Style</label>
                         <select class="monogram-style-select monogram-style-select-item">
-                          <option value="">Choose a style</option>
                           {%- if shop.metaobjects.monogram_fonts.values != blank -%}
                             {%- for font in shop.metaobjects.monogram_fonts.values -%}
                               {%- assign font_display_name = font.font_name.value -%}
                               {%- if font_display_name == 'Playfair Display' -%}{%- assign font_display_name = 'Classic Serif' -%}{%- elsif font_display_name == 'Pinyon Script' -%}{%- assign font_display_name = 'Elegant Script' -%}{%- endif -%}
-                              <option value="{{ font.font_name.value }}" data-url="{{ font.font_url1.value }}">
+                              <option value="{{ font.font_name.value }}" data-url="{{ font.font_url1.value }}" {% if font_display_name == 'Classic Serif' %}selected{% endif %}>
                                 {{ font_display_name }}
                               </option>
                             {%- endfor -%}
@@ -167,8 +166,7 @@
 
                         <label class="monogram-label-item">Text Color</label>
                         <select class="monogram-color-select monogram-color-select-item">
-                          <option value="">Choose a color</option>
-                          <option value="Black">Black</option>
+                          <option value="Black" selected>Black</option>
                           <option value="White">White</option>
                         </select>
 
@@ -781,33 +779,43 @@
           
           // Update button disable state
           function updateATCButtonState() {
-            if (!atcButton) return;
+            // Robust button finding with multiple fallbacks
+            const sectionIdVal = '{{ section.id }}';
+            const atcButtonCurrent = document.getElementById('ProductSubmitButton-{{ section_id }}') || 
+                             document.getElementById('ProductSubmitButton-' + sectionIdVal) ||
+                             document.querySelector('#ProductSubmitButton-' + sectionIdVal) ||
+                             wrapper?.closest('product-form')?.querySelector('button[type="submit"][name="add"]') ||
+                             document.querySelector('button[type="submit"][name="add"]');
+
+            if (!atcButtonCurrent) return;
             
-            const boxIsOpen = monogramBox && monogramBox.style.display !== 'none';
             const checkboxChecked = checkboxTerms && checkboxTerms.checked;
-            const hasText = hasAnyMonogramText();
+            const textCount = countMonogramsWithText();
+            const hasText = textCount > 0;
             
-            console.log('[Monogram] updateATCButtonState:', { boxIsOpen, checkboxChecked, hasText });
+            // Should we disable strictly for monogram reasons?
+            // Only disable if user HAS entered text but HAS NOT checked the terms.
+            const shouldDisable = hasText && !checkboxChecked;
             
-            // Check if button was disabled by theme for product unavailability (before our changes)
-            const hasDataUnavailable = atcButton.hasAttribute('data-unavailable') && atcButton.getAttribute('data-unavailable') === 'true';
-            
-            if (boxIsOpen && (!checkboxChecked || !hasText)) {
-              // Monogram box is open but requirements not met (need checkbox AND at least one text filled)
-              atcButton.classList.add('monogram-disabled');
-              atcButton.disabled = true;
-              console.log('[Monogram] Button disabled - checkbox:', checkboxChecked, 'hasText:', hasText);
-            } else if (!hasDataUnavailable) {
-              // Requirements met OR box is closed, and product is available - enable
-              atcButton.classList.remove('monogram-disabled');
-              atcButton.disabled = false;
-              console.log('[Monogram] Button enabled');
+            if (shouldDisable) {
+              atcButtonCurrent.classList.add('monogram-disabled');
+              atcButtonCurrent.disabled = true;
             } else {
-              // Product is unavailable - keep disabled but remove monogram-disabled class
-              atcButton.classList.remove('monogram-disabled');
-              console.log('[Monogram] Button kept disabled (product unavailable)');
+              atcButtonCurrent.classList.remove('monogram-disabled');
+              
+              // Enable the button IF it's not actually sold out
+              const btnText = atcButtonCurrent.textContent.toLowerCase();
+              const isSoldOut = atcButtonCurrent.hasAttribute('data-unavailable') && atcButtonCurrent.getAttribute('data-unavailable') === 'true';
+              const soldOutByText = btnText.includes('sold_out') || btnText.includes('sold out') || btnText.includes('unavailable');
+              
+              if (!isSoldOut && !soldOutByText) {
+                atcButtonCurrent.disabled = false;
+              }
             }
           }
+
+          // Small delay on initial load to ensure we override theme defaults
+          setTimeout(updateATCButtonState, 500);
 
           if (checkboxTerms) {
             checkboxTerms.addEventListener('change', updateATCButtonState);
