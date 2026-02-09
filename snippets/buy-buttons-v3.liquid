@@ -81,7 +81,7 @@
                   <div class="monogram-item" data-item-index="">
                     <div class="monogram-accordion-header">
                       <div class="monogram-header-left">
-                        <h4 class="monogram-item-title">Monogram <span class="monogram-item-number">1</span></h4>
+                        <h4 class="monogram-item-title">MONOGRAM FOR ITEM</h4>
                         <span class="monogram-added-badge" style="display: none;">Added</span>
                       </div>
                       <span class="monogram-accordion-icon">
@@ -159,22 +159,33 @@
                         <div class="monogram-options-panel">
                           <label class="monogram-label-item">Font Style</label>
                           <select class="monogram-style-select monogram-style-select-item">
-                            <option value="">Choose a style</option>
-                            {%- if shop.metaobjects.monogram_fonts.values != blank -%}
-                              {%- for font in shop.metaobjects.monogram_fonts.values -%}
-                                {%- assign font_display_name = font.font_name.value -%}
-                                {%- if font_display_name == 'Playfair Display' -%}{%- assign font_display_name = 'Classic Serif' -%}{%- elsif font_display_name == 'Pinyon Script' -%}{%- assign font_display_name = 'Elegant Script' -%}{%- endif -%}
-                                <option value="{{ font.font_name.value }}" data-url="{{ font.font_url1.value }}">
-                                  {{ font_display_name }}
-                                </option>
+                            {%- assign font_values = shop.metaobjects.monogram_fonts.values -%}
+                            {%- assign default_font = 'Playfair Display' -%}
+                            
+                            {%- comment -%} FIRST: Render Classic Serif (Playfair Display) {%- endcomment -%}
+                            {%- if font_values != blank -%}
+                              {%- for font in font_values -%}
+                                {%- if font.font_name.value == default_font -%}
+                                  <option value="{{ font.font_name.value }}" data-url="{{ font.font_url1.value }}" selected>Classic Serif</option>
+                                {%- endif -%}
+                              {%- endfor -%}
+                            {%- endif -%}
+
+                            {%- comment -%} SECOND: Render Others {%- endcomment -%}
+                            {%- if font_values != blank -%}
+                              {%- for font in font_values -%}
+                                {%- unless font.font_name.value == default_font -%}
+                                  {%- assign font_display_name = font.font_name.value -%}
+                                  {%- if font_display_name == 'Playfair Display' -%}{%- assign font_display_name = 'Classic Serif' -%}{%- elsif font_display_name == 'Pinyon Script' -%}{%- assign font_display_name = 'Elegant Script' -%}{%- endif -%}
+                                  <option value="{{ font.font_name.value }}" data-url="{{ font.font_url1.value }}">{{ font_display_name }}</option>
+                                {%- endunless -%}
                               {%- endfor -%}
                             {%- endif -%}
                           </select>
 
                           <label class="monogram-label-item">Text Color</label>
                           <select class="monogram-color-select monogram-color-select-item">
-                            <option value="">Choose a color</option>
-                            <option value="Black">Black</option>
+                            <option value="Black" selected>Black</option>
                             <option value="White">White</option>
                           </select>
 
@@ -1021,6 +1032,7 @@
               const textInput = monogramItem.querySelector('.monogram-text-input-item');
               const previewText = monogramItem.querySelector('.monogram-preview-text-item');
               const imageContainer = monogramItem.querySelector('.monogram-image-container-item');
+              const titleElement = monogramItem.querySelector('.monogram-item-title');
               
               // Update images for current variant if variant has images
               if (imageContainer && variantImagesData[currentVariantId] && variantImagesData[currentVariantId].images && variantImagesData[currentVariantId].images.length > 0) {
@@ -1064,9 +1076,21 @@
                 textInput: textInput,
                 previewText: previewText,
                 imageContainer: imageContainer,
+                titleElement: titleElement,
                 position: { x: 50, y: 50 }
               };
               monogramItemsData.push(itemData);
+              
+              // Initial title update
+              updateMonogramItemTitle(i);
+
+              // Initial style application (ensure defaults are applied)
+              if (itemData.styleSelect && itemData.styleSelect.options.length > 0) {
+                 if (itemData.styleSelect.selectedIndex === -1) itemData.styleSelect.selectedIndex = 0;
+              }
+              if (itemData.colorSelect && itemData.colorSelect.options.length > 0) {
+                 if (itemData.colorSelect.selectedIndex === -1) itemData.colorSelect.selectedIndex = 0;
+              }
               
               // Open first accordion by default
               if (i === 0) {
@@ -1090,6 +1114,13 @@
               }
               
               initMonogramItemInteractions(itemData);
+              
+              // Manually trigger preview text update to ensure defaults are rendered
+              if (itemData.previewText) {
+                 // The initMonogramItemInteractions calls updateItemPreviewText(), so this should be covered, 
+                 // but ensuring it runs after defaults are set is key.
+              }
+              
               monogramItemsContainer.appendChild(monogramItem);
             }
             
@@ -1384,15 +1415,21 @@
                 console.log('[Monogram] New bundle has', itemCount, 'monogram items');
                 
                 if (isMonogramBoxOpen) {
-                  // Regenerate monogram items for the new bundle
-                  console.log('[Monogram] Regenerating', itemCount, 'monogram items');
-                  generateMonogramItems(itemCount);
+                  console.log('[Monogram] Bundle changed - closing monogram box to reset state and enable ATC');
+                  // Close the box to prevent "Disabled ATC" state with empty inputs
+                  isMonogramBoxOpen = false;
+                  if (monogramBox) monogramBox.style.display = 'none';
                   
-                  // After regenerating, read colors from the new bundle and update images
-                  setTimeout(function() {
-                    console.log('[Monogram] Reading colors from newly selected bundle');
-                    updateAllMonogramItemsFromBundleColors();
-                  }, 200);
+                  // Clear items
+                  monogramItemsData = [];
+                  if (monogramItemsContainer) monogramItemsContainer.innerHTML = '';
+                  
+                  // Update UI
+                  updateMonogramButton();
+                  updateATCButtonState();
+                } else {
+                   // Even if closed, ensure ATC state is correct
+                   updateATCButtonState();
                 }
               }, 150); // Wait for DOM to update
             }
@@ -1454,6 +1491,7 @@
                         const selectedColor = e.target.value;
                         console.log('[Monogram] Updating ONLY monogram item', itemIndex, 'to show image for color:', selectedColor);
                         updateSingleMonogramItemImage(itemIndex, selectedColor);
+                        updateMonogramItemTitle(itemIndex);
                       } else {
                         console.warn('[Monogram] Item index out of range:', itemIndex, 'total items:', monogramItemsData.length);
                       }
@@ -1907,6 +1945,60 @@
             return colorName;
           }
           
+          // Update title for a single monogram item
+          function updateMonogramItemTitle(itemIndex) {
+            if (itemIndex < 0 || itemIndex >= monogramItemsData.length) return;
+            
+            const itemData = monogramItemsData[itemIndex];
+            if (itemData && itemData.titleElement) {
+               let colorName = '';
+               
+               if (isBundleSelected()) {
+                 colorName = getBundleColorForItem(itemIndex);
+               } else {
+                 // Single product - try form options first
+                 const productForm = document.getElementById(formId);
+                 if (productForm) {
+                   // Try "Color", "Colour" logic
+                   const colorInputs = productForm.querySelectorAll('input[type="radio"][name*="Color"]:checked, input[type="radio"][name*="Colour"]:checked, select[name="Color"], select[name="Colour"]');
+                   if (colorInputs.length > 0) {
+                      const input = colorInputs[0];
+                      if (input.tagName === 'SELECT') {
+                        colorName = input.options[input.selectedIndex]?.value;
+                      } else {
+                        colorName = input.value;
+                      }
+                   }
+                 }
+                 
+                 // Fallback to variant title parsing if needed (e.g. "Dune / Large")
+                 if (!colorName) {
+                    const variantInfo = getVariantColorForMonogramItem(itemIndex); 
+                    if (variantInfo && variantInfo.title) {
+                        const variantTitle = variantInfo.title; 
+                        if (variantTitle.includes('/')) {
+                           colorName = variantTitle.split('/')[0].trim();
+                        } else {
+                           colorName = variantTitle;
+                        }
+                    }
+                 }
+               }
+               
+               // Clean up (remove "Limited Edition:", match existing extraction logic)
+               if (colorName) {
+                  colorName = extractColorName(colorName);
+               }
+               
+               // Format: MONOGRAM FOR [COLOR]
+               if (colorName && colorName.toLowerCase() !== 'default title') {
+                  itemData.titleElement.textContent = 'MONOGRAM FOR ' + colorName.toUpperCase();
+               } else {
+                  itemData.titleElement.textContent = 'MONOGRAM FOR ITEM ' + (itemIndex + 1);
+               }
+            }
+          }
+
           // Update a single monogram item's image based on color (for bundle items)
           function updateSingleMonogramItemImage(itemIndex, selectedColor) {
             if (!productImagesData.hasImages || !productImagesData.images || productImagesData.images.length === 0) {
@@ -2209,6 +2301,11 @@
             if (currentVariantId) {
               console.log('[Monogram] Monogram box is open, updating images for variant');
               updateMonogramImagesForVariant(parseInt(currentVariantId));
+              
+              // Update titles
+              monogramItemsData.forEach(function(item) {
+                updateMonogramItemTitle(item.index);
+              });
             }
           }
           
@@ -2238,6 +2335,7 @@
                 if (colorSelect && colorSelect.value) {
                   console.log('[Monogram] Item', index, '- setting color from bundle:', colorSelect.value);
                   updateSingleMonogramItemImage(index, colorSelect.value);
+                  updateMonogramItemTitle(index);
                 } else {
                   console.warn('[Monogram] Item', index, '- no color found in bundle dropdown');
                 }
