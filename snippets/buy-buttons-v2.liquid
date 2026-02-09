@@ -72,6 +72,7 @@
                 <button type="button" class="monogram-trigger-btn" id="monogram-toggle-{{ section.id }}">
                   <span class="monogram-trigger-content">
                     <span class="monogram-trigger-label">Add Monogram</span>
+                    <span class="monogram-trigger-count" style="display: none;"></span>
                   </span>
                 </button>
               </div>
@@ -599,9 +600,11 @@
           transition: all 0.3s ease;
           position: relative;
           display: flex;
+          flex-direction: column;
           align-items: center;
           justify-content: center;
           text-align: center;
+          min-height: 50px;
         }
 
         .monogram-trigger-btn:before {
@@ -628,7 +631,17 @@
         .monogram-trigger-content {
           display: flex;
           flex-direction: column;
-          gap: 2px;
+          align-items: center;
+          justify-content: center;
+          line-height: 1.2;
+          width: 100%;
+        }
+        .monogram-trigger-count {
+          font-size: 13px;
+          font-weight: 400;
+          margin-top: 5px;
+          text-transform: none;
+          letter-spacing: 0;
         }
         .monogram-trigger-label {
           font-size: 16px;
@@ -1830,7 +1843,7 @@
                     </svg>
                   </div>
                   <div class="monogram-selection-label">
-                    Add monogram for <strong>${item.color}</strong>
+                    Add MONOGRAM ${index + 1} for <strong>${item.color}</strong>
                     ${item.size ? '<br><small style="color:#666; font-size:11px;">' + item.size + '</small>' : ''}
                   </div>
                   <div class="monogram-selection-price">+${formatMoney(monogramPrice)}</div>
@@ -2252,16 +2265,22 @@
             
             const completedCount = Object.values(monogramCompletedItems).filter(Boolean).length;
             const label = toggleBtn.querySelector('.monogram-trigger-label');
+            const countLabel = toggleBtn.querySelector('.monogram-trigger-count');
             
             if (completedCount > 0) {
               toggleBtn.classList.add('has-monograms');
               if (label) label.textContent = 'Edit Monogram';
-              
+              if (countLabel) {
+                countLabel.textContent = '(' + completedCount + ' added)';
+                countLabel.style.display = 'block';
+              }
               isMonogramBoxOpen = true;
             } else {
               toggleBtn.classList.remove('has-monograms');
               if (label) label.textContent = 'Add Monogram';
-              
+              if (countLabel) {
+                countLabel.style.display = 'none';
+              }
               isMonogramBoxOpen = false;
             }
             
