@@ -1335,7 +1335,13 @@
           
           // Update button disable state
           function updateATCButtonState() {
-            if (!atcButton) return;
+            // Re-query button to ensure we have the latest element (in case of dynamic DOM updates)
+            const atcButtonCurrent = document.querySelector('#ProductSubmitButton-{{ section_id }}') || 
+                             document.querySelector('#ProductSubmitButton-{{ section.id }}') ||
+                             wrapper?.closest('product-form')?.querySelector('button[type="submit"][name="add"]') ||
+                             document.querySelector('button[type="submit"][name="add"]');
+            
+            if (!atcButtonCurrent) return;
             
             // In new popup flow, check if user has added any monograms
             const completedCount = Object.values(monogramCompletedItems).filter(Boolean).length;
@@ -1346,21 +1352,21 @@
             console.log('[Monogram] updateATCButtonState:', { hasMonograms, checkboxChecked, hasEmptyFields, completedCount });
             
             // Check if button was disabled by theme for product unavailability
-            const hasDataUnavailable = atcButton.hasAttribute('data-unavailable') && atcButton.getAttribute('data-unavailable') === 'true';
+            const hasDataUnavailable = atcButtonCurrent.hasAttribute('data-unavailable') && atcButtonCurrent.getAttribute('data-unavailable') === 'true';
             
             if (hasMonograms && (!checkboxChecked || hasEmptyFields)) {
               // User has added monograms but requirements not met - disable
-              atcButton.classList.add('monogram-disabled');
-              atcButton.disabled = true;
+              atcButtonCurrent.classList.add('monogram-disabled');
+              atcButtonCurrent.disabled = true;
               console.log('[Monogram] Button disabled - checkbox:', checkboxChecked, 'emptyFields:', hasEmptyFields);
             } else if (!hasDataUnavailable) {
               // Requirements met OR no monograms added, and product is available - enable
-              atcButton.classList.remove('monogram-disabled');
-              atcButton.disabled = false;
+              atcButtonCurrent.classList.remove('monogram-disabled');
+              atcButtonCurrent.disabled = false;
               console.log('[Monogram] Button enabled');
             } else {
               // Product is unavailable - keep disabled but remove monogram-disabled class
-              atcButton.classList.remove('monogram-disabled');
+              atcButtonCurrent.classList.remove('monogram-disabled');
               console.log('[Monogram] Button kept disabled (product unavailable)');
             }
           }
@@ -1594,6 +1600,7 @@
             updateMonogramButton();
             updateMonogramTotalPrice();
             updateATCButtonState();
+            updateTriggerButtonState(); // Ensure button text is updated (e.g. resets to Add Monogram)
           }
           
           // Initialize monogram item interactions
