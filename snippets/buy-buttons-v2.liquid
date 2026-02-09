@@ -1495,6 +1495,12 @@
             monogramItemsContainer.innerHTML = '';
             monogramItemsData = [];
             
+            // RESET: Clear completed items and checkbox state when bundle changes/regenerates
+            monogramCompletedItems = {};
+            if (checkboxTerms) {
+              checkboxTerms.checked = false;
+            }
+            
             const templateItem = monogramItemTemplate.querySelector('.monogram-item');
             if (!templateItem) return;
             
@@ -1595,7 +1601,7 @@
               monogramItemsContainer.appendChild(monogramItem);
             }
             
-            updateMonogramButton();
+            updateTriggerButtonState(); // Use new trigger update function
             updateMonogramTotalPrice();
             updateATCButtonState();
           }
