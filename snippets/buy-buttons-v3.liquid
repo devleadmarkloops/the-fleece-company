@@ -215,9 +215,11 @@
                   </div>
                 </div>
               </div>
-              <button type="button" class="monogram-toggle-btn" id="monogram-toggle-{{ section.id }}">
                 <span class="monogram-btn-text">Add Monogram</span>
               </button>
+              <div class="monogram-count-badge" id="monogram-count-{{ section.id }}" style="display: none; text-align: center; margin-top: -10px; margin-bottom: 15px; font-weight: 500; font-size: 14px; color: #111;">
+                (<span class="count-value">0</span> added)
+              </div>
             </div>
             {%- endif -%}
           {%- endif -%}
@@ -776,6 +778,8 @@
                            document.querySelector('#ProductSubmitButton-{{ section.id }}') ||
                            wrapper?.closest('product-form')?.querySelector('button[type="submit"][name="add"]') ||
                            document.querySelector('button[type="submit"][name="add"]');
+          const countBadge = document.getElementById('monogram-count-{{ section.id }}');
+          const countBadgeValue = countBadge ? countBadge.querySelector('.count-value') : null;
           const productFormElement = wrapper.closest('product-form');
           
           // Debug: Check if elements exist
@@ -897,7 +901,22 @@
           // Update button text
           function updateMonogramButton() {
             if (!toggleBtn || !btnTextSpan) return;
-            btnTextSpan.textContent = isMonogramBoxOpen ? 'Remove Monogram' : 'Add Monogram';
+            const count = countMonogramsWithText();
+            if (isMonogramBoxOpen) {
+              btnTextSpan.textContent = 'Remove Monogram';
+            } else {
+              btnTextSpan.textContent = count > 0 ? 'Edit Monogram' : 'Add Monogram';
+            }
+            
+            // Update count badge
+            if (countBadge && countBadgeValue) {
+              if (count > 0) {
+                 countBadgeValue.textContent = count;
+                 countBadge.style.display = 'block';
+              } else {
+                 countBadge.style.display = 'none';
+              }
+            }
           }
           
           // Update total price and unit price display
@@ -925,6 +944,9 @@
             } else {
               totalPriceDisplay.style.display = 'none';
             }
+            
+            // Always update button and count badge
+            updateMonogramButton();
           }
           
           // Detect bundle selection
@@ -1428,7 +1450,8 @@
                   updateMonogramButton();
                   updateATCButtonState();
                 } else {
-                   // Even if closed, ensure ATC state is correct
+                   // Even if closed, ensure ATC state and button UI is correct
+                   updateMonogramButton();
                    updateATCButtonState();
                 }
               }, 150); // Wait for DOM to update
