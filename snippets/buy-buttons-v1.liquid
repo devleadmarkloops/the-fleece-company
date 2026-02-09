@@ -868,40 +868,53 @@
           
           // Update button disable state
           function updateATCButtonState() {
-            // Re-query button to ensure we have the latest element (in case of dynamic DOM updates)
-            const atcButtonCurrent = document.querySelector('#ProductSubmitButton-{{ section_id }}') || 
-                             document.querySelector('#ProductSubmitButton-{{ section.id }}') ||
+            // Robust button finding with multiple fallbacks
+            const sectionIdVal = '{{ section.id }}';
+            const atcButtonCurrent = document.getElementById('ProductSubmitButton-{{ section_id }}') || 
+                             document.getElementById('ProductSubmitButton-' + sectionIdVal) ||
+                             document.querySelector('#ProductSubmitButton-' + sectionIdVal) ||
                              wrapper?.closest('product-form')?.querySelector('button[type="submit"][name="add"]') ||
                              document.querySelector('button[type="submit"][name="add"]');
 
-             if (!atcButtonCurrent) return;
+            if (!atcButtonCurrent) {
+              console.warn('[Monogram] ATC button not found for validation');
+              return;
+            }
             
             const checkboxChecked = checkboxTerms && checkboxTerms.checked;
-            const hasText = hasAnyMonogramText();
+            const textCount = countMonogramsWithText();
+            const hasText = textCount > 0;
             
-            console.log('[Monogram] updateATCButtonState:', { checkboxChecked, hasText });
+            console.log('[Monogram] State check - hasText:', hasText, 'count:', textCount, 'checked:', checkboxChecked);
             
-            // Check if button was disabled by theme for product unavailability
-            const isSoldOut = atcButtonCurrent.hasAttribute('data-unavailable') && atcButtonCurrent.getAttribute('data-unavailable') === 'true';
-            const buttonText = atcButtonCurrent.textContent.toLowerCase();
-            const isActuallySoldOut = isSoldOut || buttonText.includes('sold out') || buttonText.includes('unavailable');
+            // Should we disable strictly for monogram reasons?
+            const shouldDisable = hasText && !checkboxChecked;
             
-            if (hasText && !checkboxChecked) {
-              // Only disable if user has text but hasn't checked terms
+            if (shouldDisable) {
               atcButtonCurrent.classList.add('monogram-disabled');
               atcButtonCurrent.disabled = true;
-              console.log('[Monogram] Button disabled - checkbox required for text');
+              console.log('[Monogram] Button disabled: Text exists but terms not checked');
             } else {
-              // Enable if not sold out
               atcButtonCurrent.classList.remove('monogram-disabled');
-              if (!isActuallySoldOut) {
+              
+              // Enable the button IF it's not actually sold out
+              // We check button text and attributes to decide
+              const btnText = atcButtonCurrent.textContent.toLowerCase();
+              const isSoldOut = atcButtonCurrent.hasAttribute('data-unavailable') && atcButtonCurrent.getAttribute('data-unavailable') === 'true';
+              const soldOutByText = btnText.includes('sold out') || btnText.includes('unavailable');
+              
+              if (!isSoldOut && !soldOutByText) {
+                // Ensure we override theme scripts that might have disabled it
                 atcButtonCurrent.disabled = false;
-                console.log('[Monogram] Button enabled');
+                console.log('[Monogram] Button enabled (no monogram text required or terms met)');
               } else {
-                console.log('[Monogram] Button kept disabled (sold out/unavailable)');
+                console.log('[Monogram] Button kept disabled (Sold Out state detected)');
               }
             }
           }
+
+          // Small delay on initial load to ensure we override theme defaults
+          setTimeout(updateATCButtonState, 500);
 
           if (checkboxTerms) {
             checkboxTerms.addEventListener('change', updateATCButtonState);
