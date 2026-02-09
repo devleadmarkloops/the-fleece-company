@@ -72,6 +72,7 @@
                 <button type="button" class="monogram-trigger-btn" id="monogram-toggle-{{ section.id }}">
                   <span class="monogram-trigger-content">
                     <span class="monogram-trigger-label">Add Monogram</span>
+                    <span class="monogram-trigger-count" style="display: none;"></span>
                   </span>
                 </button>
               </div>
@@ -233,7 +234,8 @@
                       <select class="monogram-style-select monogram-style-select-item">
                         <option value="">Choose a style</option>
                         {%- if shop.metaobjects.monogram_fonts.values != blank -%}
-                          {%- for font in shop.metaobjects.monogram_fonts.values -%}
+                          {%- assign sorted_fonts = shop.metaobjects.monogram_fonts.values | sort: "font_name.value" | reverse -%}
+                          {%- for font in sorted_fonts -%}
                             {%- assign font_display_name = font.font_name.value -%}
                             {%- if font_display_name == 'Playfair Display' -%}{%- assign font_display_name = 'Classic Serif' -%}{%- elsif font_display_name == 'Pinyon Script' -%}{%- assign font_display_name = 'Elegant Script' -%}{%- endif -%}
                             <option value="{{ font.font_name.value }}" data-url="{{ font.font_url1.value }}">
@@ -598,9 +600,11 @@
           transition: all 0.3s ease;
           position: relative;
           display: flex;
+          flex-direction: column;
           align-items: center;
           justify-content: center;
           text-align: center;
+          min-height: 50px;
         }
 
         .monogram-trigger-btn:before {
@@ -627,7 +631,17 @@
         .monogram-trigger-content {
           display: flex;
           flex-direction: column;
-          gap: 2px;
+          align-items: center;
+          justify-content: center;
+          line-height: 1.2;
+          width: 100%;
+        }
+        .monogram-trigger-count {
+          font-size: 13px;
+          font-weight: 400;
+          margin-top: 5px;
+          text-transform: none;
+          letter-spacing: 0;
         }
         .monogram-trigger-label {
           font-size: 16px;
@@ -703,7 +717,7 @@
         }
         .monogram-processing-notice {
           font-size: 13px;
-          color: #cc0000;
+          color: #000;
           margin: 4px 0 0 0;
           font-weight: 500;
           line-height: 1.3;
@@ -915,9 +929,9 @@
         .monogram-preview-text {
           position: absolute;
           top: 50%;
-          left: 50%;
+          left: 42%;
           transform: translate(-50%, -50%);
-          font-size: 20px;
+          font-size: 36px;
           font-weight: 400;
           user-select: none;
           white-space: nowrap;
@@ -969,11 +983,11 @@
         }
         .monogram-modal-footer-btns {
           display: flex;
-          gap: 0px;
+          gap: 10px;
           width: 100%;
         }
         .monogram-save-btn {
-          flex: 2;
+          flex: 1;
           padding: 14px 24px;
           background: #000;
           color: #fff;
@@ -1335,7 +1349,13 @@
           
           // Update button disable state
           function updateATCButtonState() {
-            if (!atcButton) return;
+            // Re-query button to ensure we have the latest element (in case of dynamic DOM updates)
+            const atcButtonCurrent = document.querySelector('#ProductSubmitButton-{{ section_id }}') || 
+                             document.querySelector('#ProductSubmitButton-{{ section.id }}') ||
+                             wrapper?.closest('product-form')?.querySelector('button[type="submit"][name="add"]') ||
+                             document.querySelector('button[type="submit"][name="add"]');
+            
+            if (!atcButtonCurrent) return;
             
             // In new popup flow, check if user has added any monograms
             const completedCount = Object.values(monogramCompletedItems).filter(Boolean).length;
@@ -1346,21 +1366,21 @@
             console.log('[Monogram] updateATCButtonState:', { hasMonograms, checkboxChecked, hasEmptyFields, completedCount });
             
             // Check if button was disabled by theme for product unavailability
-            const hasDataUnavailable = atcButton.hasAttribute('data-unavailable') && atcButton.getAttribute('data-unavailable') === 'true';
+            const hasDataUnavailable = atcButtonCurrent.hasAttribute('data-unavailable') && atcButtonCurrent.getAttribute('data-unavailable') === 'true';
             
             if (hasMonograms && (!checkboxChecked || hasEmptyFields)) {
               // User has added monograms but requirements not met - disable
-              atcButton.classList.add('monogram-disabled');
-              atcButton.disabled = true;
+              atcButtonCurrent.classList.add('monogram-disabled');
+              atcButtonCurrent.disabled = true;
               console.log('[Monogram] Button disabled - checkbox:', checkboxChecked, 'emptyFields:', hasEmptyFields);
             } else if (!hasDataUnavailable) {
               // Requirements met OR no monograms added, and product is available - enable
-              atcButton.classList.remove('monogram-disabled');
-              atcButton.disabled = false;
+              atcButtonCurrent.classList.remove('monogram-disabled');
+              atcButtonCurrent.disabled = false;
               console.log('[Monogram] Button enabled');
             } else {
               // Product is unavailable - keep disabled but remove monogram-disabled class
-              atcButton.classList.remove('monogram-disabled');
+              atcButtonCurrent.classList.remove('monogram-disabled');
               console.log('[Monogram] Button kept disabled (product unavailable)');
             }
           }
@@ -1489,6 +1509,7 @@
             
             monogramItemsContainer.innerHTML = '';
             monogramItemsData = [];
+            monogramCompletedItems = {}; // Reset completed status when regenerating items
             
             const templateItem = monogramItemTemplate.querySelector('.monogram-item');
             if (!templateItem) return;
@@ -1566,19 +1587,19 @@
                 textInput: textInput,
                 previewText: previewText,
                 imageContainer: imageContainer,
-                position: { x: 50, y: 50 }
+                position: { x: 42, y: 50 }
               };
               monogramItemsData.push(itemData);
               
               if (previewText) {
                 previewText.style.position = 'absolute';
                 previewText.style.top = '50%';
-                previewText.style.left = '50%';
+                previewText.style.left = '42%';
                 previewText.style.transform = 'translate(-50%, -50%)';
                 previewText.style.color = '#000000';
                 previewText.style.display = 'block';
                 previewText.style.zIndex = '10';
-                previewText.style.fontSize = '22px';
+                previewText.style.fontSize = '36px';
                 previewText.style.fontWeight = '400';
                 previewText.style.textTransform = 'none';
                 previewText.style.whiteSpace = 'nowrap';
@@ -1593,6 +1614,7 @@
             updateMonogramButton();
             updateMonogramTotalPrice();
             updateATCButtonState();
+            updateTriggerButtonState(); // Ensure button text is updated (e.g. resets to Add Monogram)
           }
           
           // Initialize monogram item interactions
@@ -1821,7 +1843,7 @@
                     </svg>
                   </div>
                   <div class="monogram-selection-label">
-                    Add monogram for <strong>${item.color}</strong>
+                    Add MONOGRAM ${index + 1} for <strong>${item.color}</strong>
                     ${item.size ? '<br><small style="color:#666; font-size:11px;">' + item.size + '</small>' : ''}
                   </div>
                   <div class="monogram-selection-price">+${formatMoney(monogramPrice)}</div>
@@ -1926,6 +1948,15 @@
               return;
             }
             
+            // Apply defaults if empty
+            if (!itemData.styleSelect.value) {
+              itemData.styleSelect.value = 'Playfair Display';
+            }
+            if (!itemData.colorSelect.value) {
+              // Try to find 'Black' in options, otherwise use first option logic later (though usually Black is standard)
+              itemData.colorSelect.value = 'Black'; 
+            }
+
             // Get existing preview text and position
             const existingPreviewText = itemData.textInput ? itemData.textInput.value : '';
             const existingFont = itemData.styleSelect ? itemData.styleSelect.value : '';
@@ -1943,7 +1974,7 @@
                 </div>
               </div>
               <div class="monogram-detail-form">
-                <h4 class="monogram-detail-title">Monogram For ${itemInfo.color.toUpperCase()}</h4>
+                <h4 class="monogram-detail-title">MONOGRAM ${itemIndex + 1}</h4>
                 
                 <label class="monogram-label-item">FONT STYLE</label>
                 <select class="monogram-style-select" data-item-index="${itemIndex}">
@@ -2093,7 +2124,7 @@
             const previewText = detailContent.querySelector('.monogram-preview-text');
             
             if (previewText && textInput) {
-              previewText.textContent = textInput.value.toUpperCase();
+              previewText.textContent = textInput.value;
               
               if (styleSelect && styleSelect.value) {
                 const fontFamily = "'" + styleSelect.value + "', cursive, serif";
@@ -2103,12 +2134,6 @@
               
               if (colorSelect && colorSelect.value) {
                 previewText.style.color = colorSelect.value.toLowerCase() === 'white' ? '#fff' : '#000';
-              }
-              
-              const itemData = monogramItemsData[itemIndex];
-              if (itemData && itemData.position) {
-                previewText.style.left = itemData.position.x + '%';
-                previewText.style.top = itemData.position.y + '%';
               }
             }
           }
@@ -2240,16 +2265,22 @@
             
             const completedCount = Object.values(monogramCompletedItems).filter(Boolean).length;
             const label = toggleBtn.querySelector('.monogram-trigger-label');
+            const countLabel = toggleBtn.querySelector('.monogram-trigger-count');
             
             if (completedCount > 0) {
               toggleBtn.classList.add('has-monograms');
               if (label) label.textContent = 'Edit Monogram';
-              
+              if (countLabel) {
+                countLabel.textContent = '(' + completedCount + ' added)';
+                countLabel.style.display = 'block';
+              }
               isMonogramBoxOpen = true;
             } else {
               toggleBtn.classList.remove('has-monograms');
               if (label) label.textContent = 'Add Monogram';
-              
+              if (countLabel) {
+                countLabel.style.display = 'none';
+              }
               isMonogramBoxOpen = false;
             }
             
@@ -2398,19 +2429,17 @@
               setTimeout(function() {
                 const itemCount = getSelectedBundleItemCount();
                 currentBundleItemCount = itemCount;
-                console.log('[Monogram] New bundle has', itemCount, 'monogram items');
+                console.log('[Monogram] New bundle has', itemCount, 'monogram items. Regenerating monogram state.');
                 
-                if (isMonogramBoxOpen) {
-                  // Regenerate monogram items for the new bundle
-                  console.log('[Monogram] Regenerating', itemCount, 'monogram items');
-                  generateMonogramItems(itemCount);
-                  
-                  // After regenerating, read colors from the new bundle and update images
-                  setTimeout(function() {
-                    console.log('[Monogram] Reading colors from newly selected bundle');
+                // Regenerate monogram items for the new bundle
+                generateMonogramItems(itemCount);
+                
+                // After regenerating, if we're in bundle mode, update images
+                setTimeout(function() {
+                  if (typeof updateAllMonogramItemsFromBundleColors === 'function') {
                     updateAllMonogramItemsFromBundleColors();
-                  }, 200);
-                }
+                  }
+                }, 200);
               }, 150); // Wait for DOM to update
             }
             
