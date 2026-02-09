@@ -876,39 +876,29 @@
                              wrapper?.closest('product-form')?.querySelector('button[type="submit"][name="add"]') ||
                              document.querySelector('button[type="submit"][name="add"]');
 
-            if (!atcButtonCurrent) {
-              console.warn('[Monogram] ATC button not found for validation');
-              return;
-            }
+            if (!atcButtonCurrent) return;
             
             const checkboxChecked = checkboxTerms && checkboxTerms.checked;
             const textCount = countMonogramsWithText();
             const hasText = textCount > 0;
             
-            console.log('[Monogram] State check - hasText:', hasText, 'count:', textCount, 'checked:', checkboxChecked);
-            
             // Should we disable strictly for monogram reasons?
+            // Only disable if user HAS entered text but HAS NOT checked the terms.
             const shouldDisable = hasText && !checkboxChecked;
             
             if (shouldDisable) {
               atcButtonCurrent.classList.add('monogram-disabled');
               atcButtonCurrent.disabled = true;
-              console.log('[Monogram] Button disabled: Text exists but terms not checked');
             } else {
               atcButtonCurrent.classList.remove('monogram-disabled');
               
               // Enable the button IF it's not actually sold out
-              // We check button text and attributes to decide
               const btnText = atcButtonCurrent.textContent.toLowerCase();
               const isSoldOut = atcButtonCurrent.hasAttribute('data-unavailable') && atcButtonCurrent.getAttribute('data-unavailable') === 'true';
-              const soldOutByText = btnText.includes('sold out') || btnText.includes('unavailable');
+              const soldOutByText = btnText.includes('sold_out') || btnText.includes('sold out') || btnText.includes('unavailable');
               
               if (!isSoldOut && !soldOutByText) {
-                // Ensure we override theme scripts that might have disabled it
                 atcButtonCurrent.disabled = false;
-                console.log('[Monogram] Button enabled (no monogram text required or terms met)');
-              } else {
-                console.log('[Monogram] Button kept disabled (Sold Out state detected)');
               }
             }
           }
@@ -945,7 +935,7 @@
             const btnCountSpan = toggleBtn.querySelector('.monogram-btn-count');
             
             if (isMonogramBoxOpen) {
-              btnTextSpan.textContent = 'Edit Monogram';
+              btnTextSpan.textContent = 'Remove Monogram';
               if (btnCountSpan && count > 0) {
                 btnCountSpan.textContent = '(' + count + ' added)';
                 btnCountSpan.style.display = 'block';
@@ -954,7 +944,7 @@
               }
             } else {
               if (count > 0) {
-                btnTextSpan.textContent = 'Edit Monogram';
+                btnTextSpan.textContent = 'Remove Monogram';
                 if (btnCountSpan) {
                   btnCountSpan.textContent = '(' + count + ' added)';
                   btnCountSpan.style.display = 'block';
@@ -1378,6 +1368,18 @@
               console.log('[Monogram] Toggle button clicked');
               const wasVisible = monogramBox.style.display !== 'none';
               isMonogramBoxOpen = !wasVisible;
+              if (wasVisible) {
+                // If closing (removing), clear all inputs
+                if (monogramItemsData) {
+                  monogramItemsData.forEach(function(item) {
+                    if (item.textInput) item.textInput.value = '';
+                    if (item.previewText) item.previewText.textContent = '';
+                    if (item.addedBadge) item.addedBadge.style.display = 'none';
+                  });
+                }
+                if (checkboxTerms) checkboxTerms.checked = false;
+              }
+              
               monogramBox.style.display = wasVisible ? 'none' : 'block';
               console.log('[Monogram] Monogram box display set to:', monogramBox.style.display);
               
