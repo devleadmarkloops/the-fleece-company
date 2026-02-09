@@ -606,8 +606,9 @@
           padding-bottom: 0;
           margin-bottom: 1px;
         }
+        /* Removed last-child border reset to ensure a line after the last monogram */
         .monogram-item:last-child {
-          border-bottom: none;
+          border-bottom: 1px solid #eee;
         }
         .monogram-accordion-header {
           display: flex;
