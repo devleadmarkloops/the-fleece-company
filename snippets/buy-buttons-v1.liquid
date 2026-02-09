@@ -196,7 +196,10 @@
                 </div>
               </div>
               <button type="button" class="monogram-toggle-btn" id="monogram-toggle-{{ section.id }}">
-                <span class="monogram-btn-text">Add Monogram</span>
+                <div class="monogram-btn-content">
+                  <span class="monogram-btn-text">Add Monogram</span>
+                  <span class="monogram-btn-count" style="display: none;"></span>
+                </div>
               </button>
             </div>
             {%- endif -%}
@@ -523,6 +526,26 @@
           position:relative;
           background:#f6f3ee;
           color:#000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 50px;
+        }
+        .monogram-btn-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          line-height: 1.2;
+          width: 100%;
+          z-index: 11;
+        }
+        .monogram-btn-count {
+          font-size: 13px;
+          font-weight: 400;
+          margin-top: 5px;
+          text-transform: none;
+          letter-spacing: 0;
         }
         .monogram-toggle-btn:before {
           border: 1px solid #000;
@@ -823,6 +846,7 @@
 
           let loadedFonts = {};
           const btnTextSpan = toggleBtn ? toggleBtn.querySelector('.monogram-btn-text') : null;
+          const btnCountSpan = toggleBtn ? toggleBtn.querySelector('.monogram-btn-count') : null;
           const totalPriceDisplay = document.getElementById('monogram-total-price-{{ section.id }}');
           const totalPriceValue = totalPriceDisplay ? totalPriceDisplay.querySelector('.monogram-total-price-value') : null;
           
@@ -841,7 +865,31 @@
           // Update button text
           function updateMonogramButton() {
             if (!toggleBtn || !btnTextSpan) return;
-            btnTextSpan.textContent = isMonogramBoxOpen ? 'Remove Monogram' : 'Add Monogram';
+            
+            const count = countMonogramsWithText();
+            
+            if (isMonogramBoxOpen) {
+              btnTextSpan.textContent = 'Edit Monogram';
+              if (btnCountSpan && count > 0) {
+                btnCountSpan.textContent = '(' + count + ' added)';
+                btnCountSpan.style.display = 'block';
+              } else if (btnCountSpan) {
+                btnCountSpan.style.display = 'none';
+              }
+            } else {
+              if (count > 0) {
+                btnTextSpan.textContent = 'Edit Monogram';
+                if (btnCountSpan) {
+                  btnCountSpan.textContent = '(' + count + ' added)';
+                  btnCountSpan.style.display = 'block';
+                }
+              } else {
+                btnTextSpan.textContent = 'Add Monogram';
+                if (btnCountSpan) {
+                  btnCountSpan.style.display = 'none';
+                }
+              }
+            }
           }
           
           // Update total price and unit price display
