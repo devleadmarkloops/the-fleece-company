@@ -147,9 +147,8 @@
                       </div>
 
                       <div class="monogram-options-panel">
-                        <div class="monogram-item-header" style="display: flex; justify-content: space-between; align-items: center;">
-                          <h4 class="monogram-item-title" style="margin: 0;">Monogram <span class="monogram-item-number">1</span></h4>
-                          <button type="button" class="monogram-item-remove" style="background: none; border: none; text-decoration: underline; cursor: pointer; font-size: 12px; color: #666; padding: 0;">Remove</button>
+                        <div class="monogram-item-header">
+                          <h4 class="monogram-item-title">MONOGRAM FOR ITEM</h4>
                         </div>
 
                         <label class="monogram-label-item">Font Style</label>
@@ -1015,8 +1014,6 @@
                 console.log('[Monogram] Using template images for item', i, '(will be updated after all items are created)');
               }
               
-              const removeBtn = monogramItem.querySelector('.monogram-item-remove');
-
               const itemData = {
                 index: i,
                 styleSelect: styleSelect,
@@ -1025,7 +1022,6 @@
                 previewText: previewText,
                 imageContainer: imageContainer,
                 titleElement: titleElement,
-                removeBtn: removeBtn,
                 position: { x: 50, y: 50 }
               };
               monogramItemsData.push(itemData);
@@ -1138,33 +1134,6 @@
             
             if (itemData.styleSelect) {
               itemData.styleSelect.addEventListener('change', updateItemPreviewText);
-            }
-            
-            if (itemData.removeBtn) {
-              itemData.removeBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                console.log('[Monogram] Remove button clicked for item', itemData.index);
-                
-                // Clear text
-                if (itemData.textInput) itemData.textInput.value = '';
-                
-                // Reset selects to default (first option)
-                if (itemData.styleSelect) itemData.styleSelect.selectedIndex = 0;
-                if (itemData.colorSelect) itemData.colorSelect.selectedIndex = 0;
-                
-                // Reset positioning (optional, but good for "reset")
-                if (itemData.previewText) {
-                  itemData.previewText.style.top = '60%';
-                  itemData.previewText.style.left = '50%';
-                  itemData.previewText.style.transform = 'translate(-50%, -50%)';
-                  itemData.position = { x: 50, y: 60 };
-                }
-                
-                // Update UI
-                updateItemPreviewText();
-                updateMonogramTotalPrice();
-                updateATCButtonState();
-              });
             }
             
             // Sync image with bundle color (for bundle items)
@@ -1862,12 +1831,50 @@
             
             const itemData = monogramItemsData[itemIndex];
             if (itemData && itemData.titleElement) {
-               const variantInfo = getVariantColorForMonogramItem(itemIndex);
-               // Use variant title if available, otherwise fallback to "Monogram X"
-               if (variantInfo && variantInfo.displayText) {
-                 itemData.titleElement.textContent = variantInfo.displayText;
+               let colorName = '';
+               
+               if (isBundleSelected()) {
+                 colorName = getBundleColorForItem(itemIndex);
                } else {
-                 itemData.titleElement.innerHTML = 'Monogram <span class="monogram-item-number">' + (itemIndex + 1) + '</span>';
+                 // Single product - try form options first
+                 const productForm = document.getElementById(formId);
+                 if (productForm) {
+                   // Try "Color", "Colour" logic
+                   const colorInputs = productForm.querySelectorAll('input[type="radio"][name*="Color"]:checked, input[type="radio"][name*="Colour"]:checked, select[name="Color"], select[name="Colour"]');
+                   if (colorInputs.length > 0) {
+                      const input = colorInputs[0];
+                      if (input.tagName === 'SELECT') {
+                        colorName = input.options[input.selectedIndex]?.value;
+                      } else {
+                        colorName = input.value;
+                      }
+                   }
+                 }
+                 
+                 // Fallback to variant title parsing if needed (e.g. "Dune / Large")
+                 if (!colorName) {
+                    const variantInfo = getVariantColorForMonogramItem(itemIndex); 
+                    if (variantInfo && variantInfo.title) {
+                        const variantTitle = variantInfo.title; 
+                        if (variantTitle.includes('/')) {
+                           colorName = variantTitle.split('/')[0].trim();
+                        } else {
+                           colorName = variantTitle;
+                        }
+                    }
+                 }
+               }
+               
+               // Clean up (remove "Limited Edition:", match existing extraction logic)
+               if (colorName) {
+                  colorName = extractColorName(colorName);
+               }
+               
+               // Format: MONOGRAM FOR [COLOR]
+               if (colorName && colorName.toLowerCase() !== 'default title') {
+                  itemData.titleElement.textContent = 'MONOGRAM FOR ' + colorName.toUpperCase();
+               } else {
+                  itemData.titleElement.textContent = 'MONOGRAM FOR ITEM ' + (itemIndex + 1);
                }
             }
           }
