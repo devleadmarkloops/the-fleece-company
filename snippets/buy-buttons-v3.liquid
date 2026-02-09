@@ -81,7 +81,7 @@
                   <div class="monogram-item" data-item-index="">
                     <div class="monogram-accordion-header">
                       <div class="monogram-header-left">
-                        <h4 class="monogram-item-title">MONOGRAM FOR ITEM</h4>
+                        <h4 class="monogram-item-title">MONOGRAM 1</h4>
                         <span class="monogram-added-badge" style="display: none;">Added</span>
                       </div>
                       <span class="monogram-accordion-icon">
@@ -1951,51 +1951,7 @@
             
             const itemData = monogramItemsData[itemIndex];
             if (itemData && itemData.titleElement) {
-               let colorName = '';
-               
-               if (isBundleSelected()) {
-                 colorName = getBundleColorForItem(itemIndex);
-               } else {
-                 // Single product - try form options first
-                 const productForm = document.getElementById(formId);
-                 if (productForm) {
-                   // Try "Color", "Colour" logic
-                   const colorInputs = productForm.querySelectorAll('input[type="radio"][name*="Color"]:checked, input[type="radio"][name*="Colour"]:checked, select[name="Color"], select[name="Colour"]');
-                   if (colorInputs.length > 0) {
-                      const input = colorInputs[0];
-                      if (input.tagName === 'SELECT') {
-                        colorName = input.options[input.selectedIndex]?.value;
-                      } else {
-                        colorName = input.value;
-                      }
-                   }
-                 }
-                 
-                 // Fallback to variant title parsing if needed (e.g. "Dune / Large")
-                 if (!colorName) {
-                    const variantInfo = getVariantColorForMonogramItem(itemIndex); 
-                    if (variantInfo && variantInfo.title) {
-                        const variantTitle = variantInfo.title; 
-                        if (variantTitle.includes('/')) {
-                           colorName = variantTitle.split('/')[0].trim();
-                        } else {
-                           colorName = variantTitle;
-                        }
-                    }
-                 }
-               }
-               
-               // Clean up (remove "Limited Edition:", match existing extraction logic)
-               if (colorName) {
-                  colorName = extractColorName(colorName);
-               }
-               
-               // Format: MONOGRAM FOR [COLOR]
-               if (colorName && colorName.toLowerCase() !== 'default title') {
-                  itemData.titleElement.textContent = 'MONOGRAM FOR ' + colorName.toUpperCase();
-               } else {
-                  itemData.titleElement.textContent = 'MONOGRAM FOR ITEM ' + (itemIndex + 1);
-               }
+              itemData.titleElement.textContent = 'MONOGRAM ' + (itemIndex + 1);
             }
           }
 
