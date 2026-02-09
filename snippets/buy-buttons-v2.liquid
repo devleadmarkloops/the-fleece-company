@@ -1574,7 +1574,7 @@
                 textInput: textInput,
                 previewText: previewText,
                 imageContainer: imageContainer,
-                position: { x: 50, y: 50 }
+                position: { x: 42, y: 50 }
               };
               monogramItemsData.push(itemData);
               
@@ -2121,12 +2121,6 @@
               
               if (colorSelect && colorSelect.value) {
                 previewText.style.color = colorSelect.value.toLowerCase() === 'white' ? '#fff' : '#000';
-              }
-              
-              const itemData = monogramItemsData[itemIndex];
-              if (itemData && itemData.position) {
-                previewText.style.left = itemData.position.x + '%';
-                previewText.style.top = itemData.position.y + '%';
               }
             }
           }
