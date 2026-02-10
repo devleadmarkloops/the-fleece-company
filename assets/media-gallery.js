@@ -32,13 +32,21 @@ if (!customElements.get('media-gallery')) {
       });
       activeMedia.classList.add('is-active');
 
-      if (prepend) {
+      const isFade = this.elements.viewer.classList.contains('slider--fade');
+
+      if (prepend && !isFade) {
         activeMedia.parentElement.prepend(activeMedia);
+        if (this.elements.viewer.update) this.elements.viewer.update();
         if (this.elements.thumbnails) {
           const activeThumbnail = this.elements.thumbnails.querySelector(`[data-target="${mediaId}"]`);
           activeThumbnail.parentElement.prepend(activeThumbnail);
         }
         if (this.elements.viewer.slider) this.elements.viewer.resetPages();
+      }
+
+      if (isFade) {
+        scrollIntoView = false;
+        if (this.elements.viewer.slider) this.elements.viewer.slider.scrollLeft = 0;
       }
 
       this.preventStickyHeader();

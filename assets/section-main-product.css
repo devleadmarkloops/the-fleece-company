@@ -893,9 +893,6 @@ a.product__text {
   background-color: rgb(var(--color-border));
 }
 
-.product__accordion .accordion__content li {
-  /* line-height: calc(1 + 0.4 / var(--font-body-scale)); */
-}
 
 .product__accordion+.product-link__button {
   margin-top: 0;
