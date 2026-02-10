@@ -175,7 +175,7 @@
         >
           <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
           <use-animate data-animate="zoom-fade">
-            <product-gallery id="GalleryViewer-{{ section.id }}" class="slider-mobile-gutter slider-mobile--overlay">
+            <product-gallery id="GalleryViewer-{{ section.id }}" class="slider-mobile-gutter slider-mobile--overlay{% if section.settings.enable_fade_slider %} slider--fade{% endif %}">
               <a class="skip-to-content-link button visually-hidden" href="#ProductInfo-{{ section.id }}">
                 {{ 'accessibility.skip_to_product_info' | t }}
               </a>
@@ -244,7 +244,7 @@
               {% endcomment %}
               <ul
                 id="Slider-Gallery-{{ section.id }}"
-                class="product__media-list flex-grid flex-grid--1-col flex-grid--1-col-tablet slider slider--mobile"
+                class="product__media-list flex-grid flex-grid--1-col flex-grid--1-col-tablet slider slider--mobile{% if section.settings.enable_fade_slider %} slider--fade{% endif %}"
                 role="list"
               >
                 {%- liquid
@@ -5094,6 +5094,13 @@ if (nextBtn) {
       "default": false,
       "label": "Enable variant specific media",
       "info": "Filters gallery to show only images matching the selected variant. Can also be enabled per-product via metafield."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_fade_slider",
+      "default": false,
+      "label": "Enable Fade Effect for Slider",
+      "info": "Applies a fade transition instead of scrolling when using the thumbnail slider layout."
     },
     {
       "type": "header",

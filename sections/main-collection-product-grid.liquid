@@ -135,7 +135,14 @@
                 assign grid_class = grid_class | append: ' flex-grid--3-col-tablet flex-grid--4-col-desktop'
               endif
             -%}
+            {% assign current_sort = collection.sort_by | default: collection.default_sort_by %}
             <ul id="product-grid" data-id="{{ section.id }}" class="product-grid {{ grid_class }}" role="list">
+              {% comment %} {% if results.sort_by == 'best-s' %} {% endcomment %}
+              {% if current_sort == 'best-selling' %}
+              {% assign counter = 1 %}
+              {% else %}
+              {% assign counter = '' %}
+              {% endif %}
               {%- for product in collection.products -%}
                 {%- liquid
                   assign lazy_load = true
@@ -143,11 +150,18 @@
                     assign lazy_load = false
                   endif
                 -%}
-                {% if section.settings.enable_color_as_products and product.metafields.custom.color_as_products.value == true %}
+
+              {% if current_sort == 'best-selling' %}
+              {% assign counter = counter |plus: 1 %}
+              {% else %}
+              {% assign counter = '' %}
+              {% endif %}
+                {% if section.settings.enable_color_as_products or product.metafields.custom.color_as_products.value == true %}
+
                   {% for option in product.options_with_values %}
                     {% if option.name == 'Color' or option.name == 'Colour' %}
                       {% for value in option.values %}
-                        <li class="flex-grid__item">
+                        <li class="flex-grid__item" order="{{ counter }}-d5" style="order: {{ counter }}">
                           {% render 'd5-card-variant',
                             card_product: product,
                             value: value,
@@ -168,7 +182,7 @@
                     {% endif %}
                   {% endfor %}
                 {% else %}
-                  <li class="flex-grid__item">
+                  <li class="flex-grid__item" style="order: {{ counter }}">
                     {% render 'card-product',
                       card_product: product,
                       card_collection: collection,
