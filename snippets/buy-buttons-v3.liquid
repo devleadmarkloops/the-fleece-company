@@ -887,19 +887,23 @@
             // Only disable if user HAS entered text but HAS NOT checked the terms.
             const shouldDisable = hasText && !checkboxChecked;
             
+            console.log('[Monogram] updateATCButtonState:', { hasText, checkboxChecked, textCount });
+
             if (shouldDisable) {
               atcButtonCurrent.classList.add('monogram-disabled');
               atcButtonCurrent.disabled = true;
             } else {
               atcButtonCurrent.classList.remove('monogram-disabled');
               
-              // Enable the button IF it's not actually sold out
-              const btnText = atcButtonCurrent.textContent.toLowerCase();
-              const isSoldOut = atcButtonCurrent.hasAttribute('data-unavailable') && atcButtonCurrent.getAttribute('data-unavailable') === 'true';
-              const soldOutByText = btnText.includes('sold_out') || btnText.includes('sold out') || btnText.includes('unavailable');
+              // Check if button should be disabled for other reasons (sold out)
+              const isUnavailable = atcButtonCurrent.hasAttribute('data-unavailable') && atcButtonCurrent.getAttribute('data-unavailable') === 'true' ||
+                                   atcButtonCurrent.classList.contains('sold-out') ||
+                                   atcButtonCurrent.textContent.toLowerCase().includes('sold out');
               
-              if (!isSoldOut && !soldOutByText) {
+              if (!isUnavailable) {
                 atcButtonCurrent.disabled = false;
+              } else {
+                atcButtonCurrent.disabled = true;
               }
             }
           }
@@ -1564,6 +1568,7 @@
                         console.log('[Monogram] Updating ONLY monogram item', itemIndex, 'to show image for color:', selectedColor);
                         updateSingleMonogramItemImage(itemIndex, selectedColor);
                         updateMonogramItemTitle(itemIndex);
+                        updateATCButtonState(); // Ensure ATC button is re-enabled if it was disabled during color change
                       } else {
                         console.warn('[Monogram] Item index out of range:', itemIndex, 'total items:', monogramItemsData.length);
                       }
@@ -2291,6 +2296,9 @@
           // Listen for variant changes to update monogram images
           function handleVariantChange() {
             console.log('[Monogram] Variant change detected');
+            
+            // Always update ATC button state on variant change to ensure it's not stuck disabled
+            updateATCButtonState();
             
             // Only update images if monogram box is open and items exist
             if (!isMonogramBoxOpen || monogramItemsData.length === 0) {
