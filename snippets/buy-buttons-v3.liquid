@@ -938,7 +938,7 @@
             if (isMonogramBoxOpen) {
               btnTextSpan.textContent = 'Remove Monogram';
               if (btnCountSpan && count > 0) {
-                btnCountSpan.textContent = '(' + count + ' added)';
+                btnCountSpan.textContent = count + ' added';
                 btnCountSpan.style.display = 'block';
               } else if (btnCountSpan) {
                 btnCountSpan.style.display = 'none';
@@ -947,7 +947,7 @@
               if (count > 0) {
                 btnTextSpan.textContent = 'Remove Monogram';
                 if (btnCountSpan) {
-                  btnCountSpan.textContent = '(' + count + ' added)';
+                  btnCountSpan.textContent = count + ' added';
                   btnCountSpan.style.display = 'block';
                 }
               } else {
