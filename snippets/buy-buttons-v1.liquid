@@ -147,8 +147,9 @@
                       </div>
 
                       <div class="monogram-options-panel">
-                        <div class="monogram-item-header">
+                        <div class="monogram-item-header" style="display: flex; align-items: center; margin-bottom: 15px;">
                           <h4 class="monogram-item-title">Monogram <span class="monogram-item-number">1</span></h4>
+                          <span class="monogram-added-badge" style="display: none;">Added</span>
                         </div>
 
                         <label class="monogram-label-item">Font Style</label>
@@ -595,8 +596,20 @@
         .monogram-item-title {
           font-size: 16px;
           font-weight: 600;
-          margin: 0 0 15px 0;
+          margin: 0;
           text-transform: uppercase;
+        }
+        .monogram-added-badge {
+          background: #000;
+          color: #fff;
+          font-size: 10px;
+          padding: 2px 8px;
+          border-radius: 12px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          font-weight: 700;
+          margin-left: 10px;
+          vertical-align: middle;
         }
         .monogram-content-wrapper {
           display: flex;
@@ -867,9 +880,10 @@
             if (!toggleBtn || !btnTextSpan) return;
             
             const count = countMonogramsWithText();
+            const btnCountSpan = toggleBtn.querySelector('.monogram-btn-count');
             
             if (isMonogramBoxOpen) {
-              btnTextSpan.textContent = 'Edit Monogram';
+              btnTextSpan.textContent = 'Remove Monogram';
               if (btnCountSpan && count > 0) {
                 btnCountSpan.textContent = count + ' added';
                 btnCountSpan.style.display = 'block';
@@ -878,7 +892,7 @@
               }
             } else {
               if (count > 0) {
-                btnTextSpan.textContent = 'Edit Monogram';
+                btnTextSpan.textContent = 'Remove Monogram';
                 if (btnCountSpan) {
                   btnCountSpan.textContent = count + ' added';
                   btnCountSpan.style.display = 'block';
@@ -1024,6 +1038,7 @@
               const textInput = monogramItem.querySelector('.monogram-text-input-item');
               const previewText = monogramItem.querySelector('.monogram-preview-text-item');
               const imageContainer = monogramItem.querySelector('.monogram-image-container-item');
+              const addedBadge = monogramItem.querySelector('.monogram-added-badge');
               
               // Update images for current variant if variant has images
               if (imageContainer && variantImagesData[currentVariantId] && variantImagesData[currentVariantId].images && variantImagesData[currentVariantId].images.length > 0) {
@@ -1065,6 +1080,7 @@
                 textInput: textInput,
                 previewText: previewText,
                 imageContainer: imageContainer,
+                addedBadge: addedBadge,
                 position: { x: 50, y: 50 }
               };
               monogramItemsData.push(itemData);
@@ -1101,6 +1117,10 @@
             function updateItemPreviewText() {
               const text = itemData.textInput ? itemData.textInput.value : '';
               itemData.previewText.textContent = text;
+              
+              if (itemData.addedBadge) {
+                itemData.addedBadge.style.display = text.trim().length > 0 ? 'inline-block' : 'none';
+              }
               
               if (itemData.colorSelect && itemData.colorSelect.value) {
                 const color = itemData.colorSelect.value.toLowerCase();
@@ -1149,6 +1169,7 @@
                 updateItemPreviewText();
                 updateMonogramTotalPrice();
                 updateATCButtonState();
+                updateMonogramButton();
               });
             }
             
@@ -1251,6 +1272,18 @@
               console.log('[Monogram] Toggle button clicked');
               const wasVisible = monogramBox.style.display !== 'none';
               isMonogramBoxOpen = !wasVisible;
+              
+              if (wasVisible) {
+                // If closing (removing), clear all inputs
+                if (monogramItemsData) {
+                  monogramItemsData.forEach(function(item) {
+                    if (item.textInput) item.textInput.value = '';
+                    if (item.previewText) item.previewText.textContent = '';
+                  });
+                }
+                if (checkboxTerms) checkboxTerms.checked = false;
+              }
+
               monogramBox.style.display = wasVisible ? 'none' : 'block';
               console.log('[Monogram] Monogram box display set to:', monogramBox.style.display);
               
@@ -1357,15 +1390,21 @@
                 console.log('[Monogram] New bundle has', itemCount, 'monogram items');
                 
                 if (isMonogramBoxOpen) {
-                  // Regenerate monogram items for the new bundle
-                  console.log('[Monogram] Regenerating', itemCount, 'monogram items');
-                  generateMonogramItems(itemCount);
+                  console.log('[Monogram] Bundle changed - closing monogram box to reset state and enable ATC');
+                  // Close the box to prevent "Disabled ATC" state with empty inputs
+                  isMonogramBoxOpen = false;
+                  if (monogramBox) monogramBox.style.display = 'none';
                   
-                  // After regenerating, read colors from the new bundle and update images
-                  setTimeout(function() {
-                    console.log('[Monogram] Reading colors from newly selected bundle');
-                    updateAllMonogramItemsFromBundleColors();
-                  }, 200);
+                  // Clear items
+                  monogramItemsData = [];
+                  if (monogramItemsContainer) monogramItemsContainer.innerHTML = '';
+                  
+                  // Update UI
+                  updateMonogramButton();
+                  updateATCButtonState();
+                } else {
+                   // Even if closed, ensure ATC state is correct
+                   updateATCButtonState();
                 }
               }, 150); // Wait for DOM to update
             }
