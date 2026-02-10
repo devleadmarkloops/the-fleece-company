@@ -150,12 +150,14 @@
                     assign lazy_load = false
                   endif
                 -%}
+
               {% if current_sort == 'best-selling' %}
               {% assign counter = counter |plus: 1 %}
               {% else %}
               {% assign counter = '' %}
               {% endif %}
                 {% if section.settings.enable_color_as_products or product.metafields.custom.color_as_products.value == true %}
+
                   {% for option in product.options_with_values %}
                     {% if option.name == 'Color' or option.name == 'Colour' %}
                       {% for value in option.values %}
