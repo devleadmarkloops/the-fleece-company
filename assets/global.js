@@ -1268,6 +1268,16 @@ class ProductGallery extends SliderComponent {
     super();
   }
 
+  initPages() {
+    if (this.classList.contains('slider--fade')) {
+      this.sliderItemsToShow = Array.from(this.sliderItems).filter(element => element.clientWidth > 0 || element.classList.contains('is-active'));
+      this.totalPages = this.sliderItemsToShow.length;
+      this.update();
+      return;
+    }
+    super.initPages();
+  }
+
   init() {
     super.init();
 
