@@ -1062,23 +1062,24 @@
         /* ========== RESPONSIVE ========== */
         @media (max-width: 640px) {
           .monogram-modal-overlay {
-            padding: 0;
+            padding: 15px;
             display: flex;
-            align-items: flex-start;
+            align-items: center; /* CENTERED */
             justify-content: center;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
+            background: rgba(0,0,0,0.6); /* DARKER OVERLAY */
           }
           .monogram-modal {
-            max-height: 92vh;
-            max-height: 92dvh;
+            max-height: 94vh;
+            max-height: 94dvh;
             width: 100%;
-            margin: auto 0 0 0; /* Align to bottom like a sheet, which is best for keyboards */
-            border-radius: 20px 20px 0 0;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.2);
+            margin: auto; /* CENTERED */
+            border-radius: 16px; /* CIRCULAR CORNERS */
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
           }
           .monogram-modal-header {
-            padding: 14px 16px;
+            padding: 16px;
           }
           .monogram-modal-body {
             padding: 16px;
@@ -1184,19 +1185,6 @@
             padding: 14px 16px;
           }
 
-          /* COMPACT MODE: Hide image when typing to bypass keyboard squashing */
-          .monogram-modal:has(.monogram-text-input:focus) .monogram-detail-image-wrap {
-            display: none;
-          }
-          .monogram-modal:has(.monogram-text-input:focus) .monogram-detail-content {
-            gap: 0;
-          }
-          .monogram-modal:has(.monogram-text-input:focus) .monogram-detail-title {
-            margin-bottom: 5px;
-          }
-          .monogram-modal:has(.monogram-text-input:focus) .monogram-modal-header {
-            padding: 8px 16px;
-          }
         }
 
         /* ========== TERMS CHECKBOX (In Modal) ========== */
@@ -1397,6 +1385,34 @@
                              document.querySelector('button[type="submit"][name="add"]');
             
             if (!atcButtonCurrent) return;
+
+            // Updated Visual Viewport Logic for "Android-style" behavior on iOS
+            if (window.visualViewport) {
+              const syncViewport = () => {
+                const height = window.visualViewport.height;
+                const offset = window.visualViewport.offsetTop;
+                
+                // Update the overlay height and position
+                if (selectionOverlay) {
+                  selectionOverlay.style.height = height + 'px';
+                  selectionOverlay.style.top = offset + 'px';
+                }
+                if (detailOverlay) {
+                  detailOverlay.style.height = height + 'px';
+                  detailOverlay.style.top = offset + 'px';
+                }
+                
+                // Limit modal size so it never exceeds the visible space (keyboard-aware)
+                document.querySelectorAll('.monogram-modal').forEach(modal => {
+                  modal.style.maxHeight = (height - 20) + 'px';
+                });
+              };
+
+              window.visualViewport.addEventListener('resize', syncViewport);
+              window.visualViewport.addEventListener('scroll', syncViewport);
+              // Initial sync
+              syncViewport();
+            }
             
             // In new popup flow, check if user has added any monograms
             const completedCount = Object.values(monogramCompletedItems).filter(Boolean).length;
