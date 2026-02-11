@@ -104,7 +104,7 @@
     }
 
     {%- liquid
-      assign first_image = product.media.first
+      assign first_image = product.selected_or_first_available_variant.featured_media
 
       if product.selected_or_first_available_variant.featured_media != null and section.settings.show_featured_media == false
         assign featured_media = product.selected_or_first_available_variant.featured_media
