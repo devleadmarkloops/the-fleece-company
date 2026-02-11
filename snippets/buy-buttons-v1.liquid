@@ -147,18 +147,18 @@
                       </div>
 
                       <div class="monogram-options-panel">
-                        <div class="monogram-item-header">
+                        <div class="monogram-item-header" style="display: flex; align-items: center; margin-bottom: 15px;">
                           <h4 class="monogram-item-title">Monogram <span class="monogram-item-number">1</span></h4>
+                          <span class="monogram-added-badge" style="display: none;">Added</span>
                         </div>
 
                         <label class="monogram-label-item">Font Style</label>
                         <select class="monogram-style-select monogram-style-select-item">
-                          <option value="">Choose a style</option>
                           {%- if shop.metaobjects.monogram_fonts.values != blank -%}
                             {%- for font in shop.metaobjects.monogram_fonts.values -%}
                               {%- assign font_display_name = font.font_name.value -%}
                               {%- if font_display_name == 'Playfair Display' -%}{%- assign font_display_name = 'Classic Serif' -%}{%- elsif font_display_name == 'Pinyon Script' -%}{%- assign font_display_name = 'Elegant Script' -%}{%- endif -%}
-                              <option value="{{ font.font_name.value }}" data-url="{{ font.font_url1.value }}">
+                              <option value="{{ font.font_name.value }}" data-url="{{ font.font_url1.value }}" {% if font_display_name == 'Classic Serif' %}selected{% endif %}>
                                 {{ font_display_name }}
                               </option>
                             {%- endfor -%}
@@ -167,8 +167,7 @@
 
                         <label class="monogram-label-item">Text Color</label>
                         <select class="monogram-color-select monogram-color-select-item">
-                          <option value="">Choose a color</option>
-                          <option value="Black">Black</option>
+                          <option value="Black" selected>Black</option>
                           <option value="White">White</option>
                         </select>
 
@@ -198,7 +197,10 @@
                 </div>
               </div>
               <button type="button" class="monogram-toggle-btn" id="monogram-toggle-{{ section.id }}">
-                <span class="monogram-btn-text">Add Monogram</span>
+                <div class="monogram-btn-content">
+                  <span class="monogram-btn-text">Add Monogram</span>
+                  <span class="monogram-btn-count" style="display: none;"></span>
+                </div>
               </button>
             </div>
             {%- endif -%}
@@ -525,6 +527,26 @@
           position:relative;
           background:#f6f3ee;
           color:#000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 50px;
+        }
+        .monogram-btn-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          line-height: 1.2;
+          width: 100%;
+          z-index: 11;
+        }
+        .monogram-btn-count {
+          font-size: 13px;
+          font-weight: 400;
+          margin-top: 5px;
+          text-transform: none;
+          letter-spacing: 0;
         }
         .monogram-toggle-btn:before {
           border: 1px solid #000;
@@ -574,8 +596,20 @@
         .monogram-item-title {
           font-size: 16px;
           font-weight: 600;
-          margin: 0 0 15px 0;
+          margin: 0;
           text-transform: uppercase;
+        }
+        .monogram-added-badge {
+          background: #000;
+          color: #fff;
+          font-size: 10px;
+          padding: 2px 8px;
+          border-radius: 12px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          font-weight: 700;
+          margin-left: 10px;
+          vertical-align: middle;
         }
         .monogram-content-wrapper {
           display: flex;
@@ -781,33 +815,43 @@
           
           // Update button disable state
           function updateATCButtonState() {
-            if (!atcButton) return;
+            // Robust button finding with multiple fallbacks
+            const sectionIdVal = '{{ section.id }}';
+            const atcButtonCurrent = document.getElementById('ProductSubmitButton-{{ section_id }}') || 
+                             document.getElementById('ProductSubmitButton-' + sectionIdVal) ||
+                             document.querySelector('#ProductSubmitButton-' + sectionIdVal) ||
+                             wrapper?.closest('product-form')?.querySelector('button[type="submit"][name="add"]') ||
+                             document.querySelector('button[type="submit"][name="add"]');
+
+            if (!atcButtonCurrent) return;
             
-            const boxIsOpen = monogramBox && monogramBox.style.display !== 'none';
             const checkboxChecked = checkboxTerms && checkboxTerms.checked;
-            const hasText = hasAnyMonogramText();
+            const textCount = countMonogramsWithText();
+            const hasText = textCount > 0;
             
-            console.log('[Monogram] updateATCButtonState:', { boxIsOpen, checkboxChecked, hasText });
+            // Should we disable strictly for monogram reasons?
+            // Only disable if user HAS entered text but HAS NOT checked the terms.
+            const shouldDisable = hasText && !checkboxChecked;
             
-            // Check if button was disabled by theme for product unavailability (before our changes)
-            const hasDataUnavailable = atcButton.hasAttribute('data-unavailable') && atcButton.getAttribute('data-unavailable') === 'true';
-            
-            if (boxIsOpen && (!checkboxChecked || !hasText)) {
-              // Monogram box is open but requirements not met (need checkbox AND at least one text filled)
-              atcButton.classList.add('monogram-disabled');
-              atcButton.disabled = true;
-              console.log('[Monogram] Button disabled - checkbox:', checkboxChecked, 'hasText:', hasText);
-            } else if (!hasDataUnavailable) {
-              // Requirements met OR box is closed, and product is available - enable
-              atcButton.classList.remove('monogram-disabled');
-              atcButton.disabled = false;
-              console.log('[Monogram] Button enabled');
+            if (shouldDisable) {
+              atcButtonCurrent.classList.add('monogram-disabled');
+              atcButtonCurrent.disabled = true;
             } else {
-              // Product is unavailable - keep disabled but remove monogram-disabled class
-              atcButton.classList.remove('monogram-disabled');
-              console.log('[Monogram] Button kept disabled (product unavailable)');
+              atcButtonCurrent.classList.remove('monogram-disabled');
+              
+              // Enable the button IF it's not actually sold out
+              const btnText = atcButtonCurrent.textContent.toLowerCase();
+              const isSoldOut = atcButtonCurrent.hasAttribute('data-unavailable') && atcButtonCurrent.getAttribute('data-unavailable') === 'true';
+              const soldOutByText = btnText.includes('sold_out') || btnText.includes('sold out') || btnText.includes('unavailable');
+              
+              if (!isSoldOut && !soldOutByText) {
+                atcButtonCurrent.disabled = false;
+              }
             }
           }
+
+          // Small delay on initial load to ensure we override theme defaults
+          setTimeout(updateATCButtonState, 500);
 
           if (checkboxTerms) {
             checkboxTerms.addEventListener('change', updateATCButtonState);
@@ -815,6 +859,7 @@
 
           let loadedFonts = {};
           const btnTextSpan = toggleBtn ? toggleBtn.querySelector('.monogram-btn-text') : null;
+          const btnCountSpan = toggleBtn ? toggleBtn.querySelector('.monogram-btn-count') : null;
           const totalPriceDisplay = document.getElementById('monogram-total-price-{{ section.id }}');
           const totalPriceValue = totalPriceDisplay ? totalPriceDisplay.querySelector('.monogram-total-price-value') : null;
           
@@ -833,7 +878,32 @@
           // Update button text
           function updateMonogramButton() {
             if (!toggleBtn || !btnTextSpan) return;
-            btnTextSpan.textContent = isMonogramBoxOpen ? 'Remove Monogram' : 'Add Monogram';
+            
+            const count = countMonogramsWithText();
+            const btnCountSpan = toggleBtn.querySelector('.monogram-btn-count');
+            
+            if (isMonogramBoxOpen) {
+              btnTextSpan.textContent = 'Remove Monogram';
+              if (btnCountSpan && count > 0) {
+                btnCountSpan.textContent = count + ' added';
+                btnCountSpan.style.display = 'block';
+              } else if (btnCountSpan) {
+                btnCountSpan.style.display = 'none';
+              }
+            } else {
+              if (count > 0) {
+                btnTextSpan.textContent = 'Remove Monogram';
+                if (btnCountSpan) {
+                  btnCountSpan.textContent = count + ' added';
+                  btnCountSpan.style.display = 'block';
+                }
+              } else {
+                btnTextSpan.textContent = 'Add Monogram';
+                if (btnCountSpan) {
+                  btnCountSpan.style.display = 'none';
+                }
+              }
+            }
           }
           
           // Update total price and unit price display
@@ -968,6 +1038,7 @@
               const textInput = monogramItem.querySelector('.monogram-text-input-item');
               const previewText = monogramItem.querySelector('.monogram-preview-text-item');
               const imageContainer = monogramItem.querySelector('.monogram-image-container-item');
+              const addedBadge = monogramItem.querySelector('.monogram-added-badge');
               
               // Update images for current variant if variant has images
               if (imageContainer && variantImagesData[currentVariantId] && variantImagesData[currentVariantId].images && variantImagesData[currentVariantId].images.length > 0) {
@@ -1009,19 +1080,20 @@
                 textInput: textInput,
                 previewText: previewText,
                 imageContainer: imageContainer,
+                addedBadge: addedBadge,
                 position: { x: 50, y: 50 }
               };
               monogramItemsData.push(itemData);
               
               if (previewText) {
                 previewText.style.position = 'absolute';
-                previewText.style.top = '60%';
-                previewText.style.left = '50%';
+                previewText.style.top = '50%';
+                previewText.style.left = '42%';
                 previewText.style.transform = 'translate(-50%, -50%)';
                 previewText.style.color = '#000000';
                 previewText.style.display = 'block';
                 previewText.style.zIndex = '10';
-                previewText.style.fontSize = '28px';
+                previewText.style.fontSize = '36px';
                 previewText.style.fontWeight = '400';
                 previewText.style.textTransform = 'none';
                 previewText.style.whiteSpace = 'nowrap';
@@ -1045,6 +1117,10 @@
             function updateItemPreviewText() {
               const text = itemData.textInput ? itemData.textInput.value : '';
               itemData.previewText.textContent = text;
+              
+              if (itemData.addedBadge) {
+                itemData.addedBadge.style.display = text.trim().length > 0 ? 'inline-block' : 'none';
+              }
               
               if (itemData.colorSelect && itemData.colorSelect.value) {
                 const color = itemData.colorSelect.value.toLowerCase();
@@ -1093,6 +1169,7 @@
                 updateItemPreviewText();
                 updateMonogramTotalPrice();
                 updateATCButtonState();
+                updateMonogramButton();
               });
             }
             
@@ -1195,6 +1272,18 @@
               console.log('[Monogram] Toggle button clicked');
               const wasVisible = monogramBox.style.display !== 'none';
               isMonogramBoxOpen = !wasVisible;
+              
+              if (wasVisible) {
+                // If closing (removing), clear all inputs
+                if (monogramItemsData) {
+                  monogramItemsData.forEach(function(item) {
+                    if (item.textInput) item.textInput.value = '';
+                    if (item.previewText) item.previewText.textContent = '';
+                  });
+                }
+                if (checkboxTerms) checkboxTerms.checked = false;
+              }
+
               monogramBox.style.display = wasVisible ? 'none' : 'block';
               console.log('[Monogram] Monogram box display set to:', monogramBox.style.display);
               
@@ -1301,15 +1390,21 @@
                 console.log('[Monogram] New bundle has', itemCount, 'monogram items');
                 
                 if (isMonogramBoxOpen) {
-                  // Regenerate monogram items for the new bundle
-                  console.log('[Monogram] Regenerating', itemCount, 'monogram items');
-                  generateMonogramItems(itemCount);
+                  console.log('[Monogram] Bundle changed - closing monogram box to reset state and enable ATC');
+                  // Close the box to prevent "Disabled ATC" state with empty inputs
+                  isMonogramBoxOpen = false;
+                  if (monogramBox) monogramBox.style.display = 'none';
                   
-                  // After regenerating, read colors from the new bundle and update images
-                  setTimeout(function() {
-                    console.log('[Monogram] Reading colors from newly selected bundle');
-                    updateAllMonogramItemsFromBundleColors();
-                  }, 200);
+                  // Clear items
+                  monogramItemsData = [];
+                  if (monogramItemsContainer) monogramItemsContainer.innerHTML = '';
+                  
+                  // Update UI
+                  updateMonogramButton();
+                  updateATCButtonState();
+                } else {
+                   // Even if closed, ensure ATC state is correct
+                   updateATCButtonState();
                 }
               }, 150); // Wait for DOM to update
             }
