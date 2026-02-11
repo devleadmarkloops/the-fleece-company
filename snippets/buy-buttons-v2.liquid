@@ -1385,34 +1385,6 @@
                              document.querySelector('button[type="submit"][name="add"]');
             
             if (!atcButtonCurrent) return;
-
-            // Updated Visual Viewport Logic for "Android-style" behavior on iOS
-            if (window.visualViewport) {
-              const syncViewport = () => {
-                const height = window.visualViewport.height;
-                const offset = window.visualViewport.offsetTop;
-                
-                // Update the overlay height and position
-                if (selectionOverlay) {
-                  selectionOverlay.style.height = height + 'px';
-                  selectionOverlay.style.top = offset + 'px';
-                }
-                if (detailOverlay) {
-                  detailOverlay.style.height = height + 'px';
-                  detailOverlay.style.top = offset + 'px';
-                }
-                
-                // Limit modal size so it never exceeds the visible space (keyboard-aware)
-                document.querySelectorAll('.monogram-modal').forEach(modal => {
-                  modal.style.maxHeight = (height - 20) + 'px';
-                });
-              };
-
-              window.visualViewport.addEventListener('resize', syncViewport);
-              window.visualViewport.addEventListener('scroll', syncViewport);
-              // Initial sync
-              syncViewport();
-            }
             
             // In new popup flow, check if user has added any monograms
             const completedCount = Object.values(monogramCompletedItems).filter(Boolean).length;
