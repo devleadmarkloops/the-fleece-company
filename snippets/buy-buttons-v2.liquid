@@ -865,10 +865,13 @@
           display: flex;
           gap: 24px;
         }
-        {% comment %} .monogram-detail-image-wrap {
+       @media (min-width: 640px) {
+           .monogram-detail-image-wrap {
           flex: 0 0 280px;
           max-width: 280px;
-        } {% endcomment %}
+        }
+      }
+     
         .monogram-detail-image-container {
           position: relative;
           background: #f5f5f5;
