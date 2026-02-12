@@ -1672,7 +1672,10 @@
                 
                 // Logic to handle Google Fonts specifically and bypass potential broken Metaobject URLs
                 const isPlayfair = fontName.toLowerCase().includes('playfair');
-                const isPinyon = fontName.toLowerCase().includes('pinyon');
+                const isPinyon = fontName.toLowerCase().includes('pinyon') || fontName.toLowerCase().includes('elegant');
+                
+                // Update font size based on style - Elegant script (Pinyon) gets 46px, others 36px
+                itemData.previewText.style.fontSize = isPinyon ? '46px' : '36px';
                 
                 if (isPlayfair) {
                   itemData.previewText.style.fontFamily = '"Playfair Display", serif';
@@ -2160,9 +2163,15 @@
               previewText.textContent = textInput.value;
               
               if (styleSelect && styleSelect.value) {
-                const fontFamily = "'" + styleSelect.value + "', cursive, serif";
+                const fontName = styleSelect.value;
+                const isPinyon = fontName.toLowerCase().includes('pinyon') || fontName.toLowerCase().includes('elegant');
+                
+                // Update font size based on style - Elegant script (Pinyon) gets 46px, others 36px
+                previewText.style.fontSize = isPinyon ? '46px' : '36px';
+                
+                const fontFamily = "'" + fontName + "', cursive, serif";
                 previewText.style.fontFamily = fontFamily;
-                console.log('[Monogram] Applied font-family:', fontFamily);
+                console.log('[Monogram] Applied font-family:', fontFamily, 'at', previewText.style.fontSize);
               }
               
               if (colorSelect && colorSelect.value) {
