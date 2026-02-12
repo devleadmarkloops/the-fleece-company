@@ -258,7 +258,11 @@
                         class="monogram-text-input monogram-text-input-item"
                         name="monogram_text"
                         maxlength="10"
-                        placeholder="Enter text (max 10 cha"
+                        placeholder="Enter text (max 10 chars)"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        autocomplete="off"
+                        spellcheck="false"
                       >
                     </div>
                   </div>
@@ -719,7 +723,7 @@
           font-size: 13px;
           color: #000;
           margin: 4px 0 0 0;
-          font-weight: 500;
+          font-weight: 700;
           line-height: 1.3;
         }
         .monogram-header-title-group {
@@ -784,7 +788,7 @@
           display: none;
         }
         .monogram-selection-subtitle {
-          font-size: 13px;
+          font-size: 14px;
           color: #000000;
           margin: 0 0 20px 0;
           text-align: center;
@@ -865,10 +869,13 @@
           display: flex;
           gap: 24px;
         }
-        .monogram-detail-image-wrap {
+       @media (min-width: 640px) {
+           .monogram-detail-image-wrap {
           flex: 0 0 280px;
           max-width: 280px;
         }
+      }
+     
         .monogram-detail-image-container {
           position: relative;
           background: #f5f5f5;
@@ -1055,16 +1062,24 @@
         /* ========== RESPONSIVE ========== */
         @media (max-width: 640px) {
           .monogram-modal-overlay {
-            padding: 16px;
-            align-items: center;
+            padding: 15px;
+            display: flex;
+            align-items: center; /* CENTERED */
+            justify-content: center;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            background: rgba(0,0,0,0.6); /* DARKER OVERLAY */
           }
           .monogram-modal {
-            max-height: 85vh;
-            border-radius: 20px;
+            max-height: 94vh;
+            max-height: 94dvh;
+            width: 100%;
+            margin: auto; /* CENTERED */
+            border-radius: 16px; /* CIRCULAR CORNERS */
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
           }
           .monogram-modal-header {
-            padding: 14px 16px;
+            padding: 16px;
           }
           .monogram-modal-body {
             padding: 16px;
@@ -1099,7 +1114,7 @@
           }
           .monogram-selection-subtitle {
             margin-bottom: 16px;
-            font-size: 11px;
+            font-size: 13px;
           }
           .monogram-selection-grid {
             grid-template-columns: 1fr;
@@ -1138,24 +1153,38 @@
           }
           .monogram-detail-content {
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
+            flex-shrink: 0; /* Prevent shrinking when viewport is small */
           }
           .monogram-detail-image-container {
             max-width: 100%;
+            height: auto;
+            flex: 0 0 auto;
+            min-height: 120px; /* Ensure image area always has presence */
           }
           .monogram-detail-title {
             font-size: 14px;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
+          }
+          /* Prevent iOS Zoom - ensure at least 16px */
+          .monogram-detail-form .monogram-style-select,
+          .monogram-detail-form .monogram-color-select,
+          .monogram-detail-form .monogram-text-input {
+            font-size: 16px !important;
           }
           .monogram-modal-footer {
             padding: 16px;
+            flex-shrink: 0; /* Sticky footer should not shrink */
           }
           .monogram-modal-footer-btns {
             flex-direction: column-reverse;
+            gap: 10px;
           }
           .monogram-save-btn, .monogram-remove-btn {
             width: 100%;
+            padding: 14px 16px;
           }
+
         }
 
         /* ========== TERMS CHECKBOX (In Modal) ========== */
@@ -1365,23 +1394,27 @@
             
             console.log('[Monogram] updateATCButtonState:', { hasMonograms, checkboxChecked, hasEmptyFields, completedCount });
             
-            // Check if button was disabled by theme for product unavailability
-            const hasDataUnavailable = atcButtonCurrent.hasAttribute('data-unavailable') && atcButtonCurrent.getAttribute('data-unavailable') === 'true';
-            
             if (hasMonograms && (!checkboxChecked || hasEmptyFields)) {
               // User has added monograms but requirements not met - disable
               atcButtonCurrent.classList.add('monogram-disabled');
               atcButtonCurrent.disabled = true;
               console.log('[Monogram] Button disabled - checkbox:', checkboxChecked, 'emptyFields:', hasEmptyFields);
-            } else if (!hasDataUnavailable) {
-              // Requirements met OR no monograms added, and product is available - enable
-              atcButtonCurrent.classList.remove('monogram-disabled');
-              atcButtonCurrent.disabled = false;
-              console.log('[Monogram] Button enabled');
             } else {
-              // Product is unavailable - keep disabled but remove monogram-disabled class
+              // Requirements met OR no monograms added
               atcButtonCurrent.classList.remove('monogram-disabled');
-              console.log('[Monogram] Button kept disabled (product unavailable)');
+              
+              // Check if button should be disabled for other reasons (sold out)
+              const isUnavailable = atcButtonCurrent.hasAttribute('data-unavailable') && atcButtonCurrent.getAttribute('data-unavailable') === 'true' ||
+                                   atcButtonCurrent.classList.contains('sold-out') ||
+                                   atcButtonCurrent.textContent.toLowerCase().includes('sold out');
+              
+              if (!isUnavailable) {
+                atcButtonCurrent.disabled = false;
+                console.log('[Monogram] Button enabled');
+              } else {
+                atcButtonCurrent.disabled = true;
+                console.log('[Monogram] Button kept disabled (product unavailable)');
+              }
             }
           }
 
@@ -1990,7 +2023,7 @@
                 </select>
                 
                 <label class="monogram-label-item">MONOGRAM TEXT</label>
-                <input type="text" class="monogram-text-input" data-item-index="${itemIndex}" maxlength="10" placeholder="Enter text (max 10 chars)" value="${itemData.textInput ? itemData.textInput.value : ''}">
+                <input type="text" class="monogram-text-input" data-item-index="${itemIndex}" maxlength="10" placeholder="Enter text (max 10 chars)" value="${itemData.textInput ? itemData.textInput.value : ''}" autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false">
               </div>
             `;
             
@@ -2495,14 +2528,15 @@
                       const itemIndex = Array.from(variantWrappers).indexOf(wrapper);
                       console.log('[Monogram] Color changed for bundle item index:', itemIndex, '- color:', e.target.value);
                       
-                      // Update ONLY the corresponding monogram item's image
-                      if (itemIndex >= 0 && itemIndex < monogramItemsData.length) {
-                        const selectedColor = e.target.value;
-                        console.log('[Monogram] Updating ONLY monogram item', itemIndex, 'to show image for color:', selectedColor);
-                        updateSingleMonogramItemImage(itemIndex, selectedColor);
-                      } else {
-                        console.warn('[Monogram] Item index out of range:', itemIndex, 'total items:', monogramItemsData.length);
-                      }
+                        // Update ONLY the corresponding monogram item's image
+                        if (itemIndex >= 0 && itemIndex < monogramItemsData.length) {
+                          const selectedColor = e.target.value;
+                          console.log('[Monogram] Updating ONLY monogram item', itemIndex, 'to show image for color:', selectedColor);
+                          updateSingleMonogramItemImage(itemIndex, selectedColor);
+                          updateATCButtonState(); // Ensure ATC button is re-enabled if it was disabled during color change
+                        } else {
+                          console.warn('[Monogram] Item index out of range:', itemIndex, 'total items:', monogramItemsData.length);
+                        }
                     } else {
                       console.warn('[Monogram] Could not find wrapper for color dropdown');
                     }
@@ -3217,6 +3251,9 @@
           // Listen for variant changes to update monogram images
           function handleVariantChange() {
             console.log('[Monogram] Variant change detected');
+            
+            // Always update ATC button state on variant change to ensure it's not stuck disabled
+            updateATCButtonState();
             
             // Only update images if monogram box is open and items exist
             if (!isMonogramBoxOpen || monogramItemsData.length === 0) {

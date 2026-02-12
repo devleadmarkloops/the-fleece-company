@@ -51,6 +51,7 @@ if (!customElements.get('media-gallery')) {
 
       this.preventStickyHeader();
       window.setTimeout(() => {
+        const isFade = this.elements.viewer.classList.contains('slider--fade');
         if (this.elements.thumbnails && !isFade) {
           activeMedia.parentElement.scrollTo({ left: activeMedia.offsetLeft });
         }
@@ -61,7 +62,6 @@ if (!customElements.get('media-gallery')) {
       this.playActiveMedia(activeMedia);
 
       if (this.elements.viewer.update) this.elements.viewer.update();
-      if (isFade && this.elements.viewer.slider) this.elements.viewer.slider.scrollLeft = 0;
 
       if (!this.elements.thumbnails) return;
       const activeThumbnail = this.elements.thumbnails.querySelector(`[data-target="${mediaId}"]`);
