@@ -1674,8 +1674,9 @@
                 const isPlayfair = fontName.toLowerCase().includes('playfair');
                 const isPinyon = fontName.toLowerCase().includes('pinyon') || fontName.toLowerCase().includes('elegant');
                 
-                // Update font size based on style - Elegant script (Pinyon) gets 46px, others 36px
+                // Update font size and position based on style - Elegant script (Pinyon) gets 46px & left 40%, others 36px & left 42%
                 itemData.previewText.style.fontSize = isPinyon ? '46px' : '36px';
+                itemData.previewText.style.left = isPinyon ? '40%' : '42%';
                 
                 if (isPlayfair) {
                   itemData.previewText.style.fontFamily = '"Playfair Display", serif';
@@ -2166,8 +2167,9 @@
                 const fontName = styleSelect.value;
                 const isPinyon = fontName.toLowerCase().includes('pinyon') || fontName.toLowerCase().includes('elegant');
                 
-                // Update font size based on style - Elegant script (Pinyon) gets 46px, others 36px
+                // Update font size and position based on style - Elegant script (Pinyon) gets 46px & left 40%, others 36px & left 42%
                 previewText.style.fontSize = isPinyon ? '46px' : '36px';
+                previewText.style.left = isPinyon ? '40%' : '42%';
                 
                 const fontFamily = "'" + fontName + "', cursive, serif";
                 previewText.style.fontFamily = fontFamily;
