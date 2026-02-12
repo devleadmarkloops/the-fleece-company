@@ -525,7 +525,7 @@
                             </div>
                             {%- render 'loading-spinner' -%}
                             <div class="quantity-price-d5">
-                              {%- if item.variant.compare_at_price != item.final_price -%}
+                              {%- if item.variant.compare_at_price > item.final_price -%}
                                 <dl class="cart-item__discounted-prices">
                                   <dt class="visually-hidden">
                                     {{ 'products.product.price.regular_price' | t }}
