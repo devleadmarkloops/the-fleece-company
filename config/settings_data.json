@@ -81,6 +81,7 @@
     "gift_card_logo": "",
     "gift_card_logo_height": 70,
     "sale_badge_basis": "percentage",
+    "clarity_product_templates": "muslin-blanket-pod-v2",
     "empty_cart_products": "",
     "sections": {
       "main-password-header": {
@@ -168,11 +169,6 @@
       "8605505498557855500": {
         "type": "shopify://apps/bogos-io-free-gift/blocks/app-embed/0432bba6-720a-4e95-be5a-b868386f7aa6",
         "disabled": false,
-        "settings": {}
-      },
-      "1363596835417042534": {
-        "type": "shopify://apps/ex-show-variants-on-collection/blocks/app/96b300bb-3fcc-4240-8a42-4a0c64a30a44",
-        "disabled": true,
         "settings": {}
       }
     }
