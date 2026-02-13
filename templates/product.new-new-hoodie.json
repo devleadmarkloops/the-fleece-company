@@ -194,7 +194,6 @@
         },
         "complementary_Vzi83a": {
           "type": "complementary",
-          "disabled": true,
           "settings": {
             "icon": "none",
             "heading": "Complete the Look",
