@@ -218,8 +218,20 @@
         },
         "text_custom_A3eeDw": {
           "type": "text_custom",
+          "disabled": true,
           "settings": {
             "text_custom": "<strong>Our Blanket became a Hoodie </strong>Our viral fleece blanket, loved by thousands for its unmatched softness and comfort, is now a hoodie. We took the blanket everyone can’t stop talking about and turned it into something you can wear anytime, anywhere. Crafted from 100% skin-friendly materials, this breathable fleece keeps you cozy all year round. With its ultra-soft oversized fit, it wraps you in warmth like a blanket... Only now, it goes wherever you do!",
+            "text_color": "",
+            "text_size": 16,
+            "text_size_mob": 15,
+            "enable_normal": true,
+            "enable_circle": false
+          }
+        },
+        "text_custom_UA7LXR": {
+          "type": "text_custom",
+          "settings": {
+            "text_custom": "<strong>UPDATE: We're currently going viral on social media</strong> and have limited stock remaining!  Take advantage of our quantity discounts.",
             "text_color": "",
             "text_size": 16,
             "text_size_mob": 15,
@@ -289,6 +301,7 @@
         "complementary_Vzi83a",
         "icon_with_text_NArRNw",
         "text_custom_A3eeDw",
+        "text_custom_UA7LXR",
         "collapsible_tab_TbRiah",
         "collapsible_tab-1",
         "shipping_metaobject_tLJRyV",
