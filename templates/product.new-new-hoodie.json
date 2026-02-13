@@ -140,7 +140,7 @@
           "settings": {
             "show_variant_labels": true,
             "picker_type": "button",
-            "swatch_source": "file",
+            "swatch_source": "variant",
             "swatch_type": "round",
             "swatch_size": "medium",
             "enable_swatch_unavailable_click": false,
