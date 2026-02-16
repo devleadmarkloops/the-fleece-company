@@ -39,7 +39,8 @@
           "type": "breadcrumb",
           "settings": {
             "text_style": "body",
-            "show_divider": false
+            "show_divider": false,
+            "hide_mobile": true
           }
         },
         "title": {
