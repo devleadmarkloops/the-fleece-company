@@ -2858,6 +2858,9 @@ span.alert-box:before {
 /* When Icon with Text */
 .product__info-container .icon-text-wr.bg-wr {
   padding: 0.8rem 1.2rem;
-  border: 1px solid var(--text-color);
+  border: 1px solid #121212;
   border-radius: 8px;
+}
+.product__info-container .icon-text-wr.bg-wr p {
+  margin: 0;
 }
