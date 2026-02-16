@@ -1214,7 +1214,7 @@
                 </div>
               {%- when 'icon_text' -%}
                 <div
-                  class="icon-text-wr"
+                  class="icon-text-wr {% if block.settings.enable_bg %} bg-wr{% endif %}"
                   {{ block.shopify_attributes }}
                   style="--icon-size: {{ block.settings.icon_size }}px; --icon-size-mob: {{ block.settings.icon_size_mob }}px;"
                 >
@@ -3518,6 +3518,12 @@ if (nextBtn) {
           "unit": "px",
           "default": 15,
           "label": "Text size (mobile)"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_bg",
+          "default": false,
+          "label": "Enable background"
         }
       ]
     },
