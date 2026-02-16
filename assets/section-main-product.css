@@ -2750,6 +2750,9 @@ span.alert-box:before {
     width: 100%;
     min-width: 0; /* Prevents flexbox from forcing the container wider than it should be */
   }
+  media-gallery[data-desktop-layout="vertical_slider"] use-animate .product__media.media--square {
+    padding-bottom: 100% !important;
+  }
 
   /* Thumbnail wrapper styling */
   media-gallery[data-desktop-layout="vertical_slider"] thumbnail-slider {
