@@ -51,56 +51,52 @@
 </style>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-  const mediaGalleries = document.querySelectorAll('media-gallery[data-desktop-layout="vertical_slider"]');
+    const mediaGalleries = document.querySelectorAll('media-gallery[data-desktop-layout="vertical_slider"]');
 
-  mediaGalleries.forEach((gallery) => {
-    const mainMedia = gallery.querySelector('use-animate');
-    // We now target the UL element directly for height and scrolling
-    const thumbList = gallery.querySelector('.thumbnail-list'); 
+    mediaGalleries.forEach((gallery) => {
+      const mainMedia = gallery.querySelector('use-animate');
+      const thumbList = gallery.querySelector('.thumbnail-list'); 
 
-    if (!mainMedia || !thumbList) return;
+      if (!mainMedia || !thumbList) return;
 
-    // 1. DYNAMIC HEIGHT CALCULATION
-    const resizeObserver = new ResizeObserver((entries) => {
-      for (let entry of entries) {
-        // Apply the exact height of the main media to the UL
-        thumbList.style.maxHeight = `${entry.contentRect.height}px`;
-      }
-    });
-    
-    resizeObserver.observe(mainMedia);
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (let entry of entries) {
+          thumbList.style.maxHeight = `${entry.contentRect.height}px`;
+        }
+      });
+      
+      resizeObserver.observe(mainMedia);
 
-    // 2. DRAG TO SCROLL FUNCTIONALITY
-    let isDown = false;
-    let startY;
-    let scrollTop;
+      let isDown = false;
+      let startY;
+      let scrollTop;
 
-    thumbList.addEventListener('mousedown', (e) => {
-      isDown = true;
-      thumbList.classList.add('is-dragging');
-      startY = e.pageY - thumbList.offsetTop;
-      scrollTop = thumbList.scrollTop;
-    });
+      thumbList.addEventListener('mousedown', (e) => {
+        isDown = true;
+        thumbList.classList.add('is-dragging');
+        startY = e.pageY - thumbList.offsetTop;
+        scrollTop = thumbList.scrollTop;
+      });
 
-    thumbList.addEventListener('mouseleave', () => {
-      isDown = false;
-      thumbList.classList.remove('is-dragging');
-    });
+      thumbList.addEventListener('mouseleave', () => {
+        isDown = false;
+        thumbList.classList.remove('is-dragging');
+      });
 
-    thumbList.addEventListener('mouseup', () => {
-      isDown = false;
-      thumbList.classList.remove('is-dragging');
-    });
+      thumbList.addEventListener('mouseup', () => {
+        isDown = false;
+        thumbList.classList.remove('is-dragging');
+      });
 
-    thumbList.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      e.preventDefault(); 
-      const y = e.pageY - thumbList.offsetTop;
-      const walk = (y - startY) * 2; // Scroll speed multiplier
-      thumbList.scrollTop = scrollTop - walk;
+      thumbList.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault(); 
+        const y = e.pageY - thumbList.offsetTop;
+        const walk = (y - startY) * 2;
+        thumbList.scrollTop = scrollTop - walk;
+      });
     });
   });
-});
 </script>
 <product-info
   id="MainProduct-{{ section.id }}"
@@ -209,6 +205,18 @@
   {%- endif -%}
 
   <section class="page-width section--padding">
+
+    {% for block in section.blocks %}
+      {% if block.type == 'breadcrumb' %}
+        <div class="breadcrumb-wrapper" {{ block.shopify_attributes }}>
+          {% render 'breadcrumbs',
+            text_style: block.settings.text_style,
+            show_divider: block.settings.show_divider
+          %}
+        </div>
+      {% endif %}
+    {% endfor %}
+
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} flex-grid flex-grid--1-col {% if product.media.size > 0 %}flex-grid--2-col-tablet{% else %}product--no-media{% endif %}{% if section.settings.gallery_layout == 'thumbnail_slider' and section.settings.show_thumbnails == false %} product--hide-thumbnails{% endif %}{% if section.settings.image_ratio == 'adapt' %} product--adapt{% endif %}{% if section.settings.mobile_image_ratio == 'adapt' %} product--mobile-adapt{% endif %}{% unless section.settings.enable_image_zoom %} product--zoom-disabled{% endunless %}">
       <product-recently-viewed data-product-id="{{ product.id }}" class="hidden"></product-recently-viewed>
       <div class="flex-grid__item product__media-wrapper">
@@ -1909,13 +1917,6 @@
                   style="--spacing-section-desktop: {{ block.settings.desktop_height }}px; --spacing-section-mobile: {{ block.settings.mobile_height }}px;"
                   {{ block.shopify_attributes }}
                 ></div>
-              {%- when 'breadcrumb' -%}
-                <div class="breadcrumb-wrapper" {{ block.shopify_attributes }}>
-                  {% render 'breadcrumbs',
-                    text_style: block.settings.text_style,
-                    show_divider: block.settings.show_divider
-                  %}
-                </div>
               {%- when 'complementary' -%}
                 <product-recommendations
                   class="complementary-products{% if block.settings.make_collapsible_row %} is-accordion{% endif %} no-js-hidden"
