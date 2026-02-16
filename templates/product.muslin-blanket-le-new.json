@@ -95,8 +95,7 @@
             "icon_size_mob": 24,
             "text_size": 14,
             "text_size_mob": 13,
-            "text_color": "#000000",
-            "enable_bg": false
+            "text_color": "#000000"
           }
         },
         "text_custom_Lpng9n": {
@@ -116,9 +115,9 @@
           "settings": {
             "show_variant_labels": true,
             "picker_type": "button",
-            "swatch_source": "variant",
+            "swatch_source": "file",
             "swatch_type": "round",
-            "swatch_size": "large",
+            "swatch_size": "medium",
             "enable_swatch_unavailable_click": false,
             "enable_limited": true,
             "limited_heading": "Limited Edition",
