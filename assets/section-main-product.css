@@ -2865,6 +2865,15 @@ span.alert-box:before {
 .product__info-container .icon-text-wr.bg-wr p {
   margin: 0;
 }
+/* When Icon with Text Grid (2x2) */
+.product__info-container .icon-text-grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 1.5rem;
+  row-gap: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
 
 @media screen and (max-width: 749px) {
   .product__info-container .icon-text-wr.bg-wr {
