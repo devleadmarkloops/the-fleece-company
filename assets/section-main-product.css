@@ -2822,4 +2822,8 @@ span.alert-box:before {
   border: 1px solid #B4B4B4;
   border-radius: 8px;
 }
-.product__media-wrapper .iwt-gallery-wr .iwt-gallery-item
+.product__media-wrapper .iwt-gallery-wr .iwt-gallery-item img {
+  width: auto;
+  height: 1.8rem;
+  object-fit: contain;
+}
