@@ -66,17 +66,6 @@
             "sale_badge_basis": "percentage"
           }
         },
-        "text_custom_Vpdkyw": {
-          "type": "text_custom",
-          "settings": {
-            "text_custom": "<strong>Live Now: Buy 1 get 1 FREE</strong>",
-            "text_color": "#a63e3e",
-            "text_size": 16,
-            "text_size_mob": 16,
-            "enable_normal": true,
-            "enable_circle": false
-          }
-        },
         "icon_text_9Gxbx4": {
           "type": "icon_text",
           "settings": {
@@ -84,9 +73,25 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Lightweight",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
+          }
+        },
+        "icon_text_qnifkh": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/lightweight.png",
+            "icon_size": 32,
+            "icon_size_mob": 28,
+            "icon_text": "Lightweight",
+            "icon_richtext": "",
+            "text_color": "#121212",
+            "text_size": 16,
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_KLMX3D": {
@@ -96,9 +101,11 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Incredibly Soft",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_R7iXXY": {
@@ -108,9 +115,11 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Breathable",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "text_custom_Lpng9n": {
@@ -263,8 +272,8 @@
         "breadcrumb_LGWKpR",
         "title",
         "price",
-        "text_custom_Vpdkyw",
         "icon_text_9Gxbx4",
+        "icon_text_qnifkh",
         "icon_text_KLMX3D",
         "icon_text_R7iXXY",
         "text_custom_Lpng9n",
