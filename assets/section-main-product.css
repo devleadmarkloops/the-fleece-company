@@ -2832,3 +2832,16 @@ span.alert-box:before {
   letter-spacing: 0;
   line-height: 1;
 }
+
+@media screen and (max-width: 749px) {
+  .product__media-wrapper .iwt-gallery-wr {
+    top: 1.5rem;
+    left: 1.5rem;
+  }
+  .product__media-wrapper .iwt-gallery-wr .iwt-gallery-item img {
+    height: 1.5rem;
+  }
+  .product__media-wrapper .iwt-gallery-wr .iwt-gallery-item .icon-text {
+    font-size: 1.1rem;
+  }
+}
