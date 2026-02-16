@@ -2798,3 +2798,9 @@ span.alert-box:before {
     display: none; 
   }
 }
+
+.product__media-wrapper .iwt-gallery-wr {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+}
