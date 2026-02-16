@@ -2734,6 +2734,7 @@ span.alert-box:before {
   }
 }
 
+/* ##### New Product Template Design ##### */
 /* Apply only on desktop to keep mobile layout unchanged */
 @media screen and (min-width: 990px) { 
   media-gallery[data-desktop-layout="vertical_slider"] {
