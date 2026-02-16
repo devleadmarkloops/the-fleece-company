@@ -2857,6 +2857,7 @@ span.alert-box:before {
 }
 /* When Icon with Text */
 .product__info-container .icon-text-wr.bg-wr {
+  gap: 0.7rem;
   padding: 0.8rem 1.2rem;
   border: 1px solid #121212;
   border-radius: 8px;
@@ -2867,6 +2868,7 @@ span.alert-box:before {
 
 @media screen and (max-width: 749px) {
   .product__info-container .icon-text-wr.bg-wr {
+    gap: 0.55rem;
     padding: 0.7rem 1rem;
   }
 }
