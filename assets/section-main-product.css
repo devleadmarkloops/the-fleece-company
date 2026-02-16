@@ -2735,8 +2735,15 @@ span.alert-box:before {
 }
 
 /* ##### New Product Template Design ##### */
+@media screen and (min-width: 750px) {
+  media-gallery[data-desktop-layout="vertical_slider"].product__media-gallery {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+}
 /* Apply only on desktop to keep mobile layout unchanged */
-@media screen and (min-width: 990px) { 
+@media screen and (min-width: 990px) {
   media-gallery[data-desktop-layout="vertical_slider"] {
     display: flex;
     flex-direction: row-reverse;
