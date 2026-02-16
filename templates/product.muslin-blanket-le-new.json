@@ -267,7 +267,7 @@
         "enable_sticky_info": true,
         "media_position": "left",
         "media_size": "large",
-        "gallery_layout": "thumbnail_slider",
+        "gallery_layout": "stacked",
         "image_ratio": "square",
         "show_featured_media": true,
         "show_thumbnails": false,
