@@ -208,7 +208,7 @@
 
     {% for block in section.blocks %}
       {% if block.type == 'breadcrumb' %}
-        <div class="breadcrumb-wrapper" {{ block.shopify_attributes }}>
+        <div class="breadcrumb-wrapper{% if block.settings.hide_mobile %} small-hide{% endif %}" {{ block.shopify_attributes }}>
           {% render 'breadcrumbs',
             text_style: block.settings.text_style,
             show_divider: block.settings.show_divider
@@ -2656,6 +2656,12 @@ if (nextBtn) {
           "id": "show_divider",
           "default": false,
           "label": "t:sections.all.show_divider.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_mobile",
+          "default": false,
+          "label": "Hide on mobile"
         }
       ]
     },
