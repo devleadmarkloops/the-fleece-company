@@ -70,7 +70,7 @@
     "empty_cart_button_secondary": true,
     "search_recommendation": "search-menu",
     "predictive_search_show_vendor": true,
-    "swatch_config": "Vanilla:#EDD3BF\nLatte:#D1A377\nCaramel:#6B3E13\nEspresso:#523D32\nWhite:#ffffff\nBlue:#5A718D\nDark Grey:#AFACA8\nPink:#E9B6B7\nDune:#DCBFA4\nBrown:#D29673\nGreen:#B7C1AC\nGrey:#808080",
+    "swatch_config": "Vanilla:#EDD3BF\nLatte:#D1A377\nCaramel:#6B3E13\nEspresso:#523D32\nWhite:#fafafa\nBlue:#5A718D\nDark Grey:#AFACA8\nPink:#E9B6B7\nDune:#DCBFA4\nBrown:#D29673\nGreen:#B7C1AC\nGrey:#808080",
     "social_facebook_link": "https://facebook.com/shopify",
     "social_twitter_link": "https://twitter.com/shopify",
     "social_pinterest_link": "https://pinterest.com/shopify",
