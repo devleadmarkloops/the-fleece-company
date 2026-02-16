@@ -1466,6 +1466,7 @@
                         const selectedColor = e.target.value;
                         console.log('[Monogram] Updating ONLY monogram item', itemIndex, 'to show image for color:', selectedColor);
                         updateSingleMonogramItemImage(itemIndex, selectedColor);
+                        updateATCButtonState(); // Ensure ATC button is re-enabled if it was disabled during color change
                       } else {
                         console.warn('[Monogram] Item index out of range:', itemIndex, 'total items:', monogramItemsData.length);
                       }
