@@ -2832,6 +2832,9 @@ span.alert-box:before {
   letter-spacing: 0;
   line-height: 1;
 }
+.breadcrumb-wrapper {
+  padding-bottom: 1rem;
+}
 
 @media screen and (max-width: 749px) {
   .product__media-wrapper .iwt-gallery-wr {
