@@ -21,12 +21,12 @@
       {%- endif %}
       
       <span class="breadcrumb__divider" aria-hidden="true">/</span>
+      <span>{{ product.title }}</span>
 
     {%- elsif template.name == 'collection' and collection.handle %}
       <span class="breadcrumb__divider" aria-hidden="true">/</span>
 
       {%- if current_tags -%}
-
         {% capture url %}{{ routes.collections_url }}/{{ collection.handle }}{% endcapture %}
         {{ collection.title | link_to: url, class: "link" }}
 
@@ -54,40 +54,41 @@
           {%- endunless -%}
 
         {%- endfor -%}
+      {%- else -%}
+        <span>{{ collection.title }}</span>
       {%- endif -%}
 
     {%- elsif template.name == 'blog' %}
-
       <span class="breadcrumb__divider" aria-hidden="true">/</span>
       {%- if current_tags %}
         {{ blog.title | link_to: blog.url, class: "link" }}
         <span class="breadcrumb__divider" aria-hidden="true">/</span>
         <span>{{ current_tags | join: " + " }}</span>
+      {%- else -%}
+        <span>{{ blog.title }}</span>
       {%- endif -%}
 
     {%- elsif template.name == 'article' %}
-
       <span class="breadcrumb__divider" aria-hidden="true">/</span>
       {{ blog.title | link_to: blog.url, class: "link" }}
       <span class="breadcrumb__divider" aria-hidden="true">/</span>
+      <span>{{ article.title }}</span>
 
     {%- elsif template.name == 'page' %}
-
       <span class="breadcrumb__divider" aria-hidden="true">/</span>
       <span>{{ page.title }}</span>
 
     {%- elsif template.name == 'search' %}
-
       <span class="breadcrumb__divider" aria-hidden="true">/</span>
       <span>{{ page_title | replace: '*', '' }}</span>
 
     {%- else %}
-
       <span class="breadcrumb__divider" aria-hidden="true">/</span>
       <span>{{ page_title }}</span>
 
     {%- endif -%}
   </nav>
+
   <script type="application/ld+json">
     {
       "@context": "https://schema.org/",
