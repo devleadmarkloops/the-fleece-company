@@ -2833,7 +2833,7 @@ span.alert-box:before {
   line-height: 1;
 }
 .breadcrumb-wrapper {
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
 }
 
 @media screen and (max-width: 749px) {
