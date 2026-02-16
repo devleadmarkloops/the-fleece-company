@@ -2807,9 +2807,19 @@ span.alert-box:before {
   top: 2rem;
   left: 2rem;
   z-index: 1;
-  width: 100%;
+  max-width: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
 }
+.product__media-wrapper .iwt-gallery-wr .iwt-gallery-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem;
+  background-color: #fff;
+  border: 1px solid #B4B4B4;
+  border-radius: 4px;
+}
+.product__media-wrapper .iwt-gallery-wr .iwt-gallery-item
