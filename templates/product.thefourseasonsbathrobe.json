@@ -58,6 +58,17 @@
             "sale_badge_basis": "percentage"
           }
         },
+        "text_custom_aCgja3": {
+          "type": "text_custom",
+          "settings": {
+            "text_custom": "<strong>Live Now: Buy 1 get 1 FREE</strong>",
+            "text_color": "#a63e3e",
+            "text_size": 16,
+            "text_size_mob": 16,
+            "enable_normal": true,
+            "enable_circle": false
+          }
+        },
         "text_custom_Vpdkyw": {
           "type": "text_custom",
           "disabled": true,
@@ -125,6 +136,12 @@
             "custom_liquid": "<style>\n  /* tweak --lh if your theme's line-height looks different */\n  .special-msg {\n    --lh: 1.35;                    /* line-height for this block */\n    --dot: 8px;                    /* dot size */\n    color: #A63E3E;\n    font-weight: 600;\n    display: block;\n    margin: 5px 0;\n    padding-left: 18px;            /* room for the dot */\n    position: relative;\n    line-height: var(--lh);\n    text-align: left !important;\n    white-space: normal;\n    letter-spacing: .3px;\n  }\n\n  .special-msg::before {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    width: var(--dot);\n    height: var(--dot);\n    border-radius: 50%;\n    background: #A63E3E;\n    /* place the dot centered within the FIRST line only */\n    top: calc((var(--lh) * 1em - var(--dot)) / 2);\n    animation: blink 3.5s infinite ease-in-out;\n  }\n\n@keyframes blink {\n  /* Quick fade in */\n  0%   { opacity: 0; }\n  40%  { opacity: 1; }\n\n  /* Hold bright */\n  60%  { opacity: 1; }\n\n  /* Slow fade out */\n  100% { opacity: 0; }\n}\n\n</style>\n\n<div class=\"special-msg\">\n  Limited units available during our <b>Valentine's Day Sale</b>\n</div>"
           }
         },
+        "custom_liquid_LbTgXA": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<style>\n  /* tweak --lh if your theme's line-height looks different */\n  .special-msg {\n    --lh: 1.35;                    /* line-height for this block */\n    --dot: 8px;                    /* dot size */\n    color: #A63E3E;\n    font-weight: 600;\n    display: block;\n    margin: 5px 0;\n    padding-left: 18px;            /* room for the dot */\n    position: relative;\n    line-height: var(--lh);\n    text-align: left !important;\n    white-space: normal;\n    letter-spacing: .3px;\n  }\n\n  .special-msg::before {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    width: var(--dot);\n    height: var(--dot);\n    border-radius: 50%;\n    background: #A63E3E;\n    /* place the dot centered within the FIRST line only */\n    top: calc((var(--lh) * 1em - var(--dot)) / 2);\n    animation: blink 3.5s infinite ease-in-out;\n  }\n\n@keyframes blink {\n  /* Quick fade in */\n  0%   { opacity: 0; }\n  40%  { opacity: 1; }\n\n  /* Hold bright */\n  60%  { opacity: 1; }\n\n  /* Slow fade out */\n  100% { opacity: 0; }\n}\n\n</style>\n\n<div class=\"special-msg\">\n  Limited units available during our <b>Valentine's Day Sale</b>\n</div>"
+          }
+        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -142,9 +159,29 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
+            "buy_buttons_version": "v1",
             "show_quantity_selector": false,
             "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false
+            "show_gift_card_recipient": false,
+            "enable_monogram": false,
+            "monogram_product": ""
+          }
+        },
+        "countdown_timer_NcnznL": {
+          "type": "countdown_timer",
+          "settings": {
+            "heading": "Valentine's Day Sale ENDS IN:",
+            "heading_color": "#ffffff",
+            "background_color": "#c5bbae",
+            "timer_color": "#121212",
+            "label_color": "#121212",
+            "per_visitor_timer": true,
+            "end_date": "2026-01-31 23:59:59",
+            "visitor_days": 0,
+            "visitor_hours": 20,
+            "visitor_minutes": 3,
+            "visitor_seconds": 27,
+            "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
           }
         },
         "countdown_timer_4tCBwt": {
@@ -245,14 +282,17 @@
         "title",
         "rating_static_jQpEEQ",
         "price",
+        "text_custom_aCgja3",
         "text_custom_Vpdkyw",
         "icon_text_KLMX3D",
         "icon_text_9Gxbx4",
         "icon_text_R7iXXY",
         "text_custom_Lpng9n",
         "custom_liquid_xDKKPB",
+        "custom_liquid_LbTgXA",
         "variant_picker",
         "buy_buttons",
+        "countdown_timer_NcnznL",
         "countdown_timer_4tCBwt",
         "icon_with_text_NArRNw",
         "text_custom_A3eeDw",
@@ -276,6 +316,8 @@
         "enable_video_looping": false,
         "mobile_image_ratio": "square",
         "show_mobile_thumbnails": false,
+        "enable_variant_specific_media": false,
+        "enable_fade_slider": true,
         "padding_top": 0,
         "padding_bottom": 20
       }
