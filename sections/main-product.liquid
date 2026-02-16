@@ -49,6 +49,61 @@
     }
   }
 </style>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const mediaGalleries = document.querySelectorAll('media-gallery[data-desktop-layout="vertical_slider"]');
+
+  mediaGalleries.forEach((gallery) => {
+    const mainMedia = gallery.querySelector('use-animate');
+    const thumbSlider = gallery.querySelector('thumbnail-slider');
+
+    if (!mainMedia || !thumbSlider) return;
+
+    // 1. DYNAMIC HEIGHT CALCULATION
+    // ResizeObserver watches the main image and updates the thumbnail wrapper's height instantly
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        // Apply the exact height of the main media wrapper to the thumbnail slider
+        thumbSlider.style.maxHeight = `${entry.contentRect.height}px`;
+      }
+    });
+    
+    // Start observing the main image container
+    resizeObserver.observe(mainMedia);
+
+
+    // 2. DRAG TO SCROLL FUNCTIONALITY
+    let isDown = false;
+    let startY;
+    let scrollTop;
+
+    thumbSlider.addEventListener('mousedown', (e) => {
+      isDown = true;
+      thumbSlider.classList.add('is-dragging'); // Add class for CSS styling
+      startY = e.pageY - thumbSlider.offsetTop;
+      scrollTop = thumbSlider.scrollTop;
+    });
+
+    thumbSlider.addEventListener('mouseleave', () => {
+      isDown = false;
+      thumbSlider.classList.remove('is-dragging');
+    });
+
+    thumbSlider.addEventListener('mouseup', () => {
+      isDown = false;
+      thumbSlider.classList.remove('is-dragging');
+    });
+
+    thumbSlider.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault(); // Prevent text selection/image dragging while scrolling
+      const y = e.pageY - thumbSlider.offsetTop;
+      const walk = (y - startY) * 2; // The multiplier (2) determines scroll speed
+      thumbSlider.scrollTop = scrollTop - walk;
+    });
+  });
+});
+</script>
 <product-info
   id="MainProduct-{{ section.id }}"
   class="section-{{ section.id }}-padding"

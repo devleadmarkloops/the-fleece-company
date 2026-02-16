@@ -2799,4 +2799,30 @@ span.alert-box:before {
   media-gallery[data-desktop-layout="vertical_slider"] .slider-buttons {
     display: none; 
   }
+  /* Thumbnail wrapper styling */
+  media-gallery[data-desktop-layout="vertical_slider"] thumbnail-slider {
+    width: 12rem; /* Adjust thumbnail column width here */
+    flex-shrink: 0;
+    
+    /* Enabled vertical scrolling */
+    overflow-y: auto; 
+    overflow-x: hidden;
+    
+    /* Drag to scroll cursor styles */
+    cursor: grab;
+    
+    /* Sticky positioning */
+    position: sticky;
+    top: 4rem; /* Adjust based on your header height */
+  }
+
+  /* Change cursor when actively dragging */
+  media-gallery[data-desktop-layout="vertical_slider"] thumbnail-slider.is-dragging {
+    cursor: grabbing;
+  }
+  
+  /* Prevent pointer events on images while dragging so the browser doesn't try to "drag and drop" the image itself */
+  media-gallery[data-desktop-layout="vertical_slider"] thumbnail-slider.is-dragging img {
+    pointer-events: none;
+  }
 }
