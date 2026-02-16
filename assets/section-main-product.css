@@ -2832,9 +2832,6 @@ span.alert-box:before {
   letter-spacing: 0;
   line-height: 1;
 }
-.breadcrumb-wrapper {
-  padding-bottom: 1.5rem;
-}
 
 @media screen and (max-width: 749px) {
   .product__media-wrapper .iwt-gallery-wr {
@@ -2847,4 +2844,14 @@ span.alert-box:before {
   .product__media-wrapper .iwt-gallery-wr .iwt-gallery-item .icon-text {
     font-size: 1.1rem;
   }
+}
+
+/* ##### Product Information ##### */
+/* When breadcrumb */
+.breadcrumb-wrapper {
+  padding-bottom: 1.5rem;
+}
+/* When Title */
+.product__info-container .product__title {
+  margin-top: 1rem;
 }
