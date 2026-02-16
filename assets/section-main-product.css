@@ -697,7 +697,7 @@ fieldset.product-form__input .form__label {
 /* Product info */
 
 .product__info-container>*+* {
-  margin: 1rem 0 0;
+  margin: .8rem 0 0;
 }
 
 @media screen and (max-width: 749px) {
