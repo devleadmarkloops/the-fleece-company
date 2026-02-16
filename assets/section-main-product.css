@@ -2811,12 +2811,12 @@ span.alert-box:before {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 .product__media-wrapper .iwt-gallery-wr .iwt-gallery-item {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   padding: 0.5rem 0.7rem;
   background-color: #fff;
   border: 1px solid #B4B4B4;
