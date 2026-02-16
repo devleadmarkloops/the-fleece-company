@@ -35,6 +35,13 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "breadcrumb_WBjCcY": {
+          "type": "breadcrumb",
+          "settings": {
+            "text_style": "body",
+            "show_divider": false
+          }
+        },
         "title": {
           "type": "title",
           "settings": {
@@ -140,6 +147,7 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
+            "buy_buttons_version": "v1",
             "show_quantity_selector": false,
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": false,
@@ -241,6 +249,7 @@
         }
       },
       "block_order": [
+        "breadcrumb_WBjCcY",
         "title",
         "rating_static_jQpEEQ",
         "price",
@@ -275,6 +284,8 @@
         "enable_video_looping": false,
         "mobile_image_ratio": "square",
         "show_mobile_thumbnails": false,
+        "enable_variant_specific_media": false,
+        "enable_fade_slider": true,
         "padding_top": 0,
         "padding_bottom": 20
       }
