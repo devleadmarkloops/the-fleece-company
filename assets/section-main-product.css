@@ -2856,7 +2856,7 @@ span.alert-box:before {
   margin-top: 1rem;
 }
 /* When Icon with Text */
-.icon-text-wr.bg-wr {
+.product__info-container .icon-text-wr.bg-wr {
   padding: 0.8rem 1.2rem;
   border: 1px solid var(--text-color);
   border-radius: 8px;
