@@ -1221,12 +1221,21 @@
                   {% if block.settings.icon != blank %}
                     <img src="{{ block.settings.icon | image_url }}" width="" height="" alt="Icon">
                   {% endif %}
-                  <span
-                    class="icon-text"
-                    style="--text-size: {{ block.settings.text_size }}px; --text-size-mob: {{ block.settings.text_size_mob }}px; --text-color: {{ block.settings.text_color }};"
-                  >
-                    {{ block.settings.icon_text }}
-                  </span>
+                  {% if block.settings.icon_richtext != blank %}
+                    <div
+                      class="icon-text"
+                      style="--text-size: {{ block.settings.text_size }}px; --text-size-mob: {{ block.settings.text_size_mob }}px; --text-color: {{ block.settings.text_color }};"
+                    >
+                      {{ block.settings.icon_richtext }}
+                    </div>
+                  {% else %}
+                    <span
+                      class="icon-text"
+                      style="--text-size: {{ block.settings.text_size }}px; --text-size-mob: {{ block.settings.text_size_mob }}px; --text-color: {{ block.settings.text_color }};"
+                    >
+                      {{ block.settings.icon_text }}
+                    </span>
+                  {% endif %}
                 </div>
               {%- when 'countdown_timer' -%}
                 <div
@@ -3493,6 +3502,11 @@ if (nextBtn) {
           "type": "text",
           "id": "icon_text",
           "label": "Icon text"
+        },
+        {
+          "type": "text",
+          "id": "icon_richtext",
+          "label": "Icon richtext"
         },
         {
           "type": "color",
