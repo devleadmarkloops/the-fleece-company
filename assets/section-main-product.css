@@ -2748,12 +2748,31 @@ span.alert-box:before {
   media-gallery[data-desktop-layout="vertical_slider"] use-animate {
     flex: 1;
     width: 100%;
+    min-width: 0; /* Prevents flexbox from forcing the container wider than it should be */
   }
 
   /* Thumbnail wrapper styling */
   media-gallery[data-desktop-layout="vertical_slider"] thumbnail-slider {
     width: 12rem; /* Adjust thumbnail column width here */
     flex-shrink: 0;
+    
+    /* FIX 1 & 2: Constrain height and enable vertical scrolling */
+    max-height: calc(100vh - 8rem); /* Adjust the 8rem to match your header height + padding */
+    overflow-y: auto; 
+    overflow-x: hidden;
+    
+    /* FIX 3: Make the thumbnails sticky alongside the main image */
+    position: sticky;
+    top: 4rem; /* Adjust based on your header height */
+  }
+
+  /* Optional: Clean scrollbar styling for webkit browsers */
+  media-gallery[data-desktop-layout="vertical_slider"] thumbnail-slider::-webkit-scrollbar {
+    width: 4px;
+  }
+  media-gallery[data-desktop-layout="vertical_slider"] thumbnail-slider::-webkit-scrollbar-thumb {
+    background-color: #d3d3d3; /* Subtle gray scrollbar */
+    border-radius: 4px;
   }
 
   /* Stack thumbnails vertically */
