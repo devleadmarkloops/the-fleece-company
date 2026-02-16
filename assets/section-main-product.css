@@ -2827,3 +2827,8 @@ span.alert-box:before {
   height: 1.8rem;
   object-fit: contain;
 }
+.product__media-wrapper .iwt-gallery-wr .iwt-gallery-item .icon-text {
+  font-size: 1.2rem;
+  letter-spacing: 0;
+  line-height: 1;
+}
