@@ -239,6 +239,15 @@
           "settings": {
             "show_quantity_selector": false
           }
+        },
+        "iwt_gallery_WzN9xF": {
+          "type": "iwt_gallery",
+          "settings": {
+            "icon1": "shopify://shop_images/Vector.svg",
+            "text1": "Light weighted",
+            "icon2": "shopify://shop_images/Vector_1.svg",
+            "text2": "Soft Texture"
+          }
         }
       },
       "block_order": [
@@ -261,7 +270,8 @@
         "collapsible_tab-0",
         "collapsible_tab-1",
         "shipping_metaobject_tLJRyV",
-        "sticky_cart"
+        "sticky_cart",
+        "iwt_gallery_WzN9xF"
       ],
       "settings": {
         "enable_sticky_info": true,
