@@ -2820,7 +2820,7 @@ span.alert-box:before {
   padding: 0.5rem 0.7rem;
   background-color: #fff;
   border: 1px solid #B4B4B4;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 .product__media-wrapper .iwt-gallery-wr .iwt-gallery-item img {
   width: auto;
