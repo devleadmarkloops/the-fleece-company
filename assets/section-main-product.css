@@ -2760,16 +2760,6 @@ span.alert-box:before {
   media-gallery[data-desktop-layout="vertical_slider"] use-animate .product__media.media--square {
     padding-bottom: 100% !important;
   }
-
-  /* Thumbnail wrapper styling */
-  media-gallery[data-desktop-layout="vertical_slider"] thumbnail-slider {
-    width: 12rem; 
-    flex-shrink: 0;
-    position: sticky;
-    top: 4rem; 
-  }
-
-  /* Target the UL directly to override theme defaults and enable scrolling */
   media-gallery[data-desktop-layout="vertical_slider"] .thumbnail-list.slider--tablet-up {
     display: flex;
     flex-direction: column;
@@ -2778,25 +2768,19 @@ span.alert-box:before {
     padding: 0;
     width: 100%;
     max-width: 100% !important;
-    
-    /* FIX: Force vertical scrolling and override the theme's hidden overflow */
     overflow-y: auto !important; 
     overflow-x: hidden !important;
-    scroll-snap-type: y mandatory !important; /* Change horizontal snap to vertical */
-    
+    scroll-snap-type: y mandatory !important;
+  
     cursor: grab;
   }
-
-  /* Dragging states */
   media-gallery[data-desktop-layout="vertical_slider"] .thumbnail-list.is-dragging {
     cursor: grabbing;
-    scroll-snap-type: none !important; /* Disable snap while dragging so it doesn't jump */
+    scroll-snap-type: none !important;
   }
   media-gallery[data-desktop-layout="vertical_slider"] .thumbnail-list.is-dragging img {
     pointer-events: none;
   }
-
-  /* Custom scrollbar applied to the UL */
   media-gallery[data-desktop-layout="vertical_slider"] .thumbnail-list::-webkit-scrollbar {
     width: 4px;
   }
@@ -2804,14 +2788,11 @@ span.alert-box:before {
     background-color: #d3d3d3; 
     border-radius: 4px;
   }
-
-  /* Ensure slides span the full width */
   media-gallery[data-desktop-layout="vertical_slider"] .thumbnail-list__item.slider__slide {
     width: 100% !important;
     margin: 0; 
-    scroll-snap-align: start; /* Keep slides snapping neatly */
+    scroll-snap-align: start;
   }
-
   media-gallery[data-desktop-layout="vertical_slider"] .slider-buttons {
     display: none; 
   }
