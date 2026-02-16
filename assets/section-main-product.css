@@ -2806,4 +2806,10 @@ span.alert-box:before {
   position: absolute;
   top: 2rem;
   left: 2rem;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
 }
