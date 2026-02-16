@@ -1,1 +1,632 @@
-{"sections":{"content_scrollspy_KjGLRV":{"type":"content-scrollspy","disabled":true,"name":"t:sections.content_scrollspy.presets.name","settings":{"heading_selector":".product__heading, h2.title","background_color":"#ffffff","text_color":"#000000","active_color":"#ffb503","border_color":"#ffb503","enable_animations":true,"animation_threshold":0.6,"hide_on_scroll_up":true,"show_scroll_indicator":true}},"empty-space":{"type":"empty-space","settings":{"desktop_height":32,"mobile_height":0}},"main":{"type":"main-product","blocks":{"title":{"type":"title","settings":{"title_size":"h2","show_price":false,"price_size":"medium"}},"rating_static_jQpEEQ":{"type":"rating_static","settings":{"rating_text":"(988 Reviews)","rating_link":""}},"price":{"type":"price","settings":{"price_size":"medium","show_badges":true,"sale_badge_basis":"percentage"}},"text_custom_Vpdkyw":{"type":"text_custom","disabled":true,"settings":{"text_custom":"<strong>Live Now: Buy 1 get 1 FREE<\/strong>","text_color":"#a63e3e","text_size":16,"text_size_mob":15,"enable_circle":false}},"icon_text_9Gxbx4":{"type":"icon_text","settings":{"icon":"shopify:\/\/shop_images\/Screenshot_2026-01-09_153620.png","icon_size":22,"icon_size_mob":18,"icon_text":"100% Skin friendly materials","text_color":"#121212","text_size":16,"text_size_mob":14}},"icon_text_KLMX3D":{"type":"icon_text","settings":{"icon":"shopify:\/\/shop_images\/Screenshot_2026-01-09_153620.png","icon_size":22,"icon_size_mob":18,"icon_text":"Super soft, breathable fleece","text_color":"#121212","text_size":16,"text_size_mob":14}},"icon_text_R7iXXY":{"type":"icon_text","settings":{"icon":"shopify:\/\/shop_images\/Screenshot_2026-01-09_153620.png","icon_size":22,"icon_size_mob":18,"icon_text":"Reduces symptoms of stress & anxiety","text_color":"#121212","text_size":16,"text_size_mob":14}},"text_custom_Lpng9n":{"type":"text_custom","disabled":true,"settings":{"text_custom":"<strong>Limited units available during our Extended Cyber Monday Sale<\/strong>","text_color":"#a63e3e","text_size":16,"text_size_mob":14,"enable_circle":true}},"variant_picker":{"type":"variant_picker","settings":{"show_variant_labels":true,"picker_type":"button","swatch_source":"variant","swatch_type":"round","swatch_size":"medium","enable_swatch_unavailable_click":false,"enable_limited":true,"limited_heading":"Limited Edition","size_chart":""}},"kiwi_size_chart_recommender_kiwi_sizing_83WtmG":{"type":"shopify:\/\/apps\/kiwi-size-chart-recommender\/blocks\/kiwiSizing\/b7369922-bf15-44ce-a121-a22a8fcbc4b0","settings":{"fallbackToBlockPosition":false,"waitForElementSelector":"","waitForElementDelay":5}},"buy_buttons":{"type":"buy_buttons","settings":{"show_quantity_selector":false,"show_dynamic_checkout":false,"show_gift_card_recipient":false}},"payment_icons_46YHMi":{"type":"payment_icons","settings":{"enabled_payment_types":"american_express, visa, master, apple_pay, google_pay, paypal"}},"complementary_Vzi83a":{"type":"complementary","settings":{"icon":"none","heading":"Complete the Look","make_collapsible_row":false,"product_list_limit":10,"image_ratio":"square","image_position":"center center","show_vendor":false,"enable_image_fill":true}},"countdown_timer_4tCBwt":{"type":"countdown_timer","disabled":true,"settings":{"heading":"Extended Cyber Monday OFFER ENDS IN:","heading_color":"#ffffff","background_color":"#c5bbae","timer_color":"#121212","label_color":"#121212","per_visitor_timer":true,"end_date":"2026-01-31 23:59:59","visitor_days":0,"visitor_hours":20,"visitor_minutes":3,"visitor_seconds":27,"enabled_payment_types":"american_express, visa, master, apple_pay, google_pay, paypal"}},"icon_with_text_NArRNw":{"type":"icon_with_text","settings":{"icon_1":"shopify:\/\/shop_images\/local_shipping_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg","text_1":"Fast + Tracked Shipping","icon_2":"shopify:\/\/shop_images\/undo_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg","text_2":"30 Days Money Back","icon_3":"shopify:\/\/shop_images\/airwave_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.png","text_3":"Wrinkle Free"}},"text_custom_A3eeDw":{"type":"text_custom","settings":{"text_custom":"<strong>Our Blanket became a Hoodie <\/strong>Our viral fleece blanket, loved by thousands for its unmatched softness and comfort, is now a hoodie. We took the blanket everyone can’t stop talking about and turned it into something you can wear anytime, anywhere. Crafted from 100% skin-friendly materials, this breathable fleece keeps you cozy all year round. With its ultra-soft oversized fit, it wraps you in warmth like a blanket... Only now, it goes wherever you do!","text_color":"","text_size":16,"text_size_mob":15,"enable_circle":false}},"collapsible_tab_TbRiah":{"type":"collapsible_tab","settings":{"icon":"check_mark","heading":"Material & Care","content":"<p>100% Hypoallergenic Premium-Grade Polyester<br\/><br\/>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your blanket for years to come.<\/p>","page":"","custom_liquid":"","keep_open":false}},"collapsible_tab-1":{"type":"collapsible_tab","disabled":true,"settings":{"icon":"check_mark","heading":"Shipping & Returns","content":"<p>All Orders are fulfilled and then shipped to anywhere in the <strong>US<\/strong> in <strong>1-3 working days<\/strong> on average.<\/p><p>All orders come with tracking information once shipped.<\/p><p><strong>Returns<\/strong><\/p><p>Not happy with your purchase? No worries, we've got you covered!<br\/><br\/>You may return it within 30 days of delivery for a full refund or exchange, no questions asked. To initiate a return, just contact our customer service team at <a href=\"mailto:support@thefleececompany.com\" target=\"_blank\" title=\"mailto:support@thefleececompany.com\">support@thefleececompany.com<\/a>.<\/p>","page":"","custom_liquid":"","keep_open":false}},"shipping_metaobject_tLJRyV":{"type":"shipping_metaobject","settings":{"icon":"check_mark","heading":"Shipping & Returns","shipping_text":"default"}},"description_nXX7fB":{"type":"description","disabled":true,"settings":{}},"sticky_cart":{"type":"sticky_cart","settings":{"show_quantity_selector":false}}},"block_order":["title","rating_static_jQpEEQ","price","text_custom_Vpdkyw","icon_text_9Gxbx4","icon_text_KLMX3D","icon_text_R7iXXY","text_custom_Lpng9n","variant_picker","kiwi_size_chart_recommender_kiwi_sizing_83WtmG","buy_buttons","payment_icons_46YHMi","complementary_Vzi83a","countdown_timer_4tCBwt","icon_with_text_NArRNw","text_custom_A3eeDw","collapsible_tab_TbRiah","collapsible_tab-1","shipping_metaobject_tLJRyV","description_nXX7fB","sticky_cart"],"settings":{"enable_sticky_info":true,"media_position":"left","media_size":"large","gallery_layout":"thumbnail_slider","image_ratio":"square","show_featured_media":true,"show_thumbnails":false,"hide_variants":false,"enable_image_zoom":false,"enable_video_looping":false,"mobile_image_ratio":"adapt","show_mobile_thumbnails":false,"padding_top":0,"padding_bottom":32}},"product-recommendations":{"type":"product-recommendations","disabled":true,"settings":{"product_list_limit":4,"show_divider":false,"heading":"You May Also Like","heading_size":"h1","heading_alignment":"center","heading_tag":"h2","columns_mobile":"1","swipe_on_mobile":true,"image_ratio":"portrait","image_position":"center center","enable_image_fill":true,"show_secondary_image":true,"show_vendor":true,"show_rating":true,"show_quick_buy":true,"enable_quick_view":true,"enable_color_swatches":true,"enable_countdown":true,"colors_highlight":"#ffb503","padding_top":36,"padding_bottom":36,"enable_highlight":false,"highlight_style":"marker"}},"d5_testimonial_t6UCY3":{"type":"d5-testimonial","blocks":{"review_RpEXGQ":{"type":"review","settings":{"video":"shopify:\/\/files\/videos\/pp1.mp4","heading":"","rt":"","name":""}},"review_XHf77X":{"type":"review","settings":{"video":"shopify:\/\/files\/videos\/3pp.mp4","heading":"","rt":"","name":""}},"review_RrXq7k":{"type":"review","settings":{"video":"shopify:\/\/files\/videos\/4pp.mp4","heading":"","rt":"","name":""}},"review_zCYDcV":{"type":"review","settings":{"video":"shopify:\/\/files\/videos\/5pp.mp4","heading":"","rt":"","name":""}},"review_xhyqec":{"type":"review","settings":{"video":"shopify:\/\/files\/videos\/6pp.mp4","heading":"","rt":"","name":""}},"review_XPknAD":{"type":"review","settings":{"video":"shopify:\/\/files\/videos\/7pp.mp4","heading":"","rt":"","name":""}},"review_YY4B4t":{"type":"review","settings":{"video":"shopify:\/\/files\/videos\/8pp.mp4","heading":"","rt":"","name":""}},"review_r3T6Ci":{"type":"review","settings":{"video":"shopify:\/\/files\/videos\/10pp.mp4","heading":"","rt":"","name":""}},"review_tpU8zg":{"type":"review","settings":{"video":"shopify:\/\/files\/videos\/12pp.mp4","heading":"","rt":"","name":""}},"review_Chb8iC":{"type":"review","settings":{"video":"shopify:\/\/files\/videos\/14pp.mp4","heading":"","rt":"","name":""}},"review_HAPbg9":{"type":"review","settings":{"video":"shopify:\/\/files\/videos\/8pp.mp4","heading":"","rt":"","name":""}}},"block_order":["review_RpEXGQ","review_XHf77X","review_RrXq7k","review_zCYDcV","review_xhyqec","review_XPknAD","review_YY4B4t","review_r3T6Ci","review_tpU8zg","review_Chb8iC","review_HAPbg9"],"name":"D5 Testimonial","settings":{"title":"The Fleece Company Family","rt":"","media":false,"slider":true,"sliderm":true,"enbg":false,"bg":"#f6f6f6"}},"d5_testimonial_6dMJ9X":{"type":"d5-testimonial","blocks":{"review_Jq7nqy":{"type":"review","settings":{"img":"shopify:\/\/shop_images\/Bildschirmfoto_2025-08-31_um_19.03.53.png","heading":"","rt":"<p>Been living in this hoodie recently<\/p>","name":"<p><strong>Eleanor Charlotte<\/strong><\/p>"}},"review_ewdzLg":{"type":"review","settings":{"img":"shopify:\/\/shop_images\/Bildschirmfoto_2025-08-31_um_19.06.46.png","heading":"","rt":"<p>Feeling so cozy!!!<\/p>","name":"<p><em><strong>Amy Steinfeld<\/strong><\/em><\/p>"}},"review_XUDpry":{"type":"review","settings":{"img":"shopify:\/\/shop_images\/Screenshot_2025-04-04_at_21.48.19.png","heading":"","rt":"<p>Incredibly soft and perfect for every season. I never want to take it off!<\/p>","name":"<p><em><strong>Isabella Veronica Hardy<\/strong><\/em><\/p>"}},"review_Wz9iwd":{"type":"review","settings":{"img":"shopify:\/\/shop_images\/Bildschirmfoto_2025-08-31_um_19.08.46.png","heading":"","rt":"<p>The coziest hoodie ever<\/p>","name":"<p><em><strong>Lucy Watts<\/strong><\/em><\/p>"}},"review_tmEVGF":{"type":"review","settings":{"img":"shopify:\/\/shop_images\/Bildschirmfoto_2025-08-31_um_19.14.21.png","heading":"","rt":"<p>Most fluffy sweater ever!<\/p>","name":"<p><strong>Neva Finschi<\/strong><\/p>"}},"review_h9eAxU":{"type":"review","settings":{"img":"shopify:\/\/shop_images\/Bildschirmfoto_2025-08-31_um_21.44.21.png","heading":"","rt":"<p>Blanket as a hoodie?! I love it!<\/p>","name":"<p><em><strong>Tyler Joy Paul<\/strong><\/em><\/p>"}},"review_Gex6LC":{"type":"review","settings":{"img":"shopify:\/\/shop_images\/Bildschirmfoto_2025-08-31_um_19.19.22.png","heading":"","rt":"<p>That’s the coolest hoodie ever. Now I can go to work in a blanket.<\/p>","name":"<p><em><strong>Devin Joos<\/strong><\/em><\/p>"}},"review_DbQpBj":{"type":"review","settings":{"img":"shopify:\/\/shop_images\/Bildschirmfoto_2025-08-31_um_19.14.53.png","heading":"","rt":"<p>My go-to for relaxed days!!<\/p>","name":"<p><strong>Sanne<\/strong><\/p>"}},"review_E9X6qV":{"type":"review","settings":{"img":"shopify:\/\/shop_images\/Bildschirmfoto_2025-08-31_um_19.18.38.png","heading":"","rt":"<p>Turning the fleece blanket into a hoodie was the best idea ever<\/p>","name":"<p><em><strong>Nicole Fernandes<\/strong><\/em><\/p>"}},"review_XiPxEU":{"type":"review","settings":{"img":"shopify:\/\/shop_images\/Screenshot_2025-04-04_at_22.03.25.png","heading":"","rt":"<p>Perfect day to rock the fleece hoodie from the fleece company!<\/p>","name":"<p><em><strong>Ryan<\/strong><\/em><\/p>"}},"review_txgm9T":{"type":"review","settings":{"img":"shopify:\/\/shop_images\/IG_story_lyslorenn_2025-03-28.jpg","heading":"","rt":"<p>I literally feel like I'm wearing a Blanket 24\/7!!<\/p>","name":"<p><em><strong>Alyssa DiMaria<\/strong><\/em><\/p>"}},"review_7VKByn":{"type":"review","settings":{"img":"shopify:\/\/shop_images\/Screenshot_2025-04-04_at_22.04.44.png","heading":"","rt":"<p>Cozy☁️<\/p>","name":"<p><em><strong>David Nnamdi<\/strong><\/em><\/p>"}}},"block_order":["review_Jq7nqy","review_ewdzLg","review_XUDpry","review_Wz9iwd","review_tmEVGF","review_h9eAxU","review_Gex6LC","review_DbQpBj","review_E9X6qV","review_XiPxEU","review_txgm9T","review_7VKByn"],"name":"D5 Testimonial","settings":{"title":"Reviews","rt":"<h5>★★★★★ 988 Reviews | Avg Rating: 4.8<\/h5>","media":true,"slider":false,"sliderm":false,"enbg":false,"bg":"rgba(0,0,0,0)"}}},"order":["content_scrollspy_KjGLRV","empty-space","main","product-recommendations","d5_testimonial_t6UCY3","d5_testimonial_6dMJ9X"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "content_scrollspy_KjGLRV": {
+      "type": "content-scrollspy",
+      "disabled": true,
+      "name": "t:sections.content_scrollspy.presets.name",
+      "settings": {
+        "heading_selector": ".product__heading, h2.title",
+        "background_color": "#ffffff",
+        "text_color": "#000000",
+        "active_color": "#ffb503",
+        "border_color": "#ffb503",
+        "enable_animations": true,
+        "animation_threshold": 0.6,
+        "hide_on_scroll_up": true,
+        "show_scroll_indicator": true
+      }
+    },
+    "empty-space": {
+      "type": "empty-space",
+      "settings": {
+        "desktop_height": 32,
+        "mobile_height": 0
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "title_size": "h2",
+            "show_price": false,
+            "price_size": "medium"
+          }
+        },
+        "rating_static_jQpEEQ": {
+          "type": "rating_static",
+          "settings": {
+            "rating_text": "(988 Reviews)",
+            "rating_link": ""
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "price_size": "medium",
+            "show_badges": true,
+            "sale_badge_basis": "percentage"
+          }
+        },
+        "text_custom_Vpdkyw": {
+          "type": "text_custom",
+          "disabled": true,
+          "settings": {
+            "text_custom": "<strong>Live Now: Buy 1 get 1 FREE</strong>",
+            "text_color": "#a63e3e",
+            "text_size": 16,
+            "text_size_mob": 15,
+            "enable_normal": true,
+            "enable_circle": false
+          }
+        },
+        "text_custom_ePHwkq": {
+          "type": "text_custom",
+          "settings": {
+            "text_custom": "<strong>Live Now: Buy 1 get 1 FREE</strong>",
+            "text_color": "#a63e3e",
+            "text_size": 16,
+            "text_size_mob": 15,
+            "enable_normal": true,
+            "enable_circle": false
+          }
+        },
+        "icon_text_9Gxbx4": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/Screenshot_2026-01-09_153620.png",
+            "icon_size": 22,
+            "icon_size_mob": 18,
+            "icon_text": "100% Skin friendly materials",
+            "text_color": "#121212",
+            "text_size": 16,
+            "text_size_mob": 14
+          }
+        },
+        "icon_text_KLMX3D": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/Screenshot_2026-01-09_153620.png",
+            "icon_size": 22,
+            "icon_size_mob": 18,
+            "icon_text": "Super soft, breathable fleece",
+            "text_color": "#121212",
+            "text_size": 16,
+            "text_size_mob": 14
+          }
+        },
+        "icon_text_R7iXXY": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/Screenshot_2026-01-09_153620.png",
+            "icon_size": 22,
+            "icon_size_mob": 18,
+            "icon_text": "Reduces symptoms of stress & anxiety",
+            "text_color": "#121212",
+            "text_size": 16,
+            "text_size_mob": 14
+          }
+        },
+        "text_custom_Lpng9n": {
+          "type": "text_custom",
+          "disabled": true,
+          "settings": {
+            "text_custom": "<strong>Limited units available during our Extended Cyber Monday Sale</strong>",
+            "text_color": "#a63e3e",
+            "text_size": 16,
+            "text_size_mob": 14,
+            "enable_normal": true,
+            "enable_circle": true
+          }
+        },
+        "custom_liquid_aM89BB": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<style>\n  /* tweak --lh if your theme's line-height looks different */\n  .special-msg {\n    --lh: 1.35;                    /* line-height for this block */\n    --dot: 8px;                    /* dot size */\n    color: #A63E3E;\n    font-weight: 600;\n    display: block;\n    margin: 5px 0;\n    padding-left: 18px;            /* room for the dot */\n    position: relative;\n    line-height: var(--lh);\n    text-align: left !important;\n    white-space: normal;\n    letter-spacing: .3px;\n  }\n\n  .special-msg::before {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    width: var(--dot);\n    height: var(--dot);\n    border-radius: 50%;\n    background: #A63E3E;\n    /* place the dot centered within the FIRST line only */\n    top: calc((var(--lh) * 1em - var(--dot)) / 2);\n    animation: blink 3.5s infinite ease-in-out;\n  }\n\n@keyframes blink {\n  /* Quick fade in */\n  0%   { opacity: 0; }\n  40%  { opacity: 1; }\n\n  /* Hold bright */\n  60%  { opacity: 1; }\n\n  /* Slow fade out */\n  100% { opacity: 0; }\n}\n\n</style>\n\n<div class=\"special-msg\">\n  Limited units available during our <b>Valentine's Day Sale</b>\n</div>"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "show_variant_labels": true,
+            "picker_type": "button",
+            "swatch_source": "variant",
+            "swatch_type": "round",
+            "swatch_size": "medium",
+            "enable_swatch_unavailable_click": false,
+            "enable_limited": false,
+            "limited_heading": "Limited Edition",
+            "size_chart": ""
+          }
+        },
+        "kiwi_size_chart_recommender_kiwi_sizing_83WtmG": {
+          "type": "shopify://apps/kiwi-size-chart-recommender/blocks/kiwiSizing/b7369922-bf15-44ce-a121-a22a8fcbc4b0",
+          "settings": {
+            "fallbackToBlockPosition": false,
+            "waitForElementSelector": "",
+            "waitForElementDelay": 5
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "buy_buttons_version": "v1",
+            "show_quantity_selector": false,
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false,
+            "enable_monogram": false,
+            "monogram_product": ""
+          }
+        },
+        "countdown_timer_feYeJx": {
+          "type": "countdown_timer",
+          "settings": {
+            "heading": "VALENTINE'S DAY SALE ENDS IN:",
+            "heading_color": "#ffffff",
+            "background_color": "#c5bbae",
+            "timer_color": "#121212",
+            "label_color": "#121212",
+            "per_visitor_timer": true,
+            "end_date": "2026-01-31 23:59:59",
+            "visitor_days": 0,
+            "visitor_hours": 20,
+            "visitor_minutes": 3,
+            "visitor_seconds": 30,
+            "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
+          }
+        },
+        "payment_icons_46YHMi": {
+          "type": "payment_icons",
+          "disabled": true,
+          "settings": {
+            "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
+          }
+        },
+        "complementary_Vzi83a": {
+          "type": "complementary",
+          "settings": {
+            "icon": "none",
+            "heading": "Complete the Look",
+            "make_collapsible_row": false,
+            "product_list_limit": 10,
+            "image_ratio": "square",
+            "image_position": "center center",
+            "show_vendor": false,
+            "enable_image_fill": true
+          }
+        },
+        "icon_with_text_NArRNw": {
+          "type": "icon_with_text",
+          "settings": {
+            "icon_1": "shopify://shop_images/local_shipping_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
+            "text_1": "Fast + Tracked Shipping",
+            "icon_2": "shopify://shop_images/undo_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
+            "text_2": "30 Days Money Back",
+            "icon_3": "shopify://shop_images/airwave_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.png",
+            "text_3": "Wrinkle Free"
+          }
+        },
+        "text_custom_A3eeDw": {
+          "type": "text_custom",
+          "disabled": true,
+          "settings": {
+            "text_custom": "<strong>Our Blanket became a Hoodie </strong>Our viral fleece blanket, loved by thousands for its unmatched softness and comfort, is now a hoodie. We took the blanket everyone can’t stop talking about and turned it into something you can wear anytime, anywhere. Crafted from 100% skin-friendly materials, this breathable fleece keeps you cozy all year round. With its ultra-soft oversized fit, it wraps you in warmth like a blanket... Only now, it goes wherever you do!",
+            "text_color": "",
+            "text_size": 16,
+            "text_size_mob": 15,
+            "enable_normal": true,
+            "enable_circle": false
+          }
+        },
+        "text_custom_UA7LXR": {
+          "type": "text_custom",
+          "settings": {
+            "text_custom": "<strong>UPDATE: We're currently going viral on social media</strong> and have limited stock remaining!  Take advantage of our quantity discounts.",
+            "text_color": "",
+            "text_size": 16,
+            "text_size_mob": 15,
+            "enable_normal": true,
+            "enable_circle": false
+          }
+        },
+        "collapsible_tab_TbRiah": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "check_mark",
+            "heading": "Material & Care",
+            "content": "<p>100% Hypoallergenic Premium-Grade Polyester<br/><br/>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your blanket for years to come.</p>",
+            "page": "",
+            "custom_liquid": "",
+            "keep_open": false
+          }
+        },
+        "collapsible_tab-1": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "icon": "check_mark",
+            "heading": "Shipping & Returns",
+            "content": "<p>All Orders are fulfilled and then shipped to anywhere in the <strong>US</strong> in <strong>1-3 working days</strong> on average.</p><p>All orders come with tracking information once shipped.</p><p><strong>Returns</strong></p><p>Not happy with your purchase? No worries, we've got you covered!<br/><br/>You may return it within 30 days of delivery for a full refund or exchange, no questions asked. To initiate a return, just contact our customer service team at <a href=\"mailto:support@thefleececompany.com\" target=\"_blank\" title=\"mailto:support@thefleececompany.com\">support@thefleececompany.com</a>.</p>",
+            "page": "",
+            "custom_liquid": "",
+            "keep_open": false
+          }
+        },
+        "shipping_metaobject_tLJRyV": {
+          "type": "shipping_metaobject",
+          "settings": {
+            "icon": "check_mark",
+            "heading": "Shipping & Returns",
+            "shipping_text": "default"
+          }
+        },
+        "description_nXX7fB": {
+          "type": "description",
+          "disabled": true,
+          "settings": {}
+        },
+        "sticky_cart": {
+          "type": "sticky_cart",
+          "settings": {
+            "show_quantity_selector": false
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "rating_static_jQpEEQ",
+        "price",
+        "text_custom_Vpdkyw",
+        "text_custom_ePHwkq",
+        "icon_text_9Gxbx4",
+        "icon_text_KLMX3D",
+        "icon_text_R7iXXY",
+        "text_custom_Lpng9n",
+        "custom_liquid_aM89BB",
+        "variant_picker",
+        "kiwi_size_chart_recommender_kiwi_sizing_83WtmG",
+        "buy_buttons",
+        "countdown_timer_feYeJx",
+        "payment_icons_46YHMi",
+        "complementary_Vzi83a",
+        "icon_with_text_NArRNw",
+        "text_custom_A3eeDw",
+        "text_custom_UA7LXR",
+        "collapsible_tab_TbRiah",
+        "collapsible_tab-1",
+        "shipping_metaobject_tLJRyV",
+        "description_nXX7fB",
+        "sticky_cart"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "media_position": "left",
+        "media_size": "large",
+        "gallery_layout": "thumbnail_slider",
+        "image_ratio": "square",
+        "show_featured_media": true,
+        "show_thumbnails": false,
+        "hide_variants": false,
+        "enable_image_zoom": false,
+        "enable_video_looping": false,
+        "mobile_image_ratio": "adapt",
+        "show_mobile_thumbnails": false,
+        "enable_variant_specific_media": false,
+        "enable_fade_slider": true,
+        "padding_top": 0,
+        "padding_bottom": 32
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "product_list_limit": 4,
+        "show_divider": false,
+        "heading": "You May Also Like",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "image_ratio": "portrait",
+        "image_position": "center center",
+        "enable_image_fill": true,
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_rating": true,
+        "show_quick_buy": true,
+        "enable_quick_view": true,
+        "enable_color_swatches": true,
+        "enable_countdown": true,
+        "colors_highlight": "#ffb503",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "enable_highlight": false,
+        "highlight_style": "marker"
+      }
+    },
+    "d5_testimonial_t6UCY3": {
+      "type": "d5-testimonial",
+      "blocks": {
+        "review_RpEXGQ": {
+          "type": "review",
+          "settings": {
+            "video": "shopify://files/videos/pp1.mp4",
+            "heading": "",
+            "rt": "",
+            "name": ""
+          }
+        },
+        "review_XHf77X": {
+          "type": "review",
+          "settings": {
+            "video": "shopify://files/videos/3pp.mp4",
+            "heading": "",
+            "rt": "",
+            "name": ""
+          }
+        },
+        "review_RrXq7k": {
+          "type": "review",
+          "settings": {
+            "video": "shopify://files/videos/4pp.mp4",
+            "heading": "",
+            "rt": "",
+            "name": ""
+          }
+        },
+        "review_zCYDcV": {
+          "type": "review",
+          "settings": {
+            "video": "shopify://files/videos/5pp.mp4",
+            "heading": "",
+            "rt": "",
+            "name": ""
+          }
+        },
+        "review_xhyqec": {
+          "type": "review",
+          "settings": {
+            "video": "shopify://files/videos/6pp.mp4",
+            "heading": "",
+            "rt": "",
+            "name": ""
+          }
+        },
+        "review_XPknAD": {
+          "type": "review",
+          "settings": {
+            "video": "shopify://files/videos/7pp.mp4",
+            "heading": "",
+            "rt": "",
+            "name": ""
+          }
+        },
+        "review_YY4B4t": {
+          "type": "review",
+          "settings": {
+            "video": "shopify://files/videos/8pp.mp4",
+            "heading": "",
+            "rt": "",
+            "name": ""
+          }
+        },
+        "review_r3T6Ci": {
+          "type": "review",
+          "settings": {
+            "video": "shopify://files/videos/10pp.mp4",
+            "heading": "",
+            "rt": "",
+            "name": ""
+          }
+        },
+        "review_tpU8zg": {
+          "type": "review",
+          "settings": {
+            "video": "shopify://files/videos/12pp.mp4",
+            "heading": "",
+            "rt": "",
+            "name": ""
+          }
+        },
+        "review_Chb8iC": {
+          "type": "review",
+          "settings": {
+            "video": "shopify://files/videos/14pp.mp4",
+            "heading": "",
+            "rt": "",
+            "name": ""
+          }
+        },
+        "review_HAPbg9": {
+          "type": "review",
+          "settings": {
+            "video": "shopify://files/videos/8pp.mp4",
+            "heading": "",
+            "rt": "",
+            "name": ""
+          }
+        }
+      },
+      "block_order": [
+        "review_RpEXGQ",
+        "review_XHf77X",
+        "review_RrXq7k",
+        "review_zCYDcV",
+        "review_xhyqec",
+        "review_XPknAD",
+        "review_YY4B4t",
+        "review_r3T6Ci",
+        "review_tpU8zg",
+        "review_Chb8iC",
+        "review_HAPbg9"
+      ],
+      "name": "D5 Testimonial",
+      "settings": {
+        "title": "The Fleece Company Family",
+        "rt": "",
+        "media": false,
+        "slider": true,
+        "sliderm": true,
+        "enbg": false,
+        "bg": "#f6f6f6"
+      }
+    },
+    "d5_testimonial_6dMJ9X": {
+      "type": "d5-testimonial",
+      "blocks": {
+        "review_Jq7nqy": {
+          "type": "review",
+          "settings": {
+            "img": "shopify://shop_images/Bildschirmfoto_2025-08-31_um_19.03.53.png",
+            "heading": "",
+            "rt": "<p>Been living in this hoodie recently</p>",
+            "name": "<p><strong>Eleanor Charlotte</strong></p>"
+          }
+        },
+        "review_ewdzLg": {
+          "type": "review",
+          "settings": {
+            "img": "shopify://shop_images/Bildschirmfoto_2025-08-31_um_19.06.46.png",
+            "heading": "",
+            "rt": "<p>Feeling so cozy!!!</p>",
+            "name": "<p><em><strong>Amy Steinfeld</strong></em></p>"
+          }
+        },
+        "review_XUDpry": {
+          "type": "review",
+          "settings": {
+            "img": "shopify://shop_images/Screenshot_2025-04-04_at_21.48.19.png",
+            "heading": "",
+            "rt": "<p>Incredibly soft and perfect for every season. I never want to take it off!</p>",
+            "name": "<p><em><strong>Isabella Veronica Hardy</strong></em></p>"
+          }
+        },
+        "review_Wz9iwd": {
+          "type": "review",
+          "settings": {
+            "img": "shopify://shop_images/Bildschirmfoto_2025-08-31_um_19.08.46.png",
+            "heading": "",
+            "rt": "<p>The coziest hoodie ever</p>",
+            "name": "<p><em><strong>Lucy Watts</strong></em></p>"
+          }
+        },
+        "review_tmEVGF": {
+          "type": "review",
+          "settings": {
+            "img": "shopify://shop_images/Bildschirmfoto_2025-08-31_um_19.14.21.png",
+            "heading": "",
+            "rt": "<p>Most fluffy sweater ever!</p>",
+            "name": "<p><strong>Neva Finschi</strong></p>"
+          }
+        },
+        "review_h9eAxU": {
+          "type": "review",
+          "settings": {
+            "img": "shopify://shop_images/Bildschirmfoto_2025-08-31_um_21.44.21.png",
+            "heading": "",
+            "rt": "<p>Blanket as a hoodie?! I love it!</p>",
+            "name": "<p><em><strong>Tyler Joy Paul</strong></em></p>"
+          }
+        },
+        "review_Gex6LC": {
+          "type": "review",
+          "settings": {
+            "img": "shopify://shop_images/Bildschirmfoto_2025-08-31_um_19.19.22.png",
+            "heading": "",
+            "rt": "<p>That’s the coolest hoodie ever. Now I can go to work in a blanket.</p>",
+            "name": "<p><em><strong>Devin Joos</strong></em></p>"
+          }
+        },
+        "review_DbQpBj": {
+          "type": "review",
+          "settings": {
+            "img": "shopify://shop_images/Bildschirmfoto_2025-08-31_um_19.14.53.png",
+            "heading": "",
+            "rt": "<p>My go-to for relaxed days!!</p>",
+            "name": "<p><strong>Sanne</strong></p>"
+          }
+        },
+        "review_E9X6qV": {
+          "type": "review",
+          "settings": {
+            "img": "shopify://shop_images/Bildschirmfoto_2025-08-31_um_19.18.38.png",
+            "heading": "",
+            "rt": "<p>Turning the fleece blanket into a hoodie was the best idea ever</p>",
+            "name": "<p><em><strong>Nicole Fernandes</strong></em></p>"
+          }
+        },
+        "review_XiPxEU": {
+          "type": "review",
+          "settings": {
+            "img": "shopify://shop_images/Screenshot_2025-04-04_at_22.03.25.png",
+            "heading": "",
+            "rt": "<p>Perfect day to rock the fleece hoodie from the fleece company!</p>",
+            "name": "<p><em><strong>Ryan</strong></em></p>"
+          }
+        },
+        "review_txgm9T": {
+          "type": "review",
+          "settings": {
+            "img": "shopify://shop_images/IG_story_lyslorenn_2025-03-28.jpg",
+            "heading": "",
+            "rt": "<p>I literally feel like I'm wearing a Blanket 24/7!!</p>",
+            "name": "<p><em><strong>Alyssa DiMaria</strong></em></p>"
+          }
+        },
+        "review_7VKByn": {
+          "type": "review",
+          "settings": {
+            "img": "shopify://shop_images/Screenshot_2025-04-04_at_22.04.44.png",
+            "heading": "",
+            "rt": "<p>Cozy☁️</p>",
+            "name": "<p><em><strong>David Nnamdi</strong></em></p>"
+          }
+        }
+      },
+      "block_order": [
+        "review_Jq7nqy",
+        "review_ewdzLg",
+        "review_XUDpry",
+        "review_Wz9iwd",
+        "review_tmEVGF",
+        "review_h9eAxU",
+        "review_Gex6LC",
+        "review_DbQpBj",
+        "review_E9X6qV",
+        "review_XiPxEU",
+        "review_txgm9T",
+        "review_7VKByn"
+      ],
+      "name": "D5 Testimonial",
+      "settings": {
+        "title": "Reviews",
+        "rt": "<h5>★★★★★ 988 Reviews | Avg Rating: 4.8</h5>",
+        "media": true,
+        "slider": false,
+        "sliderm": false,
+        "enbg": false,
+        "bg": "rgba(0,0,0,0)"
+      }
+    }
+  },
+  "order": [
+    "content_scrollspy_KjGLRV",
+    "empty-space",
+    "main",
+    "product-recommendations",
+    "d5_testimonial_t6UCY3",
+    "d5_testimonial_6dMJ9X"
+  ]
+}

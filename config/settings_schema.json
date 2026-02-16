@@ -998,5 +998,16 @@
         "default": false
       }
     ]
+  },
+  {
+  "name": "Microsoft Clarity",
+    "settings": [
+      {
+        "type": "text",
+        "id": "clarity_product_templates",
+        "label": "Product Templates to Track",
+        "info": "Comma-separated product template suffixes (e.g., landing, custom)"
+      }
+    ]
   }
 ]
