@@ -1237,6 +1237,53 @@
                     </span>
                   {% endif %}
                 </div>
+              {%- when 'icon_text_grid' -%}
+                <div class="icon-text-grid-wrapper" {{ block.shopify_attributes }}>
+                  <style>
+                    .icon-text-grid-wrapper {
+                      display: grid;
+                      grid-template-columns: repeat(2, 1fr);
+                      column-gap: 1.5rem;
+                      row-gap: 1.5rem;
+                      margin-top: 1.5rem;
+                      margin-bottom: 1.5rem;
+                    }
+                    /* If you want it to stack 1-by-1 on mobile, uncomment below */
+                    /* @media screen and (max-width: 749px) {
+                      .icon-text-grid-wrapper {
+                        grid-template-columns: 1fr;
+                      }
+                    } */
+                  </style>
+
+                  {%- for i in (1..4) -%}
+                    {%- capture current_icon -%}icon_{{ i }}{%- endcapture -%}
+                    {%- capture current_text -%}text_{{ i }}{%- endcapture -%}
+                    
+                    {%- assign icon_img = block.settings[current_icon] -%}
+                    {%- assign icon_text = block.settings[current_text] -%}
+
+                    {%- if icon_img != blank or icon_text != blank -%}
+                      <div
+                        class="icon-text-wr {% if block.settings.enable_bg %} bg-wr{% endif %}"
+                        style="--icon-size: {{ block.settings.icon_size }}px; --icon-size-mob: {{ block.settings.icon_size_mob }}px; margin-bottom: 0;"
+                      >
+                        {% if icon_img != blank %}
+                          <img src="{{ icon_img | image_url }}" width="{{ icon_img.width }}" height="{{ icon_img.height }}" alt="{{ icon_img.alt | escape | default: 'Icon' }}">
+                        {% endif %}
+                        
+                        {% if icon_text != blank %}
+                          <span
+                            class="icon-text"
+                            style="--text-size: {{ block.settings.text_size }}px; --text-size-mob: {{ block.settings.text_size_mob }}px; --text-color: {{ block.settings.text_color }};"
+                          >
+                            {{ icon_text }}
+                          </span>
+                        {% endif %}
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
               {%- when 'countdown_timer' -%}
                 <div
                   class="countdown-timer-block"
