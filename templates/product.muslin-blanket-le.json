@@ -35,13 +35,6 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "breadcrumb_WBjCcY": {
-          "type": "breadcrumb",
-          "settings": {
-            "text_style": "body",
-            "show_divider": false
-          }
-        },
         "title": {
           "type": "title",
           "settings": {
@@ -249,7 +242,6 @@
         }
       },
       "block_order": [
-        "breadcrumb_WBjCcY",
         "title",
         "rating_static_jQpEEQ",
         "price",
