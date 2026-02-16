@@ -545,6 +545,26 @@
                   <span class="icon icon-plus-alt"></span>
                 </div>
               {%- endif -%}
+
+              {% for block in section.blocks %}
+                {% if block.type == 'iwt_gallery' %}
+                  <div class="iwt-gallery-wr">
+                    <div class="iwt-gallery-item">
+                      {% if block.settings.icon1 != blank %}
+                        <img src="{{ block.settings.icon1 | image_url }}" width="" height="" alt="{{ block.settings.text1 }} Icon">
+                      {% endif %}
+                      <span class="icon-text">{{ block.settings.text1 }}</span>
+                    </div>
+                    <div class="iwt-gallery-item">
+                      {% if block.settings.icon2 != blank %}
+                        <img src="{{ block.settings.icon2 | image_url }}" width="" height="" alt="{{ block.settings.text2 }} Icon">
+                      {% endif %}
+                      <span class="icon-text">{{ block.settings.text2 }}</span>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+
             </product-gallery>
           </use-animate>
           {%- if first_3d_model -%}
@@ -3340,6 +3360,32 @@ if (nextBtn) {
         {
           "type": "paragraph",
           "content": "t:sections.main-product.blocks.share.settings.title_info.content"
+        }
+      ]
+    },
+    {
+      "type": "iwt_gallery",
+      "name": "Icon with text (gallery)",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon1",
+          "label": "Icon 1"
+        },
+        {
+          "type": "text",
+          "id": "text1",
+          "label": "Text 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon2",
+          "label": "Icon 2"
+        },
+        {
+          "type": "text",
+          "id": "text2",
+          "label": "Text 2"
         }
       ]
     },
