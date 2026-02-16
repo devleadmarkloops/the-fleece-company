@@ -77,7 +77,7 @@
             "text_color": "#121212",
             "text_size": 14,
             "text_size_mob": 13,
-            "enable_bg": false
+            "enable_bg": true
           }
         },
         "icon_text_qnifkh": {
