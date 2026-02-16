@@ -2689,44 +2689,6 @@ span.alert-box:before {
   }
 }
 
-/* Slider Fade Transition */
-.product__media-list.slider--fade {
-  display: grid !important;
-  grid-template-areas: "stack";
-  overflow: visible !important;
-  scroll-snap-type: none !important;
-  flex-wrap: nowrap !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-.slider--fade .slider__slide {
-  grid-area: stack;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-  flex: 0 0 100% !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 !important;
-  pointer-events: none;
-  position: relative;
-}
-
-.slider--fade .slider__slide.is-active {
-  opacity: 1 !important;
-  visibility: visible !important;
-  z-index: 1;
-  pointer-events: auto;
-}
-
-/* Ensure no layout shift during transition */
-.slider--fade::after {
-  content: "";
-  display: block;
-  padding-bottom: var(--force-image-ratio-percent);
-  grid-area: stack;
-}
 
 @media screen and (max-width: 749px) {
   .product--mobile-adapt .product__media-list.slider--fade {
