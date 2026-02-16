@@ -14,7 +14,10 @@
     <a href="{{ routes.root_url }}" class="link" title="{{ 'general.breadcrumbs.home_link_title' | t }}">{{ 'general.breadcrumbs.home' | t }}</a>
 
     {%- if template.name == 'product' -%}
-      {%- if collection and collection.handle %}
+      {%- comment -%} 
+        Only show the collection link if it exists AND is not the default homepage collections 
+      {%- endcomment -%}
+      {%- if collection and collection.handle and collection.handle != 'frontpage' and collection.handle != 'homepage' %}
         <span class="breadcrumb__divider" aria-hidden="true">/</span>
         {% capture url %}{{ routes.collections_url }}/{{ collection.handle }}{% endcapture %}
         {{ collection.title | link_to: url, class: "link" }}
@@ -101,7 +104,7 @@
           "item": "{{ shop.url }}"
         }
         {%- if template.name == 'product' -%}
-          {%- if collection and collection.handle -%}
+          {%- if collection and collection.handle and collection.handle != 'frontpage' and collection.handle != 'homepage' -%}
           , {
             "@type": "ListItem",
             "position": 2,
@@ -111,7 +114,7 @@
           {% endif %}
           , {
             "@type": "ListItem",
-            "position": {% if collection and collection.handle %}3{% else %}2{% endif %},
+            "position": {% if collection and collection.handle and collection.handle != 'frontpage' and collection.handle != 'homepage' %}3{% else %}2{% endif %},
             "name": "{{ product.title }}",
             "item": "{{ shop.url }}/products/{{ product.handle }}"
           }
