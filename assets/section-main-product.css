@@ -2739,16 +2739,16 @@ span.alert-box:before {
 @media screen and (min-width: 990px) { 
   media-gallery[data-desktop-layout="vertical_slider"] {
     display: flex;
-    flex-direction: row-reverse; /* Puts thumbnails on the left, main image on the right */
+    flex-direction: row-reverse;
     align-items: flex-start;
-    gap: 2rem; /* Spacing between thumbnails and main image */
+    gap: 2rem;
   }
 
   /* Main image wrapper takes up remaining space */
   media-gallery[data-desktop-layout="vertical_slider"] use-animate {
     flex: 1;
     width: 100%;
-    min-width: 0; /* Prevents flexbox from forcing the container wider than it should be */
+    min-width: 0;
   }
   media-gallery[data-desktop-layout="vertical_slider"] use-animate .product__media.media--square {
     padding-bottom: 100% !important;
@@ -2756,29 +2756,13 @@ span.alert-box:before {
 
   /* Thumbnail wrapper styling */
   media-gallery[data-desktop-layout="vertical_slider"] thumbnail-slider {
-    width: 12rem; /* Adjust thumbnail column width here */
+    width: 12rem; 
     flex-shrink: 0;
-    
-    /* FIX 1 & 2: Constrain height and enable vertical scrolling */
-    max-height: calc(100vh - 8rem); /* Adjust the 8rem to match your header height + padding */
-    overflow-y: auto; 
-    overflow-x: hidden;
-    
-    /* FIX 3: Make the thumbnails sticky alongside the main image */
     position: sticky;
-    top: 4rem; /* Adjust based on your header height */
+    top: 4rem; 
   }
 
-  /* Optional: Clean scrollbar styling for webkit browsers */
-  media-gallery[data-desktop-layout="vertical_slider"] thumbnail-slider::-webkit-scrollbar {
-    width: 4px;
-  }
-  media-gallery[data-desktop-layout="vertical_slider"] thumbnail-slider::-webkit-scrollbar-thumb {
-    background-color: #d3d3d3; /* Subtle gray scrollbar */
-    border-radius: 4px;
-  }
-
-  /* Stack thumbnails vertically */
+  /* Target the UL directly to override theme defaults and enable scrolling */
   media-gallery[data-desktop-layout="vertical_slider"] .thumbnail-list.slider--tablet-up {
     display: flex;
     flex-direction: column;
@@ -2787,42 +2771,41 @@ span.alert-box:before {
     padding: 0;
     width: 100%;
     max-width: 100% !important;
+    
+    /* FIX: Force vertical scrolling and override the theme's hidden overflow */
+    overflow-y: auto !important; 
+    overflow-x: hidden !important;
+    scroll-snap-type: y mandatory !important; /* Change horizontal snap to vertical */
+    
+    cursor: grab;
   }
 
-  /* Ensure slides span the full width of the vertical container */
+  /* Dragging states */
+  media-gallery[data-desktop-layout="vertical_slider"] .thumbnail-list.is-dragging {
+    cursor: grabbing;
+    scroll-snap-type: none !important; /* Disable snap while dragging so it doesn't jump */
+  }
+  media-gallery[data-desktop-layout="vertical_slider"] .thumbnail-list.is-dragging img {
+    pointer-events: none;
+  }
+
+  /* Custom scrollbar applied to the UL */
+  media-gallery[data-desktop-layout="vertical_slider"] .thumbnail-list::-webkit-scrollbar {
+    width: 4px;
+  }
+  media-gallery[data-desktop-layout="vertical_slider"] .thumbnail-list::-webkit-scrollbar-thumb {
+    background-color: #d3d3d3; 
+    border-radius: 4px;
+  }
+
+  /* Ensure slides span the full width */
   media-gallery[data-desktop-layout="vertical_slider"] .thumbnail-list__item.slider__slide {
     width: 100% !important;
     margin: 0; 
+    scroll-snap-align: start; /* Keep slides snapping neatly */
   }
 
-  /* Hide default horizontal slider arrows if they aren't needed vertically */
   media-gallery[data-desktop-layout="vertical_slider"] .slider-buttons {
     display: none; 
-  }
-  /* Thumbnail wrapper styling */
-  media-gallery[data-desktop-layout="vertical_slider"] thumbnail-slider {
-    width: 12rem; /* Adjust thumbnail column width here */
-    flex-shrink: 0;
-    
-    /* Enabled vertical scrolling */
-    overflow-y: auto; 
-    overflow-x: hidden;
-    
-    /* Drag to scroll cursor styles */
-    cursor: grab;
-    
-    /* Sticky positioning */
-    position: sticky;
-    top: 4rem; /* Adjust based on your header height */
-  }
-
-  /* Change cursor when actively dragging */
-  media-gallery[data-desktop-layout="vertical_slider"] thumbnail-slider.is-dragging {
-    cursor: grabbing;
-  }
-  
-  /* Prevent pointer events on images while dragging so the browser doesn't try to "drag and drop" the image itself */
-  media-gallery[data-desktop-layout="vertical_slider"] thumbnail-slider.is-dragging img {
-    pointer-events: none;
   }
 }
