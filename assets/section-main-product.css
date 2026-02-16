@@ -2753,7 +2753,7 @@ span.alert-box:before {
 
   /* Thumbnail wrapper styling */
   media-gallery[data-desktop-layout="vertical_slider"] thumbnail-slider {
-    width: 100px; /* Adjust thumbnail column width here */
+    width: 12rem; /* Adjust thumbnail column width here */
     flex-shrink: 0;
   }
 
