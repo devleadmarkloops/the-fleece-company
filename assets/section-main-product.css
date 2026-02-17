@@ -3192,6 +3192,10 @@ span.alert-box:before {
     width: 1rem;
     height: 1rem;
   }
+  /* When Icon with Text */
+  .product__info-container .icon-text-wr {
+    gap: 0.5rem;
+  }
   .product__info-container .icon-text-wr.bg-wr {
     gap: 0.55rem;
     padding: 0.7rem 1rem;
