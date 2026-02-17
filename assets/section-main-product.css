@@ -3091,6 +3091,7 @@ span.alert-box:before {
   line-height: normal;
   letter-spacing: 0;
   color: rgb(var(--color-foreground));
+  margin-top: 1rem;
 }
 .product__info-container .rich-text-box p {
   margin: 0;
