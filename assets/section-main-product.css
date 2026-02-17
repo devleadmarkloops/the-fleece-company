@@ -2854,6 +2854,7 @@ span.alert-box:before {
   object-fit: contain;
 }
 .product__media-wrapper .iwt-gallery-wr .iwt-gallery-item .icon-text {
+  font-family: var(--new-font-body-family);
   font-size: 1.2rem;
   letter-spacing: 0;
   line-height: 1;
@@ -2873,6 +2874,9 @@ span.alert-box:before {
 }
 
 /* ##### Product Information ##### */
+.product__info-container {
+  font-family: var(--new-font-body-family);
+}
 /* When breadcrumb */
 .breadcrumb-wrapper {
   padding-bottom: 1.5rem;
