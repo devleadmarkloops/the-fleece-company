@@ -3163,6 +3163,10 @@ span.alert-box:before {
 }
 
 @media screen and (max-width: 749px) {
+  /* When Title */
+  .product__info-container .product__title {
+    margin-top: 0.7rem;
+  }
   .product__info-container .icon-text-wr.bg-wr {
     gap: 0.55rem;
     padding: 0.7rem 1rem;
