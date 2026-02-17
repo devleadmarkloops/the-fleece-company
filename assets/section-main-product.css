@@ -2971,7 +2971,6 @@ span.alert-box:before {
 .product__info-container .product-form__input input[type=radio]+label {
   font-size: 1.4rem;
   letter-spacing: 0;
-  padding: 1.5rem 2rem;
   border-radius: 8px;
   background-color: white;
 }
