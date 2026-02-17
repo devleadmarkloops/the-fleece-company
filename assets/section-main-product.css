@@ -2984,11 +2984,9 @@ span.alert-box:before {
 .product__info-container .kaching-bundles .kaching-bundles__bar-container {
   border-radius: 8px;
 }
-.kaching-bundles .kaching-bundles__bar-title {
-  font-family: var(--new-font-heading-family);
-  font-size: 1.6rem;
-}
+.kaching-bundles .kaching-bundles__bar-title,
 .kaching-bundles .kaching-bundles__bar-price {
+  font-family: var(--new-font-heading-family);
   font-size: 1.6rem;
 }
 
