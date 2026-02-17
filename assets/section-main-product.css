@@ -3226,4 +3226,9 @@ span.alert-box:before {
   .product__info-container .product-form__input input.button-input__input+label::after {
     border-radius: 6px;
   }
+  /* When Kaching Bundles */
+  .product__info-container .kaching-bundles .kaching-bundles__bar-title, 
+  .product__info-container .kaching-bundles .kaching-bundles__bar-price {
+    font-size: 1.4rem;
+  }
 }
