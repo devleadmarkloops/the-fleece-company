@@ -3185,6 +3185,13 @@ span.alert-box:before {
   .product__info-container .price--on-sale .price-item--regular bdi {
     font-size: 1.2rem;
   }
+  .product__info-container .price .badge {
+    font-size: 1rem;
+  }
+  .product__info-container .price .badge .icon {
+    width: 1rem;
+    height: 1rem;
+  }
   .product__info-container .icon-text-wr.bg-wr {
     gap: 0.55rem;
     padding: 0.7rem 1rem;
