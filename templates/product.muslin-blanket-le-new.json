@@ -171,6 +171,7 @@
         },
         "icon_with_text_NArRNw": {
           "type": "icon_with_text",
+          "disabled": true,
           "settings": {
             "icon_1": "shopify://shop_images/local_shipping_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
             "text_1": "Fast & Tracked Shipping",
@@ -182,6 +183,7 @@
         },
         "text_custom_A3eeDw": {
           "type": "text_custom",
+          "disabled": true,
           "settings": {
             "text_custom": "<strong>UPDATE: We're currently going viral on social media</strong> and have limited stock remaining!  Take advantage of our quantity discounts.",
             "text_color": "",
