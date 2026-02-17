@@ -2901,7 +2901,7 @@ span.alert-box:before {
   font-size: 1.4rem;
   letter-spacing: 0;
   text-decoration: underline;
-  text-underline-offset 2px;
+  text-underline-offset: 2px;
 }
 .product__info-container .rating-static-wr .stars-wr svg {
   width: 1.5rem;
