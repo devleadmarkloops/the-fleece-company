@@ -3112,7 +3112,7 @@ span.alert-box:before {
 }
 .product__info-container .product-video-reels-wrapper .reel-slide {
   aspect-ratio: 9 / 16;
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;
   background-color: #000;
   position: relative;
