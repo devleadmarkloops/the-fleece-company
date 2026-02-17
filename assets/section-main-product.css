@@ -2951,6 +2951,13 @@ span.alert-box:before {
   font-weight: 500;
   letter-spacing: 0;
 }
+/* When Variant Picker */
+.product__info-container fieldset.product-form__input .form__label {
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  margin-bottom: 0.2rem;
+}
 
 @media screen and (max-width: 749px) {
   .product__info-container .icon-text-wr.bg-wr {
