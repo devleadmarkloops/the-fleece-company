@@ -3024,7 +3024,7 @@ span.alert-box:before {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.7rem;
+  gap: 0.4rem;
   margin-top: 1rem;
 }
 .product__info-container .btn-icon-text-wr img {
@@ -3033,6 +3033,14 @@ span.alert-box:before {
 }
 .product__info-container .btn-icon-text-wr .btn-icon-text {
   font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.product__info-container .installment-text {
+  text-align: center;
+}
+.product__info-container .installment-text p {
+  font-size: 1.2rem;
   font-weight: 500;
   letter-spacing: 0;
 }
