@@ -3081,6 +3081,13 @@ span.alert-box:before {
   line-height: 1;
   margin-top: 3px;
 }
+/* When Richtext Box */
+.product__info-container .rich-text-box {
+  text-align: center;
+  padding: 1.5rem 2rem;
+  border: 1px solid rgb(var(--color-foreground));
+  border-radius: 8px;
+}
 
 @media screen and (max-width: 749px) {
   .product__info-container .icon-text-wr.bg-wr {
