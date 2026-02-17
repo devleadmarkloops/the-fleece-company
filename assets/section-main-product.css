@@ -2993,6 +2993,10 @@ span.alert-box:before {
   margin-top: 2px;
   margin-bottom: 2px;
 }
+.kaching-bundles .kaching-bundles__bar-variant-select {
+  background-color: #F0EAE4;
+  border-radius: 16px;
+}
 
 @media screen and (max-width: 749px) {
   .product__info-container .icon-text-wr.bg-wr {
