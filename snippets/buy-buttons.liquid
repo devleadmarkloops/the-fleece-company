@@ -471,7 +471,7 @@
 {%- if show_pickup_availability -%}
   {{ 'component-pickup-availability.css' | asset_url | stylesheet_tag }}
   {%- assign pick_up_availabilities = product.selected_or_first_available_variant.store_availabilities | where: 'pick_up_enabled', true -%}
-  <pickup-availability class="product__pickup-availabilities no-js-hidden"
+  {% comment %} <pickup-availability class="product__pickup-availabilities no-js-hidden"
     {% if product.selected_or_first_available_variant.available and pick_up_availabilities.size > 0 %} available{% endif %}
     data-root-url="{{ routes.root_url }}"
     data-variant-id="{{ product.selected_or_first_available_variant.id }}"
@@ -486,7 +486,7 @@
         </div>
       </pickup-availability-preview>
     </template>
-  </pickup-availability>
+  </pickup-availability> {% endcomment %}
   <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
 
