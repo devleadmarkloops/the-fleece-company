@@ -2977,6 +2977,10 @@ span.alert-box:before {
 .product__info-container .product-form__input input.button-input__input+label::after {
   border-radius: 8px;
 }
+/* When Kaching Bundles */
+.product__info-container .kaching-bundles .kaching-bundles__block-title {
+  font-family: var(--new-font-heading-family);
+}
 
 @media screen and (max-width: 749px) {
   .product__info-container .icon-text-wr.bg-wr {
