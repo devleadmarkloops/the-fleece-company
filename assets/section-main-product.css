@@ -2993,11 +2993,17 @@ span.alert-box:before {
   margin-top: 2px;
   margin-bottom: 2px;
 }
-.kaching-bundles .kaching-bundles__bar-variant-select {
+.product__info-container .kaching-bundles .kaching-bundles__bar-variant-select {
   background-color: #F0EAE4;
   border-radius: 16px;
   padding-block: 1rem;
   padding-inline-start: 1.2rem;
+}
+.product__info-container .kaching-bundles .kaching-bundles__block {
+  margin-bottom: 0;
+}
+.product__info-container .kaching-bundles .kaching-bundles__bar:last-child {
+  margin-bottom: 0;
 }
 
 @media screen and (max-width: 749px) {
