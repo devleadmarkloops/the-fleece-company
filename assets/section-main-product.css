@@ -3278,4 +3278,9 @@ span.alert-box:before {
   .product__info-container .countdown-timer-block .timer-unit {
     min-width: 2.5rem;
   }
+  /* when Rich Text Box */
+  .product__info-container .rich-text-box {
+    padding: 1rem 1.5rem;
+    font-size: var(--text-size-mob);
+  }
 }
