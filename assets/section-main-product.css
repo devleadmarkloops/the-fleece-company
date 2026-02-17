@@ -3049,7 +3049,9 @@ span.alert-box:before {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 1rem;
+  text-align: left;
+  padding: 1.5rem 2rem;
 }
 
 @media screen and (max-width: 749px) {
