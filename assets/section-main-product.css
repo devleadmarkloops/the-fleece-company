@@ -2984,10 +2984,14 @@ span.alert-box:before {
 .product__info-container .kaching-bundles .kaching-bundles__bar-container {
   border-radius: 8px;
 }
-.kaching-bundles .kaching-bundles__bar-title,
-.kaching-bundles .kaching-bundles__bar-price {
+.product__info-container .kaching-bundles .kaching-bundles__bar-title,
+.product__info-container .kaching-bundles .kaching-bundles__bar-price {
   font-family: var(--new-font-heading-family);
   font-size: 1.6rem;
+}
+.product__info-container .kaching-bundles .kaching-bundles__bar-container--most-popular--simple .kaching-bundles__bar-main {
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 
 @media screen and (max-width: 749px) {
