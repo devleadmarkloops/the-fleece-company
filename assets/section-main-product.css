@@ -3207,4 +3207,14 @@ span.alert-box:before {
   .product__info-container .product-form__input {
     --swatch-input--size: 3.6rem;
   }
+  .product__info-container .product-form__input .swatch {
+    border-radius: 6px;
+  }
+  .product__info-container .product-form__input input[type=radio]+label {
+    font-size: 1.2rem;
+    border-radius: 6px;
+  }
+  .product__info-container .product-form__input input.button-input__input+label::after {
+    border-radius: 6px;
+  }
 }
