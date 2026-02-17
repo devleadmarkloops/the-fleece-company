@@ -3105,6 +3105,9 @@ span.alert-box:before {
   opacity: 0.85;
 }
 /* When Collapsible Row */
+.product__info-container .product__accordion summary {
+  display: flex;
+}
 .product__info-container .product__accordion summary svg {
   width: 1.4rem;
   height: 1.4rem;
