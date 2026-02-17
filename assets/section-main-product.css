@@ -3125,6 +3125,9 @@ span.alert-box:before {
 }
 .product__info-container .product__accordion .accordion__content {
   font-size: 1.4rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+  padding-inline: 0;
 }
 
 @media screen and (max-width: 749px) {
