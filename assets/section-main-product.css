@@ -2881,6 +2881,11 @@ span.alert-box:before {
 .breadcrumb-wrapper {
   padding-bottom: 1.5rem;
 }
+.breadcrumb-wrapper .breadcrumb {
+  font-family: var(--new-font-body-family);
+  font-weight: 500;
+  letter-spacing: 0;
+}
 /* When Title */
 .product__info-container .product__title {
   margin-top: 1rem;
