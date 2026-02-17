@@ -1617,7 +1617,7 @@
                           {{ block.settings.heading | default: block.settings.page.title | escape }}
                         </span>
                       </span>
-                      {% render 'icon', icon: 'caret' %}
+                      {% render 'icon', icon: 'plus' %}
                     </summary>
                     <div class="accordion__content rte">
                       {{ product.description }}
@@ -1669,7 +1669,7 @@
                             {{ block.settings.heading | default: metaobject_data.system.name | escape }}
                           </span>
                         </span>
-                        {% render 'icon', icon: 'caret' %}
+                        {% render 'icon', icon: 'plus' %}
                       </summary>
                       <div class="accordion__content rte">
                         {%- if metaobject_data.market != blank -%}
