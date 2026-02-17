@@ -3167,6 +3167,17 @@ span.alert-box:before {
   .product__info-container .product__title {
     margin-top: 0.7rem;
   }
+  .product__info-container .product__title .h2 {
+    font-size: 2rem;
+  }
+  /* When Static Rating */
+  .product__info-container .rating-static-wr .stars-wr svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+  .product__info-container .rating-static-wr .r-text {
+    font-size: 1.2rem;
+  }
   .product__info-container .icon-text-wr.bg-wr {
     gap: 0.55rem;
     padding: 0.7rem 1rem;
