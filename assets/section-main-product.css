@@ -2883,8 +2883,10 @@ span.alert-box:before {
 }
 /* When Title */
 .product__info-container .product__title {
-  font-family: var(--new-font-heading-family);
   margin-top: 1rem;
+}
+.product__info-container .product__title h1 {
+  font-family: var(--new-font-heading-family);
 }
 /* When Icon with Text */
 .product__info-container .icon-text-wr.bg-wr {
