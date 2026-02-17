@@ -2996,6 +2996,8 @@ span.alert-box:before {
 .kaching-bundles .kaching-bundles__bar-variant-select {
   background-color: #F0EAE4;
   border-radius: 16px;
+  padding-block: 1rem;
+  padding-inline-start: 1rem;
 }
 
 @media screen and (max-width: 749px) {
