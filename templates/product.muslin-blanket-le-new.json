@@ -74,7 +74,7 @@
             "icon_size_mob": 18,
             "icon_text": "",
             "icon_richtext": "<p><strong>Valentine's Day Sale:</strong> Buy One, Get One <strong>FREE</strong></p>",
-            "text_color": "#121212",
+            "text_color": "#3b3b3b",
             "text_size": 14,
             "text_size_mob": 12,
             "enable_bg": true
@@ -95,7 +95,7 @@
             "icon_size_mob": 24,
             "text_size": 14,
             "text_size_mob": 13,
-            "text_color": "#000000"
+            "text_color": "#3b3b3b"
           }
         },
         "text_custom_Lpng9n": {
