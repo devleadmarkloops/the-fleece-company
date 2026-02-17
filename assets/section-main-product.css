@@ -3245,4 +3245,15 @@ span.alert-box:before {
     width: 16px;
     height: 16px;
   }
+  /* When Buy Buttons */
+  .product__info-container .btn-icon-text-wr {
+    margin-top: 0.8rem;
+  }
+  .product__info-container .btn-icon-text-wr img {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  .product__info-container .btn-icon-text-wr .btn-icon-text {
+    font-size: 1.2rem;
+  }
 }
