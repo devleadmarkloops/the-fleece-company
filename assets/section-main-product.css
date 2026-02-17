@@ -3246,7 +3246,8 @@ span.alert-box:before {
     height: 16px;
   }
   /* When Buy Buttons */
-  .product__info-container .btn-icon-text-wr {
+  .product__info-container .btn-icon-text-wr,
+  .product__info-container .installment-text {
     margin-top: 0.8rem;
   }
   .product__info-container .btn-icon-text-wr img {
@@ -3255,5 +3256,8 @@ span.alert-box:before {
   }
   .product__info-container .btn-icon-text-wr .btn-icon-text {
     font-size: 1.2rem;
+  }
+  .product__info-container .installment-text .installment {
+    font-size: 1rem;
   }
 }
