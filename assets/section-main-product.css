@@ -3109,6 +3109,7 @@ span.alert-box:before {
   display: flex;
   align-items: center;
   gap: 1rem;
+  padding-block: 1.6rem;
 }
 .product__info-container .product__accordion .summary__title {
   padding: 0;
