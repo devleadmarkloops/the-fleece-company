@@ -3263,5 +3263,9 @@ span.alert-box:before {
   /* When Countdown Timer */
   .product__info-container .countdown-timer-block {
     padding: 1.2rem 1.8rem;
+    border-radius: 6px;
+  }
+  .product__info-container .countdown-timer-block .countdown-heading {
+    font-size: 1.2rem;
   }
 }
