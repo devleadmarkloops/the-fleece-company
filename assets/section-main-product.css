@@ -3061,7 +3061,8 @@ span.alert-box:before {
   text-transform: none;
   margin-bottom: 0;
 }
-.product__info-container .countdown-timer-block .timer-number {
+.product__info-container .countdown-timer-block .timer-number,
+.product__info-container .countdown-timer-block .timer-separator {
   font-size: 2rem;
   font-weight: 500;
   letter-spacing: 0;
