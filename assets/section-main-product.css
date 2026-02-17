@@ -3268,4 +3268,14 @@ span.alert-box:before {
   .product__info-container .countdown-timer-block .countdown-heading {
     font-size: 1.2rem;
   }
+  .product__info-container .countdown-timer-block .timer-number, 
+  .product__info-container .countdown-timer-block .timer-separator {
+    font-size: 1.8rem;
+  }
+  .product__info-container .countdown-timer-block .timer-label {
+    font-size: 0.9rem;
+  }
+  .product__info-container .countdown-timer-block .timer-unit {
+    min-width: 2.5rem;
+  }
 }
