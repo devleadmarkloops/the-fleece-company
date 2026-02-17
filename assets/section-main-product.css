@@ -2958,6 +2958,9 @@ span.alert-box:before {
   letter-spacing: 0;
   margin-bottom: 0.2rem;
 }
+.product__info-container .product-form__input {
+  --swatch-input--size: 4.8rem;
+}
 
 @media screen and (max-width: 749px) {
   .product__info-container .icon-text-wr.bg-wr {
