@@ -2907,6 +2907,10 @@ span.alert-box:before {
   width: 1.5rem;
   height: 1.5rem;
 }
+/* When Icon with Text */
+.product__info-container .icon-text-wr .icon-text {
+  letter-spacing: 0;
+}
 /* When Title */
 .product__info-container .product__title {
   margin-top: 1rem;
