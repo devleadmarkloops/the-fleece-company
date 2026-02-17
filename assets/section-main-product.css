@@ -3260,4 +3260,8 @@ span.alert-box:before {
   .product__info-container .installment-text .installment {
     font-size: 1rem;
   }
+  /* When Countdown Timer */
+  .product__info-container .countdown-timer-block {
+    padding: 1.2rem 1.8rem;
+  }
 }
