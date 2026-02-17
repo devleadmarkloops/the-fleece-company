@@ -2959,6 +2959,9 @@ span.alert-box:before {
   letter-spacing: 0;
   margin-bottom: 0.2rem;
 }
+.product__info-container fieldset.product-form__input .form__label span {
+  font-family: var(--new-font-body-family);
+}
 .product__info-container .product-form__input {
   --swatch-input--size: 4.8rem;
 }
