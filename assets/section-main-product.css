@@ -3290,6 +3290,10 @@ span.alert-box:before {
   .product__info-container .product__accordion .accordion__title {
     font-size: 1.5rem;
   }
+  .product__info-container .product__accordion summary svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
   .product__info-container .product__accordion .accordion__content {
     font-size: 1.3rem;
   }
