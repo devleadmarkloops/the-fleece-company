@@ -2988,6 +2988,9 @@ span.alert-box:before {
   font-family: var(--new-font-heading-family);
   font-size: 1.6rem;
 }
+.kaching-bundles .kaching-bundles__bar-price {
+  font-size: 1.6rem;
+}
 
 @media screen and (max-width: 749px) {
   .product__info-container .icon-text-wr.bg-wr {
