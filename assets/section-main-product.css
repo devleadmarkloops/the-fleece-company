@@ -2968,12 +2968,15 @@ span.alert-box:before {
 .product__info-container .product-form__input .swatch {
   border-radius: 8px;
 }
-.product-form__input input[type=radio]+label {
+.product__info-container .product-form__input input[type=radio]+label {
   font-size: 1.4rem;
   letter-spacing: 0;
   padding: 1.5rem 2rem;
   border-radius: 8px;
   background-color: white;
+}
+.product__info-container .product-form__input input.button-input__input+label::after {
+  border-radius: 8px;
 }
 
 @media screen and (max-width: 749px) {
