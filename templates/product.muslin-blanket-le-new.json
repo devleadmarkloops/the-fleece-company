@@ -137,6 +137,12 @@
             "icon_text": "30 DAYS MONEY BACK GUARANTEE"
           }
         },
+        "payment_icons_jx4G8P": {
+          "type": "payment_icons",
+          "settings": {
+            "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
+          }
+        },
         "countdown_timer_4tCBwt": {
           "type": "countdown_timer",
           "settings": {
@@ -249,6 +255,7 @@
         "text_custom_Lpng9n",
         "variant_picker",
         "buy_buttons",
+        "payment_icons_jx4G8P",
         "countdown_timer_4tCBwt",
         "icon_with_text_NArRNw",
         "text_custom_A3eeDw",
