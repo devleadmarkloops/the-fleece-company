@@ -3057,6 +3057,7 @@ span.alert-box:before {
   font-family: var(--new-font-heading-family);
   font-size: 1.6rem;
   letter-spacing: 0;
+  text-transform: none;
   margin-bottom: 0;
 }
 
