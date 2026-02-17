@@ -1780,7 +1780,7 @@
                     {% if block.settings.icon_text != blank %}
                       <div class="icon-text-wr">
                         {% if block.settings.icon != blank %}
-                          <img src="{{ block.settings.icon }}" width="20" height="20" alt="Icon">
+                          <img src="{{ block.settings.icon | image_url }}" width="20" height="20" alt="Icon">
                         {% endif %}
                         <span class="icon-text">{{ block.settings.icon_text }}</span>
                       </div>
@@ -3389,6 +3389,20 @@ if (nextBtn) {
           "type": "product",
           "id": "monogram_product",
           "label": "Monogram product"
+        },
+        {
+          "type": "header",
+          "content": "Button footer"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Select icon"
+        },
+        {
+          "type": "text",
+          "id": "icon_text",
+          "label": "Icon text"
         }
       ]
     },
