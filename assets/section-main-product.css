@@ -3097,6 +3097,11 @@ span.alert-box:before {
 }
 .product__info-container .rich-text-box a {
   color: rgb(var(--color-foreground));
+  text-underline-offset: 2px;
+  transition: all 0.2s ease;
+}
+.product__info-container .rich-text-box a:hover {
+  opacity: 0.85;
 }
 
 @media screen and (max-width: 749px) {
