@@ -3020,6 +3020,18 @@ span.alert-box:before {
 .product__info-container .product__pickup-availabilities {
   display: none;
 }
+.product__info-container .btn-icon-text-wr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+.product__info-container .btn-icon-text-wr .btn-icon-text {
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
 
 @media screen and (max-width: 749px) {
   .product__info-container .icon-text-wr.bg-wr {
