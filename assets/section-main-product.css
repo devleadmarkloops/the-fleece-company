@@ -3231,4 +3231,10 @@ span.alert-box:before {
   .product__info-container .kaching-bundles .kaching-bundles__bar-price {
     font-size: 1.4rem;
   }
+  .product__info-container .kaching-bundles .kaching-bundles__bar-subtitle {
+    font-size: 1.2rem;
+  }
+  .product__info-container .kaching-bundles .kaching-bundles__bar-variant-select {
+    padding-block: 0.8rem;
+  }
 }
