@@ -1777,6 +1777,20 @@
                       product_form_id: product_form_id,
                       show_pickup_availability: true
                     %}
+                    {% if block.settings.icon_text != blank %}
+                      <div class="icon-text-wr">
+                        {% if block.settings.icon != blank %}
+                          <img src="{{ block.settings.icon }}" width="20" height="20" alt="Icon">
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                    <div class="installment-text" {{ block.shopify_attributes }}>
+                      {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
+                      {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
+                        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                        {{ form | payment_terms }}
+                      {%- endform -%}
+                    </div>
                   {%- when 'v2' -%}
                     {% render 'buy-buttons-v2',
                       block: block,
