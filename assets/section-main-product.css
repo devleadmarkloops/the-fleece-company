@@ -452,6 +452,8 @@ fieldset.product-form__input .form__label {
 @media screen and (max-width: 749px) {
   .product-form__input input[type=radio]+label {
     padding: 1.2rem 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.3rem;
     margin-inline-end: 0.7rem;
   }
 }
