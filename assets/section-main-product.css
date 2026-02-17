@@ -2882,7 +2882,8 @@ span.alert-box:before {
 .product__info-container ul,
 .product__info-container li,
 .product__info-container a,
-.product__info-container .price {
+.product__info-container .price,
+.product__info-container .price bdi {
   font-family: var(--new-font-body-family);
 }
 /* When breadcrumb */
