@@ -1645,27 +1645,22 @@
                     reelWrappers.forEach((wrapper) => {
                       const swiperEl = wrapper.querySelector('.swiper');
                       
-                      // 1. Initialize Swiper
-                      // Adjust slidesPerView to control how many reels show at once
                       if (swiperEl && typeof Swiper !== 'undefined') {
                         new Swiper(swiperEl, {
-                          slidesPerView: 2.2, // Shows 2 full reels + a peek at the 3rd
-                          spaceBetween: 12,
+                          slidesPerView: 3.2,
+                          spaceBetween: 10,
                           grabCursor: true,
                           breakpoints: {
                             768: {
-                              slidesPerView: 3.2,
-                              spaceBetween: 16
+                              slidesPerView: 3.5
                             },
                             1024: {
-                              slidesPerView: 4.2,
-                              spaceBetween: 20
+                              slidesPerView: 4.2
                             }
                           }
                         });
                       }
 
-                      // 2. Intersection Observer for Autoplay
                       const videos = wrapper.querySelectorAll('.reel-video[data-autoplay="true"]');
                       
                       if ('IntersectionObserver' in window) {
@@ -1674,18 +1669,15 @@
                             const video = entry.target;
                             
                             if (entry.isIntersecting) {
-                              // Video is in the viewport, play it
                               video.play().catch(err => {
-                                // Catch autoplay blocks from browsers (usually if not muted)
                                 console.warn("Autoplay prevented by browser:", err);
                               });
                             } else {
-                              // Video left the viewport, pause it
                               video.pause();
                             }
                           });
                         }, {
-                          threshold: 0.5 // Triggers when 50% of the video is visible
+                          threshold: 0.5
                         });
 
                         videos.forEach((video) => {
