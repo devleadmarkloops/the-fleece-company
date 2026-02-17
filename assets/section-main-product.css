@@ -3110,6 +3110,9 @@ span.alert-box:before {
   align-items: center;
   gap: 1rem;
 }
+.product__info-container .product__accordion .summary__title {
+  padding: 0;
+}
 .product__info-container .product__accordion summary svg {
   width: 1.4rem;
   height: 1.4rem;
