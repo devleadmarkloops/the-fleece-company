@@ -3116,6 +3116,10 @@ span.alert-box:before {
 .product__info-container .product__accordion summary svg {
   width: 1.4rem;
   height: 1.4rem;
+  transition: all 0.3s ease;
+}
+.product__info-container .product__accordion details[open] summary svg {
+  transform: rotate(90deg);
 }
 .product__info-container .product__accordion .accordion__title {
   font-family: var(--new-font-heading-family);
