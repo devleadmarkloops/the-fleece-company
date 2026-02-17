@@ -3089,9 +3089,14 @@ span.alert-box:before {
   text-align: center;
   font-size: var(--text-size);
   line-height: normal;
+  letter-spacing: 0;
+  color: rgb(var(--color-foreground));
 }
 .product__info-container .rich-text-box p {
   margin: 0;
+}
+.product__info-container .rich-text-box a {
+  color: rgb(var(--color-foreground));
 }
 
 @media screen and (max-width: 749px) {
