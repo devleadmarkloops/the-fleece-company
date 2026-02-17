@@ -2875,7 +2875,13 @@ span.alert-box:before {
 }
 
 /* ##### Product Information ##### */
-.product__info-container {
+.product__info-container,
+.product__info-container div,
+.product__info-container p,
+.product__info-container span,
+.product__info-container ul,
+.product__info-container li,
+.product__info-container a {
   font-family: var(--new-font-body-family);
 }
 /* When breadcrumb */
