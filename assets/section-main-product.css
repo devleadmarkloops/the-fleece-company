@@ -3061,6 +3061,12 @@ span.alert-box:before {
   text-transform: none;
   margin-bottom: 0;
 }
+.product__info-container .countdown-timer-block .countdown-timer {
+  flex-wrap: nowrap;
+}
+.product__info-container .countdown-timer-block .timer-unit {
+  min-width: 3rem;
+}
 .product__info-container .countdown-timer-block .timer-number,
 .product__info-container .countdown-timer-block .timer-separator {
   font-size: 2rem;
