@@ -2812,6 +2812,18 @@ span.alert-box:before {
   }
 }
 
+@media screen and (max-width: 749px) {
+  .product .product__media-gallery .thumbnail-slider .thumbnail img {
+    padding: 3px;
+  }
+  .product .product__media-gallery .thumbnail-slider .slider-button {
+    display: none;
+  }
+  .product .product__media-gallery .thumbnail-slider .thumbnail-list {
+    max-width: calc(100% - 3rem);
+  }
+}
+
 /* ### Media Gallery Overlay ### */
 .product__media-wrapper product-gallery {
   position: relative;
