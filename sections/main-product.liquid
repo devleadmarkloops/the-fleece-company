@@ -1153,47 +1153,47 @@
                   {% endif %}
                 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const ratingLinks = document.querySelectorAll('.rating-link-scroll');
-    
-    ratingLinks.forEach(function(link) {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Find the reviews slider section
-        const reviewsSection = document.querySelector('[class*="reviews-slider"]') || 
-                              document.querySelector('.reviews-slider-wr') ||
-                              document.querySelector('[data-section-type="reviews"]');
-        
-        if (reviewsSection) {
-          reviewsSection.scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-  });
-</script>
+                <script>
+                  document.addEventListener('DOMContentLoaded', function() {
+                    const ratingLinks = document.querySelectorAll('.rating-link-scroll');
+                    
+                    ratingLinks.forEach(function(link) {
+                      link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        // Find the reviews slider section
+                        const reviewsSection = document.querySelector('[class*="reviews-slider"]') || 
+                                              document.querySelector('.reviews-slider-wr') ||
+                                              document.querySelector('[data-section-type="reviews"]');
+                        
+                        if (reviewsSection) {
+                          reviewsSection.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                          });
+                        }
+                      });
+                    });
+                  });
+                </script>
 
-<style>
-  .rating-link-scroll {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-  }
-  
-  .rating-static-wr {
-    position: relative;
-  }
-</style>
+                <style>
+                  .rating-link-scroll {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                    padding: 0;
+                  }
+                  
+                  .rating-static-wr {
+                    position: relative;
+                  }
+                </style>
               {%- when 'text_custom' -%}
                 <div
                   class="text-custom-wr {% if block.settings.enable_circle %} blink-circle{% endif %}{% if block.settings.enable_normal %} normal{% endif %}"
@@ -1204,6 +1204,14 @@
                 <strong>New Year Sale</strong>
               {% endcapture %}
                   <p>{{ block.settings.text_custom }}</p>
+                </div>
+              {%- when 'richtext_box' -%}
+                <div
+                  class="rich-text-box"
+                  {{ block.shopify_attributes }}
+                  style="--text-size: {{ block.settings.text_size }}px; --text-size-mob: {{ block.settings.text_size_mob }}px;"
+                >
+                  {{ block.settings.rich_text }}
                 </div>
               {%- when 'icon_text' -%}
                 <div
@@ -3521,6 +3529,37 @@ if (nextBtn) {
           "id": "enable_circle",
           "default": false,
           "label": "Enable blink circle"
+        }
+      ]
+    },
+    {
+      "type": "richtext_box",
+      "name": "Richtext box",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "rich_text",
+          "label": "Richtext"
+        },
+        {
+          "type": "range",
+          "id": "text_size",
+          "min": 5,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "default": 16,
+          "label": "Text size"
+        },
+        {
+          "type": "range",
+          "id": "text_size_mob",
+          "min": 5,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "default": 15,
+          "label": "Text size (mobile)"
         }
       ]
     },
