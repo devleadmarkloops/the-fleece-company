@@ -132,7 +132,9 @@
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": false,
             "enable_monogram": false,
-            "monogram_product": "monogram-test-product"
+            "monogram_product": "monogram-test-product",
+            "icon": "shopify://shop_images/Vector_2.svg",
+            "icon_text": "30 DAYS MONEY BACK GUARANTEE"
           }
         },
         "countdown_timer_4tCBwt": {
