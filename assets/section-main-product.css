@@ -2920,7 +2920,10 @@ span.alert-box:before {
 .product__info-container .price bdi {
   font-weight: 500;
 }
-product-info .price--on-sale .price-item--regular bdi {
+.product__info-container .price--on-sale .price-item--regular bdi {
+  font-weight: 500;
+}
+.product__info-container .price .badge {
   font-weight: 500;
 }
 /* When Icon with Text */
