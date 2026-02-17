@@ -2856,6 +2856,7 @@ span.alert-box:before {
 .product__media-wrapper .iwt-gallery-wr .iwt-gallery-item .icon-text {
   font-family: var(--new-font-body-family);
   font-size: 1.2rem;
+  font-weight: 500;
   letter-spacing: 0;
   line-height: 1;
 }
