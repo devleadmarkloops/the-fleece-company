@@ -3093,7 +3093,7 @@ span.alert-box:before {
 /* When Richtext Box */
 .product__info-container .rich-text-box {
   padding: 1.5rem 2rem;
-  border: 1px solid rgb(var(--color-foreground));
+  border: 1px solid rgba(var(--color-foreground), 0.2);
   border-radius: 8px;
   text-align: center;
   font-size: var(--text-size);
