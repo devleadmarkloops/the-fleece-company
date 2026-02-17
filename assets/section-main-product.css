@@ -3104,6 +3104,38 @@ span.alert-box:before {
 .product__info-container .rich-text-box a:hover {
   opacity: 0.85;
 }
+/* When Video Reels */
+.product-video-reels-wrapper {
+  margin: 2rem 0;
+  width: 100%;
+  overflow: hidden; /* Contains the swiper slider */
+}
+
+.reel-slide {
+  /* This ensures the slide acts as a 9:16 vertical video */
+  aspect-ratio: 9 / 16;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #000;
+  position: relative;
+  
+  /* If you want them to be a specific width, adjust here or rely on Swiper slidesPerView */
+  height: auto; 
+}
+
+.reel-video-container {
+  width: 100%;
+  height: 100%;
+}
+
+.reel-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures video fills the 9:16 container without stretching */
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 /* When Collapsible Row */
 .product__info-container .product__accordion summary {
   display: flex;

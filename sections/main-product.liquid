@@ -1595,6 +1595,107 @@
                     {%- endfor -%}
                   </ul>
                 </div>
+              
+              {%- when 'video_reels' -%}
+                <div class="product-video-reels-wrapper" {{ block.shopify_attributes }}>
+                  <div class="swiper video-reels-swiper-{{ block.id }}">
+                    <div class="swiper-wrapper">
+                      {%- for i in (1..6) -%}
+                        {%- capture video_key -%}video_{{ i }}{%- endcapture -%}
+                        {%- capture poster_key -%}poster_{{ i }}{%- endcapture -%}
+                        
+                        {%- assign video = block.settings[video_key] -%}
+                        {%- assign custom_poster = block.settings[poster_key] -%}
+
+                        {%- if video != blank -%}
+                          <div class="swiper-slide reel-slide">
+                            {%- comment -%} 
+                              Dynamically grab the video's default poster, or override with custom poster 
+                            {%- endcomment -%}
+                            {%- assign poster_url = video.preview_image | image_url: width: 600 -%}
+                            {%- if custom_poster != blank -%}
+                              {%- assign poster_url = custom_poster | image_url: width: 600 -%}
+                            {%- endif -%}
+                            
+                            <div class="reel-video-container">
+                              <video 
+                                class="reel-video" 
+                                poster="{{ poster_url }}"
+                                playsinline
+                                loop
+                                {% if block.settings.mute_videos %}muted{% endif %}
+                                data-autoplay="{{ block.settings.autoplay_in_view }}"
+                              >
+                                {%- for source in video.sources -%}
+                                  <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                                {%- endfor -%}
+                                Your browser does not support the video tag.
+                              </video>
+                            </div>
+                          </div>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                </div>
+                <script>
+                  document.addEventListener('DOMContentLoaded', () => {
+                    const reelWrappers = document.querySelectorAll('.product-video-reels-wrapper');
+
+                    reelWrappers.forEach((wrapper) => {
+                      const swiperEl = wrapper.querySelector('.swiper');
+                      
+                      // 1. Initialize Swiper
+                      // Adjust slidesPerView to control how many reels show at once
+                      if (swiperEl && typeof Swiper !== 'undefined') {
+                        new Swiper(swiperEl, {
+                          slidesPerView: 2.2, // Shows 2 full reels + a peek at the 3rd
+                          spaceBetween: 12,
+                          grabCursor: true,
+                          breakpoints: {
+                            768: {
+                              slidesPerView: 3.2,
+                              spaceBetween: 16
+                            },
+                            1024: {
+                              slidesPerView: 4.2,
+                              spaceBetween: 20
+                            }
+                          }
+                        });
+                      }
+
+                      // 2. Intersection Observer for Autoplay
+                      const videos = wrapper.querySelectorAll('.reel-video[data-autoplay="true"]');
+                      
+                      if ('IntersectionObserver' in window) {
+                        const videoObserver = new IntersectionObserver((entries) => {
+                          entries.forEach((entry) => {
+                            const video = entry.target;
+                            
+                            if (entry.isIntersecting) {
+                              // Video is in the viewport, play it
+                              video.play().catch(err => {
+                                // Catch autoplay blocks from browsers (usually if not muted)
+                                console.warn("Autoplay prevented by browser:", err);
+                              });
+                            } else {
+                              // Video left the viewport, pause it
+                              video.pause();
+                            }
+                          });
+                        }, {
+                          threshold: 0.5 // Triggers when 50% of the video is visible
+                        });
+
+                        videos.forEach((video) => {
+                          videoObserver.observe(video);
+                        });
+                      }
+                    });
+                  });
+                </script>
+
               {%- when 'custom_liquid' -%}
                 <div
                   class="custom__liquid custom__liquid-{{ section.id }}"
@@ -3733,6 +3834,55 @@ if (nextBtn) {
           "default": "american_express, visa, master, apple_pay, google_pay, paypal",
           "info": "List of payments you want to show, split with a comma. Options are: afterpay, american_express, apple_pay, bitcoin, dankort, diners_club, discover, dogecoin, dwolla, facebook_pay, forbrugsforeningen, google_pay, ideal, jcb, klarna, klarna-pay-later, litecoin, maestro, master, paypal, shopify_pay, sofort, unionpay, visa"
         }
+      ]
+    },
+    {
+      "type": "video_reels",
+      "name": "Video Reels Slider",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Global Video Settings"
+        },
+        {
+          "type": "checkbox",
+          "id": "autoplay_in_view",
+          "label": "Autoplay when in view",
+          "info": "Plays video only when scrolled into view to save page speed.",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "mute_videos",
+          "label": "Mute videos by default",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Video 1"
+        },
+        { "type": "video", "id": "video_1", "label": "Shopify Hosted Video" },
+        { "type": "image_picker", "id": "poster_1", "label": "Custom Poster (Optional)" },
+        
+        { "type": "header", "content": "Video 2" },
+        { "type": "video", "id": "video_2", "label": "Shopify Hosted Video" },
+        { "type": "image_picker", "id": "poster_2", "label": "Custom Poster (Optional)" },
+
+        { "type": "header", "content": "Video 3" },
+        { "type": "video", "id": "video_3", "label": "Shopify Hosted Video" },
+        { "type": "image_picker", "id": "poster_3", "label": "Custom Poster (Optional)" },
+
+        { "type": "header", "content": "Video 4" },
+        { "type": "video", "id": "video_4", "label": "Shopify Hosted Video" },
+        { "type": "image_picker", "id": "poster_4", "label": "Custom Poster (Optional)" },
+
+        { "type": "header", "content": "Video 5" },
+        { "type": "video", "id": "video_5", "label": "Shopify Hosted Video" },
+        { "type": "image_picker", "id": "poster_5", "label": "Custom Poster (Optional)" },
+
+        { "type": "header", "content": "Video 6" },
+        { "type": "video", "id": "video_6", "label": "Shopify Hosted Video" },
+        { "type": "image_picker", "id": "poster_6", "label": "Custom Poster (Optional)" }
       ]
     },
     {
