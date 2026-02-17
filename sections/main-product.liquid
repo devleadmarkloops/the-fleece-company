@@ -1368,24 +1368,26 @@
                     </div>
                   </div>
                 </div>
-                <div class="payment-icons-wr">
-                  <ul class="payment-badges" role="list">
-                    {% assign enabled_payment_types = shop.enabled_payment_types %}
-                    {% if block.settings.enabled_payment_types != blank %}
-                      {% assign enabled_payment_types = block.settings.enabled_payment_types
-                        | remove: ' '
-                        | split: ','
-                      %}
-                    {% endif %}
+                {% if block.settings.enable_payment_icons %}
+                  <div class="payment-icons-wr">
+                    <ul class="payment-badges" role="list">
+                      {% assign enabled_payment_types = shop.enabled_payment_types %}
+                      {% if block.settings.enabled_payment_types != blank %}
+                        {% assign enabled_payment_types = block.settings.enabled_payment_types
+                          | remove: ' '
+                          | split: ','
+                        %}
+                      {% endif %}
 
-                    {%- for type in enabled_payment_types -%}
-                      {% assign payment_type = type | strip %}
-                      <li class="list-payment__item">
-                        {{ payment_type | payment_type_svg_tag: class: 'icon icon--full-color' }}
-                      </li>
-                    {%- endfor -%}
-                  </ul>
-                </div>
+                      {%- for type in enabled_payment_types -%}
+                        {% assign payment_type = type | strip %}
+                        <li class="list-payment__item">
+                          {{ payment_type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                {% endif %}
                 <script>
                   (function () {
                     const container = document.getElementById('bf-countdown-{{ block.id }}');
@@ -3805,6 +3807,12 @@ if (nextBtn) {
           "step": 1,
           "default": 27,
           "unit": "scs"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_payment_icons",
+          "default": true,
+          "label": "Enable payment icons"
         },
         {
           "type": "text",
