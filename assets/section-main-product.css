@@ -3083,10 +3083,15 @@ span.alert-box:before {
 }
 /* When Richtext Box */
 .product__info-container .rich-text-box {
-  text-align: center;
   padding: 1.5rem 2rem;
   border: 1px solid rgb(var(--color-foreground));
   border-radius: 8px;
+  text-align: center;
+  font-size: var(--text-size);
+  line-height: normal;
+}
+.product__info-container .rich-text-box p {
+  margin: 0;
 }
 
 @media screen and (max-width: 749px) {
