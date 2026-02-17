@@ -2741,6 +2741,9 @@ span.alert-box:before {
     top: 0;
     z-index: 1;
   }
+  .product .product__media-gallery .thumbnail-slider {
+    justify-content: center;
+  }
 }
 
 @media screen and (min-width: 990px) {
@@ -2799,6 +2802,7 @@ span.alert-box:before {
   }
 }
 
+/* ### Media Gallery Overlay ### */
 .product__media-wrapper product-gallery {
   position: relative;
 }
