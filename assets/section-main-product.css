@@ -3178,6 +3178,13 @@ span.alert-box:before {
   .product__info-container .rating-static-wr .r-text {
     font-size: 1.2rem;
   }
+  /* When Price */
+  .product__info-container .price--medium bdi {
+    font-size: 1.6rem;
+  }
+  .product__info-container .price--on-sale .price-item--regular bdi {
+    font-size: 1.4rem;
+  }
   .product__info-container .icon-text-wr.bg-wr {
     gap: 0.55rem;
     padding: 0.7rem 1rem;
