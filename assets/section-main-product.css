@@ -3117,6 +3117,12 @@ span.alert-box:before {
   width: 1.4rem;
   height: 1.4rem;
 }
+.product__info-container .product__accordion .accordion__title {
+  font-family: var(--new-font-heading-family);
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0;
+}
 
 @media screen and (max-width: 749px) {
   .product__info-container .icon-text-wr.bg-wr {
