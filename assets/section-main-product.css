@@ -2888,6 +2888,15 @@ span.alert-box:before {
   font-weight: 500;
   letter-spacing: 0;
 }
+/* When Static Rating */
+.product__info-container .rating-static-wr .r-text {
+  font-size: 1.4rem;
+  letter-spacing: 0;
+}
+.product__info-container .rating-static-wr .stars-wr svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
 /* When Title */
 .product__info-container .product__title {
   margin-top: 1rem;
