@@ -3056,9 +3056,18 @@ span.alert-box:before {
 .product__info-container .countdown-timer-block .countdown-heading {
   font-family: var(--new-font-heading-family);
   font-size: 1.6rem;
+  font-weight: 400;
   letter-spacing: 0;
   text-transform: none;
   margin-bottom: 0;
+}
+.product__info-container .countdown-timer-block .timer-number {
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.product__info-container .countdown-timer-block .timer-label {
+  font-size: 1rem;
 }
 
 @media screen and (max-width: 749px) {
