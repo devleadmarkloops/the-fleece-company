@@ -2953,6 +2953,7 @@ span.alert-box:before {
 }
 /* When Variant Picker */
 .product__info-container fieldset.product-form__input .form__label {
+  font-family: var(--new-font-heading-family);
   font-size: 1.4rem;
   font-weight: 500;
   letter-spacing: 0;
