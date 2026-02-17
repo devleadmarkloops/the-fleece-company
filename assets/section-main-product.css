@@ -3038,13 +3038,10 @@ span.alert-box:before {
 }
 .product__info-container .installment-text {
   text-align: center;
-}
-.product__info-container .installment-text #shopify-installments p {
   font-size: 1.2rem;
   font-weight: 500;
-  letter-spacing: 0;
+  letter-spacing: 0 !important;
 }
-
 @media screen and (max-width: 749px) {
   .product__info-container .icon-text-wr.bg-wr {
     gap: 0.55rem;
