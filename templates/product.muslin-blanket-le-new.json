@@ -266,7 +266,7 @@
         "image_ratio": "square",
         "show_featured_media": true,
         "show_thumbnails": false,
-        "hide_variants": false,
+        "hide_variants": true,
         "enable_image_zoom": false,
         "enable_video_looping": false,
         "mobile_image_ratio": "square",
