@@ -3038,6 +3038,7 @@ span.alert-box:before {
 }
 .product__info-container .installment-text {
   text-align: center;
+  margin-top: 1rem;
 }
 .product__info-container .installment-text .installment {
   font-size: 1.2rem;
