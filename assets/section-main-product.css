@@ -3203,4 +3203,8 @@ span.alert-box:before {
   .product__info-container .icon-text-grid-wrapper {
     gap: 1rem;
   }
+  /* When Variant Picker */
+  .product__info-container .product-form__input {
+    --swatch-input--size: 3.6rem;
+  }
 }
