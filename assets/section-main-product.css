@@ -2907,6 +2907,7 @@ span.alert-box:before {
 }
 /* When Title */
 .product__info-container .product__title {
+  margin-top: 1rem;
 }
 .product__info-container .product__title h1 {
   font-family: var(--new-font-heading-family);
