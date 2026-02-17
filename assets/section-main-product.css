@@ -3104,6 +3104,11 @@ span.alert-box:before {
 .product__info-container .rich-text-box a:hover {
   opacity: 0.85;
 }
+/* When Collapsible Row */
+.product__info-container .product__accordion summary svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
 
 @media screen and (max-width: 749px) {
   .product__info-container .icon-text-wr.bg-wr {
