@@ -3044,6 +3044,11 @@ span.alert-box:before {
   font-weight: 500;
   letter-spacing: 0;
 }
+.product__info-container .installment-text p span,
+.product__info-container .installment-text p span button {
+  font-weight: 500;
+  letter-spacing: 0;
+}
 
 @media screen and (max-width: 749px) {
   .product__info-container .icon-text-wr.bg-wr {
