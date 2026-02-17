@@ -2916,6 +2916,10 @@ span.alert-box:before {
   font-size: 3rem;
   letter-spacing: 0;
 }
+/* When Price */
+.product__info-container .price bdi {
+  font-weight: 500;
+}
 /* When Icon with Text */
 .product__info-container .icon-text-wr.bg-wr {
   gap: 0.7rem;
