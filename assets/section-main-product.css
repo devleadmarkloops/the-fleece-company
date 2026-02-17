@@ -2995,7 +2995,7 @@ span.alert-box:before {
 }
 .product__info-container .kaching-bundles .kaching-bundles__bar-variant-select {
   background-color: #F0EAE4;
-  border-radius: 16px;
+  border-radius: 8px;
   padding-block: 1rem;
   padding-inline-start: 1.2rem;
 }
