@@ -3238,4 +3238,11 @@ span.alert-box:before {
   .product__info-container .kaching-bundles .kaching-bundles__bar-variant-select {
     padding-block: 0.8rem;
   }
+  .product__info-container .kaching-bundles .kaching-bundles__bar-main {
+    gap: 12px;
+  }
+  .product__info-container .kaching-bundles .kaching-bundles__bar-radio {
+    width: 16px;
+    height: 16px;
+  }
 }
