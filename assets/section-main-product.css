@@ -2883,6 +2883,7 @@ span.alert-box:before {
 }
 /* When Title */
 .product__info-container .product__title {
+  font-family: var(--new-font-heading-family);
   margin-top: 1rem;
 }
 /* When Icon with Text */
