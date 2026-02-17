@@ -2907,10 +2907,6 @@ span.alert-box:before {
   width: 1.5rem;
   height: 1.5rem;
 }
-/* When Icon with Text */
-.product__info-container .icon-text-wr .icon-text {
-  letter-spacing: 0;
-}
 /* When Title */
 .product__info-container .product__title {
   margin-top: 1rem;
@@ -2933,6 +2929,9 @@ span.alert-box:before {
   font-weight: 500;
 }
 /* When Icon with Text */
+.product__info-container .icon-text-wr .icon-text {
+  letter-spacing: 0;
+}
 .product__info-container .icon-text-wr.bg-wr {
   gap: 0.7rem;
   padding: 0.8rem 1.2rem;
@@ -2947,8 +2946,10 @@ span.alert-box:before {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
-  /* margin-top: 1.5rem;
-  margin-bottom: 1.5rem; */
+}
+.product__info-container .icon-text-grid-wrapper .icon-text {
+  font-weight: 500;
+  letter-spacing: 0;
 }
 
 @media screen and (max-width: 749px) {
