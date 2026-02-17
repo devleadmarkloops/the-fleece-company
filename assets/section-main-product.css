@@ -3044,6 +3044,13 @@ span.alert-box:before {
   font-weight: 500;
   letter-spacing: 0 !important;
 }
+/* When Countdown Timer */
+.product__info-container .countdown-timer-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
 
 @media screen and (max-width: 749px) {
   .product__info-container .icon-text-wr.bg-wr {
