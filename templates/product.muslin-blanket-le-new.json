@@ -161,6 +161,14 @@
             "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
           }
         },
+        "richtext_box_ehkChy": {
+          "type": "richtext_box",
+          "settings": {
+            "rich_text": "<p><strong>Free Global Express Shipping.</strong><br/>Delivered in 1-4 business days. <a href=\"/policies/shipping-policy\" title=\"Shipping Policy\">more details</a></p>",
+            "text_size": 14,
+            "text_size_mob": 12
+          }
+        },
         "icon_with_text_NArRNw": {
           "type": "icon_with_text",
           "settings": {
@@ -258,6 +266,7 @@
         "buy_buttons",
         "payment_icons_jx4G8P",
         "countdown_timer_4tCBwt",
+        "richtext_box_ehkChy",
         "icon_with_text_NArRNw",
         "text_custom_A3eeDw",
         "description_wcdcrg",
