@@ -3039,13 +3039,8 @@ span.alert-box:before {
 .product__info-container .installment-text {
   text-align: center;
 }
-.product__info-container .installment-text p {
+.product__info-container .installment-text #shopify-installments p {
   font-size: 1.2rem;
-  font-weight: 500;
-  letter-spacing: 0;
-}
-.product__info-container .installment-text p span,
-.product__info-container .installment-text p span button {
   font-weight: 500;
   letter-spacing: 0;
 }
