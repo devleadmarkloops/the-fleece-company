@@ -3284,6 +3284,9 @@ span.alert-box:before {
     font-size: var(--text-size-mob);
   }
   /* When Collapsible Row */
+  .product__info-container .product__accordion summary {
+    padding-block: 1.4rem;
+  }
   .product__info-container .product__accordion .accordion__title {
     font-size: 1.5rem;
   }
