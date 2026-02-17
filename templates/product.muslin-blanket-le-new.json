@@ -199,7 +199,7 @@
         "collapsible_tab_TbRiah": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Care & Details",
             "content": "<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your blanket for years to come.<br/><br/>Our blankets are made from natural muslin cotton, so slight size variations may occur. Measurements are taken at full stretch.</p><p>To maintain the original size and softness, avoid hot washes — high temperatures can cause shrinkage.</p>",
             "page": "",
@@ -210,7 +210,7 @@
         "collapsible_tab-0": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "What is Muslin Cotton?",
             "content": "<h4><strong>A Fabric Fit for Royalty</strong></h4><p>Originating from ancient Bengal (modern-day Bangladesh and India), muslin was once so rare and coveted that it was called <em>\"woven wind\"</em>—worn by queens, emperors, and aristocrats who prized its <strong>weightless luxury</strong>. The finest muslin was so sheer it could pass through a ring yet so strong it lasted generations. Today, authentic muslin remains a symbol of <strong>timeless elegance and craftsmanship</strong>.</p><h4><strong>Why Is Muslin Cotton Special?</strong></h4><ul><li><strong>Breathable & Lightweight</strong>: Its loose, open weave allows airflow like no other fabric, making it <strong>perfect for temperature regulation</strong>—cool in summer, cozy in winter.</li><li><strong>Luxuriously Soft</strong>: With every wash, muslin becomes even softer, developing a <strong>vintage, lived-in elegance</strong> that only improves with time.</li><li><strong>Gentle Yet Durable</strong>: Despite its delicate feel, high-quality muslin is surprisingly strong, resisting pulls and tears while maintaining its graceful drape.</li></ul><h4><strong>The Ultimate in Elevated Comfort</strong></h4><p>Our muslin cotton blankets and bedding carry forward this legacy—offering you <strong>a touch of historical opulence with modern comfort</strong>. Whether swaddling a newborn, dressing a luxury bed, or wrapping yourself in a breathable layer, muslin is more than a fabric—it’s an heirloom in the making.</p>",
             "page": "",
@@ -233,7 +233,7 @@
         "shipping_metaobject_tLJRyV": {
           "type": "shipping_metaobject",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Shipping & Returns",
             "shipping_text": "default"
           }
