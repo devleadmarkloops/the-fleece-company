@@ -3106,7 +3106,6 @@ span.alert-box:before {
 }
 /* When Video Reels */
 .product__info-container .product-video-reels-wrapper {
-  margin: 2rem 0;
   width: 100%;
   overflow: hidden;
 }
