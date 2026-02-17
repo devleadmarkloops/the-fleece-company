@@ -2912,6 +2912,10 @@ span.alert-box:before {
 .product__info-container .product__title h1 {
   font-family: var(--new-font-heading-family);
 }
+.product__info-container .product__title .h2 {
+  font-size: 2.8rem;
+  letter-spacing: 0;
+}
 /* When Icon with Text */
 .product__info-container .icon-text-wr.bg-wr {
   gap: 0.7rem;
