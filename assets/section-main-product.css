@@ -3068,6 +3068,10 @@ span.alert-box:before {
 }
 .product__info-container .countdown-timer-block .timer-label {
   font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
+  margin-top: 3px;
 }
 
 @media screen and (max-width: 749px) {
