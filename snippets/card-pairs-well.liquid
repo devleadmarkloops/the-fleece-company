@@ -1,0 +1,86 @@
+{% comment %}
+  Snippet: card-pairs-well.liquid
+  Usage: {% render 'card-pairs-well', card_product: product %}
+{% endcomment %}
+
+{%- assign product_form_id = 'pairs-well-form-' | append: card_product.id | append: '-' | append: section.id -%}
+
+<div class="pairs-well-card">
+  <div class="pairs-well-media">
+    <a href="{{ card_product.url }}">
+      <img
+        src="{{ card_product.featured_image | image_url: width: 400 }}"
+        alt="{{ card_product.title | escape }}"
+        loading="lazy"
+        width="400"
+        height="400"
+        class="pairs-well-img"
+        id="img-{{ product_form_id }}"
+      >
+    </a>
+  </div>
+
+  <div class="pairs-well-info">
+    <a href="{{ card_product.url }}" class="pairs-well-title h4">{{ card_product.title }}</a>
+    
+    <div class="pairs-well-price" id="price-{{ product_form_id }}">
+      {% render 'price', product: card_product %}
+    </div>
+
+    {%- unless card_product.has_only_default_variant -%}
+      <div class="pairs-well-variants">
+        {%- for option in card_product.options_with_values -%}
+          <div class="pairs-well-select-wrapper">
+            <label class="pairs-well-label">{{ option.name }}</label>
+            <select class="pairs-well-select" data-option-index="{{ forloop.index0 }}">
+              {%- for value in option.values -%}
+                <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
+                  {{ value }}
+                </option>
+              {%- endfor -%}
+            </select>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endunless -%}
+
+    <product-form class="product-form">
+      {%- form 'product', card_product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+        
+        {%- comment -%} 
+          MASTER DATA: JSON map of all variants 
+          We use this to look up IDs, Images, and Stock status instantly 
+        {%- endcomment -%}
+        <script type="application/json" class="pairs-well-variant-json">
+          [
+          {%- for variant in card_product.variants -%}
+            {
+              "id": {{ variant.id }},
+              "title": "{{ variant.title | escape }}",
+              "options": {{ variant.options | json }},
+              "available": {{ variant.available }},
+              "price": "{{ variant.price | money }}",
+              "featured_image": "{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 400 }}{% endif %}"
+            }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+          ]
+        </script>
+
+        <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}" class="pairs-well-final-id">
+
+        <button
+          type="submit"
+          name="add"
+          class="pairs-well-btn button button--full-width button--primary {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}"
+          {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}
+        >
+          {%- if card_product.selected_or_first_available_variant.available -%}
+            {{ 'products.product.add_to_cart' | t }}
+          {%- else -%}
+            {{ 'products.product.sold_out' | t }}
+          {%- endif -%}
+        </button>
+      {%- endform -%}
+    </product-form>
+  </div>
+</div>
