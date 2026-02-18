@@ -3278,7 +3278,7 @@ span.alert-box:before {
   flex-direction: row;
   align-items: center;
   gap: 1rem;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 }
 .product__info-container .pairs-well-variants {
   display: flex;
@@ -3319,6 +3319,8 @@ span.alert-box:before {
 }
 .product__info-container .pairs-well-btn {
   flex: 1 0 auto;
+  min-width: unset;
+  min-height: unset;
 }
 
 @media screen and (max-width: 749px) {
