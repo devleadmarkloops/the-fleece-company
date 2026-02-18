@@ -2142,26 +2142,6 @@
               
               {%- when 'pairs_well' -%}
                 <div class="pairs-well-block" {{ block.shopify_attributes }}>
-                  <style>
-                    .pairs-well-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-                    .pairs-well-nav { display: flex; gap: 8px; }
-                    .pairs-well-nav div { position: static; margin: 0; width: 30px; height: 30px; background: #f4f4f4; border-radius: 50%; color: #000; }
-                    .pairs-well-nav div::after { font-size: 12px; font-weight: bold; }
-                    
-                    .pairs-well-card { border: 1px solid #e1e1e1; padding: 10px; border-radius: 8px; }
-                    .pairs-well-media img { width: 100%; height: auto; border-radius: 4px; object-fit: cover; aspect-ratio: 1/1; }
-                    .pairs-well-info { margin-top: 10px; }
-                    .pairs-well-title { font-size: 14px; font-weight: 600; text-decoration: none; color: inherit; display: block; margin-bottom: 5px; }
-                    .pairs-well-price { font-size: 13px; margin-bottom: 10px; }
-                    
-                    .pairs-well-variants { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
-                    .pairs-well-select-wrapper { flex: 1; min-width: 80px; }
-                    .pairs-well-label { font-size: 10px; text-transform: uppercase; opacity: 0.7; display: block; margin-bottom: 2px; }
-                    .pairs-well-select { width: 100%; padding: 5px; font-size: 12px; border: 1px solid #ddd; border-radius: 4px; }
-                    
-                    .pairs-well-btn { margin-top: 5px; min-height: 40px !important; font-size: 13px !important; padding: 0 10px !important; }
-                  </style>
-
                   <div class="pairs-well-header">
                     <h3 class="h4">{{ block.settings.heading }}</h3>
                     {%- if block.settings.product_list.count > 1 -%}
