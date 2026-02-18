@@ -3313,6 +3313,7 @@ span.alert-box:before {
   cursor: pointer;
 }
 .product__info-container .pairs-well-select:focus {
+  border: 1px solid rgba(var(--color-foreground), 1);
   outline: 0;
   box-shadow: none;
 }
