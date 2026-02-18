@@ -3512,8 +3512,12 @@ span.alert-box:before {
     font-size: 1rem;
     padding: 0.8rem 2rem 0.8rem 0.8rem;
   }
+  .product__info-container .pairs-well-form {
+    flex-wrap: wrap;
+  }
   .product__info-container .pairs-well-btn {
     font-size: 1.2rem;
     padding: 0.8rem 1rem;
+    width: 100%;
   }
 }
