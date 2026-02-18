@@ -3313,8 +3313,8 @@ span.alert-box:before {
   cursor: pointer;
 }
 .product__info-container .pairs-well-select:focus {
-  /* outline: 2px solid rgba(var(--color-foreground), 0.5);
-  outline-offset: -2px; */
+  outline: 0;
+  box-shadow: none;
 }
 .product__info-container .pairs-well-btn {
   flex: 1 0 auto;
