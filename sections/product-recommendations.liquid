@@ -148,7 +148,7 @@
         } else if (e.target.classList.contains('card-v2-radio-pill')) {
            const wrapper = e.target.closest('.card-v2-pills');
            wrapper.querySelectorAll('.card-v2-pill').forEach(lbl => {
-             lbl.style.background = '#fff'; lbl.style.color = 'rgb(var(--color-foreground))'; lbl.style.borderColor = '#e1e1e1';
+             lbl.style.background = 'rgb(var(--color-background))'; lbl.style.color = 'rgb(var(--color-foreground))'; lbl.style.borderColor = '#e1e1e1';
            });
            e.target.closest('label').style.background = 'rgb(var(--color-foreground))';
            e.target.closest('label').style.color = 'rgb(var(--color-background))';
