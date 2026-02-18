@@ -3328,7 +3328,7 @@ span.alert-box:before {
   background-color: rgb(var(--color-foreground));
   color: rgb(var(--color-background));
   font-family: var(--new-font-heading-family);
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 400;
   letter-spacing: 0;
 }
