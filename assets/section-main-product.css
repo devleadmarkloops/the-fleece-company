@@ -3505,6 +3505,9 @@ span.alert-box:before {
     column-gap: 0.3rem;
     row-gap: 0.3rem;
   }
+  .product__info-container .pairs-well-select-wrapper svg {
+    right: 0.8rem;
+  }
   .product__info-container .pairs-well-select {
     font-size: 1rem;
     padding: 0.8rem 2rem 0.8rem 0.8rem;
