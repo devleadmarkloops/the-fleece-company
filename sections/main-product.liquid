@@ -2141,120 +2141,120 @@
                 </product-recommendations>
               
               {%- when 'pairs_well' -%}
-  <div class="pairs-well-block" {{ block.shopify_attributes }}>
-    <style>
-      .pairs-well-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-      .pairs-well-nav { display: flex; gap: 8px; }
-      .pairs-well-nav div { position: static; margin: 0; width: 30px; height: 30px; background: #f4f4f4; border-radius: 50%; color: #000; }
-      .pairs-well-nav div::after { font-size: 12px; font-weight: bold; }
-      
-      .pairs-well-card { border: 1px solid #e1e1e1; padding: 10px; border-radius: 8px; }
-      .pairs-well-media img { width: 100%; height: auto; border-radius: 4px; object-fit: cover; aspect-ratio: 1/1; }
-      .pairs-well-info { margin-top: 10px; }
-      .pairs-well-title { font-size: 14px; font-weight: 600; text-decoration: none; color: inherit; display: block; margin-bottom: 5px; }
-      .pairs-well-price { font-size: 13px; margin-bottom: 10px; }
-      
-      .pairs-well-variants { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
-      .pairs-well-select-wrapper { flex: 1; min-width: 80px; }
-      .pairs-well-label { font-size: 10px; text-transform: uppercase; opacity: 0.7; display: block; margin-bottom: 2px; }
-      .pairs-well-select { width: 100%; padding: 5px; font-size: 12px; border: 1px solid #ddd; border-radius: 4px; }
-      
-      .pairs-well-btn { margin-top: 5px; min-height: 40px !important; font-size: 13px !important; padding: 0 10px !important; }
-    </style>
+                <div class="pairs-well-block" {{ block.shopify_attributes }}>
+                  <style>
+                    .pairs-well-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+                    .pairs-well-nav { display: flex; gap: 8px; }
+                    .pairs-well-nav div { position: static; margin: 0; width: 30px; height: 30px; background: #f4f4f4; border-radius: 50%; color: #000; }
+                    .pairs-well-nav div::after { font-size: 12px; font-weight: bold; }
+                    
+                    .pairs-well-card { border: 1px solid #e1e1e1; padding: 10px; border-radius: 8px; }
+                    .pairs-well-media img { width: 100%; height: auto; border-radius: 4px; object-fit: cover; aspect-ratio: 1/1; }
+                    .pairs-well-info { margin-top: 10px; }
+                    .pairs-well-title { font-size: 14px; font-weight: 600; text-decoration: none; color: inherit; display: block; margin-bottom: 5px; }
+                    .pairs-well-price { font-size: 13px; margin-bottom: 10px; }
+                    
+                    .pairs-well-variants { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+                    .pairs-well-select-wrapper { flex: 1; min-width: 80px; }
+                    .pairs-well-label { font-size: 10px; text-transform: uppercase; opacity: 0.7; display: block; margin-bottom: 2px; }
+                    .pairs-well-select { width: 100%; padding: 5px; font-size: 12px; border: 1px solid #ddd; border-radius: 4px; }
+                    
+                    .pairs-well-btn { margin-top: 5px; min-height: 40px !important; font-size: 13px !important; padding: 0 10px !important; }
+                  </style>
 
-    <div class="pairs-well-header">
-      <h3 class="h4">{{ block.settings.heading }}</h3>
-      {%- if block.settings.product_list.count > 1 -%}
-        <div class="pairs-well-nav">
-          <div class="swiper-button-prev pw-prev-{{ block.id }}"></div>
-          <div class="swiper-button-next pw-next-{{ block.id }}"></div>
-        </div>
-      {%- endif -%}
-    </div>
+                  <div class="pairs-well-header">
+                    <h3 class="h4">{{ block.settings.heading }}</h3>
+                    {%- if block.settings.product_list.count > 1 -%}
+                      <div class="pairs-well-nav">
+                        <div class="swiper-button-prev pw-prev-{{ block.id }}"></div>
+                        <div class="swiper-button-next pw-next-{{ block.id }}"></div>
+                      </div>
+                    {%- endif -%}
+                  </div>
 
-    <div class="swiper pairs-well-swiper-{{ block.id }}">
-      <div class="swiper-wrapper">
-        {%- for product in block.settings.product_list -%}
-          <div class="swiper-slide">
-            {% render 'card-pairs-well', card_product: product %}
-          </div>
-        {%- endfor -%}
-      </div>
-    </div>
+                  <div class="swiper pairs-well-swiper-{{ block.id }}">
+                    <div class="swiper-wrapper">
+                      {%- for product in block.settings.product_list -%}
+                        <div class="swiper-slide">
+                          {% render 'card-pairs-well', card_product: product %}
+                        </div>
+                      {%- endfor -%}
+                    </div>
+                  </div>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // 1. Initialize Swiper for this specific block
-        new Swiper('.pairs-well-swiper-{{ block.id }}', {
-          slidesPerView: 1.2,
-          spaceBetween: 15,
-          navigation: {
-            nextEl: '.pw-next-{{ block.id }}',
-            prevEl: '.pw-prev-{{ block.id }}',
-          },
-          breakpoints: {
-            768: { slidesPerView: 2 },
-            990: { slidesPerView: 1 } /* Adjust based on sidebar width */
-          }
-        });
+                  <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                      // 1. Initialize Swiper for this specific block
+                      new Swiper('.pairs-well-swiper-{{ block.id }}', {
+                        slidesPerView: 1.2,
+                        spaceBetween: 15,
+                        navigation: {
+                          nextEl: '.pw-next-{{ block.id }}',
+                          prevEl: '.pw-prev-{{ block.id }}',
+                        },
+                        breakpoints: {
+                          768: { slidesPerView: 2 },
+                          990: { slidesPerView: 1 } /* Adjust based on sidebar width */
+                        }
+                      });
 
-        // 2. Logic to handle variant changes for cards inside this block
-        const container = document.querySelector('.pairs-well-block');
-        
-        container.addEventListener('change', function(e) {
-          if (e.target.matches('.pairs-well-select')) {
-            const card = e.target.closest('.pairs-well-card');
-            const allSelects = card.querySelectorAll('.pairs-well-select');
-            
-            // Get currently selected options into an array
-            // e.g. ["Red", "Small"]
-            const currentOptions = Array.from(allSelects).map(sel => sel.value);
-            
-            // Retrieve the JSON data
-            const jsonScript = card.querySelector('.pairs-well-variant-json');
-            const variants = JSON.parse(jsonScript.innerHTML);
+                      // 2. Logic to handle variant changes for cards inside this block
+                      const container = document.querySelector('.pairs-well-block');
+                      
+                      container.addEventListener('change', function(e) {
+                        if (e.target.matches('.pairs-well-select')) {
+                          const card = e.target.closest('.pairs-well-card');
+                          const allSelects = card.querySelectorAll('.pairs-well-select');
+                          
+                          // Get currently selected options into an array
+                          // e.g. ["Red", "Small"]
+                          const currentOptions = Array.from(allSelects).map(sel => sel.value);
+                          
+                          // Retrieve the JSON data
+                          const jsonScript = card.querySelector('.pairs-well-variant-json');
+                          const variants = JSON.parse(jsonScript.innerHTML);
 
-            // Find matching variant
-            const match = variants.find(variant => {
-              // Compare the variant's options array to our selected options
-              return variant.options.every((opt, index) => opt === currentOptions[index]);
-            });
+                          // Find matching variant
+                          const match = variants.find(variant => {
+                            // Compare the variant's options array to our selected options
+                            return variant.options.every((opt, index) => opt === currentOptions[index]);
+                          });
 
-            // Update DOM elements
-            const btn = card.querySelector('.pairs-well-btn');
-            const img = card.querySelector('.pairs-well-img');
-            const inputId = card.querySelector('.pairs-well-final-id');
+                          // Update DOM elements
+                          const btn = card.querySelector('.pairs-well-btn');
+                          const img = card.querySelector('.pairs-well-img');
+                          const inputId = card.querySelector('.pairs-well-final-id');
 
-            if (match) {
-              // 1. Update Hidden ID (Crucial for Add to Cart)
-              inputId.value = match.id;
-              
-              // 2. Update Image
-              if (match.featured_image) {
-                img.src = match.featured_image;
-              }
+                          if (match) {
+                            // 1. Update Hidden ID (Crucial for Add to Cart)
+                            inputId.value = match.id;
+                            
+                            // 2. Update Image
+                            if (match.featured_image) {
+                              img.src = match.featured_image;
+                            }
 
-              // 3. Update Button State
-              if (match.available) {
-                btn.textContent = "{{ 'products.product.add_to_cart' | t }}";
-                btn.disabled = false;
-                btn.classList.remove('disabled');
-              } else {
-                btn.textContent = "{{ 'products.product.sold_out' | t }}";
-                btn.disabled = true;
-                btn.classList.add('disabled');
-              }
-            } else {
-              // No match found (Unavailable combo)
-              btn.textContent = "{{ 'products.product.unavailable' | t }}";
-              btn.disabled = true;
-              btn.classList.add('disabled');
-            }
-          }
-        });
-      });
-    </script>
-  </div>
+                            // 3. Update Button State
+                            if (match.available) {
+                              btn.textContent = "{{ 'products.product.add_to_cart' | t }}";
+                              btn.disabled = false;
+                              btn.classList.remove('disabled');
+                            } else {
+                              btn.textContent = "{{ 'products.product.sold_out' | t }}";
+                              btn.disabled = true;
+                              btn.classList.add('disabled');
+                            }
+                          } else {
+                            // No match found (Unavailable combo)
+                            btn.textContent = "{{ 'products.product.unavailable' | t }}";
+                            btn.disabled = true;
+                            btn.classList.add('disabled');
+                          }
+                        }
+                      });
+                    });
+                  </script>
+                </div>
 
               {%- when 'line_item_property' -%}
                 <div class="product-form__input" {{ block.shopify_attributes }}>
@@ -4141,23 +4141,23 @@ if (nextBtn) {
       ]
     },
     {
-  "type": "pairs_well",
-  "name": "Pairs Well Products",
-  "settings": [
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Pairs well with"
+      "type": "pairs_well",
+      "name": "Pairs Well Products",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Pairs well with"
+        },
+        {
+          "type": "product_list",
+          "id": "product_list",
+          "label": "Select Products",
+          "limit": 10
+        }
+      ]
     },
-    {
-      "type": "product_list",
-      "id": "product_list",
-      "label": "Select Products",
-      "limit": 10
-    }
-  ]
-},
     {
       "type": "line_item_property",
       "name": "t:sections.main-product.blocks.line_item_property.name",
