@@ -123,7 +123,14 @@
     width: 1.6rem;
     height: 1.6rem;
   }
+  .card-product-v2 .card-v2-pills {
+    gap: 4px;
+  }
   .card-product-v2 .card-v2-pill {
     font-size: 1rem;
+  }
+  .card-product-v2 .card-v2-add-btn {
+    font-size: 1.2rem;
+    min-height: 3.6rem;
   }
 }
