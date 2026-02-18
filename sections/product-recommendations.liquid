@@ -22,8 +22,10 @@
   {%- if recommendations.performed and recommendations.products_count > 0 -%}
     <div class="section--padding{% if section.settings.show_divider %} section--divider{% endif %}">
       <div class="page-width">
-        <div class="title-wrapper{% if section.settings.heading == blank %} title-wrapper--no-heading{% endif %} {{ section.settings.heading_alignment }}">
-          <{{ section.settings.heading_tag }} class="title {{ section.settings.heading_size }}">
+        
+        {%- comment -%} HEADING AND NAVIGATION ARROWS {%- endcomment -%}
+        <div class="title-wrapper d-flex justify-between align-center" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+          <{{ section.settings.heading_tag }} class="title {{ section.settings.heading_size }}" style="margin: 0;">
             {%- if section.settings.heading != blank -%}
               {%- render 'highlight-text', 
                 hl_input: section.settings.heading, 
@@ -32,16 +34,18 @@
                 hl_animateWrap: true -%}
             {%- endif -%}
           </{{ section.settings.heading_tag }}>
+          
+          <div class="swiper-controls recommendations-nav" style="display: flex; gap: 8px;">
+            <div class="swiper-button-prev rec-prev" style="position: static; width: 32px; height: 32px; margin: 0; background: rgba(var(--color-foreground), 0.05); border-radius: 50%;"></div>
+            <div class="swiper-button-next rec-next" style="position: static; width: 32px; height: 32px; margin: 0; background: rgba(var(--color-foreground), 0.05); border-radius: 50%;"></div>
+          </div>
         </div>
         
-        <slider-component class="slider-mobile-gutter">
-          <ul id="Slider-{{ section.id }}"
-            class="product-grid flex-grid{% if section.settings.columns_mobile == '1' %} flex-grid--1-col-mobile{% endif %} flex-grid--2-col flex-grid--3-col-tablet flex-grid--4-col-desktop{% if section.settings.swipe_on_mobile %} slider slider--tablet{% endif %} slider--tablet-up"
-            role="list"
-          >
+        {%- comment -%} SWIPER WRAPPER {%- endcomment -%}
+        <div class="swiper recommendations-swiper">
+          <div class="swiper-wrapper">
             {%- for recommendation in recommendations.products -%}
-              <li id="Slide-{{ section.id }}-{{ forloop.index }}"
-                class="flex-grid__item">
+              <div class="swiper-slide">
                 {% render 'card-product',
                   card_product: recommendation,
                   card_collection: collection,
@@ -55,10 +59,11 @@
                   enable_countdown: section.settings.enable_countdown,
                   enable_image_fill: section.settings.enable_image_fill
                 %}
-              </li>
+              </div>
             {%- endfor -%}
-          </ul>
-        </slider-component>
+          </div>
+        </div>
+
       </div>
     </div>
   {%- endif -%}
