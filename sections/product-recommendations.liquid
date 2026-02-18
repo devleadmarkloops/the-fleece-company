@@ -6,47 +6,42 @@
     --color-highlight: {{ section.settings.colors_highlight.red }}, {{ section.settings.colors_highlight.green }}, {{ section.settings.colors_highlight.blue }};
   }
 
-  /* --- Recommendations Header & Slider Arrows --- */
   #shopify-section-{{ section.id }} .rec-header-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
   }
-  
   #shopify-section-{{ section.id }} .rec-header-wrapper .title {
     margin: 0;
   }
-
   #shopify-section-{{ section.id }} .recommendations-nav {
     display: flex;
     gap: 8px;
   }
-
   #shopify-section-{{ section.id }} .rec-nav-btn {
+    display: inline-flex;
     position: static;
-    width: 32px;
-    height: 32px;
+    width: 3rem;
+    height: 3rem;
     margin: 0;
-    background: rgba(var(--color-foreground), 0.05);
+    background: transparent;
+    border: 0;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.2s ease;
+    transition: opacity 0.2s ease;
   }
-
   #shopify-section-{{ section.id }} .rec-nav-btn:hover {
-    background: rgba(var(--color-foreground), 0.1);
+    opacity: 0.85;
   }
-
   #shopify-section-{{ section.id }} .rec-nav-btn::after {
     font-size: 12px;
     font-weight: bold;
     color: rgb(var(--color-foreground));
   }
 
-  /* --- Mobile Adjustments --- */
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .rec-header-wrapper {
       margin-bottom: 1.5rem;
