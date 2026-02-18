@@ -3475,4 +3475,14 @@ span.alert-box:before {
     width: 1.8rem;
     height: 1.8rem;
   }
+  .product__info-container .pairs-well-card {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .product__info-container .pairs-well-media {
+    flex: 0 0 8.5rem;
+  }
+  .product__info-container .pairs-well-media img {
+    height: 8.5rem;
+  }
 }
