@@ -3258,6 +3258,7 @@ span.alert-box:before {
 }
 .product__info-container .pairs-well-price .price--on-sale .price-item--regular bdi {
   font-size: 1.4rem;
+  color: rgba(var(--color-foreground), 0.5);
 }
 .product__info-container .pairs-well-form {
   display: flex !important;
