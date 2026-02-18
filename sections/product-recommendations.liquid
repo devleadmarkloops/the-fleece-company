@@ -117,6 +117,90 @@
     </div>
   {%- endif -%}
 </product-recommendations>
+<script>
+  if (!customElements.get('card-v2-variant-selector')) {
+    customElements.define('card-v2-variant-selector', class extends HTMLElement {
+      connectedCallback() {
+        this.addEventListener('change', this.onVariantChange.bind(this));
+        this.addEventListener('click', this.onClick.bind(this));
+      }
+
+      onClick(e) {
+        if (e.target.matches('.card-v2-view-all-colors')) {
+          e.preventDefault();
+          this.querySelectorAll('.hidden-swatch').forEach(el => el.style.display = 'block');
+          e.target.style.display = 'none';
+        }
+      }
+
+      onVariantChange(e) {
+        if (!e.target.matches('.card-v2-radio')) return;
+
+        // 1. Update UI Styling immediately
+        if (e.target.classList.contains('card-v2-radio-color')) {
+           const wrapper = e.target.closest('.card-v2-swatches');
+           wrapper.querySelectorAll('.card-v2-swatch').forEach(lbl => lbl.style.outline = 'none');
+           e.target.closest('label').style.outline = '2px solid #000';
+           e.target.closest('label').style.outlineOffset = '2px';
+        } else if (e.target.classList.contains('card-v2-radio-pill')) {
+           const wrapper = e.target.closest('.card-v2-pills');
+           wrapper.querySelectorAll('.card-v2-pill').forEach(lbl => {
+             lbl.style.background = '#fff'; lbl.style.color = '#000'; lbl.style.borderColor = '#e1e1e1';
+           });
+           e.target.closest('label').style.background = '#000';
+           e.target.closest('label').style.color = '#fff';
+           e.target.closest('label').style.borderColor = '#000';
+        }
+
+        // 2. Fetch data & match variant
+        const jsonScript = this.querySelector('.card-v2-json');
+        if (!jsonScript) return;
+        const variants = JSON.parse(jsonScript.innerHTML);
+
+        const checkedRadios = Array.from(this.querySelectorAll('.card-v2-radio:checked'));
+        let currentOptions = [];
+        checkedRadios.forEach(radio => currentOptions[parseInt(radio.dataset.optionIndex)] = radio.value);
+
+        const match = variants.find(v => v.options.every((opt, i) => opt === currentOptions[i]));
+
+        // 3. Update the rest of the Card
+        if (match) {
+          const card = this.closest('.card-wrapper');
+          if(!card) return;
+
+          // A. Update Form ID (Crucial for Add to Cart)
+          const idInput = card.querySelector('.card-v2-final-id');
+          if (idInput) idInput.value = match.id;
+
+          // B. Update Main Image
+          const img = card.querySelector('.card-v2-main-image');
+          if (img && match.featured_image) {
+            img.src = match.featured_image;
+            img.srcset = match.featured_image;
+          }
+
+          // C. Update Button State
+          const btn = card.querySelector('.card-v2-add-btn');
+          if (btn) {
+            if (match.available) {
+              btn.textContent = "{{ 'products.product.add_to_cart' | t }}";
+              btn.disabled = false;
+              btn.classList.remove('disabled');
+            } else {
+              btn.textContent = "{{ 'products.product.sold_out' | t }}";
+              btn.disabled = true;
+              btn.classList.add('disabled');
+            }
+          }
+
+          // D. Update Exact Price Text 
+          const priceRegular = card.querySelector('.price-item--regular');
+          if (priceRegular) priceRegular.innerHTML = match.price; 
+        }
+      }
+    });
+  }
+</script>
 
 {% schema %}
 {
