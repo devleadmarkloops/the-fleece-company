@@ -2174,17 +2174,19 @@
       },
       breakpoints: {
         768: { slidesPerView: 2 },
-        990: { slidesPerView: 1 } /* Adjust based on sidebar width */
+        990: { slidesPerView: 1 }
       }
     });
 
-    // 2. Initial Page Load: Strip out the word "From" from all prices in this block
-    const priceElements = document.querySelectorAll('.pairs-well-swiper-{{ block.id }} .pairs-well-price');
+    // 2. Initial Page Load: Strip out the word "From" safely by targeting text nodes
+    const priceElements = document.querySelectorAll('.pairs-well-swiper-{{ block.id }} .price-item');
     priceElements.forEach(price => {
-      price.innerHTML = price.innerHTML.replace(/From\s*/ig, '');
+      if (price.innerHTML.includes('From')) {
+        price.innerHTML = price.innerHTML.replace(/From\s*/ig, '');
+      }
     });
 
-    // 3. Logic to handle variant changes for cards inside this specific block
+    // 3. Logic to handle variant changes
     const blockContainer = document.querySelector('.pairs-well-swiper-{{ block.id }}').closest('.pairs-well-block');
     
     if (blockContainer) {
@@ -2193,59 +2195,52 @@
           const card = e.target.closest('.pairs-well-card');
           const allSelects = card.querySelectorAll('.pairs-well-select');
           
-          // Get currently selected options into an array (e.g., ["Red", "Small"])
           const currentOptions = Array.from(allSelects).map(sel => sel.value);
           
-          // Retrieve the JSON data
           const jsonScript = card.querySelector('.pairs-well-variant-json');
           if (!jsonScript) return;
           const variants = JSON.parse(jsonScript.innerHTML);
 
-          // Find matching variant
           const match = variants.find(variant => {
             return variant.options.every((opt, index) => opt === currentOptions[index]);
           });
 
-          // Grab DOM elements to update
           const btn = card.querySelector('.pairs-well-btn');
           const img = card.querySelector('.pairs-well-img');
           const inputId = card.querySelector('.pairs-well-final-id');
-          const priceContainer = card.querySelector('.pairs-well-price');
+          
+          // Target the main native price wrapper
+          const priceWrapper = card.querySelector('.price');
 
           if (match) {
-            // A. Update Hidden ID
             inputId.value = match.id;
             
-            // B. Update Image
             if (match.featured_image) {
               img.src = match.featured_image;
             }
 
-            // C. Update Price dynamically (Handling Sales/Compare at Price)
-            if (priceContainer) {
+            // C. Update Price by targeting exact native text spans
+            if (priceWrapper) {
               if (match.compare_at_price) {
-                // If it's on sale, show both prices (matching default theme structure)
-                priceContainer.innerHTML = `
-                  <div class="price price--on-sale">
-                    <s class="price-item price-item--regular" style="opacity: 0.6; margin-right: 5px;">
-                      ${match.compare_at_price}
-                    </s>
-                    <span class="price-item price-item--sale">
-                      ${match.price}
-                    </span>
-                  </div>
-                `;
+                // Turn ON sale styling
+                priceWrapper.classList.add('price--on-sale');
+                
+                // Update the sale price and original crossed-out price
+                const salePrice = priceWrapper.querySelector('.price__sale .price-item--sale');
+                const comparePrice = priceWrapper.querySelector('.price__sale .price-item--regular');
+                
+                if (salePrice) salePrice.innerHTML = match.price;
+                if (comparePrice) comparePrice.innerHTML = match.compare_at_price;
               } else {
-                // If regular price, just show the price
-                priceContainer.innerHTML = `
-                  <div class="price">
-                    <span class="price-item price-item--regular">${match.price}</span>
-                  </div>
-                `;
+                // Turn OFF sale styling
+                priceWrapper.classList.remove('price--on-sale');
+                
+                // Update the regular price
+                const regularPrice = priceWrapper.querySelector('.price__regular .price-item--regular');
+                if (regularPrice) regularPrice.innerHTML = match.price;
               }
             }
 
-            // D. Update Button State
             if (match.available) {
               btn.textContent = "{{ 'products.product.add_to_cart' | t }}";
               btn.disabled = false;
@@ -2256,7 +2251,6 @@
               btn.classList.add('disabled');
             }
           } else {
-            // No match found (Unavailable combo)
             btn.textContent = "{{ 'products.product.unavailable' | t }}";
             btn.disabled = true;
             btn.classList.add('disabled');
