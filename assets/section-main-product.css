@@ -3321,6 +3321,10 @@ span.alert-box:before {
   flex: 1 0 auto;
   min-width: unset;
   min-height: unset;
+  padding: 1.2rem 1.5rem;
+  border-radius: 8px;
+  background-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
 }
 
 @media screen and (max-width: 749px) {
