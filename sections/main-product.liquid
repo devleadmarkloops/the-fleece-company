@@ -2162,62 +2162,68 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     
-    // 1. Initialize Swiper for Complementary Products
+    // 1. Initialize Swiper (Fixed to link specific arrows to specific sliders)
     function initComplementarySwiper() {
-      const swiperContainer = document.querySelector('.complementary-swiper');
-      if(swiperContainer) {
-        new Swiper(swiperContainer, {
+      const swiperContainers = document.querySelectorAll('.complementary-swiper');
+      
+      swiperContainers.forEach(container => {
+        // Find the parent wrapper to locate the specific arrows for this slider
+        const wrapper = container.closest('product-recommendations');
+        const nextBtn = wrapper.querySelector('.comp-next');
+        const prevBtn = wrapper.querySelector('.comp-prev');
+        
+        new Swiper(container, {
           slidesPerView: 1,
           spaceBetween: 10,
           navigation: {
-            nextEl: '.comp-next',
-            prevEl: '.comp-prev',
+            nextEl: nextBtn,
+            prevEl: prevBtn,
           },
         });
-      }
+      });
     }
 
-    // 2. Handle Variant Selection
+    // 2. Handle Variant Selection (Fixed Logic)
     function initVariantSelectors() {
       const selectors = document.querySelectorAll('.com-options-d5');
       
       selectors.forEach(select => {
         select.addEventListener('change', function() {
           const container = this.closest('.card-information');
-          // Find the sibling product form within the same card
           const form = container.querySelector('product-form'); 
           if(!form) return;
 
           const options = container.querySelectorAll('.com-options-d5');
           const hiddenDataSelect = form.querySelector('.com-variant-data-d5');
-          const hiddenInput = form.querySelector('.com-final-id');
+          const hiddenInput = form.querySelector('.com-final-id'); // JS looks for this class
           const btn = form.querySelector('.com-btn-d5');
           const cardImg = this.closest('.card-wrapper').querySelector('.upsell-img-d5');
 
-          // Build the Variant Title: "Option1 / Option2"
+          // Build Title to match hidden select: "Color / Size"
           let selectedValues = [];
           options.forEach(opt => selectedValues.push(opt.value));
           const targetTitle = selectedValues.join(' / ');
 
-          // Find matching variant in hidden data
+          // Find matching variant
           let matchedOption = null;
           Array.from(hiddenDataSelect.options).forEach(opt => {
-            if(opt.text === targetTitle) {
+            // Compare text to find the variant ID
+            if(opt.text.trim() === targetTitle.trim()) {
               matchedOption = opt;
             }
           });
 
           if(matchedOption) {
-            // Update Hidden ID
-            hiddenInput.value = matchedOption.value;
+            // Update Hidden ID so form adds correct variant
+            if(hiddenInput) hiddenInput.value = matchedOption.value;
             
-            // Update Image (if variant has one)
+            // Update Image
             if(matchedOption.dataset.img && cardImg) {
               cardImg.src = matchedOption.dataset.img;
-              cardImg.srcset = matchedOption.dataset.img; // Simple fix for srcset
+              cardImg.srcset = matchedOption.dataset.img; 
             }
 
-            // Update Button State
+            // Update Button
             if(matchedOption.dataset.sold === "true") {
               btn.textContent = "Sold Out";
               btn.disabled = true;
@@ -2228,7 +2234,7 @@
               btn.classList.remove('disabled');
             }
           } else {
-            // Variant doesn't exist (e.g. invalid combination)
+            // Unavailable combination
             btn.textContent = "Unavailable";
             btn.disabled = true;
           }
@@ -2236,11 +2242,9 @@
       });
     }
 
-    // Initialize functions
     initComplementarySwiper();
     initVariantSelectors();
     
-    // Re-init if section reloads in customizer
     document.addEventListener('shopify:section:load', function() {
       initComplementarySwiper();
       initVariantSelectors();
