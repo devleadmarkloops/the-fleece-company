@@ -3245,6 +3245,7 @@ span.alert-box:before {
   text-decoration: none;
   color: rgb(var(--color-foreground));
   line-height: 1.4;
+  letter-spacing: 0;
   display: block;
   /* text-overflow: ellipsis;
   white-space: nowrap; */
