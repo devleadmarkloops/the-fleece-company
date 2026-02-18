@@ -3480,9 +3480,12 @@ span.alert-box:before {
     gap: 1rem;
   }
   .product__info-container .pairs-well-media {
-    flex: 0 0 8.5rem;
+    flex: 0 0 8rem;
   }
   .product__info-container .pairs-well-media img {
-    height: 8.5rem;
+    height: 8rem;
+  }
+  .product__info-container .pairs-well-title {
+    font-size: 1.2rem;
   }
 }
