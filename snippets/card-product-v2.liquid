@@ -7,37 +7,29 @@
       assign show_countdown = true
     endif
   endif
-
   if button_custom_class
     assign button_class = button_custom_class
   else
     assign button_class = 'button button--small'
   endif
-
   assign card_url = card_product.url | within: card_collection | default: '#'
   assign product_form_id = 'quick-add-' | append: section.id | append: '-' | append: card_product.id
 -%}
-
 {{ 'component-rating.css' | asset_url | stylesheet_tag }}
-
-<div class="card-wrapper card-v2-wrapper">
-  {% comment %} ==========================================================
-      1. RESTORED NATIVE IMAGE, HOVER, & ANIMATION EXACTLY AS DEFAULT
-  ================================================================== {% endcomment %}
+{{ 'component-card-v2.css' | asset_url | stylesheet_tag }}
+<div class="card-wrapper card-v2-wrapper card-product-v2">
   <use-animate data-animate="zoom-fade-small" class="card card--product{% if card_product.featured_media == nil %} card--text{% endif %}" tabindex="-1">
     {%- if card_product.featured_media -%}
       {%- liquid
         assign featured_media_aspect_ratio = card_product.featured_media.aspect_ratio | default: 1
         assign card_product_media = card_product.featured_media
       -%}
-
       {%- capture sizes -%}(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 10rem) / 4), (min-width: 750px) calc((100vw - 10rem) / 3), calc(62vw - 3rem){%- endcapture -%}
       {%- liquid
         assign image_loading = 'lazy'
         assign widths = '165, 360, 535, 750, 940, 1100'
         assign image = card_product.featured_media
         assign alt = image.alt | escape | split: '#' | first
-
         capture srcset_mobile_retina
           assign a_widths = widths | remove: ' ' | split: ','
           for a_width in a_widths
@@ -49,7 +41,6 @@
           endfor
         endcapture
       -%}
-
       <a href="{{ card_url }}"{% if disable_image_click %} onclick="if (!theme.config.mqlSmall) { return false; }"{% endif %} class="card__media media-wrapper" tabindex="-1" aria-label="{{ card_product.title | escape }}">
         <div class="card--image-animate image-animate media media--{{ media_size }} media--hover-effect{% unless enable_image_fill %} media--image-contain{% endunless %}"
           {%- if media_size == 'adapt' %} style="--image-ratio-percent: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;"{% endif -%}
@@ -73,10 +64,6 @@
       </a>
     {%- endif -%}
   </use-animate>
-
-  {% comment %} ==========================================================
-      2. RESTORED NATIVE SALE BADGE EXACTLY AS DEFAULT
-  ================================================================== {% endcomment %}
   <div class="card__badge">
     {%- if card_product.available == false -%}
       <span class="badge badge--soldout" aria-hidden="true">{{ 'products.product.sold_out' | t }}</span>
@@ -90,140 +77,104 @@
       </span>
     {%- endif -%}
   </div>
-
-  {% comment %} ==========================================================
-      3. INFORMATION, PRICE & NEW VARIANTS
-  ================================================================== {% endcomment %}
   <div class="card-information">
     <div class="card-information__wrapper">
       {%- if show_vendor -%}
         <div class="card-article-info caption-with-letter-spacing">{{ card_product.vendor }}</div>
       {%- endif -%}
-
       <a href="{{ card_url }}" class="card-information__text h4 card-v2-title" tabindex="-1">
         {{ card_product.title | escape }}
       </a>
-
       {% if card_product.metafields.custom.subtitle != blank %}
         <p class="meta-subtitle">{{ card_product.metafields.custom.subtitle.value }}</p>
       {% endif %}
-
-      <div class="card-v2-price" style="margin-bottom: 1.5rem;">
+      <div class="card-v2-price">
         {% render 'price', product: card_product, use_variant: true %}
       </div>
-
-      {%- unless card_product.has_only_default_variant -%}
-        
-        {% comment %} CUSTOM WEB COMPONENT GUARANTEES JS RUNS! {% endcomment %}
-        <card-v2-variant-selector style="display: block; width: 100%;">
-          
-          <div class="card-v2-options">
-            {%- for option in card_product.options_with_values -%}
-              {%- assign downcased_option = option.name | downcase -%}
-              
-              {% comment %} COLOR SWATCHES {% endcomment %}
-              {%- if downcased_option contains 'color' or downcased_option contains 'colour' -%}
-                <div class="card-v2-swatches-wrapper" style="margin-bottom: 1rem;">
-                  <label class="visually-hidden">{{ option.name }}</label>
-                  <div class="card-v2-swatches" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
-                    {%- for value in option.values -%}
-                      <label 
-                        class="card-v2-swatch {% if forloop.index > 3 %}hidden-swatch{% endif %}" 
-                        style="width: 24px; height: 24px; border-radius: 50%; cursor: pointer; border: 1px solid #ccc; 
-                               background-color: {{ value | split: ' ' | last | downcase }}; 
-                               {% if value.swatch.color %}background-color: {{ value.swatch.color }};{% endif %}
-                               {% if value.swatch.image %}background-image: url({{ value.swatch.image | image_url: width: 50 }}); background-size: cover;{% endif %}
-                               {% if forloop.index > 3 %}display: none;{% endif %}
-                               {% if option.selected_value == value %}outline: 2px solid #000; outline-offset: 2px;{% endif %}"
-                        title="{{ value }}"
-                      >
-                        {% comment %} UNIQUE NAME PREVENTS CROSS-PRODUCT CLICKS {% endcomment %}
-                        <input type="radio" name="opt-{{ card_product.id }}-{{ option.position }}" value="{{ value | escape }}" class="card-v2-radio card-v2-radio-color visually-hidden" data-option-index="{{ option.position | minus: 1 }}" {% if option.selected_value == value %}checked{% endif %}>
-                      </label>
-                    {%- endfor -%}
-                    
-                    {%- if option.values.size > 3 -%}
-                      <button type="button" class="card-v2-view-all-colors" style="background: none; border: none; font-size: 12px; cursor: pointer; text-decoration: underline; padding: 0;">
-                        +{{ option.values.size | minus: 3 }}
-                      </button>
-                    {%- endif -%}
+      <div class="card-v2-bottom-aligner">
+        {%- unless card_product.has_only_default_variant -%}
+          <card-v2-variant-selector>
+            <div class="card-v2-options">
+              {%- for option in card_product.options_with_values -%}
+                {%- assign downcased_option = option.name | downcase -%}
+                {%- if downcased_option contains 'color' or downcased_option contains 'colour' -%}
+                  <div class="card-v2-swatches-wrapper">
+                    <label class="visually-hidden">{{ option.name }}</label>
+                    <div class="card-v2-swatches">
+                      {%- for value in option.values -%}
+                        <label 
+                          class="card-v2-swatch {% if forloop.index > 3 %}hidden-swatch{% endif %}" 
+                          style="background-color: {{ value | split: ' ' | last | downcase }};{% if value.swatch.color %}background-color: {{ value.swatch.color }};{% endif %}{% if value.swatch.image %}background-image: url({{ value.swatch.image | image_url: width: 50 }}); background-size: cover;{% endif %}{% if forloop.index > 3 %}display: none;{% endif %}{% if option.selected_value == value %}outline: 2px solid #000; outline-offset: 2px;{% endif %}"
+                          title="{{ value }}"
+                        >
+                          <input type="radio" name="opt-{{ card_product.id }}-{{ option.position }}" value="{{ value | escape }}" class="card-v2-radio card-v2-radio-color visually-hidden" data-option-index="{{ option.position | minus: 1 }}" {% if option.selected_value == value %}checked{% endif %}>
+                        </label>
+                      {%- endfor -%}
+                      {%- if option.values.size > 3 -%}
+                        <button type="button" class="card-v2-view-all-colors">
+                          +{{ option.values.size | minus: 3 }}
+                        </button>
+                      {%- endif -%}
+                    </div>
                   </div>
-                </div>
-
-              {% comment %} SIZE PILLS {% endcomment %}
-              {%- else -%}
-                <div class="card-v2-pills-wrapper" style="margin-bottom: 1rem;">
-                  <div class="card-v2-pills" style="display: flex; gap: 6px; flex-wrap: wrap;">
-                    {%- for value in option.values -%}
-                      <label 
-                        class="card-v2-pill" 
-                        style="cursor: pointer; padding: 4px 10px; border: 1px solid #e1e1e1; border-radius: 4px; font-size: 12px; transition: all 0.2s;
-                               {% if option.selected_value == value %}background: #000; color: #fff; border-color: #000;{% else %}background: #fff; color: #000;{% endif %}"
-                      >
-                        <input type="radio" name="opt-{{ card_product.id }}-{{ option.position }}" value="{{ value | escape }}" class="card-v2-radio card-v2-radio-pill visually-hidden" data-option-index="{{ option.position | minus: 1 }}" {% if option.selected_value == value %}checked{% endif %}>
-                        {{ value }}
-                      </label>
-                    {%- endfor -%}
+                {%- else -%}
+                  <div class="card-v2-pills-wrapper">
+                    <div class="card-v2-pills">
+                      {%- for value in option.values -%}
+                        <label 
+                          class="card-v2-pill" 
+                          style="{% if option.selected_value == value %}background: #000; color: #fff; border-color: #000;{% else %}background: #fff; color: #000;{% endif %}"
+                        >
+                          <input type="radio" name="opt-{{ card_product.id }}-{{ option.position }}" value="{{ value | escape }}" class="card-v2-radio card-v2-radio-pill visually-hidden" data-option-index="{{ option.position | minus: 1 }}" {% if option.selected_value == value %}checked{% endif %}>
+                          {{ value }}
+                        </label>
+                      {%- endfor -%}
+                    </div>
                   </div>
-                </div>
-              {%- endif -%}
-            {%- endfor -%}
-          </div>
-
-          <script type="application/json" class="card-v2-json">
-            [
-            {%- for variant in card_product.variants -%}
-              {
-                "id": {{ variant.id }},
-                "options": {{ variant.options | json }},
-                "available": {{ variant.available }},
-                "price": "{{ variant.price | money }}",
-                "featured_image": "{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 600 }}{% endif %}"
-              }{% unless forloop.last %},{% endunless %}
-            {%- endfor -%}
-            ]
-          </script>
-        </card-v2-variant-selector>
-
-        {% comment %} ==========================================================
-            4. THE ADD TO CART FORM (Uses native product-form for AJAX Cart)
-        ================================================================== {% endcomment %}
-        <product-form class="card-v2-form-wrapper" style="display: block; width: 100%;">
-          {%- form 'product', card_product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
-            
-            {% comment %} THIS ID GETS UPDATED BY JAVASCRIPT {% endcomment %}
-            <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}" class="card-v2-final-id">
-            
-            <button type="submit" name="add" class="button button--full-width card-v2-add-btn {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}" style="width: 100%;" {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}>
-              {%- if card_product.selected_or_first_available_variant.available -%}
-                {{ 'products.product.add_to_cart' | t }}
-              {%- else -%}
-                {{ 'products.product.sold_out' | t }}
-              {%- endif -%}
-            </button>
-          {%- endform -%}
-        </product-form>
-
-      {%- else -%}
-        {% comment %} DEFAULT BUTTON FOR PRODUCTS WITHOUT VARIANTS {% endcomment %}
-        <product-form class="card-v2-form-wrapper" style="display: block; width: 100%;">
-          {%- form 'product', card_product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
-            <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
-            <button type="submit" name="add" class="button button--full-width card-v2-add-btn {% unless card_product.available %}disabled{% endunless %}" style="width: 100%;" {% unless card_product.available %}disabled{% endunless %}>
-              {%- if card_product.available -%}
-                {{ 'products.product.add_to_cart' | t }}
-              {%- else -%}
-                {{ 'products.product.sold_out' | t }}
-              {%- endif -%}
-            </button>
-          {%- endform -%}
-        </product-form>
-      {%- endunless -%}
-
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+            <script type="application/json" class="card-v2-json">
+              [
+              {%- for variant in card_product.variants -%}
+                {
+                  "id": {{ variant.id }},
+                  "options": {{ variant.options | json }},
+                  "available": {{ variant.available }},
+                  "price": "{{ variant.price | money }}",
+                  "featured_image": "{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 600 }}{% endif %}"
+                }{% unless forloop.last %},{% endunless %}
+              {%- endfor -%}
+              ]
+            </script>
+          </card-v2-variant-selector>
+          <product-form class="card-v2-form-wrapper">
+            {%- form 'product', card_product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+              <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}" class="card-v2-final-id">
+              <button type="submit" name="add" class="button button--full-width card-v2-add-btn {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}" {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+                {%- if card_product.selected_or_first_available_variant.available -%}
+                  {{ 'products.product.add_to_cart' | t }}
+                {%- else -%}
+                  {{ 'products.product.sold_out' | t }}
+                {%- endif -%}
+              </button>
+            {%- endform -%}
+          </product-form>
+        {%- else -%}
+          <product-form class="card-v2-form-wrapper">
+            {%- form 'product', card_product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+              <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
+              <button type="submit" name="add" class="button button--full-width card-v2-add-btn {% unless card_product.available %}disabled{% endunless %}" {% unless card_product.available %}disabled{% endunless %}>
+                {%- if card_product.available -%}
+                  {{ 'products.product.add_to_cart' | t }}
+                {%- else -%}
+                  {{ 'products.product.sold_out' | t }}
+                {%- endif -%}
+              </button>
+            {%- endform -%}
+          </product-form>
+        {%- endunless -%}
+      </div>
     </div>
   </div>
 </div>
-
-{% comment %} ==========================================================
-    5. THE CUSTOM WEB COMPONENT SCRIPT (Guarantees execution)
-================================================================== {% endcomment %}
