@@ -3210,12 +3210,43 @@ class ProductRecommendations extends HTMLElement {
 
         const recommendations = html.querySelector('product-recommendations');
         if (recommendations && recommendations.innerHTML.trim().length) {
+          // 1. Inject the HTML
           this.innerHTML = recommendations.innerHTML;
+          
+          // 2. Initialize Swiper immediately after the HTML is rendered
+          this.initSwiper();
         }
       })
       .catch(e => {
         console.error(e);
       });
+  }
+
+  // New function to handle Swiper setup dynamically
+  initSwiper() {
+    const swiperContainer = this.querySelector('.recommendations-swiper');
+    
+    // Ensure the container exists and the Swiper library is loaded
+    if (swiperContainer && typeof Swiper !== 'undefined') {
+      new Swiper(swiperContainer, {
+        slidesPerView: 2, // Default to 2 items on mobile
+        spaceBetween: 10,
+        navigation: {
+          nextEl: this.querySelector('.rec-next'),
+          prevEl: this.querySelector('.rec-prev'),
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 15
+          },
+          990: {
+            slidesPerView: 4, // 4 items on Desktop
+            spaceBetween: 20
+          }
+        }
+      });
+    }
   }
 }
 customElements.define('product-recommendations', ProductRecommendations);
