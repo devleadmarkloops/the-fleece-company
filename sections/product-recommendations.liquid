@@ -48,6 +48,8 @@
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .rec-header-wrapper {
       margin-bottom: 1.5rem;
+      justify-content: center;
+      text-align: center;
     }
     #shopify-section-{{ section.id }} .rec-nav-btn {
       width: 2.5rem;
@@ -87,7 +89,7 @@
             {%- endif -%}
           </{{ section.settings.heading_tag }}>
           
-          <div class="recommendations-nav">
+          <div class="recommendations-nav small-hide">
             <div class="swiper-button-prev rec-prev rec-nav-btn"></div>
             <div class="swiper-button-next rec-next rec-nav-btn"></div>
           </div>
