@@ -3173,6 +3173,145 @@ span.alert-box:before {
   letter-spacing: 0;
   padding-inline: 0;
 }
+/* When Pairs Well */
+/* --- Header & Slider Navigation --- */
+.pairs-well-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.pairs-well-header .h4 {
+  margin: 0;
+}
+.pairs-well-nav {
+  display: flex;
+  gap: 0.8rem;
+}
+.pairs-well-nav .swiper-button-prev,
+.pairs-well-nav .swiper-button-next {
+  position: static;
+  width: 32px;
+  height: 32px;
+  background: rgba(var(--color-foreground), 0.05);
+  border-radius: 50%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+.pairs-well-nav .swiper-button-prev:hover,
+.pairs-well-nav .swiper-button-next:hover {
+  background: rgba(var(--color-foreground), 0.1);
+}
+.pairs-well-nav .swiper-button-prev::after,
+.pairs-well-nav .swiper-button-next::after {
+  font-size: 12px;
+  color: rgb(var(--color-foreground));
+  font-weight: bold;
+}
+
+/* --- Inline Card Layout --- */
+.pairs-well-card {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(var(--color-foreground), 0.08);
+  border-radius: var(--popup-corner-radius, 8px);
+  background: rgb(var(--color-background));
+  align-items: flex-start;
+}
+.pairs-well-media {
+  flex: 0 0 90px; /* Fixed width for the image */
+}
+.pairs-well-media img {
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
+  border-radius: min(var(--popup-corner-radius, 8px), 4px);
+  display: block;
+}
+
+/* --- Product Info & Typography --- */
+.pairs-well-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* Prevents text overflow breaking the flex layout */
+}
+.pairs-well-header-info {
+  margin-bottom: 1rem;
+}
+.pairs-well-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: rgb(var(--color-foreground));
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-bottom: 0.4rem;
+}
+.pairs-well-price {
+  font-size: 1.3rem;
+  color: rgba(var(--color-foreground), 0.75);
+}
+.pairs-well-price .price {
+  font-size: 1.3rem; /* Forces default theme price to match our card */
+}
+
+/* --- Form & Variants --- */
+.pairs-well-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pairs-well-variants {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+.pairs-well-select-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 45%;
+}
+.pairs-well-select {
+  width: 100%;
+  appearance: none;
+  padding: 0.8rem 2.5rem 0.8rem 1rem;
+  font-size: 1.2rem;
+  border: 1px solid rgba(var(--color-foreground), 0.15);
+  border-radius: 4px;
+  background-color: transparent;
+  color: rgb(var(--color-foreground));
+  cursor: pointer;
+}
+.pairs-well-select:focus {
+  outline: 2px solid rgba(var(--color-foreground), 0.5);
+  outline-offset: -2px;
+}
+.pairs-well-select-wrapper svg {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  pointer-events: none;
+  fill: currentColor;
+}
+
+/* --- Button --- */
+.pairs-well-btn {
+  width: 100%;
+  min-height: 3.8rem;
+  font-size: 1.3rem;
+  padding: 0 1.5rem;
+  letter-spacing: 0.1rem;
+  margin-top: 0.5rem;
+}
 
 @media screen and (max-width: 749px) {
   /* When Title */
