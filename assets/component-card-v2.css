@@ -1,0 +1,81 @@
+.card-product-v2 {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-product-v2 .card-information {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-product-v2 .card-information__wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-product-v2 .card-v2-price {
+  margin-bottom: 1.5rem;
+}
+
+.card-product-v2 .card-v2-bottom-aligner {
+  margin-top: auto;
+  width: 100%;
+}
+
+.card-product-v2 card-v2-variant-selector,
+.card-product-v2 .card-v2-form-wrapper {
+  display: block;
+  width: 100%;
+}
+
+.card-product-v2 .card-v2-swatches-wrapper,
+.card-product-v2 .card-v2-pills-wrapper {
+  margin-bottom: 1rem;
+}
+
+.card-product-v2 .card-v2-swatches {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.card-product-v2 .card-v2-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+
+.card-product-v2 .card-v2-view-all-colors {
+  background: none;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.card-product-v2 .card-v2-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.card-product-v2 .card-v2-pill {
+  cursor: pointer;
+  padding: 4px 10px;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.card-product-v2 .card-v2-add-btn {
+  width: 100%;
+}
