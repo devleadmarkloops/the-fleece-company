@@ -95,7 +95,7 @@
           <div class="swiper-wrapper">
             {%- for recommendation in recommendations.products -%}
               <div class="swiper-slide">
-                {% render 'card-product',
+                {% render 'card-product-v2',
                   card_product: recommendation,
                   card_collection: collection,
                   media_size: section.settings.image_ratio,
