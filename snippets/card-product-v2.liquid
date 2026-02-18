@@ -166,7 +166,7 @@
 
                         <label 
                           class="card-v2-swatch {% if forloop.index > 3 %}hidden-swatch{% endif %}" 
-                          style="background: {{ swatch_value }}; background-size: cover; background-position: center; {% if forloop.index > 3 %}display: none;{% endif %}{% if option.selected_value == value or option.selected_value == val_string %}outline: 2px solid #000; outline-offset: 2px;{% endif %}"
+                          style="background: {{ swatch_value }}; background-size: cover; background-position: center; {% if forloop.index > 3 %}display: none;{% endif %}{% if option.selected_value == value or option.selected_value == val_string %}outline: 1px solid rgb(var(--color-foreground)); outline-offset: 2px;{% endif %}"
                           title="{{ val_string | escape }}"
                         >
                           <input type="radio" name="opt-{{ card_product.id }}-{{ option.position }}" value="{{ val_string | escape }}" class="card-v2-radio card-v2-radio-color visually-hidden" data-option-index="{{ option.position | minus: 1 }}" {% if option.selected_value == value or option.selected_value == val_string %}checked{% endif %}>
