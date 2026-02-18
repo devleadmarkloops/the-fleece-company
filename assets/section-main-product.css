@@ -3155,7 +3155,7 @@ span.alert-box:before {
   height: 1.4rem;
   transition: all 0.3s ease;
 }
-.product__info-container .product__accordion details[open] summary svg {
+.product__info-container .product__accordion details[open] summary .icon.icon-plus {
   transform: rotate(45deg);
 }
 .product__info-container .product__accordion .accordion__title {
