@@ -3320,7 +3320,7 @@ span.alert-box:before {
   box-shadow: none;
 }
 .product__info-container .pairs-well-btn {
-  flex: 1 0 auto;
+  flex: 0 0 auto;
   width: auto;
   min-width: unset;
   min-height: unset;
