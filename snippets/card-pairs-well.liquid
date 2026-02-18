@@ -79,7 +79,7 @@
           {% unless current_variant.available %}disabled{% endunless %}
         >
           {%- if current_variant.available -%}
-            {{ 'products.product.add_to_cart' | t }}
+            Add
           {%- else -%}
             {{ 'products.product.sold_out' | t }}
           {%- endif -%}
