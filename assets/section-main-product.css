@@ -3304,11 +3304,11 @@ span.alert-box:before {
   -webkit-appearance: none;
   width: auto;
   min-width: max-content;
-  padding: 0.8rem 2.5rem 0.8rem 1.2rem;
+  padding: 1.2rem 2.5rem 0.8rem 1.2rem;
   font-size: 1.2rem;
   border: 1px solid rgba(var(--color-foreground), 0.15);
-  border-radius: 4px;
-  background-color: transparent;
+  border-radius: 8px;
+  background-color: white;
   color: rgb(var(--color-foreground));
   cursor: pointer;
 }
