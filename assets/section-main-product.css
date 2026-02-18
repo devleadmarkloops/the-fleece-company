@@ -3256,12 +3256,7 @@ span.alert-box:before {
   overflow: hidden;
   margin-bottom: 0.4rem;
 }
-.product__info-container .pairs-well-price {
-  font-family: var(--new-font-heading-family);
-  font-size: 1.4rem;
-  color: rgba(var(--color-foreground), 0.75);
-}
-.product__info-container .pairs-well-price .price {
+.product__info-container .pairs-well-price .price--on-sale .price-item--regular bdi {
   font-size: 1.4rem;
 }
 .product__info-container .pairs-well-form {
