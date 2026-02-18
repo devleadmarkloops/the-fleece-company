@@ -1,0 +1,263 @@
+{%- liquid
+  assign show_countdown = false
+  if enable_countdown and card_product.metafields.theme.countdown.value != blank
+    assign now_time = 'now' | date: '%s' | times: 1
+    assign countdown_time = card_product.metafields.theme.countdown.value | date: '%s' | times: 1
+    if countdown_time > now_time
+      assign show_countdown = true
+    endif
+  endif
+
+  if button_custom_class
+    assign button_class = button_custom_class
+  else
+    assign button_class = 'button button--small'
+  endif
+
+  assign card_url = card_product.url | within: card_collection | default: '#'
+  assign product_form_id = 'quick-add-' | append: section.id | append: '-' | append: card_product.id
+-%}
+
+{{ 'component-rating.css' | asset_url | stylesheet_tag }}
+
+<div class="card-wrapper card-v2-wrapper">
+  <use-animate data-animate="zoom-fade-small" class="card card--product{% if card_product.featured_media == nil %} card--text{% endif %}" tabindex="-1">
+    {%- if card_product.featured_media -%}
+      {%- liquid
+        assign featured_media_aspect_ratio = card_product.featured_media.aspect_ratio | default: 1
+        assign image = card_product.featured_media
+      -%}
+      <a href="{{ card_url }}" class="card__media media-wrapper" tabindex="-1">
+        <div class="card--image-animate image-animate media media--{{ media_size }} media--hover-effect"
+          {%- if media_size == 'adapt' %} style="--image-ratio-percent: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;"{% endif -%}
+        >
+          <img
+            src="{{ image.preview_image | image_url: width: 600 }}"
+            alt="{{ image.alt | escape }}"
+            loading="lazy"
+            class="motion-reduce card-v2-main-image"
+            width="{{ image.width }}"
+            height="{{ image.height }}"
+            style="width: 100%; height: 100%; object-fit: cover;"
+          >
+          {%- if card_product.media[1] != nil and show_secondary_image -%}
+            <img 
+              src="{{ card_product.media[1].preview_image | image_url: width: 600 }}"
+              alt="{{ card_product.media[1].alt | escape }}"
+              loading="lazy"
+              class="motion-reduce card-secondary-image"
+              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.3s;"
+              onmouseover="this.style.opacity='1';"
+              onmouseout="this.style.opacity='0';"
+            >
+          {%- endif -%}
+        </div>
+      </a>
+    {%- endif -%}
+  </use-animate>
+
+  <div class="card-information">
+    <div class="card-information__wrapper">
+      {%- if show_vendor -%}
+        <div class="card-article-info caption-with-letter-spacing">{{ card_product.vendor }}</div>
+      {%- endif -%}
+
+      <a href="{{ card_url }}" class="card-information__text h4 card-v2-title" tabindex="-1">
+        {{ card_product.title | escape }}
+      </a>
+
+      {% if card_product.metafields.custom.subtitle != blank %}
+        <p class="meta-subtitle">{{ card_product.metafields.custom.subtitle.value }}</p>
+      {% endif %}
+
+      {% comment %} 1. PRICE MOVED UP {% endcomment %}
+      <div class="card-v2-price" style="margin-bottom: 1.5rem;">
+        {% render 'price', product: card_product, use_variant: true %}
+      </div>
+
+      {% comment %} 2. NEW VARIANT FORM FOR V2 CARD {% endcomment %}
+      {%- unless card_product.has_only_default_variant -%}
+        <product-form class="card-v2-form">
+          {%- form 'product', card_product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+            
+            <div class="card-v2-options">
+              {%- for option in card_product.options_with_values -%}
+                {%- assign downcased_option = option.name | downcase -%}
+                
+                {% comment %} COLOR SWATCHES {% endcomment %}
+                {%- if downcased_option contains 'color' or downcased_option contains 'colour' -%}
+                  <div class="card-v2-swatches-wrapper" style="margin-bottom: 1rem;">
+                    <label class="visually-hidden">{{ option.name }}</label>
+                    <div class="card-v2-swatches" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+                      {%- for value in option.values -%}
+                        <label 
+                          class="card-v2-swatch {% if forloop.index > 3 %}hidden-swatch{% endif %}" 
+                          style="{% if forloop.index > 3 %}display: none;{% endif %} width: 24px; height: 24px; border-radius: 50%; cursor: pointer; border: 1px solid #ccc; background-color: {{ value | split: ' ' | last | downcase }}; {% if value.swatch.color %}background-color: {{ value.swatch.color }};{% endif %}{% if value.swatch.image %}background-image: url({{ value.swatch.image | image_url: width: 50 }}); background-size: cover;{% endif %}"
+                          title="{{ value }}"
+                        >
+                          <input type="radio" name="options[{{ option.name | escape }}]" value="{{ value | escape }}" class="card-v2-radio visually-hidden" data-option-index="{{ option.position | minus: 1 }}" {% if option.selected_value == value %}checked{% endif %}>
+                        </label>
+                      {%- endfor -%}
+                      
+                      {%- if option.values.size > 3 -%}
+                        <button type="button" class="card-v2-view-all-colors" style="background: none; border: none; font-size: 12px; cursor: pointer; text-decoration: underline; padding: 0;">
+                          +{{ option.values.size | minus: 3 }}
+                        </button>
+                      {%- endif -%}
+                    </div>
+                  </div>
+
+                {% comment %} SIZE / OTHER DROPDOWN {% endcomment %}
+                {%- else -%}
+                  <div class="card-v2-select-wrapper" style="margin-bottom: 1rem; position: relative;">
+                    <select class="card-v2-select" data-option-index="{{ option.position | minus: 1 }}" style="width: 100%; padding: 8px 10px; border: 1px solid #e1e1e1; border-radius: 4px; appearance: none; background: transparent;">
+                      {%- for value in option.values -%}
+                        <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
+                          {{ value }}
+                        </option>
+                      {%- endfor -%}
+                    </select>
+                    <svg style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 10px; pointer-events: none;" viewBox="0 0 10 6"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path></svg>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+
+            {% comment %} DATA & HIDDEN INPUT {% endcomment %}
+            <script type="application/json" class="card-v2-json">
+              [
+              {%- for variant in card_product.variants -%}
+                {
+                  "id": {{ variant.id }},
+                  "options": {{ variant.options | json }},
+                  "available": {{ variant.available }},
+                  "price": "{{ variant.price | money }}",
+                  "featured_image": "{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 600 }}{% endif %}"
+                }{% unless forloop.last %},{% endunless %}
+              {%- endfor -%}
+              ]
+            </script>
+            <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}" class="card-v2-final-id">
+
+            {% comment %} ADD TO CART BUTTON {% endcomment %}
+            <button type="submit" name="add" class="button button--full-width card-v2-add-btn {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}" style="width: 100%;" {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+              {%- if card_product.selected_or_first_available_variant.available -%}
+                {{ 'products.product.add_to_cart' | t }}
+              {%- else -%}
+                {{ 'products.product.sold_out' | t }}
+              {%- endif -%}
+            </button>
+
+          {%- endform -%}
+        </product-form>
+      {%- else -%}
+        {% comment %} DEFAULT BUTTON FOR PRODUCTS WITHOUT VARIANTS {% endcomment %}
+        <product-form class="card-v2-form">
+          {%- form 'product', card_product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+            <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
+            <button type="submit" name="add" class="button button--full-width card-v2-add-btn {% unless card_product.available %}disabled{% endunless %}" style="width: 100%;" {% unless card_product.available %}disabled{% endunless %}>
+              {%- if card_product.available -%}
+                {{ 'products.product.add_to_cart' | t }}
+              {%- else -%}
+                {{ 'products.product.sold_out' | t }}
+              {%- endif -%}
+            </button>
+          {%- endform -%}
+        </product-form>
+      {%- endunless -%}
+    </div>
+  </div>
+</div>
+<script>
+  if (!window.CardV2Initialized) {
+    window.CardV2Initialized = true;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // 1. Expand Swatches Logic (+X Button)
+      document.body.addEventListener('click', function(e) {
+        if (e.target.matches('.card-v2-view-all-colors')) {
+          e.preventDefault();
+          const wrapper = e.target.closest('.card-v2-swatches');
+          const hiddenSwatches = wrapper.querySelectorAll('.hidden-swatch');
+          
+          hiddenSwatches.forEach(swatch => {
+            swatch.style.display = 'block';
+          });
+          e.target.style.display = 'none'; // Hide the +X button
+        }
+      });
+
+      // 2. Variant Selection Logic
+      document.body.addEventListener('change', function(e) {
+        if (e.target.matches('.card-v2-radio') || e.target.matches('.card-v2-select')) {
+          const card = e.target.closest('.card-v2-wrapper');
+          if (!card) return;
+
+          // Get JSON data
+          const jsonNode = card.querySelector('.card-v2-json');
+          if (!jsonNode) return;
+          const variants = JSON.parse(jsonNode.innerHTML);
+
+          // Get currently selected options (combining Radios and Selects)
+          const selects = Array.from(card.querySelectorAll('.card-v2-select'));
+          const checkedRadios = Array.from(card.querySelectorAll('.card-v2-radio:checked'));
+          
+          let currentOptions = [];
+          
+          // Shopify options are ordered 0, 1, 2. We need to map our selections to the correct index
+          checkedRadios.forEach(radio => currentOptions[parseInt(radio.dataset.optionIndex)] = radio.value);
+          selects.forEach(sel => currentOptions[parseInt(sel.dataset.optionIndex)] = sel.value);
+
+          // Find the matching variant
+          const match = variants.find(variant => {
+            return variant.options.every((opt, index) => opt === currentOptions[index]);
+          });
+
+          // Update UI
+          if (match) {
+            // Update hidden ID
+            const idInput = card.querySelector('.card-v2-final-id');
+            if (idInput) idInput.value = match.id;
+
+            // Update Image
+            const img = card.querySelector('.card-v2-main-image');
+            if (match.featured_image && img) {
+              img.src = match.featured_image;
+              img.srcset = match.featured_image;
+            }
+
+            // Update Price (Simple text replace for native price logic)
+            const priceEl = card.querySelector('.price-item--regular');
+            if (priceEl && !card.querySelector('.price-item--sale')) {
+               priceEl.innerHTML = match.price; 
+            }
+
+            // Update Button
+            const btn = card.querySelector('.card-v2-add-btn');
+            if (btn) {
+              if (match.available) {
+                btn.textContent = "{{ 'products.product.add_to_cart' | t }}";
+                btn.disabled = false;
+                btn.classList.remove('disabled');
+              } else {
+                btn.textContent = "{{ 'products.product.sold_out' | t }}";
+                btn.disabled = true;
+                btn.classList.add('disabled');
+              }
+            }
+          }
+        }
+      });
+      
+      // Styling for active swatches
+      document.body.addEventListener('change', function(e) {
+        if (e.target.matches('.card-v2-radio')) {
+           const wrapper = e.target.closest('.card-v2-swatches');
+           wrapper.querySelectorAll('.card-v2-swatch').forEach(lbl => lbl.style.outline = 'none');
+           e.target.closest('label').style.outline = '2px solid #000';
+           e.target.closest('label').style.outlineOffset = '2px';
+        }
+      });
+    });
+  }
+</script>
