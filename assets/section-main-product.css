@@ -3256,6 +3256,11 @@ span.alert-box:before {
   overflow: hidden;
   margin-bottom: 0.4rem;
 }
+.product__info-container .pairs-well-price {
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
 .product__info-container .pairs-well-price .pw-compare-price {
   font-size: 1.4rem;
   font-weight: 400;
