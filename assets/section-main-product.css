@@ -3283,8 +3283,9 @@ span.alert-box:before {
 }
 .product__info-container .pairs-well-variants {
   display: flex;
-  gap: 0.8rem;
-  flex: 0 0 auto;
+  column-gap: 0.7rem;
+  row-gap: 0.5rem;
+  /* flex: 0 0 auto; */
   flex-wrap: wrap;
 }
 .product__info-container .pairs-well-select-wrapper {
