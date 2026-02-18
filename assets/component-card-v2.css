@@ -103,3 +103,9 @@
   font-weight: 400;
   letter-spacing: 0;
 }
+
+.card-product-v2 .card-v2-add-btn:hover {
+  background-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+  opacity: 0.85;
+}
