@@ -3259,7 +3259,7 @@ span.alert-box:before {
 .product__info-container .pairs-well-price .pw-compare-price {
   font-size: 1.4rem;
   font-weight: 400;
-  color: rgba(var(--color-foreground), 0.4);
+  color: rgba(var(--color-foreground), 0.6);
 }
 .product__info-container .pairs-well-price .pw-regular-price {
   font-family: var(--new-font-heading-family);
