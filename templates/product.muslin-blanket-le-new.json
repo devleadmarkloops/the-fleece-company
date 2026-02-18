@@ -210,17 +210,15 @@
           "disabled": true,
           "settings": {}
         },
-        "complementary_wfP37w": {
-          "type": "complementary",
+        "pairs_well_rqaHeU": {
+          "type": "pairs_well",
           "settings": {
-            "icon": "none",
             "heading": "Pairs well with",
-            "make_collapsible_row": false,
-            "product_list_limit": 4,
-            "image_ratio": "square",
-            "image_position": "center center",
-            "show_vendor": false,
-            "enable_image_fill": true
+            "product_list": [
+              "cryocomfort™-cooling-blanket",
+              "the-new-winter-muslin-blanket-100-muslin-cotton",
+              "blanket"
+            ]
           }
         },
         "video_reels_Uf7aUQ": {
@@ -310,7 +308,7 @@
         "icon_with_text_NArRNw",
         "text_custom_A3eeDw",
         "description_wcdcrg",
-        "complementary_wfP37w",
+        "pairs_well_rqaHeU",
         "video_reels_Uf7aUQ",
         "collapsible_tab_TbRiah",
         "collapsible_tab-0",
