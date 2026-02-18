@@ -21,41 +21,79 @@
 {{ 'component-rating.css' | asset_url | stylesheet_tag }}
 
 <div class="card-wrapper card-v2-wrapper">
+  {% comment %} ==========================================================
+      1. RESTORED NATIVE IMAGE, HOVER, & ANIMATION EXACTLY AS DEFAULT
+  ================================================================== {% endcomment %}
   <use-animate data-animate="zoom-fade-small" class="card card--product{% if card_product.featured_media == nil %} card--text{% endif %}" tabindex="-1">
     {%- if card_product.featured_media -%}
       {%- liquid
         assign featured_media_aspect_ratio = card_product.featured_media.aspect_ratio | default: 1
-        assign image = card_product.featured_media
+        assign card_product_media = card_product.featured_media
       -%}
-      <a href="{{ card_url }}" class="card__media media-wrapper" tabindex="-1">
-        <div class="card--image-animate image-animate media media--{{ media_size }} media--hover-effect"
+
+      {%- capture sizes -%}(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 10rem) / 4), (min-width: 750px) calc((100vw - 10rem) / 3), calc(62vw - 3rem){%- endcapture -%}
+      {%- liquid
+        assign image_loading = 'lazy'
+        assign widths = '165, 360, 535, 750, 940, 1100'
+        assign image = card_product.featured_media
+        assign alt = image.alt | escape | split: '#' | first
+
+        capture srcset_mobile_retina
+          assign a_widths = widths | remove: ' ' | split: ','
+          for a_width in a_widths
+            assign retina_mobile_width = a_width | divided_by: 1 | floor
+            if forloop.index >= 2
+              echo ', '
+            endif
+            echo image.preview_image | image_url: width: retina_mobile_width | append: ' ' | append: a_width | append: 'w'
+          endfor
+        endcapture
+      -%}
+
+      <a href="{{ card_url }}"{% if disable_image_click %} onclick="if (!theme.config.mqlSmall) { return false; }"{% endif %} class="card__media media-wrapper" tabindex="-1" aria-label="{{ card_product.title | escape }}">
+        <div class="card--image-animate image-animate media media--{{ media_size }} media--hover-effect{% unless enable_image_fill %} media--image-contain{% endunless %}"
           {%- if media_size == 'adapt' %} style="--image-ratio-percent: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;"{% endif -%}
         >
-          <img
-            src="{{ image.preview_image | image_url: width: 600 }}"
-            alt="{{ image.alt | escape }}"
-            loading="lazy"
-            class="motion-reduce card-v2-main-image"
-            width="{{ image.width }}"
-            height="{{ image.height }}"
-            style="width: 100%; height: 100%; object-fit: cover;"
-          >
+          <picture is="prog-picture" class="motion-reduce" data-hq="{{ image.preview_image | image_url: width: 2000 }}">
+            <source srcset="{{ srcset_mobile_retina }}" sizes="{{ sizes }}">
+            {{ image.preview_image | image_url: width: 1100 | image_tag: loading: image_loading, class: 'motion-reduce card-v2-main-image', sizes: sizes, widths: widths, alt: alt, is: 'lazy-image' }}
+          </picture>
           {%- if card_product.media[1] != nil and show_secondary_image -%}
-            <img 
-              src="{{ card_product.media[1].preview_image | image_url: width: 600 }}"
-              alt="{{ card_product.media[1].alt | escape }}"
-              loading="lazy"
-              class="motion-reduce card-secondary-image"
-              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.3s;"
-              onmouseover="this.style.opacity='1';"
-              onmouseout="this.style.opacity='0';"
-            >
+            {%- liquid
+              assign image_second = card_product.media[1]
+              assign alt_second = image_second.alt | escape | split: '#' | first
+              assign widths_second = '1, 165, 360, 535, 750, 940, 1100'
+            -%}
+            {%- capture sizes_second -%}(min-width: 990px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, 1px{%- endcapture -%}
+            <picture class="motion-reduce">
+              {{ image_second.preview_image | image_url: width: 1100 | image_tag: loading: image_loading, sizes: sizes_second, widths: widths_second, alt: alt_second, is: 'lazy-image' }}
+            </picture>
           {%- endif -%}
         </div>
       </a>
     {%- endif -%}
   </use-animate>
 
+  {% comment %} ==========================================================
+      2. RESTORED NATIVE SALE BADGE EXACTLY AS DEFAULT
+  ================================================================== {% endcomment %}
+  <div class="card__badge">
+    {%- if card_product.available == false -%}
+      <span class="badge badge--soldout" aria-hidden="true">{{ 'products.product.sold_out' | t }}</span>
+    {%- elsif card_product.compare_at_price > card_product.price -%}
+      <span class="badge badge--onsale" aria-hidden="true">
+        {%- if settings.sale_badge_basis == 'percentage' or card_product.variants.size == 1 -%}
+          &#8211;{{ card_product.compare_at_price | minus: card_product.price | times: 100.0 | divided_by: card_product.compare_at_price | round }}%
+        {%- else -%}
+          {{ 'products.product.on_sale' | t }}
+        {%- endif -%}
+      </span>
+    {%- endif -%}
+  </div>
+
+  {% comment %} ==========================================================
+      3. INFORMATION, PRICE & NEW VARIANTS
+  ================================================================== {% endcomment %}
   <div class="card-information">
     <div class="card-information__wrapper">
       {%- if show_vendor -%}
@@ -70,76 +108,92 @@
         <p class="meta-subtitle">{{ card_product.metafields.custom.subtitle.value }}</p>
       {% endif %}
 
-      {% comment %} 1. PRICE MOVED UP {% endcomment %}
       <div class="card-v2-price" style="margin-bottom: 1.5rem;">
         {% render 'price', product: card_product, use_variant: true %}
       </div>
 
-      {% comment %} 2. NEW VARIANT FORM FOR V2 CARD {% endcomment %}
       {%- unless card_product.has_only_default_variant -%}
-        <product-form class="card-v2-form">
+        
+        {% comment %} CUSTOM WEB COMPONENT GUARANTEES JS RUNS! {% endcomment %}
+        <card-v2-variant-selector style="display: block; width: 100%;">
+          
+          <div class="card-v2-options">
+            {%- for option in card_product.options_with_values -%}
+              {%- assign downcased_option = option.name | downcase -%}
+              
+              {% comment %} COLOR SWATCHES {% endcomment %}
+              {%- if downcased_option contains 'color' or downcased_option contains 'colour' -%}
+                <div class="card-v2-swatches-wrapper" style="margin-bottom: 1rem;">
+                  <label class="visually-hidden">{{ option.name }}</label>
+                  <div class="card-v2-swatches" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+                    {%- for value in option.values -%}
+                      <label 
+                        class="card-v2-swatch {% if forloop.index > 3 %}hidden-swatch{% endif %}" 
+                        style="width: 24px; height: 24px; border-radius: 50%; cursor: pointer; border: 1px solid #ccc; 
+                               background-color: {{ value | split: ' ' | last | downcase }}; 
+                               {% if value.swatch.color %}background-color: {{ value.swatch.color }};{% endif %}
+                               {% if value.swatch.image %}background-image: url({{ value.swatch.image | image_url: width: 50 }}); background-size: cover;{% endif %}
+                               {% if forloop.index > 3 %}display: none;{% endif %}
+                               {% if option.selected_value == value %}outline: 2px solid #000; outline-offset: 2px;{% endif %}"
+                        title="{{ value }}"
+                      >
+                        {% comment %} UNIQUE NAME PREVENTS CROSS-PRODUCT CLICKS {% endcomment %}
+                        <input type="radio" name="opt-{{ card_product.id }}-{{ option.position }}" value="{{ value | escape }}" class="card-v2-radio card-v2-radio-color visually-hidden" data-option-index="{{ option.position | minus: 1 }}" {% if option.selected_value == value %}checked{% endif %}>
+                      </label>
+                    {%- endfor -%}
+                    
+                    {%- if option.values.size > 3 -%}
+                      <button type="button" class="card-v2-view-all-colors" style="background: none; border: none; font-size: 12px; cursor: pointer; text-decoration: underline; padding: 0;">
+                        +{{ option.values.size | minus: 3 }}
+                      </button>
+                    {%- endif -%}
+                  </div>
+                </div>
+
+              {% comment %} SIZE PILLS {% endcomment %}
+              {%- else -%}
+                <div class="card-v2-pills-wrapper" style="margin-bottom: 1rem;">
+                  <div class="card-v2-pills" style="display: flex; gap: 6px; flex-wrap: wrap;">
+                    {%- for value in option.values -%}
+                      <label 
+                        class="card-v2-pill" 
+                        style="cursor: pointer; padding: 4px 10px; border: 1px solid #e1e1e1; border-radius: 4px; font-size: 12px; transition: all 0.2s;
+                               {% if option.selected_value == value %}background: #000; color: #fff; border-color: #000;{% else %}background: #fff; color: #000;{% endif %}"
+                      >
+                        <input type="radio" name="opt-{{ card_product.id }}-{{ option.position }}" value="{{ value | escape }}" class="card-v2-radio card-v2-radio-pill visually-hidden" data-option-index="{{ option.position | minus: 1 }}" {% if option.selected_value == value %}checked{% endif %}>
+                        {{ value }}
+                      </label>
+                    {%- endfor -%}
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          <script type="application/json" class="card-v2-json">
+            [
+            {%- for variant in card_product.variants -%}
+              {
+                "id": {{ variant.id }},
+                "options": {{ variant.options | json }},
+                "available": {{ variant.available }},
+                "price": "{{ variant.price | money }}",
+                "featured_image": "{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 600 }}{% endif %}"
+              }{% unless forloop.last %},{% endunless %}
+            {%- endfor -%}
+            ]
+          </script>
+        </card-v2-variant-selector>
+
+        {% comment %} ==========================================================
+            4. THE ADD TO CART FORM (Uses native product-form for AJAX Cart)
+        ================================================================== {% endcomment %}
+        <product-form class="card-v2-form-wrapper" style="display: block; width: 100%;">
           {%- form 'product', card_product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
             
-            <div class="card-v2-options">
-              {%- for option in card_product.options_with_values -%}
-                {%- assign downcased_option = option.name | downcase -%}
-                
-                {% comment %} COLOR SWATCHES {% endcomment %}
-                {%- if downcased_option contains 'color' or downcased_option contains 'colour' -%}
-                  <div class="card-v2-swatches-wrapper" style="margin-bottom: 1rem;">
-                    <label class="visually-hidden">{{ option.name }}</label>
-                    <div class="card-v2-swatches" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
-                      {%- for value in option.values -%}
-                        <label 
-                          class="card-v2-swatch {% if forloop.index > 3 %}hidden-swatch{% endif %}" 
-                          style="{% if forloop.index > 3 %}display: none;{% endif %} width: 24px; height: 24px; border-radius: 50%; cursor: pointer; border: 1px solid #ccc; background-color: {{ value | split: ' ' | last | downcase }}; {% if value.swatch.color %}background-color: {{ value.swatch.color }};{% endif %}{% if value.swatch.image %}background-image: url({{ value.swatch.image | image_url: width: 50 }}); background-size: cover;{% endif %}"
-                          title="{{ value }}"
-                        >
-                          <input type="radio" name="options[{{ option.name | escape }}]" value="{{ value | escape }}" class="card-v2-radio visually-hidden" data-option-index="{{ option.position | minus: 1 }}" {% if option.selected_value == value %}checked{% endif %}>
-                        </label>
-                      {%- endfor -%}
-                      
-                      {%- if option.values.size > 3 -%}
-                        <button type="button" class="card-v2-view-all-colors" style="background: none; border: none; font-size: 12px; cursor: pointer; text-decoration: underline; padding: 0;">
-                          +{{ option.values.size | minus: 3 }}
-                        </button>
-                      {%- endif -%}
-                    </div>
-                  </div>
-
-                {% comment %} SIZE / OTHER DROPDOWN {% endcomment %}
-                {%- else -%}
-                  <div class="card-v2-select-wrapper" style="margin-bottom: 1rem; position: relative;">
-                    <select class="card-v2-select" data-option-index="{{ option.position | minus: 1 }}" style="width: 100%; padding: 8px 10px; border: 1px solid #e1e1e1; border-radius: 4px; appearance: none; background: transparent;">
-                      {%- for value in option.values -%}
-                        <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
-                          {{ value }}
-                        </option>
-                      {%- endfor -%}
-                    </select>
-                    <svg style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 10px; pointer-events: none;" viewBox="0 0 10 6"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path></svg>
-                  </div>
-                {%- endif -%}
-              {%- endfor -%}
-            </div>
-
-            {% comment %} DATA & HIDDEN INPUT {% endcomment %}
-            <script type="application/json" class="card-v2-json">
-              [
-              {%- for variant in card_product.variants -%}
-                {
-                  "id": {{ variant.id }},
-                  "options": {{ variant.options | json }},
-                  "available": {{ variant.available }},
-                  "price": "{{ variant.price | money }}",
-                  "featured_image": "{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 600 }}{% endif %}"
-                }{% unless forloop.last %},{% endunless %}
-              {%- endfor -%}
-              ]
-            </script>
+            {% comment %} THIS ID GETS UPDATED BY JAVASCRIPT {% endcomment %}
             <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}" class="card-v2-final-id">
-
-            {% comment %} ADD TO CART BUTTON {% endcomment %}
+            
             <button type="submit" name="add" class="button button--full-width card-v2-add-btn {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}" style="width: 100%;" {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}>
               {%- if card_product.selected_or_first_available_variant.available -%}
                 {{ 'products.product.add_to_cart' | t }}
@@ -147,12 +201,12 @@
                 {{ 'products.product.sold_out' | t }}
               {%- endif -%}
             </button>
-
           {%- endform -%}
         </product-form>
+
       {%- else -%}
         {% comment %} DEFAULT BUTTON FOR PRODUCTS WITHOUT VARIANTS {% endcomment %}
-        <product-form class="card-v2-form">
+        <product-form class="card-v2-form-wrapper" style="display: block; width: 100%;">
           {%- form 'product', card_product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
             <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
             <button type="submit" name="add" class="button button--full-width card-v2-add-btn {% unless card_product.available %}disabled{% endunless %}" style="width: 100%;" {% unless card_product.available %}disabled{% endunless %}>
@@ -165,99 +219,95 @@
           {%- endform -%}
         </product-form>
       {%- endunless -%}
+
     </div>
   </div>
 </div>
-<script>
-  if (!window.CardV2Initialized) {
-    window.CardV2Initialized = true;
 
-    document.addEventListener('DOMContentLoaded', function() {
-      // 1. Expand Swatches Logic (+X Button)
-      document.body.addEventListener('click', function(e) {
+{% comment %} ==========================================================
+    5. THE CUSTOM WEB COMPONENT SCRIPT (Guarantees execution)
+================================================================== {% endcomment %}
+<script>
+  if (!customElements.get('card-v2-variant-selector')) {
+    customElements.define('card-v2-variant-selector', class extends HTMLElement {
+      connectedCallback() {
+        this.addEventListener('change', this.onVariantChange.bind(this));
+        this.addEventListener('click', this.onClick.bind(this));
+      }
+
+      onClick(e) {
         if (e.target.matches('.card-v2-view-all-colors')) {
           e.preventDefault();
-          const wrapper = e.target.closest('.card-v2-swatches');
-          const hiddenSwatches = wrapper.querySelectorAll('.hidden-swatch');
-          
-          hiddenSwatches.forEach(swatch => {
-            swatch.style.display = 'block';
-          });
-          e.target.style.display = 'none'; // Hide the +X button
+          this.querySelectorAll('.hidden-swatch').forEach(el => el.style.display = 'block');
+          e.target.style.display = 'none';
         }
-      });
+      }
 
-      // 2. Variant Selection Logic
-      document.body.addEventListener('change', function(e) {
-        if (e.target.matches('.card-v2-radio') || e.target.matches('.card-v2-select')) {
-          const card = e.target.closest('.card-v2-wrapper');
-          if (!card) return;
+      onVariantChange(e) {
+        if (!e.target.matches('.card-v2-radio')) return;
 
-          // Get JSON data
-          const jsonNode = card.querySelector('.card-v2-json');
-          if (!jsonNode) return;
-          const variants = JSON.parse(jsonNode.innerHTML);
-
-          // Get currently selected options (combining Radios and Selects)
-          const selects = Array.from(card.querySelectorAll('.card-v2-select'));
-          const checkedRadios = Array.from(card.querySelectorAll('.card-v2-radio:checked'));
-          
-          let currentOptions = [];
-          
-          // Shopify options are ordered 0, 1, 2. We need to map our selections to the correct index
-          checkedRadios.forEach(radio => currentOptions[parseInt(radio.dataset.optionIndex)] = radio.value);
-          selects.forEach(sel => currentOptions[parseInt(sel.dataset.optionIndex)] = sel.value);
-
-          // Find the matching variant
-          const match = variants.find(variant => {
-            return variant.options.every((opt, index) => opt === currentOptions[index]);
-          });
-
-          // Update UI
-          if (match) {
-            // Update hidden ID
-            const idInput = card.querySelector('.card-v2-final-id');
-            if (idInput) idInput.value = match.id;
-
-            // Update Image
-            const img = card.querySelector('.card-v2-main-image');
-            if (match.featured_image && img) {
-              img.src = match.featured_image;
-              img.srcset = match.featured_image;
-            }
-
-            // Update Price (Simple text replace for native price logic)
-            const priceEl = card.querySelector('.price-item--regular');
-            if (priceEl && !card.querySelector('.price-item--sale')) {
-               priceEl.innerHTML = match.price; 
-            }
-
-            // Update Button
-            const btn = card.querySelector('.card-v2-add-btn');
-            if (btn) {
-              if (match.available) {
-                btn.textContent = "{{ 'products.product.add_to_cart' | t }}";
-                btn.disabled = false;
-                btn.classList.remove('disabled');
-              } else {
-                btn.textContent = "{{ 'products.product.sold_out' | t }}";
-                btn.disabled = true;
-                btn.classList.add('disabled');
-              }
-            }
-          }
-        }
-      });
-      
-      // Styling for active swatches
-      document.body.addEventListener('change', function(e) {
-        if (e.target.matches('.card-v2-radio')) {
+        // 1. Update UI Styling immediately
+        if (e.target.classList.contains('card-v2-radio-color')) {
            const wrapper = e.target.closest('.card-v2-swatches');
            wrapper.querySelectorAll('.card-v2-swatch').forEach(lbl => lbl.style.outline = 'none');
            e.target.closest('label').style.outline = '2px solid #000';
            e.target.closest('label').style.outlineOffset = '2px';
+        } else if (e.target.classList.contains('card-v2-radio-pill')) {
+           const wrapper = e.target.closest('.card-v2-pills');
+           wrapper.querySelectorAll('.card-v2-pill').forEach(lbl => {
+             lbl.style.background = '#fff'; lbl.style.color = '#000'; lbl.style.borderColor = '#e1e1e1';
+           });
+           e.target.closest('label').style.background = '#000';
+           e.target.closest('label').style.color = '#fff';
+           e.target.closest('label').style.borderColor = '#000';
         }
-      });
+
+        // 2. Fetch data & match variant
+        const jsonScript = this.querySelector('.card-v2-json');
+        if (!jsonScript) return;
+        const variants = JSON.parse(jsonScript.innerHTML);
+
+        const checkedRadios = Array.from(this.querySelectorAll('.card-v2-radio:checked'));
+        let currentOptions = [];
+        checkedRadios.forEach(radio => currentOptions[parseInt(radio.dataset.optionIndex)] = radio.value);
+
+        const match = variants.find(v => v.options.every((opt, i) => opt === currentOptions[i]));
+
+        // 3. Update the rest of the Card
+        if (match) {
+          const card = this.closest('.card-wrapper');
+          if(!card) return;
+
+          // A. Update Form ID (Crucial for Add to Cart)
+          const idInput = card.querySelector('.card-v2-final-id');
+          if (idInput) idInput.value = match.id;
+
+          // B. Update Main Image
+          const img = card.querySelector('.card-v2-main-image');
+          if (img && match.featured_image) {
+            img.src = match.featured_image;
+            img.srcset = match.featured_image;
+          }
+
+          // C. Update Button State
+          const btn = card.querySelector('.card-v2-add-btn');
+          if (btn) {
+            if (match.available) {
+              btn.textContent = "{{ 'products.product.add_to_cart' | t }}";
+              btn.disabled = false;
+              btn.classList.remove('disabled');
+            } else {
+              btn.textContent = "{{ 'products.product.sold_out' | t }}";
+              btn.disabled = true;
+              btn.classList.add('disabled');
+            }
+          }
+
+          // D. Update Exact Price Text 
+          const priceRegular = card.querySelector('.price-item--regular');
+          if (priceRegular) priceRegular.innerHTML = match.price; 
+        }
+      }
     });
   }
 </script>
