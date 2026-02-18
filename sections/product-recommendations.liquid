@@ -41,6 +41,9 @@
     font-weight: bold;
     color: rgb(var(--color-foreground));
   }
+  #shopify-section-{{ section.id }} .swiper-slide {
+    height: auto; /* Forces the slide to match the tallest sibling */
+  }
 
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .rec-header-wrapper {
