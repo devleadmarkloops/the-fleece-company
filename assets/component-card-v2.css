@@ -96,7 +96,7 @@
   width: 100%;
   background-color: rgb(var(--color-foreground));
   color: rgb(var(--color-background));
-  font-family: var(--new-heading-body-family);
+  font-family: var(--new-font-heading-family);
   font-size: 1.6rem;
   font-weight: 400;
   letter-spacing: 0;
