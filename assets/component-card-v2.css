@@ -26,7 +26,7 @@
 }
 
 .card-product-v2 .card-v2-price {
-  margin-bottom: 0.7rem;
+  margin-bottom: 1rem;
 }
 
 .card-product-v2 .card-v2-price .price bdi {
@@ -38,7 +38,7 @@
 .card-product-v2 .card-v2-bottom-aligner {
   margin-top: auto;
   width: 100%;
-  margin-top: 0;
+  margin-top: 0 !important;
 }
 
 .card-product-v2 card-v2-variant-selector,
