@@ -1151,6 +1151,15 @@
                   {% else %}
                     <button type="button" class="rating-link-scroll" aria-label="Scroll to reviews"></button>
                   {% endif %}
+                  {% if block.settings.enable_price %}
+                    <div class="{% if block.settings.desktop_hide %} large-up-hide medium-hide{% endif %}{% if block.settings.mobile_hide %} small-hide{% endif %}" id="price-{{ section.id }}" {{ block.shopify_attributes }}>
+                      {%- liquid
+                        assign show_badges = block.settings.show_badges
+                        assign price_class = 'price--' | append: block.settings.price_size
+                        render 'price', product: product, use_variant: true, show_badges: show_badges, price_class: price_class, sale_badge_basis: block.settings.sale_badge_basis
+                      -%}
+                    </div>
+                  {% endif %}
                 </div>
 
                 <script>
