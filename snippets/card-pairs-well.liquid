@@ -1,4 +1,5 @@
 {%- assign product_form_id = 'pairs-well-form-' | append: card_product.id | append: '-' | append: section.id -%}
+{%- assign current_variant = card_product.selected_or_first_available_variant -%}
 
 <div class="pairs-well-card">
   <div class="pairs-well-media">
@@ -17,9 +18,17 @@
   <div class="pairs-well-info">
     <div class="pairs-well-header-info">
       <a href="{{ card_product.url }}" class="pairs-well-title">{{ card_product.title }}</a>
-      <div class="pairs-well-price">
-        {% render 'price', product: card_product %}
+      
+      {% comment %} --- BULLETPROOF PRICE BLOCK --- {% endcomment %}
+      <div class="pairs-well-price price">
+        <s class="pw-compare-price price-item price-item--regular" style="opacity: 0.6; margin-right: 5px; {% unless current_variant.compare_at_price > current_variant.price %}display: none;{% endunless %}">
+          {{ current_variant.compare_at_price | money }}
+        </s>
+        <span class="pw-regular-price price-item {% if current_variant.compare_at_price > current_variant.price %}price-item--sale{% else %}price-item--regular{% endif %}">
+          {{ current_variant.price | money }}
+        </span>
       </div>
+
     </div>
 
     <product-form class="pairs-well-form-wrapper">
@@ -61,15 +70,15 @@
           ]
         </script>
 
-        <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}" class="pairs-well-final-id">
+        <input type="hidden" name="id" value="{{ current_variant.id }}" class="pairs-well-final-id">
 
         <button
           type="submit"
           name="add"
-          class="pairs-well-btn button button--primary {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}"
-          {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}
+          class="pairs-well-btn button button--primary {% unless current_variant.available %}disabled{% endunless %}"
+          {% unless current_variant.available %}disabled{% endunless %}
         >
-          {%- if card_product.selected_or_first_available_variant.available -%}
+          {%- if current_variant.available -%}
             {{ 'products.product.add_to_cart' | t }}
           {%- else -%}
             {{ 'products.product.sold_out' | t }}

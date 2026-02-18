@@ -2164,7 +2164,7 @@
 
                   <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // 1. Initialize Swiper for this specific block
+    // 1. Initialize Swiper
     new Swiper('.pairs-well-swiper-{{ block.id }}', {
       slidesPerView: 1.2,
       spaceBetween: 15,
@@ -2178,15 +2178,7 @@
       }
     });
 
-    // 2. Initial Page Load: Strip out the word "From" safely by targeting text nodes
-    const priceElements = document.querySelectorAll('.pairs-well-swiper-{{ block.id }} .price-item');
-    priceElements.forEach(price => {
-      if (price.innerHTML.includes('From')) {
-        price.innerHTML = price.innerHTML.replace(/From\s*/ig, '');
-      }
-    });
-
-    // 3. Logic to handle variant changes
+    // 2. Logic to handle variant changes
     const blockContainer = document.querySelector('.pairs-well-swiper-{{ block.id }}').closest('.pairs-well-block');
     
     if (blockContainer) {
@@ -2209,8 +2201,9 @@
           const img = card.querySelector('.pairs-well-img');
           const inputId = card.querySelector('.pairs-well-final-id');
           
-          // Target the main native price wrapper
-          const priceWrapper = card.querySelector('.price');
+          // Target our custom price spans
+          const regularPriceEl = card.querySelector('.pw-regular-price');
+          const comparePriceEl = card.querySelector('.pw-compare-price');
 
           if (match) {
             inputId.value = match.id;
@@ -2219,25 +2212,23 @@
               img.src = match.featured_image;
             }
 
-            // C. Update Price by targeting exact native text spans
-            if (priceWrapper) {
+            // Update Price text and visibility
+            if (regularPriceEl && comparePriceEl) {
               if (match.compare_at_price) {
-                // Turn ON sale styling
-                priceWrapper.classList.add('price--on-sale');
+                // On Sale
+                regularPriceEl.innerHTML = match.price;
+                regularPriceEl.classList.add('price-item--sale');
+                regularPriceEl.classList.remove('price-item--regular');
                 
-                // Update the sale price and original crossed-out price
-                const salePrice = priceWrapper.querySelector('.price__sale .price-item--sale');
-                const comparePrice = priceWrapper.querySelector('.price__sale .price-item--regular');
-                
-                if (salePrice) salePrice.innerHTML = match.price;
-                if (comparePrice) comparePrice.innerHTML = match.compare_at_price;
+                comparePriceEl.innerHTML = match.compare_at_price;
+                comparePriceEl.style.display = 'inline-block';
               } else {
-                // Turn OFF sale styling
-                priceWrapper.classList.remove('price--on-sale');
+                // Regular Price
+                regularPriceEl.innerHTML = match.price;
+                regularPriceEl.classList.remove('price-item--sale');
+                regularPriceEl.classList.add('price-item--regular');
                 
-                // Update the regular price
-                const regularPrice = priceWrapper.querySelector('.price__regular .price-item--regular');
-                if (regularPrice) regularPrice.innerHTML = match.price;
+                comparePriceEl.style.display = 'none';
               }
             }
 
