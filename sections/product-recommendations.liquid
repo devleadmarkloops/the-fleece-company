@@ -5,6 +5,60 @@
     --image-position: {{ section.settings.image_position }};
     --color-highlight: {{ section.settings.colors_highlight.red }}, {{ section.settings.colors_highlight.green }}, {{ section.settings.colors_highlight.blue }};
   }
+
+  /* --- Recommendations Header & Slider Arrows --- */
+  #shopify-section-{{ section.id }} .rec-header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  #shopify-section-{{ section.id }} .rec-header-wrapper .title {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .recommendations-nav {
+    display: flex;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .rec-nav-btn {
+    position: static;
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    background: rgba(var(--color-foreground), 0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .rec-nav-btn:hover {
+    background: rgba(var(--color-foreground), 0.1);
+  }
+
+  #shopify-section-{{ section.id }} .rec-nav-btn::after {
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(var(--color-foreground));
+  }
+
+  /* --- Mobile Adjustments --- */
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .rec-header-wrapper {
+      margin-bottom: 1.5rem;
+    }
+    #shopify-section-{{ section.id }} .rec-nav-btn {
+      width: 28px;
+      height: 28px;
+    }
+    #shopify-section-{{ section.id }} .rec-nav-btn::after {
+      font-size: 10px;
+    }
+  }
 {%- endstyle -%}
 
 <link rel="stylesheet" href="{{ 'component-card.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -24,8 +78,8 @@
       <div class="page-width">
         
         {%- comment -%} HEADING AND NAVIGATION ARROWS {%- endcomment -%}
-        <div class="title-wrapper d-flex justify-between align-center" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-          <{{ section.settings.heading_tag }} class="title {{ section.settings.heading_size }}" style="margin: 0;">
+        <div class="title-wrapper rec-header-wrapper{% if section.settings.heading == blank %} title-wrapper--no-heading{% endif %} {{ section.settings.heading_alignment }}">
+          <{{ section.settings.heading_tag }} class="title {{ section.settings.heading_size }}">
             {%- if section.settings.heading != blank -%}
               {%- render 'highlight-text', 
                 hl_input: section.settings.heading, 
@@ -35,9 +89,9 @@
             {%- endif -%}
           </{{ section.settings.heading_tag }}>
           
-          <div class="swiper-controls recommendations-nav" style="display: flex; gap: 8px;">
-            <div class="swiper-button-prev rec-prev" style="position: static; width: 32px; height: 32px; margin: 0; background: rgba(var(--color-foreground), 0.05); border-radius: 50%;"></div>
-            <div class="swiper-button-next rec-next" style="position: static; width: 32px; height: 32px; margin: 0; background: rgba(var(--color-foreground), 0.05); border-radius: 50%;"></div>
+          <div class="recommendations-nav">
+            <div class="swiper-button-prev rec-prev rec-nav-btn"></div>
+            <div class="swiper-button-next rec-next rec-nav-btn"></div>
           </div>
         </div>
         
