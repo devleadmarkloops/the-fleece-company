@@ -427,20 +427,54 @@
         <p class="meta-subtitle">{{ card_product.metafields.custom.subtitle.value }}</p>
       {% endif %}
       {% if d5_icon %}
-        <div class="varian-selector-d5">
-          {% for option in card_product.options_with_values %}
-            <select class="com-options-d5" name="{{ option.name }}">
-              {% for value in option.values %}
-                <option
-                  value="{{ value.id }} {% if value.selected %}selected{% endif %}"
-                >
-                  {{ value }}
-                </option>
-              {% endfor %}
-            </select>
+  <div class="varian-selector-d5">
+    {% for option in card_product.options_with_values %}
+      <div class="select-wrapper">
+        <label class="caption-small" style="font-size: 10px; opacity: 0.7;">{{ option.name }}</label>
+        <select class="com-options-d5" data-index="option{{ forloop.index }}">
+          {% for value in option.values %}
+            <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
+              {{ value }}
+            </option>
           {% endfor %}
-        </div>
-      {% endif %}
+        </select>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% assign product_form_id = 'com-form-d5-' | append: card_product.id %}
+  <product-form class="product-form" data-hide-errors="{{ gift_card_recipient_feature_active }}" data-section-id="{{ section.id }}">
+    <div class="product-form__error-message-wrapper" role="alert" hidden>
+      {%- render 'icon', icon: 'error-red' -%}
+      <span class="product-form__error-message"></span>
+    </div>
+
+    {%- form 'product', card_product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+      {%- comment -%} Hidden Select containing all variant data {%- endcomment -%}
+      <select class="com-variant-data-d5" hidden>
+        {% for variant in card_product.variants %}
+          <option 
+            {% unless variant.available %}data-sold="true"{% endunless %}
+            {% if variant.featured_image != blank %}data-img="{{ variant.featured_image | image_url: width: 600 }}"{% endif %}
+            value="{{ variant.id }}"
+          >
+            {{ variant.title | escape }}
+          </option>
+        {% endfor %}
+      </select>
+
+      <input type="hidden" name="id" class="com-final-id" value="{{ card_product.selected_or_first_available_variant.id }}">
+      
+      <button type="submit" name="add" class="button button--small button--cta com-btn-d5 {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}" {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+        {% unless card_product.selected_or_first_available_variant.available %}
+          {{ 'products.product.sold_out' | t }}
+        {% else %}
+          {{ 'products.product.add_to_cart' | t }}
+        {% endunless %}
+      </button>
+    {% endform %}
+  </product-form>
+{% endif %}
       {% comment %} TODO: metafield {% endcomment %}
       <span class="caption-large light">{{ block.settings.text | escape }}</span>
 
