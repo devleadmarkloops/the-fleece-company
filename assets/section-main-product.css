@@ -3332,6 +3332,11 @@ span.alert-box:before {
   font-weight: 400;
   letter-spacing: 0;
 }
+.product__info-container .pairs-well-btn:hover {
+  background-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+  opacity: 0.85;
+}
 
 @media screen and (max-width: 749px) {
   /* When Title */
