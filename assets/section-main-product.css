@@ -3264,24 +3264,41 @@ span.alert-box:before {
 
 /* --- Form & Variants --- */
 .pairs-well-form {
-  display: flex;
-  flex-direction: column;
+  display: flex !important; /* Overrides Shopify's default block form */
+  flex-direction: row; /* Places variants and button on the same line */
+  align-items: center; /* Vertically aligns them */
   gap: 1rem;
+  flex-wrap: wrap; /* Allows the button to wrap gracefully on tiny mobile screens */
 }
+
 .pairs-well-variants {
   display: flex;
   gap: 0.8rem;
+  flex: 0 0 auto; /* Prevents the variants container from stretching unnecessarily */
   flex-wrap: wrap;
 }
+
 .pairs-well-select-wrapper {
   position: relative;
-  flex: 1;
-  min-width: 45%;
+  display: inline-block;
 }
+
+.pairs-well-select-wrapper svg {
+  position: absolute;
+  right: 1.2rem; /* Moved slightly left to account for padding */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  pointer-events: none; /* Allows clicks to pass through to the select */
+  fill: currentColor;
+}
+
 .pairs-well-select {
-  width: 100%;
   appearance: none;
-  padding: 0.8rem 2.5rem 0.8rem 1rem;
+  -webkit-appearance: none;
+  width: auto;
+  min-width: max-content; /* Forces the width to exactly match the longest option */
+  padding: 0.8rem 3rem 0.8rem 1.2rem; /* 3rem on the right leaves room for the SVG arrow */
   font-size: 1.2rem;
   border: 1px solid rgba(var(--color-foreground), 0.15);
   border-radius: 4px;
@@ -3289,28 +3306,20 @@ span.alert-box:before {
   color: rgb(var(--color-foreground));
   cursor: pointer;
 }
+
 .pairs-well-select:focus {
   outline: 2px solid rgba(var(--color-foreground), 0.5);
   outline-offset: -2px;
 }
-.pairs-well-select-wrapper svg {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 10px;
-  pointer-events: none;
-  fill: currentColor;
-}
 
 /* --- Button --- */
 .pairs-well-btn {
-  width: 100%;
-  min-height: 3.8rem;
-  font-size: 1.3rem;
-  padding: 0 1.5rem;
-  letter-spacing: 0.1rem;
-  margin-top: 0.5rem;
+  flex: 1 0 auto; /* Takes up the remaining horizontal space on the right */
+  min-height: 3.8rem !important;
+  font-size: 1.3rem !important;
+  padding: 0 2rem !important;
+  margin: 0 !important; /* Resets margin since it is now in a row */
+  white-space: nowrap; /* Prevents "Add to cart" from breaking into two lines */
 }
 
 @media screen and (max-width: 749px) {
