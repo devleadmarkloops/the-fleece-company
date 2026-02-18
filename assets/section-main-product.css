@@ -3185,7 +3185,7 @@ span.alert-box:before {
 }
 .product__info-container .pairs-well-nav {
   display: flex;
-  gap: 0.8rem;
+  gap: 1.2rem;
 }
 .product__info-container .pairs-well-nav .swiper-button-prev,
 .product__info-container .pairs-well-nav .swiper-button-next {
@@ -3206,7 +3206,7 @@ span.alert-box:before {
 }
 .product__info-container .pairs-well-nav .swiper-button-prev::after,
 .product__info-container .pairs-well-nav .swiper-button-next::after {
-  font-size: 12px;
+  font-size: 14px;
   color: rgb(var(--color-foreground));
   font-weight: bold;
 }
