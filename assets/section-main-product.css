@@ -3256,11 +3256,11 @@ span.alert-box:before {
   overflow: hidden;
   margin-bottom: 0.4rem;
 }
-.product__info-container .pairs-well-price .price--on-sale .price-item--regular bdi {
+.product__info-container .pairs-well-price .pw-compare-price {
   font-size: 1.4rem;
   color: rgba(var(--color-foreground), 0.5);
 }
-.product__info-container .pairs-well-price .price bdi {
+.product__info-container .pairs-well-price .pw-regular-price {
   font-family: var(--new-font-heading-family);
   font-size: 1.6rem;
   letter-spacing: 0;
