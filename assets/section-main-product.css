@@ -3174,22 +3174,21 @@ span.alert-box:before {
   padding-inline: 0;
 }
 /* When Pairs Well */
-/* --- Header & Slider Navigation --- */
-.pairs-well-header {
+.product__info-container .pairs-well-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
 }
-.pairs-well-header .h4 {
+.product__info-container .pairs-well-header .h4 {
   margin: 0;
 }
-.pairs-well-nav {
+.product__info-container .pairs-well-nav {
   display: flex;
   gap: 0.8rem;
 }
-.pairs-well-nav .swiper-button-prev,
-.pairs-well-nav .swiper-button-next {
+.product__info-container .pairs-well-nav .swiper-button-prev,
+.product__info-container .pairs-well-nav .swiper-button-next {
   position: static;
   width: 32px;
   height: 32px;
@@ -3201,19 +3200,17 @@ span.alert-box:before {
   justify-content: center;
   transition: background 0.2s ease;
 }
-.pairs-well-nav .swiper-button-prev:hover,
-.pairs-well-nav .swiper-button-next:hover {
+.product__info-container .pairs-well-nav .swiper-button-prev:hover,
+.product__info-container .pairs-well-nav .swiper-button-next:hover {
   background: rgba(var(--color-foreground), 0.1);
 }
-.pairs-well-nav .swiper-button-prev::after,
-.pairs-well-nav .swiper-button-next::after {
+.product__info-container .pairs-well-nav .swiper-button-prev::after,
+.product__info-container .pairs-well-nav .swiper-button-next::after {
   font-size: 12px;
   color: rgb(var(--color-foreground));
   font-weight: bold;
 }
-
-/* --- Inline Card Layout --- */
-.pairs-well-card {
+.product__info-container .pairs-well-card {
   display: flex;
   gap: 1.5rem;
   padding: 1.5rem;
@@ -3222,28 +3219,26 @@ span.alert-box:before {
   background: rgb(var(--color-background));
   align-items: flex-start;
 }
-.pairs-well-media {
-  flex: 0 0 90px; /* Fixed width for the image */
+.product__info-container .pairs-well-media {
+  flex: 0 0 90px;
 }
-.pairs-well-media img {
+.product__info-container .pairs-well-media img {
   width: 100%;
   height: 90px;
   object-fit: cover;
   border-radius: min(var(--popup-corner-radius, 8px), 4px);
   display: block;
 }
-
-/* --- Product Info & Typography --- */
-.pairs-well-info {
+.product__info-container .pairs-well-info {
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-width: 0; /* Prevents text overflow breaking the flex layout */
+  min-width: 0;
 }
-.pairs-well-header-info {
+.product__info-container .pairs-well-header-info {
   margin-bottom: 1rem;
 }
-.pairs-well-title {
+.product__info-container .pairs-well-title {
   font-size: 1.4rem;
   font-weight: 600;
   text-decoration: none;
@@ -3254,51 +3249,45 @@ span.alert-box:before {
   overflow: hidden;
   margin-bottom: 0.4rem;
 }
-.pairs-well-price {
+.product__info-container .pairs-well-price {
   font-size: 1.3rem;
   color: rgba(var(--color-foreground), 0.75);
 }
-.pairs-well-price .price {
-  font-size: 1.3rem; /* Forces default theme price to match our card */
+.product__info-container .pairs-well-price .price {
+  font-size: 1.3rem;
 }
-
-/* --- Form & Variants --- */
-.pairs-well-form {
-  display: flex !important; /* Overrides Shopify's default block form */
-  flex-direction: row; /* Places variants and button on the same line */
-  align-items: center; /* Vertically aligns them */
+.product__info-container .pairs-well-form {
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
   gap: 1rem;
-  flex-wrap: wrap; /* Allows the button to wrap gracefully on tiny mobile screens */
-}
-
-.pairs-well-variants {
-  display: flex;
-  gap: 0.8rem;
-  flex: 0 0 auto; /* Prevents the variants container from stretching unnecessarily */
   flex-wrap: wrap;
 }
-
-.pairs-well-select-wrapper {
+.product__info-container .pairs-well-variants {
+  display: flex;
+  gap: 0.8rem;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+}
+.product__info-container .pairs-well-select-wrapper {
   position: relative;
   display: inline-block;
 }
-
-.pairs-well-select-wrapper svg {
+.product__info-container .pairs-well-select-wrapper svg {
   position: absolute;
-  right: 1.2rem; /* Moved slightly left to account for padding */
+  right: 1.2rem;
   top: 50%;
   transform: translateY(-50%);
   width: 10px;
-  pointer-events: none; /* Allows clicks to pass through to the select */
+  pointer-events: none;
   fill: currentColor;
 }
-
-.pairs-well-select {
+.product__info-container .pairs-well-select {
   appearance: none;
   -webkit-appearance: none;
   width: auto;
-  min-width: max-content; /* Forces the width to exactly match the longest option */
-  padding: 0.8rem 3rem 0.8rem 1.2rem; /* 3rem on the right leaves room for the SVG arrow */
+  min-width: max-content;
+  padding: 0.8rem 3rem 0.8rem 1.2rem;
   font-size: 1.2rem;
   border: 1px solid rgba(var(--color-foreground), 0.15);
   border-radius: 4px;
@@ -3306,20 +3295,12 @@ span.alert-box:before {
   color: rgb(var(--color-foreground));
   cursor: pointer;
 }
-
-.pairs-well-select:focus {
+.product__info-container .pairs-well-select:focus {
   outline: 2px solid rgba(var(--color-foreground), 0.5);
   outline-offset: -2px;
 }
-
-/* --- Button --- */
-.pairs-well-btn {
-  flex: 1 0 auto; /* Takes up the remaining horizontal space on the right */
-  min-height: 3.8rem !important;
-  font-size: 1.3rem !important;
-  padding: 0 2rem !important;
-  margin: 0 !important; /* Resets margin since it is now in a row */
-  white-space: nowrap; /* Prevents "Add to cart" from breaking into two lines */
+.product__info-container .pairs-well-btn {
+  flex: 1 0 auto;
 }
 
 @media screen and (max-width: 749px) {
