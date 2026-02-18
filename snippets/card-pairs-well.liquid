@@ -22,10 +22,10 @@
       {% comment %} --- BULLETPROOF PRICE BLOCK --- {% endcomment %}
       <div class="pairs-well-price price">
         <s class="pw-compare-price price-item price-item--regular" style="opacity: 0.6; margin-right: 5px; {% unless current_variant.compare_at_price > current_variant.price %}display: none;{% endunless %}">
-          {{ current_variant.compare_at_price | money_without_trailing_zeros }}
+          {{ current_variant.compare_at_price | money }}
         </s>
         <span class="pw-regular-price price-item {% if current_variant.compare_at_price > current_variant.price %}price-item--sale{% else %}price-item--regular{% endif %}">
-          {{ current_variant.price | money_without_trailing_zeros }}
+          {{ current_variant.price | money }}
         </span>
       </div>
 
