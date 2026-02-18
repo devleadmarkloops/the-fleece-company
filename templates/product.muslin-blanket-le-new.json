@@ -35,6 +35,16 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "title_NGn6rH": {
+          "type": "title",
+          "settings": {
+            "title_size": "h2",
+            "show_price": false,
+            "price_size": "medium",
+            "desktop_hide": true,
+            "mobile_hide": false
+          }
+        },
         "rating_static_jQpEEQ": {
           "type": "rating_static",
           "settings": {
@@ -55,7 +65,9 @@
           "settings": {
             "title_size": "h2",
             "show_price": false,
-            "price_size": "medium"
+            "price_size": "medium",
+            "desktop_hide": false,
+            "mobile_hide": true
           }
         },
         "price": {
@@ -269,6 +281,7 @@
         }
       },
       "block_order": [
+        "title_NGn6rH",
         "rating_static_jQpEEQ",
         "breadcrumb_LGWKpR",
         "title",
