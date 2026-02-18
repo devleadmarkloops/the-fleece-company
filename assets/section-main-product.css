@@ -3466,4 +3466,8 @@ span.alert-box:before {
   .product__info-container .product__accordion .accordion__content {
     font-size: 1.3rem;
   }
+  /* When Pairs Well */
+  .product__info-container .pairs-well-header {
+    margin-bottom: 1rem;
+  }
 }
