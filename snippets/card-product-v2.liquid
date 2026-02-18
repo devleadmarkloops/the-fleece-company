@@ -97,60 +97,19 @@
             <div class="card-v2-options">
               {%- for option in card_product.options_with_values -%}
                 {%- assign downcased_option = option.name | downcase -%}
-                
-                {% comment %} --- COLOR SWATCHES --- {% endcomment %}
                 {%- if downcased_option contains 'color' or downcased_option contains 'colour' -%}
                   <div class="card-v2-swatches-wrapper">
                     <label class="visually-hidden">{{ option.name }}</label>
                     <div class="card-v2-swatches">
                       {%- for value in option.values -%}
-                        {%- assign val_string = value.name | default: value -%}
-                        
-                        {%- liquid
-                          assign swatch_value = val_string | split: ' ' | last | downcase
-                          if value.swatch.color
-                            assign swatch_value = value.swatch.color
-                          elsif value.swatch.image
-                            assign swatch_value = 'url(' | append: (value.swatch.image | image_url: width: 50) | append: ')'
-                          else
-                            assign swatch_file_extension = 'png'
-                            assign file_name_alt = val_string | handle | append: '.' | append: swatch_file_extension
-                            assign value_downcase = val_string | downcase
-                            assign swatch_config = settings.swatch_config | newline_to_br | split: '<br />'
-                            
-                            for swatch in swatch_config
-                              assign swatch_parts = swatch | strip | split: ':'
-                              assign swatch_name = swatch_parts.first | downcase | strip
-                              if swatch_name == value_downcase
-                                assign swatch_entry = swatch_parts.last | strip
-                                if swatch_entry contains '#'
-                                  assign swatch_value = swatch_entry
-                                else
-                                  assign file_name_alt = swatch_entry
-                                endif
-                                break
-                              endif
-                            endfor
-                            
-                            assign swatch_image = blank
-                            if images[file_name_alt] != blank
-                              assign swatch_image = images[file_name_alt] | image_url: width: 50
-                            endif
-                            if swatch_image != blank
-                              assign swatch_value = 'url(' | append: swatch_image | append: ')'
-                            endif
-                          endif
-                        -%}
-
                         <label 
                           class="card-v2-swatch {% if forloop.index > 3 %}hidden-swatch{% endif %}" 
-                          style="background: {{ swatch_value }}; background-size: cover; background-position: center; {% if forloop.index > 3 %}display: none;{% endif %}{% if option.selected_value == value or option.selected_value == val_string %}outline: 2px solid #000; outline-offset: 2px;{% endif %}"
-                          title="{{ val_string | escape }}"
+                          style="background-color: {{ value | split: ' ' | last | downcase }};{% if value.swatch.color %}background-color: {{ value.swatch.color }};{% endif %}{% if value.swatch.image %}background-image: url({{ value.swatch.image | image_url: width: 50 }}); background-size: cover;{% endif %}{% if forloop.index > 3 %}display: none;{% endif %}{% if option.selected_value == value %}outline: 2px solid #000; outline-offset: 2px;{% endif %}"
+                          title="{{ value }}"
                         >
-                          <input type="radio" name="opt-{{ card_product.id }}-{{ option.position }}" value="{{ val_string | escape }}" class="card-v2-radio card-v2-radio-color visually-hidden" data-option-index="{{ option.position | minus: 1 }}" {% if option.selected_value == value or option.selected_value == val_string %}checked{% endif %}>
+                          <input type="radio" name="opt-{{ card_product.id }}-{{ option.position }}" value="{{ value | escape }}" class="card-v2-radio card-v2-radio-color visually-hidden" data-option-index="{{ option.position | minus: 1 }}" {% if option.selected_value == value %}checked{% endif %}>
                         </label>
                       {%- endfor -%}
-                      
                       {%- if option.values.size > 3 -%}
                         <button type="button" class="card-v2-view-all-colors">
                           +{{ option.values.size | minus: 3 }}
@@ -158,19 +117,16 @@
                       {%- endif -%}
                     </div>
                   </div>
-                  
-                {% comment %} --- PILLS --- {% endcomment %}
                 {%- else -%}
                   <div class="card-v2-pills-wrapper">
                     <div class="card-v2-pills">
                       {%- for value in option.values -%}
-                        {%- assign val_string = value.name | default: value -%}
                         <label 
                           class="card-v2-pill" 
-                          style="{% if option.selected_value == value or option.selected_value == val_string %}background: #000; color: #fff; border-color: #000;{% else %}background: #fff; color: #000;{% endif %}"
+                          style="{% if option.selected_value == value %}background: #000; color: #fff; border-color: #000;{% else %}background: #fff; color: #000;{% endif %}"
                         >
-                          <input type="radio" name="opt-{{ card_product.id }}-{{ option.position }}" value="{{ val_string | escape }}" class="card-v2-radio card-v2-radio-pill visually-hidden" data-option-index="{{ option.position | minus: 1 }}" {% if option.selected_value == value or option.selected_value == val_string %}checked{% endif %}>
-                          {{ val_string }}
+                          <input type="radio" name="opt-{{ card_product.id }}-{{ option.position }}" value="{{ value | escape }}" class="card-v2-radio card-v2-radio-pill visually-hidden" data-option-index="{{ option.position | minus: 1 }}" {% if option.selected_value == value %}checked{% endif %}>
+                          {{ value }}
                         </label>
                       {%- endfor -%}
                     </div>
@@ -178,7 +134,6 @@
                 {%- endif -%}
               {%- endfor -%}
             </div>
-            
             <script type="application/json" class="card-v2-json">
               [
               {%- for variant in card_product.variants -%}
@@ -193,7 +148,6 @@
               ]
             </script>
           </card-v2-variant-selector>
-          
           <product-form class="card-v2-form-wrapper">
             {%- form 'product', card_product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
               <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}" class="card-v2-final-id">
@@ -206,9 +160,7 @@
               </button>
             {%- endform -%}
           </product-form>
-          
         {%- else -%}
-          {% comment %} --- NO VARIANTS --- {% endcomment %}
           <product-form class="card-v2-form-wrapper">
             {%- form 'product', card_product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
               <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
