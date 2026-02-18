@@ -3470,4 +3470,9 @@ span.alert-box:before {
   .product__info-container .pairs-well-header {
     margin-bottom: 1rem;
   }
+  .product__info-container .pairs-well-nav .swiper-button-prev, 
+  .product__info-container .pairs-well-nav .swiper-button-next {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
 }
