@@ -2166,14 +2166,14 @@
   document.addEventListener('DOMContentLoaded', function() {
     // 1. Initialize Swiper
     new Swiper('.pairs-well-swiper-{{ block.id }}', {
-      slidesPerView: 1.2,
+      slidesPerView: 1,
       spaceBetween: 15,
       navigation: {
         nextEl: '.pw-next-{{ block.id }}',
         prevEl: '.pw-prev-{{ block.id }}',
       },
       breakpoints: {
-        768: { slidesPerView: 2 },
+        768: { slidesPerView: 1 },
         990: { slidesPerView: 1 }
       }
     });
