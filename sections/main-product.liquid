@@ -1070,7 +1070,7 @@
                   {{- product.selected_or_first_available_variant.sku -}}
                 </p>
               {%- when 'title' -%}
-                <div class="product__title" {{ block.shopify_attributes }}>
+                <div class="product__title{% if block.settings.desktop_hide %} large-up-hide medium-hide{% endif %}{% if block.settings.mobile_hide %} small-hide{% endif %}" {{ block.shopify_attributes }}>
                   <h1 class="product__heading {{ block.settings.title_size }}">
                     {{ product.title | escape }}
                   </h1>
@@ -3033,7 +3033,7 @@ if (nextBtn) {
     {
       "type": "title",
       "name": "t:sections.main-product.blocks.title.name",
-      "limit": 1,
+      "limit": 2,
       "settings": [
         {
           "type": "select",
@@ -3080,6 +3080,18 @@ if (nextBtn) {
           ],
           "default": "medium",
           "label": "t:sections.main-product.blocks.price.settings.price_size.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "desktop_hide",
+          "default": false,
+          "label": "Desktop hide"
+        },
+        {
+          "type": "checkbox",
+          "id": "mobile_hide",
+          "default": false,
+          "label": "Mobile hide"
         }
       ]
     },
