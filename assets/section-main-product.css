@@ -3257,11 +3257,12 @@ span.alert-box:before {
   margin-bottom: 0.4rem;
 }
 .product__info-container .pairs-well-price {
-  font-size: 1.3rem;
+  font-family: var(--new-font-heading-family);
+  font-size: 1.4rem;
   color: rgba(var(--color-foreground), 0.75);
 }
 .product__info-container .pairs-well-price .price {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
 }
 .product__info-container .pairs-well-form {
   display: flex !important;
