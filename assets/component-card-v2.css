@@ -95,6 +95,7 @@
 
 .card-product-v2 .card-v2-add-btn {
   width: 100%;
+  min-width: unset;
   min-height: 4.2rem;
   border-radius: 8px;
   background-color: rgb(var(--color-foreground));
