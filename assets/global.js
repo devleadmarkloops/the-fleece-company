@@ -3210,10 +3210,8 @@ class ProductRecommendations extends HTMLElement {
 
         const recommendations = html.querySelector('product-recommendations');
         if (recommendations && recommendations.innerHTML.trim().length) {
-          // 1. Inject the HTML
           this.innerHTML = recommendations.innerHTML;
           
-          // 2. Initialize Swiper immediately after the HTML is rendered
           this.initSwiper();
         }
       })
@@ -3222,14 +3220,12 @@ class ProductRecommendations extends HTMLElement {
       });
   }
 
-  // New function to handle Swiper setup dynamically
   initSwiper() {
     const swiperContainer = this.querySelector('.recommendations-swiper');
     
-    // Ensure the container exists and the Swiper library is loaded
     if (swiperContainer && typeof Swiper !== 'undefined') {
       new Swiper(swiperContainer, {
-        slidesPerView: 2, // Default to 2 items on mobile
+        slidesPerView: 1.6,
         spaceBetween: 10,
         navigation: {
           nextEl: this.querySelector('.rec-next'),
@@ -3241,7 +3237,7 @@ class ProductRecommendations extends HTMLElement {
             spaceBetween: 15
           },
           990: {
-            slidesPerView: 4, // 4 items on Desktop
+            slidesPerView: 4,
             spaceBetween: 20
           }
         }
