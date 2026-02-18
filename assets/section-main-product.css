@@ -3260,6 +3260,11 @@ span.alert-box:before {
   font-size: 1.4rem;
   color: rgba(var(--color-foreground), 0.5);
 }
+.product__info-container .pairs-well-price .price bdi {
+  font-family: var(--new-font-heading-family);
+  font-size: 1.6rem;
+  letter-spacing: 0;
+}
 .product__info-container .pairs-well-form {
   display: flex !important;
   flex-direction: row;
