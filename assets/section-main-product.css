@@ -3259,7 +3259,7 @@ span.alert-box:before {
 .product__info-container .pairs-well-price {
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
+  column-gap: 0.5rem;
 }
 .product__info-container .pairs-well-price .pw-compare-price {
   font-size: 1.4rem;
