@@ -392,6 +392,7 @@
         "heading_bBmAeH",
         "text_ziaWGB"
       ],
+      "disabled": true,
       "name": "Image with text v2",
       "settings": {
         "image": "shopify://shop_images/Cotton_Blanket-Khaki_03_6c595d80-c517-4a30-8286-f5a071807b4d_1.webp",
@@ -452,6 +453,7 @@
         "heading_wKRJry",
         "text_CN89GA"
       ],
+      "disabled": true,
       "name": "Image with text v2",
       "settings": {
         "image": "shopify://shop_images/create_a_close_up_image_of_the_fiber_of_muslin_cotton_fiber_in_beige_color_1_1.webp",
@@ -526,6 +528,7 @@
         "text_TDiGmp",
         "check_list_EmQBcw"
       ],
+      "disabled": true,
       "name": "Image with text v2",
       "settings": {
         "image": "shopify://shop_images/Copy_of_THE_FLEECE_BLANKET_1080_x_1080_px_13_1.webp",
@@ -618,6 +621,7 @@
         "review_tMWw6J",
         "review_KLzLXk"
       ],
+      "disabled": true,
       "name": "Reviews slider",
       "settings": {
         "heading": "Our Customers Speaking",
