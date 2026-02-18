@@ -216,7 +216,7 @@
             "icon": "none",
             "heading": "Pairs well with",
             "make_collapsible_row": false,
-            "product_list_limit": 3,
+            "product_list_limit": 4,
             "image_ratio": "square",
             "image_position": "center center",
             "show_vendor": false,
