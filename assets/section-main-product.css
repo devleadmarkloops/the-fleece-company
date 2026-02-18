@@ -3258,6 +3258,7 @@ span.alert-box:before {
 }
 .product__info-container .pairs-well-price {
   flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: center;
   column-gap: 0.5rem;
 }
