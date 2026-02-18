@@ -2077,68 +2077,88 @@
                 ></div>
               {%- when 'complementary' -%}
                 <product-recommendations
-                  class="complementary-products{% if block.settings.make_collapsible_row %} is-accordion{% endif %} no-js-hidden"
-                  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ block.settings.product_list_limit }}&intent=complementary"
-                >
-                  {%- if recommendations.performed and recommendations.products_count > 0 -%}
-                    {%- capture complementary_products -%}
-                  <ul class="list-unstyled" role="list" style="--image-position: {{ block.settings.image_position }}">
-                    {%- for product in recommendations.products -%}
-                      <li>
-                        {% render 'd5-card-product',
-                          card_product: product,
-                          card_collection: collection,
-                          media_size: block.settings.image_ratio,
-                          show_secondary_image: false,
-                          show_quick_buy: false,
-                          show_vendor: block.settings.show_vendor,
-                          show_rating: false,
-                          enable_quick_view: false,
-                          d5_icon: true,
-                          enable_color_swatches: false,
-                          enable_countdown: false,
-                          enable_image_fill: block.settings.enable_image_fill,
-                          button_custom_class: 'button button--small button--cta'
-                        %}
-                      </li>
-                    {%- endfor -%}
-                  </ul>
-                {%- endcapture -%}
-                    {%- if block.settings.make_collapsible_row -%}
-                      <accordion-tab class="product__accordion accordion" {{ block.shopify_attributes }}>
-                        <details open>
-                          <summary>
-                            <span class="summary__title">
-                              {% render 'icon-accordion', icon: block.settings.icon %}
-                              <span class="accordion__title">
-                                {{ block.settings.heading | escape }}
-                              </span>
-                            </span>
-                            {% render 'icon', icon: 'caret' %}
-                          </summary>
-                          <div class="accordion__content">
-                            {{ complementary_products }}
-                          </div>
-                        </details>
-                      </accordion-tab>
-                    {%- else -%}
-                      <div class="product__accordion accordion" {{ block.shopify_attributes }}>
-                        <span class="summary__title">
-                          {% render 'icon-accordion', icon: block.settings.icon %}
-                          <span class="accordion__title">
-                            {{ block.settings.heading | escape }}
-                          </span>
-                        </span>
-                        <div class="pd-content">
-                          {{ complementary_products }}
-                        </div>
-                      </div>
-                    {%- endif -%}
-                  {%- endif -%}
-                  {{ 'component-card.css' | asset_url | stylesheet_tag }}
-                  {{ 'section-product-recommendations.css' | asset_url | stylesheet_tag }}
-                  {{ 'component-complementary-products.css' | asset_url | stylesheet_tag }}
-                </product-recommendations>
+  class="complementary-products{% if block.settings.make_collapsible_row %} is-accordion{% endif %} no-js-hidden"
+  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ block.settings.product_list_limit }}&intent=complementary"
+>
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    
+    {%- comment -%} Capture the Swiper Slider Content {%- endcomment -%}
+    {%- capture complementary_products -%}
+      <div class="swiper complementary-swiper">
+        <div class="swiper-wrapper">
+          {%- for product in recommendations.products -%}
+            <div class="swiper-slide">
+              {% render 'd5-card-product',
+                card_product: product,
+                card_collection: collection,
+                media_size: block.settings.image_ratio,
+                show_secondary_image: false,
+                show_quick_buy: false,
+                show_vendor: block.settings.show_vendor,
+                show_rating: false,
+                enable_quick_view: false,
+                d5_icon: true,
+                enable_color_swatches: false,
+                enable_countdown: false,
+                enable_image_fill: block.settings.enable_image_fill,
+                button_custom_class: 'button button--small button--cta'
+              %}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endcapture -%}
+
+    {%- comment -%} Render Accordion or Block with Header & Arrows {%- endcomment -%}
+    {%- if block.settings.make_collapsible_row -%}
+      <accordion-tab class="product__accordion accordion" {{ block.shopify_attributes }}>
+        <details open>
+          <summary>
+            <div class="summary__title d-flex justify-between align-center" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+              <div class="flex-title" style="display: flex; align-items: center; gap: 10px;">
+                {% render 'icon-accordion', icon: block.settings.icon %}
+                <span class="accordion__title">
+                  {{ block.settings.heading | escape }}
+                </span>
+              </div>
+              {%- comment -%} Navigation Arrows Next to Heading {%- endcomment -%}
+              <div class="swiper-controls complementary-nav" style="display: flex; gap: 8px; margin-right: 10px;">
+                <div class="swiper-button-prev comp-prev" style="position: static; margin: 0; width: 24px; height: 24px; transform: none;"></div>
+                <div class="swiper-button-next comp-next" style="position: static; margin: 0; width: 24px; height: 24px; transform: none;"></div>
+              </div>
+            </div>
+            {% render 'icon', icon: 'caret' %}
+          </summary>
+          <div class="accordion__content" style="padding: 0 1.5rem 1.5rem;">
+            {{ complementary_products }}
+          </div>
+        </details>
+      </accordion-tab>
+    {%- else -%}
+      <div class="product__accordion accordion" {{ block.shopify_attributes }}>
+        <div class="summary__title" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <div class="flex-title" style="display: flex; align-items: center; gap: 10px;">
+            {% render 'icon-accordion', icon: block.settings.icon %}
+            <span class="accordion__title">
+              {{ block.settings.heading | escape }}
+            </span>
+          </div>
+          <div class="swiper-controls complementary-nav" style="display: flex; gap: 8px;">
+            <div class="swiper-button-prev comp-prev" style="position: static; margin: 0; width: 24px; height: 24px; transform: none;"></div>
+            <div class="swiper-button-next comp-next" style="position: static; margin: 0; width: 24px; height: 24px; transform: none;"></div>
+          </div>
+        </div>
+        <div class="pd-content">
+          {{ complementary_products }}
+        </div>
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+  
+  {{ 'component-card.css' | asset_url | stylesheet_tag }}
+  {{ 'section-product-recommendations.css' | asset_url | stylesheet_tag }}
+  {{ 'component-complementary-products.css' | asset_url | stylesheet_tag }}
+</product-recommendations>
               {%- when 'line_item_property' -%}
                 <div class="product-form__input" {{ block.shopify_attributes }}>
                   {%- if block.settings.type == 'checkbox' -%}
