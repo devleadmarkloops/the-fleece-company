@@ -3497,4 +3497,8 @@ span.alert-box:before {
   .product__info-container .pairs-well-price .pw-regular-price {
     font-size: 1.2rem;
   }
+  .product__info-container .pairs-well-select {
+    font-size: 1rem;
+    padding: 0.8rem 2rem 0.8rem 0.8rem;
+  }
 }
