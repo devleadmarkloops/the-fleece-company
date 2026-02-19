@@ -37,6 +37,11 @@
     }
   {% endif %}
 
+  #shopify-section-{{ section.id }} .banner__heading {
+    font-family: var(--new-font-heading-family);
+    letter-spacing: 0;
+  }
+
 {%- endstyle -%}
 
 {{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
