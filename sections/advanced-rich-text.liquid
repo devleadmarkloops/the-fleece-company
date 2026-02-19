@@ -111,6 +111,10 @@
     margin: 0;
     font-size: inherit;
   }
+
+  #shopify-section-{{ section.id }} .rich-text__blocks>*+* {
+    margin-top: 1.6rem;
+  }
 {%- endstyle -%}
 
 {{ 'section-rich-text.css' | asset_url | stylesheet_tag }}
