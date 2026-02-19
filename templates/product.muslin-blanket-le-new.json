@@ -691,6 +691,17 @@
         "enable_highlight": false,
         "highlight_style": "marker"
       }
+    },
+    "custom_liquid_hdntkX": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "",
+        "full_width": false,
+        "show_divider": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -701,6 +712,7 @@
     "advanced_rich_text_QYx3gt",
     "image_banner_v2_VMQtKU",
     "image_with_text_v3_GKBbPb",
-    "multicolumn_v2_zxzHia"
+    "multicolumn_v2_zxzHia",
+    "custom_liquid_hdntkX"
   ]
 }
