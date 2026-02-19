@@ -417,6 +417,15 @@
                       {%- endif -%}
                     {%- endfor -%}
                   </ul>
+                {%- when 'images_grid' -%}
+                  <div class="image-with-text-images-grid" {{ block.shopify_attributes }}>
+                    {% for i in (1..4) %}
+                      {% assign image_id = 'image' | append: i %}
+                      {% if block.settings[image_id] != blank %}
+                        <img src="{{ block.settings[image_id] | image_url }}" width="100" height="100" alt="">
+                      {% endif %}
+                    {% endfor %}
+                  </div>
                 {%- when 'custom_liquid' -%}
                   <div class="image-with-text__text rte" {{ block.shopify_attributes }}>{{ block.settings.custom_liquid }}</div>
                 {%- when 'button' -%}
@@ -1102,6 +1111,33 @@
           "type": "text",
           "id": "list_text_5",
           "label": "List Item 5"
+        }
+      ]
+    },
+    {
+      "type": "images_grid",
+      "name": "Images grid",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image1",
+          "label": "Image 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image2",
+          "label": "Image 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image3",
+          "label": "Image 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "image4",
+          "label": "Image 4"
         }
       ]
     },
