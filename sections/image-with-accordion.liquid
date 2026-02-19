@@ -199,6 +199,13 @@
   #shopify-section-{{ section.id }} .accordion-item.is-open .accordion-icon {
     transform: rotate(45deg); 
   }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .image-accordion-grid {
+      gap: 2rem;
+      flex-direction: column-reverse;
+    }
+  }
 {%- endstyle -%}
 
 <div class="image-accordion-wrapper section--padding{% if section.settings.show_divider %} section--divider{% endif %}">
