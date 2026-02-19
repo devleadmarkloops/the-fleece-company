@@ -598,52 +598,58 @@
         "column_izAxqx": {
           "type": "column",
           "settings": {
+            "image": "shopify://shop_images/Rectangle_20.webp",
+            "icon_image": "shopify://shop_images/Group_4.svg",
             "icon_svg": "",
-            "title": "Column",
+            "title": "Naturally Breathable Design",
             "title_size": "h3",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post.</p>",
-            "button_label": "Button label",
+            "text": "<p>Muslin’s open weave promotes continuous airflow, helping regulate temperature for cooler sleep and comfortable year-round use.</p>",
+            "button_label": "",
             "button_link": "",
             "button_style_secondary": false,
             "background_color": "#f2f2f2",
-            "heading_color": "#000000",
-            "text_color": "#333333",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff",
             "show_popup": false,
             "popup_image_position": "top",
             "justify_text": false
           }
         },
-        "column_PhLMzc": {
+        "column_te4dbz": {
           "type": "column",
           "settings": {
+            "image": "shopify://shop_images/Rectangle_21.webp",
+            "icon_image": "shopify://shop_images/Group_5.svg",
             "icon_svg": "",
-            "title": "Column",
+            "title": "Lightweight, Everyday Comfort",
             "title_size": "h3",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post.</p>",
-            "button_label": "Button label",
+            "text": "<p>Designed to feel light yet cozy, ideal for sleeping, lounging, layering, and relaxing comfortably every day.</p>",
+            "button_label": "",
             "button_link": "",
             "button_style_secondary": false,
             "background_color": "#f2f2f2",
-            "heading_color": "#000000",
-            "text_color": "#333333",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff",
             "show_popup": false,
             "popup_image_position": "top",
             "justify_text": false
           }
         },
-        "column_BwMUUn": {
+        "column_UxzJ3X": {
           "type": "column",
           "settings": {
+            "image": "shopify://shop_images/Rectangle_22.webp",
+            "icon_image": "shopify://shop_images/Group_6.svg",
             "icon_svg": "",
-            "title": "Column",
+            "title": "Softens With Every Wash",
             "title_size": "h3",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post.</p>",
-            "button_label": "Button label",
+            "text": "<p>With each wash, muslin cotton softens naturally, creating a relaxed texture that feels increasingly comfortable.</p>",
+            "button_label": "",
             "button_link": "",
             "button_style_secondary": false,
             "background_color": "#f2f2f2",
-            "heading_color": "#000000",
-            "text_color": "#333333",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff",
             "show_popup": false,
             "popup_image_position": "top",
             "justify_text": false
@@ -652,8 +658,8 @@
       },
       "block_order": [
         "column_izAxqx",
-        "column_PhLMzc",
-        "column_BwMUUn"
+        "column_te4dbz",
+        "column_UxzJ3X"
       ],
       "name": "Multicolumn v2",
       "settings": {
@@ -661,8 +667,9 @@
         "heading": "About Our Muslin Blankets",
         "heading_size": "h0",
         "heading_tag": "h2",
-        "heading_alignment": "left",
+        "heading_alignment": "center",
         "text_alignment": "center",
+        "enable_card_style": false,
         "image_width": "full",
         "columns_desktop": 3,
         "icon_size_desktop": 48,
@@ -672,12 +679,15 @@
         "swipe_on_mobile": false,
         "image_ratio": "adapt",
         "image_position": "center center",
+        "use_custom_colors": true,
+        "colors_background": "#c5bbae",
+        "colors_text": "#ffffff",
         "show_divider": false,
         "open_in_new_tab": false,
         "colors_highlight": "#ffb503",
         "card_border_radius": 4,
-        "padding_top": 36,
-        "padding_bottom": 36,
+        "padding_top": 60,
+        "padding_bottom": 52,
         "enable_highlight": false,
         "highlight_style": "marker"
       }
