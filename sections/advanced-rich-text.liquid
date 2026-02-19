@@ -15,6 +15,102 @@
       --color-highlight: {{ section.settings.colors_highlight.red }}, {{ section.settings.colors_highlight.green }}, {{ section.settings.colors_highlight.blue }};
     {% endif -%}
   }
+
+  #shopify-section-{{ section.id }} .advanced-rich-text-wrapper.is-full-width {
+    background: var(--gradient-background);
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .advanced-rich-text-wrapper.is-full-width .rich-text {
+    background: transparent !important;
+  }
+
+  #shopify-section-{{ section.id }} .rich-text__tag-wrapper {
+    margin-bottom: 1.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .rich-text__tag {
+    display: inline-block;
+    background-color: var(--tag-bg, #000);
+    color: var(--tag-text, #fff);
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.6rem 1.6rem;
+    border-radius: 3rem;
+  }
+
+  #shopify-section-{{ section.id }} .rich-text__icons-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+    --current-icon-size: var(--icon-size-mobile, 20px);
+    --current-text-size: var(--text-size-mobile, 14px);
+    --current-align: var(--align-mobile, flex-start);
+  }
+
+  @media (min-width: 750px) {
+    #shopify-section-{{ section.id }} .rich-text__icons-row {
+      --current-icon-size: var(--icon-size-desktop, 24px);
+      --current-text-size: var(--text-size-desktop, 16px);
+      --current-align: var(--align-desktop, flex-start);
+    }
+  }
+
+  #shopify-section-{{ section.id }} .rich-text__icons-row.layout-stacked {
+    flex-direction: column;
+    align-items: var(--current-align);
+  }
+
+  #shopify-section-{{ section.id }} .rich-text__icons-row.layout-inline {
+    flex-direction: row;
+    justify-content: var(--current-align);
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .icon-text-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: var(--current-icon-size);
+    height: var(--current-icon-size);
+  }
+
+  #shopify-section-{{ section.id }} .icon-wrapper.use-custom-color {
+    color: var(--color-highlight);
+  }
+
+  #shopify-section-{{ section.id }} .icon-wrapper svg {
+    width: 100%;
+    height: auto;
+  }
+
+  #shopify-section-{{ section.id }} .icon-wrapper img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .icon-text-content {
+    margin: 0;
+    line-height: 1.3;
+    font-size: var(--current-text-size);
+  }
+
+  #shopify-section-{{ section.id }} .icon-text-content p {
+    margin: 0;
+    font-size: inherit;
+  }
 {%- endstyle -%}
 
 {{ 'section-rich-text.css' | asset_url | stylesheet_tag }}
@@ -37,29 +133,21 @@
   endif
 -%}
 
-{% comment %} --- OUTER WRAPPER FOR TRUE FULL WIDTH BACKGROUND --- {% endcomment %}
-<div class="advanced-rich-text-wrapper" {% if is_full_width %}style="background: var(--gradient-background); width: 100%;"{% endif %}>
-  
+<div class="advanced-rich-text-wrapper{% if is_full_width %} is-full-width{% endif %}">
   {%- if section.settings.show_divider %}<div class="section--divider">{% endif -%}
-    
     <div class="page-width{% if section.settings.narrow %} page-width--inner{% endif %}">
-      
-      {% comment %} --- INNER WRAPPER (Transparent if Full Width, Colored Box if Contained) --- {% endcomment %}
-      <div class="rich-text section--padding{{ inner_class }}" {% if is_full_width %}style="background: transparent !important;"{% endif %}>
-        
+      <div class="rich-text section--padding{{ inner_class }}">
         <div class="rich-text__blocks {{ section.settings.text_alignment }} mobile-{{ section.settings.mobile_text_alignment }}">
           {%- for block in section.blocks -%}
             {%- case block.type -%}
               
-              {% comment %} --- TAG BLOCK --- {% endcomment %}
               {%- when 'tag' -%}
-                <div class="rich-text__tag-wrapper" {{ block.shopify_attributes }} style="margin-bottom: 1.5rem;">
-                  <span class="rich-text__tag" style="display: inline-block; background-color: {{ block.settings.tag_bg_color }}; color: {{ block.settings.tag_text_color }}; font-size: 1.2rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.6rem 1.6rem; border-radius: 3rem;">
+                <div id="Block-{{ block.id }}" class="rich-text__tag-wrapper" {{ block.shopify_attributes }}>
+                  <span class="rich-text__tag" style="--tag-bg: {{ block.settings.tag_bg_color }}; --tag-text: {{ block.settings.tag_text_color }};">
                     {{ block.settings.tag_text | escape }}
                   </span>
                 </div>
 
-              {% comment %} --- HEADING --- {% endcomment %}
               {%- when 'heading' -%}
                 <{{ block.settings.heading_tag }} class="rich-text__heading {{ block.settings.heading_size }}" {{ block.shopify_attributes }}>
                   {%- render 'highlight-text', 
@@ -69,7 +157,6 @@
                     hl_animateWrap: true -%}
                 </{{ block.settings.heading_tag }}>
               
-              {% comment %} --- SUBHEADING --- {% endcomment %}
               {%- when 'subheading' -%}
                 <p class="rich-text__subheading{% if block.settings.secondary_color %} rich-text__subheading--colored{% endif %} {{ block.settings.subheading_size }}" {{ block.shopify_attributes }}>
                   {%- render 'highlight-text', 
@@ -79,7 +166,6 @@
                     hl_animateWrap: true -%}
                 </p>
               
-              {% comment %} --- TEXT --- {% endcomment %}
               {%- when 'text' -%}
                 <div class="rich-text__text{% if block.settings.secondary_color %} rich-text__text--colored{% endif %} {{ block.settings.text_size }} rte" {{ block.shopify_attributes }}>
                   {%- render 'highlight-text', 
@@ -89,30 +175,23 @@
                     hl_animateWrap: true -%}
                 </div>
 
-              {% comment %} --- ICONS ROW / LIST --- {% endcomment %}
               {%- when 'icons_row' -%}
-                <style>
-                  #Block-{{ block.id }} {
-                    --icon-size: {{ block.settings.icon_size_mobile }}px;
-                    --text-size: {{ block.settings.text_size_mobile }}px;
-                    --align: {% if section.settings.mobile_text_alignment == 'center' %}center{% elsif section.settings.mobile_text_alignment == 'right' %}flex-end{% else %}flex-start{% endif %};
-                  }
-                  @media (min-width: 750px) {
-                    #Block-{{ block.id }} {
-                      --icon-size: {{ block.settings.icon_size_desktop }}px;
-                      --text-size: {{ block.settings.text_size_desktop }}px;
-                      --align: {% if section.settings.text_alignment == 'center' %}center{% elsif section.settings.text_alignment == 'right' %}flex-end{% else %}flex-start{% endif %};
-                    }
-                  }
-                  #Block-{{ block.id }} .icon-wrapper svg { width: 100%; height: auto; }
-                  #Block-{{ block.id }} .icon-text-content p { margin: 0; font-size: inherit; }
-                </style>
-                
-                <div id="Block-{{ block.id }}" class="rich-text__icons-row" {{ block.shopify_attributes }} 
-                     style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; 
-                            {% if block.settings.layout == 'stacked' %}flex-direction: column; align-items: var(--align);
-                            {% else %}flex-direction: row; justify-content: var(--align); align-items: center;{% endif %}">
-                  
+                {%- liquid
+                  assign align_mobile = 'flex-start'
+                  if section.settings.mobile_text_alignment == 'center'
+                    assign align_mobile = 'center'
+                  elsif section.settings.mobile_text_alignment == 'right'
+                    assign align_mobile = 'flex-end'
+                  endif
+
+                  assign align_desktop = 'flex-start'
+                  if section.settings.text_alignment == 'center'
+                    assign align_desktop = 'center'
+                  elsif section.settings.text_alignment == 'right'
+                    assign align_desktop = 'flex-end'
+                  endif
+                -%}
+                <div id="Block-{{ block.id }}" class="rich-text__icons-row layout-{{ block.settings.layout }}" {{ block.shopify_attributes }} style="--icon-size-mobile: {{ block.settings.icon_size_mobile }}px; --icon-size-desktop: {{ block.settings.icon_size_desktop }}px; --text-size-mobile: {{ block.settings.text_size_mobile }}px; --text-size-desktop: {{ block.settings.text_size_desktop }}px; --align-mobile: {{ align_mobile }}; --align-desktop: {{ align_desktop }};">
                   {% for i in (1..5) %}
                     {% assign image_key = 'image_' | append: i %}
                     {% assign svg_key = 'custom_svg_' | append: i %}
@@ -123,31 +202,29 @@
                     {% assign current_text = block.settings[text_key] %}
                     
                     {% if current_image != blank or current_svg != blank or current_text != blank %}
-                      <div class="icon-text-item" style="display: flex; align-items: center; gap: 0.8rem; text-align: left;">
+                      <div class="icon-text-item">
                         {% if current_image != blank or current_svg != blank or block.settings.show_default_check %}
-                          <span class="icon-wrapper" style="display: flex; align-items: center; justify-content: center; width: var(--icon-size); height: var(--icon-size); flex-shrink: 0; color: {% if section.settings.use_custom_colors %}var(--color-highlight){% else %}inherit{% endif %};">
+                          <span class="icon-wrapper{% if section.settings.use_custom_colors %} use-custom-color{% endif %}">
                             {% if current_svg != blank %}
                               {{ current_svg }}
                             {% elsif current_image != blank %}
-                              <img src="{{ current_image | image_url: width: 100 }}" alt="{{ current_image.alt | escape }}" loading="lazy" style="width: 100%; height: auto; object-fit: contain;">
+                              <img src="{{ current_image | image_url: width: 100 }}" alt="{{ current_image.alt | escape }}" loading="lazy">
                             {% elsif block.settings.show_default_check %}
                                <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
                             {% endif %}
                           </span>
                         {% endif %}
                         {% if current_text != blank %}
-                          <span class="icon-text-content rte" style="margin: 0; font-size: var(--text-size); line-height: 1.3;">{{ current_text }}</span>
+                          <span class="icon-text-content rte">{{ current_text }}</span>
                         {% endif %}
                       </div>
                     {% endif %}
                   {% endfor %}
                 </div>
 
-              {% comment %} --- CUSTOM LIQUID --- {% endcomment %}
               {%- when 'custom_liquid' -%}
                 <div class="rich-text__text rte" {{ block.shopify_attributes }}>{{ block.settings.custom_liquid }}</div>
               
-              {% comment %} --- BUTTON --- {% endcomment %}
               {%- when 'button' -%}
                 <div class="button-group" {{ block.shopify_attributes }}>
                   {%- if block.settings.button_label != blank or block.settings.button_alt_label != blank -%}
