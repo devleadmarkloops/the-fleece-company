@@ -3,6 +3,7 @@
     --section-padding-top: {{ section.settings.padding_top }}px;
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
     --line-color: {{ section.settings.line_color }};
+    --line-gap: 15px;
     {%- if section.settings.use_custom_colors %}
       --color-background: {{ section.settings.colors_background }};
       --color-foreground: {{ section.settings.colors_text }};
@@ -15,6 +16,7 @@
       background-color: var(--color-background);
       color: var(--color-foreground);
     }
+    
     #shopify-section-{{ section.id }} .title,
     #shopify-section-{{ section.id }} .floating-feature__title,
     #shopify-section-{{ section.id }} .rte,
@@ -23,23 +25,38 @@
     }
   {%- endif -%}
 
-  /* Header Layout */
   #shopify-section-{{ section.id }} .title-wrapper {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     margin-bottom: 3.5rem;
   }
-  #shopify-section-{{ section.id }} .title-wrapper.left { align-items: flex-start; text-align: left; }
-  #shopify-section-{{ section.id }} .title-wrapper.center { align-items: center; text-align: center; }
-  #shopify-section-{{ section.id }} .title-wrapper.right { align-items: flex-end; text-align: right; }
+
+  #shopify-section-{{ section.id }} .title-wrapper.left { 
+    align-items: flex-start; 
+    text-align: left; 
+  }
+
+  #shopify-section-{{ section.id }} .title-wrapper.center { 
+    align-items: center; 
+    text-align: center; 
+  }
+
+  #shopify-section-{{ section.id }} .title-wrapper.right { 
+    align-items: flex-end; 
+    text-align: right; 
+  }
+
   #shopify-section-{{ section.id }} .title-wrapper .title, 
-  #shopify-section-{{ section.id }} .title-wrapper .subheading { margin: 0; }
+  #shopify-section-{{ section.id }} .title-wrapper .subheading { 
+    margin: 0; 
+  }
 
   #shopify-section-{{ section.id }} .title-wrapper .title {
     font-family: var(--new-font-heading-family);
     letter-spacing: 0;
   }
+
   #shopify-section-{{ section.id }} .title-wrapper .subheading {
     font-family: var(--new-font-body-family);
     font-size: 1.4rem;
@@ -47,7 +64,6 @@
     letter-spacing: 0.2rem;
   }
 
-  /* Main Layout Center */
   #shopify-section-{{ section.id }} .floating-features-main {
     display: flex;
     justify-content: center;
@@ -55,18 +71,17 @@
     position: relative;
     max-width: 1200px;
     margin: 0 auto 4rem auto;
-    /* Ensure lines don't cause horizontal scrollbars */
     overflow-x: clip; 
     padding: 0;
   }
 
-  /* Center Image Setup */
   #shopify-section-{{ section.id }} .floating-features-center {
     position: relative;
     width: 100%;
     max-width: {{ section.settings.image_max_width }}px;
     z-index: 2;
   }
+
   #shopify-section-{{ section.id }} .floating-features-center img {
     width: 100%;
     height: auto;
@@ -74,7 +89,6 @@
     border-radius: {{ section.settings.image_radius }}px;
   }
 
-  /* --- MOBILE / DEFAULT LAYOUT (Stacked) --- */
   #shopify-section-{{ section.id }} .floating-features-blocks-mobile {
     display: flex;
     flex-direction: column;
@@ -90,7 +104,6 @@
     width: 100%;
   }
 
-  /* Icons */
   #shopify-section-{{ section.id }} .floating-feature__icon {
     flex-shrink: 0;
     width: {{ section.settings.icon_size }}px;
@@ -99,6 +112,7 @@
     align-items: center;
     justify-content: center;
   }
+
   #shopify-section-{{ section.id }} .floating-feature__icon svg,
   #shopify-section-{{ section.id }} .floating-feature__icon img {
     width: 100%;
@@ -106,17 +120,20 @@
     object-fit: contain;
   }
 
-  #shopify-section-{{ section.id }} .floating-feature__content { flex: 1; }
+  #shopify-section-{{ section.id }} .floating-feature__content { 
+    flex: 1; 
+  }
   
-  /* Heading - Relative for anchoring lines */
   #shopify-section-{{ section.id }} .floating-feature__title { 
     margin: 0 0 0.7rem 0;
     font-family: var(--new-font-heading-family);
     font-size: 2rem;
     font-weight: 400;
     position: relative;
-    width: 100%;
+    width: max-content;
+    max-width: 100%;
   }
+
   #shopify-section-{{ section.id }} .floating-feature__text { 
     margin: 0;
     font-family: var(--new-font-body-family);
@@ -126,7 +143,6 @@
     line-height: 1.4;
   }
 
-  /* Footer Bottom Layout */
   #shopify-section-{{ section.id }} .floating-features-footer {
     display: flex;
     flex-direction: column;
@@ -135,12 +151,14 @@
     gap: 2.5rem;
     margin-top: 4rem;
   }
+
   #shopify-section-{{ section.id }} .footer-trust-icons {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 2rem;
   }
+
   #shopify-section-{{ section.id }} .trust-icon-item {
     display: flex;
     align-items: center;
@@ -148,6 +166,7 @@
     font-size: 1.4rem;
     font-weight: 500;
   }
+
   #shopify-section-{{ section.id }} .trust-icon-item svg,
   #shopify-section-{{ section.id }} .trust-icon-item img {
     width: 24px;
@@ -155,38 +174,31 @@
     flex-shrink: 0;
   }
 
-  /* ===================================================
-     DESKTOP LAYOUT (Floating + Lines) 
-     =================================================== */
   @media screen and (min-width: 900px) {
     #shopify-section-{{ section.id }} .floating-features-blocks-mobile {
-      display: none; /* Hide mobile stack */
+      display: none;
     }
 
     #shopify-section-{{ section.id }} .floating-feature-item {
       position: absolute;
       width: max-content;
       max-width: 280px;
-      /* Center alignment trick based on top percentage */
       transform: translateY(-50%); 
-      /* Stack icon on top of text for desktop */
       flex-direction: column !important;
       gap: 0.8rem;
-      z-index: 3; /* Above image */
+      z-index: 3;
     }
 
-    /* --- Shared Connector Line Styles (Anchored to Title) --- */
-    /* The Line */
     #shopify-section-{{ section.id }} .floating-feature__title::before {
       content: '';
       position: absolute;
       height: 2px;
       background-color: var(--line-color);
-      top: 50%; /* Perfectly centered on the heading text */
+      top: 50%;
       width: var(--line-length);
       pointer-events: none;
     }
-    /* The Dot */
+
     #shopify-section-{{ section.id }} .floating-feature__title::after {
       content: '';
       position: absolute;
@@ -194,50 +206,48 @@
       width: 10px;
       background-color: var(--line-color);
       border-radius: 50%;
-      top: calc(50% - 4px); /* Center dot on the line */
+      top: calc(50% - 4px);
       pointer-events: none;
     }
 
-    /* --- Left Side Positioning --- */
     #shopify-section-{{ section.id }} .floating-feature-item[data-side="left"] {
-      /* 4rem spacing as requested */
       right: calc(100% + 4rem); 
       align-items: flex-end;
       text-align: right;
     }
-    /* Line goes right from the title edge */
+
     #shopify-section-{{ section.id }} [data-side="left"] .floating-feature__title::before {
-       right: calc(var(--line-length) * -1); 
+      left: calc(100% + var(--line-gap));
+      right: auto;
     }
-    /* Dot is at the tip of the line */
+
     #shopify-section-{{ section.id }} [data-side="left"] .floating-feature__title::after {
-       right: calc(var(--line-length) * -1 - 5px); 
+      left: calc(100% + var(--line-gap) + var(--line-length) - 5px);
+      right: auto;
     }
 
-
-    /* --- Right Side Positioning --- */
     #shopify-section-{{ section.id }} .floating-feature-item[data-side="right"] {
-      /* 4rem spacing as requested */
       left: calc(100% + 4rem); 
       align-items: flex-start;
       text-align: left;
     }
-    /* Line goes left from the title edge */
+
     #shopify-section-{{ section.id }} [data-side="right"] .floating-feature__title::before {
-       left: calc(var(--line-length) * -1);
+      right: calc(100% + var(--line-gap));
+      left: auto;
     }
-    /* Dot is at the tip of the line */
+
     #shopify-section-{{ section.id }} [data-side="right"] .floating-feature__title::after {
-       left: calc(var(--line-length) * -1 - 5px);
+      right: calc(100% + var(--line-gap) + var(--line-length) - 5px);
+      left: auto;
     }
   }
 
-  /* Hide Desktop Floats on Mobile */
   @media screen and (max-width: 899px) {
     #shopify-section-{{ section.id }} .floating-features-center .floating-feature-item {
       display: none;
     }
-    /* Ensure pseudo-elements don't show on mobile stack */
+    
     #shopify-section-{{ section.id }} .floating-feature__title::before,
     #shopify-section-{{ section.id }} .floating-feature__title::after {
       content: none !important;
@@ -249,7 +259,6 @@
 <div class="floating-features-wrapper section--padding{% if section.settings.show_divider %} section--divider{% endif %}">
   <div class="page-width">
     
-    {% comment %} --- HEADER --- {% endcomment %}
     <div class="title-wrapper{% if section.settings.heading == blank and section.settings.subheading == blank %} title-wrapper--no-heading{% endif %} {{ section.settings.heading_alignment }}">
       {%- if section.settings.subheading != blank -%}
         <div class="subheading rte">{{ section.settings.subheading }}</div>
@@ -261,7 +270,6 @@
       {%- endif -%}
     </div>
 
-    {% comment %} --- MAIN FLOATING LAYOUT --- {% endcomment %}
     <div class="floating-features-main">
       <div class="floating-features-center">
         
@@ -271,9 +279,7 @@
           {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg main-center-image' }}
         {%- endif -%}
 
-        {% comment %} DESKTOP ABSOLUTE BLOCKS {% endcomment %}
         {%- for block in section.blocks -%}
-          {% comment %} We pass the line length and top position as CSS variables here {% endcomment %}
           <div class="floating-feature-item" 
                data-side="{{ block.settings.side }}" 
                style="top: {{ block.settings.position_top }}%; --line-length: {{ block.settings.line_length }}px;" 
@@ -298,7 +304,6 @@
       </div>
     </div>
 
-    {% comment %} MOBILE FALLBACK BLOCKS (Stacked) {% endcomment %}
     <div class="floating-features-blocks-mobile">
       {%- for block in section.blocks -%}
         <div class="floating-feature-item">
@@ -321,7 +326,6 @@
       {%- endfor -%}
     </div>
 
-    {% comment %} --- FOOTER / CTA --- {% endcomment %}
     <div class="floating-features-footer">
       {%- if section.settings.button_label != blank -%}
         <a {% if section.settings.button_link != blank %}href="{{ section.settings.button_link }}"{% else %}role="link" aria-disabled="true"{% endif %} 
