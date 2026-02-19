@@ -694,13 +694,72 @@
         "highlight_style": "marker"
       }
     },
-    "custom_liquid_hdntkX": {
-      "type": "custom-liquid",
-      "name": "t:sections.custom-liquid.presets.name",
+    "image_floating_features_NyGtrV": {
+      "type": "image-floating-features",
+      "blocks": {
+        "feature_qNQqT3": {
+          "type": "feature",
+          "settings": {
+            "side": "left",
+            "position_top": 20,
+            "icon_svg": "",
+            "icon_image": "shopify://shop_images/Group_7.svg",
+            "heading": "Sleeping",
+            "text": "<p>Provides light coverage that moves with your body without feeling restrictive overnight.</p>"
+          }
+        },
+        "feature_FYXfJF": {
+          "type": "feature",
+          "settings": {
+            "side": "right",
+            "position_top": 25,
+            "icon_svg": "",
+            "icon_image": "shopify://shop_images/Group_8.svg",
+            "heading": "Lounging",
+            "text": "<p>Comfortable enough for slow mornings, evenings on the couch, or relaxed downtime.</p>"
+          }
+        },
+        "feature_fbqt8F": {
+          "type": "feature",
+          "settings": {
+            "side": "right",
+            "position_top": 75,
+            "icon_svg": "",
+            "icon_image": "shopify://shop_images/Group_9.svg",
+            "heading": "Layering",
+            "text": "<p>Pairs easily with sheets or duvets when temperatures shift throughout the year.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_qNQqT3",
+        "feature_FYXfJF",
+        "feature_fbqt8F"
+      ],
+      "name": "Image Floating Features",
       "settings": {
-        "custom_liquid": "",
-        "full_width": false,
+        "subheading": "<p>GET THE PERFECT SLEEP</p>",
+        "heading": "Designed for Everyday Living",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "heading_alignment": "center",
+        "main_image": "shopify://shop_images/Rectangle_21_1.webp",
+        "image_max_width": 420,
+        "image_radius": 10,
+        "icon_size": 40,
+        "button_label": "Try It Risk-Free",
+        "button_link": "shopify://collections/all",
+        "button_style_secondary": false,
+        "footer_icon_svg_1": "",
+        "footer_text_1": "Free Shipping",
+        "footer_icon_svg_2": "",
+        "footer_text_2": "Secure Checkout",
+        "footer_icon_svg_3": "",
+        "footer_text_3": "Money-Back Guarantee",
         "show_divider": false,
+        "use_custom_colors": false,
+        "colors_background": "#ffffff",
+        "colors_text": "#212326",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -715,6 +774,6 @@
     "image_banner_v2_VMQtKU",
     "image_with_text_v3_GKBbPb",
     "multicolumn_v2_zxzHia",
-    "custom_liquid_hdntkX"
+    "image_floating_features_NyGtrV"
   ]
 }
