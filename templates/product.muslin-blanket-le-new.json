@@ -544,12 +544,21 @@
             "enable_highlight": false,
             "highlight_style": "marker"
           }
+        },
+        "images_grid_cddeMC": {
+          "type": "images_grid",
+          "settings": {
+            "image1": "shopify://shop_images/Button_Made_from_sustainably_farmed_organic_cotton.png",
+            "image2": "shopify://shop_images/Button_Made_from_sustainably_farmed_organic_cotton_1.png",
+            "image3": "shopify://shop_images/Button_Made_from_sustainably_farmed_organic_cotton_2.png"
+          }
         }
       },
       "block_order": [
         "subheading_3fc6Lg",
         "heading_XXgdCP",
-        "text_UUnUCe"
+        "text_UUnUCe",
+        "images_grid_cddeMC"
       ],
       "name": "Image with text v3",
       "settings": {
@@ -569,6 +578,7 @@
         "mobile_text_alignment": "left",
         "mobile_image_ratio": "auto",
         "enable_video_looping": false,
+        "video_url": "",
         "use_custom_colors": false,
         "colors_button_label": "#ffffff",
         "colors_button_background": "#1a1b18",
