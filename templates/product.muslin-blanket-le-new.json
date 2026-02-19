@@ -364,6 +364,87 @@
         "highlight_style": "marker"
       }
     },
+    "advanced_rich_text_QYx3gt": {
+      "type": "advanced-rich-text",
+      "blocks": {
+        "tag_eCj9Gh": {
+          "type": "tag",
+          "settings": {
+            "tag_text": "The Fleece Guarantee",
+            "tag_bg_color": "#f8f5f2",
+            "tag_text_color": "#000000"
+          }
+        },
+        "heading_mwH73M": {
+          "type": "heading",
+          "settings": {
+            "heading": "Use It Risk-Free for 100 Nights",
+            "heading_size": "h0",
+            "heading_tag": "h2"
+          }
+        },
+        "text_JC9bmy": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Enjoy breathable comfort with complete peace of mind.</p>",
+            "text_size": "typeset"
+          }
+        },
+        "list_item_CJkBwD": {
+          "type": "list_item",
+          "settings": {
+            "custom_svg": "",
+            "text": "<p>Feature or benefit point</p>",
+            "text_size": "typeset2"
+          }
+        },
+        "list_item_NWK3Gf": {
+          "type": "list_item",
+          "settings": {
+            "custom_svg": "",
+            "text": "<p>Feature or benefit point</p>",
+            "text_size": "typeset2"
+          }
+        },
+        "button_PNj8Jx": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Try It Risk-Free",
+            "button_link": "shopify://collections/all",
+            "button_style_secondary": false,
+            "button_alt_label": "",
+            "button_alt_link": "",
+            "button_alt_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "tag_eCj9Gh",
+        "heading_mwH73M",
+        "text_JC9bmy",
+        "list_item_CJkBwD",
+        "list_item_NWK3Gf",
+        "button_PNj8Jx"
+      ],
+      "name": "Advanced Rich Text",
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": false,
+        "show_divider": false,
+        "use_custom_colors": true,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#3b3b3b",
+        "colors_text": "#3b3b3b",
+        "colors_background": "#f0eae4",
+        "colors_highlight": "#ffb503",
+        "gradient_background": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "image_with_text_v2_D8bENf": {
       "type": "image-with-text-v2",
       "blocks": {
@@ -645,6 +726,7 @@
     "empty-space",
     "main",
     "product-recommendations",
+    "advanced_rich_text_QYx3gt",
     "image_with_text_v2_D8bENf",
     "image_with_text_v2_RabiRM",
     "image_with_text_v2_tLdkwa",
