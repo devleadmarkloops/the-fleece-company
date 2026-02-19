@@ -29,6 +29,14 @@
       }
     }  
   {% endif -%}
+
+  {% if section.settings.enable_content_max_width %}
+    #shopify-section-{{ section.id }} .banner__box {
+      max-width: {{ section.settings.content_max_width }}px;
+      width: 100%;
+    }
+  {% endif %}
+
 {%- endstyle -%}
 
 {{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
