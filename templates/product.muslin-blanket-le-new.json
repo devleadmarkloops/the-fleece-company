@@ -771,6 +771,78 @@
         "padding_bottom": 52
       }
     },
+    "reviews_slider_v1_7hqRz8": {
+      "type": "reviews-slider-v1",
+      "blocks": {
+        "review_4i3BLT": {
+          "type": "review",
+          "settings": {
+            "author_name": "Nicole",
+            "star_rating": 5,
+            "review_text": "\"This muslin blanket feels incredibly soft and breathable. I sleep comfortably without overheating, and it looks beautiful on my bed every single night.\""
+          }
+        },
+        "review_rTCgpp": {
+          "type": "review",
+          "settings": {
+            "author_name": "Erin C.",
+            "star_rating": 5,
+            "review_text": "\"Lightweight yet cozy, this blanket is perfect year-round. It drapes nicely, washes well, and feels even softer over time. Definitely worth it.\""
+          }
+        },
+        "review_Xnjwtt": {
+          "type": "review",
+          "settings": {
+            "author_name": "Sonia",
+            "star_rating": 5,
+            "review_text": "\"This muslin blanket feels incredibly soft and breathable. I sleep comfortably without overheating, and it looks beautiful on my bed every single night.\""
+          }
+        },
+        "review_8ihXrT": {
+          "type": "review",
+          "settings": {
+            "author_name": "Nicole",
+            "star_rating": 5,
+            "review_text": "\"This muslin blanket feels incredibly soft and breathable. I sleep comfortably without overheating, and it looks beautiful on my bed every single night.\""
+          }
+        },
+        "review_NnMbVQ": {
+          "type": "review",
+          "settings": {
+            "author_name": "Erin C.",
+            "star_rating": 5,
+            "review_text": "\"Lightweight yet cozy, this blanket is perfect year-round. It drapes nicely, washes well, and feels even softer over time. Definitely worth it.\""
+          }
+        }
+      },
+      "block_order": [
+        "review_4i3BLT",
+        "review_rTCgpp",
+        "review_Xnjwtt",
+        "review_8ihXrT",
+        "review_NnMbVQ"
+      ],
+      "name": "Reviews slider v1",
+      "settings": {
+        "heading": "Trusted by 18,000+ Customers",
+        "heading_size": "h0",
+        "show_verified": true,
+        "verified_label": "Verified Customer",
+        "button_label": "SEE ALL REVIEWS",
+        "button_link": "shopify://collections/all",
+        "use_custom_colors": true,
+        "colors_text": "#27272a",
+        "colors_background": "#f0eae4",
+        "colors_card_background": "#ffffff",
+        "colors_stars": "#e07b39",
+        "colors_dots": "#000000",
+        "gradient_background": "",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "padding_top_mob": 40,
+        "padding_bottom_mob": 40
+      }
+    },
     "image_with_accordion_NRBNzn": {
       "type": "image-with-accordion",
       "blocks": {
@@ -848,6 +920,7 @@
     "image_with_text_v3_GKBbPb",
     "multicolumn_v2_zxzHia",
     "image_floating_features_NyGtrV",
+    "reviews_slider_v1_7hqRz8",
     "image_with_accordion_NRBNzn"
   ]
 }
