@@ -44,9 +44,9 @@
     position: relative;
     max-width: 1200px;
     margin: 0 auto 4rem auto;
-    /* Ensure lines don't overflow the container horizontally too much */
+    /* Ensure lines don't cause horizontal scrollbars */
     overflow-x: clip; 
-    padding: 20px 0; /* Give space for lines extending top/bottom */
+    padding: 20px 0;
   }
 
   /* Center Image Setup */
@@ -77,7 +77,6 @@
     align-items: flex-start;
     text-align: left;
     width: 100%;
-    position: relative; /* Needed for pseudo-elements later */
   }
 
   /* Icons */
@@ -97,7 +96,14 @@
   }
 
   #shopify-section-{{ section.id }} .floating-feature__content { flex: 1; }
-  #shopify-section-{{ section.id }} .floating-feature__title { margin: 0 0 0.5rem 0; font-weight: 600; }
+  
+  /* Heading - Relative for anchoring lines */
+  #shopify-section-{{ section.id }} .floating-feature__title { 
+    margin: 0 0 0.5rem 0; 
+    font-weight: 600;
+    position: relative;
+    width: 100%;
+  }
   #shopify-section-{{ section.id }} .floating-feature__text { margin: 0; font-size: 0.9em; opacity: 0.9; }
 
   /* Footer Bottom Layout */
@@ -149,70 +155,60 @@
       z-index: 3; /* Above image */
     }
 
-    /* --- Connector Lines & Dots Setup --- */
+    /* --- Shared Connector Line Styles (Anchored to Title) --- */
     /* The Line */
-    #shopify-section-{{ section.id }} .floating-feature-item::before {
+    #shopify-section-{{ section.id }} .floating-feature__title::before {
       content: '';
       position: absolute;
       height: 2px;
       background-color: var(--line-color);
-      top: 50%; /* Center vertically relative to block */
-      width: var(--line-length, 80px); /* Fallback 80px just in case */
+      top: 50%; /* Perfectly centered on the heading text */
+      width: var(--line-length);
       pointer-events: none;
     }
-    /* The Dot at the end */
-    #shopify-section-{{ section.id }} .floating-feature-item::after {
+    /* The Dot */
+    #shopify-section-{{ section.id }} .floating-feature__title::after {
       content: '';
       position: absolute;
       height: 10px;
       width: 10px;
       background-color: var(--line-color);
       border-radius: 50%;
-      top: calc(50% - 4px); /* Center dot relative to line thickness */
+      top: calc(50% - 4px); /* Center dot on the line */
       pointer-events: none;
     }
 
-    /* --- Left Side Positioning & Alignment --- */
+    /* --- Left Side Positioning --- */
     #shopify-section-{{ section.id }} .floating-feature-item[data-side="left"] {
-      /* Push outside left edge + extra space for the line start */
-      right: calc(100% + 2rem); 
-      align-items: flex-end; /* Align icon and text to the right */
+      /* 4rem spacing as requested */
+      right: calc(100% + 4rem); 
+      align-items: flex-end;
       text-align: right;
     }
-    /* Line direction for left side */
-    #shopify-section-{{ section.id }} .floating-feature-item[data-side="left"]::before {
-       /* Start from right edge of block and go right */
-       right: -2rem; 
-       transform-origin: right center;
-       /* Scale scaleX(-1) flips it to grow outwards */
-       transform: scaleX(-1); 
+    /* Line goes right from the title edge */
+    #shopify-section-{{ section.id }} [data-side="left"] .floating-feature__title::before {
+       right: calc(var(--line-length) * -1); 
     }
-    /* Dot position for left side */
-    #shopify-section-{{ section.id }} .floating-feature-item[data-side="left"]::after {
-       /* Position at the end of the line length */
-       right: calc(var(--line-length) - 2rem - 5px); 
+    /* Dot is at the tip of the line */
+    #shopify-section-{{ section.id }} [data-side="left"] .floating-feature__title::after {
+       right: calc(var(--line-length) * -1 - 5px); 
     }
 
 
-    /* --- Right Side Positioning & Alignment --- */
+    /* --- Right Side Positioning --- */
     #shopify-section-{{ section.id }} .floating-feature-item[data-side="right"] {
-      /* Push outside right edge + extra space for line start */
-      left: calc(100% + 2rem); 
-      align-items: flex-start; /* Align icon and text to the left */
+      /* 4rem spacing as requested */
+      left: calc(100% + 4rem); 
+      align-items: flex-start;
       text-align: left;
     }
-    /* Line direction for right side */
-    #shopify-section-{{ section.id }} .floating-feature-item[data-side="right"]::before {
-       /* Start from left edge of block and go left */
-       left: -2rem;
-       transform-origin: left center;
-       /* Scale scaleX(-1) flips it to grow outwards */
-       transform: scaleX(-1);
+    /* Line goes left from the title edge */
+    #shopify-section-{{ section.id }} [data-side="right"] .floating-feature__title::before {
+       left: calc(var(--line-length) * -1);
     }
-    /* Dot position for right side */
-    #shopify-section-{{ section.id }} .floating-feature-item[data-side="right"]::after {
-       /* Position at the end of the line length */
-       left: calc(var(--line-length) - 2rem - 5px);
+    /* Dot is at the tip of the line */
+    #shopify-section-{{ section.id }} [data-side="right"] .floating-feature__title::after {
+       left: calc(var(--line-length) * -1 - 5px);
     }
   }
 
@@ -222,8 +218,8 @@
       display: none;
     }
     /* Ensure pseudo-elements don't show on mobile stack */
-    #shopify-section-{{ section.id }} .floating-feature-item::before,
-    #shopify-section-{{ section.id }} .floating-feature-item::after {
+    #shopify-section-{{ section.id }} .floating-feature__title::before,
+    #shopify-section-{{ section.id }} .floating-feature__title::after {
       content: none !important;
       display: none !important;
     }
