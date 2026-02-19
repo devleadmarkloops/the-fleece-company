@@ -16,12 +16,52 @@
     }
   }
 
-  /* Custom CSS for Icons and Subheadings */
-  #shopify-section-{{ section.id }} .multicolumn-subheading {
-    margin-bottom: 1rem;
-    margin-top: 0;
+  /* Section Custom Colors */
+  {%- if section.settings.use_custom_colors %}
+    #shopify-section-{{ section.id }} .multicolumn-wrapper {
+      background-color: {{ section.settings.colors_background }};
+    }
+    #shopify-section-{{ section.id }} .multicolumn-subheading,
+    #shopify-section-{{ section.id }} .title,
+    #shopify-section-{{ section.id }} .multicolumn-card__title,
+    #shopify-section-{{ section.id }} .rte,
+    #shopify-section-{{ section.id }} .rte p {
+      color: {{ section.settings.colors_text }};
+    }
+  {%- endif -%}
+
+  /* Fix Header Flex Layout to Stack Vertically */
+  #shopify-section-{{ section.id }} .title-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
+  #shopify-section-{{ section.id }} .title-wrapper.left { align-items: flex-start; text-align: left; }
+  #shopify-section-{{ section.id }} .title-wrapper.center { align-items: center; text-align: center; }
+  #shopify-section-{{ section.id }} .title-wrapper.right { align-items: flex-end; text-align: right; }
   
+  #shopify-section-{{ section.id }} .multicolumn-subheading {
+    margin: 0;
+  }
+  #shopify-section-{{ section.id }} .title {
+    margin: 0;
+  }
+
+  /* Flat Card Override (Removes padding and backgrounds) */
+  {%- unless section.settings.enable_card_style -%}
+    #shopify-section-{{ section.id }} .multicolumn-card {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    #shopify-section-{{ section.id }} .multicolumn-card__info {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      padding-bottom: 0 !important;
+    }
+  {%- endunless -%}
+  
+  /* Icon Layout */
   #shopify-section-{{ section.id }} .multicolumn-card__icon-wrapper {
     display: inline-flex;
     align-items: center;
@@ -45,10 +85,10 @@
 <noscript>{{ 'component-slider.css' | asset_url | stylesheet_tag }}</noscript>
 <script src="{{ 'section-multicolumn.js' | asset_url }}" defer="defer"></script>
 
-<div class="section--padding{% if section.settings.show_divider %} section--divider{% endif %}">
+<div class="multicolumn-wrapper section--padding{% if section.settings.show_divider %} section--divider{% endif %}">
   <div class="multicolumn page-width">
     
-    {% comment %} --- UPDATED HEADER WITH SUBHEADING --- {% endcomment %}
+    {% comment %} --- HEADER WITH FIXED COLUMN STACKING --- {% endcomment %}
     <div class="title-wrapper{% if section.settings.heading == blank and section.settings.subheading == blank %} title-wrapper--no-heading{% endif %} mobile-{{ section.settings.mobile_text_alignment }} {{ section.settings.heading_alignment }}">
       
       {%- if section.settings.subheading != blank -%}
@@ -58,7 +98,7 @@
       {%- endif -%}
 
       {%- if section.settings.heading != blank -%}
-        <{{ section.settings.heading_tag }} class="title {{ section.settings.heading_size }}" style="margin-top: 0;">
+        <{{ section.settings.heading_tag }} class="title {{ section.settings.heading_size }}">
           {%- render 'highlight-text', 
             hl_input: section.settings.heading, 
             hl_style: section.settings.highlight_style,
@@ -89,9 +129,8 @@
             class="multicolumn-list__item flex-grid__item{% if section.settings.swipe_on_mobile %} slider__slide{% endif %} {{ section.settings.text_alignment }}"
             {{ block.shopify_attributes }}
           >
-            <div class="multicolumn-card"{% if block.settings.background_color != blank %} style="background-color: {{ block.settings.background_color }};"{% endif %}>
+            <div class="multicolumn-card"{% if section.settings.enable_card_style and block.settings.background_color != blank %} style="background-color: {{ block.settings.background_color }};"{% endif %}>
               
-              {% comment %} --- ORIGINAL IMAGE / VIDEO LOGIC --- {% endcomment %}
               {%- if block.settings.image != blank or block.settings.video != blank -%}
                 <use-animate data-animate="zoom-fade" class="media-wrapper multicolumn-card__image-wrapper multicolumn-card__image-wrapper--{{ section.settings.image_width }}-width{% if section.settings.image_width != 'full' %} multicolumn-card-spacing{% endif %}">
                   <div class="image-animate media media--{{ section.settings.image_ratio }}"
@@ -159,7 +198,6 @@
               {%- if block.settings.title != blank or block.settings.text != blank or block.settings.button_label != blank or block.settings.icon_svg != blank or block.settings.icon_image != blank -%}
                 <div class="multicolumn-card__info">
                   
-                  {% comment %} --- NEW BLOCK ICON --- {% endcomment %}
                   {%- if block.settings.icon_svg != blank or block.settings.icon_image != blank -%}
                     <div class="multicolumn-card__icon-wrapper">
                       {%- if block.settings.icon_svg != blank -%}
@@ -367,6 +405,13 @@
       "label": "Block Content Alignment"
     },
     {
+      "type": "checkbox",
+      "id": "enable_card_style",
+      "default": true,
+      "label": "Enable Card Style",
+      "info": "Adds padding and background color to each block. Uncheck for a clean, flat layout."
+    },
+    {
       "type": "select",
       "id": "image_width",
       "options": [
@@ -478,7 +523,25 @@
     },
     {
       "type": "header",
-      "content": "Design & Colors"
+      "content": "Section Colors"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_colors",
+      "default": false,
+      "label": "Use Custom Colors for Section"
+    },
+    {
+      "type": "color",
+      "id": "colors_background",
+      "label": "Section Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "colors_text",
+      "label": "Section Text",
+      "default": "#212326"
     },
     {
       "type": "checkbox",
