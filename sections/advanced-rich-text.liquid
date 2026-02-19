@@ -50,7 +50,6 @@
     font-family: var(--new-font-body-family);
     letter-spacing: 0;
     line-height: 1.4;
-    color: rgba(var(--color-foreground), 0.6);
   }
 
   #shopify-section-{{ section.id }} .rich-text__icons-row {
@@ -114,9 +113,12 @@
   }
 
   #shopify-section-{{ section.id }} .icon-text-content {
-    margin: 0;
-    line-height: 1.3;
+    font-family: var(--new-font-body-family);
     font-size: var(--current-text-size);
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0;
+    margin: 0;
   }
 
   #shopify-section-{{ section.id }} .icon-text-content p {
