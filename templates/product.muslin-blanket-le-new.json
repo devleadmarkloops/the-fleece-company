@@ -455,6 +455,59 @@
         "padding_bottom_mob": 32
       }
     },
+    "image_banner_v2_VMQtKU": {
+      "type": "image-banner-v2",
+      "blocks": {
+        "heading_EqjbwL": {
+          "type": "heading",
+          "settings": {
+            "heading": "Cozy All Night with The Muslin Blanket",
+            "heading_size": "h0",
+            "heading_tag": "h2",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "text_kiWgwG": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The Muslin Blanket delivers effortless, breathable comfort from the first touch</p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "heading_EqjbwL",
+        "text_kiWgwG"
+      ],
+      "name": "Image banner v2",
+      "settings": {
+        "image": "shopify://shop_images/Rectangle_18.webp",
+        "image_position": "center center",
+        "text_box_position": "bottom-left",
+        "text_alignment": "left",
+        "image_ratio": "550px",
+        "show_text_box": false,
+        "full_width": true,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "400px",
+        "stack_images_on_mobile": false,
+        "show_text_below": false,
+        "colors_button_label": "#1a1b18",
+        "colors_button_background": "#ffffff",
+        "colors_text": "#ffffff",
+        "colors_overlay": "#000000",
+        "colors_overlay_opacity": 0,
+        "colors_highlight": "#ffb503",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "image_with_text_v2_D8bENf": {
       "type": "image-with-text-v2",
       "blocks": {
@@ -737,6 +790,7 @@
     "main",
     "product-recommendations",
     "advanced_rich_text_QYx3gt",
+    "image_banner_v2_VMQtKU",
     "image_with_text_v2_D8bENf",
     "image_with_text_v2_RabiRM",
     "image_with_text_v2_tLdkwa",
