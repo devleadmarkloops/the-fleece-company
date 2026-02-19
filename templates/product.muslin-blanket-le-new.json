@@ -749,7 +749,7 @@
         "main_image": "shopify://shop_images/Rectangle_21_1.webp",
         "image_max_width": 420,
         "image_radius": 10,
-        "icon_size": 40,
+        "icon_size": 48,
         "button_label": "Try It Risk-Free",
         "button_link": "shopify://collections/all",
         "button_style_secondary": false,
