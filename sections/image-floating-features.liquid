@@ -232,7 +232,14 @@
 
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .title-wrapper {
-        margin-bottom: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+    #shopify-section-{{ section.id }} .title-wrapper .subheading {
+      font-size: 1.2rem;
+    }
+    #shopify-section-{{ section.id }} .floating-feature-item {
+      flex-direction: column;
+      align-items: center;
     }
   }
 {%- endstyle -%}
