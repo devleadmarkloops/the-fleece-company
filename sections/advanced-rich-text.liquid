@@ -22,26 +22,31 @@
 <noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
 
 {%- liquid
-  assign custom_class = ''
-  assign wrapper_class = ''
+  assign inner_class = ''
+  assign is_full_width = false
 
   if section.settings.use_custom_colors
+    assign inner_class = inner_class | append: ' rich-text--colored'
     if section.settings.bg_width == 'full_width'
-      assign wrapper_class = ' rich-text--colored'
-    else
-      assign custom_class = ' rich-text--colored'
+      assign is_full_width = true
     endif
   endif
 
   if section.settings.horizontal_content
-    assign custom_class = custom_class | append: ' rich-text--horizontal'
+    assign inner_class = inner_class | append: ' rich-text--horizontal'
   endif
 -%}
 
-<div class="section-bg-wrapper{{ wrapper_class }}">
+{% comment %} --- OUTER WRAPPER FOR TRUE FULL WIDTH BACKGROUND --- {% endcomment %}
+<div class="advanced-rich-text-wrapper" {% if is_full_width %}style="background: var(--gradient-background); width: 100%;"{% endif %}>
+  
   {%- if section.settings.show_divider %}<div class="section--divider">{% endif -%}
+    
     <div class="page-width{% if section.settings.narrow %} page-width--inner{% endif %}">
-      <div class="rich-text section--padding{{ custom_class }}">
+      
+      {% comment %} --- INNER WRAPPER (Transparent if Full Width, Colored Box if Contained) --- {% endcomment %}
+      <div class="rich-text section--padding{{ inner_class }}" {% if is_full_width %}style="background: transparent !important;"{% endif %}>
+        
         <div class="rich-text__blocks {{ section.settings.text_alignment }} mobile-{{ section.settings.mobile_text_alignment }}">
           {%- for block in section.blocks -%}
             {%- case block.type -%}
@@ -84,7 +89,7 @@
                     hl_animateWrap: true -%}
                 </div>
 
-              {% comment %} --- NEW: CONSOLIDATED ICONS (1 to 5) --- {% endcomment %}
+              {% comment %} --- ICONS ROW / LIST --- {% endcomment %}
               {%- when 'icons_row' -%}
                 <style>
                   #Block-{{ block.id }} {
