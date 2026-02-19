@@ -1,7 +1,29 @@
 {%- style -%}
+  /* --- CSS Variables & Layout Logic --- */
+  {%- liquid
+    # Calculate layout percentages based on the select setting
+    assign ratio_values = section.settings.layout_ratio | split: '/'
+    assign image_width_percent = ratio_values[0]
+    assign content_width_percent = ratio_values[1]
+    
+    # Determine image height and fit styles
+    if section.settings.image_height == 'adapt'
+        assign image_height_style = 'auto'
+        assign image_fit_style = 'default'
+    else
+        assign image_height_style = section.settings.image_height | append: 'px'
+        assign image_fit_style = 'cover'
+    endif
+  -%}
+
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --image-column-width: {{ image_width_percent }}%;
+    --content-column-width: {{ content_width_percent }}%;
+    --current-image-height: {{ image_height_style }};
+    --current-image-fit: {{ image_fit_style }};
+    
     {%- if section.settings.use_custom_colors %}
       --color-background: {{ section.settings.colors_background }};
       --color-foreground: {{ section.settings.colors_text }};
@@ -18,7 +40,8 @@
     #shopify-section-{{ section.id }} .title,
     #shopify-section-{{ section.id }} .subheading,
     #shopify-section-{{ section.id }} .accordion-toggle,
-    #shopify-section-{{ section.id }} .accordion-content {
+    #shopify-section-{{ section.id }} .accordion-content,
+    #shopify-section-{{ section.id }} .accordion-icon {
       color: var(--color-foreground);
     }
     
@@ -27,6 +50,7 @@
     }
   {%- endif -%}
 
+  /* --- Main Grid Layout --- */
   #shopify-section-{{ section.id }} .image-accordion-grid {
     display: flex;
     flex-direction: column;
@@ -37,30 +61,42 @@
   @media screen and (min-width: 900px) {
     #shopify-section-{{ section.id }} .image-accordion-grid {
       flex-direction: row;
-      align-items: flex-start;
+      align-items: flex-start; /* Align top so taller content doesn't stretch image */
       gap: 6rem;
     }
     
     #shopify-section-{{ section.id }} .image-accordion-grid.image-right {
       flex-direction: row-reverse;
     }
+
+    /* Apply dynamic layout ratios on desktop */
+    #shopify-section-{{ section.id }} .image-column {
+      flex: 0 0 var(--image-column-width);
+      width: var(--image-column-width);
+    }
+
+    #shopify-section-{{ section.id }} .content-column {
+      flex: 0 0 var(--content-column-width);
+      width: var(--content-column-width);
+    }
   }
 
+  /* --- Image Column --- */
   #shopify-section-{{ section.id }} .image-column {
-    flex: 1;
     width: 100%;
+    position: relative;
   }
 
   #shopify-section-{{ section.id }} .image-column img {
     width: 100%;
-    height: auto;
+    height: var(--current-image-height);
     display: block;
     border-radius: {{ section.settings.image_radius }}px;
-    object-fit: cover;
+    object-fit: var(--current-image-fit);
   }
 
+  /* --- Content Column & Header --- */
   #shopify-section-{{ section.id }} .content-column {
-    flex: 1;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -72,6 +108,11 @@
     gap: 1rem;
     margin-bottom: 3rem;
   }
+
+  /* Header Alignment Styles */
+  #shopify-section-{{ section.id }} .title-wrapper.left { align-items: flex-start; text-align: left; }
+  #shopify-section-{{ section.id }} .title-wrapper.center { align-items: center; text-align: center; }
+  #shopify-section-{{ section.id }} .title-wrapper.right { align-items: flex-end; text-align: right; }
 
   #shopify-section-{{ section.id }} .title-wrapper .title {
     margin: 0;
@@ -87,6 +128,7 @@
     letter-spacing: 0.2rem;
   }
 
+  /* --- Accordion Styling --- */
   #shopify-section-{{ section.id }} .accordion-item {
     border-bottom: 1px solid rgba(var(--color-foreground), 0.15);
   }
@@ -109,6 +151,7 @@
     font-weight: 500;
     text-align: left;
     transition: color 0.3s ease;
+    color: currentColor;
   }
 
   #shopify-section-{{ section.id }} .accordion-icon {
@@ -117,21 +160,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 20px;
-    height: 20px;
-    transition: transform 0.3s ease;
+    width: 24px;
+    height: 24px;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    color: currentColor;
   }
 
   #shopify-section-{{ section.id }} .accordion-icon svg {
     width: 100%;
     height: 100%;
-    fill: currentColor;
+    /* Ensure the SVG uses the current text color for stroke */
+    stroke: currentColor; 
   }
 
   #shopify-section-{{ section.id }} .accordion-content {
     display: grid;
     grid-template-rows: 0fr;
     transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    visibility: hidden; /* Hide content completely when closed */
   }
 
   #shopify-section-{{ section.id }} .accordion-inner {
@@ -146,18 +192,22 @@
     line-height: 1.5;
   }
 
+  /* Open State Styles */
   #shopify-section-{{ section.id }} .accordion-item.is-open .accordion-content {
     grid-template-rows: 1fr;
+    visibility: visible;
   }
 
+  /* Rotate the plus icon 45 degrees to make an X */
   #shopify-section-{{ section.id }} .accordion-item.is-open .accordion-icon {
-    transform: rotate(180deg);
+    transform: rotate(45deg); 
   }
 {%- endstyle -%}
 
 <div class="image-accordion-wrapper section--padding{% if section.settings.show_divider %} section--divider{% endif %}">
   <div class="page-width">
     
+    {% comment %} Custom Web Component wrapper handles the click logic {% endcomment %}
     <custom-accordion class="image-accordion-grid image-{{ section.settings.image_position }}">
       
       <div class="image-column">
@@ -170,7 +220,7 @@
 
       <div class="content-column">
         
-        <div class="title-wrapper left">
+        <div class="title-wrapper {{ section.settings.heading_alignment }}">
           {%- if section.settings.subheading != blank -%}
             <div class="subheading rte">{{ section.settings.subheading }}</div>
           {%- endif -%}
@@ -185,9 +235,13 @@
           {%- for block in section.blocks -%}
             <div class="accordion-item{% if forloop.first %} is-open{% endif %}" {{ block.shopify_attributes }}>
               <button class="accordion-toggle" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}">
-                {{ block.settings.title }}
+                <span>{{ block.settings.title }}</span>
                 <span class="accordion-icon">
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"></path></svg>
+                  {% comment %} Clean Plus Icon SVG {% endcomment %}
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 5V19" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 12H19" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
                 </span>
               </button>
               <div class="accordion-content">
@@ -209,9 +263,11 @@
 </div>
 
 <script>
+  // Ensure script only defines once
   if (!customElements.get('custom-accordion')) {
     customElements.define('custom-accordion', class extends HTMLElement {
       connectedCallback() {
+        // Select all items within this specific section instance
         this.items = this.querySelectorAll('.accordion-item');
         
         this.items.forEach(item => {
@@ -220,11 +276,13 @@
           btn.addEventListener('click', () => {
             const isOpen = item.classList.contains('is-open');
             
+            // Close all siblings first (exclusive accordion behavior)
             this.items.forEach(sibling => {
               sibling.classList.remove('is-open');
               sibling.querySelector('.accordion-toggle').setAttribute('aria-expanded', 'false');
             });
 
+            // If the clicked item wasn't open, open it now
             if (!isOpen) {
               item.classList.add('is-open');
               btn.setAttribute('aria-expanded', 'true');
@@ -244,7 +302,7 @@
   "settings": [
     {
       "type": "header",
-      "content": "Image Settings"
+      "content": "Layout & Image"
     },
     {
       "type": "image_picker",
@@ -260,6 +318,30 @@
         { "value": "right", "label": "Right" }
       ],
       "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "layout_ratio",
+      "label": "Desktop Layout Ratio (Image/Content)",
+      "options": [
+        { "value": "50/50", "label": "50% / 50% (Balanced)" },
+        { "value": "40/60", "label": "40% / 60% (Wider Content)" },
+        { "value": "30/70", "label": "30% / 70% (Much Wider Content)" }
+      ],
+      "default": "50/50"
+    },
+    {
+      "type": "select",
+      "id": "image_height",
+      "label": "Image Height",
+      "options": [
+        { "value": "adapt", "label": "Adapt to image" },
+        { "value": "400", "label": "400px" },
+        { "value": "500", "label": "500px" },
+        { "value": "600", "label": "600px" },
+        { "value": "700", "label": "700px" }
+      ],
+      "default": "adapt"
     },
     {
       "type": "range",
@@ -309,6 +391,17 @@
       ],
       "default": "h2",
       "label": "Heading SEO Tag"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Header Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
     },
     {
       "type": "header",
