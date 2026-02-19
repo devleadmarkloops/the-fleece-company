@@ -116,6 +116,7 @@
   }
   #shopify-section-{{ section.id }} .rich-text__blocks .button {
     font-family: var(--new-font-heading-family);
+    min-width: 28rem;
   }
   #shopify-section-{{ section.id }} .rich-text__blocks>*+* {
     margin-top: 1.6rem;
@@ -134,6 +135,9 @@
     }
     #shopify-section-{{ section.id }} .rich-text__text.typeset2 {
       font-size: 1.4rem;
+    }
+    #shopify-section-{{ section.id }} .rich-text__blocks .button {
+      min-width: 18rem;
     }
   }
 {%- endstyle -%}
