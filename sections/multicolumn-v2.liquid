@@ -43,6 +43,9 @@
     letter-spacing: 0;
     margin: 0;
   }
+  #shopify-section-{{ section.id }} .multicolumn-card__info {
+    gap: 0;
+  }
 
   {%- unless section.settings.enable_card_style -%}
     #shopify-section-{{ section.id }} .multicolumn-card {
