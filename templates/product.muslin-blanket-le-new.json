@@ -701,7 +701,8 @@
           "type": "feature",
           "settings": {
             "side": "left",
-            "position_top": 20,
+            "position_top": 45,
+            "line_length": 150,
             "icon_svg": "",
             "icon_image": "shopify://shop_images/Group_7.svg",
             "heading": "Sleeping",
@@ -713,6 +714,7 @@
           "settings": {
             "side": "right",
             "position_top": 25,
+            "line_length": 150,
             "icon_svg": "",
             "icon_image": "shopify://shop_images/Group_8.svg",
             "heading": "Lounging",
@@ -723,7 +725,8 @@
           "type": "feature",
           "settings": {
             "side": "right",
-            "position_top": 75,
+            "position_top": 68,
+            "line_length": 150,
             "icon_svg": "",
             "icon_image": "shopify://shop_images/Group_9.svg",
             "heading": "Layering",
@@ -760,6 +763,7 @@
         "footer_icon_image_3": "shopify://shop_images/60_Days_Return_1.png",
         "footer_text_3": "Easy Returns",
         "show_divider": false,
+        "line_color": "#212326",
         "use_custom_colors": false,
         "colors_background": "#ffffff",
         "colors_text": "#212326",
