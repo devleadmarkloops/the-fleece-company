@@ -390,22 +390,6 @@
             "text_size": "typeset"
           }
         },
-        "list_item_CJkBwD": {
-          "type": "list_item",
-          "settings": {
-            "custom_svg": "",
-            "text": "<p>Feature or benefit point</p>",
-            "text_size": "typeset2"
-          }
-        },
-        "list_item_NWK3Gf": {
-          "type": "list_item",
-          "settings": {
-            "custom_svg": "",
-            "text": "<p>Feature or benefit point</p>",
-            "text_size": "typeset2"
-          }
-        },
         "button_PNj8Jx": {
           "type": "button",
           "settings": {
@@ -417,15 +401,38 @@
             "button_alt_link": "",
             "button_alt_style_secondary": false
           }
+        },
+        "icons_row_wymn3C": {
+          "type": "icons_row",
+          "settings": {
+            "layout": "inline",
+            "show_default_check": true,
+            "icon_size_desktop": 24,
+            "icon_size_mobile": 20,
+            "text_size_desktop": 16,
+            "text_size_mobile": 14,
+            "image_1": "shopify://shop_images/Secure_Checkout_1.png",
+            "custom_svg_1": "",
+            "text_1": "<p>Secure Checkout</p>",
+            "image_2": "shopify://shop_images/Free_Shipping_1.png",
+            "custom_svg_2": "",
+            "text_2": "<p>Free Shipping</p>",
+            "image_3": "shopify://shop_images/60_Days_Return_1.png",
+            "custom_svg_3": "",
+            "text_3": "<p>Easy Returns</p>",
+            "custom_svg_4": "",
+            "text_4": "",
+            "custom_svg_5": "",
+            "text_5": ""
+          }
         }
       },
       "block_order": [
         "tag_eCj9Gh",
         "heading_mwH73M",
         "text_JC9bmy",
-        "list_item_CJkBwD",
-        "list_item_NWK3Gf",
-        "button_PNj8Jx"
+        "button_PNj8Jx",
+        "icons_row_wymn3C"
       ],
       "name": "Advanced Rich Text",
       "settings": {
@@ -435,6 +442,7 @@
         "narrow": false,
         "show_divider": false,
         "use_custom_colors": true,
+        "bg_width": "full_width",
         "colors_button_label": "#ffffff",
         "colors_button_background": "#3b3b3b",
         "colors_text": "#3b3b3b",
