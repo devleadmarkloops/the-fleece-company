@@ -6,11 +6,9 @@
     --card-border-radius: {{ section.settings.card_border_radius }}px;
     --color-highlight: {{ section.settings.colors_highlight.red }}, {{ section.settings.colors_highlight.green }}, {{ section.settings.colors_highlight.blue }};
     
-    /* Optimized Inline Variables for Icon Sizing */
     --icon-size: {{ section.settings.icon_size_mobile }}px;
   }
 
-  /* Section Custom Colors */
   {%- if section.settings.use_custom_colors %}
     #shopify-section-{{ section.id }} .multicolumn-wrapper {
       background-color: {{ section.settings.colors_background }};
@@ -24,7 +22,6 @@
     }
   {%- endif -%}
 
-  /* Fix Header Flex Layout to Stack Vertically */
   #shopify-section-{{ section.id }} .title-wrapper {
     display: flex;
     flex-direction: column;
@@ -41,7 +38,6 @@
     margin: 0;
   }
 
-  /* Flat Card Override (Removes padding and backgrounds) */
   {%- unless section.settings.enable_card_style -%}
     #shopify-section-{{ section.id }} .multicolumn-card {
       background: transparent !important;
@@ -55,7 +51,6 @@
     }
   {%- endunless -%}
   
-  /* Icon Layout & Bulletproof Alignment Fix */
   #shopify-section-{{ section.id }} .multicolumn-card__icon-wrapper {
     display: flex;
     align-items: center;
@@ -65,15 +60,12 @@
     margin-bottom: 1.5rem;
     flex-shrink: 0;
   }
-
   #shopify-section-{{ section.id }} .multicolumn-card__icon-wrapper svg,
   #shopify-section-{{ section.id }} .multicolumn-card__icon-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: contain;
   }
-
-  /* Mobile Icon Alignment */
   #shopify-section-{{ section.id }} .mobile-center .multicolumn-card__icon-wrapper { margin-left: auto; margin-right: auto; }
   #shopify-section-{{ section.id }} .mobile-right .multicolumn-card__icon-wrapper { margin-left: auto; margin-right: 0; }
   #shopify-section-{{ section.id }} .mobile-left .multicolumn-card__icon-wrapper { margin-left: 0; margin-right: auto; }
@@ -83,7 +75,6 @@
       --icon-size: {{ section.settings.icon_size_desktop }}px;
     }
     
-    /* Desktop Icon Alignment */
     #shopify-section-{{ section.id }} .center .multicolumn-card__icon-wrapper { margin-left: auto; margin-right: auto; }
     #shopify-section-{{ section.id }} .right .multicolumn-card__icon-wrapper { margin-left: auto; margin-right: 0; }
     #shopify-section-{{ section.id }} .left .multicolumn-card__icon-wrapper { margin-left: 0; margin-right: auto; }
