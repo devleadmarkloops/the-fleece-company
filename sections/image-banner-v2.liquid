@@ -49,6 +49,21 @@
     color: rgba(var(--color-foreground), 0.85);
   }
 
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .banner__box {
+      padding-inline: 0.5rem;
+    }
+    #shopify-section-{{ section.id }} .banner__text.typeset {
+      font-size: 1.2rem;
+    }
+    #shopify-section-{{ section.id }} .banner__text.typeset2 {
+      font-size: 1.6rem;
+    }
+    #shopify-section-{{ section.id }} .banner__text.typeset3 {
+      font-size: 1.8rem;
+    }
+  }
+
 {%- endstyle -%}
 
 {{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
