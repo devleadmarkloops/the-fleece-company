@@ -20,15 +20,12 @@
     background: var(--gradient-background);
     width: 100%;
   }
-
   #shopify-section-{{ section.id }} .advanced-rich-text-wrapper.is-full-width .rich-text {
     background: transparent !important;
   }
-
   #shopify-section-{{ section.id }} .rich-text__tag-wrapper {
     margin-bottom: 1.5rem;
   }
-
   #shopify-section-{{ section.id }} .rich-text__tag {
     display: inline-block;
     background-color: var(--tag-bg, #000);
@@ -40,12 +37,10 @@
     padding: 0.4rem 1.5rem;
     border-radius: 3rem;
   }
-
   #shopify-section-{{ section.id }} .rich-text__heading {
     font-family: var(--new-font-heading-family);
     letter-spacing: 0;
   }
-
   #shopify-section-{{ section.id }} .rich-text__text {
     font-family: var(--new-font-body-family);
     font-weight: 500;
@@ -53,7 +48,6 @@
     line-height: 1.4;
     color: rgba(var(--color-foreground), 0.75);
   }
-
   #shopify-section-{{ section.id }} .rich-text__icons-row {
     display: flex;
     gap: 2rem;
@@ -76,20 +70,17 @@
     flex-direction: column;
     align-items: var(--current-align);
   }
-
   #shopify-section-{{ section.id }} .rich-text__icons-row.layout-inline {
     flex-direction: row;
     justify-content: var(--current-align);
     align-items: center;
   }
-
   #shopify-section-{{ section.id }} .icon-text-item {
     display: flex;
     align-items: center;
     gap: 0.8rem;
     text-align: left;
   }
-
   #shopify-section-{{ section.id }} .icon-wrapper {
     display: flex;
     align-items: center;
@@ -98,22 +89,18 @@
     width: var(--current-icon-size);
     height: var(--current-icon-size);
   }
-
   #shopify-section-{{ section.id }} .icon-wrapper.use-custom-color {
     color: var(--color-highlight);
   }
-
   #shopify-section-{{ section.id }} .icon-wrapper svg {
     width: 100%;
     height: auto;
   }
-
   #shopify-section-{{ section.id }} .icon-wrapper img {
     width: 100%;
     height: auto;
     object-fit: contain;
   }
-
   #shopify-section-{{ section.id }} .icon-text-content {
     font-family: var(--new-font-body-family);
     font-size: var(--current-text-size);
@@ -123,18 +110,22 @@
     color: rgba(var(--color-foreground), 0.75);
     margin: 0;
   }
-
   #shopify-section-{{ section.id }} .icon-text-content p {
     margin: 0;
     font-size: inherit;
   }
-
   #shopify-section-{{ section.id }} .rich-text__blocks .button {
     font-family: var(--new-font-heading-family);
   }
-
   #shopify-section-{{ section.id }} .rich-text__blocks>*+* {
     margin-top: 1.6rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .rich-text__tag {
+      font-size: 1.2rem;
+      padding: 0.3rem 1.2rem;
+    }
   }
 {%- endstyle -%}
 
