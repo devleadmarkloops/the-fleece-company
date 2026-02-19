@@ -2,6 +2,7 @@
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --line-color: {{ section.settings.line_color }};
     {%- if section.settings.use_custom_colors %}
       --color-background: {{ section.settings.colors_background }};
       --color-foreground: {{ section.settings.colors_text }};
@@ -16,7 +17,8 @@
     }
     #shopify-section-{{ section.id }} .title,
     #shopify-section-{{ section.id }} .floating-feature__title,
-    #shopify-section-{{ section.id }} .rte {
+    #shopify-section-{{ section.id }} .rte,
+    #shopify-section-{{ section.id }} .floating-feature-item {
       color: var(--color-foreground);
     }
   {%- endif -%}
@@ -42,6 +44,9 @@
     position: relative;
     max-width: 1200px;
     margin: 0 auto 4rem auto;
+    /* Ensure lines don't overflow the container horizontally too much */
+    overflow-x: clip; 
+    padding: 20px 0; /* Give space for lines extending top/bottom */
   }
 
   /* Center Image Setup */
@@ -58,7 +63,7 @@
     border-radius: {{ section.settings.image_radius }}px;
   }
 
-  /* Blocks (Mobile Default: Stacked below image) */
+  /* --- MOBILE / DEFAULT LAYOUT (Stacked) --- */
   #shopify-section-{{ section.id }} .floating-features-blocks-mobile {
     display: flex;
     flex-direction: column;
@@ -68,10 +73,11 @@
   
   #shopify-section-{{ section.id }} .floating-feature-item {
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
     align-items: flex-start;
     text-align: left;
     width: 100%;
+    position: relative; /* Needed for pseudo-elements later */
   }
 
   /* Icons */
@@ -124,7 +130,7 @@
   }
 
   /* ===================================================
-     DESKTOP LAYOUT (Floating Absolute Positions) 
+     DESKTOP LAYOUT (Floating + Lines) 
      =================================================== */
   @media screen and (min-width: 900px) {
     #shopify-section-{{ section.id }} .floating-features-blocks-mobile {
@@ -134,23 +140,79 @@
     #shopify-section-{{ section.id }} .floating-feature-item {
       position: absolute;
       width: max-content;
-      max-width: 300px;
+      max-width: 280px;
       /* Center alignment trick based on top percentage */
       transform: translateY(-50%); 
+      /* Stack icon on top of text for desktop */
+      flex-direction: column !important;
+      gap: 0.8rem;
+      z-index: 3; /* Above image */
     }
 
-    /* Left Side Floating */
+    /* --- Connector Lines & Dots Setup --- */
+    /* The Line */
+    #shopify-section-{{ section.id }} .floating-feature-item::before {
+      content: '';
+      position: absolute;
+      height: 2px;
+      background-color: var(--line-color);
+      top: 50%; /* Center vertically relative to block */
+      width: var(--line-length, 80px); /* Fallback 80px just in case */
+      pointer-events: none;
+    }
+    /* The Dot at the end */
+    #shopify-section-{{ section.id }} .floating-feature-item::after {
+      content: '';
+      position: absolute;
+      height: 10px;
+      width: 10px;
+      background-color: var(--line-color);
+      border-radius: 50%;
+      top: calc(50% - 4px); /* Center dot relative to line thickness */
+      pointer-events: none;
+    }
+
+    /* --- Left Side Positioning & Alignment --- */
     #shopify-section-{{ section.id }} .floating-feature-item[data-side="left"] {
-      right: calc(100% + 3rem); /* Push fully outside the left edge of the image */
-      flex-direction: row-reverse;
+      /* Push outside left edge + extra space for the line start */
+      right: calc(100% + 2rem); 
+      align-items: flex-end; /* Align icon and text to the right */
       text-align: right;
     }
+    /* Line direction for left side */
+    #shopify-section-{{ section.id }} .floating-feature-item[data-side="left"]::before {
+       /* Start from right edge of block and go right */
+       right: -2rem; 
+       transform-origin: right center;
+       /* Scale scaleX(-1) flips it to grow outwards */
+       transform: scaleX(-1); 
+    }
+    /* Dot position for left side */
+    #shopify-section-{{ section.id }} .floating-feature-item[data-side="left"]::after {
+       /* Position at the end of the line length */
+       right: calc(var(--line-length) - 2rem - 5px); 
+    }
 
-    /* Right Side Floating */
+
+    /* --- Right Side Positioning & Alignment --- */
     #shopify-section-{{ section.id }} .floating-feature-item[data-side="right"] {
-      left: calc(100% + 3rem); /* Push fully outside the right edge of the image */
-      flex-direction: row;
+      /* Push outside right edge + extra space for line start */
+      left: calc(100% + 2rem); 
+      align-items: flex-start; /* Align icon and text to the left */
       text-align: left;
+    }
+    /* Line direction for right side */
+    #shopify-section-{{ section.id }} .floating-feature-item[data-side="right"]::before {
+       /* Start from left edge of block and go left */
+       left: -2rem;
+       transform-origin: left center;
+       /* Scale scaleX(-1) flips it to grow outwards */
+       transform: scaleX(-1);
+    }
+    /* Dot position for right side */
+    #shopify-section-{{ section.id }} .floating-feature-item[data-side="right"]::after {
+       /* Position at the end of the line length */
+       left: calc(var(--line-length) - 2rem - 5px);
     }
   }
 
@@ -158,6 +220,12 @@
   @media screen and (max-width: 899px) {
     #shopify-section-{{ section.id }} .floating-features-center .floating-feature-item {
       display: none;
+    }
+    /* Ensure pseudo-elements don't show on mobile stack */
+    #shopify-section-{{ section.id }} .floating-feature-item::before,
+    #shopify-section-{{ section.id }} .floating-feature-item::after {
+      content: none !important;
+      display: none !important;
     }
   }
 {%- endstyle -%}
@@ -189,7 +257,11 @@
 
         {% comment %} DESKTOP ABSOLUTE BLOCKS {% endcomment %}
         {%- for block in section.blocks -%}
-          <div class="floating-feature-item" data-side="{{ block.settings.side }}" style="top: {{ block.settings.position_top }}%;" {{ block.shopify_attributes }}>
+          {% comment %} We pass the line length and top position as CSS variables here {% endcomment %}
+          <div class="floating-feature-item" 
+               data-side="{{ block.settings.side }}" 
+               style="top: {{ block.settings.position_top }}%; --line-length: {{ block.settings.line_length }}px;" 
+               {{ block.shopify_attributes }}>
             <div class="floating-feature__icon">
               {%- if block.settings.icon_svg != blank -%}
                 {{ block.settings.icon_svg }}
@@ -433,6 +505,12 @@
       "label": "Show Top/Bottom Divider"
     },
     {
+      "type": "color",
+      "id": "line_color",
+      "label": "Connector Line Color",
+      "default": "#212326"
+    },
+    {
       "type": "checkbox",
       "id": "use_custom_colors",
       "default": false,
@@ -501,9 +579,19 @@
           "max": 100,
           "step": 1,
           "unit": "%",
-          "label": "Vertical Position (Top to Bottom)",
+          "label": "Vertical Position",
           "default": 50,
-          "info": "0% is the very top of the image, 100% is the bottom."
+          "info": "0% = Top, 100% = Bottom"
+        },
+        {
+          "type": "range",
+          "id": "line_length",
+          "min": 50,
+          "max": 300,
+          "step": 10,
+          "unit": "px",
+          "label": "Connector Line Length",
+          "default": 100
         },
         {
           "type": "header",
@@ -540,24 +628,15 @@
       "blocks": [
         {
           "type": "feature",
-          "settings": {
-            "side": "left",
-            "position_top": 20
-          }
+          "settings": { "side": "left", "position_top": 30, "line_length": 120, "heading": "Ergonomic Design" }
         },
         {
           "type": "feature",
-          "settings": {
-            "side": "right",
-            "position_top": 50
-          }
+          "settings": { "side": "right", "position_top": 50, "line_length": 100, "heading": "Premium Materials" }
         },
         {
           "type": "feature",
-          "settings": {
-            "side": "left",
-            "position_top": 80
-          }
+          "settings": { "side": "left", "position_top": 70, "line_length": 120, "heading": "Long Battery Life" }
         }
       ]
     }
