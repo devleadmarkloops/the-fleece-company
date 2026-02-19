@@ -450,7 +450,9 @@
         "colors_highlight": "#ffb503",
         "gradient_background": "",
         "padding_top": 52,
-        "padding_bottom": 44
+        "padding_bottom": 44,
+        "padding_top_mob": 32,
+        "padding_bottom_mob": 24
       }
     },
     "image_with_text_v2_D8bENf": {
