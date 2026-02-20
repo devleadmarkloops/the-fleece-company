@@ -41,7 +41,13 @@
   .reviews-slider-{{ section.id }} .slider-outer {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 1.5rem;
+  }
+
+  @media screen and (min-width: 1400px) {
+    .reviews-slider-{{ section.id }} .slider-outer {
+      padding-inline: 3rem;
+    }
   }
 
   .reviews-slider-{{ section.id }} .slider-arrow {
