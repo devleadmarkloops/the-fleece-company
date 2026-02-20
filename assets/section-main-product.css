@@ -3119,6 +3119,7 @@ span.alert-box:before {
 /* When Video Reels */
 /* --- EXISTING REELS CSS --- */
 .product__info-container .product-video-reels-wrapper {
+  display: block; /* Added for custom element */
   width: 100%;
   overflow: hidden;
 }
