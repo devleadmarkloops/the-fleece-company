@@ -1,16 +1,22 @@
+{%- capture newline -%}
+{%- endcapture -%}
 {%- liquid
   assign hide_section = false
   if section.settings.hidden_templates != blank
-    assign hidden_list = section.settings.hidden_templates | remove: ' ' | split: ','
-    
     assign current_template = template.name
     if template.suffix != blank
       assign current_template = current_template | append: '.' | append: template.suffix
     endif
 
-    if hidden_list contains current_template
-      assign hide_section = true
-    endif
+    assign clean_input = section.settings.hidden_templates | replace: ' ', '' | replace: newline, ','
+    assign hidden_list = clean_input | split: ','
+
+    for hidden_template in hidden_list
+      if hidden_template == current_template
+        assign hide_section = true
+        break
+      endif
+    endfor
   endif
 -%}
 
@@ -119,10 +125,10 @@
       "content": "Visibility"
     },
     {
-      "type": "text",
+      "type": "textarea",
       "id": "hidden_templates",
       "label": "Hide on specific templates",
-      "info": "Enter template names separated by commas (e.g. index, product.custom, page.landing)"
+      "info": "Enter template names. You can use commas or put each on a new line. (Example: product.custom, page.landing, index)"
     },
     {
       "type": "header",
