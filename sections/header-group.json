@@ -68,7 +68,7 @@
       "type": "announcement-custom",
       "name": "Announcement Custom",
       "settings": {
-        "hidden_templates": "muslin-blanket-le-new",
+        "hidden_templates": "product.muslin-blanket-le-new",
         "show_icon": false,
         "icon_image": "shopify://shop_images/Group_2147226188.svg",
         "icon_width": 80,
