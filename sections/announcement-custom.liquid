@@ -1,18 +1,18 @@
-{%- capture newline -%}
-{%- endcapture -%}
 {%- liquid
   assign hide_section = false
   if section.settings.hidden_templates != blank
+    
     assign current_template = template.name
     if template.suffix != blank
       assign current_template = current_template | append: '.' | append: template.suffix
     endif
 
-    assign clean_input = section.settings.hidden_templates | replace: ' ', '' | replace: newline, ','
-    assign hidden_list = clean_input | split: ','
+    assign hidden_array = section.settings.hidden_templates | split: ','
 
-    for hidden_template in hidden_list
-      if hidden_template == current_template
+    for item in hidden_array
+      assign clean_item = item | strip | strip_newlines | remove: ' '
+      
+      if clean_item == current_template
         assign hide_section = true
         break
       endif
