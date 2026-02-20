@@ -327,7 +327,7 @@
         "hide_variants": true,
         "enable_image_zoom": false,
         "enable_video_looping": false,
-        "mobile_image_ratio": "square",
+        "mobile_image_ratio": "adapt",
         "show_mobile_thumbnails": false,
         "enable_variant_specific_media": true,
         "enable_fade_slider": true,
