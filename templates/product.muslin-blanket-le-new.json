@@ -904,7 +904,7 @@
         "image_position": "right",
         "layout_ratio": "40/60",
         "image_height": "adapt",
-        "image_radius": 0,
+        "image_radius": 10,
         "subheading": "<p>LEARN MORE</p>",
         "heading": "Frequently Asked Questions",
         "heading_size": "h0",
