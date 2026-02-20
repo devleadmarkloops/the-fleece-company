@@ -813,6 +813,14 @@
             "star_rating": 5,
             "review_text": "\"Lightweight yet cozy, this blanket is perfect year-round. It drapes nicely, washes well, and feels even softer over time. Definitely worth it.\""
           }
+        },
+        "review_rmXFME": {
+          "type": "review",
+          "settings": {
+            "author_name": "Sonia",
+            "star_rating": 5,
+            "review_text": "\"This muslin blanket feels incredibly soft and breathable. I sleep comfortably without overheating, and it looks beautiful on my bed every single night.\""
+          }
         }
       },
       "block_order": [
@@ -820,7 +828,8 @@
         "review_rTCgpp",
         "review_Xnjwtt",
         "review_8ihXrT",
-        "review_NnMbVQ"
+        "review_NnMbVQ",
+        "review_rmXFME"
       ],
       "name": "Reviews slider v1",
       "settings": {
