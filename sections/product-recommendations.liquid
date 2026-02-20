@@ -112,11 +112,12 @@
                   card_collection: collection,
                   media_size: section.settings.image_ratio,
                   show_secondary_image: section.settings.show_secondary_image,
-                  show_quick_buy: section.settings.show_quick_buy,
+                  enable_quick_add: section.settings.show_quick_buy,
                   show_vendor: section.settings.show_vendor,
                   show_rating: section.settings.show_rating,
                   enable_quick_view: section.settings.enable_quick_view,
                   enable_color_swatches: section.settings.enable_color_swatches,
+                  enable_other_variants: section.settings.enable_other_variants,
                   enable_countdown: section.settings.enable_countdown,
                   enable_image_fill: section.settings.enable_image_fill
                 %}
@@ -480,6 +481,12 @@
       "id": "enable_color_swatches",
       "default": true,
       "label": "t:sections.all.product_card.enable_color_swatches.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_other_variants",
+      "default": false,
+      "label": "Enable other variants"
     },
     {
       "type": "checkbox",
