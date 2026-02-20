@@ -100,103 +100,107 @@
                 
                 {% comment %} --- EXACT THEME COLOR SWATCH LOGIC --- {% endcomment %}
                 {%- if downcased_option contains 'color' or downcased_option contains 'colour' -%}
-                  <div class="card-v2-swatches-wrapper">
-                    <label class="visually-hidden">{{ option.name }}</label>
-                    <div class="card-v2-swatches">
-                      {%- for value in option.values -%}
-                        {%- assign val_string = value.name | default: value -%}
-                        
-                        {%- liquid
-                          assign swatch_value = val_string | split: ' ' | last | handle
-                          assign is_native_swatch = false
+                  {%- if enable_color_swatches -%}
+                    <div class="card-v2-swatches-wrapper">
+                      <label class="visually-hidden">{{ option.name }}</label>
+                      <div class="card-v2-swatches">
+                        {%- for value in option.values -%}
+                          {%- assign val_string = value.name | default: value -%}
                           
-                          if value.swatch.image
-                            assign image_url = value.swatch.image | image_url: width: 50
-                            assign swatch_value = 'url(' | append: image_url | append: ')'
-                            assign is_native_swatch = true
-                          elsif value.swatch.color
-                            assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
-                            assign is_native_swatch = true
-                          endif
-                          
-                          unless is_native_swatch
-                            assign swatch_file_extension = 'png'
-                            assign file_name_uniq = card_product.id | append: '_' | append: val_string | handle | append: '.' | append: swatch_file_extension
-                            assign file_name_custom = blank
-                            assign file_name_alt = val_string | handle | append: '.' | append: swatch_file_extension
-                            assign value_downcase = val_string | downcase
-                            assign swatch_config = settings.swatch_config | newline_to_br | split: '<br />'
+                          {%- liquid
+                            assign swatch_value = val_string | split: ' ' | last | handle
+                            assign is_native_swatch = false
                             
-                            for swatch in swatch_config
-                              assign swatch_parts = swatch | strip | split: ':'
-                              assign swatch_name = swatch_parts.first | downcase | strip
-                              if swatch_name == value_downcase
-                                assign swatch_entry = swatch_parts.last | strip
-                                if swatch_entry contains '#'
-                                  assign swatch_value = swatch_entry
-                                  assign file_name_alt = blank
-                                else
-                                  assign file_name_custom = swatch_entry
+                            if value.swatch.image
+                              assign image_url = value.swatch.image | image_url: width: 50
+                              assign swatch_value = 'url(' | append: image_url | append: ')'
+                              assign is_native_swatch = true
+                            elsif value.swatch.color
+                              assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+                              assign is_native_swatch = true
+                            endif
+                            
+                            unless is_native_swatch
+                              assign swatch_file_extension = 'png'
+                              assign file_name_uniq = card_product.id | append: '_' | append: val_string | handle | append: '.' | append: swatch_file_extension
+                              assign file_name_custom = blank
+                              assign file_name_alt = val_string | handle | append: '.' | append: swatch_file_extension
+                              assign value_downcase = val_string | downcase
+                              assign swatch_config = settings.swatch_config | newline_to_br | split: '<br />'
+                              
+                              for swatch in swatch_config
+                                assign swatch_parts = swatch | strip | split: ':'
+                                assign swatch_name = swatch_parts.first | downcase | strip
+                                if swatch_name == value_downcase
+                                  assign swatch_entry = swatch_parts.last | strip
+                                  if swatch_entry contains '#'
+                                    assign swatch_value = swatch_entry
+                                    assign file_name_alt = blank
+                                  else
+                                    assign file_name_custom = swatch_entry
+                                  endif
+                                  break
                                 endif
-                                break
+                              endfor
+                              
+                              assign file_name_final = blank
+                              if images[file_name_uniq] != blank
+                                assign file_name_final = file_name_uniq
+                              elsif file_name_custom != blank and images[file_name_custom] != blank 
+                                assign file_name_final = file_name_custom
+                              elsif images[file_name_alt] != blank
+                                assign file_name_final = file_name_alt
                               endif
-                            endfor
-                            
-                            assign file_name_final = blank
-                            if images[file_name_uniq] != blank
-                              assign file_name_final = file_name_uniq
-                            elsif file_name_custom != blank and images[file_name_custom] != blank 
-                              assign file_name_final = file_name_custom
-                            elsif images[file_name_alt] != blank
-                              assign file_name_final = file_name_alt
-                            endif
-                            
-                            assign swatch_image = blank
-                            if images[file_name_final] != blank
-                              assign swatch_image = images[file_name_final] | image_url: width: 50
-                            elsif file_name_final contains '//cdn.shopify.com/'
-                              assign swatch_image = file_name_final
-                            endif 
-                            
-                            if swatch_image != blank
-                              assign swatch_value = 'url(' | append: swatch_image | append: ')'
-                            endif
-                          endunless
-                        -%}
+                              
+                              assign swatch_image = blank
+                              if images[file_name_final] != blank
+                                assign swatch_image = images[file_name_final] | image_url: width: 50
+                              elsif file_name_final contains '//cdn.shopify.com/'
+                                assign swatch_image = file_name_final
+                              endif 
+                              
+                              if swatch_image != blank
+                                assign swatch_value = 'url(' | append: swatch_image | append: ')'
+                              endif
+                            endunless
+                          -%}
 
-                        <label 
-                          class="card-v2-swatch {% if forloop.index > 3 %}hidden-swatch{% endif %}" 
-                          style="background: {{ swatch_value }}; background-size: cover; background-position: center; {% if forloop.index > 3 %}display: none;{% endif %}{% if option.selected_value == value or option.selected_value == val_string %}outline: 1px solid rgb(var(--color-foreground)); outline-offset: 2px;{% endif %}"
-                          title="{{ val_string | escape }}"
-                        >
-                          <input type="radio" name="opt-{{ card_product.id }}-{{ option.position }}" value="{{ val_string | escape }}" class="card-v2-radio card-v2-radio-color visually-hidden" data-option-index="{{ option.position | minus: 1 }}" {% if option.selected_value == value or option.selected_value == val_string %}checked{% endif %}>
-                        </label>
-                      {%- endfor -%}
-                      
-                      {%- if option.values.size > 3 -%}
-                        <button type="button" class="card-v2-view-all-colors">
-                          +{{ option.values.size | minus: 3 }}
-                        </button>
-                      {%- endif -%}
+                          <label 
+                            class="card-v2-swatch {% if forloop.index > 3 %}hidden-swatch{% endif %}" 
+                            style="background: {{ swatch_value }}; background-size: cover; background-position: center; {% if forloop.index > 3 %}display: none;{% endif %}{% if option.selected_value == value or option.selected_value == val_string %}outline: 1px solid rgb(var(--color-foreground)); outline-offset: 2px;{% endif %}"
+                            title="{{ val_string | escape }}"
+                          >
+                            <input type="radio" name="opt-{{ card_product.id }}-{{ option.position }}" value="{{ val_string | escape }}" class="card-v2-radio card-v2-radio-color visually-hidden" data-option-index="{{ option.position | minus: 1 }}" {% if option.selected_value == value or option.selected_value == val_string %}checked{% endif %}>
+                          </label>
+                        {%- endfor -%}
+                        
+                        {%- if option.values.size > 3 -%}
+                          <button type="button" class="card-v2-view-all-colors">
+                            +{{ option.values.size | minus: 3 }}
+                          </button>
+                        {%- endif -%}
+                      </div>
                     </div>
-                  </div>
+                  {%- endif -%}
                   
                 {% comment %} --- PILLS --- {% endcomment %}
                 {%- else -%}
-                  <div class="card-v2-pills-wrapper">
-                    <div class="card-v2-pills">
-                      {%- for value in option.values -%}
-                        {%- assign val_string = value.name | default: value -%}
-                        <label 
-                          class="card-v2-pill" 
-                          style="{% if option.selected_value == value or option.selected_value == val_string %}background: #000; color: #fff; border-color: #000;{% else %}background: #fff; color: #000;{% endif %}"
-                        >
-                          <input type="radio" name="opt-{{ card_product.id }}-{{ option.position }}" value="{{ val_string | escape }}" class="card-v2-radio card-v2-radio-pill visually-hidden" data-option-index="{{ option.position | minus: 1 }}" {% if option.selected_value == value or option.selected_value == val_string %}checked{% endif %}>
-                          {{ val_string }}
-                        </label>
-                      {%- endfor -%}
+                  {%- if enable_other_variants -%}
+                    <div class="card-v2-pills-wrapper">
+                      <div class="card-v2-pills">
+                        {%- for value in option.values -%}
+                          {%- assign val_string = value.name | default: value -%}
+                          <label 
+                            class="card-v2-pill" 
+                            style="{% if option.selected_value == value or option.selected_value == val_string %}background: #000; color: #fff; border-color: #000;{% else %}background: #fff; color: #000;{% endif %}"
+                          >
+                            <input type="radio" name="opt-{{ card_product.id }}-{{ option.position }}" value="{{ val_string | escape }}" class="card-v2-radio card-v2-radio-pill visually-hidden" data-option-index="{{ option.position | minus: 1 }}" {% if option.selected_value == value or option.selected_value == val_string %}checked{% endif %}>
+                            {{ val_string }}
+                          </label>
+                        {%- endfor -%}
+                      </div>
                     </div>
-                  </div>
+                  {%- endif -%}
                 {%- endif -%}
               {%- endfor -%}
             </div>
@@ -216,33 +220,37 @@
             </script>
           </card-v2-variant-selector>
           
-          <product-form class="card-v2-form-wrapper">
-            {%- form 'product', card_product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
-              <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}" class="card-v2-final-id">
-              <button type="submit" name="add" class="button button--full-width card-v2-add-btn {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}" {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}>
-                {%- if card_product.selected_or_first_available_variant.available -%}
-                  {{ 'products.product.add_to_cart' | t }}
-                {%- else -%}
-                  {{ 'products.product.sold_out' | t }}
-                {%- endif -%}
-              </button>
-            {%- endform -%}
-          </product-form>
+          {%- if enable_quick_add -%}
+            <product-form class="card-v2-form-wrapper">
+              {%- form 'product', card_product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}" class="card-v2-final-id">
+                <button type="submit" name="add" class="button button--full-width card-v2-add-btn {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}" {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+                  {%- if card_product.selected_or_first_available_variant.available -%}
+                    {{ 'products.product.add_to_cart' | t }}
+                  {%- else -%}
+                    {{ 'products.product.sold_out' | t }}
+                  {%- endif -%}
+                </button>
+              {%- endform -%}
+            </product-form>
+          {%- endif -%}
           
         {%- else -%}
           {% comment %} --- NO VARIANTS --- {% endcomment %}
-          <product-form class="card-v2-form-wrapper">
-            {%- form 'product', card_product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
-              <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
-              <button type="submit" name="add" class="button button--full-width card-v2-add-btn {% unless card_product.available %}disabled{% endunless %}" {% unless card_product.available %}disabled{% endunless %}>
-                {%- if card_product.available -%}
-                  {{ 'products.product.add_to_cart' | t }}
-                {%- else -%}
-                  {{ 'products.product.sold_out' | t }}
-                {%- endif -%}
-              </button>
-            {%- endform -%}
-          </product-form>
+          {%- if enable_quick_add -%}
+            <product-form class="card-v2-form-wrapper">
+              {%- form 'product', card_product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
+                <button type="submit" name="add" class="button button--full-width card-v2-add-btn {% unless card_product.available %}disabled{% endunless %}" {% unless card_product.available %}disabled{% endunless %}>
+                  {%- if card_product.available -%}
+                    {{ 'products.product.add_to_cart' | t }}
+                  {%- else -%}
+                    {{ 'products.product.sold_out' | t }}
+                  {%- endif -%}
+                </button>
+              {%- endform -%}
+            </product-form>
+          {%- endif -%}
         {%- endunless -%}
       </div>
     </div>
