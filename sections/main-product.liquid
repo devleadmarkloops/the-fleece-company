@@ -1606,148 +1606,143 @@
                 </div>
               
               {%- when 'video_reels' -%}
-  <video-reels-slider class="product-video-reels-wrapper" {{ block.shopify_attributes }}>
-    <div class="swiper video-reels-swiper-{{ block.id }}">
-      <div class="swiper-wrapper">
-        {%- for i in (1..6) -%}
-          {%- capture video_key -%}video_{{ i }}{%- endcapture -%}
-          {%- capture poster_key -%}poster_{{ i }}{%- endcapture -%}
-          
-          {%- assign video = block.settings[video_key] -%}
-          {%- assign custom_poster = block.settings[poster_key] -%}
+                <video-reels-slider class="product-video-reels-wrapper" {{ block.shopify_attributes }}>
+                  <div class="swiper video-reels-swiper-{{ block.id }}">
+                    <div class="swiper-wrapper">
+                      {%- for i in (1..6) -%}
+                        {%- capture video_key -%}video_{{ i }}{%- endcapture -%}
+                        {%- capture poster_key -%}poster_{{ i }}{%- endcapture -%}
+                        
+                        {%- assign video = block.settings[video_key] -%}
+                        {%- assign custom_poster = block.settings[poster_key] -%}
 
-          {%- if video != blank -%}
-            <div class="swiper-slide reel-slide">
-              {%- assign poster_url = video.preview_image | image_url: width: 600 -%}
-              {%- if custom_poster != blank -%}
-                {%- assign poster_url = custom_poster | image_url: width: 600 -%}
-              {%- endif -%}
-              
-              <div class="reel-video-container" title="Click to view video">
-                <video 
-                  class="reel-video" 
-                  poster="{{ poster_url }}"
-                  playsinline
-                  loop
-                  {% if block.settings.mute_videos %}muted{% endif %}
-                  data-autoplay="{{ block.settings.autoplay_in_view }}"
-                >
-                  {%- for source in video.sources -%}
-                    <source src="{{ source.url }}" type="{{ source.mime_type }}">
-                  {%- endfor -%}
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-            </div>
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
-    </div>
+                        {%- if video != blank -%}
+                          <div class="swiper-slide reel-slide">
+                            {%- assign poster_url = video.preview_image | image_url: width: 600 -%}
+                            {%- if custom_poster != blank -%}
+                              {%- assign poster_url = custom_poster | image_url: width: 600 -%}
+                            {%- endif -%}
+                            
+                            <div class="reel-video-container" title="Click to view video">
+                              <video 
+                                class="reel-video" 
+                                poster="{{ poster_url }}"
+                                playsinline
+                                loop
+                                {% if block.settings.mute_videos %}muted{% endif %}
+                                data-autoplay="{{ block.settings.autoplay_in_view }}"
+                              >
+                                {%- for source in video.sources -%}
+                                  <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                                {%- endfor -%}
+                                Your browser does not support the video tag.
+                              </video>
+                            </div>
+                          </div>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </div>
+                  </div>
 
-    {% comment %} --- VIDEO MODAL POPUP --- {% endcomment %}
-    <div class="reel-video-modal" aria-hidden="true">
-      <div class="reel-video-modal-overlay"></div>
-      <div class="reel-video-modal-content">
-        <button class="reel-video-modal-close" aria-label="Close video">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
-        <video class="reel-modal-player" playsinline controls></video>
-      </div>
-    </div>
-  </video-reels-slider>
+                  <div class="reel-video-modal" aria-hidden="true">
+                    <div class="reel-video-modal-overlay"></div>
+                    <div class="reel-video-modal-content">
+                      <button class="reel-video-modal-close" aria-label="Close video">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                      </button>
+                      <video class="reel-modal-player" playsinline controls></video>
+                    </div>
+                  </div>
+                </video-reels-slider>
 
-  <script>
-    if (!customElements.get('video-reels-slider')) {
-      customElements.define('video-reels-slider', class extends HTMLElement {
-        connectedCallback() {
-          this.swiperContainer = this.querySelector('.swiper');
-          this.modal = this.querySelector('.reel-video-modal');
-          this.modalPlayer = this.querySelector('.reel-modal-player');
-          this.closeBtn = this.querySelector('.reel-video-modal-close');
-          this.overlay = this.querySelector('.reel-video-modal-overlay');
-          this.videos = this.querySelectorAll('.reel-video[data-autoplay="true"]');
+                <script>
+                  if (!customElements.get('video-reels-slider')) {
+                    customElements.define('video-reels-slider', class extends HTMLElement {
+                      connectedCallback() {
+                        this.swiperContainer = this.querySelector('.swiper');
+                        this.modal = this.querySelector('.reel-video-modal');
+                        this.modalPlayer = this.querySelector('.reel-modal-player');
+                        this.closeBtn = this.querySelector('.reel-video-modal-close');
+                        this.overlay = this.querySelector('.reel-video-modal-overlay');
+                        this.videos = this.querySelectorAll('.reel-video[data-autoplay="true"]');
 
-          this.initSwiper();
-          this.initObserver();
-          this.initModalEvents();
-        }
+                        this.initSwiper();
+                        this.initObserver();
+                        this.initModalEvents();
+                      }
 
-        initSwiper() {
-          if (this.swiperContainer && typeof Swiper !== 'undefined') {
-            this.swiperInstance = new Swiper(this.swiperContainer, {
-              slidesPerView: 3.5,
-              spaceBetween: 8,
-              grabCursor: true,
-              breakpoints: {
-                1024: {
-                  slidesPerView: 4.2,
-                  spaceBetween: 10
-                }
-              }
-            });
-          }
-        }
+                      initSwiper() {
+                        if (this.swiperContainer && typeof Swiper !== 'undefined') {
+                          this.swiperInstance = new Swiper(this.swiperContainer, {
+                            slidesPerView: 3.5,
+                            spaceBetween: 8,
+                            grabCursor: true,
+                            breakpoints: {
+                              1024: {
+                                slidesPerView: 4.2,
+                                spaceBetween: 10
+                              }
+                            }
+                          });
+                        }
+                      }
 
-        initObserver() {
-          if ('IntersectionObserver' in window && this.videos.length > 0) {
-            this.observer = new IntersectionObserver((entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  entry.target.play().catch(() => {});
-                } else {
-                  entry.target.pause();
-                }
-              });
-            }, { threshold: 0.5 });
+                      initObserver() {
+                        if ('IntersectionObserver' in window && this.videos.length > 0) {
+                          this.observer = new IntersectionObserver((entries) => {
+                            entries.forEach((entry) => {
+                              if (entry.isIntersecting) {
+                                entry.target.play().catch(() => {});
+                              } else {
+                                entry.target.pause();
+                              }
+                            });
+                          }, { threshold: 0.5 });
 
-            this.videos.forEach(vid => this.observer.observe(vid));
-          }
-        }
+                          this.videos.forEach(vid => this.observer.observe(vid));
+                        }
+                      }
 
-        initModalEvents() {
-          if (!this.modal || !this.modalPlayer) return;
+                      initModalEvents() {
+                        if (!this.modal || !this.modalPlayer) return;
 
-          const containers = this.querySelectorAll('.reel-video-container');
-          containers.forEach(container => {
-            container.addEventListener('click', () => {
-              const clickedVideo = container.querySelector('video');
-              if (!clickedVideo) return;
-              
-              // 1. Copy the poster image so it matches
-              this.modalPlayer.poster = clickedVideo.poster;
-              
-              // 2. Copy the video sources
-              this.modalPlayer.innerHTML = clickedVideo.innerHTML;
-              
-              // 3. FORCE the browser to load the new source (Fixes Issue #1)
-              this.modalPlayer.load();
-              
-              // 4. Show and play
-              this.modal.classList.add('is-active');
-              this.modal.setAttribute('aria-hidden', 'false');
-              this.modalPlayer.play().catch(() => {});
-            });
-          });
+                        const containers = this.querySelectorAll('.reel-video-container');
+                        containers.forEach(container => {
+                          container.addEventListener('click', () => {
+                            const clickedVideo = container.querySelector('video');
+                            if (!clickedVideo) return;
+                            
+                            this.modalPlayer.poster = clickedVideo.poster;
+                            
+                            this.modalPlayer.innerHTML = clickedVideo.innerHTML;
+                            
+                            this.modalPlayer.load();
+                            
+                            this.modal.classList.add('is-active');
+                            this.modal.setAttribute('aria-hidden', 'false');
+                            this.modalPlayer.play().catch(() => {});
+                          });
+                        });
 
-          const closeModal = () => {
-            this.modal.classList.remove('is-active');
-            this.modal.setAttribute('aria-hidden', 'true');
-            this.modalPlayer.pause();
-            this.modalPlayer.innerHTML = ''; 
-            this.modalPlayer.load(); // Flush the player memory
-          };
+                        const closeModal = () => {
+                          this.modal.classList.remove('is-active');
+                          this.modal.setAttribute('aria-hidden', 'true');
+                          this.modalPlayer.pause();
+                          this.modalPlayer.innerHTML = ''; 
+                          this.modalPlayer.load();
+                        };
 
-          this.closeBtn.addEventListener('click', closeModal);
-          this.overlay.addEventListener('click', closeModal);
-        }
+                        this.closeBtn.addEventListener('click', closeModal);
+                        this.overlay.addEventListener('click', closeModal);
+                      }
 
-        disconnectedCallback() {
-          if (this.observer) this.observer.disconnect();
-          if (this.swiperInstance) this.swiperInstance.destroy();
-        }
-      });
-    }
-  </script>
+                      disconnectedCallback() {
+                        if (this.observer) this.observer.disconnect();
+                        if (this.swiperInstance) this.swiperInstance.destroy();
+                      }
+                    });
+                  }
+                </script>
 
               {%- when 'custom_liquid' -%}
                 <div
