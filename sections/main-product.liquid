@@ -1606,94 +1606,136 @@
                 </div>
               
               {%- when 'video_reels' -%}
-                <div class="product-video-reels-wrapper" {{ block.shopify_attributes }}>
-                  <div class="swiper video-reels-swiper-{{ block.id }}">
-                    <div class="swiper-wrapper">
-                      {%- for i in (1..6) -%}
-                        {%- capture video_key -%}video_{{ i }}{%- endcapture -%}
-                        {%- capture poster_key -%}poster_{{ i }}{%- endcapture -%}
-                        
-                        {%- assign video = block.settings[video_key] -%}
-                        {%- assign custom_poster = block.settings[poster_key] -%}
+  <div class="product-video-reels-wrapper" {{ block.shopify_attributes }}>
+    <div class="swiper video-reels-swiper-{{ block.id }}">
+      <div class="swiper-wrapper">
+        {%- for i in (1..6) -%}
+          {%- capture video_key -%}video_{{ i }}{%- endcapture -%}
+          {%- capture poster_key -%}poster_{{ i }}{%- endcapture -%}
+          
+          {%- assign video = block.settings[video_key] -%}
+          {%- assign custom_poster = block.settings[poster_key] -%}
 
-                        {%- if video != blank -%}
-                          <div class="swiper-slide reel-slide">
-                            {%- comment -%} 
-                              Dynamically grab the video's default poster, or override with custom poster 
-                            {%- endcomment -%}
-                            {%- assign poster_url = video.preview_image | image_url: width: 600 -%}
-                            {%- if custom_poster != blank -%}
-                              {%- assign poster_url = custom_poster | image_url: width: 600 -%}
-                            {%- endif -%}
-                            
-                            <div class="reel-video-container">
-                              <video 
-                                class="reel-video" 
-                                poster="{{ poster_url }}"
-                                playsinline
-                                loop
-                                {% if block.settings.mute_videos %}muted{% endif %}
-                                data-autoplay="{{ block.settings.autoplay_in_view }}"
-                              >
-                                {%- for source in video.sources -%}
-                                  <source src="{{ source.url }}" type="{{ source.mime_type }}">
-                                {%- endfor -%}
-                                Your browser does not support the video tag.
-                              </video>
-                            </div>
-                          </div>
-                        {%- endif -%}
-                      {%- endfor -%}
-                    </div>
-                  </div>
-                </div>
-                <script>
-                  document.addEventListener('DOMContentLoaded', () => {
-                    const reelWrappers = document.querySelectorAll('.product-video-reels-wrapper');
+          {%- if video != blank -%}
+            <div class="swiper-slide reel-slide">
+              {%- assign poster_url = video.preview_image | image_url: width: 600 -%}
+              {%- if custom_poster != blank -%}
+                {%- assign poster_url = custom_poster | image_url: width: 600 -%}
+              {%- endif -%}
+              
+              <div class="reel-video-container" title="Click to view video">
+                <video 
+                  class="reel-video" 
+                  poster="{{ poster_url }}"
+                  playsinline
+                  loop
+                  {% if block.settings.mute_videos %}muted{% endif %}
+                  data-autoplay="{{ block.settings.autoplay_in_view }}"
+                >
+                  {%- for source in video.sources -%}
+                    <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                  {%- endfor -%}
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
 
-                    reelWrappers.forEach((wrapper) => {
-                      const swiperEl = wrapper.querySelector('.swiper');
-                      
-                      if (swiperEl && typeof Swiper !== 'undefined') {
-                        new Swiper(swiperEl, {
-                          slidesPerView: 3.5,
-                          spaceBetween: 8,
-                          grabCursor: true,
-                          breakpoints: {
-                            1024: {
-                              slidesPerView: 4.2,
-                              spaceBetween: 10
-                            }
-                          }
-                        });
-                      }
+  {% comment %} --- VIDEO MODAL POPUP --- {% endcomment %}
+  <div id="ReelModal-{{ block.id }}" class="reel-video-modal" aria-hidden="true">
+    <div class="reel-video-modal-overlay"></div>
+    <div class="reel-video-modal-content">
+      <button class="reel-video-modal-close" aria-label="Close video">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      <video id="ReelModalPlayer-{{ block.id }}" class="reel-modal-player" playsinline controls></video>
+    </div>
+  </div>
 
-                      const videos = wrapper.querySelectorAll('.reel-video[data-autoplay="true"]');
-                      
-                      if ('IntersectionObserver' in window) {
-                        const videoObserver = new IntersectionObserver((entries) => {
-                          entries.forEach((entry) => {
-                            const video = entry.target;
-                            
-                            if (entry.isIntersecting) {
-                              video.play().catch(err => {
-                                console.warn("Autoplay prevented by browser:", err);
-                              });
-                            } else {
-                              video.pause();
-                            }
-                          });
-                        }, {
-                          threshold: 0.5
-                        });
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const reelWrappers = document.querySelectorAll('.product-video-reels-wrapper');
 
-                        videos.forEach((video) => {
-                          videoObserver.observe(video);
-                        });
-                      }
-                    });
-                  });
-                </script>
+      reelWrappers.forEach((wrapper) => {
+        const blockId = wrapper.closest('.shopify-section, .product__info-container')?.querySelector('.reel-video-modal')?.id.split('-')[1] || '{{ block.id }}';
+        const swiperEl = wrapper.querySelector('.swiper');
+        const modal = document.getElementById(`ReelModal-${blockId}`);
+        const modalPlayer = document.getElementById(`ReelModalPlayer-${blockId}`);
+        
+        // 1. Initialize Swiper
+        if (swiperEl && typeof Swiper !== 'undefined') {
+          new Swiper(swiperEl, {
+            slidesPerView: 3.5,
+            spaceBetween: 8,
+            grabCursor: true,
+            breakpoints: {
+              1024: {
+                slidesPerView: 4.2,
+                spaceBetween: 10
+              }
+            }
+          });
+        }
+
+        // 2. Autoplay Observer Logic
+        const videos = wrapper.querySelectorAll('.reel-video[data-autoplay="true"]');
+        if ('IntersectionObserver' in window) {
+          const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              const video = entry.target;
+              if (entry.isIntersecting) {
+                video.play().catch(err => {
+                  console.warn("Autoplay prevented by browser:", err);
+                });
+              } else {
+                video.pause();
+              }
+            });
+          }, { threshold: 0.5 });
+
+          videos.forEach((video) => {
+            videoObserver.observe(video);
+          });
+        }
+
+        // 3. Modal Popup Logic
+        if (modal && modalPlayer) {
+          const closeBtn = modal.querySelector('.reel-video-modal-close');
+          const overlay = modal.querySelector('.reel-video-modal-overlay');
+
+          // Open Modal on video click
+          wrapper.querySelectorAll('.reel-video-container').forEach(container => {
+            container.addEventListener('click', () => {
+              const clickedVideo = container.querySelector('video');
+              
+              // Copy sources to modal player
+              modalPlayer.innerHTML = clickedVideo.innerHTML;
+              
+              // Show modal and play
+              modal.classList.add('is-active');
+              modal.setAttribute('aria-hidden', 'false');
+              modalPlayer.play().catch(() => {}); // Play silently catches errors
+            });
+          });
+
+          // Close Modal Function
+          const closeModal = () => {
+            modal.classList.remove('is-active');
+            modal.setAttribute('aria-hidden', 'true');
+            modalPlayer.pause();
+            modalPlayer.innerHTML = ''; // Clear video source to completely stop buffering
+          };
+
+          closeBtn.addEventListener('click', closeModal);
+          overlay.addEventListener('click', closeModal);
+        }
+      });
+    });
+  </script>
 
               {%- when 'custom_liquid' -%}
                 <div

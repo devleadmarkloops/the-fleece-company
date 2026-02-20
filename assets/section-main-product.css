@@ -3117,6 +3117,7 @@ span.alert-box:before {
   opacity: 0.85;
 }
 /* When Video Reels */
+/* --- EXISTING REELS CSS --- */
 .product__info-container .product-video-reels-wrapper {
   width: 100%;
   overflow: hidden;
@@ -3132,16 +3133,85 @@ span.alert-box:before {
 .product__info-container .product-video-reels-wrapper .reel-video-container {
   width: 100%;
   height: 100%;
+  cursor: pointer; /* Indicates it can be clicked */
+  transition: opacity 0.3s;
+}
+.product__info-container .product-video-reels-wrapper .reel-video-container:hover {
+  opacity: 0.85; /* Visual feedback on hover */
 }
 .product__info-container .product-video-reels-wrapper .reel-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* position: absolute;
+  pointer-events: none; /* Prevents native controls from showing on the grid */
+}
+
+/* --- NEW MODAL CSS --- */
+.reel-video-modal {
+  position: fixed;
   top: 0;
-  bottom: 0;
   left: 0;
-  right: 0; */
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.reel-video-modal.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+.reel-video-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+  cursor: pointer;
+}
+.reel-video-modal-content {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 450px; /* Keeps vertical format nice on desktop */
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+.reel-video-modal-content .reel-modal-player {
+  width: 100%;
+  height: auto;
+  max-height: 85vh; /* Prevents overflow on short screens */
+  object-fit: contain;
+  display: block;
+}
+.reel-video-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #fff;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: background-color 0.2s;
+}
+.reel-video-modal-close:hover {
+  background: rgba(0, 0, 0, 0.9);
 }
 /* When Collapsible Row */
 .product__info-container .product__accordion summary {
