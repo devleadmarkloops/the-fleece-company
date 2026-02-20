@@ -153,7 +153,7 @@
     }
 
     {%- liquid
-      assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media
+      assign featured_media = product.media.first
       assign first_image = featured_media | default: product.media.first
 
       assign first_image_ratio = 1 | divided_by: first_image.aspect_ratio | times: 100
