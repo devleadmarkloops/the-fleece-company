@@ -184,15 +184,21 @@
   }
 
   @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .image-accordion-grid {
+      gap: 2rem;
+      flex-direction: column-reverse;
+    }
     #shopify-section-{{ section.id }} .title-wrapper {
       align-items: center !important;
       gap: 1rem;
       text-align: center !important;
       margin-bottom: 2.5rem;
     }
-    #shopify-section-{{ section.id }} .image-accordion-grid {
-      gap: 2rem;
-      flex-direction: column-reverse;
+    #shopify-section-{{ section.id }} .title-wrapper .subheading {
+      font-size: 1.2rem;
+    }
+    #shopify-section-{{ section.id }} .accordion-toggle {
+      padding: 2rem 0;
     }
   }
 {%- endstyle -%}
