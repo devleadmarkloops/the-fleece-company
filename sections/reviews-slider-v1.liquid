@@ -64,40 +64,32 @@
     transition: background 0.2s;
     padding: 0;
   }
-
   .reviews-slider-{{ section.id }} .slider-arrow:hover {
     background: rgb(var(--color-foreground));
   }
-
   .reviews-slider-{{ section.id }} .slider-arrow svg {
     width: 13px;
     height: 13px;
     fill: rgb(var(--color-foreground));
     transition: fill 0.2s;
   }
-
   .reviews-slider-{{ section.id }} .slider-arrow:hover svg {
     fill: rgb(var(--color-background));
   }
-
   .reviews-slider-{{ section.id }} .slider-arrow.swiper-button-disabled {
     opacity: 0.35;
     cursor: default;
     pointer-events: none;
   }
-
   .reviews-slider-{{ section.id }} .swiper {
     flex: 1;
     min-width: 0;
     overflow: hidden;
     max-width: 100rem;
   }
-
   .reviews-slider-{{ section.id }} .swiper-slide {
     height: auto;
   }
-
-  /* Review card */
   .reviews-slider-{{ section.id }} .review-card {
     background: rgb(var(--color-card-background, var(--color-background)));
     padding: 2.4rem 2rem;
@@ -108,21 +100,17 @@
     height: 100%;
     box-sizing: border-box;
   }
-
-  /* Card top row: name + stars side by side */
   .reviews-slider-{{ section.id }} .review-card-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
   }
-
   .reviews-slider-{{ section.id }} .review-name-wrap {
     display: flex;
     flex-direction: column;
     gap: 1px;
   }
-
   .reviews-slider-{{ section.id }} .review-author {
     font-family: var(--new-font-heading-family);
     font-size: 2rem;
@@ -130,7 +118,6 @@
     margin: 0;
     line-height: 1;
   }
-
   .reviews-slider-{{ section.id }} .review-verified {
     display: flex;
     align-items: center;
@@ -143,26 +130,22 @@
     line-height: 1.4;
     letter-spacing: normal;
   }
-
   .reviews-slider-{{ section.id }} .review-verified svg {
     width: 1.2rem;
     height: 1.2rem;
     flex-shrink: 0;
   }
-
   .reviews-slider-{{ section.id }} .review-stars {
     display: flex;
     align-items: center;
     gap: 2px;
     flex-shrink: 0;
   }
-
   .reviews-slider-{{ section.id }} .review-stars svg {
     width: 1.5rem;
     height: 1.5rem;
     color: rgb(var(--color-stars));
   }
-
   .reviews-slider-{{ section.id }} .review-text {
     margin: 0;
     text-align: center;
@@ -172,13 +155,10 @@
     line-height: 1.4;
     letter-spacing: 0;
   }
-
-  /* Bottom button */
   .reviews-slider-{{ section.id }} .reviews-footer {
     text-align: center;
     margin-top: 3rem;
   }
-
   .reviews-slider-{{ section.id }} .reviews-footer .btn-all-reviews {
     display: inline-flex;
     align-items: center;
@@ -196,46 +176,43 @@
     cursor: pointer;
     transition: opacity 0.2s;
   }
-
   .reviews-slider-{{ section.id }} .reviews-footer .btn-all-reviews:hover {
     opacity: 0.85;
   }
-    .reviews-slider-{{ section.id }} .swiper-pagination {
+  .reviews-slider-{{ section.id }} .swiper-pagination {
     display: none;
     position: static;
     margin-top: 14px;
     text-align: center;
-    }
-
-    .reviews-slider-{{ section.id }} .swiper-pagination-bullet {
+  }
+  .reviews-slider-{{ section.id }} .swiper-pagination-bullet {
     width: 7px;
     height: 7px;
     background: rgb(var(--color-dots, 0,0,0));
     opacity: 0.3;
     margin: 0 3px !important;
-    }
+  }
 
-    .reviews-slider-{{ section.id }} .swiper-pagination-bullet-active {
-    opacity: 1;
-    }
+  .reviews-slider-{{ section.id }} .swiper-pagination-bullet-active {
+  opacity: 1;
+  }
   @media screen and (max-width: 749px) {
     .reviews-slider-{{ section.id }} .slider-arrow {
       display: none;
     }
     .reviews-slider-{{ section.id }} .section-heading {
-        text-align: center;
-        margin-bottom: 2.5rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
     }
-
     .reviews-slider-{{ section.id }} .review-card {
       padding: 1.8rem 1.6rem;
       border-radius: 12px;
     }
     .reviews-slider-{{ section.id }} .swiper-pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 {%- endstyle -%}
 
