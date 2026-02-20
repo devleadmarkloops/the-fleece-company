@@ -28,6 +28,13 @@
     {% endif -%}
   }
 
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --section-padding-top: {{ section.settings.padding_top_mob }}px;
+      --section-padding-bottom: {{ section.settings.padding_bottom_mob }}px;
+    }
+  }
+
   {%- if section.settings.use_custom_colors %}
     #shopify-section-{{ section.id }} .image-accordion-wrapper {
       background-color: var(--color-background);
@@ -454,6 +461,26 @@
       "step": 4,
       "unit": "px",
       "label": "Bottom Padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mob",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding (mobile)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mob",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding (mobile)",
       "default": 36
     }
   ],
