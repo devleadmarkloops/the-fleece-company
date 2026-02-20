@@ -3412,6 +3412,7 @@ span.alert-box:before {
   }
   .product__info-container .kaching-bundles .kaching-bundles__bar-variant-select {
     padding-block: 0.8rem;
+    width: calc(50% - 3.5px);
   }
   .product__info-container .kaching-bundles .kaching-bundles__bar-main {
     gap: 12px;
