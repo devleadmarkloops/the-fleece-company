@@ -3340,6 +3340,12 @@ span.alert-box:before {
   opacity: 0.85;
 }
 
+@media screen and (min-width: 750px) {
+  .product__info-container .rating-static-wr {
+    margin-top: 0
+  }
+}
+
 @media screen and (max-width: 749px) {
   /* When Title */
   .product__info-container .product__title {
