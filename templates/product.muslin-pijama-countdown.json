@@ -148,9 +148,12 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
+            "buy_buttons_version": "v1",
             "show_quantity_selector": false,
             "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false
+            "show_gift_card_recipient": false,
+            "enable_monogram": false,
+            "monogram_product": ""
           }
         },
         "countdown_timer_4tCBwt": {
@@ -270,13 +273,15 @@
         "media_size": "large",
         "gallery_layout": "thumbnail_slider",
         "image_ratio": "adapt",
-        "show_featured_media": true,
-        "show_thumbnails": false,
+        "show_featured_media": false,
+        "show_thumbnails": true,
         "hide_variants": false,
         "enable_image_zoom": false,
         "enable_video_looping": false,
         "mobile_image_ratio": "adapt",
         "show_mobile_thumbnails": false,
+        "enable_variant_specific_media": false,
+        "enable_fade_slider": true,
         "padding_top": 0,
         "padding_bottom": 20
       }
@@ -510,6 +515,7 @@
         "review_BDtWFn": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I bought this pyjama set for a summer trip, and I’ve barely taken it off since. The muslin cotton is unbelievably soft and airy. It feels like sleeping in a cloud. I’ll definitely be ordering another color!",
             "author_name": "Emilia"
           }
@@ -517,6 +523,7 @@
         "review_AAMEHx": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I got this for my sister’s birthday and she texted me the next morning saying it was the best sleep she’s had in weeks. The fabric is light but cozy, and the color is just gorgeous!",
             "author_name": "Megan"
           }
@@ -524,6 +531,7 @@
         "review_RRjwad": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "The material is amazing and feels very natural on the skin. It’s perfect for hot nights and super comfy!",
             "author_name": "Nina S."
           }
@@ -531,6 +539,7 @@
         "review_Mw7UwD": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I bought this pyjama set for a summer trip, and I’ve barely taken it off since. The muslin cotton is unbelievably soft and airy. It feels like sleeping in a cloud. I’ll definitely be ordering another color!",
             "author_name": "Emilia"
           }
@@ -538,6 +547,7 @@
         "review_FKrbpE": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I got this for my sister’s birthday and she texted me the next morning saying it was the best sleep she’s had in weeks. The fabric is light but cozy, and the color is just gorgeous!",
             "author_name": "Megan"
           }
@@ -545,6 +555,7 @@
         "review_fXNzNP": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "The material is amazing and feels very natural on the skin. It’s perfect for hot nights and super comfy!",
             "author_name": "Nina S."
           }
