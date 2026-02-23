@@ -86,9 +86,9 @@
                 <div class="mega-menu__promo-heading">
                   <span class="label">{{ product_1.title | escape }}</span>
                 </div>
-                <div class="mega-menu__promo-subheading mega-menu__product-price" style="margin-top: 5px;">
+                <div class="mega-menu__promo-subheading mega-menu__product-price">
                   {%- if product_1.compare_at_price > product_1.price -%}
-                    <s style="margin-right: 8px; opacity: 0.6; font-size: 0.9em;">{{ product_1.compare_at_price | money }}</s>
+                    <s>{{ product_1.compare_at_price | money }}</s>
                   {%- endif -%}
                   <strong>{{ product_1.price | money }}</strong>
                 </div>
@@ -121,9 +121,9 @@
                 <div class="mega-menu__promo-heading">
                   <span class="label">{{ product_2.title | escape }}</span>
                 </div>
-                <div class="mega-menu__promo-subheading mega-menu__product-price" style="margin-top: 5px;">
+                <div class="mega-menu__promo-subheading mega-menu__product-price">
                   {%- if product_2.compare_at_price > product_2.price -%}
-                    <s style="margin-right: 8px; opacity: 0.6; font-size: 0.9em;">{{ product_2.compare_at_price | money }}</s>
+                    <s>{{ product_2.compare_at_price | money }}</s>
                   {%- endif -%}
                   <strong>{{ product_2.price | money }}</strong>
                 </div>
