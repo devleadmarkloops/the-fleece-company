@@ -54,8 +54,12 @@
 }
 
 /* Header New */
-.header-new.header--middle-left .header__inline-menu {
+header.header-new.header--middle-left .header__inline-menu {
   text-align: center;
+}
+header.header-new .header__inline-menu .header__menu-item {
+  font-family: var(--new-font-body-family);
+  font-weight: 500;
 }
 
 /* ##### Card Product ##### */
