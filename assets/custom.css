@@ -62,7 +62,7 @@ header.header-new .header__inline-menu .header__menu-item {
   font-weight: 500;
 }
 header.header-new .is-megamenu>.list-menu-dropdown .page-width {
-  --grid-horizontal-spacing: 2rem;
+  --grid-horizontal-spacing: 1.5rem;
 }
 header.header-new .mega-menu__promo {
   flex: 0 0 16rem;
