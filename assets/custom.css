@@ -123,7 +123,7 @@ header.header-new .mega-menu__promo-subheading {
   gap: 0.5rem;
 }
 header.header-new .mega-menu__promo-subheading s {
-  color: rgb(var(--color-header-foreground), 0.6);
+  color: rgba(var(--color-header-foreground), 0.6);
 }
 header.header-new .mega-menu__promo-subheading strong {
   font-weight: 600;
@@ -147,6 +147,13 @@ header.header-new .mega-menu__promo-subheading strong {
     font-family: var(--new-font-heading-family);
     font-size: 1.8rem;
     letter-spacing: 0;
+  }
+  .menu-drawer__menu-item {
+    font-family: var(--new-font-heading-family);
+    font-size: 1.6rem;
+    letter-spacing: 0;
+    padding-block: 1.5rem;
+    border-bottom: 1px solid rgba(var(--color-header-foreground), 0.6);
   }
 }
 
