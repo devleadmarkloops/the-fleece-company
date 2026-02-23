@@ -8,7 +8,7 @@
  * ------------------------------------------------------------
  */
 {
-  "name": "header-custom-group",
+  "name": "Header (new)",
   "type": "header",
   "sections": {
     "announcement-bar": {
