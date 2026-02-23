@@ -91,6 +91,7 @@ header.header-new .list-mega-menu .mega-menu__item .list-menu .header__menu-item
 }
 header.header-new .mega-menu__promo-content {
   text-align: left;
+  padding-top: 0.3rem;
 }
 header.header-new .mega-menu__promo-content .mega-menu__promo-heading {
   font-family: var(--new-font-body-family);
