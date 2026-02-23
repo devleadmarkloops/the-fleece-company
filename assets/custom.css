@@ -87,7 +87,7 @@ header.header-new .list-mega-menu .mega-menu__item .list-menu .header__menu-item
   font-weight: 500;
   color: rgb(var(--color-header-foreground));
   letter-spacing: 0;
-  padding-block: 0.4rem;
+  padding-block: 0.5rem;
 }
 header.header-new .mega-menu__promo-content {
   text-align: left;
