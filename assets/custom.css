@@ -54,7 +54,7 @@
 }
 
 /* Header New */
-.header-new .header__inline-menu {
+.header-new.header--middle-left .header__inline-menu {
   text-align: center;
 }
 
