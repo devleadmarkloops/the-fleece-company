@@ -70,7 +70,7 @@ header.header-new .mega-menu__promo {
 header.header-new .is-megamenu.show-images .mega-menu__item {
   width: calc(25% - var(--grid-horizontal-spacing) * 3 / 4);
 }
-header.header-new .list-mega-menu .mega-menu__item > .mega-menu__item-link .header__menu-item {
+header.header-new .list-mega-menu .mega-menu__item > .mega-menu__item-link {
   padding-bottom: 1.5rem;
   border-bottom: 1px solid rgb(var(--color-header-foreground));
 }
@@ -78,6 +78,9 @@ header.header-new .list-mega-menu .mega-menu__item > .mega-menu__item-link .head
   font-family: var(--new-font-heading-family);
   font-size: 1.6rem;
   font-weight: 400;
+  color: rgb(var(--color-header-foreground));
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 @media screen and (min-width: 1200px) {
