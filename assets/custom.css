@@ -135,6 +135,16 @@ header.header-new .mega-menu__promo-subheading strong {
   }
 }
 
+@media screen and (max-width: 749px) {
+  header.header-new .header .header__icon {
+    width: 4rem;
+  }
+  header.header-new .header__icon.header__icon--summary .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
 /* ##### Card Product ##### */
 .card-wrapper .card-information__wrapper .meta-subtitle {
   font-size: 1.2rem;
