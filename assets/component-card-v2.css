@@ -65,7 +65,7 @@
   height: 2rem;
   border-radius: 50%;
   cursor: pointer;
-  border: 0;
+  border: 1px solid rgba(59, 59, 59, 0.15);
 }
 
 .card-product-v2 .card-v2-view-all-colors {
