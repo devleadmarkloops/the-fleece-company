@@ -271,7 +271,7 @@
         "logo_height": 26,
         "mobile_logo_height": 20,
         "logo_position": "middle-left",
-        "menu": "main-menu",
+        "menu": "main-menu-new-pdp",
         "menu_mobile": "main-menu",
         "enable_dropdown_menu": true,
         "show_line_separator": true,
