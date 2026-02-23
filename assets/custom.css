@@ -167,11 +167,14 @@ header.header-new .mega-menu__promo-subheading strong {
 .jdgm-rev-widg .jdgm-rev-widg__reviews .jdgm-rev__author,
 .jdgm-rev-widg .jdgm-sort-dropdown {
   font-family: var(--new-font-heading-family);
+  letter-spacing: 0;
 }
-.jdgm-row-stars .jdgm-rev-widg__summary-average,
-.jdgm-row-stars .jdgm-rev-widg__summary-text,
-.jdgm-row-stars .jdgm-rev__content .jdgm-rev__body {
+.jdgm-rev-widg .jdgm-rev-widg__summary-average,
+.jdgm-rev-widg .jdgm-rev-widg__summary-text,
+.jdgm-rev-widg .jdgm-rev__content .jdgm-rev__body,
+.jdgm-rev-widg .jdgm-paginate .jdgm-paginate__page {
   font-family: var(--new-font-body-family);
+  letter-spacing: 0;
 }
 
 /* ##### Card Product ##### */
