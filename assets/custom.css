@@ -61,6 +61,9 @@ header.header-new .header__inline-menu .header__menu-item {
   font-family: var(--new-font-body-family);
   font-weight: 500;
 }
+header.header-new .is-megamenu>.list-menu-dropdown .page-width {
+  --grid-horizontal-spacing: 2rem;
+}
 
 /* ##### Card Product ##### */
 .card-wrapper .card-information__wrapper .meta-subtitle {
