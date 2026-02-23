@@ -1,6 +1,6 @@
 {%- liquid
   assign promo_images = false
-  if block.settings.promo_image_1 != blank or block.settings.promo_image_2 != blank
+  if block.settings.promo_product_1 != blank or block.settings.promo_product_2 != blank
     assign promo_images = true
   endif
 -%}
@@ -62,61 +62,76 @@
           </div>
         {%- endif -%}
 
-        {%- if block.settings.promo_image_1 != blank -%}
+        {% comment %} --- PRODUCT 1 --- {% endcomment %}
+        {%- if block.settings.promo_product_1 != blank -%}
+          {%- assign product_1 = block.settings.promo_product_1 -%}
           <div class="mega-menu__promo{% if block.settings.promo_overlay_content_1 %} mega-menu__promo--overlay{% endif %}">
-            <a class="mega-menu__promo-link media-wrapper"{% if block.settings.promo_link_1 != blank %} href="{{ block.settings.promo_link_1 }}"{% else %} role="link" aria-disabled="true"{% endif %}>
+            <a class="mega-menu__promo-link media-wrapper" href="{{ product_1.url }}">
               <div class="image-animate media media--{{ block.settings.promo_image_ratio_1 }}"
-                style="--image-position: {{ block.settings.promo_image_position_1 }};{% if block.settings.promo_image_ratio_1 == 'adapt' %}--image-ratio-percent: {{ 1 | divided_by: block.settings.promo_image_1.aspect_ratio | times: 100 }}%;{% endif %}"
+                style="--image-position: {{ block.settings.promo_image_position_1 }};{% if block.settings.promo_image_ratio_1 == 'adapt' and product_1.featured_image %}--image-ratio-percent: {{ 1 | divided_by: product_1.featured_image.aspect_ratio | times: 100 }}%;{% endif %}"
               >
-                {{ block.settings.promo_image_1 | image_url: width: 1100 | image_tag:
-                  loading: 'lazy',
-                  class: 'motion-reduce',
-                  sizes: sizes,
-                  widths: '165, 360, 535, 750, 940, 1100',
-                  is: 'lazy-image'
-                }}
+                {%- if product_1.featured_image -%}
+                  {{ product_1.featured_image | image_url: width: 1100 | image_tag:
+                    loading: 'lazy',
+                    class: 'motion-reduce',
+                    sizes: sizes,
+                    widths: '165, 360, 535, 750, 940, 1100',
+                    is: 'lazy-image'
+                  }}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
               </div>
-              {%- if block.settings.promo_heading_1 != blank or block.settings.promo_text_1 != blank -%}
-                <div class="mega-menu__promo-content">
-                  {%- if block.settings.promo_heading_1 != blank -%}
-                    <div class="mega-menu__promo-heading">
-                      <span class="label">{{ block.settings.promo_heading_1 | escape }}</span>
-                    </div>
-                  {%- endif -%}
-                  <div class="mega-menu__promo-subheading">{{ block.settings.promo_text_1 | escape }}</div>
+              <div class="mega-menu__promo-content">
+                <div class="mega-menu__promo-heading">
+                  <span class="label">{{ product_1.title | escape }}</span>
                 </div>
-              {%- endif -%}
+                <div class="mega-menu__promo-subheading mega-menu__product-price" style="margin-top: 5px;">
+                  {%- if product_1.compare_at_price > product_1.price -%}
+                    <s style="margin-right: 8px; opacity: 0.6; font-size: 0.9em;">{{ product_1.compare_at_price | money }}</s>
+                  {%- endif -%}
+                  <strong>{{ product_1.price | money }}</strong>
+                </div>
+              </div>
             </a>
           </div>
         {%- endif -%}
 
-        {%- if block.settings.promo_image_2 != blank -%}
+        {% comment %} --- PRODUCT 2 --- {% endcomment %}
+        {%- if block.settings.promo_product_2 != blank -%}
+          {%- assign product_2 = block.settings.promo_product_2 -%}
           <div class="mega-menu__promo{% if block.settings.promo_overlay_content_2 %} mega-menu__promo--overlay{% endif %}">
-            <a class="mega-menu__promo-link media-wrapper"{% if block.settings.promo_link_2 != blank %} href="{{ block.settings.promo_link_2 }}"{% else %} role="link" aria-disabled="true"{% endif %}>
+            <a class="mega-menu__promo-link media-wrapper" href="{{ product_2.url }}">
               <div class="image-animate media media--{{ block.settings.promo_image_ratio_2 }}"
-                style="--image-position: {{ block.settings.promo_image_position_2 }};{% if block.settings.promo_image_ratio_2 == 'adapt' %}--image-ratio-percent: {{ 1 | divided_by: block.settings.promo_image_2.aspect_ratio | times: 100 }}%;{% endif %}"
+                style="--image-position: {{ block.settings.promo_image_position_2 }};{% if block.settings.promo_image_ratio_2 == 'adapt' and product_2.featured_image %}--image-ratio-percent: {{ 1 | divided_by: product_2.featured_image.aspect_ratio | times: 100 }}%;{% endif %}"
               >
-                {{ block.settings.promo_image_2 | image_url: width: 1100 | image_tag:
-                  loading: 'lazy',
-                  class: 'motion-reduce',
-                  sizes: sizes,
-                  widths: '165, 360, 535, 750, 940, 1100',
-                  is: 'lazy-image'
-                }}
+                {%- if product_2.featured_image -%}
+                  {{ product_2.featured_image | image_url: width: 1100 | image_tag:
+                    loading: 'lazy',
+                    class: 'motion-reduce',
+                    sizes: sizes,
+                    widths: '165, 360, 535, 750, 940, 1100',
+                    is: 'lazy-image'
+                  }}
+                {%- else -%}
+                  {{ 'product-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
               </div>
-              {%- if block.settings.promo_heading_2 != blank or block.settings.promo_text_2 != blank -%}
-                <div class="mega-menu__promo-content">
-                  {%- if block.settings.promo_heading_2 != blank -%}
-                    <div class="mega-menu__promo-heading">
-                      <span class="label">{{ block.settings.promo_heading_2 | escape }}</span>
-                    </div>
-                  {%- endif -%}
-                  <div class="mega-menu__promo-subheading">{{ block.settings.promo_text_2 | escape }}</div>
+              <div class="mega-menu__promo-content">
+                <div class="mega-menu__promo-heading">
+                  <span class="label">{{ product_2.title | escape }}</span>
                 </div>
-              {%- endif -%}
+                <div class="mega-menu__promo-subheading mega-menu__product-price" style="margin-top: 5px;">
+                  {%- if product_2.compare_at_price > product_2.price -%}
+                    <s style="margin-right: 8px; opacity: 0.6; font-size: 0.9em;">{{ product_2.compare_at_price | money }}</s>
+                  {%- endif -%}
+                  <strong>{{ product_2.price | money }}</strong>
+                </div>
+              </div>
             </a>
           </div>
         {%- endif -%}
+
       </div>
     </div>
   {%- endif -%}
