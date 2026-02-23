@@ -177,6 +177,12 @@ header.header-new .mega-menu__promo-subheading strong {
   letter-spacing: 0;
 }
 
+@media screen and (max-width: 749px) {
+  .jdgm-rev-widg .jdgm-rev-widg__header .jdgm-rev-widg__title {
+    font-size: 2.8rem;
+  }
+}
+
 /* ##### Card Product ##### */
 .card-wrapper .card-information__wrapper .meta-subtitle {
   font-size: 1.2rem;
