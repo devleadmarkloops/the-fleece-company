@@ -136,7 +136,7 @@ header.header-new .mega-menu__promo-subheading strong {
 }
 
 @media screen and (max-width: 749px) {
-  header.header-new .header .header__icon {
+  header.header-new .header__icon {
     width: 4rem;
   }
   header.header-new .header__icon.header__icon--summary .icon {
