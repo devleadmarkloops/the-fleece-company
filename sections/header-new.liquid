@@ -300,7 +300,7 @@
 {%- else -%}
 <header-wrapper class="header-wrapper{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}{% if section.settings.uppercase_menu_items %} header-wrapper--uppercase{% endif %}{% if enable_transparent_header %} header-transparent{% if section.settings.show_transparent_header_border %} header-transparent--border-bottom{% endif %}{% endif %}">
 {%- endif -%}
-  <header class="header header--{{ logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width header-section--padding" role="banner" aria-label="{{ 'accessibility.site_header' | t }}">
+  <header class="header header-new header--{{ logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width header-section--padding" role="banner" aria-label="{{ 'accessibility.site_header' | t }}">
     <div class="header__left
       {%- if language_selector != blank or country_selector != blank -%}
         {%- if logo_position == 'top-center' or logo_position == 'off-canvas' or logo_position == 'center-split' or logo_position == 'menu-left-center' %} header__left--localization{% endif -%}
