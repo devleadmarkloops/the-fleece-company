@@ -93,6 +93,11 @@ header.header-new .list-mega-menu .mega-menu__item .list-menu .header__menu-item
   letter-spacing: 0;
   padding-block: 0.5rem;
 }
+header.header-new .mega-menu__promos-wr {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
 header.header-new .mega-menu__promo-content {
   text-align: left;
   padding-top: 0.3rem;
