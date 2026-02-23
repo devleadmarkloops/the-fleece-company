@@ -148,7 +148,7 @@ header.header-new .mega-menu__promo-subheading strong {
     font-size: 1.8rem;
     letter-spacing: 0;
   }
-  .menu-drawer__menu-item {
+  header.header-new .menu-drawer__menu-item {
     font-family: var(--new-font-heading-family);
     font-size: 1.6rem;
     letter-spacing: 0;
