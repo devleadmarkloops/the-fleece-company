@@ -574,7 +574,7 @@
         "full_width": true,
         "show_divider": false,
         "image_behavior": "none",
-        "mobile_layout": "text_first",
+        "mobile_layout": "no_image",
         "mobile_text_alignment": "left",
         "mobile_image_ratio": "auto",
         "enable_video_looping": false,
