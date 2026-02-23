@@ -104,7 +104,7 @@ header.header-new .mega-menu__promo-content .mega-menu__promo-heading {
 header.header-new .mega-menu__promo-subheading {
   font-family: var(--new-font-body-family);
   font-size: 1.4rem;
-  font-weight: 400;
+  font-weight: 500;
   color: rgb(var(--color-header-foreground));
   letter-spacing: 0;
 }
