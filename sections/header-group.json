@@ -79,7 +79,7 @@
         "background_color": "#c5bbae",
         "text_color": "#ffffff",
         "mobile_layout": "row",
-        "hidden_templates": "product.muslin-blanket-le-new",
+        "hidden_templates": "",
         "padding_top": 16,
         "padding_bottom": 16,
         "padding_top_mob": 10,
@@ -174,7 +174,7 @@
         "colors_text": "#121212",
         "colors_background": "#ffffff",
         "gradient_background": "",
-        "hidden_templates": "",
+        "hidden_templates": "product.muslin-blanket-le-new",
         "padding_top": 16,
         "padding_bottom": 16
       }
