@@ -6,7 +6,7 @@
 {%- endstyle -%}
 
 <div class="section--padding{% if section.settings.show_divider %} section--divider{% endif %}">
-  <div class="page-width{% unless section.settings.include_margins %} page-width--full-width{% endunless %}">
+  <div class="page-width reviews-slider{% unless section.settings.include_margins %} page-width--full-width{% endunless %}">
     {%- liquid
       for block in section.blocks
         render block
