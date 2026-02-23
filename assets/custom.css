@@ -67,6 +67,9 @@ header.header-new .is-megamenu>.list-menu-dropdown .page-width {
 header.header-new .mega-menu__promo {
   flex: 0 0 16rem;
 }
+header.header-new .is-megamenu.show-images .mega-menu__item {
+  width: calc(25% - var(--grid-horizontal-spacing) * 3 / 4);
+}
 
 @media screen and (min-width: 1200px) {
   header.header-new .mega-menu__promo {
