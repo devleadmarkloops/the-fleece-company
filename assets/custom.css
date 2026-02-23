@@ -157,6 +157,23 @@ header.header-new .mega-menu__promo-subheading strong {
   }
 }
 
+/* Review Widget | Judgeme */
+.jdgm-rev-widg .jdgm-rev-widg__header .jdgm-rev-widg__title {
+  font-family: var(--new-font-heading-family);
+  font-size: 4.2rem;
+  letter-spacing: 0;
+}
+.jdgm-rev-widg .jdgm-widget-actions-wrapper .jdgm-write-rev-link,
+.jdgm-rev-widg .jdgm-rev-widg__reviews .jdgm-rev__author,
+.jdgm-rev-widg .jdgm-sort-dropdown {
+  font-family: var(--new-font-heading-family);
+}
+.jdgm-row-stars .jdgm-rev-widg__summary-average,
+.jdgm-row-stars .jdgm-rev-widg__summary-text,
+.jdgm-row-stars .jdgm-rev__content .jdgm-rev__body {
+  font-family: var(--new-font-body-family);
+}
+
 /* ##### Card Product ##### */
 .card-wrapper .card-information__wrapper .meta-subtitle {
   font-size: 1.2rem;
