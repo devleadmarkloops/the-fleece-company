@@ -100,6 +100,16 @@ header.header-new .mega-menu__promo-content .mega-menu__promo-heading {
   letter-spacing: 0;
   text-transform: none;
 }
+header.header-new .mega-menu__promo-subheading {
+  font-family: var(--new-font-body-family);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: rgb(var(--color-header-foreground));
+  letter-spacing: 0;
+}
+header.header-new .mega-menu__promo-subheading s {
+  color: rgb(var(--color-header-foreground), 0.6);
+}
 
 @media screen and (min-width: 1200px) {
   header.header-new .mega-menu__promo {
