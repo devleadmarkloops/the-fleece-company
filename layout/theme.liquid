@@ -218,7 +218,11 @@
     {% render 'transition-cover' %}
 
     <div class="transition-body">
-      {% sections 'header-group' %}
+      {%- if template.name == 'product' and template.suffix == 'custom-layout' -%}
+        {% sections 'header-custom-group' %}
+      {%- else -%}
+        {% sections 'header-group' %}
+      {%- endif -%}
 
       <div class="transition-content">
         <main id="MainContent" class="content-for-layout focus-none shopify-section" role="main" tabindex="-1">
