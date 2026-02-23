@@ -72,6 +72,7 @@ header.header-new .is-megamenu.show-images .mega-menu__item {
 }
 header.header-new .list-menu-dropdown .list-mega-menu {
   --grid-horizontal-spacing: 4rem;
+  max-width: calc(100% - 2.5rem);
 }
 header.header-new .list-mega-menu .mega-menu__item > .mega-menu__item-link {
   padding-bottom: 1.5rem;
