@@ -211,66 +211,66 @@
                 </li>
               {%- endfor -%}
             </ul>
+            {% comment %} --- CUSTOM MOBILE BOTTOM PRODUCTS --- {% endcomment %}
+            {%- liquid
+              assign animate_count = animate_count | plus: 1
+            -%}
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'mega_menu' -%}
+                {%- if block.settings.promo_product_1 != blank or block.settings.promo_product_2 != blank -%}
+                  <div class="menu-drawer__promo-products" data-animate data-animate-delay-{{ animate_count }}>
+                    
+                    {%- if block.settings.promo_product_1 != blank -%}
+                      {%- assign product_1 = block.settings.promo_product_1 -%}
+                      <a href="{{ product_1.url }}" class="menu-drawer__promo-card">
+                        <div class="media media--square">
+                          {%- if product_1.featured_image -%}
+                            {{ product_1.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', class: 'menu-drawer__promo-image' }}
+                          {%- else -%}
+                            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                          {%- endif -%}
+                        </div>
+                        <div class="menu-drawer__promo-info">
+                          <span class="menu-drawer__promo-title">{{ product_1.title | escape }}</span>
+                          <span class="menu-drawer__promo-price">
+                            {%- if product_1.compare_at_price > product_1.price -%}
+                              <s>{{ product_1.compare_at_price | money }}</s>
+                            {%- endif -%}
+                            <strong>{{ product_1.price | money }}</strong>
+                          </span>
+                        </div>
+                      </a>
+                    {%- endif -%}
+  
+                    {%- if block.settings.promo_product_2 != blank -%}
+                      {%- assign product_2 = block.settings.promo_product_2 -%}
+                      <a href="{{ product_2.url }}" class="menu-drawer__promo-card">
+                        <div class="media media--square">
+                          {%- if product_2.featured_image -%}
+                            {{ product_2.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', class: 'menu-drawer__promo-image' }}
+                          {%- else -%}
+                            {{ 'product-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                          {%- endif -%}
+                        </div>
+                        <div class="menu-drawer__promo-info">
+                          <span class="menu-drawer__promo-title">{{ product_2.title | escape }}</span>
+                          <span class="menu-drawer__promo-price">
+                            {%- if product_2.compare_at_price > product_2.price -%}
+                              <s>{{ product_2.compare_at_price | money }}</s>
+                            {%- endif -%}
+                            <strong>{{ product_2.price | money }}</strong>
+                          </span>
+                        </div>
+                      </a>
+                    {%- endif -%}
+  
+                  </div>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {% comment %} --- END CUSTOM MOBILE BOTTOM PRODUCTS --- {% endcomment %}
           </nav>
 
-          {% comment %} --- CUSTOM MOBILE BOTTOM PRODUCTS --- {% endcomment %}
-          {%- liquid
-            assign animate_count = animate_count | plus: 1
-          -%}
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'mega_menu' -%}
-              {%- if block.settings.promo_product_1 != blank or block.settings.promo_product_2 != blank -%}
-                <div class="menu-drawer__promo-products" data-animate data-animate-delay-{{ animate_count }}>
-                  
-                  {%- if block.settings.promo_product_1 != blank -%}
-                    {%- assign product_1 = block.settings.promo_product_1 -%}
-                    <a href="{{ product_1.url }}" class="menu-drawer__promo-card">
-                      <div class="media media--square">
-                        {%- if product_1.featured_image -%}
-                          {{ product_1.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', class: 'menu-drawer__promo-image' }}
-                        {%- else -%}
-                          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                        {%- endif -%}
-                      </div>
-                      <div class="menu-drawer__promo-info">
-                        <span class="menu-drawer__promo-title">{{ product_1.title | escape }}</span>
-                        <span class="menu-drawer__promo-price">
-                          {%- if product_1.compare_at_price > product_1.price -%}
-                            <s>{{ product_1.compare_at_price | money }}</s>
-                          {%- endif -%}
-                          <strong>{{ product_1.price | money }}</strong>
-                        </span>
-                      </div>
-                    </a>
-                  {%- endif -%}
-
-                  {%- if block.settings.promo_product_2 != blank -%}
-                    {%- assign product_2 = block.settings.promo_product_2 -%}
-                    <a href="{{ product_2.url }}" class="menu-drawer__promo-card">
-                      <div class="media media--square">
-                        {%- if product_2.featured_image -%}
-                          {{ product_2.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', class: 'menu-drawer__promo-image' }}
-                        {%- else -%}
-                          {{ 'product-2' | placeholder_svg_tag: 'placeholder-svg' }}
-                        {%- endif -%}
-                      </div>
-                      <div class="menu-drawer__promo-info">
-                        <span class="menu-drawer__promo-title">{{ product_2.title | escape }}</span>
-                        <span class="menu-drawer__promo-price">
-                          {%- if product_2.compare_at_price > product_2.price -%}
-                            <s>{{ product_2.compare_at_price | money }}</s>
-                          {%- endif -%}
-                          <strong>{{ product_2.price | money }}</strong>
-                        </span>
-                      </div>
-                    </a>
-                  {%- endif -%}
-
-                </div>
-              {%- endif -%}
-            {%- endif -%}
-          {%- endfor -%}
-          {% comment %} --- END CUSTOM MOBILE BOTTOM PRODUCTS --- {% endcomment %}
 
           {%- if language_selector != blank or country_selector != blank -%}
             {%- assign animate_count = animate_count | plus: 1 -%}
