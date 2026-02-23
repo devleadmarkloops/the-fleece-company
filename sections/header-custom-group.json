@@ -1,0 +1,312 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header-group.name",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "countdown_wqwPAr": {
+          "type": "countdown",
+          "settings": {
+            "date": "01-07-2026",
+            "text": "",
+            "expired_message": "Sale has ended!",
+            "link": "",
+            "position": "top",
+            "display_style": "full",
+            "text_size": 13,
+            "hide_when_expired": false,
+            "use_custom_colors": true,
+            "countdown_background": "#d72c0c",
+            "countdown_text": "#ffffff"
+          }
+        },
+        "9518463a-71f9-42b5-b5ef-174a4f08e081": {
+          "type": "announcement",
+          "settings": {
+            "text": "🔥 Save up to 60% with code <strong>NEWYEAR</strong>",
+            "text_on_mobile": "🔥 Save up to 60% with code NEWYEAR",
+            "text_size": 13,
+            "link": "",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "countdown_wqwPAr",
+        "9518463a-71f9-42b5-b5ef-174a4f08e081"
+      ],
+      "disabled": true,
+      "settings": {
+        "only_homepage": false,
+        "layout": "default",
+        "mobile_layout": "carousel",
+        "autorotate": true,
+        "autorotate_speed": 5,
+        "show_navigation": true,
+        "direction": "left",
+        "speed": 1.6,
+        "colors_text": "#1a1b18",
+        "colors_background": "#f7eedd",
+        "gradient_background": "",
+        "colors_highlight": "#ffb503",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "announcement_custom_8Ckjmm": {
+      "type": "announcement-custom",
+      "name": "Announcement Custom",
+      "settings": {
+        "show_icon": false,
+        "icon_image": "shopify://shop_images/Group_2147226188.svg",
+        "icon_width": 80,
+        "icon_width_mobile": 60,
+        "announcement_text": "<p>100 NIGHTS SATISFACTION GUARANTEE</p>",
+        "font_size": 20,
+        "font_size_mobile": 16,
+        "font_weight": "400",
+        "background_color": "#c5bbae",
+        "text_color": "#ffffff",
+        "mobile_layout": "row",
+        "hidden_templates": "",
+        "padding_top": 16,
+        "padding_bottom": 16,
+        "padding_top_mob": 10,
+        "padding_bottom_mob": 10
+      }
+    },
+    "scrolling_promotion_Ekxczy": {
+      "type": "scrolling-promotion",
+      "blocks": {
+        "announcement_DaBaR6": {
+          "type": "announcement",
+          "settings": {
+            "icon": "none",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "text": "Valentine's Day Sale: Up to 70% Off",
+            "text_size": 18,
+            "enable_italic": true,
+            "link": ""
+          }
+        },
+        "announcement_KtdJHc": {
+          "type": "announcement",
+          "disabled": true,
+          "settings": {
+            "icon": "none",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "text": "Holiday Comfort Event Now Live",
+            "text_size": 12,
+            "enable_italic": false,
+            "link": ""
+          }
+        },
+        "announcement_ekTGTC": {
+          "type": "announcement",
+          "disabled": true,
+          "settings": {
+            "icon": "none",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "text": "Seasonal Savings on Cozy Essentials",
+            "text_size": 12,
+            "enable_italic": false,
+            "link": ""
+          }
+        },
+        "announcement_mda4L4": {
+          "type": "announcement",
+          "disabled": true,
+          "settings": {
+            "icon": "none",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "text": "Orders $300+ Ship Free",
+            "text_size": 12,
+            "enable_italic": false,
+            "link": ""
+          }
+        },
+        "announcement_3jAEPP": {
+          "type": "announcement",
+          "disabled": true,
+          "settings": {
+            "icon": "none",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "text": "Naturally Soft Thoughtfully Made",
+            "text_size": 12,
+            "enable_italic": false,
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_DaBaR6",
+        "announcement_KtdJHc",
+        "announcement_ekTGTC",
+        "announcement_mda4L4",
+        "announcement_3jAEPP"
+      ],
+      "name": "t:sections.scrolling-promotion.presets.name",
+      "settings": {
+        "static": false,
+        "hide_desktop": false,
+        "hide_mob": false,
+        "direction": "left",
+        "speed": 5,
+        "show_divider": false,
+        "use_custom_colors": true,
+        "colors_icon": "#ffffff",
+        "colors_text": "#121212",
+        "colors_background": "#ffffff",
+        "gradient_background": "",
+        "hidden_templates": "product.muslin-blanket-le-new",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "23ac3cc1-1fc4-42a6-8e72-c6fad0b13420": {
+          "type": "mega_menu",
+          "settings": {
+            "menu_title": "Skincare",
+            "narrow": false,
+            "show_menu_image": false,
+            "promo_image_ratio_1": "adapt",
+            "promo_image_position_1": "center center",
+            "promo_heading_1": "All Skincare",
+            "promo_text_1": "Add a tagline",
+            "promo_overlay_content_1": false,
+            "promo_link_1": "",
+            "promo_image_ratio_2": "adapt",
+            "promo_image_position_2": "center center",
+            "promo_heading_2": "Trending weekly",
+            "promo_text_2": "Add a tagline",
+            "promo_overlay_content_2": true,
+            "promo_link_2": ""
+          }
+        },
+        "seasonal_deal_iyWjpq": {
+          "type": "seasonal_deal",
+          "settings": {
+            "image_ratio": "adapt",
+            "layout": "layout-bottom",
+            "text_box_position": "middle-center",
+            "text_alignment": "center",
+            "heading": "THE PERFECT PRESENT",
+            "subheading": "",
+            "description": "<p>Enhance your beauty routine with our luxurious cream gift box. Includes a cuddly teddy bear for added charm. Limited availability.</p>",
+            "button_label": "BUY NOW",
+            "button_link": "",
+            "heading_color": "#000000",
+            "subheading_color": "#000000",
+            "description_color": "#000000",
+            "background_color": "#f7eedd",
+            "colors_overlay_opacity": 92
+          }
+        },
+        "seasonal_deal_fTVMTi": {
+          "type": "seasonal_deal",
+          "settings": {
+            "image_ratio": "landscape",
+            "layout": "layout-left",
+            "text_box_position": "middle-center",
+            "text_alignment": "center",
+            "heading": "MEET OUR NEW BAE!",
+            "subheading": "",
+            "description": "<p>Introducing our latest beauty cream for radiant, glowing skin. </p>",
+            "button_label": "EXPLORE",
+            "button_link": "",
+            "heading_color": "#000000",
+            "subheading_color": "#000000",
+            "description_color": "#000000",
+            "background_color": "#a8e8e2",
+            "colors_overlay_opacity": 40
+          }
+        },
+        "seasonal_deal_ffwHEh": {
+          "type": "seasonal_deal",
+          "settings": {
+            "image_ratio": "square",
+            "layout": "overlay-opacity",
+            "text_box_position": "top-right",
+            "text_alignment": "right",
+            "heading": "Organic ingredients?",
+            "subheading": "",
+            "description": "<p>Curious about the effectiveness of organic ingredients? Learn how our products harness nature’s potential for real results.</p>",
+            "button_label": "WHAT WE DO",
+            "button_link": "",
+            "heading_color": "#000000",
+            "subheading_color": "#000000",
+            "description_color": "#000000",
+            "background_color": "#ffffff",
+            "colors_overlay_opacity": 20
+          }
+        }
+      },
+      "block_order": [
+        "23ac3cc1-1fc4-42a6-8e72-c6fad0b13420",
+        "seasonal_deal_iyWjpq",
+        "seasonal_deal_fTVMTi",
+        "seasonal_deal_ffwHEh"
+      ],
+      "settings": {
+        "logo": "shopify://shop_images/THE_FLEECE_COMPANY_5000_x_500_px.avif",
+        "logo_height": 26,
+        "mobile_logo_height": 20,
+        "logo_position": "off-canvas",
+        "menu": "main-menu",
+        "menu_mobile": "main-menu",
+        "enable_dropdown_menu": true,
+        "show_line_separator": true,
+        "uppercase_menu_items": false,
+        "cart_icon": "bag",
+        "icon_weight": "1.5",
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "enable_sticky_header": true,
+        "show_sticky_header_scroll_up": true,
+        "enable_transparent_header": false,
+        "enable_transparent_header_collection": false,
+        "enable_transparent_header_custom": "",
+        "show_transparent_header_border": false,
+        "transparent_text_color": "#ffffff",
+        "enable_highlight": false,
+        "highlight_labels": "Skincare",
+        "highlight_style": "squiggle",
+        "enable_sidebar": false,
+        "sidebar_heading": "Must-see this week",
+        "mobile_logo_position": "center",
+        "colors_text": "#000000",
+        "colors_border": "#d2d5d9",
+        "colors_background": "#ffffff",
+        "gradient_background": "",
+        "colors_highlight": "#faeaa1",
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "announcement_custom_8Ckjmm",
+    "scrolling_promotion_Ekxczy",
+    "header"
+  ]
+}
