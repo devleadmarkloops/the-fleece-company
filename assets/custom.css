@@ -53,6 +53,11 @@
   }
 }
 
+/* Header New */
+.header-new .header__inline-menu {
+  text-align: center;
+}
+
 /* ##### Card Product ##### */
 .card-wrapper .card-information__wrapper .meta-subtitle {
   font-size: 1.2rem;
