@@ -143,9 +143,9 @@ header.header-new .mega-menu__promo-subheading strong {
     width: 1.5rem;
     height: 1.5rem;
   }
-  .menu-drawer__navigation-container .menu-title {
+  header.header-new .menu-drawer__navigation-container .menu-title {
     font-family: var(--new-font-heading-family);
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     letter-spacing: 0;
   }
 }
