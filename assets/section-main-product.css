@@ -556,6 +556,7 @@ fieldset.product-form__input .form__label {
   outline: 0.2rem solid rgba(var(--color-foreground), 0);
   outline-offset: 0.3rem;
   /* box-shadow: inset 0 0 0 0.3rem var(--swatch-outline-color); */
+  border: 1px solid rgba(59, 59, 59, 0.15);
   border-radius: var(--swatch--border-radius);
   transition: scale var(--duration-long) ease;
   scale: 1;
