@@ -833,6 +833,7 @@
         "review_NnMbVQ",
         "review_rmXFME"
       ],
+      "disabled": true,
       "name": "Reviews slider v1",
       "settings": {
         "heading": "Trusted by 18,000+ Customers",
@@ -852,6 +853,29 @@
         "padding_bottom": 60,
         "padding_top_mob": 40,
         "padding_bottom_mob": 40
+      }
+    },
+    "17718302163b5e340b": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_QjEyLX": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_QjEyLX"
+      ],
+      "settings": {
+        "include_margins": true,
+        "show_divider": false,
+        "padding_top": 20,
+        "padding_bottom": 20
       }
     },
     "image_with_accordion_NRBNzn": {
@@ -934,6 +958,7 @@
     "multicolumn_v2_zxzHia",
     "image_floating_features_NyGtrV",
     "reviews_slider_v1_7hqRz8",
+    "17718302163b5e340b",
     "image_with_accordion_NRBNzn"
   ]
 }
