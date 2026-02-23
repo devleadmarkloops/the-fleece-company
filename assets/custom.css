@@ -143,6 +143,11 @@ header.header-new .mega-menu__promo-subheading strong {
     width: 1.5rem;
     height: 1.5rem;
   }
+  .menu-drawer__navigation-container .menu-title {
+    font-family: var(--new-font-heading-family);
+    font-size: 1.8rem;
+    letter-spacing: 0;
+  }
 }
 
 /* ##### Card Product ##### */
