@@ -247,7 +247,7 @@ mega-menu {
 }
 
 .mega-menu__promo .media {
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   border-radius: var(--card-radius);
 }
 
