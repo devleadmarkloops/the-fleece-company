@@ -180,7 +180,7 @@
       }
     },
     "header": {
-      "type": "header",
+      "type": "header-new",
       "blocks": {
         "23ac3cc1-1fc4-42a6-8e72-c6fad0b13420": {
           "type": "mega_menu",
@@ -267,10 +267,10 @@
         "seasonal_deal_ffwHEh"
       ],
       "settings": {
-        "logo": "shopify://shop_images/THE_FLEECE_COMPANY_5000_x_500_px.avif",
+        "logo": "shopify://shop_images/The_Fleece_Company_1.svg",
         "logo_height": 26,
         "mobile_logo_height": 20,
-        "logo_position": "off-canvas",
+        "logo_position": "middle-left",
         "menu": "main-menu",
         "menu_mobile": "main-menu",
         "enable_dropdown_menu": true,
@@ -293,8 +293,8 @@
         "enable_sidebar": false,
         "sidebar_heading": "Must-see this week",
         "mobile_logo_position": "center",
-        "colors_text": "#000000",
-        "colors_border": "#d2d5d9",
+        "colors_text": "#3b3b3b",
+        "colors_border": "#c5bbae",
         "colors_background": "#ffffff",
         "gradient_background": "",
         "colors_highlight": "#faeaa1",
