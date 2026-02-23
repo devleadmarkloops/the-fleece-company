@@ -64,6 +64,15 @@ header.header-new .header__inline-menu .header__menu-item {
 header.header-new .is-megamenu>.list-menu-dropdown .page-width {
   --grid-horizontal-spacing: 2rem;
 }
+header.header-new .mega-menu__promo {
+  flex: 0 0 16rem;
+}
+
+@media screen and (min-width: 1200px) {
+  header.header-new .mega-menu__promo {
+    flex: 0 0 17rem;
+  }
+}
 
 /* ##### Card Product ##### */
 .card-wrapper .card-information__wrapper .meta-subtitle {
