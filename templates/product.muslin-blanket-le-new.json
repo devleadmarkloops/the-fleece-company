@@ -874,6 +874,7 @@
       "settings": {
         "include_margins": true,
         "show_divider": false,
+        "custom_class": "reviews-slider",
         "padding_top": 20,
         "padding_bottom": 20
       }
