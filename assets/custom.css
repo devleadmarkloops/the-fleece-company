@@ -84,7 +84,7 @@ header.header-new .list-mega-menu .mega-menu__item > .mega-menu__item-link .head
 }
 header.header-new .list-mega-menu .mega-menu__item .list-menu .header__menu-item {
   font-size: 1.4rem;
-  font-weight: 400;
+  font-weight: 500;
   color: rgb(var(--color-header-foreground));
   letter-spacing: 0;
   padding-block: 0.4rem;
