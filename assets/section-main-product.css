@@ -3487,7 +3487,7 @@ span.alert-box:before {
     border-radius: 6px;
   }
   .product__info-container .product-form__input.product-form__input--half-width input[type=radio]+label {
-    width: calc(50% - 7rem);
+    width: calc(50% - 0.7rem);
   }
   /* When Kaching Bundles */
   .product__info-container .kaching-bundles .kaching-bundles__bar-title, 
