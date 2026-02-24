@@ -345,8 +345,18 @@
 
     <div class="floating-features-footer">
       {%- if section.settings.button_label != blank -%}
-        <a {% if section.settings.button_link != blank %}href="{{ section.settings.button_link }}"{% else %}role="link" aria-disabled="true"{% endif %} 
-           class="button{% if section.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}">
+        {%- liquid 
+          assign btn_attr = ''
+          if section.settings.scroll_target != blank
+            assign btn_attr = 'href="#" data-scroll-target="' | append: section.settings.scroll_target | append: '"'
+          elsif section.settings.button_link != blank
+            assign btn_attr = 'href="' | append: section.settings.button_link | append: '"'
+          else
+            assign btn_attr = 'role="link" aria-disabled="true"'
+          endif
+        -%}
+
+        <a {{ btn_attr }} class="button{% if section.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}">
           {{ section.settings.button_label | escape }}
         </a>
       {%- endif -%}
@@ -493,6 +503,12 @@
       "type": "url",
       "id": "button_link",
       "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "scroll_target",
+      "label": "Scroll Target",
+      "info": "Enter a class or ID (e.g., .my-section or #my-section) to smooth scroll without changing the URL. Overrides the link above."
     },
     {
       "type": "checkbox",
