@@ -151,6 +151,7 @@
         },
         "payment_icons_jx4G8P": {
           "type": "payment_icons",
+          "disabled": true,
           "settings": {
             "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
           }
