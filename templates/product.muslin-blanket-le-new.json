@@ -67,7 +67,7 @@
             "show_price": false,
             "price_size": "medium",
             "desktop_hide": false,
-            "mobile_hide": true
+            "mobile_hide": false
           }
         },
         "price": {
