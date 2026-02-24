@@ -330,7 +330,7 @@
         "mobile_image_ratio": "portrait",
         "show_mobile_thumbnails": false,
         "enable_variant_specific_media": true,
-        "enable_fade_slider": false,
+        "enable_fade_slider": true,
         "padding_top": 0,
         "padding_bottom": 20
       }
