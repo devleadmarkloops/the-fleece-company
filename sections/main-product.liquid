@@ -607,7 +607,7 @@
                 class="thumbnail-list list-unstyled slider slider--mobile{% if section.settings.gallery_layout == 'thumbnail_slider' or section.settings.gallery_layout == 'vertical_slider' %} slider--tablet-up{% endif %}"
                 data-media-count="{{ product.media.size }}"
               >
-                {%- if featured_media != blank -%}
+                {%- if featured_media != blank and featured_media_matches -%}
                   {%- liquid
                     capture media_index
                       if featured_media.media_type == 'model'
@@ -708,7 +708,7 @@
                       assign gang_connect = ''
                       assign media_active = false
 
-                      if media == featured_media or featured_media == null and forloop.first
+                      if media.id == product.selected_or_first_available_variant.featured_media.id
                         assign media_active = true
                       endif
 
