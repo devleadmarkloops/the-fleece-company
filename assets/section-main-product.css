@@ -3479,6 +3479,7 @@ span.alert-box:before {
   }
   .product__info-container .product-form__input input[type=radio]+label {
     font-size: 1.2rem;
+    text-align: center;
     border-radius: 6px;
   }
   .product__info-container .product-form__input input.button-input__input+label::after {
