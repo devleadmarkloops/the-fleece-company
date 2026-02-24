@@ -212,8 +212,8 @@
                   "id": {{ variant.id }},
                   "options": {{ variant.options | json }},
                   "available": {{ variant.available }},
-                  "price": "{{ variant.price | money }}",
-                  "featured_image": "{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 600 }}{% endif %}"
+                  "price": {{ variant.price | money | json }},
+                  "featured_image": {% if variant.featured_image %}{{ variant.featured_image | image_url: width: 600 | json }}{% else %}null{% endif %}
                 }{% unless forloop.last %},{% endunless %}
               {%- endfor -%}
               ]
