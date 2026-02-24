@@ -214,6 +214,67 @@
     });
   }
 </script>
+<script>
+  if (!customElements.get('card-v2-variant-selector')) {
+  customElements.define('card-v2-variant-selector', class extends HTMLElement {
+    constructor() {
+      super();
+      this.addEventListener('change', this.onVariantChange);
+    }
+
+    onVariantChange() {
+      // 1. Get the parsed variant data from your JSON script
+      const variantDataJson = this.querySelector('.card-v2-json');
+      if (!variantDataJson) return;
+      const variants = JSON.parse(variantDataJson.textContent);
+
+      // 2. Get the currently selected swatch/pill options
+      const selectedOptions = Array.from(this.querySelectorAll('input[type="radio"]:checked')).map(radio => radio.value);
+
+      // 3. Find the exact variant that matches the selected options
+      const currentVariant = variants.find(variant => {
+        return variant.options.every((option, index) => option === selectedOptions[index]);
+      });
+
+      if (!currentVariant) return;
+
+      // 4. Target the parent card wrapper to scope our changes
+      const cardWrapper = this.closest('.card-v2-wrapper');
+      if (!cardWrapper) return;
+
+      // 5. UPDATE THE URLS (Clicking the card opens the exact variant)
+      const links = cardWrapper.querySelectorAll('.card__media, .card-v2-title');
+      links.forEach(link => {
+        const baseUrl = link.href.split('?')[0];
+        link.href = `${baseUrl}?variant=${currentVariant.id}`;
+      });
+
+      // 6. UPDATE THE IMAGE
+      if (currentVariant.featured_image) {
+        const mainImage = cardWrapper.querySelector('.card-v2-main-image');
+        const pictureSources = cardWrapper.querySelectorAll('picture source');
+        
+        if (mainImage) {
+          mainImage.src = currentVariant.featured_image;
+          // Clear native srcset so the new image takes priority
+          mainImage.srcset = currentVariant.featured_image; 
+        }
+        
+        // CRITICAL: We must update the <source> tags too, otherwise the <picture> element will ignore our new image!
+        pictureSources.forEach(source => {
+          source.srcset = currentVariant.featured_image;
+        });
+      }
+
+      // 7. UPDATE ADD TO CART (Ensures the correct variant is added)
+      const hiddenInput = cardWrapper.querySelector('.card-v2-final-id');
+      if (hiddenInput) {
+        hiddenInput.value = currentVariant.id;
+      }
+    }
+  });
+}
+</script>
 
 {% schema %}
 {
