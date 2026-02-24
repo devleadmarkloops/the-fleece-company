@@ -322,9 +322,11 @@
             "button_size": "medium",
             "button_label": "Try It Risk-Free",
             "button_link": "shopify://collections/all",
+            "scroll_target": ".kaching-bundles",
             "button_style_secondary": false,
             "button_alt_label": "",
             "button_alt_link": "",
+            "button_alt_scroll_target": "",
             "button_alt_style_secondary": false
           }
         },
