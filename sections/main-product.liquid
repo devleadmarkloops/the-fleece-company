@@ -49,7 +49,7 @@
     }
   }
 </style>
-<script>
+{% comment %} <script>
   document.addEventListener('DOMContentLoaded', () => {
     const mediaGalleries = document.querySelectorAll('media-gallery[data-desktop-layout="vertical_slider"]');
 
@@ -97,7 +97,7 @@
       });
     });
   });
-</script>
+</script> {% endcomment %}
 <product-info
   id="MainProduct-{{ section.id }}"
   class="section-{{ section.id }}-padding"
