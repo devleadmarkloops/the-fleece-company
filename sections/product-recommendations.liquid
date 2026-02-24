@@ -132,87 +132,134 @@
 </product-recommendations>
 <script>
   if (!customElements.get('card-v2-variant-selector')) {
-    customElements.define('card-v2-variant-selector', class extends HTMLElement {
-      connectedCallback() {
-        this.addEventListener('change', this.onVariantChange.bind(this));
-        this.addEventListener('click', this.onClick.bind(this));
+  customElements.define('card-v2-variant-selector', class extends HTMLElement {
+    
+    connectedCallback() {
+      // Prevent double-binding if moved around the DOM
+      if (this.initialized) return;
+      this.initialized = true;
+
+      this.addEventListener('change', this.onVariantChange.bind(this));
+      this.addEventListener('click', this.onClick.bind(this));
+      
+      // Delay slightly to ensure DOM is ready, then set initial links
+      setTimeout(() => { this.updateCardData(); }, 50);
+    }
+
+    onClick(e) {
+      if (e.target.matches('.card-v2-view-all-colors')) {
+        e.preventDefault();
+        this.querySelectorAll('.hidden-swatch').forEach(el => el.style.display = 'block');
+        e.target.style.display = 'none';
+      }
+    }
+
+    onVariantChange(e) {
+      if (!e.target.matches('.card-v2-radio')) return;
+
+      // 1. Update UI Styling immediately
+      if (e.target.classList.contains('card-v2-radio-color')) {
+         const wrapper = e.target.closest('.card-v2-swatches');
+         wrapper.querySelectorAll('.card-v2-swatch').forEach(lbl => lbl.style.outline = 'none');
+         const label = e.target.closest('label');
+         if (label) {
+           label.style.outline = '1px solid rgb(var(--color-foreground))';
+           label.style.outlineOffset = '2px';
+         }
+      } else if (e.target.classList.contains('card-v2-radio-pill')) {
+         const wrapper = e.target.closest('.card-v2-pills');
+         wrapper.querySelectorAll('.card-v2-pill').forEach(lbl => {
+           lbl.style.background = 'rgb(var(--color-background))'; 
+           lbl.style.color = 'rgb(var(--color-foreground))'; 
+           lbl.style.borderColor = '#e1e1e1';
+         });
+         const label = e.target.closest('label');
+         if (label) {
+           label.style.background = 'rgb(var(--color-foreground))';
+           label.style.color = 'rgb(var(--color-background))';
+           label.style.borderColor = 'rgb(var(--color-foreground))';
+         }
       }
 
-      onClick(e) {
-        if (e.target.matches('.card-v2-view-all-colors')) {
-          e.preventDefault();
-          this.querySelectorAll('.hidden-swatch').forEach(el => el.style.display = 'block');
-          e.target.style.display = 'none';
-        }
+      // 2. Trigger the data update
+      this.updateCardData();
+    }
+
+    updateCardData() {
+      const jsonScript = this.querySelector('.card-v2-json');
+      if (!jsonScript) return;
+      
+      let variants;
+      try {
+        variants = JSON.parse(jsonScript.textContent); 
+      } catch(err) {
+        console.error("Card V2 JSON parsing error:", err);
+        return;
       }
 
-      onVariantChange(e) {
-        if (!e.target.matches('.card-v2-radio')) return;
+      const checkedRadios = Array.from(this.querySelectorAll('.card-v2-radio:checked'));
+      if (checkedRadios.length === 0) return;
 
-        // 1. Update UI Styling immediately
-        if (e.target.classList.contains('card-v2-radio-color')) {
-           const wrapper = e.target.closest('.card-v2-swatches');
-           wrapper.querySelectorAll('.card-v2-swatch').forEach(lbl => lbl.style.outline = 'none');
-           e.target.closest('label').style.outline = '1px solid rgb(var(--color-foreground))';
-           e.target.closest('label').style.outlineOffset = '2px';
-        } else if (e.target.classList.contains('card-v2-radio-pill')) {
-           const wrapper = e.target.closest('.card-v2-pills');
-           wrapper.querySelectorAll('.card-v2-pill').forEach(lbl => {
-             lbl.style.background = 'rgb(var(--color-background))'; lbl.style.color = 'rgb(var(--color-foreground))'; lbl.style.borderColor = '#e1e1e1';
-           });
-           e.target.closest('label').style.background = 'rgb(var(--color-foreground))';
-           e.target.closest('label').style.color = 'rgb(var(--color-background))';
-           e.target.closest('label').style.borderColor = 'rgb(var(--color-foreground))';
-        }
+      // NEW LOGIC: Match variant ONLY against the options actually present on the card
+      const match = variants.find(v => {
+        return checkedRadios.every(radio => {
+          const optionIndex = parseInt(radio.dataset.optionIndex);
+          return v.options[optionIndex] === radio.value;
+        });
+      });
 
-        // 2. Fetch data & match variant
-        const jsonScript = this.querySelector('.card-v2-json');
-        if (!jsonScript) return;
-        const variants = JSON.parse(jsonScript.innerHTML);
+      if (match) {
+        const card = this.closest('.card-wrapper');
+        if(!card) return;
 
-        const checkedRadios = Array.from(this.querySelectorAll('.card-v2-radio:checked'));
-        let currentOptions = [];
-        checkedRadios.forEach(radio => currentOptions[parseInt(radio.dataset.optionIndex)] = radio.value);
+        // A. Update Form ID
+        const idInput = card.querySelector('.card-v2-final-id');
+        if (idInput) idInput.value = match.id;
 
-        const match = variants.find(v => v.options.every((opt, i) => opt === currentOptions[i]));
+        // B. Update URLs safely using the URL API
+        const links = card.querySelectorAll('.card__media, .card-v2-title');
+        links.forEach(link => {
+          try {
+            const url = new URL(link.href);
+            url.searchParams.set('variant', match.id);
+            link.href = url.toString();
+          } catch(e) {}
+        });
 
-        // 3. Update the rest of the Card
-        if (match) {
-          const card = this.closest('.card-wrapper');
-          if(!card) return;
-
-          // A. Update Form ID (Crucial for Add to Cart)
-          const idInput = card.querySelector('.card-v2-final-id');
-          if (idInput) idInput.value = match.id;
-
-          // B. Update Main Image
+        // C. Update Image & Picture Sources
+        if (match.featured_image) {
           const img = card.querySelector('.card-v2-main-image');
-          if (img && match.featured_image) {
+          if (img) {
             img.src = match.featured_image;
             img.srcset = match.featured_image;
           }
-
-          // C. Update Button State
-          const btn = card.querySelector('.card-v2-add-btn');
-          if (btn) {
-            if (match.available) {
-              btn.textContent = "{{ 'products.product.add_to_cart' | t }}";
-              btn.disabled = false;
-              btn.classList.remove('disabled');
-            } else {
-              btn.textContent = "{{ 'products.product.sold_out' | t }}";
-              btn.disabled = true;
-              btn.classList.add('disabled');
-            }
-          }
-
-          // D. Update Exact Price Text 
-          const priceRegular = card.querySelector('.price-item--regular');
-          if (priceRegular) priceRegular.innerHTML = match.price; 
+          const pictureSources = card.querySelectorAll('picture source');
+          pictureSources.forEach(source => {
+            source.srcset = match.featured_image;
+          });
         }
+
+        // D. Update Button State
+        const btn = card.querySelector('.card-v2-add-btn');
+        if (btn) {
+          if (match.available) {
+            btn.textContent = window.variantStrings?.addToCart || "Add to cart";
+            btn.disabled = false;
+            btn.classList.remove('disabled');
+          } else {
+            btn.textContent = window.variantStrings?.soldOut || "Sold out";
+            btn.disabled = true;
+            btn.classList.add('disabled');
+          }
+        }
+
+        // E. Update Exact Price Text 
+        const priceRegular = card.querySelector('.price-item--regular');
+        if (priceRegular) priceRegular.innerHTML = match.price; 
       }
-    });
-  }
+    }
+  });
+}
 </script>
 
 {% schema %}
