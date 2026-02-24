@@ -2198,10 +2198,10 @@
                   <div class="pairs-well-header">
                     <h3 class="h4">{{ block.settings.heading }}</h3>
                     {%- if block.settings.product_list.count > 1 -%}
-                      <div class="pairs-well-nav">
+                      {% comment %} <div class="pairs-well-nav">
                         <div class="swiper-button-prev pw-prev-{{ block.id }}"></div>
                         <div class="swiper-button-next pw-next-{{ block.id }}"></div>
-                      </div>
+                      </div> {% endcomment %}
                     {%- endif -%}
                   </div>
 
