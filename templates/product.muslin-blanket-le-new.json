@@ -678,6 +678,7 @@
         "icon_size": 48,
         "button_label": "Try It Risk-Free",
         "button_link": "shopify://collections/all",
+        "scroll_target": ".kaching-bundles",
         "button_style_secondary": false,
         "footer_icon_svg_1": "",
         "footer_icon_image_1": "shopify://shop_images/Secure_Checkout_1.png",
