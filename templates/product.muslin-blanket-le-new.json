@@ -75,7 +75,7 @@
           "settings": {
             "price_size": "medium",
             "show_badges": true,
-            "sale_badge_basis": "percentage"
+            "sale_badge_basis": "auto"
           }
         },
         "icon_text_9Gxbx4": {
