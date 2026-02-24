@@ -278,33 +278,54 @@
               
               {%- when 'button' -%}
                 <div class="button-group" {{ block.shopify_attributes }}>
+                  {%- liquid 
+                    assign btn_1_attr = ''
+                    if block.settings.scroll_target != blank
+                      assign btn_1_attr = 'href="#" data-scroll-target="' | append: block.settings.scroll_target | append: '"'
+                    elsif block.settings.button_link != blank
+                      assign btn_1_attr = 'href="' | append: block.settings.button_link | append: '"'
+                    else
+                      assign btn_1_attr = 'role="link" aria-disabled="true"'
+                    endif
+
+                    assign btn_2_attr = ''
+                    if block.settings.button_alt_scroll_target != blank
+                      assign btn_2_attr = 'href="#" data-scroll-target="' | append: block.settings.button_alt_scroll_target | append: '"'
+                    elsif block.settings.button_alt_link != blank
+                      assign btn_2_attr = 'href="' | append: block.settings.button_alt_link | append: '"'
+                    else
+                      assign btn_2_attr = 'role="link" aria-disabled="true"'
+                    endif
+                  -%}
+
                   {%- if block.settings.button_label != blank or block.settings.button_alt_label != blank -%}
                     {%- if block.settings.button_label != blank -%}
                       {%- if block.settings.button_style_secondary -%}
-                        <a class="button button--cta button--{{ block.settings.button_size }}"{% if block.settings.button_link != blank %} href="{{ block.settings.button_link }}"{% else %} role="link" aria-disabled="true"{% endif %}>
+                        <a class="button button--cta button--{{ block.settings.button_size }}" {{ btn_1_attr }}>
                           <span class="label">{{ block.settings.button_label | escape }}</span>
                           {% render 'icon', icon: 'arrow' %}
                         </a>
                       {%- else -%}
-                        <a class="button button--{{ block.settings.button_size }}"{% if block.settings.button_link != blank %} href="{{ block.settings.button_link }}"{% else %} role="link" aria-disabled="true"{% endif %}>
+                        <a class="button button--{{ block.settings.button_size }}" {{ btn_1_attr }}>
                           {{ block.settings.button_label | escape }}
                         </a>
                       {%- endif -%}
                     {%- endif -%}
+                    
                     {%- if block.settings.button_alt_label != blank -%}
                       {%- if block.settings.button_alt_style_secondary -%}
-                        <a class="button button--cta button--{{ block.settings.button_size }}"{% if block.settings.button_alt_link != blank %} href="{{ block.settings.button_alt_link }}"{% else %} role="link" aria-disabled="true"{% endif %}>
+                        <a class="button button--cta button--{{ block.settings.button_size }}" {{ btn_2_attr }}>
                           <span class="label">{{ block.settings.button_alt_label | escape }}</span>
                           {% render 'icon', icon: 'arrow' %}
                         </a>
                       {%- else -%}
-                        <a class="button button--secondary button--{{ block.settings.button_size }}"{% if block.settings.button_alt_link != blank %} href="{{ block.settings.button_alt_link }}"{% else %} role="link" aria-disabled="true"{% endif %}>
+                        <a class="button button--secondary button--{{ block.settings.button_size }}" {{ btn_2_attr }}>
                           {{ block.settings.button_alt_label | escape }}
                         </a>
                       {%- endif -%}
                     {%- endif -%}
                   {%- elsif section.blocks.size == 1 and block.settings.button_link != blank -%}
-                    <a class="full-unstyled-link" href="{{ block.settings.button_link }}" aria-label="{{ block.settings.heading | default: block.settings.subheading | escape }}"></a>
+                    <a class="full-unstyled-link" {{ btn_1_attr }} aria-label="{{ block.settings.heading | default: block.settings.subheading | escape }}"></a>
                   {%- endif -%}
                 </div>
             {%- endcase -%}
