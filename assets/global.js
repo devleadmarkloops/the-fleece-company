@@ -3515,91 +3515,61 @@ if (!customElements.get('tabbed-collections')) {
 }
 
 
-class CardV2VariantSelector extends HTMLElement {
-  connectedCallback() {
-    this.addEventListener('change', this.onVariantChange.bind(this));
-    this.addEventListener('click', this.onClick.bind(this));
+document.addEventListener('change', function(e) {
+  if (!e.target.matches('.card-v2-radio')) return;
+
+  const card = e.target.closest('.card-wrapper');
+  if (!card) return;
+
+  const selector = e.target.closest('card-v2-variant-selector');
+  if (!selector) return;
+
+  const jsonScript = selector.querySelector('.card-v2-json');
+  if (!jsonScript) return;
+
+  const variants = JSON.parse(jsonScript.textContent);
+
+  const checkedRadios = Array.from(selector.querySelectorAll('.card-v2-radio:checked'));
+  let currentOptions = [];
+
+  checkedRadios.forEach(r => {
+    currentOptions[parseInt(r.dataset.optionIndex)] = r.value;
+  });
+
+  const match = variants.find(v =>
+    v.options.every((opt, i) => opt === currentOptions[i])
+  );
+
+  if (!match) return;
+
+  /* Update Add To Cart ID */
+  const idInput = card.querySelector('.card-v2-final-id');
+  if (idInput) idInput.value = match.id;
+
+  /* Update Product Links */
+  const links = card.querySelectorAll('a[href*="/products/"]');
+  links.forEach(link => {
+    const baseUrl = link.getAttribute('href').split('?')[0];
+    link.href = baseUrl + '?variant=' + match.id;
+  });
+
+  /* Update Main Image */
+  const img = card.querySelector('.card-v2-main-image');
+  if (img && match.featured_image) {
+    img.src = match.featured_image;
+    img.removeAttribute('srcset');
   }
 
-  onClick(e) {
-    if (e.target.matches('.card-v2-view-all-colors')) {
-      e.preventDefault();
-      this.querySelectorAll('.hidden-swatch').forEach(el => el.style.display = 'inline-block');
-      e.target.style.display = 'none';
-    }
+  /* Update Price */
+  const price = card.querySelector('.price-item--regular');
+  if (price && match.price) {
+    price.innerHTML = match.price;
   }
 
-  onVariantChange(e) {
-    if (!e.target.matches('.card-v2-radio')) return;
-
-    const card = this.closest('.card-wrapper');
-    if (!card) return;
-
-    const jsonScript = this.querySelector('.card-v2-json');
-    if (!jsonScript) return;
-
-    const variants = JSON.parse(jsonScript.textContent);
-    const checkedRadios = Array.from(this.querySelectorAll('.card-v2-radio:checked'));
-
-    let currentOptions = [];
-    checkedRadios.forEach(r => {
-      currentOptions[parseInt(r.dataset.optionIndex)] = r.value;
-    });
-
-    const match = variants.find(v =>
-      v.options.every((opt, i) => opt === currentOptions[i])
-    );
-
-    if (!match) return;
-
-    /* ===============================
-       1️⃣ Update Add To Cart ID
-    =============================== */
-    const idInput = card.querySelector('.card-v2-final-id');
-    if (idInput) idInput.value = match.id;
-
-    /* ===============================
-       2️⃣ Update Product Links
-    =============================== */
-    const links = card.querySelectorAll('a[href*="/products/"]');
-    links.forEach(link => {
-      const baseUrl = link.getAttribute('href').split('?')[0];
-      link.href = baseUrl + '?variant=' + match.id;
-    });
-
-    /* ===============================
-       3️⃣ Update Main Image
-    =============================== */
-    const img = card.querySelector('.card-v2-main-image');
-    if (img && match.featured_image) {
-      img.src = match.featured_image;
-      img.removeAttribute('srcset');
-    }
-
-    /* ===============================
-       4️⃣ Update Price
-    =============================== */
-    const price = card.querySelector('.price-item--regular');
-    if (price && match.price) {
-      price.innerHTML = match.price;
-    }
-
-    /* ===============================
-       5️⃣ Update Button State
-    =============================== */
-    const btn = card.querySelector('.card-v2-add-btn');
-    if (btn) {
-      if (match.available) {
-        btn.disabled = false;
-        btn.classList.remove('disabled');
-      } else {
-        btn.disabled = true;
-        btn.classList.add('disabled');
-      }
-    }
+  /* Update Button */
+  const btn = card.querySelector('.card-v2-add-btn');
+  if (btn) {
+    btn.disabled = !match.available;
+    btn.classList.toggle('disabled', !match.available);
   }
-}
-
-if (!customElements.get('card-v2-variant-selector')) {
-  customElements.define('card-v2-variant-selector', CardV2VariantSelector);
-}
+});
