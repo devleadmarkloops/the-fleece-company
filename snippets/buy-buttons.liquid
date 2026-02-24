@@ -444,6 +444,8 @@
                   echo 'products.product.pre_order' | t
                 endif
               -%}
+              <span class="btn-price-separator"> - </span>
+              <span class="btn-price">{{ product.selected_or_first_available_variant.price | money }}</span>
             {%- endif -%}
           </span>
         </button>
