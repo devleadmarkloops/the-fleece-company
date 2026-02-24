@@ -3611,3 +3611,8 @@ span.alert-box:before {
     width: 100%;
   }
 }
+
+/* Sticky ATC */
+.sticky-cart .sticky-cart__content .h4 {
+  font-family: var(--new-font-heading-family); 
+}
