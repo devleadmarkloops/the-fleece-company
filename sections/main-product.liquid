@@ -352,9 +352,11 @@
                     endif
                   endif
                 -%}
-                {%- assign featured_media_rendered = false -%}
-                {%- if featured_media != blank and featured_media_matches -%}
-                  {%- assign featured_media_rendered = true -%}
+                {%- assign gallery_index = 0 -%}
+        {%- assign featured_media_rendered = false -%}
+        {%- if featured_media != blank and featured_media_matches -%}
+          {%- assign featured_media_rendered = true -%}
+          {%- assign gallery_index = gallery_index | plus: 1 -%}
                   {%- liquid
                     assign gang_option_name = ''
                     assign gang_media_active = false
@@ -388,7 +390,7 @@
                     id="Slide-{{ section.id }}-{{ featured_media.id }}"
                     class="product__media-item is-active flex-grid__item slider__slide{% if single_media_visible %} product__media-item--single{% endif %}{% if featured_media.media_type != 'image' %} product__media-item--full{% endif %}{% if section.settings.hide_variants and variant_images contains featured_media.src %} product__media-item--variant{% endif %}{% if gang_media_active == true %} gang__active{% endif %}"
                     data-media-id="{{ section.id }}-{{ featured_media.id }}"
-                    data-media-position="{{ featured_media.position }}"
+                    data-media-position="{{ gallery_index }}"
                     {% if gang_exist == true %}
                       data-gang-option="{{ gang_option_name }}" data-gang-connect="{{ gang_connect }}"
                     {% endif %}
