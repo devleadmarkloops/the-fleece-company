@@ -272,6 +272,7 @@
         "seasonal_deal_ffwHEh"
       ],
       "settings": {
+        "logo": "shopify://shop_images/The_Fleece_Company_3.svg",
         "logo_height": 26,
         "mobile_logo_height": 16,
         "logo_position": "middle-left",
