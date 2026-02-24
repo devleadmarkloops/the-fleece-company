@@ -390,6 +390,28 @@
   </div>
 </div>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const scrollButtons = document.querySelectorAll('#shopify-section-{{ section.id }} [data-scroll-target]');
+    
+    scrollButtons.forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault(); // Prevents the URL hash from updating
+        
+        const targetSelector = this.getAttribute('data-scroll-target');
+        if (!targetSelector) return;
+        
+        const targetElement = document.querySelector(targetSelector);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          console.warn('Smooth scroll target not found on this page: ' + targetSelector);
+        }
+      });
+    });
+  });
+</script>
+
 {% schema %}
 {
   "name": "Image Floating Features",
