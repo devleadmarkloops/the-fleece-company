@@ -171,7 +171,22 @@ if (!customElements.get('product-form')) {
           if (text) this.submitButtonText.textContent = text;
         } else {
           this.submitButton.removeAttribute('disabled');
-          this.submitButtonText.textContent = theme.variantStrings.addToCart;
+          
+          // 1. Find the newly updated price from the main product section
+          // (This logic checks if the item is on sale, otherwise grabs the regular price)
+          const onSalePrice = document.querySelector('.price--on-sale .price-item--sale');
+          const regularPrice = document.querySelector('.price-item--regular') || document.querySelector('.price-per-item--current');
+          const activePriceElement = onSalePrice ? onSalePrice : regularPrice;
+          
+          const currentPrice = activePriceElement ? activePriceElement.textContent.trim() : '';
+
+          // 2. Rebuild the button text with your custom HTML structure!
+          if (currentPrice) {
+             this.submitButtonText.innerHTML = `${theme.variantStrings.addToCart} <span class="btn-price-separator"> - </span> <span class="btn-price">${currentPrice}</span>`;
+          } else {
+             // Fallback just in case the price element isn't found
+             this.submitButtonText.textContent = theme.variantStrings.addToCart;
+          }
         }
       }
 
