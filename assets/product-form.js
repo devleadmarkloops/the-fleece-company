@@ -189,7 +189,7 @@ if (!customElements.get('product-form')) {
           const currentPrice = activePriceElement ? activePriceElement.textContent.trim() : '';
 
           if (currentPrice) {
-             this.submitButtonText.innerHTML = `${theme.variantStrings.addToCart} <span class="btn-price-separator"> | </span> <span class="btn-price">${currentPrice}</span>`;
+             this.submitButtonText.innerHTML = `${theme.variantStrings.addToCart} <span class="btn-price-separator"> – </span> <span class="btn-price">${currentPrice}</span>`;
           } else {
              this.submitButtonText.textContent = theme.variantStrings.addToCart;
           }
