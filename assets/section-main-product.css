@@ -1187,7 +1187,7 @@ product-gallery {
 }
 
 .product__media-item--variant {
-  display: none;
+  /* display: none; */
 }
 
 .product__media-item--variant:first-child {
