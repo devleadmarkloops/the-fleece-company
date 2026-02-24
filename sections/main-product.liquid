@@ -305,220 +305,164 @@
                 role="list"
               >
                 {%- liquid
-                  assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src'
-                  if section.settings.hide_variants and variant_images.size == product.media.size
-                    assign single_media_visible = true
-                  endif
+  assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src'
+  if section.settings.hide_variants and variant_images.size == product.media.size
+    assign single_media_visible = true
+  endif
 
-                  assign media_count = product.media.size
-                  if section.settings.hide_variants and media_count > 1
-                    assign media_count = media_count | minus: variant_images.size | plus: 1
-                  endif
+  assign media_count = 0
+  assign media_width = 0.55
+  if section.settings.media_size == 'large'
+    assign media_width = 0.65
+  elsif section.settings.media_size == 'small'
+    assign media_width = 0.45
+  endif
 
-                  assign gang_exist = false
+  assign image_ratio = 'adapt'
+  if section.settings.gallery_layout != 'stacked'
+    assign image_ratio = section.settings.image_ratio
+  endif
 
-                  if section.settings.media_size == 'large'
-                    assign media_width = 0.65
-                  elsif section.settings.media_size == 'medium'
-                    assign media_width = 0.55
-                  elsif section.settings.media_size == 'small'
-                    assign media_width = 0.45
-                  endif
+  assign mobile_image_ratio = section.settings.mobile_image_ratio
+  
+  # Check if variant-specific media is enabled
+  assign enable_variant_media = false
+  if section.settings.enable_variant_specific_media or product.metafields.custom.variant_specific_media.value == true
+    assign enable_variant_media = true
+  endif
+  
+  # Get selected variant info for matching
+  assign selected_variant = product.selected_or_first_available_variant
+  assign v_title = selected_variant.title | downcase | replace: ' ', ''
+-%}
 
-                  assign image_ratio = 'adapt'
-                  if section.settings.gallery_layout != 'stacked'
-                    assign image_ratio = section.settings.image_ratio
-                  endif
+{%- comment %} 
+  BUILD MEDIA LIST LOGIC:
+  1. If variant-specific media enabled: show ONLY images where alt matches variant title OR alt is 'all'
+  2. If disabled: show all images
+  3. Featured media only shows if it matches the variant OR if no variant-specific filtering
+{% endcomment -%}
 
-                  assign mobile_image_ratio = section.settings.mobile_image_ratio
-                -%}
+{%- assign display_media_list = '' -%}
 
-                                {%- liquid
-                  assign featured_media_matches = true
-                  if section.settings.enable_variant_specific_media and product.metafields.custom.variant_specific_media.value == true
-                    assign v_title = product.selected_or_first_available_variant.title | downcase | replace: ' ', ''
-                    assign media_alt = featured_media.alt | downcase | replace: ' ', ''
-                    
-                    if media_alt != blank and v_title contains media_alt
-                      assign featured_media_matches = true
-                    elsif media_alt == blank
-                      assign featured_media_matches = true
-                    else
-                      assign featured_media_matches = false
-                    endif
-                    
-                    if product.selected_or_first_available_variant.featured_media != null
-                      assign featured_media_matches = true
-                    endif
-                  endif
-                -%}
-                {%- assign featured_media_rendered = false -%}
-                {%- if featured_media != blank and featured_media_matches -%}
-                  {%- assign featured_media_rendered = true -%}
-                  {%- liquid
-                    assign gang_option_name = ''
-                    assign gang_media_active = false
-                    assign gang_connect = ''
-                    if featured_media.alt contains '#' and section.settings.hide_variants == false
-                      assign gang_connect = featured_media.alt | split: '#' | last
-                      if gang_connect contains ':' and localization.language.iso_code != blank
-                        assign gang_connect = gang_connect | append: ','
-                        assign split_param = localization.language.iso_code | append: ':'
-                        assign gang_connect = gang_connect | split: split_param | last | split: ',' | first
-                      endif
-                      if gang_connect contains '_'
-                        assign gang_exist = true
-                        assign gang_option_name = gang_connect | split: '_' | first | handleize
+{%- for media in product.media -%}
+  {%- assign media_alt = media.alt | downcase | replace: ' ', '' -%}
+  {%- assign should_show = false -%}
+  
+  {%- unless enable_variant_media -%}
+    {%- assign should_show = true -%}
+  {%- else -%}
+    {%- # Show if alt is empty (default image for all variants) -%}
+    {%- if media_alt == '' or media_alt == blank -%}
+      {%- assign should_show = false -%} {%- # Hide generic images when variant-specific is on -%}
+    {%- endif -%}
+    
+    {%- # Show if alt matches selected variant title -%}
+    {%- if v_title contains media_alt and media_alt != '' -%}
+      {%- assign should_show = true -%}
+    {%- endif -%}
+    
+    {%- # Show if alt is 'all' (universal images) -%}
+    {%- if media_alt == 'all' -%}
+      {%- assign should_show = true -%}
+    {%- endif -%}
+    
+    {%- # Always show the selected variant's featured_media -%}
+    {%- if selected_variant.featured_media and media.id == selected_variant.featured_media.id -%}
+      {%- assign should_show = true -%}
+    {%- endif -%}
+  {%- endunless -%}
+  
+  {%- if should_show -%}
+    {%- assign display_media_list = display_media_list | append: media.id | append: ',' -%}
+  {%- endif -%}
+{%- endfor -%}
 
-                        for option in product.options_with_values
-                          assign option_name_handlized = option.name | handleize | replace: '_', '-'
-                          if option_name_handlized == gang_option_name
-                            assign current_option_value = option.selected_value | handleize
-                            assign current_connect = option_name_handlized | append: '_' | append: current_option_value
-                            if gang_connect == current_connect
-                              assign gang_media_active = true
-                            endif
-                            break
-                          endif
-                        endfor
-                      endif
-                    endif
-                  -%}
-                  <li
-                    id="Slide-{{ section.id }}-{{ featured_media.id }}"
-                    class="product__media-item is-active flex-grid__item slider__slide{% if single_media_visible %} product__media-item--single{% endif %}{% if featured_media.media_type != 'image' %} product__media-item--full{% endif %}{% if section.settings.hide_variants and variant_images contains featured_media.src %} product__media-item--variant{% endif %}{% if gang_media_active == true %} gang__active{% endif %}"
-                    data-media-id="{{ section.id }}-{{ featured_media.id }}"
-                    data-media-position="{{ featured_media.position }}"
-                    {% if gang_exist == true %}
-                      data-gang-option="{{ gang_option_name }}" data-gang-connect="{{ gang_connect }}"
-                    {% endif %}
-                  >
-                    {% render 'product-image',
-                      media: featured_media,
-                      position: 'featured',
-                      zoom: section.settings.enable_image_zoom,
-                      loop: section.settings.enable_video_looping,
-                      modal_id: section.id,
-                      xr_button: true,
-                      media_width: media_width,
-                      image_ratio: image_ratio,
-                      mobile_image_ratio: mobile_image_ratio,
-                      lazy_load: false
-                    %}
-                  </li>
-                {%- endif -%}
-                {%- assign matching_media_count = 0 -%}
-                {%- for media in product.media -%}
-                  {% if section.settings.enable_variant_specific_media or product.metafields.custom.variant_specific_media.value == true %}
-                    {% assign v_title = product.selected_or_first_available_variant.title
-                      | downcase
-                      | replace: ' ', ''
-                    %}
-                    {% assign media_alt = media.alt | downcase | replace: ' ', '' %}
-                  {% else %}
-                    {% liquid
-                      assign v_title = ''
-                      assign media_alt = ''
-                    %}
-                  {% endif %}
-                                    {%- assign media_matches = false -%}
-                  {%- if section.settings.enable_variant_specific_media or product.metafields.custom.variant_specific_media.value == true -%}
-                    {%- if media_alt == blank -%}
-                      {%- assign media_matches = true -%}
-                    {%- elsif v_title contains media_alt -%}
-                      {%- assign media_matches = true -%}
-                    {%- endif -%}
-                  {%- else -%}
-                    {%- assign media_matches = true -%}
-                  {%- endif -%}
+{%- assign display_media_array = display_media_list | split: ',' -%}
+{%- assign media_count = display_media_array.size -%}
 
-                  {%- if media_matches and media.id != featured_media.id -%}
-                    {%- assign matching_media_count = matching_media_count | plus: 1 -%}
-                    {%- liquid
-                      assign gang_option_name = ''
-                      assign gang_media_active = false
-                      assign gang_connect = ''
-                      assign media_active = false
-
-                      if featured_media_rendered == false and matching_media_count == 1
-                        assign media_active = true
-                      endif
-
-                      if media.alt contains '#' and section.settings.hide_variants == false
-                        assign gang_connect = media.alt | split: '#' | last
-                        if gang_connect contains ':' and localization.language.iso_code != blank
-                          assign gang_connect = gang_connect | append: ','
-                          assign split_param = localization.language.iso_code | append: ':'
-                          assign gang_connect = gang_connect | split: split_param | last | split: ',' | first
-                        endif
-                        if gang_connect contains '_'
-                          assign gang_exist = true
-                          assign gang_option_name = gang_connect | split: '_' | first | handleize
-                          assign media_active = false
-
-                          for option in product.options_with_values
-                            assign option_name_handlized = option.name | handleize | replace: '_', '-'
-                            if option_name_handlized == gang_option_name
-                              assign current_option_value = option.selected_value | handleize
-                              assign current_connect = option_name_handlized | append: '_' | append: current_option_value
-                              if gang_connect == current_connect
-                                assign gang_media_active = true
-                                assign media_active = true
-                              endif
-                              break
-                            endif
-                          endfor
-                        endif
-                      endif
-                    -%}
-                    <li
-                      id="Slide-{{ section.id }}-{{ media.id }}"
-                      class="product__media-item flex-grid__item slider__slide{% if single_media_visible %} product__media-item--single{% endif %}{% if media_active == true %} is-active{% endif %}{% if media.media_type != 'image' %} product__media-item--full{% endif %}{% if section.settings.hide_variants and variant_images contains media.src %} product__media-item--variant{% endif %}{% if gang_media_active == true %} gang__active{% endif %}"
-                      data-media-id="{{ section.id }}-{{ media.id }}"
-                      data-media-position="{{ media.position }}"
-                      {% if gang_exist == true %}
-                        data-gang-option="{{ gang_option_name }}" data-gang-connect="{{ gang_connect }}"
-                      {% endif %}
-                    >
-                      {% render 'product-image',
-                        media: media,
-                        position: forloop.index,
-                        zoom: section.settings.enable_image_zoom,
-                        loop: section.settings.enable_video_looping,
-                        modal_id: section.id,
-                        xr_button: true,
-                        media_width: media_width,
-                        image_ratio: image_ratio,
-                        mobile_image_ratio: mobile_image_ratio
-                      %}
-                    </li>
-                  {%- endif -%}
-                {%- endfor -%}
-
-                {%- for media in product.media -%}
-                  {% assign media_alt = media.alt | downcase | replace: ' ', '' %}
-                  {%- if media_alt == 'all' -%}
-                    <li
-                      id="Slide-all-{{ section.id }}-{{ media.id }}"
-                      class="product__media-item flex-grid__item slider__slide{% if media.media_type != 'image' %} product__media-item--full{% endif %}"
-                      data-media-id="{{ section.id }}-{{ media.id }}"
-                      data-media-position="{{ media.position }}"
-                    >
-                      {% render 'product-image',
-                        media: media,
-                        position: forloop.index,
-                        zoom: section.settings.enable_image_zoom,
-                        loop: section.settings.enable_video_looping,
-                        modal_id: section.id,
-                        xr_button: true,
-                        media_width: media_width,
-                        image_ratio: image_ratio,
-                        mobile_image_ratio: mobile_image_ratio
-                      %}
-                    </li>
-                  {%- endif -%}
-                {%- endfor -%}
-              </ul>
+<ul
+  id="Slider-Gallery-{{ section.id }}"
+  class="product__media-list flex-grid flex-grid--1-col flex-grid--1-col-tablet slider slider--mobile{% if section.settings.enable_fade_slider %} slider--fade{% endif %}"
+  role="list"
+>
+  {%- assign active_set = false -%}
+  
+  {%- for media in product.media -%}
+    {%- assign media_id_string = media.id | append: '' -%}
+    {%- unless display_media_list contains media_id_string -%}
+      {%- continue -%}
+    {%- endunless -%}
+    
+    {%- assign media_alt = media.alt | downcase | replace: ' ', '' -%}
+    {%- assign is_active = false -%}
+    
+    {%- # Set first image as active if no active set yet -%}
+    {%- unless active_set -%}
+      {%- assign is_active = true -%}
+      {%- assign active_set = true -%}
+    {%- endunless -%}
+    
+    {%- # Override: selected variant's featured media is active -%}
+    {%- if selected_variant.featured_media and media.id == selected_variant.featured_media.id -%}
+      {%- assign is_active = true -%}
+    {%- endif -%}
+    
+    {%- liquid
+      assign gang_option_name = ''
+      assign gang_media_active = false
+      assign gang_connect = ''
+      
+      if media.alt contains '#' and section.settings.hide_variants == false
+        assign gang_connect = media.alt | split: '#' | last
+        if gang_connect contains ':' and localization.language.iso_code != blank
+          assign gang_connect = gang_connect | append: ','
+          assign split_param = localization.language.iso_code | append: ':'
+          assign gang_connect = gang_connect | split: split_param | last | split: ',' | first
+        endif
+        if gang_connect contains '_'
+          assign gang_exist = true
+          assign gang_option_name = gang_connect | split: '_' | first | handleize
+          
+          for option in product.options_with_values
+            assign option_name_handlized = option.name | handleize | replace: '_', '-'
+            if option_name_handlized == gang_option_name
+              assign current_option_value = option.selected_value | handleize
+              assign current_connect = option_name_handlized | append: '_' | append: current_option_value
+              if gang_connect == current_connect
+                assign gang_media_active = true
+              endif
+              break
+            endif
+          endfor
+        endif
+      endif
+    -%}
+    
+    <li
+      id="Slide-{{ section.id }}-{{ media.id }}"
+      class="product__media-item flex-grid__item slider__slide{% if single_media_visible %} product__media-item--single{% endif %}{% if is_active %} is-active{% endif %}{% if media.media_type != 'image' %} product__media-item--full{% endif %}{% if section.settings.hide_variants and variant_images contains media.src %} product__media-item--variant{% endif %}{% if gang_media_active == true %} gang__active{% endif %}"
+      data-media-id="{{ section.id }}-{{ media.id }}"
+      data-media-position="{{ forloop.index }}"
+      {% if gang_exist == true %}
+        data-gang-option="{{ gang_option_name }}" data-gang-connect="{{ gang_connect }}"
+      {% endif %}
+    >
+      {% render 'product-image',
+        media: media,
+        position: forloop.index,
+        zoom: section.settings.enable_image_zoom,
+        loop: section.settings.enable_video_looping,
+        modal_id: section.id,
+        xr_button: true,
+        media_width: media_width,
+        image_ratio: image_ratio,
+        mobile_image_ratio: mobile_image_ratio,
+        lazy_load: false
+      %}
+    </li>
+  {%- endfor -%}
+</ul>
               <div class="slider-buttons no-js-hidden{% if media_count < 2 or section.settings.show_mobile_thumbnails %} small-hide{% endif %}">
                 <div class="slider-counter caption">
                   <span class="slider-counter--current">1</span>
