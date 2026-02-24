@@ -143,7 +143,8 @@
       this.addEventListener('click', this.onClick.bind(this));
       
       // Delay slightly to ensure DOM is ready, then set initial links
-      setTimeout(() => { this.updateCardData(); }, 50);
+      // PASSING 'TRUE' TELLS THE SCRIPT THIS IS THE INITIAL LOAD
+      setTimeout(() => { this.updateCardData(true); }, 50);
     }
 
     onClick(e) {
@@ -181,11 +182,12 @@
          }
       }
 
-      // 2. Trigger the data update
-      this.updateCardData();
+      // 2. Trigger the data update 
+      // PASSING 'FALSE' TELLS THE SCRIPT THE USER CLICKED A SWATCH
+      this.updateCardData(false);
     }
 
-    updateCardData() {
+    updateCardData(isInitialLoad = false) {
       const jsonScript = this.querySelector('.card-v2-json');
       if (!jsonScript) return;
       
@@ -200,7 +202,7 @@
       const checkedRadios = Array.from(this.querySelectorAll('.card-v2-radio:checked'));
       if (checkedRadios.length === 0) return;
 
-      // NEW LOGIC: Match variant ONLY against the options actually present on the card
+      // Match variant against the options actually present on the card
       const match = variants.find(v => {
         return checkedRadios.every(radio => {
           const optionIndex = parseInt(radio.dataset.optionIndex);
@@ -227,7 +229,8 @@
         });
 
         // C. Update Image & Picture Sources
-        if (match.featured_image) {
+        // ONLY UPDATE THE IMAGE IF IT IS NOT THE INITIAL LOAD!
+        if (!isInitialLoad && match.featured_image) {
           const img = card.querySelector('.card-v2-main-image');
           if (img) {
             img.src = match.featured_image;
