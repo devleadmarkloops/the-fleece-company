@@ -3622,3 +3622,6 @@ span.alert-box:before {
   font-family: var(--new-font-body-family);
   letter-spacing: 0;
 }
+.sticky-cart .sticky-cart__content .price .badge {
+  font-family: var(--new-font-body-family);
+}
