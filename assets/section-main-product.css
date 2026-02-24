@@ -3510,7 +3510,9 @@ span.alert-box:before {
     height: 16px;
   }
   /* When Buy Buttons */
-  .product__info-container .btn-icon-text-wr,
+  .product__info-container .btn-icon-text-wr {
+    margin-top: 0.3rem;
+  }
   .product__info-container .installment-text {
     margin-top: 0.8rem;
   }
