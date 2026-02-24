@@ -1699,7 +1699,7 @@ product-gallery .product__media-toggle {
 }
 
 .thumbnail-list_item--variant:not(:first-child) {
-  display: none;
+  /* display: none; */
 }
 
 @media screen and (max-width: 749px) {
