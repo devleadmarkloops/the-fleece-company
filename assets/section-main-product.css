@@ -2738,6 +2738,15 @@ span.alert-box:before {
   grid-area: stack;
 }
 
+/* Fix for AJAX Variant Switching: Force active images to bypass scroll animations */
+[data-animate-image] .slider--fade .slider__slide.is-active .image-animate,
+.slider--fade .slider__slide.is-active .image-animate {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: scale(1) !important;
+  animation: none !important;
+}
+
 @media screen and (max-width: 749px) {
   .product--mobile-adapt .product__media-list.slider--fade {
     padding-bottom: 0 !important;
