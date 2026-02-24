@@ -3614,5 +3614,10 @@ span.alert-box:before {
 
 /* Sticky ATC */
 .sticky-cart .sticky-cart__content .h4 {
-  font-family: var(--new-font-heading-family); 
+  font-family: var(--new-font-heading-family);
+  letter-spacing: 0;
+}
+.sticky-cart .sticky-cart__content .price {
+  font-family: var(--new-font-body-family);
+  letter-spacing: 0;
 }
