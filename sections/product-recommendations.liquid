@@ -134,6 +134,10 @@
   if (!customElements.get('card-v2-variant-selector')) {
     customElements.define('card-v2-variant-selector', class extends HTMLElement {
       connectedCallback() {
+        // Unbind first to prevent double-firing on dynamically injected DOM nodes
+        this.removeEventListener('change', this.onVariantChange);
+        this.removeEventListener('click', this.onClick);
+        
         this.addEventListener('change', this.onVariantChange.bind(this));
         this.addEventListener('click', this.onClick.bind(this));
       }
@@ -158,7 +162,9 @@
         } else if (e.target.classList.contains('card-v2-radio-pill')) {
            const wrapper = e.target.closest('.card-v2-pills');
            wrapper.querySelectorAll('.card-v2-pill').forEach(lbl => {
-             lbl.style.background = 'rgb(var(--color-background))'; lbl.style.color = 'rgb(var(--color-foreground))'; lbl.style.borderColor = '#e1e1e1';
+             lbl.style.background = 'rgb(var(--color-background))'; 
+             lbl.style.color = 'rgb(var(--color-foreground))'; 
+             lbl.style.borderColor = '#e1e1e1';
            });
            e.target.closest('label').style.background = 'rgb(var(--color-foreground))';
            e.target.closest('label').style.color = 'rgb(var(--color-background))';
@@ -185,14 +191,29 @@
           const idInput = card.querySelector('.card-v2-final-id');
           if (idInput) idInput.value = match.id;
 
-          // B. Update Main Image
+          // B. Update URLs (Clicking the card opens exact variant)
+          const links = card.querySelectorAll('.card__media, .card-v2-title');
+          links.forEach(link => {
+            const baseUrl = link.href.split('?')[0];
+            link.href = `${baseUrl}?variant=${match.id}`;
+          });
+
+          // C. Update Main Image & Picture Sources
           const img = card.querySelector('.card-v2-main-image');
-          if (img && match.featured_image) {
-            img.src = match.featured_image;
-            img.srcset = match.featured_image;
+          const pictureSources = card.querySelectorAll('picture source');
+          
+          if (match.featured_image) {
+            if (img) {
+              img.src = match.featured_image;
+              img.srcset = match.featured_image;
+            }
+            // This updates the retina/mobile sources!
+            pictureSources.forEach(source => {
+              source.srcset = match.featured_image;
+            });
           }
 
-          // C. Update Button State
+          // D. Update Button State
           const btn = card.querySelector('.card-v2-add-btn');
           if (btn) {
             if (match.available) {
@@ -206,74 +227,13 @@
             }
           }
 
-          // D. Update Exact Price Text 
+          // E. Update Exact Price Text 
           const priceRegular = card.querySelector('.price-item--regular');
           if (priceRegular) priceRegular.innerHTML = match.price; 
         }
       }
     });
   }
-</script>
-<script>
-  if (!customElements.get('card-v2-variant-selector')) {
-  customElements.define('card-v2-variant-selector', class extends HTMLElement {
-    constructor() {
-      super();
-      this.addEventListener('change', this.onVariantChange);
-    }
-
-    onVariantChange() {
-      // 1. Get the parsed variant data from your JSON script
-      const variantDataJson = this.querySelector('.card-v2-json');
-      if (!variantDataJson) return;
-      const variants = JSON.parse(variantDataJson.textContent);
-
-      // 2. Get the currently selected swatch/pill options
-      const selectedOptions = Array.from(this.querySelectorAll('input[type="radio"]:checked')).map(radio => radio.value);
-
-      // 3. Find the exact variant that matches the selected options
-      const currentVariant = variants.find(variant => {
-        return variant.options.every((option, index) => option === selectedOptions[index]);
-      });
-
-      if (!currentVariant) return;
-
-      // 4. Target the parent card wrapper to scope our changes
-      const cardWrapper = this.closest('.card-v2-wrapper');
-      if (!cardWrapper) return;
-
-      // 5. UPDATE THE URLS (Clicking the card opens the exact variant)
-      const links = cardWrapper.querySelectorAll('.card__media, .card-v2-title');
-      links.forEach(link => {
-        const baseUrl = link.href.split('?')[0];
-        link.href = `${baseUrl}?variant=${currentVariant.id}`;
-      });
-
-      // 6. UPDATE THE IMAGE
-      if (currentVariant.featured_image) {
-        const mainImage = cardWrapper.querySelector('.card-v2-main-image');
-        const pictureSources = cardWrapper.querySelectorAll('picture source');
-        
-        if (mainImage) {
-          mainImage.src = currentVariant.featured_image;
-          // Clear native srcset so the new image takes priority
-          mainImage.srcset = currentVariant.featured_image; 
-        }
-        
-        // CRITICAL: We must update the <source> tags too, otherwise the <picture> element will ignore our new image!
-        pictureSources.forEach(source => {
-          source.srcset = currentVariant.featured_image;
-        });
-      }
-
-      // 7. UPDATE ADD TO CART (Ensures the correct variant is added)
-      const hiddenInput = cardWrapper.querySelector('.card-v2-final-id');
-      if (hiddenInput) {
-        hiddenInput.value = currentVariant.id;
-      }
-    }
-  });
-}
 </script>
 
 {% schema %}
