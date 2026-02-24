@@ -3625,6 +3625,9 @@ span.alert-box:before {
 .sticky-cart .sticky-cart__form .select__select {
   font-size: 1.2rem;
 }
+.sticky-cart .sticky-cart__content .price {
+  align-items: center;
+}
 .sticky-cart .sticky-cart__content .price .badge,
 .sticky-cart .sticky-cart__form .select__select {
   font-family: var(--new-font-body-family);
