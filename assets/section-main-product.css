@@ -3322,7 +3322,7 @@ span.alert-box:before {
 .product__info-container .pairs-well-header-info {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
   margin-bottom: 1rem;
 }
