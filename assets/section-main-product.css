@@ -2745,7 +2745,7 @@ span.alert-box:before {
 }
 
 /* ##### New Product Template Design ##### */
-/* .product .product__media-gallery .thumbnail-slider .thumbnail, 
+.product .product__media-gallery .thumbnail-slider .thumbnail, 
 .product .product__media-gallery .thumbnail-slider .thumbnail:after,
 .product .product__media-gallery .media-wrapper, 
 .product .product__media-gallery .product__media, 
@@ -2835,7 +2835,7 @@ span.alert-box:before {
   .product .product__media-gallery .thumbnail-slider .thumbnail-list {
     max-width: calc(100% - 3rem);
   }
-} */
+}
 
 /* ### Media Gallery Overlay ### */
 .product__media-wrapper product-gallery {
