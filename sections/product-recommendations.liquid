@@ -134,10 +134,6 @@
   if (!customElements.get('card-v2-variant-selector')) {
     customElements.define('card-v2-variant-selector', class extends HTMLElement {
       connectedCallback() {
-        // Unbind first to prevent double-firing on dynamically injected DOM nodes
-        this.removeEventListener('change', this.onVariantChange);
-        this.removeEventListener('click', this.onClick);
-        
         this.addEventListener('change', this.onVariantChange.bind(this));
         this.addEventListener('click', this.onClick.bind(this));
       }
@@ -162,9 +158,7 @@
         } else if (e.target.classList.contains('card-v2-radio-pill')) {
            const wrapper = e.target.closest('.card-v2-pills');
            wrapper.querySelectorAll('.card-v2-pill').forEach(lbl => {
-             lbl.style.background = 'rgb(var(--color-background))'; 
-             lbl.style.color = 'rgb(var(--color-foreground))'; 
-             lbl.style.borderColor = '#e1e1e1';
+             lbl.style.background = 'rgb(var(--color-background))'; lbl.style.color = 'rgb(var(--color-foreground))'; lbl.style.borderColor = '#e1e1e1';
            });
            e.target.closest('label').style.background = 'rgb(var(--color-foreground))';
            e.target.closest('label').style.color = 'rgb(var(--color-background))';
@@ -191,29 +185,14 @@
           const idInput = card.querySelector('.card-v2-final-id');
           if (idInput) idInput.value = match.id;
 
-          // B. Update URLs (Clicking the card opens exact variant)
-          const links = card.querySelectorAll('.card__media, .card-v2-title');
-          links.forEach(link => {
-            const baseUrl = link.href.split('?')[0];
-            link.href = `${baseUrl}?variant=${match.id}`;
-          });
-
-          // C. Update Main Image & Picture Sources
+          // B. Update Main Image
           const img = card.querySelector('.card-v2-main-image');
-          const pictureSources = card.querySelectorAll('picture source');
-          
-          if (match.featured_image) {
-            if (img) {
-              img.src = match.featured_image;
-              img.srcset = match.featured_image;
-            }
-            // This updates the retina/mobile sources!
-            pictureSources.forEach(source => {
-              source.srcset = match.featured_image;
-            });
+          if (img && match.featured_image) {
+            img.src = match.featured_image;
+            img.srcset = match.featured_image;
           }
 
-          // D. Update Button State
+          // C. Update Button State
           const btn = card.querySelector('.card-v2-add-btn');
           if (btn) {
             if (match.available) {
@@ -227,7 +206,7 @@
             }
           }
 
-          // E. Update Exact Price Text 
+          // D. Update Exact Price Text 
           const priceRegular = card.querySelector('.price-item--regular');
           if (priceRegular) priceRegular.innerHTML = match.price; 
         }
