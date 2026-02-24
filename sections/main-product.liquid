@@ -435,7 +435,8 @@
                   {%- endif -%}
 
                   {%- if media_matches and media.id != featured_media.id -%}
-                    {%- assign matching_media_count = matching_media_count | plus: 1 -%}
+            {%- assign matching_media_count = matching_media_count | plus: 1 -%}
+            {%- assign gallery_index = gallery_index | plus: 1 -%}
                     {%- liquid
                       assign gang_option_name = ''
                       assign gang_media_active = false
