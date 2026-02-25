@@ -169,6 +169,9 @@ header.header-new .mega-menu__promo-subheading strong {
   font-family: var(--new-font-heading-family);
   letter-spacing: 0;
 }
+.jdgm-rev-widg .jdgm-widget-actions-wrapper .jdgm-write-rev-link {
+  border-radius: 8px;
+}
 .jdgm-rev-widg .jdgm-rev-widg__summary-average,
 .jdgm-rev-widg .jdgm-rev-widg__summary-text,
 .jdgm-rev-widg .jdgm-rev__content .jdgm-rev__body,
