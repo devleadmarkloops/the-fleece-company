@@ -181,6 +181,10 @@ header.header-new .mega-menu__promo-subheading strong {
 }
 .jdgm-rev-widg .jdgm-row-stars .jdgm-histogram__bar {
   margin-inline: 1rem;
+  border-radius: 40px;
+}
+.jdgm-rev-widg .jdgm-row-stars .jdgm-histogram__bar .jdgm-histogram__bar-content {
+  border-radius: 40px 0 0 40px;
 }
 
 @media screen and (max-width: 749px) {
