@@ -175,7 +175,8 @@ header.header-new .mega-menu__promo-subheading strong {
 .jdgm-rev-widg .jdgm-rev-widg__summary-average,
 .jdgm-rev-widg .jdgm-rev-widg__summary-text,
 .jdgm-rev-widg .jdgm-rev__content .jdgm-rev__body,
-.jdgm-rev-widg .jdgm-paginate .jdgm-paginate__page {
+.jdgm-rev-widg .jdgm-paginate .jdgm-paginate__page,
+.jdgm-rev-widg .jdgm-histogram__frequency {
   font-family: var(--new-font-body-family);
   letter-spacing: 0;
 }
