@@ -3498,6 +3498,35 @@ span.alert-box:before {
   clip: rect(0 0 0 0);
   word-wrap: normal !important;
 }
+/* Elevate the entire block above subsequent sections */
+.pairs-well-block {
+  position: relative;
+  z-index: 20; 
+}
+
+/* Elevate the card itself inside the Swiper slider */
+.product__info-container .pairs-well-card {
+  position: relative;
+  z-index: 20;
+}
+
+/* Elevate the wrapper containing the dropdown */
+.product__info-container .pairs-well-select-wrapper.is-color-wrapper {
+  position: relative;
+  z-index: 30;
+}
+
+/* Give the dropdown max priority when open */
+.product__info-container .pw-custom-swatch-dropdown.is-open {
+  z-index: 999;
+}
+
+/* PRECAUTION: Prevent the Swiper slider from clipping the dropdown */
+.pairs-well-block .swiper,
+.pairs-well-block .swiper-wrapper,
+.pairs-well-block .swiper-slide {
+  overflow: visible !important;
+}
 
 @media screen and (min-width: 750px) {
   .product__info-container .rating-static-wr {
