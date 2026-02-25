@@ -2,6 +2,7 @@
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.sec_bg_color }};
   }
 {%- endstyle -%}
 
@@ -21,6 +22,11 @@
   "tag": "section",
   "class": "section",
   "settings": [
+    {
+      "type": "color",
+      "id": "sec_bg_color",
+      "label": "Section background color"
+    },
     {
       "type": "checkbox",
       "id": "include_margins",
