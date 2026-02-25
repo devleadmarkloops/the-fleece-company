@@ -2236,9 +2236,22 @@
                       if (blockContainer) {
                         blockContainer.addEventListener('change', function(e) {
                           if (e.target.matches('.pairs-well-select')) {
+                            
+                            // 1. Swap the visual swatch circle if it's a color dropdown
+                            const selectedOption = e.target.options[e.target.selectedIndex];
+                            const swatchBg = selectedOption.getAttribute('data-swatch-bg');
+                            if (swatchBg) {
+                              const indicator = e.target.parentElement.querySelector('.pw-color-indicator');
+                              if (indicator) {
+                                indicator.style.background = swatchBg;
+                                indicator.style.backgroundSize = 'cover';
+                                indicator.style.backgroundPosition = 'center';
+                              }
+                            }
+
+                            // 2. Handle Variant Matching
                             const card = e.target.closest('.pairs-well-card');
                             const allSelects = card.querySelectorAll('.pairs-well-select');
-                            
                             const currentOptions = Array.from(allSelects).map(sel => sel.value);
                             
                             const jsonScript = card.querySelector('.pairs-well-variant-json');
@@ -2252,7 +2265,6 @@
                             const btn = card.querySelector('.pairs-well-btn');
                             const img = card.querySelector('.pairs-well-img');
                             const inputId = card.querySelector('.pairs-well-final-id');
-                            
                             const regularPriceEl = card.querySelector('.pw-regular-price');
                             const comparePriceEl = card.querySelector('.pw-compare-price');
 
@@ -2281,7 +2293,7 @@
                               }
 
                               if (match.available) {
-                                btn.textContent = "{{ 'products.product.add_to_cart' | t }}";
+                                btn.textContent = "Add"; // Locked strictly to "Add"
                                 btn.disabled = false;
                                 btn.classList.remove('disabled');
                               } else {
