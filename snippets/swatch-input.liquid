@@ -51,7 +51,7 @@
   class="swatch-input__label{% if shape == 'square' %} swatch-input__label--square{% endif %} swatch-input__label--{{ source }}"
 >
   {% if source == 'native' %}
-    {% render 'swatch', swatch: swatch, shape: shape %}
+    {% render 'swatch', swatch: value.swatch, shape: shape %}
   {% else %}
     {% render 'swatch-custom', product: product, option: option, value: value, source: source, shape: shape %}
   {% endif %}
