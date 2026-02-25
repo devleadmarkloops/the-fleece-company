@@ -3711,6 +3711,9 @@ span.alert-box:before {
     font-size: 1.2rem;
     padding: 0.8rem 1rem;
   }
+  .product__info-container .pw-custom-swatch-dropdown {
+    width: 6rem;
+  }
   .product__info-container .pw-swatch-trigger {
     padding: 0.6rem;
   }
