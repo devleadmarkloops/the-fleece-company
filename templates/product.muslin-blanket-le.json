@@ -137,6 +137,20 @@
             "size_chart": ""
           }
         },
+        "donation_impact_nh9btg": {
+          "type": "donation_impact",
+          "settings": {
+            "heading": "Your Purchase Creates Real Impact",
+            "description": "With every order, we donate $1 to help women rebuild their lives.",
+            "raised": 6847,
+            "goal": 10000,
+            "orders_remaining": 800,
+            "bg_color": "#f2ede8",
+            "bar_color": "#1a1a1a",
+            "bar_bg_color": "#c8dfd4",
+            "accent_color": "#4caf50"
+          }
+        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -252,6 +266,7 @@
         "text_custom_Lpng9n",
         "custom_liquid_xDKKPB",
         "variant_picker",
+        "donation_impact_nh9btg",
         "buy_buttons",
         "countdown_timer_4tCBwt",
         "icon_with_text_NArRNw",
