@@ -22,10 +22,12 @@
           assign native_swatch_eligible = false
           assign custom_swatch_eligible = false
           if block.settings.swatch_source == 'native'
-            assign native_swatch_count = option.values | map: 'swatch' | compact | size
-            if native_swatch_count > 0
-              assign native_swatch_eligible = true
-            endif
+            for value in option.values
+              if value.swatch.color != blank or value.swatch.image != blank
+                assign native_swatch_eligible = true
+                break
+              endif
+            endfor
           else
             assign custom_swatch_trigger = 'products.product.color_swatch_trigger' | t | downcase
             assign downcased_option = option.name | downcase
