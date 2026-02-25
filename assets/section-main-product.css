@@ -3717,6 +3717,10 @@ span.alert-box:before {
   .product__info-container .pw-swatch-trigger {
     padding: 0.6rem;
   }
+  .product__info-container .pw-color-indicator {
+    width: 2rem;
+    height: 2rem;
+  }
 }
 
 /* Sticky ATC */
