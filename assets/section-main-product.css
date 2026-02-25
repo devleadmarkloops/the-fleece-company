@@ -3428,7 +3428,7 @@ span.alert-box:before {
 }
 .product__info-container .pw-custom-swatch-dropdown {
   position: relative;
-  width: 8rem;
+  width: 7rem;
 }
 .product__info-container .pw-swatch-trigger {
   display: flex;
