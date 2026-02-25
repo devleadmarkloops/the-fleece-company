@@ -3434,7 +3434,7 @@ span.alert-box:before {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.8rem;
+  padding: 0.6rem;
   border: 1px solid rgba(var(--color-foreground), 0.15);
   border-radius: 8px;
   background: white;
