@@ -179,6 +179,9 @@ header.header-new .mega-menu__promo-subheading strong {
   font-family: var(--new-font-body-family);
   letter-spacing: 0;
 }
+.jdgm-rev-widg .jdgm-row-stars .jdgm-histogram__bar {
+  margin-inline: 1rem;
+}
 
 @media screen and (max-width: 749px) {
   .jdgm-rev-widg .jdgm-rev-widg__header .jdgm-rev-widg__title {
