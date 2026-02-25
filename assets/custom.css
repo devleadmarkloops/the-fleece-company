@@ -180,6 +180,9 @@ header.header-new .mega-menu__promo-subheading strong {
   font-family: var(--new-font-body-family);
   letter-spacing: 0;
 }
+.jdgm-rev-widg .jdgm-histogram__frequency {
+  font-weight: 500;
+}
 .jdgm-rev-widg .jdgm-row-stars .jdgm-histogram__bar {
   margin-inline: 0.5rem;
   border-radius: 40px;
