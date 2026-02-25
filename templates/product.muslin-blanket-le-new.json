@@ -759,7 +759,6 @@
         "review_NnMbVQ",
         "review_rmXFME"
       ],
-      "disabled": true,
       "name": "Reviews slider v1",
       "settings": {
         "heading": "Trusted by 18,000+ Customers",
@@ -797,6 +796,7 @@
       "block_order": [
         "judge_me_reviews_review_widget_QjEyLX"
       ],
+      "disabled": true,
       "settings": {
         "sec_bg_color": "#f0eae4",
         "include_margins": true,
