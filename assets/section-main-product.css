@@ -3422,6 +3422,22 @@ span.alert-box:before {
   color: rgb(var(--color-background));
   opacity: 0.85;
 }
+.product__info-container .pw-color-indicator {
+  position: absolute;
+  left: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--color-foreground), 0.15);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.product__info-container .pairs-well-select.has-swatch {
+  padding-left: 3.8rem;
+}
 
 @media screen and (min-width: 750px) {
   .product__info-container .rating-static-wr {
