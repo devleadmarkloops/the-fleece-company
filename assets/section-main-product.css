@@ -3478,13 +3478,12 @@ span.alert-box:before {
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  padding: 1px;
-  border: 1px solid transparent;
-  transition: border-color 0.2s;
+  outline: 1px solid transparent;
+  transition: outline 0.2s;
 }
 .product__info-container .pw-swatch-item.is-selected,
 .product__info-container .pw-swatch-item:hover {
-  border-color: rgb(var(--color-foreground));
+  outline: 1px solid rgb(var(--color-foreground));
 }
 .product__info-container .visually-hidden {
   position: absolute !important;
