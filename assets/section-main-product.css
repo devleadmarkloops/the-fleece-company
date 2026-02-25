@@ -3712,14 +3712,14 @@ span.alert-box:before {
     padding: 0.8rem 1rem;
   }
   .product__info-container .pw-custom-swatch-dropdown {
-    width: 6rem;
+    width: 5.5rem;
   }
   .product__info-container .pw-swatch-trigger {
     padding: 0.6rem;
   }
   .product__info-container .pw-color-indicator {
-    width: 1.8rem;
-    height: 1.8rem;
+    width: 1.7rem;
+    height: 1.7rem;
   }
 }
 
