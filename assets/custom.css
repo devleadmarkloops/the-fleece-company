@@ -181,7 +181,7 @@ header.header-new .mega-menu__promo-subheading strong {
   letter-spacing: 0;
 }
 .jdgm-rev-widg .jdgm-row-stars .jdgm-histogram__bar {
-  margin-inline: 1rem;
+  margin-inline: 0.5rem;
   border-radius: 40px;
   background-color: #ddd;
 }
