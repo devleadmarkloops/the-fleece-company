@@ -137,6 +137,17 @@
             "size_chart": ""
           }
         },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "buy_buttons_version": "v1",
+            "show_quantity_selector": false,
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false,
+            "enable_monogram": false,
+            "monogram_product": ""
+          }
+        },
         "donation_impact_nh9btg": {
           "type": "donation_impact",
           "settings": {
@@ -149,17 +160,6 @@
             "bar_color": "#1a1a1a",
             "bar_bg_color": "#c8dfd4",
             "accent_color": "#4caf50"
-          }
-        },
-        "buy_buttons": {
-          "type": "buy_buttons",
-          "settings": {
-            "buy_buttons_version": "v1",
-            "show_quantity_selector": false,
-            "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false,
-            "enable_monogram": false,
-            "monogram_product": ""
           }
         },
         "countdown_timer_4tCBwt": {
@@ -266,8 +266,8 @@
         "text_custom_Lpng9n",
         "custom_liquid_xDKKPB",
         "variant_picker",
-        "donation_impact_nh9btg",
         "buy_buttons",
+        "donation_impact_nh9btg",
         "countdown_timer_4tCBwt",
         "icon_with_text_NArRNw",
         "text_custom_A3eeDw",
