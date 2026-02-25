@@ -3479,6 +3479,7 @@ span.alert-box:before {
   justify-content: center;
   border-radius: 4px;
   outline: 1px solid transparent;
+  outline-offset: 2px;
   transition: outline 0.2s;
 }
 .product__info-container .pw-swatch-item.is-selected,
