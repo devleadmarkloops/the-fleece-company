@@ -3705,7 +3705,7 @@ span.alert-box:before {
     padding: 0.95rem 2rem 0.95rem 0.95rem;
   }
   .product__info-container .pairs-well-form {
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
   }
   .product__info-container .pairs-well-btn {
     font-size: 1.2rem;
