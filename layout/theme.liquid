@@ -229,7 +229,11 @@
           {{ content_for_layout }}
         </main>
 
-        {% sections 'footer-group' %}
+        {%- if template.suffix == 'muslin-blanket-le-new' or template.suffix == 'home-page-new' -%}
+          {% sections 'footer-custom-group' %}
+        {% else %}
+          {% sections 'footer-group' %}
+        {% endif %}
       </div>
     </div>
 

@@ -12,13 +12,13 @@
   "type": "footer",
   "sections": {
     "footer": {
-      "type": "footer",
+      "type": "footer-new",
       "blocks": {
         "image_LrJjLg": {
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/THE_FLEECE_COMPANY_5000_x_500_px.avif",
-            "image_width": 250,
+            "image_width": 200,
             "alignment": "center",
             "link": "",
             "text": "",
@@ -35,10 +35,6 @@
             "highlight_style": "marker"
           }
         },
-        "newsletter_zkQVeK": {
-          "type": "newsletter",
-          "settings": {}
-        },
         "text_j7THNB": {
           "type": "text",
           "settings": {
@@ -52,7 +48,6 @@
       "block_order": [
         "image_LrJjLg",
         "footer-2",
-        "newsletter_zkQVeK",
         "text_j7THNB"
       ],
       "settings": {
@@ -60,7 +55,6 @@
         "newsletter_enable": true,
         "newsletter_heading": "Subscribe to our emails",
         "newsletter_text2": "<p>Join our email list for exclusive offers and the latest news.</p>",
-        "submit_btn": "Sign up",
         "return_url": "",
         "enable_follow_on_shop": false,
         "show_social": false,
