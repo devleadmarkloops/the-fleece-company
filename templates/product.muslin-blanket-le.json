@@ -151,8 +151,9 @@
         "donation_impact_nh9btg": {
           "type": "donation_impact",
           "settings": {
+            "icon_image": "shopify://shop_images/Vector_4e006bc7-51ef-4b88-8d6d-57cea53bf3d6.svg",
             "icon_size": 24,
-            "heading": "Your Purchase Creates Real Impact",
+            "heading": "Your order donates $1 to support women escaping abuse.",
             "goal_text": "Help us reach the $20,000 goal",
             "popup_text": "Every purchase from The Fleece Company helps support women in need. Together, we're making a real difference in our community.",
             "raised": 6847,
