@@ -151,15 +151,19 @@
         "donation_impact_nh9btg": {
           "type": "donation_impact",
           "settings": {
+            "icon_size": 24,
             "heading": "Your Purchase Creates Real Impact",
-            "description": "With every order, we donate $1 to help women rebuild their lives.",
+            "goal_text": "Help us reach the $20,000 goal",
+            "popup_text": "Every purchase from The Fleece Company helps support women in need. Together, we're making a real difference in our community.",
             "raised": 6847,
             "goal": 10000,
             "orders_remaining": 800,
+            "bar_height": 10,
             "bg_color": "#f2ede8",
+            "heading_color": "#1a1a1a",
+            "text_color": "#1a1a1a",
             "bar_color": "#1a1a1a",
-            "bar_bg_color": "#c8dfd4",
-            "accent_color": "#4caf50"
+            "bar_bg_color": "#c8dfd4"
           }
         },
         "countdown_timer_4tCBwt": {
