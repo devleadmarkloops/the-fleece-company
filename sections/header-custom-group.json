@@ -66,7 +66,9 @@
     },
     "announcement_custom_8Ckjmm": {
       "type": "announcement-custom",
-      "custom_css": [],
+      "custom_css": [
+        ".announcement-custom__text {font-family: var(--new-font-body-family); letter-spacing: 0; line-height: 1;}"
+      ],
       "name": "Announcement Custom",
       "settings": {
         "show_icon": false,
