@@ -8,7 +8,7 @@
  * ------------------------------------------------------------
  */
 {
-  "name": "t:sections.footer-group.name",
+  "name": "Footer (new)",
   "type": "footer",
   "sections": {
     "footer": {
