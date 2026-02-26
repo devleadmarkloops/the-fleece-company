@@ -454,7 +454,7 @@
         "heading_XXgdCP": {
           "type": "heading",
           "settings": {
-            "heading": "Made from Premium, Breathable Muslin Cotton",
+            "heading": "Made from Pure Muslin Cotton",
             "heading_size": "h0",
             "heading_tag": "h2",
             "enable_highlight": false,
@@ -464,7 +464,7 @@
         "text_UUnUCe": {
           "type": "text",
           "settings": {
-            "text": "<p>Our Muslin Blanket is made from 100% natural muslin cotton, woven with an open, breathable structure that feels soft, lightweight, and relaxed. This time-tested fabric allows continuous airflow, helping regulate temperature naturally for comfortable use throughout the year.</p>",
+            "text": "<p>Our Muslin Blanket is made from 100% natural muslin cotton, woven with an open, breathable structure that feels soft, luxurious, and relaxed. This time-tested fabric allows continuous airflow, helping regulate temperature naturally for comfort use throughout the year.</p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
@@ -473,6 +473,7 @@
         },
         "images_grid_cddeMC": {
           "type": "images_grid",
+          "disabled": true,
           "settings": {
             "image1": "shopify://shop_images/Button_Made_from_sustainably_farmed_organic_cotton.png",
             "image2": "shopify://shop_images/Button_Made_from_sustainably_farmed_organic_cotton_1.png",
