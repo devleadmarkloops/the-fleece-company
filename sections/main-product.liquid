@@ -1833,46 +1833,194 @@
                   <hr>
                 </div>
               {%- when 'donation_impact' -%}
-                {%- liquid
-                  assign raised = shop.metafields.custom.donations_raised | default: block.settings.raised
-                  assign goal = shop.metafields.custom.donation_goal | default: block.settings.goal
-                  assign orders_remaining = shop.metafields.custom.orders_remaining | default: block.settings.orders_remaining
-                  assign progress = raised | times: 100 | divided_by: goal
-                  if progress == 0 and raised > 0
-                    assign progress = 1
-                  endif
-                  if progress > 100
-                    assign progress = 100
-                  endif
-                -%}
-                <div class="donation-impact-block" {{ block.shopify_attributes }} style="
-                  background: {{ block.settings.bg_color }};
-                  border-radius: 12px;
-                  padding: 24px 28px;
-                  max-width: 100%;
-                  margin: 10px 0;
-                ">
-                  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              {%- liquid
+                assign raised = shop.metafields.custom.donations_raised | default: block.settings.raised
+                assign goal = shop.metafields.custom.donation_goal | default: block.settings.goal
+                assign orders_remaining = shop.metafields.custom.orders_remaining | default: block.settings.orders_remaining
+                assign progress = raised | times: 100 | divided_by: goal
+                if progress == 0 and raised > 0
+                  assign progress = 1
+                endif
+                if progress > 100
+                  assign progress = 100
+                endif
+              -%}
+              <div class="donation-impact-block" {{ block.shopify_attributes }} style="
+                background: {{ block.settings.bg_color }};
+                border-radius: 12px;
+                padding: 20px 24px;
+                max-width: 100%;
+                margin: 10px 0;
+              ">
+                <!-- Icon + Heading -->
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                  {% if block.settings.icon_image != blank %}
+                    <img
+                      src="{{ block.settings.icon_image | image_url: width: 80 }}"
+                      alt=""
+                      width="{{ block.settings.icon_size }}"
+                      height="{{ block.settings.icon_size }}"
+                      loading="eager"
+                      style="object-fit: contain; flex-shrink: 0;"
+                    >
+                  {% else %}
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
                       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                     </svg>
-                    <h3 style="margin: 0; font-size: 16px; font-weight: 700; color: #1a1a1a;">
-                      {{ block.settings.heading }}
-                    </h3>
-                  </div>
-                  <p style="margin: 0 0 16px; font-size: 14px; color: #555; line-height: 1.5;">
-                    {{ block.settings.description }}
+                  {% endif %}
+                  <p style="margin: 0; font-size: 15px; font-weight: 600; color: {{ block.settings.heading_color }}; line-height: 1.4;">
+                    {{ block.settings.heading }}
                   </p>
-                  <div style="width: 100%; height: 10px; background: {{ block.settings.bar_bg_color }}; border-radius: 5px; overflow: hidden; margin-bottom: 12px;">
-                    <div style="display:block !important;width: {{ progress }}%; height: 100%; background: {{ block.settings.bar_color }}; border-radius: 5px; transition: width 1s ease;"></div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div style="
+                  width: 100%;
+                  height: {{ block.settings.bar_height }}px;
+                  background: {{ block.settings.bar_bg_color }};
+                  border-radius: {{ block.settings.bar_height }}px;
+                  overflow: hidden;
+                  margin-bottom: 12px;
+                ">
+                  <div style="
+                    width: {{ progress }}%;
+                    height: 100%;
+                    background: {{ block.settings.bar_color }};
+                    border-radius: {{ block.settings.bar_height }}px;
+                    transition: width 1s ease;
+                  "></div>
+                </div>
+
+                <!-- Stats Row -->
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
+                  <div style="display: flex; align-items: center; gap: 5px;">
+                    <span style="font-size: 13px; color: {{ block.settings.text_color }};">
+                      {{ block.settings.goal_text }}
+                    </span>
+                    {% if block.settings.popup_text != blank %}
+                      <button
+                        type="button"
+                        class="donation-info-btn"
+                        aria-label="More info about donations"
+                        onclick="document.getElementById('donation-popup-{{ block.id }}').classList.add('is-active')"
+                        style="
+                          background: none;
+                          border: none;
+                          cursor: pointer;
+                          padding: 2px;
+                          display: inline-flex;
+                          align-items: center;
+                          vertical-align: middle;
+                        "
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"/>
+                          <line x1="12" y1="16" x2="12" y2="12"/>
+                          <line x1="12" y1="8" x2="12.01" y2="8"/>
+                        </svg>
+                      </button>
+                    {% endif %}
                   </div>
-                  <p style="margin: 0 0 16px; font-size: 14px; color: #1a1a1a;">
-                    <strong>${{ raised }}</strong> raised of <strong>${{ goal }}</strong> goal
-                  </p>
-                  <div style="background: #1a1a1a; color: #fff; border-radius: 50px; padding: 12px 24px; text-align: center; font-size: 14px; font-weight: 500;">
-                    <strong style="color: {{ block.settings.accent_color }};">{{ orders_remaining }} orders</strong> to reach our goal!
+                  <span style="font-size: 13px; font-weight: 600; color: {{ block.settings.text_color }};">
+                    ${{ raised }} raised
+                  </span>
+                </div>
+              </div>
+
+              <!-- Info Popup Modal -->
+              {% if block.settings.popup_text != blank %}
+                <div id="donation-popup-{{ block.id }}" class="donation-popup-overlay">
+                  <div class="donation-popup-content">
+                    <button
+                      type="button"
+                      class="donation-popup-close"
+                      onclick="document.getElementById('donation-popup-{{ block.id }}').classList.remove('is-active')"
+                      aria-label="Close popup"
+                    >&times;</button>
+                    <p class="donation-popup-text">{{ block.settings.popup_text }}</p>
+                    <button
+                      type="button"
+                      class="donation-popup-btn"
+                      onclick="document.getElementById('donation-popup-{{ block.id }}').classList.remove('is-active')"
+                    >Close</button>
                   </div>
                 </div>
+
+                <style>
+                  .donation-popup-overlay {
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.5);
+                    z-index: 9999;
+                    justify-content: center;
+                    align-items: center;
+                  }
+                  .donation-popup-overlay.is-active {
+                    display: flex !important;
+                  }
+                  .donation-popup-content {
+                    background: #fff;
+                    border-radius: 12px;
+                    padding: 32px 28px;
+                    max-width: 400px;
+                    width: 90%;
+                    text-align: center;
+                    position: relative;
+                    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+                    animation: donationPopupFade 0.2s ease;
+                  }
+                  @keyframes donationPopupFade {
+                    from { opacity: 0; transform: scale(0.95); }
+                    to { opacity: 1; transform: scale(1); }
+                  }
+                  .donation-popup-close {
+                    position: absolute;
+                    top: 12px;
+                    right: 14px;
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    font-size: 22px;
+                    color: #333;
+                    line-height: 1;
+                    padding: 4px;
+                  }
+                  .donation-popup-text {
+                    font-size: 15px;
+                    line-height: 1.6;
+                    color: #333;
+                    margin: 0 0 24px;
+                  }
+                  .donation-popup-btn {
+                    background: #1a1a1a;
+                    color: #fff;
+                    border: none;
+                    border-radius: 8px;
+                    padding: 10px 32px;
+                    font-size: 14px;
+                    font-weight: 600;
+                    cursor: pointer;
+                  }
+                  .donation-popup-btn:hover {
+                    background: #333;
+                  }
+                  .donation-info-btn:hover svg {
+                    stroke: #666;
+                  }
+                  @media (max-width: 749px) {
+                    .donation-impact-block {
+                      padding: 16px 18px !important;
+                    }
+                    .donation-popup-content {
+                      padding: 24px 20px;
+                    }
+                  }
+                </style>
+  {% endif %}
               {%- when 'spacing' -%}
                 <div
                   class="spacing-section"
