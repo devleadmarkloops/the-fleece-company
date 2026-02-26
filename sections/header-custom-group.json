@@ -66,9 +66,7 @@
     },
     "announcement_custom_8Ckjmm": {
       "type": "announcement-custom",
-      "custom_css": [
-        ".announcement-custom__text {font-family: var(--new-font-heading-family); letter-spacing: 0;}"
-      ],
+      "custom_css": [],
       "name": "Announcement Custom",
       "settings": {
         "show_icon": false,
@@ -83,10 +81,10 @@
         "text_color": "#ffffff",
         "mobile_layout": "row",
         "hidden_templates": "",
-        "padding_top": 12,
-        "padding_bottom": 12,
-        "padding_top_mob": 10,
-        "padding_bottom_mob": 10
+        "padding_top": 10,
+        "padding_bottom": 10,
+        "padding_top_mob": 8,
+        "padding_bottom_mob": 8
       }
     },
     "scrolling_promotion_Ekxczy": {
@@ -164,6 +162,7 @@
         "announcement_mda4L4",
         "announcement_3jAEPP"
       ],
+      "disabled": true,
       "name": "t:sections.scrolling-promotion.presets.name",
       "settings": {
         "static": false,
