@@ -1,0 +1,521 @@
+{%- style -%}
+  {%- liquid
+    assign ratio_values = section.settings.layout_ratio | split: '/'
+    assign image_width_percent = ratio_values[0]
+    assign content_width_percent = ratio_values[1]
+    
+    if section.settings.image_height == 'adapt'
+        assign image_height_style = 'auto'
+        assign image_fit_style = 'default'
+    else
+        assign image_height_style = section.settings.image_height | append: 'px'
+        assign image_fit_style = 'cover'
+    endif
+  -%}
+
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --image-column-width: {{ image_width_percent }}%;
+    --content-column-width: {{ content_width_percent }}%;
+    --current-image-height: {{ image_height_style }};
+    --current-image-fit: {{ image_fit_style }};
+    
+    {%- if section.settings.use_custom_colors %}
+      --color-background: {{ section.settings.colors_background }};
+      --color-foreground: {{ section.settings.colors_text }};
+      --color-heading: {{ section.settings.colors_text }};
+    {% endif -%}
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --section-padding-top: {{ section.settings.padding_top_mob }}px;
+      --section-padding-bottom: {{ section.settings.padding_bottom_mob }}px;
+    }
+  }
+
+  {%- if section.settings.use_custom_colors %}
+    #shopify-section-{{ section.id }} .image-accordion-wrapper {
+      background-color: var(--color-background);
+      color: var(--color-foreground);
+    }
+    
+    #shopify-section-{{ section.id }} .title,
+    #shopify-section-{{ section.id }} .subheading,
+    #shopify-section-{{ section.id }} .accordion-toggle,
+    #shopify-section-{{ section.id }} .accordion-content,
+    #shopify-section-{{ section.id }} .accordion-icon {
+      color: var(--color-foreground);
+    }
+    #shopify-section-{{ section.id }} .accordion-item {
+      border-color: rgba(var(--color-foreground), 0.15);
+    }
+  {%- endif -%}
+
+  #shopify-section-{{ section.id }} .image-accordion-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 900px) {
+    #shopify-section-{{ section.id }} .image-accordion-grid {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 6rem;
+    }
+    
+    #shopify-section-{{ section.id }} .image-accordion-grid.image-right {
+      flex-direction: row-reverse;
+    }
+    #shopify-section-{{ section.id }} .image-column {
+      flex: 0 0 calc(var(--image-column-width) - 3rem);
+      width: calc(var(--image-column-width) - 3rem);
+    }
+    #shopify-section-{{ section.id }} .content-column {
+      flex: 0 0 calc(var(--content-column-width) - 3rem);
+      width: calc(var(--content-column-width) - 3rem);
+    }
+  }
+
+  #shopify-section-{{ section.id }} .image-column {
+    position: relative;
+  }
+  #shopify-section-{{ section.id }} .image-column img {
+    width: 100%;
+    height: var(--current-image-height);
+    display: block;
+    border-radius: {{ section.settings.image_radius }}px;
+    object-fit: var(--current-image-fit);
+  }
+  #shopify-section-{{ section.id }} .content-column {
+    display: flex;
+    flex-direction: column;
+  }
+  #shopify-section-{{ section.id }} .title-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  #shopify-section-{{ section.id }} .title-wrapper.left { 
+    align-items: flex-start;
+    text-align: left;
+  }
+  #shopify-section-{{ section.id }} .title-wrapper.center {
+    align-items: center;
+    text-align: center;
+  }
+  #shopify-section-{{ section.id }} .title-wrapper.right {
+    align-items: flex-end;
+    text-align: right;
+  }
+  #shopify-section-{{ section.id }} .title-wrapper .title {
+    margin: 0;
+    font-family: var(--new-font-heading-family);
+    letter-spacing: 0;
+  }
+  #shopify-section-{{ section.id }} .title-wrapper .subheading {
+    margin: 0;
+    font-family: var(--new-font-body-family);
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: 0.2rem;
+  }
+  #shopify-section-{{ section.id }} .accordion-item {
+    border-bottom: 1px solid rgba(var(--color-foreground), 0.15);
+  }
+  #shopify-section-{{ section.id }} .accordion-item:first-of-type {
+    border-top: 1px solid rgba(var(--color-foreground), 0.15);
+  }
+  #shopify-section-{{ section.id }} .accordion-toggle {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.2rem 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: var(--new-font-body-family);
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-align: left;
+    transition: color 0.3s ease;
+    color: currentColor;
+  }
+  #shopify-section-{{ section.id }} .accordion-icon {
+    flex-shrink: 0;
+    margin-left: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    color: currentColor;
+  }
+  #shopify-section-{{ section.id }} .accordion-icon svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor; 
+  }
+  #shopify-section-{{ section.id }} .accordion-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #shopify-section-{{ section.id }} .accordion-inner {
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #shopify-section-{{ section.id }} .accordion-text {
+    padding-bottom: 2rem;
+    font-family: var(--new-font-body-family);
+    font-size: 1.6rem;
+    color: rgba(var(--color-foreground), 0.75);
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+  #shopify-section-{{ section.id }} .accordion-item.is-open .accordion-content {
+    grid-template-rows: 1fr;
+  }
+  #shopify-section-{{ section.id }} .accordion-item.is-open .accordion-inner {
+    opacity: 1;
+  }
+  #shopify-section-{{ section.id }} .accordion-item.is-open .accordion-icon {
+    transform: rotate(45deg); 
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .image-accordion-grid {
+      gap: 2rem;
+      flex-direction: column-reverse;
+    }
+    #shopify-section-{{ section.id }} .title-wrapper {
+      align-items: center !important;
+      gap: 1rem;
+      text-align: center !important;
+      margin-bottom: 2.5rem;
+    }
+    #shopify-section-{{ section.id }} .title-wrapper .subheading {
+      font-size: 1.2rem;
+    }
+    #shopify-section-{{ section.id }} .accordion-toggle {
+      padding: 2rem 0;
+      font-size: 1.6rem;
+    }
+    #shopify-section-{{ section.id }} .accordion-text {
+      font-size: 1.4rem;
+    }
+    #shopify-section-{{ section.id }} .accordion-icon {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="image-accordion-wrapper section--padding{% if section.settings.show_divider %} section--divider{% endif %}">
+  <div class="page-width">
+    
+    <custom-accordion class="image-accordion-grid image-{{ section.settings.image_position }}">
+      
+      <div class="image-column">
+        {%- if section.settings.main_image != blank -%}
+          {{ section.settings.main_image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'main-center-image' }}
+        {%- else -%}
+          {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg main-center-image' }}
+        {%- endif -%}
+      </div>
+
+      <div class="content-column">
+        
+        <div class="title-wrapper {{ section.settings.heading_alignment }}">
+          {%- if section.settings.subheading != blank -%}
+            <div class="subheading rte">{{ section.settings.subheading }}</div>
+          {%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <{{ section.settings.heading_tag }} class="title {{ section.settings.heading_size }}">
+              {{ section.settings.heading }}
+            </{{ section.settings.heading_tag }}>
+          {%- endif -%}
+        </div>
+
+        <div class="accordion-list">
+          {%- for block in section.blocks -%}
+            <div class="accordion-item{% if forloop.first %} is-open{% endif %}" {{ block.shopify_attributes }}>
+              <button class="accordion-toggle" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}">
+                <span>{{ block.settings.title }}</span>
+                <span class="accordion-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 5V19" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 12H19" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </button>
+              <div class="accordion-content">
+                <div class="accordion-inner">
+                  <div class="accordion-text rte">
+                    {{ block.settings.content }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+      </div>
+
+    </custom-accordion>
+
+  </div>
+</div>
+
+<script>
+  if (!customElements.get('custom-accordion')) {
+    customElements.define('custom-accordion', class extends HTMLElement {
+      connectedCallback() {
+        this.items = this.querySelectorAll('.accordion-item');
+        
+        this.items.forEach(item => {
+          const btn = item.querySelector('.accordion-toggle');
+          
+          btn.addEventListener('click', () => {
+            const isOpen = item.classList.contains('is-open');
+            
+            this.items.forEach(sibling => {
+              sibling.classList.remove('is-open');
+              sibling.querySelector('.accordion-toggle').setAttribute('aria-expanded', 'false');
+            });
+
+            if (!isOpen) {
+              item.classList.add('is-open');
+              btn.setAttribute('aria-expanded', 'true');
+            }
+          });
+        });
+      }
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Image with Accordion",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout & Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Desktop Image Position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "layout_ratio",
+      "label": "Desktop Layout Ratio (Image/Content)",
+      "options": [
+        { "value": "50/50", "label": "50% / 50% (Balanced)" },
+        { "value": "40/60", "label": "40% / 60% (Wider Content)" },
+        { "value": "30/70", "label": "30% / 70% (Much Wider Content)" }
+      ],
+      "default": "50/50"
+    },
+    {
+      "type": "select",
+      "id": "image_height",
+      "label": "Image Height",
+      "options": [
+        { "value": "adapt", "label": "Adapt to image" },
+        { "value": "400", "label": "400px" },
+        { "value": "500", "label": "500px" },
+        { "value": "600", "label": "600px" },
+        { "value": "700", "label": "700px" }
+      ],
+      "default": "adapt"
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Image Border Radius",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Content Header"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Frequently Asked Questions",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading Size"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "p", "label": "Paragraph" }
+      ],
+      "default": "h2",
+      "label": "Heading SEO Tag"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Header Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Section Styling"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "default": false,
+      "label": "Show Top/Bottom Divider"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_colors",
+      "default": false,
+      "label": "Use Custom Colors"
+    },
+    {
+      "type": "color",
+      "id": "colors_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "colors_text",
+      "label": "Text",
+      "default": "#212326"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mob",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding (mobile)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mob",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding (mobile)",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion",
+      "name": "Accordion Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question",
+          "default": "What materials are used?"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Answer",
+          "default": "<p>We only use premium, ethically sourced materials to ensure maximum durability and comfort.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with Accordion",
+      "blocks": [
+        { "type": "accordion" },
+        { "type": "accordion" },
+        { "type": "accordion" }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer", "custom.overlay"]
+  }
+}
+{% endschema %}

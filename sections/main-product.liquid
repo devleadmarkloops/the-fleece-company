@@ -49,6 +49,55 @@
     }
   }
 </style>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const mediaGalleries = document.querySelectorAll('media-gallery[data-desktop-layout="vertical_slider"]');
+
+    mediaGalleries.forEach((gallery) => {
+      const mainMedia = gallery.querySelector('use-animate');
+      const thumbList = gallery.querySelector('.thumbnail-list'); 
+
+      if (!mainMedia || !thumbList) return;
+
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (let entry of entries) {
+          thumbList.style.maxHeight = `${entry.contentRect.height}px`;
+        }
+      });
+      
+      resizeObserver.observe(mainMedia);
+
+      let isDown = false;
+      let startY;
+      let scrollTop;
+
+      thumbList.addEventListener('mousedown', (e) => {
+        isDown = true;
+        thumbList.classList.add('is-dragging');
+        startY = e.pageY - thumbList.offsetTop;
+        scrollTop = thumbList.scrollTop;
+      });
+
+      thumbList.addEventListener('mouseleave', () => {
+        isDown = false;
+        thumbList.classList.remove('is-dragging');
+      });
+
+      thumbList.addEventListener('mouseup', () => {
+        isDown = false;
+        thumbList.classList.remove('is-dragging');
+      });
+
+      thumbList.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault(); 
+        const y = e.pageY - thumbList.offsetTop;
+        const walk = (y - startY) * 2;
+        thumbList.scrollTop = scrollTop - walk;
+      });
+    });
+  });
+</script>
 <product-info
   id="MainProduct-{{ section.id }}"
   class="section-{{ section.id }}-padding"
@@ -104,7 +153,7 @@
     }
 
     {%- liquid
-      assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media
+      assign featured_media = product.media.first
       assign first_image = featured_media | default: product.media.first
 
       assign first_image_ratio = 1 | divided_by: first_image.aspect_ratio | times: 100
@@ -112,7 +161,7 @@
 
 
     #Slider-Gallery-{{ section.id }} {
-      --force-image-ratio-percent: {{ first_image_ratio }}%;
+      /* --force-image-ratio-percent: {{ first_image_ratio }}%; */
     }
 
     @media screen and (max-width: 749px) {
@@ -156,6 +205,18 @@
   {%- endif -%}
 
   <section class="page-width section--padding">
+
+    {% for block in section.blocks %}
+      {% if block.type == 'breadcrumb' %}
+        <div class="breadcrumb-wrapper{% if block.settings.hide_mobile %} small-hide{% endif %}" {{ block.shopify_attributes }}>
+          {% render 'breadcrumbs',
+            text_style: block.settings.text_style,
+            show_divider: block.settings.show_divider
+          %}
+        </div>
+      {% endif %}
+    {% endfor %}
+
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} flex-grid flex-grid--1-col {% if product.media.size > 0 %}flex-grid--2-col-tablet{% else %}product--no-media{% endif %}{% if section.settings.gallery_layout == 'thumbnail_slider' and section.settings.show_thumbnails == false %} product--hide-thumbnails{% endif %}{% if section.settings.image_ratio == 'adapt' %} product--adapt{% endif %}{% if section.settings.mobile_image_ratio == 'adapt' %} product--mobile-adapt{% endif %}{% unless section.settings.enable_image_zoom %} product--zoom-disabled{% endunless %}">
       <product-recently-viewed data-product-id="{{ product.id }}" class="hidden"></product-recently-viewed>
       <div class="flex-grid__item product__media-wrapper">
@@ -274,7 +335,7 @@
 
                                 {%- liquid
                   assign featured_media_matches = true
-                  if section.settings.enable_variant_specific_media and product.metafields.custom.variant_specific_media.value == true
+                  if section.settings.enable_variant_specific_media or product.metafields.custom.variant_specific_media.value == true
                     assign v_title = product.selected_or_first_available_variant.title | downcase | replace: ' ', ''
                     assign media_alt = featured_media.alt | downcase | replace: ' ', ''
                     
@@ -286,14 +347,16 @@
                       assign featured_media_matches = false
                     endif
                     
-                    if product.selected_or_first_available_variant.featured_media != null
+                    if featured_media.id == product.selected_or_first_available_variant.featured_media.id
                       assign featured_media_matches = true
                     endif
                   endif
                 -%}
-                {%- assign featured_media_rendered = false -%}
-                {%- if featured_media != blank and featured_media_matches -%}
-                  {%- assign featured_media_rendered = true -%}
+                {%- assign gallery_index = 0 -%}
+        {%- assign featured_media_rendered = false -%}
+        {%- if featured_media != blank and featured_media_matches -%}
+          {%- assign featured_media_rendered = true -%}
+          {%- assign gallery_index = gallery_index | plus: 1 -%}
                   {%- liquid
                     assign gang_option_name = ''
                     assign gang_media_active = false
@@ -327,7 +390,7 @@
                     id="Slide-{{ section.id }}-{{ featured_media.id }}"
                     class="product__media-item is-active flex-grid__item slider__slide{% if single_media_visible %} product__media-item--single{% endif %}{% if featured_media.media_type != 'image' %} product__media-item--full{% endif %}{% if section.settings.hide_variants and variant_images contains featured_media.src %} product__media-item--variant{% endif %}{% if gang_media_active == true %} gang__active{% endif %}"
                     data-media-id="{{ section.id }}-{{ featured_media.id }}"
-                    data-media-position="{{ featured_media.position }}"
+                    data-media-position="{{ gallery_index }}"
                     {% if gang_exist == true %}
                       data-gang-option="{{ gang_option_name }}" data-gang-connect="{{ gang_connect }}"
                     {% endif %}
@@ -372,7 +435,8 @@
                   {%- endif -%}
 
                   {%- if media_matches and media.id != featured_media.id -%}
-                    {%- assign matching_media_count = matching_media_count | plus: 1 -%}
+            {%- assign matching_media_count = matching_media_count | plus: 1 -%}
+            {%- assign gallery_index = gallery_index | plus: 1 -%}
                     {%- liquid
                       assign gang_option_name = ''
                       assign gang_media_active = false
@@ -414,7 +478,7 @@
                       id="Slide-{{ section.id }}-{{ media.id }}"
                       class="product__media-item flex-grid__item slider__slide{% if single_media_visible %} product__media-item--single{% endif %}{% if media_active == true %} is-active{% endif %}{% if media.media_type != 'image' %} product__media-item--full{% endif %}{% if section.settings.hide_variants and variant_images contains media.src %} product__media-item--variant{% endif %}{% if gang_media_active == true %} gang__active{% endif %}"
                       data-media-id="{{ section.id }}-{{ media.id }}"
-                      data-media-position="{{ media.position }}"
+                      data-media-position="{{ gallery_index }}"
                       {% if gang_exist == true %}
                         data-gang-option="{{ gang_option_name }}" data-gang-connect="{{ gang_connect }}"
                       {% endif %}
@@ -435,14 +499,15 @@
                 {%- endfor -%}
 
                 {%- for media in product.media -%}
-                  {% assign media_alt = media.alt | downcase | replace: ' ', '' %}
-                  {%- if media_alt == 'all' -%}
-                    <li
-                      id="Slide-all-{{ section.id }}-{{ media.id }}"
-                      class="product__media-item flex-grid__item slider__slide{% if media.media_type != 'image' %} product__media-item--full{% endif %}"
-                      data-media-id="{{ section.id }}-{{ media.id }}"
-                      data-media-position="{{ media.position }}"
-                    >
+          {% assign media_alt = media.alt | downcase | replace: ' ', '' %}
+          {%- if media_alt == 'all' -%}
+            {%- assign gallery_index = gallery_index | plus: 1 -%}
+            <li
+              id="Slide-all-{{ section.id }}-{{ media.id }}"
+              class="product__media-item flex-grid__item slider__slide{% if media.media_type != 'image' %} product__media-item--full{% endif %}"
+              data-media-id="{{ section.id }}-{{ media.id }}"
+              data-media-position="{{ gallery_index }}"
+            >
                       {% render 'product-image',
                         media: media,
                         position: forloop.index,
@@ -492,6 +557,26 @@
                   <span class="icon icon-plus-alt"></span>
                 </div>
               {%- endif -%}
+
+              {% for block in section.blocks %}
+                {% if block.type == 'iwt_gallery' %}
+                  <div class="iwt-gallery-wr">
+                    <div class="iwt-gallery-item">
+                      {% if block.settings.icon1 != blank %}
+                        <img src="{{ block.settings.icon1 | image_url }}" width="" height="" alt="{{ block.settings.text1 }} Icon">
+                      {% endif %}
+                      <span class="icon-text">{{ block.settings.text1 }}</span>
+                    </div>
+                    <div class="iwt-gallery-item">
+                      {% if block.settings.icon2 != blank %}
+                        <img src="{{ block.settings.icon2 | image_url }}" width="" height="" alt="{{ block.settings.text2 }} Icon">
+                      {% endif %}
+                      <span class="icon-text">{{ block.settings.text2 }}</span>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+
             </product-gallery>
           </use-animate>
           {%- if first_3d_model -%}
@@ -509,20 +594,24 @@
             </button>
           {%- endif -%}
 
-          {%- if product.media.size > 1
-            and section.settings.gallery_layout == 'thumbnail_slider'
-            or section.settings.show_mobile_thumbnails
-          -%}
+          {%- liquid
+  assign show_desktop_thumbnails = false
+  if section.settings.gallery_layout == 'thumbnail_slider' or section.settings.gallery_layout == 'vertical_slider'
+    assign show_desktop_thumbnails = true
+  endif
+-%}
+
+{%- if product.media.size > 1 and show_desktop_thumbnails or section.settings.show_mobile_thumbnails -%}
             <thumbnail-slider
               id="GalleryThumbnails-{{ section.id }}"
               class="{% if section.settings.enable_variant_specific_media or product.metafields.custom.variant_specific_media.value == true %}product-thumbnails-d5 {% endif %}thumbnail-slider slider-mobile-gutter{% unless section.settings.show_mobile_thumbnails %} small-hide{% endunless %}{% if media_count <= 3 %} thumbnail-slider--no-slide{% endif %}"
             >
               <ul
                 id="Slider-Thumbnails-{{ section.id }}"
-                class="thumbnail-list list-unstyled slider slider--mobile{% if section.settings.gallery_layout == 'thumbnail_slider' %} slider--tablet-up{% endif %}"
+                class="thumbnail-list list-unstyled slider slider--mobile{% if section.settings.gallery_layout == 'thumbnail_slider' or section.settings.gallery_layout == 'vertical_slider' %} slider--tablet-up{% endif %}"
                 data-media-count="{{ product.media.size }}"
               >
-                {%- if featured_media != blank -%}
+                {%- if featured_media != blank and featured_media_matches -%}
                   {%- liquid
                     capture media_index
                       if featured_media.media_type == 'model'
@@ -623,7 +712,7 @@
                       assign gang_connect = ''
                       assign media_active = false
 
-                      if media == featured_media or featured_media == null and forloop.first
+                      if media.id == product.selected_or_first_available_variant.featured_media.id
                         assign media_active = true
                       endif
 
@@ -656,7 +745,7 @@
                     -%}
                     <li
                       id="Slide-Thumbnails-{{ section.id }}-{{ forloop.index }}"
-                      class="thumbnail-list__item slider__slide{% if section.settings.hide_variants and variant_images contains media.src %} thumbnail-list_item--variant{% endif %}{% if media.id  == true %} is-active{% endif %} media-wrapper media-wrapper--small{% if gang_media_active == true %} gang__active{% endif %}"
+                      class="thumbnail-list__item slider__slide{% if section.settings.hide_variants and variant_images contains media.src %} thumbnail-list_item--variant{% endif %}{% if media_active == true %} is-active{% endif %} media-wrapper media-wrapper--small{% if gang_media_active == true %} gang__active{% endif %}"
                       data-target="{{ section.id }}-{{ media.id }}"
                       data-media-position="{{ media_index }}"
                       data-media-id="thumbnail--{{ section.id }}-{{ featured_media.id }}"
@@ -985,7 +1074,7 @@
                   {{- product.selected_or_first_available_variant.sku -}}
                 </p>
               {%- when 'title' -%}
-                <div class="product__title" {{ block.shopify_attributes }}>
+                <div class="product__title{% if block.settings.desktop_hide %} large-up-hide medium-hide{% endif %}{% if block.settings.mobile_hide %} small-hide{% endif %}" {{ block.shopify_attributes }}>
                   <h1 class="product__heading {{ block.settings.title_size }}">
                     {{ product.title | escape }}
                   </h1>
@@ -1048,13 +1137,6 @@
                       </div>
                     {% endcomment %}
                   {%- endif -%}
-                  <div class="installment-text" {{ block.shopify_attributes }}>
-                    {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
-                    {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
-                      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                      {{ form | payment_terms }}
-                    {%- endform -%}
-                  </div>
                 {%- endif -%}
               {%- when 'description' -%}
                 <div class="product__description rte" {{ block.shopify_attributes }}>{{ product.description }}</div>
@@ -1073,49 +1155,58 @@
                   {% else %}
                     <button type="button" class="rating-link-scroll" aria-label="Scroll to reviews"></button>
                   {% endif %}
+                  {% if block.settings.enable_price %}
+                    <div class="{% if block.settings.desktop_hide %} large-up-hide medium-hide{% endif %}{% if block.settings.mobile_hide %} small-hide{% endif %}" id="price-{{ section.id }}" {{ block.shopify_attributes }}>
+                      {%- liquid
+                        assign show_badges = block.settings.show_badges
+                        assign price_class = 'price--' | append: block.settings.price_size
+                        render 'price', product: product, use_variant: true, show_badges: show_badges, price_class: price_class, sale_badge_basis: block.settings.sale_badge_basis
+                      -%}
+                    </div>
+                  {% endif %}
                 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const ratingLinks = document.querySelectorAll('.rating-link-scroll');
-    
-    ratingLinks.forEach(function(link) {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Find the reviews slider section
-        const reviewsSection = document.querySelector('[class*="reviews-slider"]') || 
-                              document.querySelector('.reviews-slider-wr') ||
-                              document.querySelector('[data-section-type="reviews"]');
-        
-        if (reviewsSection) {
-          reviewsSection.scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-  });
-</script>
+                <script>
+                  document.addEventListener('DOMContentLoaded', function() {
+                    const ratingLinks = document.querySelectorAll('.rating-link-scroll');
+                    
+                    ratingLinks.forEach(function(link) {
+                      link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        // Find the reviews slider section
+                        const reviewsSection = document.querySelector('[class*="reviews-slider"]') || 
+                                              document.querySelector('.reviews-slider-wr') ||
+                                              document.querySelector('[data-section-type="reviews"]');
+                        
+                        if (reviewsSection) {
+                          reviewsSection.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                          });
+                        }
+                      });
+                    });
+                  });
+                </script>
 
-<style>
-  .rating-link-scroll {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-  }
-  
-  .rating-static-wr {
-    position: relative;
-  }
-</style>
+                <style>
+                  .rating-link-scroll {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                    padding: 0;
+                  }
+                  
+                  .rating-static-wr {
+                    position: relative;
+                  }
+                </style>
               {%- when 'text_custom' -%}
                 <div
                   class="text-custom-wr {% if block.settings.enable_circle %} blink-circle{% endif %}{% if block.settings.enable_normal %} normal{% endif %}"
@@ -1127,21 +1218,69 @@
               {% endcapture %}
                   <p>{{ block.settings.text_custom }}</p>
                 </div>
+              {%- when 'richtext_box' -%}
+                <div
+                  class="rich-text-box"
+                  {{ block.shopify_attributes }}
+                  style="--text-size: {{ block.settings.text_size }}px; --text-size-mob: {{ block.settings.text_size_mob }}px;"
+                >
+                  {{ block.settings.rich_text }}
+                </div>
               {%- when 'icon_text' -%}
                 <div
-                  class="icon-text-wr"
+                  class="icon-text-wr {% if block.settings.enable_bg %} bg-wr{% endif %}"
                   {{ block.shopify_attributes }}
                   style="--icon-size: {{ block.settings.icon_size }}px; --icon-size-mob: {{ block.settings.icon_size_mob }}px;"
                 >
                   {% if block.settings.icon != blank %}
                     <img src="{{ block.settings.icon | image_url }}" width="" height="" alt="Icon">
                   {% endif %}
-                  <span
-                    class="icon-text"
-                    style="--text-size: {{ block.settings.text_size }}px; --text-size-mob: {{ block.settings.text_size_mob }}px; --text-color: {{ block.settings.text_color }};"
-                  >
-                    {{ block.settings.icon_text }}
-                  </span>
+                  {% if block.settings.icon_richtext != blank %}
+                    <div
+                      class="icon-text"
+                      style="--text-size: {{ block.settings.text_size }}px; --text-size-mob: {{ block.settings.text_size_mob }}px; --text-color: {{ block.settings.text_color }};"
+                    >
+                      {{ block.settings.icon_richtext }}
+                    </div>
+                  {% else %}
+                    <span
+                      class="icon-text"
+                      style="--text-size: {{ block.settings.text_size }}px; --text-size-mob: {{ block.settings.text_size_mob }}px; --text-color: {{ block.settings.text_color }};"
+                    >
+                      {{ block.settings.icon_text }}
+                    </span>
+                  {% endif %}
+                </div>
+              {%- when 'icon_text_grid' -%}
+                <div class="icon-text-grid-wrapper" {{ block.shopify_attributes }}>
+
+                  {%- for i in (1..4) -%}
+                    {%- capture current_icon -%}icon_{{ i }}{%- endcapture -%}
+                    {%- capture current_text -%}text_{{ i }}{%- endcapture -%}
+                    
+                    {%- assign icon_img = block.settings[current_icon] -%}
+                    {%- assign icon_text = block.settings[current_text] -%}
+
+                    {%- if icon_img != blank or icon_text != blank -%}
+                      <div
+                        class="icon-text-wr"
+                        style="--icon-size: {{ block.settings.icon_size }}px; --icon-size-mob: {{ block.settings.icon_size_mob }}px; margin-bottom: 0;"
+                      >
+                        {% if icon_img != blank %}
+                          <img src="{{ icon_img | image_url }}" width="{{ icon_img.width }}" height="{{ icon_img.height }}" alt="{{ icon_img.alt | escape | default: 'Icon' }}">
+                        {% endif %}
+                        
+                        {% if icon_text != blank %}
+                          <span
+                            class="icon-text"
+                            style="--text-size: {{ block.settings.text_size }}px; --text-size-mob: {{ block.settings.text_size_mob }}px; --text-color: {{ block.settings.text_color }};"
+                          >
+                            {{ icon_text }}
+                          </span>
+                        {% endif %}
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
                 </div>
               {%- when 'countdown_timer' -%}
                 <div
@@ -1250,24 +1389,26 @@
                     </div>
                   </div>
                 </div>
-                <div class="payment-icons-wr">
-                  <ul class="payment-badges" role="list">
-                    {% assign enabled_payment_types = shop.enabled_payment_types %}
-                    {% if block.settings.enabled_payment_types != blank %}
-                      {% assign enabled_payment_types = block.settings.enabled_payment_types
-                        | remove: ' '
-                        | split: ','
-                      %}
-                    {% endif %}
+                {% if block.settings.enable_payment_icons %}
+                  <div class="payment-icons-wr">
+                    <ul class="payment-badges" role="list">
+                      {% assign enabled_payment_types = shop.enabled_payment_types %}
+                      {% if block.settings.enabled_payment_types != blank %}
+                        {% assign enabled_payment_types = block.settings.enabled_payment_types
+                          | remove: ' '
+                          | split: ','
+                        %}
+                      {% endif %}
 
-                    {%- for type in enabled_payment_types -%}
-                      {% assign payment_type = type | strip %}
-                      <li class="list-payment__item">
-                        {{ payment_type | payment_type_svg_tag: class: 'icon icon--full-color' }}
-                      </li>
-                    {%- endfor -%}
-                  </ul>
-                </div>
+                      {%- for type in enabled_payment_types -%}
+                        {% assign payment_type = type | strip %}
+                        <li class="list-payment__item">
+                          {{ payment_type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                {% endif %}
                 <script>
                   (function () {
                     const container = document.getElementById('bf-countdown-{{ block.id }}');
@@ -1467,6 +1608,146 @@
                     {%- endfor -%}
                   </ul>
                 </div>
+              
+              {%- when 'video_reels' -%}
+                <video-reels-slider class="product-video-reels-wrapper" {{ block.shopify_attributes }}>
+                  <div class="swiper video-reels-swiper-{{ block.id }}">
+                    <div class="swiper-wrapper">
+                      {%- for i in (1..6) -%}
+                        {%- capture video_key -%}video_{{ i }}{%- endcapture -%}
+                        {%- capture poster_key -%}poster_{{ i }}{%- endcapture -%}
+                        
+                        {%- assign video = block.settings[video_key] -%}
+                        {%- assign custom_poster = block.settings[poster_key] -%}
+
+                        {%- if video != blank -%}
+                          <div class="swiper-slide reel-slide">
+                            {%- assign poster_url = video.preview_image | image_url: width: 600 -%}
+                            {%- if custom_poster != blank -%}
+                              {%- assign poster_url = custom_poster | image_url: width: 600 -%}
+                            {%- endif -%}
+                            
+                            <div class="reel-video-container" title="Click to view video">
+                              <video 
+                                class="reel-video" 
+                                poster="{{ poster_url }}"
+                                playsinline
+                                loop
+                                {% if block.settings.mute_videos %}muted{% endif %}
+                                data-autoplay="{{ block.settings.autoplay_in_view }}"
+                              >
+                                {%- for source in video.sources -%}
+                                  <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                                {%- endfor -%}
+                                Your browser does not support the video tag.
+                              </video>
+                            </div>
+                          </div>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </div>
+                  </div>
+
+                  <div class="reel-video-modal" aria-hidden="true">
+                    <div class="reel-video-modal-overlay"></div>
+                    <div class="reel-video-modal-content">
+                      <button class="reel-video-modal-close" aria-label="Close video">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                      </button>
+                      <video class="reel-modal-player" playsinline controls></video>
+                    </div>
+                  </div>
+                </video-reels-slider>
+
+                <script>
+                  if (!customElements.get('video-reels-slider')) {
+                    customElements.define('video-reels-slider', class extends HTMLElement {
+                      connectedCallback() {
+                        this.swiperContainer = this.querySelector('.swiper');
+                        this.modal = this.querySelector('.reel-video-modal');
+                        this.modalPlayer = this.querySelector('.reel-modal-player');
+                        this.closeBtn = this.querySelector('.reel-video-modal-close');
+                        this.overlay = this.querySelector('.reel-video-modal-overlay');
+                        this.videos = this.querySelectorAll('.reel-video[data-autoplay="true"]');
+
+                        this.initSwiper();
+                        this.initObserver();
+                        this.initModalEvents();
+                      }
+
+                      initSwiper() {
+                        if (this.swiperContainer && typeof Swiper !== 'undefined') {
+                          this.swiperInstance = new Swiper(this.swiperContainer, {
+                            slidesPerView: 3.5,
+                            spaceBetween: 8,
+                            grabCursor: true,
+                            breakpoints: {
+                              1024: {
+                                slidesPerView: 4.2,
+                                spaceBetween: 10
+                              }
+                            }
+                          });
+                        }
+                      }
+
+                      initObserver() {
+                        if ('IntersectionObserver' in window && this.videos.length > 0) {
+                          this.observer = new IntersectionObserver((entries) => {
+                            entries.forEach((entry) => {
+                              if (entry.isIntersecting) {
+                                entry.target.play().catch(() => {});
+                              } else {
+                                entry.target.pause();
+                              }
+                            });
+                          }, { threshold: 0.5 });
+
+                          this.videos.forEach(vid => this.observer.observe(vid));
+                        }
+                      }
+
+                      initModalEvents() {
+                        if (!this.modal || !this.modalPlayer) return;
+
+                        const containers = this.querySelectorAll('.reel-video-container');
+                        containers.forEach(container => {
+                          container.addEventListener('click', () => {
+                            const clickedVideo = container.querySelector('video');
+                            if (!clickedVideo) return;
+                            
+                            this.modalPlayer.poster = clickedVideo.poster;
+                            
+                            this.modalPlayer.innerHTML = clickedVideo.innerHTML;
+                            
+                            this.modalPlayer.load();
+                            
+                            this.modal.classList.add('is-active');
+                            this.modal.setAttribute('aria-hidden', 'false');
+                            this.modalPlayer.play().catch(() => {});
+                          });
+                        });
+
+                        const closeModal = () => {
+                          this.modal.classList.remove('is-active');
+                          this.modal.setAttribute('aria-hidden', 'true');
+                          this.modalPlayer.pause();
+                          this.modalPlayer.innerHTML = ''; 
+                          this.modalPlayer.load();
+                        };
+
+                        this.closeBtn.addEventListener('click', closeModal);
+                        this.overlay.addEventListener('click', closeModal);
+                      }
+
+                      disconnectedCallback() {
+                        if (this.observer) this.observer.disconnect();
+                        if (this.swiperInstance) this.swiperInstance.destroy();
+                      }
+                    });
+                  }
+                </script>
+
               {%- when 'custom_liquid' -%}
                 <div
                   class="custom__liquid custom__liquid-{{ section.id }}"
@@ -1489,7 +1770,7 @@
                           {{ block.settings.heading | default: block.settings.page.title | escape }}
                         </span>
                       </span>
-                      {% render 'icon', icon: 'caret' %}
+                      {% render 'icon', icon: 'plus' %}
                     </summary>
                     <div class="accordion__content rte">
                       {{ product.description }}
@@ -1514,7 +1795,7 @@
                             {{ block.settings.heading | default: block.settings.page.title | escape }}
                           </span>
                         </span>
-                        {% render 'icon', icon: 'caret' %}
+                        {% render 'icon', icon: 'plus' %}
                       </summary>
                       <div class="accordion__content custom__liquid-{{ section.id }} rte">
                         {{ block.settings.content }}
@@ -1541,7 +1822,7 @@
                             {{ block.settings.heading | default: metaobject_data.system.name | escape }}
                           </span>
                         </span>
-                        {% render 'icon', icon: 'caret' %}
+                        {% render 'icon', icon: 'plus' %}
                       </summary>
                       <div class="accordion__content rte">
                         {%- if metaobject_data.market != blank -%}
@@ -1659,6 +1940,21 @@
                       product_form_id: product_form_id,
                       show_pickup_availability: true
                     %}
+                    {% if block.settings.icon_text != blank %}
+                      <div class="btn-icon-text-wr">
+                        {% if block.settings.icon != blank %}
+                          <img src="{{ block.settings.icon | image_url }}" width="20" height="20" alt="Icon">
+                        {% endif %}
+                        <span class="btn-icon-text">{{ block.settings.icon_text }}</span>
+                      </div>
+                    {% endif %}
+                    <div class="installment-text" {{ block.shopify_attributes }}>
+                      {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
+                      {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
+                        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                        {{ form | payment_terms }}
+                      {%- endform -%}
+                    </div>
                   {%- when 'v2' -%}
                     {% render 'buy-buttons-v2',
                       block: block,
@@ -1832,13 +2128,6 @@
                   style="--spacing-section-desktop: {{ block.settings.desktop_height }}px; --spacing-section-mobile: {{ block.settings.mobile_height }}px;"
                   {{ block.shopify_attributes }}
                 ></div>
-              {%- when 'breadcrumb' -%}
-                <div class="breadcrumb-wrapper" {{ block.shopify_attributes }}>
-                  {% render 'breadcrumbs',
-                    text_style: block.settings.text_style,
-                    show_divider: block.settings.show_divider
-                  %}
-                </div>
               {%- when 'complementary' -%}
                 <product-recommendations
                   class="complementary-products{% if block.settings.make_collapsible_row %} is-accordion{% endif %} no-js-hidden"
@@ -1903,6 +2192,127 @@
                   {{ 'section-product-recommendations.css' | asset_url | stylesheet_tag }}
                   {{ 'component-complementary-products.css' | asset_url | stylesheet_tag }}
                 </product-recommendations>
+              
+              {%- when 'pairs_well' -%}
+                <div class="pairs-well-block" {{ block.shopify_attributes }}>
+                  <div class="pairs-well-header">
+                    <h3 class="h4">{{ block.settings.heading }}</h3>
+                    {%- if block.settings.product_list.count > 1 -%}
+                      {% comment %} <div class="pairs-well-nav">
+                        <div class="swiper-button-prev pw-prev-{{ block.id }}"></div>
+                        <div class="swiper-button-next pw-next-{{ block.id }}"></div>
+                      </div> {% endcomment %}
+                    {%- endif -%}
+                  </div>
+
+                  <div class="swiper pairs-well-swiper-{{ block.id }}">
+                    <div class="swiper-wrapper">
+                      {%- for product in block.settings.product_list -%}
+                        <div class="swiper-slide">
+                          {% render 'card-pairs-well', card_product: product %}
+                        </div>
+                      {%- endfor -%}
+                    </div>
+                  </div>
+
+                  <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                      new Swiper('.pairs-well-swiper-{{ block.id }}', {
+                        slidesPerView: 1,
+                        spaceBetween: 10,
+                        autoHeight: true,
+                        navigation: {
+                          nextEl: '.pw-next-{{ block.id }}',
+                          prevEl: '.pw-prev-{{ block.id }}',
+                        },
+                        breakpoints: {
+                          768: { slidesPerView: 1 },
+                          990: { slidesPerView: 1 }
+                        }
+                      });
+
+                      const blockContainer = document.querySelector('.pairs-well-swiper-{{ block.id }}').closest('.pairs-well-block');
+                      
+                      if (blockContainer) {
+                        blockContainer.addEventListener('change', function(e) {
+                          if (e.target.matches('.pairs-well-select')) {
+                            
+                            // 1. Swap the visual swatch circle if it's a color dropdown
+                            const selectedOption = e.target.options[e.target.selectedIndex];
+                            const swatchBg = selectedOption.getAttribute('data-swatch-bg');
+                            if (swatchBg) {
+                              const indicator = e.target.parentElement.querySelector('.pw-color-indicator');
+                              if (indicator) {
+                                indicator.style.background = swatchBg;
+                                indicator.style.backgroundSize = 'cover';
+                                indicator.style.backgroundPosition = 'center';
+                              }
+                            }
+
+                            // 2. Handle Variant Matching
+                            const card = e.target.closest('.pairs-well-card');
+                            const allSelects = card.querySelectorAll('.pairs-well-select');
+                            const currentOptions = Array.from(allSelects).map(sel => sel.value);
+                            
+                            const jsonScript = card.querySelector('.pairs-well-variant-json');
+                            if (!jsonScript) return;
+                            const variants = JSON.parse(jsonScript.innerHTML);
+
+                            const match = variants.find(variant => {
+                              return variant.options.every((opt, index) => opt === currentOptions[index]);
+                            });
+
+                            const btn = card.querySelector('.pairs-well-btn');
+                            const img = card.querySelector('.pairs-well-img');
+                            const inputId = card.querySelector('.pairs-well-final-id');
+                            const regularPriceEl = card.querySelector('.pw-regular-price');
+                            const comparePriceEl = card.querySelector('.pw-compare-price');
+
+                            if (match) {
+                              inputId.value = match.id;
+                              
+                              if (match.featured_image) {
+                                img.src = match.featured_image;
+                              }
+
+                              if (regularPriceEl && comparePriceEl) {
+                                if (match.compare_at_price) {
+                                  regularPriceEl.innerHTML = match.price;
+                                  regularPriceEl.classList.add('price-item--sale');
+                                  regularPriceEl.classList.remove('price-item--regular');
+                                  
+                                  comparePriceEl.innerHTML = match.compare_at_price;
+                                  comparePriceEl.style.display = 'inline-block';
+                                } else {
+                                  regularPriceEl.innerHTML = match.price;
+                                  regularPriceEl.classList.remove('price-item--sale');
+                                  regularPriceEl.classList.add('price-item--regular');
+                                  
+                                  comparePriceEl.style.display = 'none';
+                                }
+                              }
+
+                              if (match.available) {
+                                btn.textContent = "Add"; // Locked strictly to "Add"
+                                btn.disabled = false;
+                                btn.classList.remove('disabled');
+                              } else {
+                                btn.textContent = "{{ 'products.product.sold_out' | t }}";
+                                btn.disabled = true;
+                                btn.classList.add('disabled');
+                              }
+                            } else {
+                              btn.textContent = "{{ 'products.product.unavailable' | t }}";
+                              btn.disabled = true;
+                              btn.classList.add('disabled');
+                            }
+                          }
+                        });
+                      }
+                    });
+                  </script>
+                </div>
+
               {%- when 'line_item_property' -%}
                 <div class="product-form__input" {{ block.shopify_attributes }}>
                   {%- if block.settings.type == 'checkbox' -%}
@@ -2099,7 +2509,7 @@
                     product: product,
                     use_variant: true,
                     show_badges: true,
-                    sale_badge_basis: 'percentage'
+                    sale_badge_basis: 'auto'
                   -%}
                 </div>
               </div>
@@ -2578,6 +2988,12 @@ if (nextBtn) {
           "id": "show_divider",
           "default": false,
           "label": "t:sections.all.show_divider.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_mobile",
+          "default": false,
+          "label": "Hide on mobile"
         }
       ]
     },
@@ -2800,7 +3216,7 @@ if (nextBtn) {
     {
       "type": "title",
       "name": "t:sections.main-product.blocks.title.name",
-      "limit": 1,
+      "limit": 2,
       "settings": [
         {
           "type": "select",
@@ -2847,6 +3263,18 @@ if (nextBtn) {
           ],
           "default": "medium",
           "label": "t:sections.main-product.blocks.price.settings.price_size.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "desktop_hide",
+          "default": false,
+          "label": "Desktop hide"
+        },
+        {
+          "type": "checkbox",
+          "id": "mobile_hide",
+          "default": false,
+          "label": "Mobile hide"
         }
       ]
     },
@@ -3257,6 +3685,20 @@ if (nextBtn) {
           "type": "product",
           "id": "monogram_product",
           "label": "Monogram product"
+        },
+        {
+          "type": "header",
+          "content": "Button footer"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Select icon"
+        },
+        {
+          "type": "text",
+          "id": "icon_text",
+          "label": "Icon text"
         }
       ]
     },
@@ -3283,6 +3725,32 @@ if (nextBtn) {
         {
           "type": "paragraph",
           "content": "t:sections.main-product.blocks.share.settings.title_info.content"
+        }
+      ]
+    },
+    {
+      "type": "iwt_gallery",
+      "name": "Icon with text (gallery)",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon1",
+          "label": "Icon 1"
+        },
+        {
+          "type": "text",
+          "id": "text1",
+          "label": "Text 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon2",
+          "label": "Icon 2"
+        },
+        {
+          "type": "text",
+          "id": "text2",
+          "label": "Text 2"
         }
       ]
     },
@@ -3351,6 +3819,37 @@ if (nextBtn) {
       ]
     },
     {
+      "type": "richtext_box",
+      "name": "Richtext box",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "rich_text",
+          "label": "Richtext"
+        },
+        {
+          "type": "range",
+          "id": "text_size",
+          "min": 5,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "default": 16,
+          "label": "Text size"
+        },
+        {
+          "type": "range",
+          "id": "text_size_mob",
+          "min": 5,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "default": 15,
+          "label": "Text size (mobile)"
+        }
+      ]
+    },
+    {
       "type": "icon_text",
       "name": "Icon text",
       "settings": [
@@ -3385,6 +3884,11 @@ if (nextBtn) {
           "label": "Icon text"
         },
         {
+          "type": "richtext",
+          "id": "icon_richtext",
+          "label": "Icon richtext"
+        },
+        {
           "type": "color",
           "id": "text_color",
           "label": "Text color"
@@ -3408,6 +3912,84 @@ if (nextBtn) {
           "unit": "px",
           "default": 15,
           "label": "Text size (mobile)"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_bg",
+          "default": false,
+          "label": "Enable border"
+        }
+      ]
+    },
+    {
+      "type": "icon_text_grid",
+      "name": "Icon Text Grid (2x2)",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Grid Items"
+        },
+        { "type": "image_picker", "id": "icon_1", "label": "Icon 1" },
+        { "type": "text", "id": "text_1", "label": "Text 1", "default": "Lightweight Everyday Comfort" },
+        
+        { "type": "image_picker", "id": "icon_2", "label": "Icon 2" },
+        { "type": "text", "id": "text_2", "label": "Text 2", "default": "100% Premium Muslin Cotton" },
+        
+        { "type": "image_picker", "id": "icon_3", "label": "Icon 3" },
+        { "type": "text", "id": "text_3", "label": "Text 3", "default": "Breathable Muslin Weave" },
+        
+        { "type": "image_picker", "id": "icon_4", "label": "Icon 4" },
+        { "type": "text", "id": "text_4", "label": "Text 4", "default": "Incredibly Soft Texture" },
+        
+        {
+          "type": "header",
+          "content": "Global Settings"
+        },
+        {
+          "type": "range",
+          "id": "icon_size",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Icon size",
+          "default": 30
+        },
+        {
+          "type": "range",
+          "id": "icon_size_mob",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Icon size (Mobile)",
+          "default": 24
+        },
+        {
+          "type": "range",
+          "id": "text_size",
+          "min": 10,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "label": "Text size",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "text_size_mob",
+          "min": 10,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "label": "Text size (Mobile)",
+          "default": 13
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#000000"
         }
       ]
     },
@@ -3437,6 +4019,55 @@ if (nextBtn) {
           "default": "american_express, visa, master, apple_pay, google_pay, paypal",
           "info": "List of payments you want to show, split with a comma. Options are: afterpay, american_express, apple_pay, bitcoin, dankort, diners_club, discover, dogecoin, dwolla, facebook_pay, forbrugsforeningen, google_pay, ideal, jcb, klarna, klarna-pay-later, litecoin, maestro, master, paypal, shopify_pay, sofort, unionpay, visa"
         }
+      ]
+    },
+    {
+      "type": "video_reels",
+      "name": "Video Reels Slider",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Global Video Settings"
+        },
+        {
+          "type": "checkbox",
+          "id": "autoplay_in_view",
+          "label": "Autoplay when in view",
+          "info": "Plays video only when scrolled into view to save page speed.",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "mute_videos",
+          "label": "Mute videos by default",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Video 1"
+        },
+        { "type": "video", "id": "video_1", "label": "Shopify Hosted Video" },
+        { "type": "image_picker", "id": "poster_1", "label": "Custom Poster (Optional)" },
+        
+        { "type": "header", "content": "Video 2" },
+        { "type": "video", "id": "video_2", "label": "Shopify Hosted Video" },
+        { "type": "image_picker", "id": "poster_2", "label": "Custom Poster (Optional)" },
+
+        { "type": "header", "content": "Video 3" },
+        { "type": "video", "id": "video_3", "label": "Shopify Hosted Video" },
+        { "type": "image_picker", "id": "poster_3", "label": "Custom Poster (Optional)" },
+
+        { "type": "header", "content": "Video 4" },
+        { "type": "video", "id": "video_4", "label": "Shopify Hosted Video" },
+        { "type": "image_picker", "id": "poster_4", "label": "Custom Poster (Optional)" },
+
+        { "type": "header", "content": "Video 5" },
+        { "type": "video", "id": "video_5", "label": "Shopify Hosted Video" },
+        { "type": "image_picker", "id": "poster_5", "label": "Custom Poster (Optional)" },
+
+        { "type": "header", "content": "Video 6" },
+        { "type": "video", "id": "video_6", "label": "Shopify Hosted Video" },
+        { "type": "image_picker", "id": "poster_6", "label": "Custom Poster (Optional)" }
       ]
     },
     {
@@ -3552,11 +4183,35 @@ if (nextBtn) {
           "unit": "scs"
         },
         {
+          "type": "checkbox",
+          "id": "enable_payment_icons",
+          "default": true,
+          "label": "Enable payment icons"
+        },
+        {
           "type": "text",
           "id": "enabled_payment_types",
           "label": "Custom payment icons to show",
           "default": "american_express, visa, master, apple_pay, google_pay, paypal",
           "info": "List of payments you want to show, split with a comma. Options are: afterpay, american_express, apple_pay, bitcoin, dankort, diners_club, discover, dogecoin, dwolla, facebook_pay, forbrugsforeningen, google_pay, ideal, jcb, klarna, klarna-pay-later, litecoin, maestro, master, paypal, shopify_pay, sofort, unionpay, visa"
+        }
+      ]
+    },
+    {
+      "type": "pairs_well",
+      "name": "Pairs Well Products",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Pairs well with"
+        },
+        {
+          "type": "product_list",
+          "id": "product_list",
+          "label": "Select Products",
+          "limit": 10
         }
       ]
     },
@@ -5010,6 +5665,10 @@ if (nextBtn) {
         {
           "value": "thumbnail_slider",
           "label": "t:sections.main-product.settings.gallery_layout.options__3.label"
+        },
+        {
+          "value": "vertical_slider",
+          "label": "Vertical Slider"
         }
       ],
       "default": "stacked",

@@ -1,0 +1,137 @@
+.card-product-v2 {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-product-v2 .card-information {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-product-v2 .card-information__wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 1.5rem 0.2rem 0;
+}
+
+.card-product-v2 .card-information__wrapper .card-information__text {
+  font-family: var(--new-font-heading-family);
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.card-product-v2 .card-v2-price {
+  margin-bottom: 1rem;
+}
+
+.card-product-v2 .card-v2-price .price bdi {
+  font-family: var(--new-font-body-family);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.card-product-v2 .card-v2-bottom-aligner {
+  margin-top: auto;
+  width: 100%;
+  margin-top: 0 !important;
+}
+
+.card-product-v2 card-v2-variant-selector,
+.card-product-v2 .card-v2-form-wrapper {
+  display: block;
+  width: 100%;
+}
+
+.card-product-v2 .card-v2-swatches-wrapper,
+.card-product-v2 .card-v2-pills-wrapper {
+  margin-bottom: 1rem;
+}
+
+.card-product-v2 .card-v2-swatches {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-inline: 0.2rem;
+}
+
+.card-product-v2 .card-v2-swatch {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid rgba(59, 59, 59, 0.15);
+}
+
+.card-product-v2 .card-v2-view-all-colors {
+  background: none;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.card-product-v2 .card-v2-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.card-product-v2 .card-v2-pill {
+  cursor: pointer;
+  padding: 4px 10px;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  font-family: var(--new-font-body-family);
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.card-product-v2 .card-v2-add-btn {
+  width: 100%;
+  min-width: unset;
+  min-height: 4.2rem;
+  border-radius: 8px;
+  background-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+  font-family: var(--new-font-heading-family);
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  transition: all 0.2s ease;
+}
+
+.card-product-v2 .card-v2-add-btn:hover {
+  background-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+  opacity: 0.85;
+}
+
+@media screen and (max-width: 749px) {
+  .card-product-v2 .card-information__wrapper {
+    padding: 1.2rem .2rem 0;
+  }
+  .card-product-v2 .card-information__wrapper .card-information__text {
+    font-size: 1.4rem;
+  }
+  .card-product-v2 .card-v2-swatch {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+  .card-product-v2 .card-v2-pills {
+    gap: 4px;
+  }
+  .card-product-v2 .card-v2-pill {
+    font-size: 1rem;
+  }
+  .card-product-v2 .card-v2-add-btn {
+    font-size: 1.2rem;
+    min-height: 3.6rem;
+  }
+}

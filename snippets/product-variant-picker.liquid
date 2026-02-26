@@ -142,7 +142,7 @@
           {{- sizechart_cta -}}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
-        <fieldset class="js product-form__input product-form__input--pill{% if option.name == 'Size' or option.name == 'size' %} product-form__input-size{% endif %}">
+        <fieldset class="js product-form__input product-form__input--pill{% if option.name == 'Size' or option.name == 'size' %} product-form__input-size{% endif %}{% if option.values.size == 2 or option.values.size == 4 %} product-form__input--half-width{% endif %}">
           {%- if block.settings.show_variant_labels -%}
           <legend class="form__label">
               {{ option.name }}:
