@@ -87,7 +87,7 @@
             "text_size": "typeset3",
             "button_label": "Shop Now",
             "button_link": "shopify://collections/all",
-            "button_size": "medium",
+            "button_size": "small",
             "button_style_secondary": false,
             "button_alt_label": "",
             "button_alt_link": "",
