@@ -2941,6 +2941,9 @@ span.alert-box:before {
   letter-spacing: 0;
 }
 /* When Price */
+.product__info-container .price {
+  align-items: center;
+}
 .product__info-container .price bdi {
   font-weight: 500;
 }
