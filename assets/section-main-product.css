@@ -3594,9 +3594,13 @@ span.alert-box:before {
   .product__info-container .kaching-bundles .kaching-bundles__bar-subtitle {
     font-size: 1.2rem;
   }
+  .product__info-container .kaching-bundles .kaching-bundles__bar-variant-selects {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
   .product__info-container .kaching-bundles .kaching-bundles__bar-variant-select {
     padding-block: 0.8rem;
-    max-width: calc(50% - 3.5px);
+    /* max-width: calc(50% - 3.5px); */
     width: 100%;
   }
   .product__info-container .kaching-bundles .kaching-bundles__bar-main {
