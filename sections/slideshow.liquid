@@ -250,19 +250,7 @@
                   <div class="slideshow__button" data-animate data-animate-delay-{{ animate_delay }}>
                     <div class="button-group">
                       {%- if section.blocks.size == 1 and block.settings.button_link != blank -%}
-                        {% comment %} <a class="full-unstyled-link" href="{{ block.settings.button_link }}" aria-label="{{ 'accessibility.view_slide' | t: type: block.type }}"></a> {% endcomment %}
-                         {%- if block.settings.button_label != blank -%}
-                          {%- if block.settings.button_style_secondary -%}
-                            <a class="button button--cta button--{{ block.settings.button_size }} mobile:button--small"{% if block.settings.button_link != blank %} href="{{ block.settings.button_link }}"{% else %} role="link" aria-disabled="true"{% endif %}>
-                              <span class="label">{{ block.settings.button_label | escape }}</span>
-                              {% render 'icon', icon: 'arrow' %}
-                            </a>
-                          {%- else -%}
-                            <a class="button button--{{ block.settings.button_size }} mobile:button--small"{% if block.settings.button_link != blank %} href="{{ block.settings.button_link }}"{% else %} role="link" aria-disabled="true"{% endif %}>
-                              {{ block.settings.button_label | escape }}
-                            </a>
-                          {%- endif -%}
-                        {%- endif -%}
+                        <a class="full-unstyled-link" href="{{ block.settings.button_link }}" aria-label="{{ 'accessibility.view_slide' | t: type: block.type }}"></a>
                       {%- else -%}
                         {%- if block.settings.button_label != blank -%}
                           {%- if block.settings.button_style_secondary -%}
