@@ -86,7 +86,7 @@
       display: block;
     }
     .announcement-custom__text {
-      font-family: var(--new-font-body-family);
+      {% comment %} font-family: var(--new-font-body-family); {% endcomment %}
       font-size: {{ section.settings.font_size }}px;
       font-weight: {{ section.settings.font_weight }};
       line-height: 1.3;
