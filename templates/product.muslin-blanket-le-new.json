@@ -489,7 +489,7 @@
       ],
       "name": "Image with text v3",
       "settings": {
-        "image": "shopify://shop_images/Left_side_-_Image_slider_Region.webp",
+        "image": "shopify://shop_images/THE_FLEECE_BLANKET_1080_x_1080_px_9.webp",
         "image_position": "center center",
         "layout": "image_first",
         "text_box_position": "middle",
@@ -525,7 +525,7 @@
         "column_izAxqx": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_20.webp",
+            "image": "shopify://shop_images/2nd_Image_8.webp",
             "icon_image": "shopify://shop_images/Group_4.svg",
             "icon_svg": "",
             "title": "Naturally Breathable Design",
@@ -545,7 +545,7 @@
         "column_te4dbz": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_21.webp",
+            "image": "shopify://shop_images/3rd_Image_1.webp",
             "icon_image": "shopify://shop_images/Group_5.svg",
             "icon_svg": "",
             "title": "Lightweight, Everyday Comfort",
@@ -565,7 +565,7 @@
         "column_UxzJ3X": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_22.webp",
+            "image": "shopify://shop_images/2nd_Image_2.webp",
             "icon_image": "shopify://shop_images/Group_6.svg",
             "icon_svg": "",
             "title": "Softens With Every Wash",
