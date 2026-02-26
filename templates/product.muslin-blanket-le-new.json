@@ -75,7 +75,7 @@
             "icon_size": 20,
             "icon_size_mob": 18,
             "icon_text": "",
-            "icon_richtext": "<p><strong>Valentine's Day Sale:</strong> Buy One, Get One <strong>FREE</strong></p>",
+            "icon_richtext": "<p><strong>Early Women's Month Sale:</strong> Buy One, Get One <strong>FREE</strong></p>",
             "text_color": "#3b3b3b",
             "text_size": 14,
             "text_size_mob": 12,
@@ -130,7 +130,7 @@
         "countdown_timer_4tCBwt": {
           "type": "countdown_timer",
           "settings": {
-            "heading": "Valentine's Day Sale ENDS IN:",
+            "heading": "SALE ENDS IN:",
             "heading_color": "#3b3b3b",
             "background_color": "#f0eae4",
             "timer_color": "#3b3b3b",
@@ -148,7 +148,7 @@
         "richtext_box_ehkChy": {
           "type": "richtext_box",
           "settings": {
-            "rich_text": "<p><strong>Free Global Express Shipping.</strong><br/>Delivered in 1-4 business days. <a href=\"/policies/shipping-policy\" title=\"Shipping Policy\">more details</a></p>",
+            "rich_text": "<p><strong>Shipped in 1-3 Days</strong><br/>Fast & Tracked USPS Shipping</p>",
             "text_size": 14,
             "text_size_mob": 12
           }
