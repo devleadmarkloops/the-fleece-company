@@ -75,7 +75,7 @@
             "icon_size": 20,
             "icon_size_mob": 18,
             "icon_text": "",
-            "icon_richtext": "<p><strong>Valentine's Day Sale:</strong> Buy One, Get One <strong>FREE</strong></p>",
+            "icon_richtext": "<p><strong>Early Women's Month Sale:</strong> Buy One, Get One <strong>FREE</strong></p>",
             "text_color": "#3b3b3b",
             "text_size": 14,
             "text_size_mob": 12,
@@ -130,7 +130,7 @@
         "countdown_timer_4tCBwt": {
           "type": "countdown_timer",
           "settings": {
-            "heading": "Valentine's Day Sale ENDS IN:",
+            "heading": "SALE ENDS IN:",
             "heading_color": "#3b3b3b",
             "background_color": "#f0eae4",
             "timer_color": "#3b3b3b",
@@ -148,7 +148,7 @@
         "richtext_box_ehkChy": {
           "type": "richtext_box",
           "settings": {
-            "rich_text": "<p><strong>Free Global Express Shipping.</strong><br/>Delivered in 1-4 business days. <a href=\"/policies/shipping-policy\" title=\"Shipping Policy\">more details</a></p>",
+            "rich_text": "<p><strong>Shipped in 1-3 Days</strong><br/>Tracked USPS Shipping. <a href=\"/policies/shipping-policy\" title=\"Shipping Policy\">more details</a></p>",
             "text_size": 14,
             "text_size_mob": 12
           }
@@ -303,7 +303,7 @@
         "heading_mwH73M": {
           "type": "heading",
           "settings": {
-            "heading": "Use It Risk-Free for 100 Nights",
+            "heading": "100 Nights Satisfaction Guarantee",
             "heading_size": "h0",
             "heading_tag": "h2"
           }
@@ -340,13 +340,13 @@
             "text_size_mobile": 12,
             "image_1": "shopify://shop_images/Secure_Checkout_1.png",
             "custom_svg_1": "",
-            "text_1": "<p>Secure Checkout</p>",
+            "text_1": "<p>Tracked Shipping</p>",
             "image_2": "shopify://shop_images/Free_Shipping_1.png",
             "custom_svg_2": "",
-            "text_2": "<p>Free Shipping</p>",
-            "image_3": "shopify://shop_images/60_Days_Return_1.png",
+            "text_2": "<p>Easy Returns</p>",
+            "image_3": "shopify://shop_images/Secure_Checkout_1.png",
             "custom_svg_3": "",
-            "text_3": "<p>Easy Returns</p>",
+            "text_3": "<p>Quality</p>",
             "custom_svg_4": "",
             "text_4": "",
             "custom_svg_5": "",
@@ -412,7 +412,7 @@
       ],
       "name": "Image banner v2",
       "settings": {
-        "image": "shopify://shop_images/Rectangle_18.webp",
+        "image": "shopify://shop_images/Banner_1_1.webp",
         "image_position": "center center",
         "text_box_position": "bottom-left",
         "text_alignment": "left",
@@ -423,6 +423,7 @@
         "enable_content_max_width": true,
         "content_max_width": 480,
         "image_behavior": "none",
+        "mobile_image": "shopify://shop_images/Banner_2.webp",
         "mobile_text_alignment": "left",
         "mobile_image_ratio": "400px",
         "stack_images_on_mobile": false,
@@ -453,7 +454,7 @@
         "heading_XXgdCP": {
           "type": "heading",
           "settings": {
-            "heading": "Made from Premium, Breathable Muslin Cotton",
+            "heading": "Made from Pure Muslin Cotton",
             "heading_size": "h0",
             "heading_tag": "h2",
             "enable_highlight": false,
@@ -472,11 +473,7 @@
         },
         "images_grid_cddeMC": {
           "type": "images_grid",
-          "settings": {
-            "image1": "shopify://shop_images/Button_Made_from_sustainably_farmed_organic_cotton.png",
-            "image2": "shopify://shop_images/Button_Made_from_sustainably_farmed_organic_cotton_1.png",
-            "image3": "shopify://shop_images/Button_Made_from_sustainably_farmed_organic_cotton_2.png"
-          }
+          "settings": {}
         }
       },
       "block_order": [
@@ -487,7 +484,7 @@
       ],
       "name": "Image with text v3",
       "settings": {
-        "image": "shopify://shop_images/Left_side_-_Image_slider_Region.webp",
+        "image": "shopify://shop_images/THE_FLEECE_BLANKET_1080_x_1080_px_10.png",
         "image_position": "center center",
         "layout": "image_first",
         "text_box_position": "middle",
@@ -523,12 +520,12 @@
         "column_izAxqx": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_20.webp",
+            "image": "shopify://shop_images/2nd_Image_8.webp",
             "icon_image": "shopify://shop_images/Group_4.svg",
             "icon_svg": "",
-            "title": "Naturally Breathable Design",
+            "title": "Everything Starts with the Boll",
             "title_size": "h2",
-            "text": "<p>Muslin’s open weave promotes continuous airflow, helping regulate temperature for cooler sleep and comfortable year-round use.</p>",
+            "text": "<p>Natural cotton is harvested and cleaned, then spun into fine, durable yarn. No synthetics. No blends. Just cotton.</p>",
             "button_label": "",
             "button_link": "",
             "button_style_secondary": false,
@@ -543,12 +540,12 @@
         "column_te4dbz": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_21.webp",
+            "image": "shopify://shop_images/3rd_Image_1.webp",
             "icon_image": "shopify://shop_images/Group_5.svg",
             "icon_svg": "",
-            "title": "Lightweight, Everyday Comfort",
+            "title": "Then it gets Weaved",
             "title_size": "h2",
-            "text": "<p>Designed to feel light yet cozy, ideal for sleeping, lounging, layering, and relaxing comfortably every day.</p>",
+            "text": "<p>Yarn is fed through specialized looms and woven into a multi-layer open muslin structure, giving it that signature breathable feel.</p>",
             "button_label": "",
             "button_link": "",
             "button_style_secondary": false,
@@ -563,12 +560,12 @@
         "column_UxzJ3X": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_22.webp",
+            "image": "shopify://shop_images/2nd_Image_2.webp",
             "icon_image": "shopify://shop_images/Group_6.svg",
             "icon_svg": "",
-            "title": "Softens With Every Wash",
+            "title": "Finally washed & finished",
             "title_size": "h2",
-            "text": "<p>With each wash, muslin cotton softens naturally, creating a relaxed texture that feels increasingly comfortable.</p>",
+            "text": "<p>Each blanket is pre-washed and quality checked by hand before it ships. Soft on arrival, softer with every wash after.</p>",
             "button_label": "",
             "button_link": "",
             "button_style_secondary": false,
@@ -588,8 +585,8 @@
       ],
       "name": "Multicolumn v2",
       "settings": {
-        "subheading": "<p>THE DETAILS</p>",
-        "heading": "About Our Muslin Blankets",
+        "subheading": "<p>THE PROCESS</p>",
+        "heading": "How Our Blankets Are Made",
         "heading_size": "h0",
         "heading_tag": "h2",
         "heading_alignment": "center",
@@ -664,6 +661,7 @@
         "feature_FYXfJF",
         "feature_fbqt8F"
       ],
+      "disabled": true,
       "name": "Image Floating Features",
       "settings": {
         "subheading": "<p>GET THE PERFECT SLEEP</p>",
