@@ -2782,22 +2782,46 @@ if (nextBtn) {
       "limit": 1,
       "settings": [
         {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon Image",
+          "info": "Custom icon (heart, charity logo, etc). Falls back to heart SVG if empty."
+        },
+        {
+          "type": "range",
+          "id": "icon_size",
+          "min": 16,
+          "max": 60,
+          "step": 2,
+          "default": 24,
+          "unit": "px",
+          "label": "Icon Size"
+        },
+        {
           "type": "text",
           "id": "heading",
           "label": "Heading",
-          "default": "Your Purchase Creates Real Impact"
+          "default": "Your order donates $1 to support women escaping abuse"
+        },
+        {
+          "type": "text",
+          "id": "goal_text",
+          "label": "Goal Text",
+          "default": "Help us reach the $10,000 goal"
         },
         {
           "type": "textarea",
-          "id": "description",
-          "label": "Description",
-          "default": "With every order, we donate $1 to help women rebuild their lives."
+          "id": "popup_text",
+          "label": "Info Popup Text",
+          "default": "Every purchase from The Fleece Company helps support women in need. Together, we're making a real difference in our community.",
+          "info": "Shown when user clicks the (i) icon. Leave empty to hide the icon."
         },
         {
           "type": "number",
           "id": "raised",
           "label": "Amount Raised (fallback)",
-          "default": 6847
+          "default": 6847,
+          "info": "Used if metafield custom.donations_raised is not set"
         },
         {
           "type": "number",
@@ -2812,28 +2836,44 @@ if (nextBtn) {
           "default": 800
         },
         {
+          "type": "range",
+          "id": "bar_height",
+          "min": 4,
+          "max": 20,
+          "step": 1,
+          "default": 10,
+          "unit": "px",
+          "label": "Progress Bar Height"
+        },
+        {
           "type": "color",
           "id": "bg_color",
           "label": "Background Color",
-          "default": "#f2ede8"
+          "default": "#f5f5f5"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Heading Color",
+          "default": "#1a1a1a"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#1a1a1a"
         },
         {
           "type": "color",
           "id": "bar_color",
           "label": "Progress Bar Color",
-          "default": "#1a1a1a"
+          "default": "#e87461"
         },
         {
           "type": "color",
           "id": "bar_bg_color",
           "label": "Progress Bar Background",
-          "default": "#c8dfd4"
-        },
-        {
-          "type": "color",
-          "id": "accent_color",
-          "label": "Accent Color (Orders Text)",
-          "default": "#4CAF50"
+          "default": "#e0e0e0"
         }
       ]
     },
