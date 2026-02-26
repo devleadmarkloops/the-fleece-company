@@ -1836,7 +1836,6 @@
               {%- liquid
                 assign raised = shop.metafields.custom.donations_raised | default: block.settings.raised
                 assign goal = shop.metafields.custom.donation_goal | default: block.settings.goal
-                assign orders_remaining = shop.metafields.custom.orders_remaining | default: block.settings.orders_remaining
                 assign progress = raised | times: 100 | divided_by: goal
                 if progress == 0 and raised > 0
                   assign progress = 1
