@@ -84,7 +84,7 @@
         "content_max_width": 500,
         "image_behavior": "none",
         "mobile_text_alignment": "center",
-        "mobile_image_ratio": "auto",
+        "mobile_image_ratio": "400px",
         "stack_images_on_mobile": false,
         "show_text_below": false,
         "colors_button_label": "#1a1b18",
