@@ -3554,6 +3554,7 @@ span.alert-box:before {
   .product__info-container .price .badge {
     font-size: 1rem;
     padding: 0.3rem 0.6rem;
+    margin-top: 1px;
   }
   .product__info-container .price .badge .icon {
     width: 1rem;
