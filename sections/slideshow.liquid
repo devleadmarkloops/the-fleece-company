@@ -247,10 +247,10 @@
                   {%- assign animate_delay = animate_delay | plus: 1 -%}
                 {%- endif -%}
                 {%- if block.settings.button_label != blank or block.settings.button_alt_label != blank -%}
-                  <div class="slideshow__button test" data-animate data-animate-delay-{{ animate_delay }}>
+                  <div class="slideshow__button" data-animate data-animate-delay-{{ animate_delay }}>
                     <div class="button-group">
                       {%- if section.blocks.size == 1 and block.settings.button_link != blank -%}
-                        <a class="full-unstyled-link" href="{{ block.settings.button_link }}" aria-label="{{ 'accessibility.view_slide' | t: type: block.type }}"></a>
+                        <a class="full-unstyled-link test" href="{{ block.settings.button_link }}" aria-label="{{ 'accessibility.view_slide' | t: type: block.type }}"></a>
                       {%- else -%}
                         {%- if block.settings.button_label != blank -%}
                           {%- if block.settings.button_style_secondary -%}
