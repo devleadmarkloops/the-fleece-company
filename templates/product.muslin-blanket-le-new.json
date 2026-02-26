@@ -765,7 +765,7 @@
         "heading_size": "h0",
         "show_verified": true,
         "verified_label": "Verified Customer",
-        "button_label": "SEE ALL REVIEWS",
+        "button_label": "",
         "button_link": "shopify://collections/all",
         "use_custom_colors": true,
         "colors_text": "#27272a",
