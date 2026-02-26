@@ -303,7 +303,7 @@
         "heading_mwH73M": {
           "type": "heading",
           "settings": {
-            "heading": "Use It Risk-Free for 100 Nights",
+            "heading": "100 Nights Satisfaction Guarantee",
             "heading_size": "h0",
             "heading_tag": "h2"
           }
@@ -340,13 +340,13 @@
             "text_size_mobile": 12,
             "image_1": "shopify://shop_images/Secure_Checkout_1.png",
             "custom_svg_1": "",
-            "text_1": "<p>Secure Checkout</p>",
-            "image_2": "shopify://shop_images/Free_Shipping_1.png",
+            "text_1": "<p>Tracked Shipping</p>",
+            "image_2": "shopify://shop_images/60_Days_Return_1.png",
             "custom_svg_2": "",
-            "text_2": "<p>Free Shipping</p>",
-            "image_3": "shopify://shop_images/60_Days_Return_1.png",
+            "text_2": "<p>Easy Returns</p>",
+            "image_3": "shopify://shop_images/support.png",
             "custom_svg_3": "",
-            "text_3": "<p>Easy Returns</p>",
+            "text_3": "<p>Always here</p>",
             "custom_svg_4": "",
             "text_4": "",
             "custom_svg_5": "",
@@ -412,7 +412,7 @@
       ],
       "name": "Image banner v2",
       "settings": {
-        "image": "shopify://shop_images/Rectangle_18.webp",
+        "image": "shopify://shop_images/Banner_1_1.webp",
         "image_position": "center center",
         "text_box_position": "bottom-left",
         "text_alignment": "left",
@@ -423,6 +423,7 @@
         "enable_content_max_width": true,
         "content_max_width": 480,
         "image_behavior": "none",
+        "mobile_image": "shopify://shop_images/Banner_2_1.webp",
         "mobile_text_alignment": "left",
         "mobile_image_ratio": "400px",
         "stack_images_on_mobile": false,
