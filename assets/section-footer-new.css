@@ -396,6 +396,7 @@ footer details[empty] summary {
 
 footer .accordion__title {
   max-width: 100%;
+  font-family: var(--new-font-heading-family);
   font-size: 1.2rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -459,6 +460,7 @@ footer .accordion__title:empty + .icon {
 .footer .list-menu__item--link {
   padding: 0;
   text-decoration: none;
+  font-family: var(--new-font-body-family);
   font-size: 1.4rem;
   line-height: calc(1 + 0.4 / var(--font-body-scale));
 }
