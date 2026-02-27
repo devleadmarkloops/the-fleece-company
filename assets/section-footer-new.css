@@ -599,7 +599,9 @@ footer .accordion__title:empty + .icon {
   margin-block: 0 2.5rem;
 }
 .footer .footer__content-top .newsletter-subheading {
-  font-size: 1.4rem;
+  font-family: var(--new-font-body-family);
+  font-size: 1.2rem;
+  font-weight: 400;
   letter-spacing: 0;
   margin-bottom: 2rem;
 }
