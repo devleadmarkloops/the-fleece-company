@@ -374,6 +374,78 @@
         "mobile_text_alignment": "left",
         "mobile_image_ratio": "auto",
         "enable_video_looping": false,
+        "video_url": "",
+        "use_custom_colors": true,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#3b3b3b",
+        "colors_text": "#3b3b3b",
+        "colors_background": "#f0eae4",
+        "gradient_background": "",
+        "colors_highlight": "#ffb503",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_mob": 0,
+        "padding_bottom_mob": 0
+      }
+    },
+    "image_with_text_v3_Lnk6pQ": {
+      "type": "image-with-text-v3",
+      "blocks": {
+        "subheading_Gr4KxR": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Comfort, Guaranteed",
+            "subheading_size": "h5",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading_R3U4EM": {
+          "type": "heading",
+          "settings": {
+            "heading": "The Fleece Guarantee",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "text_H7Ldhq": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We design comfort that feels effortless — breathable, beautifully crafted pieces made to elevate everyday living.</p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_Gr4KxR",
+        "heading_R3U4EM",
+        "text_H7Ldhq"
+      ],
+      "name": "Image with text v3",
+      "settings": {
+        "image": "shopify://shop_images/Rectangle_161125182.webp",
+        "image_position": "center center",
+        "layout": "text_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "image_ratio": "adapt",
+        "enable_media_radius": false,
+        "media_radius": 0,
+        "enlarge_content": false,
+        "full_width": true,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_layout": "image_first",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "auto",
+        "enable_video_looping": false,
+        "video_url": "",
         "use_custom_colors": true,
         "colors_button_label": "#ffffff",
         "colors_button_background": "#3b3b3b",
@@ -394,6 +466,7 @@
     "scrolling_promotion_v2_Wcr73F",
     "featured_collection_tabs_iz3a4E",
     "image_banner_v2_7agGMR",
-    "image_with_text_v3_gcjp6W"
+    "image_with_text_v3_gcjp6W",
+    "image_with_text_v3_Lnk6pQ"
   ]
 }
