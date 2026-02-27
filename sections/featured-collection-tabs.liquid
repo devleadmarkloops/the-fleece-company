@@ -6,7 +6,6 @@
     --color-highlight: {{ section.settings.colors_highlight.red }}, {{ section.settings.colors_highlight.green }}, {{ section.settings.colors_highlight.blue }};
   }
 
-  /* --- FC TABS LAYOUT CSS --- */
   .fc-tabs-header-row {
     display: flex;
     flex-direction: column;
@@ -25,7 +24,6 @@
     }
   }
 
-  /* --- SLIDING TABS CSS --- */
   .fc-tabs-nav-wrapper {
     overflow-x: auto;
     scrollbar-width: none; 
@@ -33,16 +31,14 @@
   .fc-tabs-nav-wrapper::-webkit-scrollbar {
     display: none; 
   }
-
   .fc-tabs-nav {
     display: inline-flex;
     position: relative;
-    gap: 2.5rem; /* Space between tabs */
-    border-bottom: 2px solid rgba(var(--color-foreground), 0.1); /* The empty full bar */
+    gap: 2.5rem;
+    border-bottom: 2px solid rgba(var(--color-foreground), 0.1);
     padding-bottom: 1rem;
     min-width: max-content;
   }
-
   .fc-tab-btn {
     background: transparent;
     border: none;
@@ -58,11 +54,9 @@
   .fc-tab-btn:hover {
     color: rgb(var(--color-foreground));
   }
-
-  /* The Sliding Tracker */
   .fc-tab-indicator {
     position: absolute;
-    bottom: -2px; /* Perfectly overlaps the track border */
+    bottom: -2px;
     left: 0;
     height: 2px;
     background-color: rgb(var(--color-foreground));
@@ -70,8 +64,6 @@
     transform-origin: left;
     border-radius: 2px;
   }
-
-  /* --- TAB PANELS --- */
   .fc-tab-panel {
     display: none; 
     animation: fadeIn 0.4s ease;
@@ -85,7 +77,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* --- SWIPER BULLETPROOFING --- */
   .fc-tabs-section-{{ section.id }} .swiper {
     overflow: hidden;
     width: 100%;
@@ -100,7 +91,6 @@
   }
 {%- endstyle -%}
 
-{% comment %} --- NATIVE ASSET RENDERING --- {% endcomment %}
 <link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
 
@@ -116,7 +106,6 @@
 <div class="fc-tabs-section-{{ section.id }} section--padding{% if section.settings.show_divider %} section--divider{% endif %}">
   <div class="page-width">
     
-    {% comment %} --- HEADER & TABS ROW --- {% endcomment %}
     <div class="fc-tabs-header-row">
       <div class="title-wrapper{% if section.settings.heading == blank %} title-wrapper--no-heading{% endif %}">
         <{{ section.settings.heading_tag }} class="title {{ section.settings.heading_size }}">
@@ -142,7 +131,6 @@
       {%- endif -%}
     </div>
 
-    {% comment %} --- TAB CONTENT PANELS --- {% endcomment %}
     <div class="fc-tabs-content">
       {%- for block in section.blocks -%}
         {%- assign collection = block.settings.collection -%}
@@ -199,12 +187,10 @@
     const sectionEl = document.querySelector('.fc-tabs-section-{{ section.id }}');
     if (!sectionEl) return;
 
-    // 1. ISOLATED TAB LOGIC WITH SLIDING INDICATOR
     const tabBtns = sectionEl.querySelectorAll('.fc-tab-btn');
     const tabPanels = sectionEl.querySelectorAll('.fc-tab-panel');
     const indicator = sectionEl.querySelector('.fc-tab-indicator');
 
-    // Function to slide the indicator
     function updateIndicator(activeBtn) {
       if (!indicator || !activeBtn) return;
       const offsetLeft = activeBtn.offsetLeft;
@@ -214,10 +200,8 @@
       indicator.style.width = `${width}px`;
     }
 
-    // Set initial position on page load
     const initialActiveBtn = sectionEl.querySelector('.fc-tab-btn.is-active');
     if (initialActiveBtn) {
-      // Small timeout ensures fonts are loaded before calculating width
       setTimeout(() => updateIndicator(initialActiveBtn), 100); 
     }
 
@@ -225,15 +209,12 @@
       btn.addEventListener('click', function(e) {
         e.preventDefault();
         
-        // Remove active class from all buttons and panels
         tabBtns.forEach(b => b.classList.remove('is-active'));
         tabPanels.forEach(p => p.classList.remove('is-active'));
 
-        // Add active class to clicked button & move indicator
         this.classList.add('is-active');
         updateIndicator(this);
 
-        // Show the corresponding panel
         const targetId = this.getAttribute('data-target');
         const targetPanel = sectionEl.querySelector('#' + targetId);
         if (targetPanel) {
@@ -242,13 +223,11 @@
       });
     });
 
-    // Recalculate indicator position if window is resized
     window.addEventListener('resize', () => {
       const currentActive = sectionEl.querySelector('.fc-tab-btn.is-active');
       if (currentActive) updateIndicator(currentActive);
     });
 
-    // 2. ISOLATED SWIPER LOGIC
     if (typeof Swiper !== 'undefined') {
       const swipers = sectionEl.querySelectorAll('.swiper');
       swipers.forEach(swiperEl => {
