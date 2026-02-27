@@ -241,6 +241,7 @@
         "iwt_gallery_WzN9xF"
       ],
       "settings": {
+        "enable_v2_styles": true,
         "enable_sticky_info": true,
         "media_position": "left",
         "media_size": "large",
