@@ -592,7 +592,8 @@ footer .accordion__title:empty + .icon {
 }
 /* Newsletter */
 .footer .footer__content-top .newsletter-heading {
-  font-size: 2rem;
+  font-family: var(--new-font-heading-family);
+  font-size: 1.8rem;
   letter-spacing: 0;
   margin-block: 0 2.5rem;
 }
