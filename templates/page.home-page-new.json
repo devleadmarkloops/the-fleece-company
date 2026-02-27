@@ -242,74 +242,6 @@
         "padding_bottom": 0
       }
     },
-    "tabbed_featured_collections_PNfMap": {
-      "type": "tabbed-featured-collections",
-      "blocks": {
-        "collection_CNL8GF": {
-          "type": "collection",
-          "settings": {
-            "tab_label": "All",
-            "collection": "homepage"
-          }
-        },
-        "collection_dJJycW": {
-          "type": "collection",
-          "settings": {
-            "tab_label": "Blankets",
-            "collection": "blankets"
-          }
-        },
-        "collection_HkNpBD": {
-          "type": "collection",
-          "settings": {
-            "tab_label": "Pajamas",
-            "collection": "pajamas"
-          }
-        },
-        "collection_FGmfez": {
-          "type": "collection",
-          "settings": {
-            "tab_label": "Shawls",
-            "collection": "shawls"
-          }
-        }
-      },
-      "block_order": [
-        "collection_CNL8GF",
-        "collection_dJJycW",
-        "collection_HkNpBD",
-        "collection_FGmfez"
-      ],
-      "name": "t:sections.tabbed-featured-collections.presets.name",
-      "settings": {
-        "products_to_show": 12,
-        "horizontal_scroll": true,
-        "show_view_all": false,
-        "show_divider": false,
-        "enable_drag": true,
-        "heading": "Featured Products",
-        "heading_size": "h1",
-        "heading_alignment": "left",
-        "heading_tag": "h2",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "image_ratio": "square",
-        "image_position": "center center",
-        "enable_image_fill": true,
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "show_quick_buy": false,
-        "enable_quick_view": false,
-        "enable_color_swatches": true,
-        "enable_countdown": false,
-        "colors_highlight": "#ffb503",
-        "padding_top": 60,
-        "padding_bottom": 60,
-        "enable_highlight": false,
-        "highlight_style": "marker"
-      }
-    },
     "featured_collection_tabs_iz3a4E": {
       "type": "featured-collection-tabs",
       "blocks": {
@@ -326,11 +258,27 @@
             "title": "Blankets",
             "collection": "blankets"
           }
+        },
+        "collection_tab_xXhq3d": {
+          "type": "collection_tab",
+          "settings": {
+            "title": "Pajamas",
+            "collection": "pajamas"
+          }
+        },
+        "collection_tab_qtgEMt": {
+          "type": "collection_tab",
+          "settings": {
+            "title": "Shawls",
+            "collection": "shawls"
+          }
         }
       },
       "block_order": [
         "collection_tab_ALptgY",
-        "collection_tab_XryVqJ"
+        "collection_tab_XryVqJ",
+        "collection_tab_xXhq3d",
+        "collection_tab_qtgEMt"
       ],
       "name": "Featured Collection Tabs",
       "settings": {
@@ -339,8 +287,6 @@
         "heading_tag": "h2",
         "products_to_show": 8,
         "show_view_all": false,
-        "show_slider_arrows": true,
-        "enable_drag": true,
         "show_divider": false,
         "image_ratio": "adapt",
         "image_position": "center center",
@@ -363,7 +309,6 @@
     "image_banner_v2_Ckrrrd",
     "scrolling_promotion_v2_Wcr73F",
     "image_banner_v2_7agGMR",
-    "tabbed_featured_collections_PNfMap",
     "featured_collection_tabs_iz3a4E"
   ]
 }
