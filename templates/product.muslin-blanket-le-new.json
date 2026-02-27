@@ -526,7 +526,7 @@
           "type": "column",
           "settings": {
             "image": "shopify://shop_images/2nd_Image_8.webp",
-            "icon_image": "shopify://shop_images/Group_4.svg",
+            "icon_image": "shopify://shop_images/118.png",
             "icon_svg": "",
             "title": "Everything starts with the Boll...",
             "title_size": "h2",
@@ -546,7 +546,7 @@
           "type": "column",
           "settings": {
             "image": "shopify://shop_images/3rd_Image_1.webp",
-            "icon_image": "shopify://shop_images/Group_5.svg",
+            "icon_image": "shopify://shop_images/119.png",
             "icon_svg": "",
             "title": "Then it gets Weaved",
             "title_size": "h2",
