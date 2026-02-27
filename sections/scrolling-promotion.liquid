@@ -1,3 +1,26 @@
+{%- liquid
+  assign hide_section = false
+  if section.settings.hidden_templates != blank
+    
+    assign current_template = template.name
+    if template.suffix != blank
+      assign current_template = current_template | append: '.' | append: template.suffix
+    endif
+
+    assign hidden_array = section.settings.hidden_templates | split: ','
+
+    for item in hidden_array
+      assign clean_item = item | strip | strip_newlines | remove: ' '
+      
+      if clean_item == current_template
+        assign hide_section = true
+        break
+      endif
+    endfor
+  endif
+-%}
+
+{%- unless hide_section -%}
 {%- style -%}
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
@@ -106,6 +129,7 @@
 {% else %}
 </scrolling-promotion>
 {% endif %}
+{%- endunless -%}
 
 {% schema %}
 {
@@ -194,6 +218,16 @@
       "type": "color_background",
       "id": "gradient_background",
       "label": "t:sections.all.colors.gradient_background.label"
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "textarea",
+      "id": "hidden_templates",
+      "label": "Hide on specific templates",
+      "info": "Enter template names. You can use commas or put each on a new line. (Example: product.custom, page.landing, index)"
     },
     {
       "type": "header",

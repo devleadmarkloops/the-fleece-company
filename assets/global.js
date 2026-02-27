@@ -3211,11 +3211,38 @@ class ProductRecommendations extends HTMLElement {
         const recommendations = html.querySelector('product-recommendations');
         if (recommendations && recommendations.innerHTML.trim().length) {
           this.innerHTML = recommendations.innerHTML;
+          
+          this.initSwiper();
         }
       })
       .catch(e => {
         console.error(e);
       });
+  }
+
+  initSwiper() {
+    const swiperContainer = this.querySelector('.recommendations-swiper');
+    
+    if (swiperContainer && typeof Swiper !== 'undefined') {
+      new Swiper(swiperContainer, {
+        slidesPerView: 1.6,
+        spaceBetween: 10,
+        navigation: {
+          nextEl: this.querySelector('.rec-next'),
+          prevEl: this.querySelector('.rec-prev'),
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 15
+          },
+          990: {
+            slidesPerView: 4,
+            spaceBetween: 20
+          }
+        }
+      });
+    }
   }
 }
 customElements.define('product-recommendations', ProductRecommendations);

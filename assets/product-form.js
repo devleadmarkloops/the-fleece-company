@@ -165,13 +165,34 @@ if (!customElements.get('product-form')) {
         }
       }
 
+      // toggleSubmitButton(disable = true, text) {
+      //   if (disable) {
+      //     this.submitButton.setAttribute('disabled', 'disabled');
+      //     if (text) this.submitButtonText.textContent = text;
+      //   } else {
+      //     this.submitButton.removeAttribute('disabled');
+      //     this.submitButtonText.textContent = theme.variantStrings.addToCart;
+      //   }
+      // }
+
       toggleSubmitButton(disable = true, text) {
         if (disable) {
           this.submitButton.setAttribute('disabled', 'disabled');
           if (text) this.submitButtonText.textContent = text;
         } else {
           this.submitButton.removeAttribute('disabled');
-          this.submitButtonText.textContent = theme.variantStrings.addToCart;
+          
+          const onSalePrice = document.querySelector('.price--on-sale .price-item--sale');
+          const regularPrice = document.querySelector('.price-item--regular') || document.querySelector('.price-per-item--current');
+          const activePriceElement = onSalePrice ? onSalePrice : regularPrice;
+          
+          const currentPrice = activePriceElement ? activePriceElement.textContent.trim() : '';
+
+          if (currentPrice) {
+             this.submitButtonText.innerHTML = `${theme.variantStrings.addToCart} <span class="btn-price-separator"> – </span> <span class="btn-price">${currentPrice}</span>`;
+          } else {
+             this.submitButtonText.textContent = theme.variantStrings.addToCart;
+          }
         }
       }
 

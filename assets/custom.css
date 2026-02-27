@@ -53,6 +53,151 @@
   }
 }
 
+/* Header New */
+header.header-new.header--middle-left .header__inline-menu {
+  text-align: center;
+}
+header.header-new .header__inline-menu .header__menu-item {
+  font-family: var(--new-font-body-family);
+  font-weight: 500;
+}
+header.header-new .is-megamenu > .list-menu-dropdown .page-width {
+  --grid-horizontal-spacing: 4rem;
+}
+header.header-new .mega-menu__promo {
+  flex: 0 0 16rem;
+}
+header.header-new .is-megamenu.show-images .mega-menu__item {
+  width: calc(25% - var(--grid-horizontal-spacing) * 3 / 4);
+}
+header.header-new .list-menu-dropdown .list-mega-menu {
+  --grid-horizontal-spacing: 4rem;
+  max-width: calc(100% - 2.5rem);
+}
+header.header-new .list-mega-menu .mega-menu__item > .mega-menu__item-link {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgb(var(--color-header-foreground));
+}
+header.header-new .list-mega-menu .mega-menu__item > .mega-menu__item-link .header__menu-item {
+  font-family: var(--new-font-heading-family);
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: rgb(var(--color-header-foreground));
+  letter-spacing: 0;
+  text-transform: none;
+}
+header.header-new .list-mega-menu .mega-menu__item .list-menu .header__menu-item {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: rgb(var(--color-header-foreground));
+  letter-spacing: 0;
+  padding-block: 0.5rem;
+}
+header.header-new .mega-menu__promos-wr {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+header.header-new .mega-menu__promo-content {
+  text-align: left;
+  padding-top: 0.3rem;
+}
+header.header-new .mega-menu__promo-content .mega-menu__promo-heading {
+  font-family: var(--new-font-body-family);
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: rgb(var(--color-header-foreground));
+  letter-spacing: 0;
+  text-transform: none;
+}
+header.header-new .mega-menu__promo-subheading {
+  font-family: var(--new-font-body-family);
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: rgb(var(--color-header-foreground));
+  letter-spacing: 0;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+}
+header.header-new .mega-menu__promo-subheading s {
+  color: rgba(var(--color-header-foreground), 0.6);
+}
+header.header-new .mega-menu__promo-subheading strong {
+  font-weight: 600;
+}
+
+@media screen and (min-width: 1200px) {
+  header.header-new .mega-menu__promo {
+    flex: 0 0 17rem;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  header.header-new .header__icon {
+    width: 4rem;
+  }
+  header.header-new .header__icon.header__icon--summary .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  header.header-new .menu-drawer__navigation-container .menu-title {
+    font-family: var(--new-font-heading-family);
+    font-size: 1.8rem;
+    letter-spacing: 0;
+  }
+  header.header-new .menu-drawer__menu-item {
+    font-family: var(--new-font-heading-family);
+    font-size: 1.6rem;
+    letter-spacing: 0;
+    padding-block: 1.5rem;
+    border-bottom: 1px solid rgba(var(--color-header-foreground), 0.6);
+  }
+}
+
+/* Review Widget | Judgeme */
+.jdgm-rev-widg .jdgm-rev-widg__header .jdgm-rev-widg__title {
+  font-family: var(--new-font-heading-family);
+  font-size: 4.2rem;
+  letter-spacing: 0;
+}
+.jdgm-rev-widg .jdgm-widget-actions-wrapper .jdgm-write-rev-link,
+.jdgm-rev-widg .jdgm-rev-widg__reviews .jdgm-rev__author,
+.jdgm-rev-widg .jdgm-sort-dropdown {
+  font-family: var(--new-font-heading-family);
+  letter-spacing: 0;
+}
+.jdgm-rev-widg .jdgm-widget-actions-wrapper .jdgm-write-rev-link {
+  border-radius: 8px;
+}
+.jdgm-rev-widg .jdgm-rev-widg__summary-average,
+.jdgm-rev-widg .jdgm-rev-widg__summary-text,
+.jdgm-rev-widg .jdgm-rev__content .jdgm-rev__body,
+.jdgm-rev-widg .jdgm-paginate .jdgm-paginate__page,
+.jdgm-rev-widg .jdgm-histogram__frequency {
+  font-family: var(--new-font-body-family);
+  letter-spacing: 0;
+}
+.jdgm-rev-widg .jdgm-histogram__frequency {
+  font-weight: 500;
+}
+.jdgm-rev-widg .jdgm-row-stars .jdgm-histogram__bar {
+  margin-inline: 0.5rem;
+  border-radius: 40px;
+  background-color: #ddd;
+}
+.jdgm-rev-widg .jdgm-row-stars .jdgm-histogram__bar .jdgm-histogram__bar-content {
+  border-radius: 40px 0 0 40px;
+}
+
+@media screen and (max-width: 749px) {
+  .jdgm-rev-widg .jdgm-rev-widg__header .jdgm-rev-widg__title {
+    font-size: 2.8rem;
+  }
+}
+
 /* ##### Card Product ##### */
 .card-wrapper .card-information__wrapper .meta-subtitle {
   font-size: 1.2rem;

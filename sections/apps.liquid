@@ -2,11 +2,12 @@
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.sec_bg_color }};
   }
 {%- endstyle -%}
 
 <div class="section--padding{% if section.settings.show_divider %} section--divider{% endif %}">
-  <div class="page-width{% unless section.settings.include_margins %} page-width--full-width{% endunless %}">
+  <div class="page-width {{ section.settings.custom_class }}{% unless section.settings.include_margins %} page-width--full-width{% endunless %}">
     {%- liquid
       for block in section.blocks
         render block
@@ -22,6 +23,11 @@
   "class": "section",
   "settings": [
     {
+      "type": "color",
+      "id": "sec_bg_color",
+      "label": "Section background color"
+    },
+    {
       "type": "checkbox",
       "id": "include_margins",
       "default": true,
@@ -32,6 +38,11 @@
       "id": "show_divider",
       "default": false,
       "label": "t:sections.all.show_divider.label"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class"
     },
     {
       "type": "header",
