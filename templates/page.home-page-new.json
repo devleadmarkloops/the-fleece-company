@@ -307,6 +307,16 @@
     "image_with_text_v3_gcjp6W": {
       "type": "image-with-text-v3",
       "blocks": {
+        "subheading_zp9ty3": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "ABOUT us",
+            "subheading_size": "h5",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
         "heading_9Catfm": {
           "type": "heading",
           "settings": {
@@ -331,8 +341,8 @@
           "type": "button",
           "settings": {
             "button_size": "medium",
-            "button_label": "Button label",
-            "button_link": "",
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections/all",
             "button_style_secondary": false,
             "button_alt_label": "",
             "button_alt_link": "",
@@ -341,6 +351,7 @@
         }
       },
       "block_order": [
+        "subheading_zp9ty3",
         "heading_9Catfm",
         "text_fApUBP",
         "button_RK7BEx"
