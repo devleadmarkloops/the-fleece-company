@@ -100,7 +100,7 @@
 </script>
 <product-info
   id="MainProduct-{{ section.id }}"
-  class="section-{{ section.id }}-padding"
+  class="section-{{ section.id }}-padding{% if section.settings.enable_v2_styles %} product-v2{% endif %}"
   data-section="{{ section.id }}"
   data-product-id="{{ product.id }}"
   data-update-url="true"
@@ -5607,6 +5607,12 @@ if (nextBtn) {
     }
   ],
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_v2_styles",
+      "default": false,
+      "label": "Enable v2 styles"
+    },
     {
       "type": "checkbox",
       "id": "enable_sticky_info",
