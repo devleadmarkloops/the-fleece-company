@@ -604,6 +604,7 @@ footer .accordion__title:empty + .icon {
   font-weight: 400;
   letter-spacing: 0;
   margin-bottom: 2rem;
+  max-width: 40rem;
 }
 .footer .footer__content-top .newsletter-desc {
   font-size: 1.2rem;
