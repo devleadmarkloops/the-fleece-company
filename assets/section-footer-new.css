@@ -382,6 +382,7 @@ localization-form .localization-selector {
 
 .copyright__content {
   display: block;
+  font-family: var(--new-font-body-family);
   font-size: 1.3rem;
   letter-spacing: 0;
 }
