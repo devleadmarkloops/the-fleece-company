@@ -703,10 +703,18 @@ footer .accordion__title:empty + .icon {
     font-size: 1.1rem;
   }
   .footer .footer__content-top .social-list-wr {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
   }
   .footer .footer__content-top .social-list-wr .footer__list-social {
     justify-content: center;
+  }
+  .footer .footer__content-top .social-list-wr .footer__list-social .list-social__link {
+    width: 4.4rem;
+    height: 4.4rem;
+  }
+  .footer .footer__content-top .social-list-wr .footer__list-social .list-social__link .icon {
+    width: 1.8rem;
+    height: 1.8rem;
   }
   .footer .footer-logo {
     margin-bottom: 1.5rem;
