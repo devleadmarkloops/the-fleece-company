@@ -35,9 +35,21 @@
     display: inline-flex;
     position: relative;
     gap: 2.5rem;
-    border-bottom: 2px solid rgba(var(--color-foreground), 0.1);
+    /* border-bottom: 2px solid rgba(var(--color-foreground), 0.1); */
     padding-bottom: 1rem;
     min-width: max-content;
+    position: relative;
+  }
+  .fc-tabs-nav::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-color: #F0EAE4;
+    border-radius: 10px;
   }
   .fc-tab-btn {
     background: transparent;
@@ -59,10 +71,10 @@
     bottom: -2px;
     left: 0;
     height: 5px;
-    background-color: #F0EAE4;
+    background-color: rgb(var(--color-foreground));
     transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     transform-origin: left;
-    border-radius: 10px;
+    border-radius: 2px;
   }
   .fc-tab-panel {
     display: none; 
