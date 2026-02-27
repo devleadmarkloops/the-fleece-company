@@ -163,7 +163,7 @@
         "direction": "left",
         "speed": 5,
         "show_divider": false,
-        "use_custom_colors": false,
+        "use_custom_colors": true,
         "colors_icon": "#3b3b3b",
         "colors_text": "#3b3b3b",
         "colors_background": "#f0eae4",
