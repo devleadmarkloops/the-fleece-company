@@ -214,6 +214,7 @@
         "text_PbAgHn",
         "button_7wA7kT"
       ],
+      "disabled": true,
       "name": "Image banner v2",
       "settings": {
         "image": "shopify://shop_images/Overlay.webp",
