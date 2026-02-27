@@ -539,6 +539,74 @@
         "padding_top_mob": 40,
         "padding_bottom_mob": 40
       }
+    },
+    "image_with_accordion_p7iDNB": {
+      "type": "image-with-accordion",
+      "blocks": {
+        "accordion_Vm6hP3": {
+          "type": "accordion",
+          "settings": {
+            "title": "Is the Muslin Blanket suitable for all seasons?",
+            "content": "<p>We only use premium, ethically sourced materials to ensure maximum durability and comfort.</p>"
+          }
+        },
+        "accordion_4hKaYX": {
+          "type": "accordion",
+          "settings": {
+            "title": "What makes muslin cotton different from regular blankets?",
+            "content": "<p>We only use premium, ethically sourced materials to ensure maximum durability and comfort.</p>"
+          }
+        },
+        "accordion_fMwawP": {
+          "type": "accordion",
+          "settings": {
+            "title": "Does the blanket feel heavy or weighted?",
+            "content": "<p>We only use premium, ethically sourced materials to ensure maximum durability and comfort.</p>"
+          }
+        },
+        "accordion_fwRyWX": {
+          "type": "accordion",
+          "settings": {
+            "title": "How do I wash and care for the Muslin Blanket?",
+            "content": "<p>We only use premium, ethically sourced materials to ensure maximum durability and comfort.</p>"
+          }
+        },
+        "accordion_pLLdxm": {
+          "type": "accordion",
+          "settings": {
+            "title": "Is the Muslin Blanket safe for sensitive skin?",
+            "content": "<p>We only use premium, ethically sourced materials to ensure maximum durability and comfort.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "accordion_Vm6hP3",
+        "accordion_4hKaYX",
+        "accordion_fMwawP",
+        "accordion_fwRyWX",
+        "accordion_pLLdxm"
+      ],
+      "name": "Image with Accordion",
+      "settings": {
+        "main_image": "shopify://shop_images/image_8.webp",
+        "image_position": "right",
+        "layout_ratio": "40/60",
+        "image_height": "adapt",
+        "image_radius": 10,
+        "subheading": "<p>LEARN MORE</p>",
+        "heading": "Frequently Asked Questions",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "heading_alignment": "left",
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_background": "#ffffff",
+        "colors_text": "#212326",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36
+      }
     }
   },
   "order": [
@@ -549,6 +617,7 @@
     "image_banner_v2_7agGMR",
     "image_with_text_v3_gcjp6W",
     "image_with_text_v3_Lnk6pQ",
-    "reviews_slider_v1_VwKkVG"
+    "reviews_slider_v1_VwKkVG",
+    "image_with_accordion_p7iDNB"
   ]
 }
