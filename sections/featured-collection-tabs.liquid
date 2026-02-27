@@ -1,8 +1,3 @@
-{% comment %}
-  Featured Collection Tabs Section
-  Rewritten to extend the default logic with Swiper tabs.
-{% endcomment %}
-
 {%- style -%}
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
@@ -22,11 +17,11 @@
   @media screen and (min-width: 750px) {
     .fc-tabs-header-row {
       flex-direction: row;
-      align-items: center; /* Aligns title and tabs next to each other */
+      align-items: center;
       justify-content: space-between;
     }
     .fc-tabs-header-row .title-wrapper {
-      margin: 0; /* Override default title margin */
+      margin: 0;
     }
   }
 
@@ -35,10 +30,10 @@
     flex-wrap: nowrap;
     overflow-x: auto;
     gap: 1.5rem;
-    scrollbar-width: none; /* Hides scrollbar Firefox */
+    scrollbar-width: none; 
   }
   .fc-tabs-nav::-webkit-scrollbar {
-    display: none; /* Hides scrollbar Chrome/Safari */
+    display: none; 
   }
 
   .fc-tab-btn {
@@ -76,7 +71,7 @@
 
   /* --- TAB PANELS --- */
   .fc-tab-panel {
-    display: none; /* Hidden by default */
+    display: none; 
     animation: fadeIn 0.4s ease;
   }
   .fc-tab-panel.is-active {
@@ -86,13 +81,6 @@
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(5px); }
     to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* --- SLIDER NAVIGATION & SWIPER PRECAUTION --- */
-  .fc-tabs-content .slider-buttons {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 1.5rem;
   }
 
   /* Force swiper to allow overflow visibility so cards/swatches are not clipped */
@@ -142,8 +130,8 @@
       {%- endif -%}
     </div>
 
-    {% comment %} --- TAB CONTENT PANELS (REWRITTEN AS SWIPER) --- {% endcomment %}
-    <div class="fc-tabs-content slider-mobile-gutter">
+    {% comment %} --- TAB CONTENT PANELS --- {% endcomment %}
+    <div class="fc-tabs-content">
       {%- for block in section.blocks -%}
         {%- assign collection = block.settings.collection -%}
         
@@ -151,10 +139,10 @@
           <div class="fc-tabs-swiper-container">
             
             <div class="swiper fc-swiper-{{ section.id }}-{{ block.id }}">
-              <div class="swiper-wrapper flex-grid flex-grid--rigid">
-                {% comment %} Note: Slider--tablet standard classes were removed to prevent grid clash, using Swiper slidesPerView instead {% endcomment %}
+              {% comment %} STRIPPED NATIVE GRID CLASSES HERE SO SWIPER CAN BREATHE {% endcomment %}
+              <div class="swiper-wrapper">
                 {%- for product in collection.products limit: section.settings.products_to_show -%}
-                  <div class="swiper-slide slider__slide flex-grid__item">
+                  <div class="swiper-slide">
                     {% render 'card-product-v2',
                       card_product: product,
                       media_size: section.settings.image_ratio,
@@ -169,9 +157,8 @@
                     %}
                   </div>
                 {%- else -%}
-                  {% comment %} Placeholder Slides (using grid rigid classes) {% endcomment %}
                   {%- for i in (1..4) -%}
-                    <div class="swiper-slide slider__slide flex-grid__item">
+                    <div class="swiper-slide">
                       {% render 'card-product-placeholder', media_size: section.settings.image_ratio %}
                     </div>
                   {%- endfor -%}
@@ -179,22 +166,10 @@
               </div>
             </div>
 
-            {% comment %} Slider Arrows (Using native slider-buttons style from DEFAULT) {% endcomment %}
-            {%- if section.settings.show_slider_arrows and collection.products.size > 2 -%}
-              <div class="slider-buttons no-js-hidden small-hide">
-                <button type="button" class="slider-button slider-button--prev fc-prev-{{ section.id }}-{{ block.id }}" name="previous" aria-label="{{ 'general.slider.previous_slide' | t }}" disabled="disabled">
-                  {% render 'icon', icon: 'arrow' %}
-                </button>
-                <button type="button" class="slider-button slider-button--next fc-next-{{ section.id }}-{{ block.id }}" name="next" aria-label="{{ 'general.slider.next_slide' | t }}">
-                  {% render 'icon', icon: 'arrow' %}
-                </button>
-              </div>
-            {%- endif -%}
-
           </div>
           
           {%- if section.settings.show_view_all and collection.all_products_count > section.settings.products_to_show -%}
-            <div class="view-all center">
+            <div class="view-all center" style="margin-top: 3rem;">
               <a href="{{ collection.url }}"
                 class="button"
                 aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: collection.title }}"
@@ -214,26 +189,16 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const sectionId = '{{ section.id }}';
-    const sectionEl = document.querySelector('#shopify-section-' + sectionId);
+    const sectionEl = document.getElementById('shopify-section-' + sectionId);
     if (!sectionEl) return;
 
-    // 1. Initialize Swiper for each block (Ported setting from DEFAULT: horizontal_scroll, modified for 2-column mobile)
+    // 1. Initialize Swiper for each block
     {%- for block in section.blocks -%}
       new Swiper('.fc-swiper-' + sectionId + '-{{ block.id }}', {
-        slidesPerView: 2, /* 2 items on mobile, matching default grid */
+        slidesPerView: 2, 
         spaceBetween: 10,
-        observer: true, /* CRITICAL for hidden tabs */
+        observer: true, 
         observeParents: true,
-        {% if section.settings.enable_drag %}
-          grabCursor: true,
-          simulateTouch: true,
-        {% else %}
-          simulateTouch: false,
-        {% endif %}
-        navigation: {
-          nextEl: '.fc-next-' + sectionId + '-{{ block.id }}',
-          prevEl: '.fc-prev-' + sectionId + '-{{ block.id }}',
-        },
         breakpoints: {
           768: {
             slidesPerView: 3,
@@ -262,7 +227,7 @@
 
         // Show the corresponding panel
         const targetId = this.getAttribute('data-target');
-        const targetPanel = sectionEl.querySelector('#' + targetId);
+        const targetPanel = document.getElementById(targetId);
         if (targetPanel) {
           targetPanel.classList.add('is-active');
         }
@@ -324,18 +289,6 @@
       "id": "show_view_all",
       "default": true,
       "label": "Show 'View All' button"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_slider_arrows",
-      "default": true,
-      "label": "Show Swiper Navigation Arrows"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_drag",
-      "default": false,
-      "label": "Enable drag to scroll on desktop"
     },
     {
       "type": "checkbox",
