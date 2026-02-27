@@ -597,6 +597,7 @@ footer .accordion__title:empty + .icon {
   line-height: 1.2;
   letter-spacing: 0;
   margin-block: 0 2.5rem;
+  max-width: 37rem;
 }
 .footer .footer__content-top .newsletter-subheading {
   font-size: 1.4rem;
