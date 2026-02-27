@@ -1,28 +1,33 @@
+{% comment %}
+  Featured Collection Tabs Section
+  Rewritten to extend the default logic with Swiper tabs.
+{% endcomment %}
+
 {%- style -%}
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --image-position: {{ section.settings.image_position }};
     --color-highlight: {{ section.settings.colors_highlight.red }}, {{ section.settings.colors_highlight.green }}, {{ section.settings.colors_highlight.blue }};
   }
 
-  /* --- TAB UI CSS --- */
-  .fc-tabs-header {
+  /* --- FC TABS LAYOUT CSS --- */
+  .fc-tabs-header-row {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
   }
   
   @media screen and (min-width: 750px) {
-    .fc-tabs-header {
+    .fc-tabs-header-row {
       flex-direction: row;
       align-items: center; /* Aligns title and tabs next to each other */
       justify-content: space-between;
     }
-  }
-
-  .fc-tabs-header .title {
-    margin: 0;
+    .fc-tabs-header-row .title-wrapper {
+      margin: 0; /* Override default title margin */
+    }
   }
 
   .fc-tabs-nav {
@@ -83,31 +88,31 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* --- SWIPER NAVIGATION --- */
-  .fc-swiper-wrapper {
-    position: relative;
-  }
-  .fc-swiper-nav {
+  /* --- SLIDER NAVIGATION & SWIPER PRECAUTION --- */
+  .fc-tabs-content .slider-buttons {
     display: flex;
-    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
   }
-  .fc-swiper-nav .swiper-button-prev,
-  .fc-swiper-nav .swiper-button-next {
-    position: static;
-    width: 3.5rem;
-    height: 3.5rem;
-    background: white;
-    border: 1px solid rgba(var(--color-foreground), 0.1);
-    border-radius: 50%;
-    margin: 0;
-    color: rgb(var(--color-foreground));
-  }
-  .fc-swiper-nav .swiper-button-prev::after,
-  .fc-swiper-nav .swiper-button-next::after {
-    font-size: 1.2rem;
-    font-weight: bold;
+
+  /* Force swiper to allow overflow visibility so cards/swatches are not clipped */
+  .fc-tab-panel .swiper,
+  .fc-tab-panel .swiper-wrapper,
+  .fc-tab-panel .swiper-slide {
+    overflow: visible !important;
   }
 {%- endstyle -%}
+
+{% comment %} --- NATIVE ASSET RENDERING --- {% endcomment %}
+<link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
+
+{%- if settings.quick_view_enabled and section.settings.enable_quick_view -%}
+  <link rel="stylesheet" href="{{ 'section-main-product.css' | asset_url }}" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="{{ 'component-deferred-media.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endif -%}
+<noscript>{{ 'component-slider.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'component-price.css' | asset_url | stylesheet_tag }}</noscript>
 
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 
@@ -115,7 +120,7 @@
   <div class="page-width">
     
     {% comment %} --- HEADER & TABS ROW --- {% endcomment %}
-    <div class="fc-tabs-header">
+    <div class="fc-tabs-header-row title-wrapper">
       <div class="title-wrapper{% if section.settings.heading == blank %} title-wrapper--no-heading{% endif %}">
         <{{ section.settings.heading_tag }} class="title {{ section.settings.heading_size }}">
           {%- render 'highlight-text', 
@@ -137,43 +142,59 @@
       {%- endif -%}
     </div>
 
-    {% comment %} --- TAB CONTENT PANELS --- {% endcomment %}
-    <div class="fc-tabs-content">
+    {% comment %} --- TAB CONTENT PANELS (REWRITTEN AS SWIPER) --- {% endcomment %}
+    <div class="fc-tabs-content slider-mobile-gutter">
       {%- for block in section.blocks -%}
         {%- assign collection = block.settings.collection -%}
         
         <div id="panel-{{ section.id }}-{{ block.id }}" class="fc-tab-panel {% if forloop.first %}is-active{% endif %}">
-          <div class="fc-swiper-wrapper">
+          <div class="fc-tabs-swiper-container">
             
             <div class="swiper fc-swiper-{{ section.id }}-{{ block.id }}">
-              <div class="swiper-wrapper">
+              <div class="swiper-wrapper flex-grid flex-grid--rigid">
+                {% comment %} Note: Slider--tablet standard classes were removed to prevent grid clash, using Swiper slidesPerView instead {% endcomment %}
                 {%- for product in collection.products limit: section.settings.products_to_show -%}
-                  <div class="swiper-slide">
-                    {% comment %} REPLACED WITH CARD V2 {% endcomment %}
-                    {% render 'card-product-v2', card_product: product %}
+                  <div class="swiper-slide slider__slide flex-grid__item">
+                    {% render 'card-product-v2',
+                      card_product: product,
+                      media_size: section.settings.image_ratio,
+                      show_secondary_image: section.settings.show_secondary_image,
+                      show_quick_buy: section.settings.show_quick_buy,
+                      show_vendor: section.settings.show_vendor,
+                      show_rating: section.settings.show_rating,
+                      enable_quick_view: section.settings.enable_quick_view,
+                      enable_color_swatches: section.settings.enable_color_swatches,
+                      enable_countdown: section.settings.enable_countdown,
+                      enable_image_fill: section.settings.enable_image_fill
+                    %}
                   </div>
                 {%- else -%}
+                  {% comment %} Placeholder Slides (using grid rigid classes) {% endcomment %}
                   {%- for i in (1..4) -%}
-                    <div class="swiper-slide">
-                      {% render 'card-product-placeholder', media_size: 'adapt' %}
+                    <div class="swiper-slide slider__slide flex-grid__item">
+                      {% render 'card-product-placeholder', media_size: section.settings.image_ratio %}
                     </div>
                   {%- endfor -%}
                 {%- endfor -%}
               </div>
             </div>
 
-            {% comment %} Slider Arrows (Hidden if View All is preferred, or display flex to show) {% endcomment %}
-            {%- if section.settings.show_slider_arrows -%}
-              <div class="fc-swiper-nav" style="justify-content: flex-end; margin-top: 1.5rem;">
-                <div class="swiper-button-prev fc-prev-{{ section.id }}-{{ block.id }}"></div>
-                <div class="swiper-button-next fc-next-{{ section.id }}-{{ block.id }}"></div>
+            {% comment %} Slider Arrows (Using native slider-buttons style from DEFAULT) {% endcomment %}
+            {%- if section.settings.show_slider_arrows and collection.products.size > 2 -%}
+              <div class="slider-buttons no-js-hidden small-hide">
+                <button type="button" class="slider-button slider-button--prev fc-prev-{{ section.id }}-{{ block.id }}" name="previous" aria-label="{{ 'general.slider.previous_slide' | t }}" disabled="disabled">
+                  {% render 'icon', icon: 'arrow' %}
+                </button>
+                <button type="button" class="slider-button slider-button--next fc-next-{{ section.id }}-{{ block.id }}" name="next" aria-label="{{ 'general.slider.next_slide' | t }}">
+                  {% render 'icon', icon: 'arrow' %}
+                </button>
               </div>
             {%- endif -%}
 
           </div>
           
           {%- if section.settings.show_view_all and collection.all_products_count > section.settings.products_to_show -%}
-            <div class="view-all center" style="margin-top: 2rem;">
+            <div class="view-all center">
               <a href="{{ collection.url }}"
                 class="button"
                 aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: collection.title }}"
@@ -196,13 +217,19 @@
     const sectionEl = document.querySelector('#shopify-section-' + sectionId);
     if (!sectionEl) return;
 
-    // 1. Initialize Swiper for each block
+    // 1. Initialize Swiper for each block (Ported setting from DEFAULT: horizontal_scroll, modified for 2-column mobile)
     {%- for block in section.blocks -%}
       new Swiper('.fc-swiper-' + sectionId + '-{{ block.id }}', {
-        slidesPerView: 2, /* 2 items on mobile */
+        slidesPerView: 2, /* 2 items on mobile, matching default grid */
         spaceBetween: 10,
         observer: true, /* CRITICAL for hidden tabs */
         observeParents: true,
+        {% if section.settings.enable_drag %}
+          grabCursor: true,
+          simulateTouch: true,
+        {% else %}
+          simulateTouch: false,
+        {% endif %}
         navigation: {
           nextEl: '.fc-next-' + sectionId + '-{{ block.id }}',
           prevEl: '.fc-prev-' + sectionId + '-{{ block.id }}',
@@ -264,12 +291,24 @@
       "type": "select",
       "id": "heading_size",
       "options": [
-        { "value": "h2", "label": "H2" },
-        { "value": "h1", "label": "H1" },
-        { "value": "h0", "label": "H0" }
+        { "value": "h2", "label": "t:sections.all.heading_size.options__1.label" },
+        { "value": "h1", "label": "t:sections.all.heading_size.options__2.label" },
+        { "value": "h0", "label": "t:sections.all.heading_size.options__3.label" }
       ],
       "default": "h2",
       "label": "Heading Size"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "div", "label": "div" }
+      ],
+      "default": "h2",
+      "label": "t:sections.all.heading_tag.label"
     },
     {
       "type": "range",
@@ -294,9 +333,100 @@
     },
     {
       "type": "checkbox",
+      "id": "enable_drag",
+      "default": false,
+      "label": "Enable drag to scroll on desktop"
+    },
+    {
+      "type": "checkbox",
       "id": "show_divider",
       "default": false,
       "label": "t:sections.all.show_divider.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.product_card.header.content"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        { "value": "adapt", "label": "t:sections.all.card_image_ratio.options__1.label" },
+        { "value": "square", "label": "t:sections.all.card_image_ratio.options__2.label" },
+        { "value": "portrait", "label": "t:sections.all.card_image_ratio.options__3.label" },
+        { "value": "landscape", "label": "t:sections.all.card_image_ratio.options__4.label" }
+      ],
+      "default": "adapt",
+      "label": "t:sections.all.card_image_ratio.label"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "options": [
+        { "value": "center center", "label": "t:sections.all.image_position.options__5.label" },
+        { "value": "top center", "label": "t:sections.all.image_position.options__2.label" },
+        { "value": "bottom center", "label": "t:sections.all.image_position.options__8.label" }
+      ],
+      "default": "center center",
+      "label": "Image Position"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_image_fill",
+      "default": true,
+      "label": "t:sections.all.product_card.enable_image_fill.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "default": false,
+      "label": "t:sections.all.product_card.show_secondary_image.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "t:sections.all.product_card.show_vendor.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "default": false,
+      "label": "t:sections.all.product_card.show_rating.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_buy",
+      "default": true,
+      "label": "t:sections.all.product_card.show_quick_buy.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_quick_view",
+      "default": true,
+      "label": "t:sections.all.product_card.enable_quick_view.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_color_swatches",
+      "default": true,
+      "label": "t:sections.all.product_card.enable_color_swatches.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_countdown",
+      "default": true,
+      "label": "t:sections.all.product_card.enable_countdown.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.colors.header.content"
+    },
+    {
+      "type": "color",
+      "id": "colors_highlight",
+      "label": "t:sections.all.colors.colors_highlight.label",
+      "default": "#ffb503"
     },
     {
       "type": "header",
@@ -351,9 +481,6 @@
         { "type": "collection_tab" }
       ]
     }
-  ],
-  "enabled_on": {
-    "templates": ["404", "article", "blog", "cart", "collection", "index", "page", "product", "search"]
-  }
+  ]
 }
 {% endschema %}
