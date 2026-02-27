@@ -264,18 +264,18 @@
       const swipers = sectionEl.querySelectorAll('.swiper');
       swipers.forEach(swiperEl => {
         new Swiper(swiperEl, {
-          slidesPerView: 2, 
+          slidesPerView: 1.8, 
           spaceBetween: 10,
           observer: true, 
           observeParents: true,
           breakpoints: {
             768: {
               slidesPerView: 3,
-              spaceBetween: 15
+              spaceBetween: 12
             },
             1024: {
               slidesPerView: 4,
-              spaceBetween: 20
+              spaceBetween: 15
             }
           }
         });
