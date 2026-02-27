@@ -100,8 +100,18 @@
     <script src="{{ 'modules-basis.js' | asset_url }}" defer="defer"></script>
 
     {{ content_for_header }}
-
-    {%- liquid
+{% if template.name == 'product.muslin-blanket-le-new' %}
+     {%- liquid
+      render 'css-variables-v2'
+      echo 'base-v2.css' | asset_url | stylesheet_tag: preload: true
+      echo 'custom-v2.css' | asset_url | stylesheet_tag: preload: true
+      
+      if text_direction == 'rtl'
+        echo 'rtl.css' | asset_url | stylesheet_tag
+      endif
+    -%}
+{% else %}
+   {%- liquid
       render 'css-variables'
       echo 'base.css' | asset_url | stylesheet_tag: preload: true
       echo 'custom.css' | asset_url | stylesheet_tag: preload: true
@@ -110,6 +120,8 @@
         echo 'rtl.css' | asset_url | stylesheet_tag
       endif
     -%}
+{% endif %}
+ 
 
     <link rel="stylesheet" href="{{ 'apps.css' | asset_url }}" media="print" fetchpriority="low" onload="this.media='all'">
 
