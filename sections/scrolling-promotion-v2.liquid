@@ -66,7 +66,7 @@
 {% comment %} <scrolling-promotion  class="scrolling-promotion scrolling-promotion--{{ section.settings.direction }} section--padding{% if section.settings.show_divider %} section--divider{% endif %}{% if section.settings.use_custom_colors and section.settings.colors_icon != section.settings.colors_background %} promotion-icon--colored{% endif %}">
  </scrolling-promotion> {% endcomment %}
  {% if section.settings.static %}
- <div class="scrolling-promotion scrolling-promotion--{{ section.settings.direction }} section--padding{% if section.settings.show_divider %} section--divider{% endif %}{% if section.settings.use_custom_colors and section.settings.colors_icon != section.settings.colors_background %} promotion-icon--colored{% endif %}">
+ <div class="scrolling-promotion scrolling-promotion-v2 scrolling-promotion--{{ section.settings.direction }} section--padding{% if section.settings.show_divider %} section--divider{% endif %}{% if section.settings.use_custom_colors and section.settings.colors_icon != section.settings.colors_background %} promotion-icon--colored{% endif %}">
  {% else %}
   <scrolling-promotion data-speed="{{ section.settings.speed }}" class="scrolling-promotion scrolling-promotion--{{ section.settings.direction }} section--padding{% if section.settings.show_divider %} section--divider{% endif %}{% if section.settings.use_custom_colors and section.settings.colors_icon != section.settings.colors_background %} promotion-icon--colored{% endif %}">
 {% endif %}
