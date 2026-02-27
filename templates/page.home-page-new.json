@@ -225,7 +225,7 @@
         "full_width": true,
         "show_divider": false,
         "enable_content_max_width": true,
-        "content_max_width": 500,
+        "content_max_width": 410,
         "image_behavior": "none",
         "mobile_text_alignment": "center",
         "mobile_image_ratio": "250px",
