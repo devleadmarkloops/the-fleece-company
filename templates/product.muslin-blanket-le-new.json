@@ -33,7 +33,7 @@
       }
     },
     "main": {
-      "type": "main-product",
+      "type": "main-product-v2",
       "blocks": {
         "rating_static_jQpEEQ": {
           "type": "rating_static",
