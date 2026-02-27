@@ -667,6 +667,7 @@ footer .accordion__title:empty + .icon {
   justify-content: flex-end;
   align-items: center;
   gap: 0.5rem;
+  font-family: var(--new-font-body-family);
   font-size: 1.2rem;
   letter-spacing: 0;
   text-align: right;
