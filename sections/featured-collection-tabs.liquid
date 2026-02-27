@@ -1,0 +1,359 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --color-highlight: {{ section.settings.colors_highlight.red }}, {{ section.settings.colors_highlight.green }}, {{ section.settings.colors_highlight.blue }};
+  }
+
+  /* --- TAB UI CSS --- */
+  .fc-tabs-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  
+  @media screen and (min-width: 750px) {
+    .fc-tabs-header {
+      flex-direction: row;
+      align-items: center; /* Aligns title and tabs next to each other */
+      justify-content: space-between;
+    }
+  }
+
+  .fc-tabs-header .title {
+    margin: 0;
+  }
+
+  .fc-tabs-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 1.5rem;
+    scrollbar-width: none; /* Hides scrollbar Firefox */
+  }
+  .fc-tabs-nav::-webkit-scrollbar {
+    display: none; /* Hides scrollbar Chrome/Safari */
+  }
+
+  .fc-tab-btn {
+    background: transparent;
+    border: none;
+    font-family: var(--new-font-heading-family, inherit);
+    font-size: 1.6rem;
+    color: rgba(var(--color-foreground), 0.5);
+    cursor: pointer;
+    padding: 0 0 0.5rem 0;
+    white-space: nowrap;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+  .fc-tab-btn.is-active,
+  .fc-tab-btn:hover {
+    color: rgb(var(--color-foreground));
+  }
+  .fc-tab-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: rgb(var(--color-foreground));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+  .fc-tab-btn.is-active::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* --- TAB PANELS --- */
+  .fc-tab-panel {
+    display: none; /* Hidden by default */
+    animation: fadeIn 0.4s ease;
+  }
+  .fc-tab-panel.is-active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* --- SWIPER NAVIGATION --- */
+  .fc-swiper-wrapper {
+    position: relative;
+  }
+  .fc-swiper-nav {
+    display: flex;
+    gap: 1rem;
+  }
+  .fc-swiper-nav .swiper-button-prev,
+  .fc-swiper-nav .swiper-button-next {
+    position: static;
+    width: 3.5rem;
+    height: 3.5rem;
+    background: white;
+    border: 1px solid rgba(var(--color-foreground), 0.1);
+    border-radius: 50%;
+    margin: 0;
+    color: rgb(var(--color-foreground));
+  }
+  .fc-swiper-nav .swiper-button-prev::after,
+  .fc-swiper-nav .swiper-button-next::after {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+{%- endstyle -%}
+
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+
+<div class="section--padding{% if section.settings.show_divider %} section--divider{% endif %}">
+  <div class="page-width">
+    
+    {% comment %} --- HEADER & TABS ROW --- {% endcomment %}
+    <div class="fc-tabs-header">
+      <div class="title-wrapper{% if section.settings.heading == blank %} title-wrapper--no-heading{% endif %}">
+        <{{ section.settings.heading_tag }} class="title {{ section.settings.heading_size }}">
+          {%- render 'highlight-text', 
+            hl_input: section.settings.heading, 
+            hl_style: section.settings.highlight_style,
+            hl_enable: section.settings.enable_highlight,
+            hl_animateWrap: true -%}
+        </{{ section.settings.heading_tag }}>
+      </div>
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="fc-tabs-nav">
+          {%- for block in section.blocks -%}
+            <button class="fc-tab-btn {% if forloop.first %}is-active{% endif %}" data-target="panel-{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
+              {{ block.settings.title | default: block.settings.collection.title | default: 'Tab Title' }}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {% comment %} --- TAB CONTENT PANELS --- {% endcomment %}
+    <div class="fc-tabs-content">
+      {%- for block in section.blocks -%}
+        {%- assign collection = block.settings.collection -%}
+        
+        <div id="panel-{{ section.id }}-{{ block.id }}" class="fc-tab-panel {% if forloop.first %}is-active{% endif %}">
+          <div class="fc-swiper-wrapper">
+            
+            <div class="swiper fc-swiper-{{ section.id }}-{{ block.id }}">
+              <div class="swiper-wrapper">
+                {%- for product in collection.products limit: section.settings.products_to_show -%}
+                  <div class="swiper-slide">
+                    {% comment %} REPLACED WITH CARD V2 {% endcomment %}
+                    {% render 'card-product-v2', card_product: product %}
+                  </div>
+                {%- else -%}
+                  {%- for i in (1..4) -%}
+                    <div class="swiper-slide">
+                      {% render 'card-product-placeholder', media_size: 'adapt' %}
+                    </div>
+                  {%- endfor -%}
+                {%- endfor -%}
+              </div>
+            </div>
+
+            {% comment %} Slider Arrows (Hidden if View All is preferred, or display flex to show) {% endcomment %}
+            {%- if section.settings.show_slider_arrows -%}
+              <div class="fc-swiper-nav" style="justify-content: flex-end; margin-top: 1.5rem;">
+                <div class="swiper-button-prev fc-prev-{{ section.id }}-{{ block.id }}"></div>
+                <div class="swiper-button-next fc-next-{{ section.id }}-{{ block.id }}"></div>
+              </div>
+            {%- endif -%}
+
+          </div>
+          
+          {%- if section.settings.show_view_all and collection.all_products_count > section.settings.products_to_show -%}
+            <div class="view-all center" style="margin-top: 2rem;">
+              <a href="{{ collection.url }}"
+                class="button"
+                aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: collection.title }}"
+              >
+                {{ 'sections.featured_collection.view_all' | t }}
+              </a>
+            </div>
+          {%- endif -%}
+
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const sectionId = '{{ section.id }}';
+    const sectionEl = document.querySelector('#shopify-section-' + sectionId);
+    if (!sectionEl) return;
+
+    // 1. Initialize Swiper for each block
+    {%- for block in section.blocks -%}
+      new Swiper('.fc-swiper-' + sectionId + '-{{ block.id }}', {
+        slidesPerView: 2, /* 2 items on mobile */
+        spaceBetween: 10,
+        observer: true, /* CRITICAL for hidden tabs */
+        observeParents: true,
+        navigation: {
+          nextEl: '.fc-next-' + sectionId + '-{{ block.id }}',
+          prevEl: '.fc-prev-' + sectionId + '-{{ block.id }}',
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 15
+          },
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 20
+          }
+        }
+      });
+    {%- endfor -%}
+
+    // 2. Handle Tab Switching Logic
+    const tabBtns = sectionEl.querySelectorAll('.fc-tab-btn');
+    const tabPanels = sectionEl.querySelectorAll('.fc-tab-panel');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Remove active class from all buttons and panels
+        tabBtns.forEach(b => b.classList.remove('is-active'));
+        tabPanels.forEach(p => p.classList.remove('is-active'));
+
+        // Add active class to clicked button
+        this.classList.add('is-active');
+
+        // Show the corresponding panel
+        const targetId = this.getAttribute('data-target');
+        const targetPanel = sectionEl.querySelector('#' + targetId);
+        if (targetPanel) {
+          targetPanel.classList.add('is-active');
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Featured Collection Tabs",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.all.heading.label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Featured collection",
+      "label": "t:sections.all.heading.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "H2" },
+        { "value": "h1", "label": "H1" },
+        { "value": "h0", "label": "H0" }
+      ],
+      "default": "h2",
+      "label": "Heading Size"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 16,
+      "step": 1,
+      "default": 8,
+      "label": "Maximum products to show per tab"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "Show 'View All' button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_slider_arrows",
+      "default": true,
+      "label": "Show Swiper Navigation Arrows"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "default": false,
+      "label": "t:sections.all.show_divider.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.header.content"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_tab",
+      "name": "Collection Tab",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab Title",
+          "info": "Leave blank to use the Collection's default title."
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection Tabs",
+      "blocks": [
+        { "type": "collection_tab" },
+        { "type": "collection_tab" }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "templates": ["404", "article", "blog", "cart", "collection", "index", "page", "product", "search"]
+  }
+}
+{% endschema %}
