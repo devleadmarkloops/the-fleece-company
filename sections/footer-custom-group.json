@@ -8,55 +8,66 @@
  * ------------------------------------------------------------
  */
 {
-  "name": "Footer (new)",
+  "name": "t:sections.footer-group.name",
   "type": "footer",
   "sections": {
     "footer": {
       "type": "footer-new",
       "blocks": {
-        "footer-2": {
+        "footer-0": {
           "type": "link_list",
           "settings": {
-            "heading": "Info",
-            "menu": "footer",
+            "heading": "Explore",
+            "menu": "footer-menu-shop",
             "enable_highlight": false,
             "highlight_style": "marker"
           }
         },
-        "text_j7THNB": {
-          "type": "text",
+        "footer-1": {
+          "type": "link_list",
           "settings": {
-            "heading": "The Fleece Company",
-            "subtext": "<p><a href=\"mailto:support@thefleececompany.com\" title=\"mailto:support@thefleececompany.com\">support@thefleececompany.com</a></p>",
+            "heading": "Learn",
+            "menu": "footer-menu-learn",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "footer-2": {
+          "type": "link_list",
+          "settings": {
+            "heading": "More",
+            "menu": "footer-menu-policies",
             "enable_highlight": false,
             "highlight_style": "marker"
           }
         }
       },
       "block_order": [
-        "footer-2",
-        "text_j7THNB"
+        "footer-0",
+        "footer-1",
+        "footer-2"
       ],
       "settings": {
+        "footer_logo": "shopify://shop_images/The_Fleece_Company_0a3d81c2-8d9e-4ae8-963d-7617abfddae3.svg",
         "show_divider": false,
         "newsletter_enable": true,
-        "newsletter_heading": "Subscribe to our emails",
-        "newsletter_text": "<p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.</p>",
-        "newsletter_text2": "<p>Join our email list for exclusive offers and the latest news.</p>",
+        "newsletter_heading": "Be the first to experience timeless craftsmanship, exclusive drops, and private previews.",
+        "newsletter_text": "<p>Be the first to discover new silk pieces, thoughtful releases, and stories from our atelier.</p>",
+        "newsletter_text2": "<p>By subscribing, you’ll receive curated updates from The Fleece Company, including new arrivals and comfort stories. You may unsubscribe at any time. View our Privacy Policy and Terms of Service.</p>",
         "return_url": "",
         "enable_follow_on_shop": false,
-        "show_social": false,
+        "show_social": true,
         "social_heading": "",
-        "enable_country_selector": true,
+        "enable_country_selector": false,
         "enable_language_selector": false,
-        "payment_enable": true,
+        "payment_enable": false,
         "show_policy": false,
-        "copyright_text": "- Made with Love!",
+        "copyright_text": "All rights reserved.",
         "colors_text": "#ffffff",
         "colors_heading": "#ffffff",
         "colors_link": "#ffffff",
         "colors_border": "#ffffff",
-        "colors_background": "#c5bbae",
+        "colors_background": "#3b3d24",
         "gradient_background": "",
         "colors_highlight": "#ffb503",
         "enable_highlight": false,
