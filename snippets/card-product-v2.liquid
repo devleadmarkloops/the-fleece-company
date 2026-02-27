@@ -129,7 +129,7 @@
                               assign swatch_config = settings.swatch_config | newline_to_br | split: '<br />'
                               
                               for swatch in swatch_config
-                                assign swatch_parts = swatch | strip | split: ':'
+                                assign swatch_parts = swatch | strip | split: '|'
                                 assign swatch_name = swatch_parts.first | downcase | strip
                                 if swatch_name == value_downcase
                                   assign swatch_entry = swatch_parts.last | strip
