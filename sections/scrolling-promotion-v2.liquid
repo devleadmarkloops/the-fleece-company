@@ -53,6 +53,9 @@
         display: none;
       }
     {% endif %}
+    #shopify-section-{{ section.id }} .scrolling-promotion .promotion__item {
+      margin: 0 3rem;
+    }
   }
   @media screen and (max-width: 749px) {
     {% if section.settings.hide_mob %}
