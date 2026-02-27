@@ -115,7 +115,11 @@
     {% endif %}
   {% endcomment %}
 >
-  {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+  {% if section.settings.enable_v2_styles %}
+    {{ 'section-main-product-v2.css' | asset_url | stylesheet_tag }}
+  {% else %}
+    {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+  {% endif %}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
   {{ 'component-rte.css' | asset_url | stylesheet_tag }}
