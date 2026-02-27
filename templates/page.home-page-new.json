@@ -284,7 +284,7 @@
       "settings": {
         "products_to_show": 12,
         "horizontal_scroll": true,
-        "show_view_all": true,
+        "show_view_all": false,
         "show_divider": false,
         "enable_drag": true,
         "heading": "Featured Products",
