@@ -620,6 +620,7 @@ footer .accordion__title:empty + .icon {
   width: 3.5rem;
   height: 3.5rem;
   border: 1px dashed;
+  border-radius: 50%;
   padding: 0;
   top: 50%;
   right: 1rem;
