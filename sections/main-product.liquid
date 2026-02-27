@@ -117,14 +117,19 @@
 >
   {% if section.settings.enable_v2_styles %}
     {{ 'section-main-product-v2.css' | asset_url | stylesheet_tag }}
+    {{ 'component-accordion-v2.css' | asset_url | stylesheet_tag }}
+    {{ 'component-price-v2.css' | asset_url | stylesheet_tag }}
+    {{ 'component-rte-v2.css' | asset_url | stylesheet_tag }}
+    {{ 'component-slider-v2.css' | asset_url | stylesheet_tag }}
+    {{ 'component-rating-v2.css' | asset_url | stylesheet_tag }}
   {% else %}
     {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+    {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
+    {{ 'component-price.css' | asset_url | stylesheet_tag }}
+    {{ 'component-rte.css' | asset_url | stylesheet_tag }}
+    {{ 'component-slider.css' | asset_url | stylesheet_tag }}
+    {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {% endif %}
-  {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
-  {{ 'component-price.css' | asset_url | stylesheet_tag }}
-  {{ 'component-rte.css' | asset_url | stylesheet_tag }}
-  {{ 'component-slider.css' | asset_url | stylesheet_tag }}
-  {{ 'component-rating.css' | asset_url | stylesheet_tag }}
 
   {%- if product.quantity_price_breaks_configured? -%}
     {{ 'component-volume-pricing.css' | asset_url | stylesheet_tag }}
