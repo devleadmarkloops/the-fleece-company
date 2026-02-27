@@ -140,12 +140,12 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "buy_buttons_version": "v2",
+            "buy_buttons_version": "v1",
             "show_quantity_selector": false,
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": false,
-            "enable_monogram": true,
-            "monogram_product": "monogram-test-product"
+            "enable_monogram": false,
+            "monogram_product": ""
           }
         },
         "countdown_timer_4tCBwt": {
@@ -197,7 +197,7 @@
           "settings": {
             "icon": "check_mark",
             "heading": "Care & Details",
-            "content": "<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your blanket for years to come.<br/><br/>Our blankets are made from natural muslin cotton, so slight size variations may occur. Measurements are taken at full stretch.</p><p>To maintain the original size and softness, avoid hot washes — high temperatures can cause shrinkage.</p>",
+            "content": "<p>Machine wash cold, do not tumble dry under any circumstances, and avoid ironing or using fabric softeners to maintain the softness and coziness of your blanket for years to come.<br/><br/>Our blankets are made from natural muslin cotton, so slight size variations may occur. Measurements are taken at full stretch.</p><p>To maintain the original size and softness, avoid hot washes — high temperatures can cause shrinkage.</p>",
             "page": "",
             "custom_liquid": "",
             "keep_open": false
