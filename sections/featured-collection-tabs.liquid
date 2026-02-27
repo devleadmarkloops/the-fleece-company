@@ -2,7 +2,6 @@
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
-    --image-position: {{ section.settings.image_position }};
     --color-highlight: {{ section.settings.colors_highlight.red }}, {{ section.settings.colors_highlight.green }}, {{ section.settings.colors_highlight.blue }};
   }
 
@@ -83,11 +82,19 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Force swiper to allow overflow visibility so cards/swatches are not clipped */
-  .fc-tab-panel .swiper,
-  .fc-tab-panel .swiper-wrapper,
-  .fc-tab-panel .swiper-slide {
-    overflow: visible !important;
+  /* --- SWIPER BULLETPROOFING --- */
+  /* This prevents the cards from blowing up if JS is slow to load */
+  .fc-tabs-section-{{ section.id }} .swiper {
+    overflow: hidden;
+    width: 100%;
+  }
+  .fc-tabs-section-{{ section.id }} .swiper-wrapper {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+  }
+  .fc-tabs-section-{{ section.id }} .swiper-slide {
+    height: auto !important;
+    box-sizing: border-box;
   }
 {%- endstyle -%}
 
@@ -104,11 +111,12 @@
 
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 
-<div class="section--padding{% if section.settings.show_divider %} section--divider{% endif %}">
+{% comment %} ADDED UNIQUE WRAPPER CLASS TO GUARANTEE JS FINDS IT {% endcomment %}
+<div class="fc-tabs-section-{{ section.id }} section--padding{% if section.settings.show_divider %} section--divider{% endif %}">
   <div class="page-width">
     
     {% comment %} --- HEADER & TABS ROW --- {% endcomment %}
-    <div class="fc-tabs-header-row title-wrapper">
+    <div class="fc-tabs-header-row">
       <div class="title-wrapper{% if section.settings.heading == blank %} title-wrapper--no-heading{% endif %}">
         <{{ section.settings.heading_tag }} class="title {{ section.settings.heading_size }}">
           {%- render 'highlight-text', 
@@ -122,7 +130,7 @@
       {%- if section.blocks.size > 0 -%}
         <div class="fc-tabs-nav">
           {%- for block in section.blocks -%}
-            <button class="fc-tab-btn {% if forloop.first %}is-active{% endif %}" data-target="panel-{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
+            <button type="button" class="fc-tab-btn {% if forloop.first %}is-active{% endif %}" data-target="panel-{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
               {{ block.settings.title | default: block.settings.collection.title | default: 'Tab Title' }}
             </button>
           {%- endfor -%}
@@ -136,36 +144,32 @@
         {%- assign collection = block.settings.collection -%}
         
         <div id="panel-{{ section.id }}-{{ block.id }}" class="fc-tab-panel {% if forloop.first %}is-active{% endif %}">
-          <div class="fc-tabs-swiper-container">
             
-            <div class="swiper fc-swiper-{{ section.id }}-{{ block.id }}">
-              {% comment %} STRIPPED NATIVE GRID CLASSES HERE SO SWIPER CAN BREATHE {% endcomment %}
-              <div class="swiper-wrapper">
-                {%- for product in collection.products limit: section.settings.products_to_show -%}
+          <div class="swiper fc-swiper-{{ section.id }}-{{ block.id }}">
+            <div class="swiper-wrapper">
+              {%- for product in collection.products limit: section.settings.products_to_show -%}
+                <div class="swiper-slide">
+                  {% render 'card-product-v2',
+                    card_product: product,
+                    media_size: section.settings.image_ratio,
+                    show_secondary_image: section.settings.show_secondary_image,
+                    show_quick_buy: section.settings.show_quick_buy,
+                    show_vendor: section.settings.show_vendor,
+                    show_rating: section.settings.show_rating,
+                    enable_quick_view: section.settings.enable_quick_view,
+                    enable_color_swatches: section.settings.enable_color_swatches,
+                    enable_countdown: section.settings.enable_countdown,
+                    enable_image_fill: section.settings.enable_image_fill
+                  %}
+                </div>
+              {%- else -%}
+                {%- for i in (1..4) -%}
                   <div class="swiper-slide">
-                    {% render 'card-product-v2',
-                      card_product: product,
-                      media_size: section.settings.image_ratio,
-                      show_secondary_image: section.settings.show_secondary_image,
-                      show_quick_buy: section.settings.show_quick_buy,
-                      show_vendor: section.settings.show_vendor,
-                      show_rating: section.settings.show_rating,
-                      enable_quick_view: section.settings.enable_quick_view,
-                      enable_color_swatches: section.settings.enable_color_swatches,
-                      enable_countdown: section.settings.enable_countdown,
-                      enable_image_fill: section.settings.enable_image_fill
-                    %}
+                    {% render 'card-product-placeholder', media_size: section.settings.image_ratio %}
                   </div>
-                {%- else -%}
-                  {%- for i in (1..4) -%}
-                    <div class="swiper-slide">
-                      {% render 'card-product-placeholder', media_size: section.settings.image_ratio %}
-                    </div>
-                  {%- endfor -%}
                 {%- endfor -%}
-              </div>
+              {%- endfor -%}
             </div>
-
           </div>
           
           {%- if section.settings.show_view_all and collection.all_products_count > section.settings.products_to_show -%}
@@ -188,36 +192,17 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const sectionId = '{{ section.id }}';
-    const sectionEl = document.getElementById('shopify-section-' + sectionId);
+    const sectionEl = document.querySelector('.fc-tabs-section-{{ section.id }}');
     if (!sectionEl) return;
 
-    // 1. Initialize Swiper for each block
-    {%- for block in section.blocks -%}
-      new Swiper('.fc-swiper-' + sectionId + '-{{ block.id }}', {
-        slidesPerView: 2, 
-        spaceBetween: 10,
-        observer: true, 
-        observeParents: true,
-        breakpoints: {
-          768: {
-            slidesPerView: 3,
-            spaceBetween: 15
-          },
-          1024: {
-            slidesPerView: 4,
-            spaceBetween: 20
-          }
-        }
-      });
-    {%- endfor -%}
-
-    // 2. Handle Tab Switching Logic
+    // 1. ISOLATED TAB LOGIC (Always works, even if Swiper fails)
     const tabBtns = sectionEl.querySelectorAll('.fc-tab-btn');
     const tabPanels = sectionEl.querySelectorAll('.fc-tab-panel');
 
     tabBtns.forEach(btn => {
-      btn.addEventListener('click', function() {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
         // Remove active class from all buttons and panels
         tabBtns.forEach(b => b.classList.remove('is-active'));
         tabPanels.forEach(p => p.classList.remove('is-active'));
@@ -227,12 +212,37 @@
 
         // Show the corresponding panel
         const targetId = this.getAttribute('data-target');
-        const targetPanel = document.getElementById(targetId);
+        const targetPanel = sectionEl.querySelector('#' + targetId);
         if (targetPanel) {
           targetPanel.classList.add('is-active');
         }
       });
     });
+
+    // 2. ISOLATED SWIPER LOGIC
+    if (typeof Swiper !== 'undefined') {
+      const swipers = sectionEl.querySelectorAll('.swiper');
+      swipers.forEach(swiperEl => {
+        new Swiper(swiperEl, {
+          slidesPerView: 2, 
+          spaceBetween: 10,
+          observer: true, 
+          observeParents: true,
+          breakpoints: {
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 15
+            },
+            1024: {
+              slidesPerView: 4,
+              spaceBetween: 20
+            }
+          }
+        });
+      });
+    } else {
+      console.warn('Swiper JS not loaded on this page. Slider will fall back to flex row.');
+    }
   });
 </script>
 
