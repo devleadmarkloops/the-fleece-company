@@ -2,6 +2,7 @@
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --image-position: {{ section.settings.image_position }};
     --color-highlight: {{ section.settings.colors_highlight.red }}, {{ section.settings.colors_highlight.green }}, {{ section.settings.colors_highlight.blue }};
   }
 
@@ -24,15 +25,23 @@
     }
   }
 
-  .fc-tabs-nav {
-    display: flex;
-    flex-wrap: nowrap;
+  /* --- SLIDING TABS CSS --- */
+  .fc-tabs-nav-wrapper {
+    width: 100%;
     overflow-x: auto;
-    gap: 1.5rem;
     scrollbar-width: none; 
   }
-  .fc-tabs-nav::-webkit-scrollbar {
+  .fc-tabs-nav-wrapper::-webkit-scrollbar {
     display: none; 
+  }
+
+  .fc-tabs-nav {
+    display: inline-flex;
+    position: relative;
+    gap: 2.5rem; /* Space between tabs */
+    border-bottom: 2px solid rgba(var(--color-foreground), 0.1); /* The empty full bar */
+    padding-bottom: 1rem;
+    min-width: max-content;
   }
 
   .fc-tab-btn {
@@ -42,30 +51,25 @@
     font-size: 1.6rem;
     color: rgba(var(--color-foreground), 0.5);
     cursor: pointer;
-    padding: 0 0 0.5rem 0;
+    padding: 0;
     white-space: nowrap;
-    position: relative;
     transition: color 0.3s ease;
   }
   .fc-tab-btn.is-active,
   .fc-tab-btn:hover {
     color: rgb(var(--color-foreground));
   }
-  .fc-tab-btn::after {
-    content: '';
+
+  /* The Sliding Tracker */
+  .fc-tab-indicator {
     position: absolute;
-    bottom: 0;
+    bottom: -2px; /* Perfectly overlaps the track border */
     left: 0;
-    width: 100%;
     height: 2px;
     background-color: rgb(var(--color-foreground));
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.3s ease;
-  }
-  .fc-tab-btn.is-active::after {
-    transform: scaleX(1);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     transform-origin: left;
+    border-radius: 2px;
   }
 
   /* --- TAB PANELS --- */
@@ -83,7 +87,6 @@
   }
 
   /* --- SWIPER BULLETPROOFING --- */
-  /* This prevents the cards from blowing up if JS is slow to load */
   .fc-tabs-section-{{ section.id }} .swiper {
     overflow: hidden;
     width: 100%;
@@ -111,7 +114,6 @@
 
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 
-{% comment %} ADDED UNIQUE WRAPPER CLASS TO GUARANTEE JS FINDS IT {% endcomment %}
 <div class="fc-tabs-section-{{ section.id }} section--padding{% if section.settings.show_divider %} section--divider{% endif %}">
   <div class="page-width">
     
@@ -128,12 +130,15 @@
       </div>
 
       {%- if section.blocks.size > 0 -%}
-        <div class="fc-tabs-nav">
-          {%- for block in section.blocks -%}
-            <button type="button" class="fc-tab-btn {% if forloop.first %}is-active{% endif %}" data-target="panel-{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
-              {{ block.settings.title | default: block.settings.collection.title | default: 'Tab Title' }}
-            </button>
-          {%- endfor -%}
+        <div class="fc-tabs-nav-wrapper">
+          <div class="fc-tabs-nav">
+            {%- for block in section.blocks -%}
+              <button type="button" class="fc-tab-btn {% if forloop.first %}is-active{% endif %}" data-target="panel-{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
+                {{ block.settings.title | default: block.settings.collection.title | default: 'Tab Title' }}
+              </button>
+            {%- endfor -%}
+            <span class="fc-tab-indicator"></span>
+          </div>
         </div>
       {%- endif -%}
     </div>
@@ -195,9 +200,27 @@
     const sectionEl = document.querySelector('.fc-tabs-section-{{ section.id }}');
     if (!sectionEl) return;
 
-    // 1. ISOLATED TAB LOGIC (Always works, even if Swiper fails)
+    // 1. ISOLATED TAB LOGIC WITH SLIDING INDICATOR
     const tabBtns = sectionEl.querySelectorAll('.fc-tab-btn');
     const tabPanels = sectionEl.querySelectorAll('.fc-tab-panel');
+    const indicator = sectionEl.querySelector('.fc-tab-indicator');
+
+    // Function to slide the indicator
+    function updateIndicator(activeBtn) {
+      if (!indicator || !activeBtn) return;
+      const offsetLeft = activeBtn.offsetLeft;
+      const width = activeBtn.offsetWidth;
+      
+      indicator.style.transform = `translateX(${offsetLeft}px)`;
+      indicator.style.width = `${width}px`;
+    }
+
+    // Set initial position on page load
+    const initialActiveBtn = sectionEl.querySelector('.fc-tab-btn.is-active');
+    if (initialActiveBtn) {
+      // Small timeout ensures fonts are loaded before calculating width
+      setTimeout(() => updateIndicator(initialActiveBtn), 100); 
+    }
 
     tabBtns.forEach(btn => {
       btn.addEventListener('click', function(e) {
@@ -207,8 +230,9 @@
         tabBtns.forEach(b => b.classList.remove('is-active'));
         tabPanels.forEach(p => p.classList.remove('is-active'));
 
-        // Add active class to clicked button
+        // Add active class to clicked button & move indicator
         this.classList.add('is-active');
+        updateIndicator(this);
 
         // Show the corresponding panel
         const targetId = this.getAttribute('data-target');
@@ -217,6 +241,12 @@
           targetPanel.classList.add('is-active');
         }
       });
+    });
+
+    // Recalculate indicator position if window is resized
+    window.addEventListener('resize', () => {
+      const currentActive = sectionEl.querySelector('.fc-tab-btn.is-active');
+      if (currentActive) updateIndicator(currentActive);
     });
 
     // 2. ISOLATED SWIPER LOGIC
