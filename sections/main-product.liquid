@@ -100,7 +100,7 @@
 </script>
 <product-info
   id="MainProduct-{{ section.id }}"
-  class="section-{{ section.id }}-padding{% if section.settings.enable_v2_styles %} product-v2{% endif %}"
+  class="section-{{ section.id }}-padding"
   data-section="{{ section.id }}"
   data-product-id="{{ product.id }}"
   data-update-url="true"
@@ -115,21 +115,12 @@
     {% endif %}
   {% endcomment %}
 >
-  {% if section.settings.enable_v2_styles %}
-    {{ 'section-main-product-v2.css' | asset_url | stylesheet_tag }}
-    {{ 'component-accordion-v2.css' | asset_url | stylesheet_tag }}
-    {{ 'component-price-v2.css' | asset_url | stylesheet_tag }}
-    {{ 'component-rte-v2.css' | asset_url | stylesheet_tag }}
-    {{ 'component-slider-v2.css' | asset_url | stylesheet_tag }}
-    {{ 'component-rating-v2.css' | asset_url | stylesheet_tag }}
-  {% else %}
-    {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
-    {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
-    {{ 'component-price.css' | asset_url | stylesheet_tag }}
-    {{ 'component-rte.css' | asset_url | stylesheet_tag }}
-    {{ 'component-slider.css' | asset_url | stylesheet_tag }}
-    {{ 'component-rating.css' | asset_url | stylesheet_tag }}
-  {% endif %}
+  {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+  {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
+  {{ 'component-price.css' | asset_url | stylesheet_tag }}
+  {{ 'component-rte.css' | asset_url | stylesheet_tag }}
+  {{ 'component-slider.css' | asset_url | stylesheet_tag }}
+  {{ 'component-rating.css' | asset_url | stylesheet_tag }}
 
   {%- if product.quantity_price_breaks_configured? -%}
     {{ 'component-volume-pricing.css' | asset_url | stylesheet_tag }}
@@ -5616,12 +5607,6 @@ if (nextBtn) {
     }
   ],
   "settings": [
-    {
-      "type": "checkbox",
-      "id": "enable_v2_styles",
-      "default": false,
-      "label": "Enable v2 styles"
-    },
     {
       "type": "checkbox",
       "id": "enable_sticky_info",
