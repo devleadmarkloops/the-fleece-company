@@ -310,7 +310,7 @@
         "heading_9Catfm": {
           "type": "heading",
           "settings": {
-            "heading": "Image with text",
+            "heading": "No heavy layers. Just comfort.",
             "heading_size": "h1",
             "heading_tag": "h2",
             "enable_highlight": false,
@@ -320,8 +320,8 @@
         "text_fApUBP": {
           "type": "text",
           "settings": {
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-            "text_size": "typeset2",
+            "text": "<p>At The Fleece Company, we believe everyday comfort should feel effortless. Our collections are designed with breathable fabrics, timeless aesthetics, and lasting quality in mind.</p>",
+            "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
             "highlight_style": "marker"
@@ -347,32 +347,33 @@
       ],
       "name": "Image with text v3",
       "settings": {
+        "image": "shopify://shop_images/Rectangle_161125181.webp",
         "image_position": "center center",
         "layout": "image_first",
         "text_box_position": "middle",
         "text_alignment": "left",
-        "image_ratio": "650px",
+        "image_ratio": "adapt",
         "enable_media_radius": false,
         "media_radius": 0,
         "enlarge_content": false,
-        "full_width": false,
+        "full_width": true,
         "show_divider": false,
         "image_behavior": "none",
         "mobile_layout": "image_first",
         "mobile_text_alignment": "left",
         "mobile_image_ratio": "auto",
         "enable_video_looping": false,
-        "use_custom_colors": false,
+        "use_custom_colors": true,
         "colors_button_label": "#ffffff",
-        "colors_button_background": "#1a1b18",
-        "colors_text": "#212326",
-        "colors_background": "#ffffff",
+        "colors_button_background": "#3b3b3b",
+        "colors_text": "#3b3b3b",
+        "colors_background": "#f0eae4",
         "gradient_background": "",
         "colors_highlight": "#ffb503",
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "padding_top_mob": 36,
-        "padding_bottom_mob": 36
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_mob": 0,
+        "padding_bottom_mob": 0
       }
     }
   },
