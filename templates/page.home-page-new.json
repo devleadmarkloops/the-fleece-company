@@ -286,7 +286,7 @@
         "horizontal_scroll": true,
         "show_view_all": true,
         "show_divider": false,
-        "enable_drag": false,
+        "enable_drag": true,
         "heading": "Featured Products",
         "heading_size": "h1",
         "heading_alignment": "left",
