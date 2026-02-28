@@ -2249,22 +2249,52 @@
                       const blockContainer = document.querySelector('.pairs-well-swiper-{{ block.id }}').closest('.pairs-well-block');
                       
                       if (blockContainer) {
+                        // 1. Handle Custom Dropdown Clicks
+                        blockContainer.addEventListener('click', function(e) {
+                          // Toggle Open/Close
+                          const trigger = e.target.closest('.pw-swatch-trigger');
+                          if (trigger) {
+                            const dropdown = trigger.closest('.pw-custom-swatch-dropdown');
+                            dropdown.classList.toggle('is-open');
+                            return;
+                          }
+
+                          // Select a Color Swatch
+                          const swatchItem = e.target.closest('.pw-swatch-item');
+                          if (swatchItem) {
+                            const dropdown = swatchItem.closest('.pw-custom-swatch-dropdown');
+                            const value = swatchItem.getAttribute('data-value');
+                            const bg = swatchItem.getAttribute('data-swatch-bg');
+                            
+                            // Update Visuals
+                            dropdown.querySelectorAll('.pw-swatch-item').forEach(item => item.classList.remove('is-selected'));
+                            swatchItem.classList.add('is-selected');
+                            dropdown.querySelector('.selected-swatch-indicator').style.background = bg;
+                            dropdown.querySelector('.selected-swatch-indicator').style.backgroundSize = 'cover';
+                            dropdown.querySelector('.selected-swatch-indicator').style.backgroundPosition = 'center';
+                            
+                            // Update Hidden Select & Trigger Change
+                            const hiddenSelect = dropdown.nextElementSibling;
+                            hiddenSelect.value = value;
+                            dropdown.classList.remove('is-open');
+                            
+                            // Dispatch event so the rest of the logic fires
+                            hiddenSelect.dispatchEvent(new Event('change', { bubbles: true }));
+                            return;
+                          }
+                          
+                          // Close dropdown if clicked outside
+                          if (!e.target.closest('.pw-custom-swatch-dropdown')) {
+                            blockContainer.querySelectorAll('.pw-custom-swatch-dropdown.is-open').forEach(dd => {
+                              dd.classList.remove('is-open');
+                            });
+                          }
+                        });
+
+                        // 2. Handle Variant Matching (Fires when standard select OR hidden select changes)
                         blockContainer.addEventListener('change', function(e) {
                           if (e.target.matches('.pairs-well-select')) {
                             
-                            // 1. Swap the visual swatch circle if it's a color dropdown
-                            const selectedOption = e.target.options[e.target.selectedIndex];
-                            const swatchBg = selectedOption.getAttribute('data-swatch-bg');
-                            if (swatchBg) {
-                              const indicator = e.target.parentElement.querySelector('.pw-color-indicator');
-                              if (indicator) {
-                                indicator.style.background = swatchBg;
-                                indicator.style.backgroundSize = 'cover';
-                                indicator.style.backgroundPosition = 'center';
-                              }
-                            }
-
-                            // 2. Handle Variant Matching
                             const card = e.target.closest('.pairs-well-card');
                             const allSelects = card.querySelectorAll('.pairs-well-select');
                             const currentOptions = Array.from(allSelects).map(sel => sel.value);
@@ -2308,7 +2338,7 @@
                               }
 
                               if (match.available) {
-                                btn.textContent = "Add"; // Locked strictly to "Add"
+                                btn.textContent = "Add"; 
                                 btn.disabled = false;
                                 btn.classList.remove('disabled');
                               } else {
