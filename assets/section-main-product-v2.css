@@ -3150,7 +3150,6 @@ span.alert-box:before {
 }
 .product__info-container .product-video-reels-wrapper .reel-video-container {
   width: 100%;
-  height: 100%;
   cursor: pointer;
   transition: opacity 0.3s;
 }
