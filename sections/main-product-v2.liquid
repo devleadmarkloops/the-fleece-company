@@ -2249,7 +2249,7 @@
                       const blockContainer = document.querySelector('.pairs-well-swiper-{{ block.id }}').closest('.pairs-well-block');
                       
                       if (blockContainer) {
-                        // 1. Handle Custom Dropdown Clicks
+                        // 1. Handle Custom Dropdown Clicks (Opens dropdown & selects swatches)
                         blockContainer.addEventListener('click', function(e) {
                           // Toggle Open/Close
                           const trigger = e.target.closest('.pw-swatch-trigger');
@@ -2291,7 +2291,7 @@
                           }
                         });
 
-                        // 2. Handle Variant Matching (Fires when standard select OR hidden select changes)
+                        // 2. Handle Variant Matching (Updates Price, Image, Add to Cart)
                         blockContainer.addEventListener('change', function(e) {
                           if (e.target.matches('.pairs-well-select')) {
                             
