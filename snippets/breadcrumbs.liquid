@@ -14,19 +14,22 @@
     <a href="{{ routes.root_url }}" class="link" title="{{ 'general.breadcrumbs.home_link_title' | t }}">{{ 'general.breadcrumbs.home' | t }}</a>
 
     {%- if template.name == 'product' -%}
-      {%- if collection and collection.handle %}
+      {%- comment -%} 
+        Only show the collection link if it exists AND is not the default homepage collections 
+      {%- endcomment -%}
+      {%- if collection and collection.handle and collection.handle != 'frontpage' and collection.handle != 'homepage' %}
         <span class="breadcrumb__divider" aria-hidden="true">/</span>
         {% capture url %}{{ routes.collections_url }}/{{ collection.handle }}{% endcapture %}
         {{ collection.title | link_to: url, class: "link" }}
       {%- endif %}
       
       <span class="breadcrumb__divider" aria-hidden="true">/</span>
+      <span>{{ product.title }}</span>
 
     {%- elsif template.name == 'collection' and collection.handle %}
       <span class="breadcrumb__divider" aria-hidden="true">/</span>
 
       {%- if current_tags -%}
-
         {% capture url %}{{ routes.collections_url }}/{{ collection.handle }}{% endcapture %}
         {{ collection.title | link_to: url, class: "link" }}
 
@@ -54,40 +57,41 @@
           {%- endunless -%}
 
         {%- endfor -%}
+      {%- else -%}
+        <span>{{ collection.title }}</span>
       {%- endif -%}
 
     {%- elsif template.name == 'blog' %}
-
       <span class="breadcrumb__divider" aria-hidden="true">/</span>
       {%- if current_tags %}
         {{ blog.title | link_to: blog.url, class: "link" }}
         <span class="breadcrumb__divider" aria-hidden="true">/</span>
         <span>{{ current_tags | join: " + " }}</span>
+      {%- else -%}
+        <span>{{ blog.title }}</span>
       {%- endif -%}
 
     {%- elsif template.name == 'article' %}
-
       <span class="breadcrumb__divider" aria-hidden="true">/</span>
       {{ blog.title | link_to: blog.url, class: "link" }}
       <span class="breadcrumb__divider" aria-hidden="true">/</span>
+      <span>{{ article.title }}</span>
 
     {%- elsif template.name == 'page' %}
-
       <span class="breadcrumb__divider" aria-hidden="true">/</span>
       <span>{{ page.title }}</span>
 
     {%- elsif template.name == 'search' %}
-
       <span class="breadcrumb__divider" aria-hidden="true">/</span>
       <span>{{ page_title | replace: '*', '' }}</span>
 
     {%- else %}
-
       <span class="breadcrumb__divider" aria-hidden="true">/</span>
       <span>{{ page_title }}</span>
 
     {%- endif -%}
   </nav>
+
   <script type="application/ld+json">
     {
       "@context": "https://schema.org/",
@@ -100,7 +104,7 @@
           "item": "{{ shop.url }}"
         }
         {%- if template.name == 'product' -%}
-          {%- if collection and collection.handle -%}
+          {%- if collection and collection.handle and collection.handle != 'frontpage' and collection.handle != 'homepage' -%}
           , {
             "@type": "ListItem",
             "position": 2,
@@ -110,7 +114,7 @@
           {% endif %}
           , {
             "@type": "ListItem",
-            "position": {% if collection and collection.handle %}3{% else %}2{% endif %},
+            "position": {% if collection and collection.handle and collection.handle != 'frontpage' and collection.handle != 'homepage' %}3{% else %}2{% endif %},
             "name": "{{ product.title }}",
             "item": "{{ shop.url }}/products/{{ product.handle }}"
           }

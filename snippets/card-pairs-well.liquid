@@ -1,0 +1,192 @@
+{%- assign product_form_id = 'pairs-well-form-' | append: card_product.id | append: '-' | append: section.id -%}
+{%- assign current_variant = card_product.selected_or_first_available_variant -%}
+
+<div class="pairs-well-card">
+  <div class="pairs-well-media">
+    <a href="{{ card_product.url }}">
+      <img
+        src="{{ card_product.featured_image | image_url: width: 200 }}"
+        alt="{{ card_product.title | escape }}"
+        loading="lazy"
+        width="200"
+        height="200"
+        class="pairs-well-img"
+      >
+    </a>
+  </div>
+
+  <div class="pairs-well-info">
+    <div class="pairs-well-header-info">
+      <a href="{{ card_product.url }}" class="pairs-well-title">{{ card_product.title }}</a>
+      
+      <div class="pairs-well-price price">
+        <span class="pw-regular-price price-item {% if current_variant.compare_at_price > current_variant.price %}price-item--sale{% else %}price-item--regular{% endif %}">
+          {{ current_variant.price | money }}
+        </span>
+      </div>
+    </div>
+
+    <product-form class="pairs-well-form-wrapper">
+      {%- form 'product', card_product, id: product_form_id, class: 'pairs-well-form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+        
+        {%- unless card_product.has_only_default_variant -%}
+          <div class="pairs-well-variants">
+            {%- for option in card_product.options_with_values -%}
+              {%- assign downcased_option = option.name | downcase -%}
+              {%- assign is_color = false -%}
+              {%- if downcased_option contains 'color' or downcased_option contains 'colour' -%}
+                {%- assign is_color = true -%}
+              {%- endif -%}
+
+              <div class="pairs-well-select-wrapper {% if is_color %}is-color-wrapper{% endif %}">
+                <label class="visually-hidden">{{ option.name }}</label>
+                
+                {%- if is_color -%}
+                  {% comment %} --- CUSTOM SWATCH DROPDOWN (NO TEXT) --- {% endcomment %}
+                  {%- assign initial_swatch = '' -%}
+                  <div class="pw-custom-swatch-dropdown">
+                    <div class="pw-swatch-trigger">
+                      <span class="pw-color-indicator selected-swatch-indicator" style="background-size: cover; background-position: center;"></span>
+                      <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path>
+                      </svg>
+                    </div>
+                    <ul class="pw-swatch-list">
+                      {%- for value in option.values -%}
+                        {%- assign val_string = value.name | default: value -%}
+                        {%- assign swatch_value = '' -%}
+                        
+                        {%- liquid
+                          assign swatch_value = val_string | split: ' ' | last | handle
+                          assign is_native_swatch = false
+                          
+                          if value.swatch.image
+                            assign image_url = value.swatch.image | image_url: width: 50
+                            assign swatch_value = 'url(' | append: image_url | append: ')'
+                            assign is_native_swatch = true
+                          elsif value.swatch.color
+                            assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+                            assign is_native_swatch = true
+                          endif
+                          
+                          unless is_native_swatch
+                            assign swatch_file_extension = 'png'
+                            assign file_name_uniq = card_product.id | append: '_' | append: val_string | handle | append: '.' | append: swatch_file_extension
+                            assign file_name_custom = blank
+                            assign file_name_alt = val_string | handle | append: '.' | append: swatch_file_extension
+                            assign value_downcase = val_string | downcase
+                            assign swatch_config = settings.swatch_config | newline_to_br | split: '<br />'
+                            
+                            for swatch in swatch_config
+                              assign swatch_parts = swatch | strip | split: '|'
+                              assign swatch_name = swatch_parts.first | downcase | strip
+                              if swatch_name == value_downcase
+                                assign swatch_entry = swatch_parts.last | strip
+                                if swatch_entry contains '#'
+                                  assign swatch_value = swatch_entry
+                                  assign file_name_alt = blank
+                                else
+                                  assign file_name_custom = swatch_entry
+                                endif
+                                break
+                              endif
+                            endfor
+                            
+                            assign file_name_final = blank
+                            if images[file_name_uniq] != blank
+                              assign file_name_final = file_name_uniq
+                            elsif file_name_custom != blank and images[file_name_custom] != blank 
+                              assign file_name_final = file_name_custom
+                            elsif images[file_name_alt] != blank
+                              assign file_name_final = file_name_alt
+                            endif
+                            
+                            assign swatch_image = blank
+                            if images[file_name_final] != blank
+                              assign swatch_image = images[file_name_final] | image_url: width: 50
+                            elsif file_name_final contains '//cdn.shopify.com/'
+                              assign swatch_image = file_name_final
+                            endif 
+                            
+                            if swatch_image != blank
+                              assign swatch_value = 'url(' | append: swatch_image | append: ')'
+                            endif
+                          endunless
+                        -%}
+
+                        {%- if option.selected_value == value or option.selected_value == val_string -%}
+                           {%- assign initial_swatch = swatch_value -%}
+                        {%- endif -%}
+
+                        <li class="pw-swatch-item {% if option.selected_value == value or option.selected_value == val_string %}is-selected{% endif %}" data-value="{{ value | escape }}" data-swatch-bg="{{ swatch_value }}">
+                          <span class="pw-color-indicator" style="background: {{ swatch_value }}; background-size: cover; background-position: center;" title="{{ value | escape }}"></span>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                  
+                  {% comment %} Hidden Select to keep JS working perfectly {% endcomment %}
+                  <select class="pairs-well-select visually-hidden" data-option-index="{{ forloop.index0 }}">
+                    {%- for value in option.values -%}
+                      <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
+                    {%- endfor -%}
+                  </select>
+                  
+                  {% comment %} Set the initial trigger background using inline JS to ensure accuracy {% endcomment %}
+                  <script>
+                    document.currentScript.previousElementSibling.previousElementSibling.querySelector('.selected-swatch-indicator').style.background = '{{ initial_swatch }}';
+                  </script>
+
+                {%- else -%}
+                  {% comment %} --- STANDARD NATIVE DROPDOWN (FOR SIZES, ETC) --- {% endcomment %}
+                  <select class="pairs-well-select" data-option-index="{{ forloop.index0 }}">
+                    {%- for value in option.values -%}
+                      <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
+                        {{ value }}
+                      </option>
+                    {%- endfor -%}
+                  </select>
+                  <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path>
+                  </svg>
+                {%- endif -%}
+                
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endunless -%}
+
+        <script type="application/json" class="pairs-well-variant-json">
+          [
+          {%- for variant in card_product.variants -%}
+            {
+              "id": {{ variant.id }},
+              "title": "{{ variant.title | escape }}",
+              "options": {{ variant.options | json }},
+              "available": {{ variant.available }},
+              "price": "{{ variant.price | money }}",
+              "compare_at_price": {% if variant.compare_at_price > variant.price %}"{{ variant.compare_at_price | money }}"{% else %}null{% endif %},
+              "featured_image": "{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 200 }}{% endif %}"
+            }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+          ]
+        </script>
+
+        <input type="hidden" name="id" value="{{ current_variant.id }}" class="pairs-well-final-id">
+
+        <button
+          type="submit"
+          name="add"
+          class="pairs-well-btn button button--primary {% unless current_variant.available %}disabled{% endunless %}"
+          {% unless current_variant.available %}disabled{% endunless %}
+        >
+          {%- if current_variant.available -%}
+            Add
+          {%- else -%}
+            {{ 'products.product.sold_out' | t }}
+          {%- endif -%}
+        </button>
+      {%- endform -%}
+    </product-form>
+  </div>
+</div>

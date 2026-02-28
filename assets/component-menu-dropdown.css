@@ -165,7 +165,7 @@ mega-menu {
   row-gap: 3rem;
   column-gap: var(--grid-horizontal-spacing);
   max-height: calc(100vh - var(--header-height, 8rem));
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 .mega-menu__item {
@@ -247,7 +247,7 @@ mega-menu {
 }
 
 .mega-menu__promo .media {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
   border-radius: var(--card-radius);
 }
 
@@ -302,10 +302,10 @@ mega-menu {
     color: rgba(var(--color-header-foreground), 0.7);
   }
 
-  .mega-menu__promo-link:hover .mega-menu__promo-heading .label::after {
+  /* .mega-menu__promo-link:hover .mega-menu__promo-heading .label::after {
     left: 0;
     right: 0;
-  }
+  } */
 }
 
 .mega-menu__promo--overlay {

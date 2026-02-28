@@ -1,0 +1,258 @@
+{%- liquid
+  assign show_countdown = false
+  if enable_countdown and card_product.metafields.theme.countdown.value != blank
+    assign now_time = 'now' | date: '%s' | times: 1
+    assign countdown_time = card_product.metafields.theme.countdown.value | date: '%s' | times: 1
+    if countdown_time > now_time
+      assign show_countdown = true
+    endif
+  endif
+  if button_custom_class
+    assign button_class = button_custom_class
+  else
+    assign button_class = 'button button--small'
+  endif
+  assign card_url = card_product.url | within: card_collection | default: '#'
+  assign product_form_id = 'quick-add-' | append: section.id | append: '-' | append: card_product.id
+-%}
+{{ 'component-rating.css' | asset_url | stylesheet_tag }}
+{{ 'component-card-v2.css' | asset_url | stylesheet_tag }}
+<div class="card-wrapper card-v2-wrapper card-product-v2">
+  <use-animate data-animate="zoom-fade-small" class="card card--product{% if card_product.featured_media == nil %} card--text{% endif %}" tabindex="-1">
+    {%- if card_product.featured_media -%}
+      {%- liquid
+        assign featured_media_aspect_ratio = card_product.featured_media.aspect_ratio | default: 1
+        assign card_product_media = card_product.featured_media
+      -%}
+      {%- capture sizes -%}(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 10rem) / 4), (min-width: 750px) calc((100vw - 10rem) / 3), calc(62vw - 3rem){%- endcapture -%}
+      {%- liquid
+        assign image_loading = 'lazy'
+        assign widths = '165, 360, 535, 750, 940, 1100'
+        assign image = card_product.featured_media
+        assign alt = image.alt | escape | split: '#' | first
+        capture srcset_mobile_retina
+          assign a_widths = widths | remove: ' ' | split: ','
+          for a_width in a_widths
+            assign retina_mobile_width = a_width | divided_by: 1 | floor
+            if forloop.index >= 2
+              echo ', '
+            endif
+            echo image.preview_image | image_url: width: retina_mobile_width | append: ' ' | append: a_width | append: 'w'
+          endfor
+        endcapture
+      -%}
+      <a href="{{ card_url }}"{% if disable_image_click %} onclick="if (!theme.config.mqlSmall) { return false; }"{% endif %} class="card__media media-wrapper" tabindex="-1" aria-label="{{ card_product.title | escape }}">
+        <div class="card--image-animate image-animate media media--{{ media_size }} media--hover-effect{% unless enable_image_fill %} media--image-contain{% endunless %}"
+          {%- if media_size == 'adapt' %} style="--image-ratio-percent: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;"{% endif -%}
+        >
+          <picture is="prog-picture" class="motion-reduce" data-hq="{{ image.preview_image | image_url: width: 2000 }}">
+            <source srcset="{{ srcset_mobile_retina }}" sizes="{{ sizes }}">
+            {{ image.preview_image | image_url: width: 1100 | image_tag: loading: image_loading, class: 'motion-reduce card-v2-main-image', sizes: sizes, widths: widths, alt: alt, is: 'lazy-image' }}
+          </picture>
+          {%- if card_product.media[1] != nil and show_secondary_image -%}
+            {%- liquid
+              assign image_second = card_product.media[1]
+              assign alt_second = image_second.alt | escape | split: '#' | first
+              assign widths_second = '1, 165, 360, 535, 750, 940, 1100'
+            -%}
+            {%- capture sizes_second -%}(min-width: 990px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, 1px{%- endcapture -%}
+            <picture class="motion-reduce">
+              {{ image_second.preview_image | image_url: width: 1100 | image_tag: loading: image_loading, sizes: sizes_second, widths: widths_second, alt: alt_second, is: 'lazy-image' }}
+            </picture>
+          {%- endif -%}
+        </div>
+      </a>
+    {%- endif -%}
+  </use-animate>
+  <div class="card__badge">
+    {%- if card_product.available == false -%}
+      <span class="badge badge--soldout" aria-hidden="true">{{ 'products.product.sold_out' | t }}</span>
+    {%- elsif card_product.compare_at_price > card_product.price -%}
+      <span class="badge badge--onsale" aria-hidden="true">
+        {%- if settings.sale_badge_basis == 'percentage' or card_product.variants.size == 1 -%}
+          &#8211;{{ card_product.compare_at_price | minus: card_product.price | times: 100.0 | divided_by: card_product.compare_at_price | round }}%
+        {%- else -%}
+          {{ 'products.product.on_sale' | t }}
+        {%- endif -%}
+      </span>
+    {%- endif -%}
+  </div>
+  <div class="card-information">
+    <div class="card-information__wrapper">
+      {%- if show_vendor -%}
+        <div class="card-article-info caption-with-letter-spacing">{{ card_product.vendor }}</div>
+      {%- endif -%}
+      <a href="{{ card_url }}" class="card-information__text h4 card-v2-title" tabindex="-1">
+        {{ card_product.title | escape }}
+      </a>
+      {% if card_product.metafields.custom.subtitle != blank %}
+        <p class="meta-subtitle">{{ card_product.metafields.custom.subtitle.value }}</p>
+      {% endif %}
+      <div class="card-v2-price">
+        {% render 'price', product: card_product, use_variant: true %}
+      </div>
+      <div class="card-v2-bottom-aligner">
+        {%- unless card_product.has_only_default_variant -%}
+          <card-v2-variant-selector>
+            <div class="card-v2-options">
+              {%- for option in card_product.options_with_values -%}
+                {%- assign downcased_option = option.name | downcase -%}
+                
+                {% comment %} --- EXACT THEME COLOR SWATCH LOGIC --- {% endcomment %}
+                {%- if downcased_option contains 'color' or downcased_option contains 'colour' -%}
+                  {%- if enable_color_swatches -%}
+                    <div class="card-v2-swatches-wrapper">
+                      <label class="visually-hidden">{{ option.name }}</label>
+                      <div class="card-v2-swatches">
+                        {%- for value in option.values -%}
+                          {%- assign val_string = value.name | default: value -%}
+                          
+                          {%- liquid
+                            assign swatch_value = val_string | split: ' ' | last | handle
+                            assign is_native_swatch = false
+                            
+                            if value.swatch.image
+                              assign image_url = value.swatch.image | image_url: width: 50
+                              assign swatch_value = 'url(' | append: image_url | append: ')'
+                              assign is_native_swatch = true
+                            elsif value.swatch.color
+                              assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+                              assign is_native_swatch = true
+                            endif
+                            
+                            unless is_native_swatch
+                              assign swatch_file_extension = 'png'
+                              assign file_name_uniq = card_product.id | append: '_' | append: val_string | handle | append: '.' | append: swatch_file_extension
+                              assign file_name_custom = blank
+                              assign file_name_alt = val_string | handle | append: '.' | append: swatch_file_extension
+                              assign value_downcase = val_string | downcase
+                              assign swatch_config = settings.swatch_config | newline_to_br | split: '<br />'
+                              
+                              for swatch in swatch_config
+                                assign swatch_parts = swatch | strip | split: '|'
+                                assign swatch_name = swatch_parts.first | downcase | strip
+                                if swatch_name == value_downcase
+                                  assign swatch_entry = swatch_parts.last | strip
+                                  if swatch_entry contains '#'
+                                    assign swatch_value = swatch_entry
+                                    assign file_name_alt = blank
+                                  else
+                                    assign file_name_custom = swatch_entry
+                                  endif
+                                  break
+                                endif
+                              endfor
+                              
+                              assign file_name_final = blank
+                              if images[file_name_uniq] != blank
+                                assign file_name_final = file_name_uniq
+                              elsif file_name_custom != blank and images[file_name_custom] != blank 
+                                assign file_name_final = file_name_custom
+                              elsif images[file_name_alt] != blank
+                                assign file_name_final = file_name_alt
+                              endif
+                              
+                              assign swatch_image = blank
+                              if images[file_name_final] != blank
+                                assign swatch_image = images[file_name_final] | image_url: width: 50
+                              elsif file_name_final contains '//cdn.shopify.com/'
+                                assign swatch_image = file_name_final
+                              endif 
+                              
+                              if swatch_image != blank
+                                assign swatch_value = 'url(' | append: swatch_image | append: ')'
+                              endif
+                            endunless
+                          -%}
+
+                          <label 
+                            class="card-v2-swatch {% if forloop.index > 3 %}hidden-swatch{% endif %}" 
+                            style="background: {{ swatch_value }}; background-size: cover; background-position: center; {% if forloop.index > 3 %}display: none;{% endif %}{% if option.selected_value == value or option.selected_value == val_string %}outline: 1px solid rgb(var(--color-foreground)); outline-offset: 2px;{% endif %}"
+                            title="{{ val_string | escape }}"
+                          >
+                            <input type="radio" name="opt-{{ card_product.id }}-{{ option.position }}" value="{{ val_string | escape }}" class="card-v2-radio card-v2-radio-color visually-hidden" data-option-index="{{ option.position | minus: 1 }}" {% if option.selected_value == value or option.selected_value == val_string %}checked{% endif %}>
+                          </label>
+                        {%- endfor -%}
+                        
+                        {%- if option.values.size > 3 -%}
+                          <button type="button" class="card-v2-view-all-colors">
+                            +{{ option.values.size | minus: 3 }}
+                          </button>
+                        {%- endif -%}
+                      </div>
+                    </div>
+                  {%- endif -%}
+                  
+                {% comment %} --- PILLS --- {% endcomment %}
+                {%- else -%}
+                  {%- if enable_other_variants -%}
+                    <div class="card-v2-pills-wrapper">
+                      <div class="card-v2-pills">
+                        {%- for value in option.values -%}
+                          {%- assign val_string = value.name | default: value -%}
+                          <label 
+                            class="card-v2-pill" 
+                            style="{% if option.selected_value == value or option.selected_value == val_string %}background: #000; color: #fff; border-color: #000;{% else %}background: #fff; color: #000;{% endif %}"
+                          >
+                            <input type="radio" name="opt-{{ card_product.id }}-{{ option.position }}" value="{{ val_string | escape }}" class="card-v2-radio card-v2-radio-pill visually-hidden" data-option-index="{{ option.position | minus: 1 }}" {% if option.selected_value == value or option.selected_value == val_string %}checked{% endif %}>
+                            {{ val_string }}
+                          </label>
+                        {%- endfor -%}
+                      </div>
+                    </div>
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+            
+            <script type="application/json" class="card-v2-json">
+              [
+              {%- for variant in card_product.variants -%}
+                {
+                  "id": {{ variant.id }},
+                  "options": {{ variant.options | json }},
+                  "available": {{ variant.available }},
+                  "price": {{ variant.price | money | json }},
+                  "featured_image": {% if variant.featured_image %}{{ variant.featured_image | image_url: width: 600 | json }}{% else %}null{% endif %}
+                }{% unless forloop.last %},{% endunless %}
+              {%- endfor -%}
+              ]
+            </script>
+          </card-v2-variant-selector>
+          
+          {%- if enable_quick_add -%}
+            <product-form class="card-v2-form-wrapper">
+              {%- form 'product', card_product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}" class="card-v2-final-id">
+                <button type="submit" name="add" class="button button--full-width card-v2-add-btn {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}" {% unless card_product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+                  {%- if card_product.selected_or_first_available_variant.available -%}
+                    {{ 'products.product.add_to_cart' | t }}
+                  {%- else -%}
+                    {{ 'products.product.sold_out' | t }}
+                  {%- endif -%}
+                </button>
+              {%- endform -%}
+            </product-form>
+          {%- endif -%}
+          
+        {%- else -%}
+          {% comment %} --- NO VARIANTS --- {% endcomment %}
+          {%- if enable_quick_add -%}
+            <product-form class="card-v2-form-wrapper">
+              {%- form 'product', card_product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
+                <button type="submit" name="add" class="button button--full-width card-v2-add-btn {% unless card_product.available %}disabled{% endunless %}" {% unless card_product.available %}disabled{% endunless %}>
+                  {%- if card_product.available -%}
+                    {{ 'products.product.add_to_cart' | t }}
+                  {%- else -%}
+                    {{ 'products.product.sold_out' | t }}
+                  {%- endif -%}
+                </button>
+              {%- endform -%}
+            </product-form>
+          {%- endif -%}
+        {%- endunless -%}
+      </div>
+    </div>
+  </div>
+</div>

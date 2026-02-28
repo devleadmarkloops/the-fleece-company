@@ -33,21 +33,31 @@
       }
     },
     "main": {
-      "type": "main-product",
+      "type": "main-product-v2",
       "blocks": {
+        "rating_static_jQpEEQ": {
+          "type": "rating_static",
+          "settings": {
+            "rating_text": "3184 Reviews",
+            "rating_link": ""
+          }
+        },
+        "breadcrumb_LGWKpR": {
+          "type": "breadcrumb",
+          "settings": {
+            "text_style": "body",
+            "show_divider": false,
+            "hide_mobile": true
+          }
+        },
         "title": {
           "type": "title",
           "settings": {
             "title_size": "h2",
             "show_price": false,
-            "price_size": "medium"
-          }
-        },
-        "rating_static_jQpEEQ": {
-          "type": "rating_static",
-          "settings": {
-            "rating_text": "(3184 Reviews)",
-            "rating_link": ""
+            "price_size": "medium",
+            "desktop_hide": false,
+            "mobile_hide": false
           }
         },
         "price": {
@@ -55,72 +65,39 @@
           "settings": {
             "price_size": "medium",
             "show_badges": true,
-            "sale_badge_basis": "percentage"
-          }
-        },
-        "text_custom_Vpdkyw": {
-          "type": "text_custom",
-          "settings": {
-            "text_custom": "<strong>Live Now: Buy 1 get 1 FREE</strong>",
-            "text_color": "#a63e3e",
-            "text_size": 16,
-            "text_size_mob": 16,
-            "enable_normal": true,
-            "enable_circle": false
+            "sale_badge_basis": "auto"
           }
         },
         "icon_text_9Gxbx4": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/lightweight.png",
-            "icon_size": 32,
-            "icon_size_mob": 28,
-            "icon_text": "Lightweight",
-            "text_color": "#121212",
-            "text_size": 16,
-            "text_size_mob": 14
+            "icon": "shopify://shop_images/Group_1.svg",
+            "icon_size": 20,
+            "icon_size_mob": 18,
+            "icon_text": "",
+            "icon_richtext": "<p><strong>Early Women's Month Sale:</strong> Buy One, Get One <strong>FREE</strong></p>",
+            "text_color": "#3b3b3b",
+            "text_size": 14,
+            "text_size_mob": 12,
+            "enable_bg": true
           }
         },
-        "icon_text_KLMX3D": {
-          "type": "icon_text",
+        "icon_text_grid_U3jbTR": {
+          "type": "icon_text_grid",
           "settings": {
-            "icon": "shopify://shop_images/clouds.png",
-            "icon_size": 32,
-            "icon_size_mob": 28,
-            "icon_text": "Incredibly Soft",
-            "text_color": "#121212",
-            "text_size": 16,
-            "text_size_mob": 14
-          }
-        },
-        "icon_text_R7iXXY": {
-          "type": "icon_text",
-          "settings": {
-            "icon": "shopify://shop_images/arrow-up.png",
-            "icon_size": 32,
-            "icon_size_mob": 28,
-            "icon_text": "Breathable",
-            "text_color": "#121212",
-            "text_size": 16,
-            "text_size_mob": 14
-          }
-        },
-        "text_custom_Lpng9n": {
-          "type": "text_custom",
-          "disabled": true,
-          "settings": {
-            "text_custom": "Limited units available during our <strong>New Year Sale</strong>",
-            "text_color": "#a63e3e",
-            "text_size": 16,
-            "text_size_mob": 15,
-            "enable_normal": true,
-            "enable_circle": true
-          }
-        },
-        "custom_liquid_xDKKPB": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "<style>\n  /* tweak --lh if your theme's line-height looks different */\n  .special-msg {\n    --lh: 1.35;                    /* line-height for this block */\n    --dot: 8px;                    /* dot size */\n    color: #A63E3E;\n    font-weight: 600;\n    display: block;\n    margin: 5px 0;\n    padding-left: 18px;            /* room for the dot */\n    position: relative;\n    line-height: var(--lh);\n    text-align: left !important;\n    white-space: normal;\n    letter-spacing: .3px;\n  }\n\n  .special-msg::before {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    width: var(--dot);\n    height: var(--dot);\n    border-radius: 50%;\n    background: #A63E3E;\n    /* place the dot centered within the FIRST line only */\n    top: calc((var(--lh) * 1em - var(--dot)) / 2);\n    animation: blink 3.5s infinite ease-in-out;\n  }\n\n@keyframes blink {\n  /* Quick fade in */\n  0%   { opacity: 0; }\n  40%  { opacity: 1; }\n\n  /* Hold bright */\n  60%  { opacity: 1; }\n\n  /* Slow fade out */\n  100% { opacity: 0; }\n}\n\n</style>\n\n<div class=\"special-msg\">\n  Limited units available during our <b>Early Women’s Month Sale</b>\n</div>"
+            "icon_1": "shopify://shop_images/Group_2.svg",
+            "text_1": "100% Natural Fibers",
+            "icon_2": "shopify://shop_images/Group_2147226194.svg",
+            "text_2": "Incredibly Soft",
+            "icon_3": "shopify://shop_images/Group_2147226197.svg",
+            "text_3": "Softer with every Wash",
+            "icon_4": "shopify://shop_images/Group_3.svg",
+            "text_4": "Always Breathable",
+            "icon_size": 30,
+            "icon_size_mob": 20,
+            "text_size": 14,
+            "text_size_mob": 11,
+            "text_color": "#3b3b3b"
           }
         },
         "variant_picker": {
@@ -128,9 +105,9 @@
           "settings": {
             "show_variant_labels": true,
             "picker_type": "button",
-            "swatch_source": "variant",
-            "swatch_type": "round",
-            "swatch_size": "large",
+            "swatch_source": "file",
+            "swatch_type": "square",
+            "swatch_size": "medium",
             "enable_swatch_unavailable_click": false,
             "enable_limited": true,
             "limited_heading": "Limited Edition",
@@ -145,82 +122,76 @@
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": false,
             "enable_monogram": false,
-            "monogram_product": ""
+            "monogram_product": "monogram-test-product",
+            "icon": "shopify://shop_images/Vector_2.svg",
+            "icon_text": "30 DAYS MONEY BACK GUARANTEE"
           }
         },
         "countdown_timer_4tCBwt": {
           "type": "countdown_timer",
           "settings": {
-            "heading": "Early Women’s Month Sale ENDS IN:",
-            "heading_color": "#ffffff",
-            "background_color": "#c5bbae",
-            "timer_color": "#121212",
-            "label_color": "#121212",
+            "heading": "SALE ENDS IN:",
+            "heading_color": "#3b3b3b",
+            "background_color": "#f0eae4",
+            "timer_color": "#3b3b3b",
+            "label_color": "#3b3b3b",
             "per_visitor_timer": true,
             "end_date": "2026-01-31 23:59:59",
             "visitor_days": 0,
             "visitor_hours": 20,
             "visitor_minutes": 3,
             "visitor_seconds": 27,
+            "enable_payment_icons": false,
             "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
           }
         },
-        "icon_with_text_NArRNw": {
-          "type": "icon_with_text",
+        "richtext_box_ehkChy": {
+          "type": "richtext_box",
           "settings": {
-            "icon_1": "shopify://shop_images/local_shipping_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
-            "text_1": "Fast & Tracked Shipping",
-            "icon_2": "shopify://shop_images/undo_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
-            "text_2": "30 Days Money Back",
-            "icon_3": "shopify://shop_images/select_check_box_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
-            "text_3": "100 Nights Guarantee"
+            "rich_text": "<p><strong>Shipped in 1-3 Days</strong><br/>Fast & Tracked USPS Shipping</p>",
+            "text_size": 14,
+            "text_size_mob": 12
           }
         },
-        "text_custom_A3eeDw": {
-          "type": "text_custom",
+        "pairs_well_rqaHeU": {
+          "type": "pairs_well",
           "settings": {
-            "text_custom": "<strong>UPDATE: We're currently going viral on social media</strong> and have limited stock remaining!  Take advantage of our quantity discounts.",
-            "text_color": "",
-            "text_size": 16,
-            "text_size_mob": 15,
-            "enable_normal": true,
-            "enable_circle": false
+            "heading": "Pairs well with",
+            "product_list": [
+              "the-muslin-pillow-case-100-muslin-cotton"
+            ]
           }
         },
-        "description_wcdcrg": {
-          "type": "description",
-          "disabled": true,
-          "settings": {}
+        "video_reels_Uf7aUQ": {
+          "type": "video_reels",
+          "settings": {
+            "autoplay_in_view": true,
+            "mute_videos": true,
+            "video_1": "shopify://files/videos/IG_reel_moments_of_rohan_2026-01-22.webm",
+            "video_2": "shopify://files/videos/ashley v.webm",
+            "video_3": "shopify://files/videos/IG_reel_life_with_brandy_2026-02-10.webm",
+            "video_4": "shopify://files/videos/IG_reel_asimpleendeavour_2026-01-21.webm",
+            "video_5": "shopify://files/videos/IG_reel_rebekahcharaelise_2026-02-03.webm",
+            "video_6": "shopify://files/videos/IG_reel_ambermfernandes__muslinblanket.webm"
+          }
         },
         "collapsible_tab_TbRiah": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Care & Details",
-            "content": "<p>Machine wash cold, do not tumble dry under any circumstances, and avoid ironing or using fabric softeners to maintain the softness and coziness of your blanket for years to come.<br/><br/>Our blankets are made from natural muslin cotton, so slight size variations may occur. Measurements are taken at full stretch.</p><p>To maintain the original size and softness, avoid hot washes — high temperatures can cause shrinkage.</p>",
+            "content": "<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your blanket for years to come.<br/><br/>Our blankets are made from natural muslin cotton, so slight size variations may occur. Measurements are taken at full stretch.</p><p>To maintain the original size and softness, avoid hot washes — high temperatures can cause shrinkage.</p>",
             "page": "",
             "custom_liquid": "",
-            "keep_open": false
+            "keep_open": true
           }
         },
         "collapsible_tab-0": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "What is Muslin Cotton?",
             "content": "<h4><strong>A Fabric Fit for Royalty</strong></h4><p>Originating from ancient Bengal (modern-day Bangladesh and India), muslin was once so rare and coveted that it was called <em>\"woven wind\"</em>—worn by queens, emperors, and aristocrats who prized its <strong>weightless luxury</strong>. The finest muslin was so sheer it could pass through a ring yet so strong it lasted generations. Today, authentic muslin remains a symbol of <strong>timeless elegance and craftsmanship</strong>.</p><h4><strong>Why Is Muslin Cotton Special?</strong></h4><ul><li><strong>Breathable & Lightweight</strong>: Its loose, open weave allows airflow like no other fabric, making it <strong>perfect for temperature regulation</strong>—cool in summer, cozy in winter.</li><li><strong>Luxuriously Soft</strong>: With every wash, muslin becomes even softer, developing a <strong>vintage, lived-in elegance</strong> that only improves with time.</li><li><strong>Gentle Yet Durable</strong>: Despite its delicate feel, high-quality muslin is surprisingly strong, resisting pulls and tears while maintaining its graceful drape.</li></ul><h4><strong>The Ultimate in Elevated Comfort</strong></h4><p>Our muslin cotton blankets and bedding carry forward this legacy—offering you <strong>a touch of historical opulence with modern comfort</strong>. Whether swaddling a newborn, dressing a luxury bed, or wrapping yourself in a breathable layer, muslin is more than a fabric—it’s an heirloom in the making.</p>",
-            "page": "",
-            "custom_liquid": "",
-            "keep_open": false
-          }
-        },
-        "collapsible_tab-1": {
-          "type": "collapsible_tab",
-          "disabled": true,
-          "settings": {
-            "icon": "check_mark",
-            "heading": "Shipping & Returns",
-            "content": "<p>All Orders are fulfilled and then shipped to anywhere in the <strong>US</strong> in <strong>1-3 working days</strong> on average.</p><p>All orders come with tracking information once shipped.</p><p><strong>Returns</strong></p><p>Not happy with your purchase? No worries, we've got you covered!<br/><br/>You may return it within 30 days of delivery for a full refund or exchange, no questions asked. To initiate a return, just contact our customer service team at <a href=\"mailto:support@thefleececompany.com\" target=\"_blank\" title=\"mailto:support@thefleececompany.com\">support@thefleececompany.com</a>.</p>",
             "page": "",
             "custom_liquid": "",
             "keep_open": false
@@ -229,7 +200,7 @@
         "shipping_metaobject_tLJRyV": {
           "type": "shipping_metaobject",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Shipping & Returns",
             "shipping_text": "default"
           }
@@ -239,67 +210,198 @@
           "settings": {
             "show_quantity_selector": false
           }
+        },
+        "iwt_gallery_WzN9xF": {
+          "type": "iwt_gallery",
+          "settings": {
+            "icon1": "shopify://shop_images/cloud_2.png",
+            "text1": "All Season",
+            "icon2": "shopify://shop_images/leaf.png",
+            "text2": "Natural"
+          }
         }
       },
       "block_order": [
-        "title",
         "rating_static_jQpEEQ",
+        "breadcrumb_LGWKpR",
+        "title",
         "price",
-        "text_custom_Vpdkyw",
         "icon_text_9Gxbx4",
-        "icon_text_KLMX3D",
-        "icon_text_R7iXXY",
-        "text_custom_Lpng9n",
-        "custom_liquid_xDKKPB",
+        "icon_text_grid_U3jbTR",
         "variant_picker",
         "buy_buttons",
         "countdown_timer_4tCBwt",
-        "icon_with_text_NArRNw",
-        "text_custom_A3eeDw",
-        "description_wcdcrg",
+        "richtext_box_ehkChy",
+        "pairs_well_rqaHeU",
+        "video_reels_Uf7aUQ",
         "collapsible_tab_TbRiah",
         "collapsible_tab-0",
-        "collapsible_tab-1",
         "shipping_metaobject_tLJRyV",
-        "sticky_cart"
+        "sticky_cart",
+        "iwt_gallery_WzN9xF"
       ],
       "settings": {
+        "enable_v2_styles": true,
         "enable_sticky_info": true,
         "media_position": "left",
         "media_size": "large",
-        "gallery_layout": "thumbnail_slider",
-        "image_ratio": "square",
+        "gallery_layout": "vertical_slider",
+        "image_ratio": "adapt",
         "show_featured_media": true,
         "show_thumbnails": false,
-        "hide_variants": false,
+        "hide_variants": true,
         "enable_image_zoom": false,
         "enable_video_looping": false,
-        "mobile_image_ratio": "square",
+        "mobile_image_ratio": "portrait",
         "show_mobile_thumbnails": false,
-        "enable_variant_specific_media": false,
+        "enable_variant_specific_media": true,
         "enable_fade_slider": true,
         "padding_top": 0,
         "padding_bottom": 20
       }
     },
-    "image_with_text_v2_D8bENf": {
-      "type": "image-with-text-v2",
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "product_list_limit": 6,
+        "show_divider": false,
+        "heading": "You May Also Like",
+        "heading_size": "h0",
+        "heading_alignment": "left",
+        "heading_tag": "h2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "image_ratio": "square",
+        "image_position": "center center",
+        "enable_image_fill": true,
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "show_quick_buy": false,
+        "enable_quick_view": false,
+        "enable_color_swatches": true,
+        "enable_other_variants": false,
+        "enable_countdown": false,
+        "colors_highlight": "#ffb503",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_top_mob": 24,
+        "padding_bottom_mob": 24,
+        "enable_highlight": false,
+        "highlight_style": "marker"
+      }
+    },
+    "advanced_rich_text_QYx3gt": {
+      "type": "advanced-rich-text",
       "blocks": {
-        "heading_bBmAeH": {
+        "tag_eCj9Gh": {
+          "type": "tag",
+          "settings": {
+            "tag_text": "The Fleece Guarantee",
+            "tag_bg_color": "#f8f5f2",
+            "tag_text_color": "#000000"
+          }
+        },
+        "heading_mwH73M": {
+          "type": "heading",
+          "settings": {
+            "heading": "100 Nights Satisfaction Guarantee",
+            "heading_size": "h0",
+            "heading_tag": "h2"
+          }
+        },
+        "text_JC9bmy": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Enjoy breathable comfort with complete peace of mind.</p>",
+            "text_size": "typeset"
+          }
+        },
+        "button_PNj8Jx": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Try It Risk-Free",
+            "button_link": "",
+            "scroll_target": ".icon-text-grid-wrapper",
+            "button_style_secondary": false,
+            "button_alt_label": "",
+            "button_alt_link": "",
+            "button_alt_scroll_target": "",
+            "button_alt_style_secondary": false
+          }
+        },
+        "icons_row_wymn3C": {
+          "type": "icons_row",
+          "settings": {
+            "layout": "inline",
+            "show_default_check": true,
+            "icon_size_desktop": 24,
+            "icon_size_mobile": 16,
+            "text_size_desktop": 16,
+            "text_size_mobile": 12,
+            "image_1": "shopify://shop_images/Secure_Checkout_1.png",
+            "custom_svg_1": "",
+            "text_1": "<p>Tracked Shipping</p>",
+            "image_2": "shopify://shop_images/60_Days_Return_1.png",
+            "custom_svg_2": "",
+            "text_2": "<p>Easy Returns</p>",
+            "image_3": "shopify://shop_images/support.png",
+            "custom_svg_3": "",
+            "text_3": "<p>Always here</p>",
+            "custom_svg_4": "",
+            "text_4": "",
+            "custom_svg_5": "",
+            "text_5": ""
+          }
+        }
+      },
+      "block_order": [
+        "tag_eCj9Gh",
+        "heading_mwH73M",
+        "text_JC9bmy",
+        "button_PNj8Jx",
+        "icons_row_wymn3C"
+      ],
+      "name": "Advanced Rich Text",
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": false,
+        "show_divider": false,
+        "use_custom_colors": true,
+        "bg_width": "full_width",
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#3b3b3b",
+        "colors_text": "#3b3b3b",
+        "colors_background": "#f0eae4",
+        "colors_highlight": "#ffb503",
+        "gradient_background": "",
+        "padding_top": 52,
+        "padding_bottom": 44,
+        "padding_top_mob": 40,
+        "padding_bottom_mob": 32
+      }
+    },
+    "image_banner_v2_VMQtKU": {
+      "type": "image-banner-v2",
+      "blocks": {
+        "heading_EqjbwL": {
           "type": "heading",
           "settings": {
             "heading": "Cozy All Night with The Muslin Blanket",
-            "heading_size": "h1",
+            "heading_size": "h0",
             "heading_tag": "h2",
             "enable_highlight": false,
             "highlight_style": "marker"
           }
         },
-        "text_ziaWGB": {
+        "text_kiWgwG": {
           "type": "text",
           "settings": {
-            "text": "<p>The Muslin Blanket delivers effortless, breathable comfort from the first touch, thanks to its premium 100% cotton muslin weave. This time-tested fabric creates continuous airflow to regulate temperature naturally for perfectly balanced comfort on warm nights and cozy relaxation year-round.</p>",
-            "text_size": "typeset",
+            "text": "<p>The Muslin Blanket delivers effortless, breathable comfort from the first touch</p>",
+            "text_size": "typeset2",
             "secondary_color": false,
             "enable_highlight": false,
             "highlight_style": "marker"
@@ -307,159 +409,102 @@
         }
       },
       "block_order": [
-        "heading_bBmAeH",
-        "text_ziaWGB"
+        "heading_EqjbwL",
+        "text_kiWgwG"
       ],
-      "name": "Image with text v2",
+      "name": "Image banner v2",
       "settings": {
-        "image": "shopify://shop_images/Cotton_Blanket-Khaki_03_6c595d80-c517-4a30-8286-f5a071807b4d_1.webp",
+        "image": "shopify://shop_images/Banner_1_1.webp",
         "image_position": "center center",
-        "layout": "text_first",
-        "text_box_position": "middle",
+        "text_box_position": "bottom-left",
         "text_alignment": "left",
-        "image_ratio": "adapt",
-        "enable_media_radius": true,
-        "media_radius": 12,
-        "enlarge_content": false,
-        "full_width": false,
+        "image_ratio": "550px",
+        "show_text_box": false,
+        "full_width": true,
         "show_divider": false,
+        "enable_content_max_width": true,
+        "content_max_width": 480,
         "image_behavior": "none",
-        "mobile_layout": "image_first",
-        "mobile_text_alignment": "center",
-        "mobile_image_ratio": "auto",
-        "enable_video_looping": false,
-        "video_url": "",
-        "use_custom_colors": false,
-        "colors_button_label": "#ffffff",
-        "colors_button_background": "#1a1b18",
-        "colors_text": "#212326",
-        "colors_background": "#ffffff",
-        "gradient_background": "",
+        "mobile_image": "shopify://shop_images/Banner_2_1.webp",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "400px",
+        "stack_images_on_mobile": false,
+        "show_text_below": false,
+        "colors_button_label": "#1a1b18",
+        "colors_button_background": "#ffffff",
+        "colors_text": "#ffffff",
+        "colors_overlay": "#000000",
+        "colors_overlay_opacity": 28,
         "colors_highlight": "#ffb503",
-        "padding_top": 32,
-        "padding_bottom": 0,
-        "padding_top_mob": 0,
-        "padding_bottom_mob": 0
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
-    "image_with_text_v2_RabiRM": {
-      "type": "image-with-text-v2",
+    "image_with_text_v3_GKBbPb": {
+      "type": "image-with-text-v3",
       "blocks": {
-        "heading_wKRJry": {
+        "subheading_3fc6Lg": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Materials",
+            "subheading_size": "h5",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading_XXgdCP": {
           "type": "heading",
           "settings": {
-            "heading": "Luxuriously Soft & Lightweight",
-            "heading_size": "h1",
+            "heading": "Made from Pure Muslin Cotton",
+            "heading_size": "h0",
             "heading_tag": "h2",
             "enable_highlight": false,
             "highlight_style": "marker"
           }
         },
-        "text_CN89GA": {
+        "text_UUnUCe": {
           "type": "text",
           "settings": {
-            "text": "<p>Crafted from 100% natural muslin cotton, The Muslin Blanket envelops you in cloud-like softness. Its gently textured weave creates a breathable embrace that comforts without overheating - offering just the right weight for effortless relaxation during warm nights and cozy moments year-round.</p>",
+            "text": "<p>Our Muslin Blanket is made from 100% natural muslin cotton, woven with an open, breathable structure that feels soft, luxurious, and relaxed. This time-tested fabric allows continuous airflow, helping regulate temperature naturally for comfort use throughout the year.</p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
             "highlight_style": "marker"
           }
+        },
+        "images_grid_cddeMC": {
+          "type": "images_grid",
+          "disabled": true,
+          "settings": {
+            "image1": "shopify://shop_images/Button_Made_from_sustainably_farmed_organic_cotton.png",
+            "image2": "shopify://shop_images/Button_Made_from_sustainably_farmed_organic_cotton_1.png",
+            "image3": "shopify://shop_images/Button_Made_from_sustainably_farmed_organic_cotton_2.png"
+          }
         }
       },
       "block_order": [
-        "heading_wKRJry",
-        "text_CN89GA"
+        "subheading_3fc6Lg",
+        "heading_XXgdCP",
+        "text_UUnUCe",
+        "images_grid_cddeMC"
       ],
-      "name": "Image with text v2",
+      "name": "Image with text v3",
       "settings": {
-        "image": "shopify://shop_images/create_a_close_up_image_of_the_fiber_of_muslin_cotton_fiber_in_beige_color_1_1.webp",
+        "image": "shopify://shop_images/THE_FLEECE_BLANKET_1080_x_1080_px_9.webp",
         "image_position": "center center",
         "layout": "image_first",
         "text_box_position": "middle",
         "text_alignment": "left",
-        "image_ratio": "adapt",
-        "enable_media_radius": true,
-        "media_radius": 12,
+        "image_ratio": "700px",
+        "enable_media_radius": false,
+        "media_radius": 0,
         "enlarge_content": false,
-        "full_width": false,
+        "full_width": true,
         "show_divider": false,
         "image_behavior": "none",
-        "mobile_layout": "image_first",
-        "mobile_text_alignment": "center",
-        "mobile_image_ratio": "auto",
-        "enable_video_looping": false,
-        "video_url": "",
-        "use_custom_colors": false,
-        "colors_button_label": "#ffffff",
-        "colors_button_background": "#1a1b18",
-        "colors_text": "#212326",
-        "colors_background": "#ffffff",
-        "gradient_background": "",
-        "colors_highlight": "#ffb503",
-        "padding_top": 4,
-        "padding_bottom": 4,
-        "padding_top_mob": 0,
-        "padding_bottom_mob": 0
-      }
-    },
-    "image_with_text_v2_tLdkwa": {
-      "type": "image-with-text-v2",
-      "blocks": {
-        "heading_w4UPUz": {
-          "type": "heading",
-          "settings": {
-            "heading": "The Fleece Guarantee",
-            "heading_size": "h1",
-            "heading_tag": "h2",
-            "enable_highlight": false,
-            "highlight_style": "marker"
-          }
-        },
-        "text_TDiGmp": {
-          "type": "text",
-          "settings": {
-            "text": "<p>We won’t rest until you're completely happy and unbelievably cozy in your Blanket.</p>",
-            "text_size": "typeset",
-            "secondary_color": false,
-            "enable_highlight": false,
-            "highlight_style": "marker"
-          }
-        },
-        "check_list_EmQBcw": {
-          "type": "check_list",
-          "settings": {
-            "enable_bg": false,
-            "bg": "",
-            "list_icon": "shopify://shop_images/check_circle_30dp_C5BBAE_FILL0_wght400_GRAD0_opsz24.svg",
-            "list_text_1": "100-night satisfaction guarantee",
-            "list_text_2": "Fast and tracked U.S. shipping",
-            "list_text_3": "Easy returns and exchanges",
-            "list_text_4": "We’re here for you, always.",
-            "list_text_5": ""
-          }
-        }
-      },
-      "block_order": [
-        "heading_w4UPUz",
-        "text_TDiGmp",
-        "check_list_EmQBcw"
-      ],
-      "name": "Image with text v2",
-      "settings": {
-        "image": "shopify://shop_images/Copy_of_THE_FLEECE_BLANKET_1080_x_1080_px_13_1.webp",
-        "image_position": "center center",
-        "layout": "text_first",
-        "text_box_position": "middle",
-        "text_alignment": "left",
-        "image_ratio": "adapt",
-        "enable_media_radius": true,
-        "media_radius": 12,
-        "enlarge_content": false,
-        "full_width": false,
-        "show_divider": false,
-        "image_behavior": "none",
-        "mobile_layout": "image_first",
-        "mobile_text_alignment": "center",
+        "mobile_layout": "no_image",
+        "mobile_text_alignment": "left",
         "mobile_image_ratio": "auto",
         "enable_video_looping": false,
         "video_url": "",
@@ -476,109 +521,361 @@
         "padding_bottom_mob": 0
       }
     },
-    "product-recommendations": {
-      "type": "product-recommendations",
-      "disabled": true,
-      "settings": {
-        "product_list_limit": 4,
-        "show_divider": false,
-        "heading": "You May Also Like",
-        "heading_size": "h1",
-        "heading_alignment": "center",
-        "heading_tag": "h2",
-        "columns_mobile": "1",
-        "swipe_on_mobile": true,
-        "image_ratio": "portrait",
-        "image_position": "center center",
-        "enable_image_fill": true,
-        "show_secondary_image": true,
-        "show_vendor": true,
-        "show_rating": true,
-        "show_quick_buy": true,
-        "enable_quick_view": true,
-        "enable_color_swatches": true,
-        "enable_countdown": true,
-        "colors_highlight": "#ffb503",
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "enable_highlight": false,
-        "highlight_style": "marker"
-      }
-    },
-    "reviews_slider_UFEH38": {
-      "type": "reviews-slider",
+    "multicolumn_v2_zxzHia": {
+      "type": "multicolumn-v2",
       "blocks": {
-        "review_BDtWFn": {
-          "type": "review",
+        "column_izAxqx": {
+          "type": "column",
           "settings": {
-            "review_title": "",
-            "review_text": "This cotton blanket is amazing—light enough for summer but cozy for winter. The dune color shade is even prettier in person!",
-            "author_name": "Jennifer"
+            "image": "shopify://shop_images/2nd_Image_8.webp",
+            "icon_image": "shopify://shop_images/118.png",
+            "icon_svg": "",
+            "title": "Everything starts with the Boll...",
+            "title_size": "h2",
+            "text": "<p>Natural cotton is harvested and cleaned, then spun into fine, durable yarn. No synthetics. No blends. Just cotton.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false,
+            "background_color": "#f2f2f2",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff",
+            "show_popup": false,
+            "popup_image_position": "top",
+            "justify_text": false
           }
         },
-        "review_AAMEHx": {
-          "type": "review",
+        "column_te4dbz": {
+          "type": "column",
           "settings": {
-            "review_title": "",
-            "review_text": "Such a soft, well-made blanket! The mist color is so peaceful, and the weight is just right. I might need another one!",
-            "author_name": "Anne L."
+            "image": "shopify://shop_images/3rd_Image_1.webp",
+            "icon_image": "shopify://shop_images/119.png",
+            "icon_svg": "",
+            "title": "Then it gets Weaved",
+            "title_size": "h2",
+            "text": "<p>Yarn is fed through specialized looms and woven into a multi-layer open muslin structure, giving it that signature breathable feel.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false,
+            "background_color": "#f2f2f2",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff",
+            "show_popup": false,
+            "popup_image_position": "top",
+            "justify_text": false
           }
         },
-        "review_RRjwad": {
-          "type": "review",
+        "column_UxzJ3X": {
+          "type": "column",
           "settings": {
-            "review_title": "",
-            "review_text": "These cotton sheets transformed my bedroom—they look and feel luxurious. I never knew bedding could make such a difference!",
-            "author_name": "Zoe"
-          }
-        },
-        "review_qBm7qY": {
-          "type": "review",
-          "settings": {
-            "review_title": "",
-            "review_text": "Obsessed with this blanket! The stitching is flawless, and the color matches the photos perfectly. Pairing it with cotton shams for a full refresh.",
-            "author_name": "Irene"
-          }
-        },
-        "review_tMWw6J": {
-          "type": "review",
-          "settings": {
-            "review_title": "",
-            "review_text": "Finally, a breathable cotton blanket that doesn’t break the bank! Upgrading from synthetic fabrics was worth it—this is heaven to sleep under.",
-            "author_name": "Elin"
-          }
-        },
-        "review_KLzLXk": {
-          "type": "review",
-          "settings": {
-            "review_title": "",
-            "review_text": "I love them, very well made",
-            "author_name": "Maria"
+            "image": "shopify://shop_images/2nd_Image_2.webp",
+            "icon_image": "shopify://shop_images/Group_6.svg",
+            "icon_svg": "",
+            "title": "Finally Washed & Finished",
+            "title_size": "h2",
+            "text": "<p>Each blanket is pre-washed and quality checked by hand before it ships. Soft on arrival, softer with every wash after.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false,
+            "background_color": "#f2f2f2",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff",
+            "show_popup": false,
+            "popup_image_position": "top",
+            "justify_text": false
           }
         }
       },
       "block_order": [
-        "review_BDtWFn",
-        "review_AAMEHx",
-        "review_RRjwad",
-        "review_qBm7qY",
-        "review_tMWw6J",
-        "review_KLzLXk"
+        "column_izAxqx",
+        "column_te4dbz",
+        "column_UxzJ3X"
       ],
-      "name": "Reviews slider",
+      "name": "Multicolumn v2",
       "settings": {
-        "heading": "Our Customers Speaking",
-        "subheading": "Avg Rating: 4.8",
+        "subheading": "<p>THE PROCESS</p>",
+        "heading": "How our Blankets are Made",
+        "heading_size": "h0",
+        "heading_tag": "h2",
+        "heading_alignment": "center",
+        "text_alignment": "center",
+        "enable_card_style": false,
+        "image_width": "full",
+        "columns_desktop": 3,
+        "icon_size_desktop": 48,
+        "icon_size_mobile": 40,
+        "mobile_text_alignment": "center",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "image_ratio": "adapt",
+        "image_position": "center center",
         "use_custom_colors": true,
-        "colors_text": "#212326",
+        "colors_background": "#c5bbae",
+        "colors_text": "#ffffff",
+        "show_divider": false,
+        "open_in_new_tab": false,
+        "colors_highlight": "#ffb503",
+        "card_border_radius": 4,
+        "padding_top": 60,
+        "padding_bottom": 52,
+        "padding_top_mob": 40,
+        "padding_bottom_mob": 24,
+        "enable_highlight": false,
+        "highlight_style": "marker"
+      }
+    },
+    "image_floating_features_NyGtrV": {
+      "type": "image-floating-features",
+      "blocks": {
+        "feature_qNQqT3": {
+          "type": "feature",
+          "settings": {
+            "side": "left",
+            "position_top": 45,
+            "line_length": 150,
+            "icon_svg": "",
+            "icon_image": "shopify://shop_images/Group_7.svg",
+            "heading": "Sleeping",
+            "text": "<p>Provides light coverage that moves with your body without feeling restrictive overnight.</p>"
+          }
+        },
+        "feature_FYXfJF": {
+          "type": "feature",
+          "settings": {
+            "side": "right",
+            "position_top": 25,
+            "line_length": 150,
+            "icon_svg": "",
+            "icon_image": "shopify://shop_images/Group_8.svg",
+            "heading": "Lounging",
+            "text": "<p>Comfortable enough for slow mornings, evenings on the couch, or relaxed downtime.</p>"
+          }
+        },
+        "feature_fbqt8F": {
+          "type": "feature",
+          "settings": {
+            "side": "right",
+            "position_top": 68,
+            "line_length": 150,
+            "icon_svg": "",
+            "icon_image": "shopify://shop_images/Group_9.svg",
+            "heading": "Layering",
+            "text": "<p>Pairs easily with sheets or duvets when temperatures shift throughout the year.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_qNQqT3",
+        "feature_FYXfJF",
+        "feature_fbqt8F"
+      ],
+      "disabled": true,
+      "name": "Image Floating Features",
+      "settings": {
+        "subheading": "<p>GET THE PERFECT SLEEP</p>",
+        "heading": "Designed for Everyday Living",
+        "heading_size": "h0",
+        "heading_tag": "h2",
+        "heading_alignment": "center",
+        "main_image": "shopify://shop_images/Rectangle_21_1.webp",
+        "image_max_width": 420,
+        "image_radius": 10,
+        "icon_size": 48,
+        "button_label": "Try It Risk-Free",
+        "button_link": "",
+        "scroll_target": ".icon-text-grid-wrapper",
+        "button_style_secondary": false,
+        "footer_icon_svg_1": "",
+        "footer_icon_image_1": "shopify://shop_images/Secure_Checkout_1.png",
+        "footer_text_1": "Secure Checkout",
+        "footer_icon_svg_2": "",
+        "footer_icon_image_2": "shopify://shop_images/Free_Shipping_1.png",
+        "footer_text_2": "Free Shipping",
+        "footer_icon_svg_3": "",
+        "footer_icon_image_3": "shopify://shop_images/60_Days_Return_1.png",
+        "footer_text_3": "Easy Returns",
+        "show_divider": false,
+        "line_color": "#212326",
+        "use_custom_colors": false,
         "colors_background": "#ffffff",
-        "colors_card_background": "#f6f6f6",
-        "colors_stars": "#000000",
+        "colors_text": "#212326",
+        "padding_top": 52,
+        "padding_bottom": 52,
+        "padding_top_mob": 40,
+        "padding_bottom_mob": 32
+      }
+    },
+    "reviews_slider_v1_7hqRz8": {
+      "type": "reviews-slider-v1",
+      "blocks": {
+        "review_4i3BLT": {
+          "type": "review",
+          "settings": {
+            "author_name": "Nicole",
+            "star_rating": 5,
+            "review_text": "\"This muslin blanket feels incredibly soft and breathable. I sleep comfortably without overheating, and it looks beautiful on my bed every single night.\""
+          }
+        },
+        "review_rTCgpp": {
+          "type": "review",
+          "settings": {
+            "author_name": "Erin C.",
+            "star_rating": 5,
+            "review_text": "\"Lightweight yet cozy, this blanket is perfect year-round. It drapes nicely, washes well, and feels even softer over time. Definitely worth it.\""
+          }
+        },
+        "review_Xnjwtt": {
+          "type": "review",
+          "settings": {
+            "author_name": "Sonia",
+            "star_rating": 5,
+            "review_text": "\"This muslin blanket feels incredibly soft and breathable. I sleep comfortably without overheating, and it looks beautiful on my bed every single night.\""
+          }
+        },
+        "review_8ihXrT": {
+          "type": "review",
+          "settings": {
+            "author_name": "Nicole",
+            "star_rating": 5,
+            "review_text": "\"This muslin blanket feels incredibly soft and breathable. I sleep comfortably without overheating, and it looks beautiful on my bed every single night.\""
+          }
+        },
+        "review_NnMbVQ": {
+          "type": "review",
+          "settings": {
+            "author_name": "Erin C.",
+            "star_rating": 5,
+            "review_text": "\"Lightweight yet cozy, this blanket is perfect year-round. It drapes nicely, washes well, and feels even softer over time. Definitely worth it.\""
+          }
+        },
+        "review_rmXFME": {
+          "type": "review",
+          "settings": {
+            "author_name": "Sonia",
+            "star_rating": 5,
+            "review_text": "\"This muslin blanket feels incredibly soft and breathable. I sleep comfortably without overheating, and it looks beautiful on my bed every single night.\""
+          }
+        }
+      },
+      "block_order": [
+        "review_4i3BLT",
+        "review_rTCgpp",
+        "review_Xnjwtt",
+        "review_8ihXrT",
+        "review_NnMbVQ",
+        "review_rmXFME"
+      ],
+      "name": "Reviews slider v1",
+      "settings": {
+        "heading": "Trusted by 18,000+ Customers",
+        "heading_size": "h0",
+        "show_verified": true,
+        "verified_label": "Verified Customer",
+        "button_label": "",
+        "button_link": "shopify://collections/all",
+        "use_custom_colors": true,
+        "colors_text": "#27272a",
+        "colors_background": "#f0eae4",
+        "colors_card_background": "#ffffff",
+        "colors_stars": "#e07b39",
         "colors_dots": "#000000",
         "gradient_background": "",
-        "padding_top": 32,
-        "padding_bottom": 52,
-        "padding_top_mob": 0,
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "padding_top_mob": 40,
+        "padding_bottom_mob": 40
+      }
+    },
+    "17718302163b5e340b": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_QjEyLX": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_QjEyLX"
+      ],
+      "disabled": true,
+      "settings": {
+        "sec_bg_color": "#f0eae4",
+        "include_margins": true,
+        "show_divider": false,
+        "custom_class": "reviews-slider",
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    },
+    "image_with_accordion_NRBNzn": {
+      "type": "image-with-accordion",
+      "blocks": {
+        "accordion_fRXT8k": {
+          "type": "accordion",
+          "settings": {
+            "title": "How do I wash my muslin blanket?",
+            "content": "<p>Machine wash cold on a gentle cycle and hang to dry. The blanket gets softer with every wash.</p>"
+          }
+        },
+        "accordion_bPKVgG": {
+          "type": "accordion",
+          "settings": {
+            "title": "Is a muslin blanket suitable for all seasons?",
+            "content": "<p>Yes. Muslin cotton is naturally breathable and temperature-regulating, keeping you cool in summer and comfortably warm in winter. It adapts to your body temperature, making it the perfect all-season companion.</p>"
+          }
+        },
+        "accordion_PExgrx": {
+          "type": "accordion",
+          "settings": {
+            "title": "Why are muslin cotton blankets better than regular blankets?",
+            "content": "<p>Muslin cotton blankets are made from 100% natural fibers, making them breathable, hypoallergenic and gentle on sensitive skin, including babies. Unlike synthetic blankets, muslin gets softer with every wash, meaning it only gets better over time. It regulates temperature naturally, keeping you cool in summer and warm in winter, making it a truly all-season blanket. On top of that, muslin is durable, long-lasting and free of harsh chemicals, a healthier, more sustainable choice for you and your family.</p>"
+          }
+        },
+        "accordion_C4D3jA": {
+          "type": "accordion",
+          "settings": {
+            "title": "Does the blanket shrink after washing?",
+            "content": "<p>To preserve the shape and size of your blanket, we strongly recommend hanging it to dry, tumble drying will cause shrinkage. As muslin cotton is a natural and slightly elastic fabric, size variations are normal. Following the care instructions will ensure the best fit and feel over time</p>"
+          }
+        },
+        "accordion_tG4bPa": {
+          "type": "accordion",
+          "settings": {
+            "title": "How long does a muslin blanket last?",
+            "content": "<p>With proper care, a high quality muslin blanket can last for years. Thanks to its durable weave and natural fibers, it holds up exceptionally well over time and unlike most blankets, it actually improves with age and washing.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "accordion_fRXT8k",
+        "accordion_bPKVgG",
+        "accordion_PExgrx",
+        "accordion_C4D3jA",
+        "accordion_tG4bPa"
+      ],
+      "name": "Image with Accordion",
+      "settings": {
+        "main_image": "shopify://shop_images/image_8.webp",
+        "image_position": "right",
+        "layout_ratio": "40/60",
+        "image_height": "adapt",
+        "image_radius": 10,
+        "subheading": "<p>LEARN MORE</p>",
+        "heading": "Frequently Asked Questions",
+        "heading_size": "h0",
+        "heading_tag": "h2",
+        "heading_alignment": "left",
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_background": "#ffffff",
+        "colors_text": "#212326",
+        "padding_top": 52,
+        "padding_bottom": 60,
+        "padding_top_mob": 32,
         "padding_bottom_mob": 40
       }
     }
@@ -587,10 +884,14 @@
     "content_scrollspy_KjGLRV",
     "empty-space",
     "main",
-    "image_with_text_v2_D8bENf",
-    "image_with_text_v2_RabiRM",
-    "image_with_text_v2_tLdkwa",
     "product-recommendations",
-    "reviews_slider_UFEH38"
+    "advanced_rich_text_QYx3gt",
+    "image_banner_v2_VMQtKU",
+    "image_with_text_v3_GKBbPb",
+    "multicolumn_v2_zxzHia",
+    "image_floating_features_NyGtrV",
+    "reviews_slider_v1_7hqRz8",
+    "17718302163b5e340b",
+    "image_with_accordion_NRBNzn"
   ]
 }
