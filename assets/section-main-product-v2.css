@@ -128,6 +128,7 @@ media-gallery .media-wrapper.media-wrapper--intrinsic-size {
 .product__media-wrapper .slider-mobile--overlay .slider-buttons {
   bottom: 0;
   margin-bottom: 0;
+  display:none;
 }
 
 .product__media-wrapper .slider-mobile--overlay .slider-button {
