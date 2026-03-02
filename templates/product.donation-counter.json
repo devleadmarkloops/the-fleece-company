@@ -114,6 +114,24 @@
             "size_chart": ""
           }
         },
+        "donation_impact_Vaf4tz": {
+          "type": "donation_impact",
+          "settings": {
+            "icon_size": 24,
+            "heading": "Your order donates $1 to support women escaping abuse",
+            "goal_text": "Help us reach the $10,000 goal",
+            "popup_text": "Every purchase from The Fleece Company helps support women in need. Together, we're making a real difference in our community.",
+            "raised": 6847,
+            "goal": 10000,
+            "orders_remaining": 800,
+            "bar_height": 10,
+            "bg_color": "#f5f5f5",
+            "heading_color": "#1a1a1a",
+            "text_color": "#1a1a1a",
+            "bar_color": "#e87461",
+            "bar_bg_color": "#e0e0e0"
+          }
+        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -229,6 +247,7 @@
         "icon_text_9Gxbx4",
         "icon_text_grid_U3jbTR",
         "variant_picker",
+        "donation_impact_Vaf4tz",
         "buy_buttons",
         "countdown_timer_4tCBwt",
         "richtext_box_ehkChy",
