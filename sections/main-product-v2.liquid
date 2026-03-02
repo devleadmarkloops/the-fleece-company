@@ -1245,9 +1245,9 @@
                           width: {{ progress }}%;
                           background: {{ block.settings.bar_color }};
                         ">
-                          <span class="donation-bar-text">{{ raised | money}} raised</span>
+                          <span class="donation-bar-text">{{ raised | money_without_trailing_zeros}} raised</span>
                         </div>
-                        <div class="donation-bar-goal">Goal {{ goal | money }}</div>
+                        <div class="donation-bar-goal">Goal {{ goal | money_without_trailing_zeros }}</div>
                       </div>
                     </div>
                   </div>
