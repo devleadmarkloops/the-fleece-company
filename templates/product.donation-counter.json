@@ -117,7 +117,8 @@
         "donation_impact_Vaf4tz": {
           "type": "donation_impact",
           "settings": {
-            "icon_size": 24,
+            "icon_image": "shopify://shop_images/Vector_1_8c8bdc1d-f5b2-4fb7-b381-727de5071ae2.svg",
+            "icon_size": 20,
             "heading": "$1 Donated to Women Escaping Abuse",
             "goal_text": "Help us reach the $10,000 goal",
             "popup_text": "Every purchase from The Fleece Company helps support women in need. Together, we're making a real difference in our community.",
