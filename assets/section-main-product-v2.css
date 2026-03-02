@@ -3788,7 +3788,7 @@ span.alert-box:before {
 }
 .donation-bar-wrapper {
   flex: 1;
-  height: 15px;
+  height: 20px;
   border-radius: 15px;
   overflow: hidden;
   position: relative;
