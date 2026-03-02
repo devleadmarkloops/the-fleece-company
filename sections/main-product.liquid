@@ -1034,84 +1034,135 @@
     const gallery = document.querySelector(galleryId);
     if (!gallery) return;
 
-    // --- 1. TOUCH LOGIC FOR FADE SLIDER (Event Delegation) ---
-    let touchStartX = 0;
-    let touchEndX = 0;
-    let touchStartY = 0;
-    let touchEndY = 0;
+    // --- HELPER: Find the next/prev valid thumbnail ---
+    function getValidSibling(li, direction) {
+      let sibling = direction === 'next' ? li.nextElementSibling : li.previousElementSibling;
+      while (sibling) {
+        // We check inline styles and attributes so we don't accidentally ignore them if the whole thumbnail wrapper is hidden on mobile
+        if (sibling.style.display !== 'none' && !sibling.classList.contains('visually-hidden') && !sibling.hasAttribute('hidden')) {
+          return sibling;
+        }
+        sibling = direction === 'next' ? sibling.nextElementSibling : sibling.previousElementSibling;
+      }
+      return null;
+    }
 
-    // Attach listeners to the gallery wrapper so they survive variant HTML swaps
+    // --- 1. CORE NAVIGATION LOGIC (The Cheat Code) ---
+    function navigateGallery(direction) {
+      // Find the currently active thumbnail
+      const activeThumbBtn = gallery.querySelector('.thumbnail-list__item button[aria-current="true"]');
+      if (!activeThumbBtn) return;
+
+      const currentLi = activeThumbBtn.closest('.thumbnail-list__item');
+      const targetLi = getValidSibling(currentLi, direction);
+
+      // If a next/prev image exists, simulate a click on its thumbnail to trigger the perfect native cross-fade
+      if (targetLi) {
+        const btnToClick = targetLi.querySelector('button');
+        if (btnToClick) btnToClick.click();
+      }
+    }
+
+    // --- 2. HIJACK NATIVE ARROWS ---
+    // We use event capturing (true) to intercept the click BEFORE Shopify's native JS blocks it
+    gallery.addEventListener('click', function(e) {
+      const btn = e.target.closest('.slider-button');
+      if (btn && btn.closest('product-gallery')) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Don't click if we've visually disabled it
+        if (btn.style.cursor === 'not-allowed') return;
+
+        if (btn.classList.contains('slider-button--next') || btn.name === 'next') {
+          navigateGallery('next');
+        } else if (btn.classList.contains('slider-button--prev') || btn.name === 'previous') {
+          navigateGallery('prev');
+        }
+      }
+    }, true); 
+
+    // --- 3. TOUCH SWIPE LOGIC ---
+    let touchStartX = 0;
+    let touchStartY = 0;
+
     gallery.addEventListener('touchstart', e => {
-      if (!e.target.closest('.product__media-item')) return; // Only track swipes on the actual images
+      if (!e.target.closest('.product__media-item')) return;
       touchStartX = e.changedTouches[0].screenX;
       touchStartY = e.changedTouches[0].screenY;
     }, { passive: true });
 
     gallery.addEventListener('touchend', e => {
       if (!e.target.closest('.product__media-item')) return;
-      touchEndX = e.changedTouches[0].screenX;
-      touchEndY = e.changedTouches[0].screenY;
-      handleSwipe();
-    }, { passive: true });
-
-    function handleSwipe() {
+      const touchEndX = e.changedTouches[0].screenX;
+      const touchEndY = e.changedTouches[0].screenY;
+      
       const deltaX = touchStartX - touchEndX;
       const deltaY = touchStartY - touchEndY;
       
-      // dynamically fetch the CURRENT buttons so we never click "ghost" elements
-      const currentNextBtn = gallery.querySelector('.slider-button--next');
-      const currentPrevBtn = gallery.querySelector('.slider-button--prev');
-      const sliderButtonsWrapper = gallery.querySelector('.slider-buttons');
-      
+      // Swipe threshold to prevent accidental triggers while scrolling down the page
       if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 40) {
-        if (sliderButtonsWrapper && sliderButtonsWrapper.style.display !== 'none') {
-          if (deltaX > 0 && currentNextBtn) {
-            currentNextBtn.click(); // Swiped left -> Next
-          } else if (deltaX < 0 && currentPrevBtn) {
-            currentPrevBtn.click(); // Swiped right -> Prev
-          }
+        if (deltaX > 0) {
+          navigateGallery('next'); 
+        } else {
+          navigateGallery('prev'); 
         }
       }
-    }
+    }, { passive: true });
 
-    // --- 2. DYNAMIC ARROW HIDING (Variant Change Proof) ---
-    function updateArrowVisibility() {
-      // Re-query the elements in case they were replaced by Shopify's JS
-      const currentGallery = document.querySelector(galleryId);
-      if (!currentGallery) return;
-      
-      const currentSlider = currentGallery.querySelector('#Slider-Gallery-{{ section.id }}');
-      const sliderButtonsWrapper = currentGallery.querySelector('.slider-buttons');
-      if (!currentSlider || !sliderButtonsWrapper) return;
+    // --- 4. OVERRIDE NATIVE BUTTON STATES ---
+    function updateUI() {
+      const buttonsWrapper = gallery.querySelector('product-gallery .slider-buttons');
+      const allSlides = gallery.querySelectorAll('#Slider-Gallery-{{ section.id }} .product__media-item');
+      const nextBtn = gallery.querySelector('product-gallery .slider-button--next');
+      const prevBtn = gallery.querySelector('product-gallery .slider-button--prev');
+      const activeThumbBtn = gallery.querySelector('.thumbnail-list__item button[aria-current="true"]');
 
-      const allSlides = currentSlider.querySelectorAll('.product__media-item');
+      if (!buttonsWrapper || !allSlides.length) return;
+
+      // A) Hide entire arrow wrapper if 1 or 0 slides are valid
       let validSlides = 0;
-
       allSlides.forEach(slide => {
-         // Check if the slide is visually rendered and not hidden by variant logic
-         if (window.getComputedStyle(slide).display !== 'none' && !slide.classList.contains('visually-hidden') && !slide.hasAttribute('hidden')) {
+         if (slide.style.display !== 'none' && !slide.classList.contains('visually-hidden') && !slide.hasAttribute('hidden')) {
            validSlides++;
          }
       });
+      buttonsWrapper.style.display = validSlides <= 1 ? 'none' : '';
 
-      // Hide arrows entirely if only 1 image exists for this variant
-      sliderButtonsWrapper.style.display = validSlides <= 1 ? 'none' : '';
+      // B) Strip native "disabled" traits and manually update opacity
+      if (activeThumbBtn && nextBtn && prevBtn) {
+        const currentLi = activeThumbBtn.closest('.thumbnail-list__item');
+        const hasNext = !!getValidSibling(currentLi, 'next');
+        const hasPrev = !!getValidSibling(currentLi, 'prev');
+
+        // Permanently fight Shopify by removing the disabled attributes
+        nextBtn.disabled = false;
+        nextBtn.removeAttribute('disabled');
+        prevBtn.disabled = false;
+        prevBtn.removeAttribute('disabled');
+
+        // Apply our own manual greyed-out styling when at the end of the slider
+        nextBtn.style.opacity = hasNext ? '1' : '0.3';
+        nextBtn.style.cursor = hasNext ? 'pointer' : 'not-allowed';
+
+        prevBtn.style.opacity = hasPrev ? '1' : '0.3';
+        prevBtn.style.cursor = hasPrev ? 'pointer' : 'not-allowed';
+      }
     }
 
-    // Run on initial load
-    setTimeout(updateArrowVisibility, 150);
+    // Initial check
+    setTimeout(updateUI, 150);
 
-    // Watch the entire gallery wrapper for changes made by the theme's variant JS
+    // Watch the gallery like a hawk: The millisecond Shopify JS changes the variant, we force our UI rules back on
     const observer = new MutationObserver(() => {
-       // A tiny debounce allows the theme's JS to finish injecting HTML before we check
-       setTimeout(updateArrowVisibility, 50);
+       setTimeout(updateUI, 50);
     });
     
     observer.observe(gallery, { 
       childList: true, 
       subtree: true, 
       attributes: true, 
-      attributeFilter: ['class', 'hidden'] 
+      attributeFilter: ['class', 'hidden', 'disabled', 'aria-current'] 
     });
   });
 </script>
