@@ -3802,6 +3802,10 @@ span.alert-box:before {
   padding: 0 14px;
   transition: width 1s ease;
   min-width: fit-content;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index:9;
 }
 .donation-bar-text {
   font-size: 12px;
