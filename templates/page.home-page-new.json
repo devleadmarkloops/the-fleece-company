@@ -560,6 +560,69 @@
         "padding_bottom_mob": 0
       }
     },
+    "collection_slider_i8wtfJ": {
+      "type": "collection-slider",
+      "blocks": {
+        "collection_HQbPgd": {
+          "type": "collection",
+          "settings": {
+            "collection": "various",
+            "custom_image": "shopify://shop_images/Rectangle_161125185.webp",
+            "custom_title": "Blanket Hoodies"
+          }
+        },
+        "collection_jWGrCB": {
+          "type": "collection",
+          "settings": {
+            "collection": "various",
+            "custom_image": "shopify://shop_images/Rectangle_161125186.webp",
+            "custom_title": "The Fleece Socks"
+          }
+        },
+        "collection_EY8pUT": {
+          "type": "collection",
+          "settings": {
+            "collection": "various",
+            "custom_image": "shopify://shop_images/Rectangle_161125187.webp",
+            "custom_title": "Blanket Hoodies"
+          }
+        },
+        "collection_AGBMVk": {
+          "type": "collection",
+          "settings": {
+            "collection": "various",
+            "custom_image": "shopify://shop_images/Rectangle_161125185.webp",
+            "custom_title": "Blanket Hoodies"
+          }
+        }
+      },
+      "block_order": [
+        "collection_HQbPgd",
+        "collection_jWGrCB",
+        "collection_EY8pUT",
+        "collection_AGBMVk"
+      ],
+      "name": "Collection Slider",
+      "settings": {
+        "subheading": "Featured Favorites",
+        "heading": "Comfort for Every Moment",
+        "description": "<p>From cozy nights to relaxed mornings.</p>",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "image_ratio": "portrait",
+        "image_radius": 8,
+        "overlay_opacity": 10,
+        "overlay_text_color": "#ffffff",
+        "use_custom_colors": false,
+        "colors_background": "#ffffff",
+        "colors_text": "#212326",
+        "show_divider": false,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36
+      }
+    },
     "reviews_slider_v1_VwKkVG": {
       "type": "reviews-slider-v1",
       "blocks": {
@@ -719,6 +782,7 @@
     "collection_grid_UkaB3D",
     "image_with_text_v3_gcjp6W",
     "image_with_text_v3_Lnk6pQ",
+    "collection_slider_i8wtfJ",
     "reviews_slider_v1_VwKkVG",
     "image_with_accordion_p7iDNB"
   ]
