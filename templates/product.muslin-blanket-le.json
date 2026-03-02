@@ -76,11 +76,9 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Lightweight",
-            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14,
-            "enable_bg": false
+            "text_size_mob": 14
           }
         },
         "icon_text_KLMX3D": {
@@ -90,11 +88,9 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Incredibly Soft",
-            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14,
-            "enable_bg": false
+            "text_size_mob": 14
           }
         },
         "icon_text_R7iXXY": {
@@ -104,11 +100,9 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Breathable",
-            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14,
-            "enable_bg": false
+            "text_size_mob": 14
           }
         },
         "text_custom_Lpng9n": {
@@ -283,7 +277,7 @@
         "mobile_image_ratio": "square",
         "show_mobile_thumbnails": false,
         "enable_variant_specific_media": false,
-        "enable_fade_slider": true,
+        "enable_fade_slider": false,
         "padding_top": 0,
         "padding_bottom": 20
       }
@@ -503,10 +497,13 @@
         "show_quick_buy": true,
         "enable_quick_view": true,
         "enable_color_swatches": true,
+        "enable_other_variants": false,
         "enable_countdown": true,
         "colors_highlight": "#ffb503",
         "padding_top": 36,
         "padding_bottom": 36,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36,
         "enable_highlight": false,
         "highlight_style": "marker"
       }
