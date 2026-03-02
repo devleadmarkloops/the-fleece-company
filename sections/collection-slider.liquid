@@ -284,19 +284,17 @@
   document.addEventListener('DOMContentLoaded', function() {
     new Swiper('.collection-swiper-{{ section.id }}', {
       slidesPerView: 1.2,
-      spaceBetween: 15,
+      spaceBetween: 10,
       navigation: {
         nextEl: '.cs-next-{{ section.id }}',
         prevEl: '.cs-prev-{{ section.id }}',
       },
       breakpoints: {
         768: {
-          slidesPerView: 2.2,
-          spaceBetween: 20
+          slidesPerView: 2.2
         },
         1024: {
-          slidesPerView: 2.8, // Adjust this to show a peek of the 3rd card
-          spaceBetween: 30
+          slidesPerView: 3,
         }
       }
     });
