@@ -1028,6 +1028,81 @@
             </div>
             <script src="{{ 'product-thumbnails.js' | asset_url }}" defer="defer"></script>
           {%- endif -%}
+          <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const gallery = document.querySelector('#MediaGallery-{{ section.id }}');
+    if (!gallery) return;
+
+    const slider = gallery.querySelector('#Slider-Gallery-{{ section.id }}');
+    const nextBtn = gallery.querySelector('.slider-button--next');
+    const prevBtn = gallery.querySelector('.slider-button--prev');
+    const sliderButtonsWrapper = gallery.querySelector('.slider-buttons');
+
+    // --- 1. TOUCH LOGIC FOR FADE SLIDER (Native Sync) ---
+    // Listens for a swipe gesture and clicks the hidden/visible arrows.
+    // This guarantees the fade animation and thumbnails stay perfectly synced.
+    if (slider) {
+      let touchStartX = 0;
+      let touchEndX = 0;
+      let touchStartY = 0;
+      let touchEndY = 0;
+
+      slider.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      slider.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+        handleSwipe();
+      }, { passive: true });
+
+      function handleSwipe() {
+        const deltaX = touchStartX - touchEndX;
+        const deltaY = touchStartY - touchEndY;
+        
+        // Only trigger if horizontal swipe is stronger than vertical scroll (prevents accidental triggers when scrolling down the page)
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 40) {
+          if (deltaX > 0) {
+            // Swiped Left -> Next Image
+            if (nextBtn && sliderButtonsWrapper.style.display !== 'none') nextBtn.click();
+          } else {
+            // Swiped Right -> Prev Image
+            if (prevBtn && sliderButtonsWrapper.style.display !== 'none') prevBtn.click();
+          }
+        }
+      }
+    }
+
+    // --- 2. DYNAMIC ARROW HIDING FOR SINGLE VARIANT IMAGE ---
+    function updateArrowVisibility() {
+      if (!sliderButtonsWrapper || !slider) return;
+
+      const allSlides = slider.querySelectorAll('.product__media-item');
+      let validSlides = 0;
+
+      allSlides.forEach(slide => {
+         // Count slides that are physically rendered and not hidden by your variant logic
+         if (window.getComputedStyle(slide).display !== 'none' && !slide.classList.contains('visually-hidden')) {
+           validSlides++;
+         }
+      });
+
+      // Hide arrows entirely if only 1 image exists for this variant
+      sliderButtonsWrapper.style.display = validSlides <= 1 ? 'none' : '';
+    }
+
+    // Run on load with a slight delay to let the theme's variant JS finish formatting
+    setTimeout(updateArrowVisibility, 150);
+
+    // Watch the slider dynamically so if a user clicks a new variant, it recounts the images
+    if (slider) {
+      const observer = new MutationObserver(updateArrowVisibility);
+      observer.observe(slider, { childList: true, attributes: true, subtree: true, attributeFilter: ['class', 'style'] });
+    }
+  });
+</script>
         </media-gallery>
       </div>
 
