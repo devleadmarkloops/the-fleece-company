@@ -352,7 +352,7 @@
         "mobile_row_height": 200,
         "grid_gap": 10,
         "image_radius": 8,
-        "overlay_opacity": 30,
+        "overlay_opacity": 10,
         "overlay_text_color": "#ffffff",
         "subheading": "",
         "heading": "Shop by Category",
