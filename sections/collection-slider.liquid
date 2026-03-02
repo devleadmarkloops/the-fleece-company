@@ -246,7 +246,7 @@
               {%- liquid
                 assign collection = block.settings.collection
                 assign custom_image = block.settings.custom_image
-                assign custom_title = block.settings.custom_title
+                assign custom_title = block.settings.custom_title | newline_to_br
                 
                 assign final_image = custom_image | default: collection.featured_image
                 assign final_title = custom_title | default: collection.title | default: 'Collection Title'
@@ -492,7 +492,7 @@
           "info": "Overrides the default collection image."
         },
         {
-          "type": "text",
+          "type": "textarea",
           "id": "custom_title",
           "label": "Custom Title",
           "info": "Overrides the default collection title."
