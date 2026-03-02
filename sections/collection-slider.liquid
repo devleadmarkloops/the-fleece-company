@@ -203,6 +203,7 @@
     #shopify-section-{{ section.id }} .collection-slider__nav {
       display: none;
     }
+    .cs-card__image-wrapper--portrait { padding-bottom: 125%; }
     .cs-card__title {
       font-size: 2rem;
     }
@@ -289,7 +290,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     new Swiper('.collection-swiper-{{ section.id }}', {
-      slidesPerView: 1.2,
+      slidesPerView: 1.5,
       spaceBetween: 10,
       navigation: {
         nextEl: '.cs-next-{{ section.id }}',
