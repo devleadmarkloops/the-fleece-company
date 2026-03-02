@@ -69,6 +69,7 @@
     letter-spacing: 0;
     color: rgba(var(--color-foreground), 0.85);
   }
+  
 
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .section--padding {
@@ -190,6 +191,9 @@
 }
 
 @media screen and (min-width: 750px) {
+  .image-with-text-v3 .image-with-text__grid--reverse .image-with-text__content {
+    margin-inline: auto;
+  }
   .image-with-text-v3 .flex-grid__item:has(use-animate) {
     display: flex;
     flex-direction: column;
