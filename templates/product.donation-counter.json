@@ -125,10 +125,10 @@
             "goal": 10000,
             "orders_remaining": 800,
             "bar_height": 10,
-            "bg_color": "#f5f5f5",
+            "bg_color": "#f0eae4",
             "heading_color": "#1a1a1a",
             "text_color": "#1a1a1a",
-            "bar_color": "#e87461",
+            "bar_color": "#ff6955",
             "bar_bg_color": "#e0e0e0"
           }
         },
