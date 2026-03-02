@@ -420,12 +420,48 @@
             "enable_highlight": false,
             "highlight_style": "marker"
           }
+        },
+        "icon_with_text_rwjmwt": {
+          "type": "icon_with_text",
+          "settings": {
+            "icon_image": "shopify://shop_images/Group.svg",
+            "heading": "Fast Tracked Shipping",
+            "text": ""
+          }
+        },
+        "icon_with_text_cfetXa": {
+          "type": "icon_with_text",
+          "settings": {
+            "icon_image": "shopify://shop_images/Group_2147226761.svg",
+            "heading": "100 Night Comfort Guarantee",
+            "text": ""
+          }
+        },
+        "icon_with_text_rcmxeD": {
+          "type": "icon_with_text",
+          "settings": {
+            "icon_image": "shopify://shop_images/Group_2147226760.svg",
+            "heading": "Easy Returns and Exchanges",
+            "text": ""
+          }
+        },
+        "icon_with_text_VJ6jMB": {
+          "type": "icon_with_text",
+          "settings": {
+            "icon_image": "shopify://shop_images/Group_2147226758.svg",
+            "heading": "Friendly Support Always",
+            "text": ""
+          }
         }
       },
       "block_order": [
         "subheading_Gr4KxR",
         "heading_R3U4EM",
-        "text_H7Ldhq"
+        "text_H7Ldhq",
+        "icon_with_text_rwjmwt",
+        "icon_with_text_cfetXa",
+        "icon_with_text_rcmxeD",
+        "icon_with_text_VJ6jMB"
       ],
       "name": "Image with text v3",
       "settings": {
