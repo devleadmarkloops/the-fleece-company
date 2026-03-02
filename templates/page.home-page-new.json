@@ -610,15 +610,15 @@
         "heading_size": "h1",
         "heading_tag": "h2",
         "image_ratio": "portrait",
-        "image_radius": 8,
+        "image_radius": 6,
         "overlay_opacity": 10,
         "overlay_text_color": "#ffffff",
         "use_custom_colors": false,
         "colors_background": "#ffffff",
         "colors_text": "#212326",
         "show_divider": false,
-        "padding_top": 36,
-        "padding_bottom": 36,
+        "padding_top": 60,
+        "padding_bottom": 60,
         "padding_top_mob": 36,
         "padding_bottom_mob": 36
       }
