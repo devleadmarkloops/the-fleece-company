@@ -100,7 +100,7 @@
     <script src="{{ 'modules-basis.js' | asset_url }}" defer="defer"></script>
 
     {{ content_for_header }}
-{% if template.suffix == 'muslin-blanket-le-new' %}
+{% if template.suffix == 'muslin-blanket-le-new' or  template.suffix == 'donation-counter' %}
      {%- liquid
       render 'css-variables-v2'
       echo 'base-v2.css' | asset_url | stylesheet_tag: preload: true
@@ -230,7 +230,7 @@
     {% render 'transition-cover' %}
 
     <div class="transition-body">
-      {%- if template.suffix == 'muslin-blanket-le-new' -%}
+      {%- if template.suffix == 'muslin-blanket-le-new' or template.suffix == 'donation-counter' -%}
         {% sections 'header-custom-group' %}
       {%- else -%}
         {% sections 'header-group' %}
