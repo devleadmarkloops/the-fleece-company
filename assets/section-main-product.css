@@ -1,3 +1,8 @@
+@media(max-width:767px){
+  html{
+    overflow-x:hidden;
+  }
+}
 product-info {
   display: block;
 }
