@@ -1034,11 +1034,9 @@
               const gallery = document.querySelector(galleryId);
               if (!gallery) return;
 
-              // --- HELPER: Find the next/prev valid thumbnail ---
               function getValidSibling(li, direction) {
                 let sibling = direction === 'next' ? li.nextElementSibling : li.previousElementSibling;
                 while (sibling) {
-                  // We check inline styles and attributes so we don't accidentally ignore them if the whole thumbnail wrapper is hidden on mobile
                   if (sibling.style.display !== 'none' && !sibling.classList.contains('visually-hidden') && !sibling.hasAttribute('hidden')) {
                     return sibling;
                   }
@@ -1047,31 +1045,25 @@
                 return null;
               }
 
-              // --- 1. CORE NAVIGATION LOGIC (The Cheat Code) ---
               function navigateGallery(direction) {
-                // Find the currently active thumbnail
                 const activeThumbBtn = gallery.querySelector('.thumbnail-list__item button[aria-current="true"]');
                 if (!activeThumbBtn) return;
 
                 const currentLi = activeThumbBtn.closest('.thumbnail-list__item');
                 const targetLi = getValidSibling(currentLi, direction);
 
-                // If a next/prev image exists, simulate a click on its thumbnail to trigger the perfect native cross-fade
                 if (targetLi) {
                   const btnToClick = targetLi.querySelector('button');
                   if (btnToClick) btnToClick.click();
                 }
               }
 
-              // --- 2. HIJACK NATIVE ARROWS ---
-              // We use event capturing (true) to intercept the click BEFORE Shopify's native JS blocks it
               gallery.addEventListener('click', function(e) {
                 const btn = e.target.closest('.slider-button');
                 if (btn && btn.closest('product-gallery')) {
                   e.preventDefault();
                   e.stopPropagation();
                   
-                  // Don't click if we've visually disabled it
                   if (btn.style.cursor === 'not-allowed') return;
 
                   if (btn.classList.contains('slider-button--next') || btn.name === 'next') {
@@ -1082,7 +1074,6 @@
                 }
               }, true); 
 
-              // --- 3. TOUCH SWIPE LOGIC ---
               let touchStartX = 0;
               let touchStartY = 0;
 
@@ -1100,7 +1091,6 @@
                 const deltaX = touchStartX - touchEndX;
                 const deltaY = touchStartY - touchEndY;
                 
-                // Swipe threshold to prevent accidental triggers while scrolling down the page
                 if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 40) {
                   if (deltaX > 0) {
                     navigateGallery('next'); 
@@ -1110,7 +1100,6 @@
                 }
               }, { passive: true });
 
-              // --- 4. OVERRIDE NATIVE BUTTON STATES ---
               function updateUI() {
                 const buttonsWrapper = gallery.querySelector('product-gallery .slider-buttons');
                 const allSlides = gallery.querySelectorAll('#Slider-Gallery-{{ section.id }} .product__media-item');
@@ -1120,7 +1109,6 @@
 
                 if (!buttonsWrapper || !allSlides.length) return;
 
-                // A) Hide entire arrow wrapper if 1 or 0 slides are valid
                 let validSlides = 0;
                 allSlides.forEach(slide => {
                   if (slide.style.display !== 'none' && !slide.classList.contains('visually-hidden') && !slide.hasAttribute('hidden')) {
@@ -1129,19 +1117,16 @@
                 });
                 buttonsWrapper.style.display = validSlides <= 1 ? 'none' : '';
 
-                // B) Strip native "disabled" traits and manually update opacity
                 if (activeThumbBtn && nextBtn && prevBtn) {
                   const currentLi = activeThumbBtn.closest('.thumbnail-list__item');
                   const hasNext = !!getValidSibling(currentLi, 'next');
                   const hasPrev = !!getValidSibling(currentLi, 'prev');
 
-                  // Permanently fight Shopify by removing the disabled attributes
                   nextBtn.disabled = false;
                   nextBtn.removeAttribute('disabled');
                   prevBtn.disabled = false;
                   prevBtn.removeAttribute('disabled');
 
-                  // Apply our own manual greyed-out styling when at the end of the slider
                   nextBtn.style.opacity = hasNext ? '1' : '0.3';
                   nextBtn.style.cursor = hasNext ? 'pointer' : 'not-allowed';
 
@@ -1150,10 +1135,8 @@
                 }
               }
 
-              // Initial check
               setTimeout(updateUI, 150);
 
-              // Watch the gallery like a hawk: The millisecond Shopify JS changes the variant, we force our UI rules back on
               const observer = new MutationObserver(() => {
                 setTimeout(updateUI, 50);
               });
