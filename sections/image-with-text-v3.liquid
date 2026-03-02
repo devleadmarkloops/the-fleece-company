@@ -41,6 +41,12 @@
       border-radius: {{ section.settings.media_radius }}px;
     }
   {% endif %}
+  
+  @media screen and (min-width: 1320px) {
+    .image-with-text-v3 .image-with-text__grid--reverse .image-with-text__content {
+      max-width: 70rem;
+    }
+  }
 
   #shopify-section-{{ section.id }} .image-with-text-v3 .image-with-text__subheading {
     display: block;
