@@ -1043,6 +1043,127 @@
             </div>
             <script src="{{ 'product-thumbnails.js' | asset_url }}" defer="defer"></script>
           {%- endif -%}
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              const galleryId = '#MediaGallery-{{ section.id }}';
+              const gallery = document.querySelector(galleryId);
+              if (!gallery) return;
+
+              function getValidSibling(li, direction) {
+                let sibling = direction === 'next' ? li.nextElementSibling : li.previousElementSibling;
+                while (sibling) {
+                  if (sibling.style.display !== 'none' && !sibling.classList.contains('visually-hidden') && !sibling.hasAttribute('hidden')) {
+                    return sibling;
+                  }
+                  sibling = direction === 'next' ? sibling.nextElementSibling : sibling.previousElementSibling;
+                }
+                return null;
+              }
+
+              function navigateGallery(direction) {
+                const activeThumbBtn = gallery.querySelector('.thumbnail-list__item button[aria-current="true"]');
+                if (!activeThumbBtn) return;
+
+                const currentLi = activeThumbBtn.closest('.thumbnail-list__item');
+                const targetLi = getValidSibling(currentLi, direction);
+
+                if (targetLi) {
+                  const btnToClick = targetLi.querySelector('button');
+                  if (btnToClick) btnToClick.click();
+                }
+              }
+
+              gallery.addEventListener('click', function(e) {
+                const btn = e.target.closest('.slider-button');
+                if (btn && btn.closest('product-gallery')) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  
+                  if (btn.style.cursor === 'not-allowed') return;
+
+                  if (btn.classList.contains('slider-button--next') || btn.name === 'next') {
+                    navigateGallery('next');
+                  } else if (btn.classList.contains('slider-button--prev') || btn.name === 'previous') {
+                    navigateGallery('prev');
+                  }
+                }
+              }, true); 
+
+              let touchStartX = 0;
+              let touchStartY = 0;
+
+              gallery.addEventListener('touchstart', e => {
+                if (!e.target.closest('.product__media-item')) return;
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+              }, { passive: true });
+
+              gallery.addEventListener('touchend', e => {
+                if (!e.target.closest('.product__media-item')) return;
+                const touchEndX = e.changedTouches[0].screenX;
+                const touchEndY = e.changedTouches[0].screenY;
+                
+                const deltaX = touchStartX - touchEndX;
+                const deltaY = touchStartY - touchEndY;
+                
+                if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 40) {
+                  if (deltaX > 0) {
+                    navigateGallery('next'); 
+                  } else {
+                    navigateGallery('prev'); 
+                  }
+                }
+              }, { passive: true });
+
+              function updateUI() {
+                const buttonsWrapper = gallery.querySelector('product-gallery .slider-buttons');
+                const allSlides = gallery.querySelectorAll('#Slider-Gallery-{{ section.id }} .product__media-item');
+                const nextBtn = gallery.querySelector('product-gallery .slider-button--next');
+                const prevBtn = gallery.querySelector('product-gallery .slider-button--prev');
+                const activeThumbBtn = gallery.querySelector('.thumbnail-list__item button[aria-current="true"]');
+
+                if (!buttonsWrapper || !allSlides.length) return;
+
+                let validSlides = 0;
+                allSlides.forEach(slide => {
+                  if (slide.style.display !== 'none' && !slide.classList.contains('visually-hidden') && !slide.hasAttribute('hidden')) {
+                    validSlides++;
+                  }
+                });
+                buttonsWrapper.style.display = validSlides <= 1 ? 'none' : '';
+
+                if (activeThumbBtn && nextBtn && prevBtn) {
+                  const currentLi = activeThumbBtn.closest('.thumbnail-list__item');
+                  const hasNext = !!getValidSibling(currentLi, 'next');
+                  const hasPrev = !!getValidSibling(currentLi, 'prev');
+
+                  nextBtn.disabled = false;
+                  nextBtn.removeAttribute('disabled');
+                  prevBtn.disabled = false;
+                  prevBtn.removeAttribute('disabled');
+
+                  nextBtn.style.opacity = hasNext ? '1' : '0.3';
+                  nextBtn.style.cursor = hasNext ? 'pointer' : 'not-allowed';
+
+                  prevBtn.style.opacity = hasPrev ? '1' : '0.3';
+                  prevBtn.style.cursor = hasPrev ? 'pointer' : 'not-allowed';
+                }
+              }
+
+              setTimeout(updateUI, 150);
+
+              const observer = new MutationObserver(() => {
+                setTimeout(updateUI, 50);
+              });
+              
+              observer.observe(gallery, { 
+                childList: true, 
+                subtree: true, 
+                attributes: true, 
+                attributeFilter: ['class', 'hidden', 'disabled', 'aria-current'] 
+              });
+            });
+          </script>
         </media-gallery>
       </div>
 
