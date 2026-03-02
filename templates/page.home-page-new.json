@@ -304,6 +304,70 @@
         "padding_bottom": 0
       }
     },
+    "collection_grid_UkaB3D": {
+      "type": "collection-grid",
+      "blocks": {
+        "collection_7D4XDf": {
+          "type": "collection",
+          "settings": {
+            "collection": "blankets",
+            "custom_image": "shopify://shop_images/Rectangle_161125177.webp",
+            "custom_title": ""
+          }
+        },
+        "collection_QUXJxi": {
+          "type": "collection",
+          "settings": {
+            "collection": "pajamas",
+            "custom_image": "shopify://shop_images/Rectangle_161125178.webp",
+            "custom_title": ""
+          }
+        },
+        "collection_7np3Cz": {
+          "type": "collection",
+          "settings": {
+            "collection": "shawls",
+            "custom_image": "shopify://shop_images/Rectangle_161125179.webp",
+            "custom_title": ""
+          }
+        },
+        "collection_tnLNAd": {
+          "type": "collection",
+          "settings": {
+            "collection": "various",
+            "custom_image": "shopify://shop_images/Rectangle_161125180.webp",
+            "custom_title": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_7D4XDf",
+        "collection_QUXJxi",
+        "collection_7np3Cz",
+        "collection_tnLNAd"
+      ],
+      "name": "Collection Grid Custom",
+      "settings": {
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "image_ratio": "portrait",
+        "image_radius": 0,
+        "text_alignment": "center",
+        "subheading": "",
+        "heading": "Shop by Category",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "heading_alignment": "center",
+        "use_custom_colors": false,
+        "colors_background": "#ffffff",
+        "colors_text": "#212326",
+        "show_divider": false,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36
+      }
+    },
     "image_with_text_v3_gcjp6W": {
       "type": "image-with-text-v3",
       "blocks": {
@@ -651,6 +715,7 @@
     "scrolling_promotion_v2_Wcr73F",
     "featured_collection_tabs_iz3a4E",
     "image_banner_v2_7agGMR",
+    "collection_grid_UkaB3D",
     "image_with_text_v3_gcjp6W",
     "image_with_text_v3_Lnk6pQ",
     "reviews_slider_v1_VwKkVG",
