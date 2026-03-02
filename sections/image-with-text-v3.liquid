@@ -114,24 +114,24 @@
   }
 
 /* --- New styles for Icon with Text block --- */
-.icon-grid-wrapper {
+.icon-grid-wrapper .icon-grid-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2.5rem 2rem;
   margin-top: 3rem !important;
 }
-.icon-grid-item__icon {
+.icon-grid-wrapper .icon-grid-item__icon {
   width: auto;
   height: auto;
   max-height: 4rem;
   margin-bottom: 0.5rem;
 }
-.icon-grid-item__heading {
+.icon-grid-wrapper .icon-grid-item__heading {
   font-size: 1.4rem;
   font-weight: 500;
   margin: 0 0 0.5rem;
 }
-.icon-grid-item__text p {
+.icon-grid-wrapper .icon-grid-item__text p {
   margin: 0;
   font-size: 1.2rem;
   letter-spacing: 0;
@@ -211,17 +211,17 @@
 }
 
 @media screen and (max-width: 749px) {
-  .icon-grid-wrapper {
+  .icon-grid-wrapper .icon-grid-wrapper {
     grid-template-columns: 1fr;
     gap: 2rem;
     margin-top: 2.5rem !important;
   }
-  .icon-grid-item {
+  .icon-grid-wrapper .icon-grid-item {
     display: flex;
     align-items: flex-start;
     gap: 1rem;
   }
-  .icon-grid-item__icon {
+  .icon-grid-wrapper .icon-grid-item__icon {
     max-width: 4rem;
   }
   .image-with-text-v3 .checklist-item {
