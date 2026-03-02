@@ -3760,3 +3760,74 @@ span.alert-box:before {
   font-weight: 400;
   letter-spacing: 0;
 }
+.donation-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.donation-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  width:100%;
+}
+.donation-heading {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.donation-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+}
+.donation-bar-wrapper {
+  flex: 1;
+  height: 15px;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  min-width: 120px;
+}
+.donation-bar-fill {
+  height: 100%;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  transition: width 1s ease;
+  min-width: fit-content;
+}
+.donation-bar-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+}
+.donation-goal-text {
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Mobile: stack vertically */
+@media (max-width: 749px) {
+  
+  .donation-row {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .donation-left {
+    width: 100%;
+  }
+  .donation-right {
+    width: 100%;
+  }
+}
