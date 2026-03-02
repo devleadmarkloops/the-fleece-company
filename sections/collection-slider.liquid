@@ -73,6 +73,12 @@
     margin: 0;
     font-family: var(--new-font-heading-family);
   }
+  #shopify-section-{{ section.id }} .title.h0 {
+    font-size: 5.2rem;
+  }
+  #shopify-section-{{ section.id }} .title.h1 {
+    font-size: 4.2rem;
+  }
 
   #shopify-section-{{ section.id }} .description {
     margin: 0;
@@ -199,6 +205,15 @@
 
   .cs-card:hover .cs-card__title {
     transform: scale(1.03);
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .title.h0 {
+      font-size: 3rem;
+    }
+    #shopify-section-{{ section.id }} .title.h1 {
+      font-size: 2.6rem;
+    }
   }
 {%- endstyle -%}
 
