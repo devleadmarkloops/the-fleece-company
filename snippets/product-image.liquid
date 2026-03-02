@@ -25,9 +25,19 @@
 
 {%- capture sizes -%}(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | times: media_width | round }}px, (min-width: 990px) calc({{ media_width | times: 100 }}vw - 10rem), (min-width: 750px) calc((100vw - 10rem) / 2), calc(100vw - 3rem){%- endcapture -%}
 {%- liquid
-  assign image_loading = 'eager'
-  if lazy_load
-    assign image_loading = 'lazy'
+  comment
+    Default to lazy-loading to keep mobile swiping smooth.
+    Only load eagerly when `lazy_load: false` is explicitly passed.
+  endcomment
+  assign image_loading = 'lazy'
+  if lazy_load == false
+    assign image_loading = 'eager'
+  endif
+
+  assign image_decoding = 'async'
+  assign image_fetchpriority = 'auto'
+  if position == 'featured' and image_loading == 'eager'
+    assign image_fetchpriority = 'high'
   endif
 
   assign alt = media.alt | escape | split: '#' | first
@@ -48,6 +58,8 @@
         >
           {{ media.preview_image | image_url: width: 1500 | image_tag:
             loading: image_loading,
+            decoding: image_decoding,
+            fetchpriority: image_fetchpriority,
             sizes: sizes,
             widths: widths,
             alt: alt
@@ -62,6 +74,8 @@
       >
         {{ media.preview_image | image_url: width: 1500 | image_tag:
           loading: image_loading,
+          decoding: image_decoding,
+          fetchpriority: image_fetchpriority,
           sizes: sizes,
           widths: widths,
           alt: alt,
@@ -94,6 +108,8 @@
     >
       {{ media.preview_image | image_url: width: 1500 | image_tag:
         loading: image_loading,
+        decoding: image_decoding,
+        fetchpriority: image_fetchpriority,
         sizes: sizes,
         widths: widths,
         alt: alt,
@@ -129,6 +145,8 @@
     {%- endif -%}
     {{ media.preview_image | image_url: width: 1500 | image_tag:
       loading: image_loading,
+      decoding: image_decoding,
+      fetchpriority: image_fetchpriority,
       class: 'deferred-media__poster',
       sizes: sizes,
       widths: widths,
