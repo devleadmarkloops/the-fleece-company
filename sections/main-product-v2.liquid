@@ -1206,6 +1206,7 @@
                   assign raised = shop.metafields.custom.donations_raised | default: block.settings.raised
                   assign goal = shop.metafields.custom.donation_goal | default: block.settings.goal
                   assign goal = goal | times: 100
+                  assign raised = raised | times: 100
                   assign progress = raised | times: 100 | divided_by: goal
                   if progress == 0 and raised > 0
                     assign progress = 1
@@ -1244,7 +1245,7 @@
                           width: {{ progress }}%;
                           background: {{ block.settings.bar_color }};
                         ">
-                          <span class="donation-bar-text">${{ raised }} raised</span>
+                          <span class="donation-bar-text">{{ raised | money}} raised</span>
                         </div>
                         <div class="donation-bar-goal">Goal {{ goal | money }}</div>
                       </div>
