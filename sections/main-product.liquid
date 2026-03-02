@@ -1030,61 +1030,66 @@
           {%- endif -%}
           <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const gallery = document.querySelector('#MediaGallery-{{ section.id }}');
+    const galleryId = '#MediaGallery-{{ section.id }}';
+    const gallery = document.querySelector(galleryId);
     if (!gallery) return;
 
-    const slider = gallery.querySelector('#Slider-Gallery-{{ section.id }}');
-    const nextBtn = gallery.querySelector('.slider-button--next');
-    const prevBtn = gallery.querySelector('.slider-button--prev');
-    const sliderButtonsWrapper = gallery.querySelector('.slider-buttons');
+    // --- 1. TOUCH LOGIC FOR FADE SLIDER (Event Delegation) ---
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let touchStartY = 0;
+    let touchEndY = 0;
 
-    // --- 1. TOUCH LOGIC FOR FADE SLIDER (Native Sync) ---
-    // Listens for a swipe gesture and clicks the hidden/visible arrows.
-    // This guarantees the fade animation and thumbnails stay perfectly synced.
-    if (slider) {
-      let touchStartX = 0;
-      let touchEndX = 0;
-      let touchStartY = 0;
-      let touchEndY = 0;
+    // Attach listeners to the gallery wrapper so they survive variant HTML swaps
+    gallery.addEventListener('touchstart', e => {
+      if (!e.target.closest('.product__media-item')) return; // Only track swipes on the actual images
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
 
-      slider.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-        touchStartY = e.changedTouches[0].screenY;
-      }, { passive: true });
+    gallery.addEventListener('touchend', e => {
+      if (!e.target.closest('.product__media-item')) return;
+      touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
+      handleSwipe();
+    }, { passive: true });
 
-      slider.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        touchEndY = e.changedTouches[0].screenY;
-        handleSwipe();
-      }, { passive: true });
-
-      function handleSwipe() {
-        const deltaX = touchStartX - touchEndX;
-        const deltaY = touchStartY - touchEndY;
-        
-        // Only trigger if horizontal swipe is stronger than vertical scroll (prevents accidental triggers when scrolling down the page)
-        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 40) {
-          if (deltaX > 0) {
-            // Swiped Left -> Next Image
-            if (nextBtn && sliderButtonsWrapper.style.display !== 'none') nextBtn.click();
-          } else {
-            // Swiped Right -> Prev Image
-            if (prevBtn && sliderButtonsWrapper.style.display !== 'none') prevBtn.click();
+    function handleSwipe() {
+      const deltaX = touchStartX - touchEndX;
+      const deltaY = touchStartY - touchEndY;
+      
+      // dynamically fetch the CURRENT buttons so we never click "ghost" elements
+      const currentNextBtn = gallery.querySelector('.slider-button--next');
+      const currentPrevBtn = gallery.querySelector('.slider-button--prev');
+      const sliderButtonsWrapper = gallery.querySelector('.slider-buttons');
+      
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 40) {
+        if (sliderButtonsWrapper && sliderButtonsWrapper.style.display !== 'none') {
+          if (deltaX > 0 && currentNextBtn) {
+            currentNextBtn.click(); // Swiped left -> Next
+          } else if (deltaX < 0 && currentPrevBtn) {
+            currentPrevBtn.click(); // Swiped right -> Prev
           }
         }
       }
     }
 
-    // --- 2. DYNAMIC ARROW HIDING FOR SINGLE VARIANT IMAGE ---
+    // --- 2. DYNAMIC ARROW HIDING (Variant Change Proof) ---
     function updateArrowVisibility() {
-      if (!sliderButtonsWrapper || !slider) return;
+      // Re-query the elements in case they were replaced by Shopify's JS
+      const currentGallery = document.querySelector(galleryId);
+      if (!currentGallery) return;
+      
+      const currentSlider = currentGallery.querySelector('#Slider-Gallery-{{ section.id }}');
+      const sliderButtonsWrapper = currentGallery.querySelector('.slider-buttons');
+      if (!currentSlider || !sliderButtonsWrapper) return;
 
-      const allSlides = slider.querySelectorAll('.product__media-item');
+      const allSlides = currentSlider.querySelectorAll('.product__media-item');
       let validSlides = 0;
 
       allSlides.forEach(slide => {
-         // Count slides that are physically rendered and not hidden by your variant logic
-         if (window.getComputedStyle(slide).display !== 'none' && !slide.classList.contains('visually-hidden')) {
+         // Check if the slide is visually rendered and not hidden by variant logic
+         if (window.getComputedStyle(slide).display !== 'none' && !slide.classList.contains('visually-hidden') && !slide.hasAttribute('hidden')) {
            validSlides++;
          }
       });
@@ -1093,14 +1098,21 @@
       sliderButtonsWrapper.style.display = validSlides <= 1 ? 'none' : '';
     }
 
-    // Run on load with a slight delay to let the theme's variant JS finish formatting
+    // Run on initial load
     setTimeout(updateArrowVisibility, 150);
 
-    // Watch the slider dynamically so if a user clicks a new variant, it recounts the images
-    if (slider) {
-      const observer = new MutationObserver(updateArrowVisibility);
-      observer.observe(slider, { childList: true, attributes: true, subtree: true, attributeFilter: ['class', 'style'] });
-    }
+    // Watch the entire gallery wrapper for changes made by the theme's variant JS
+    const observer = new MutationObserver(() => {
+       // A tiny debounce allows the theme's JS to finish injecting HTML before we check
+       setTimeout(updateArrowVisibility, 50);
+    });
+    
+    observer.observe(gallery, { 
+      childList: true, 
+      subtree: true, 
+      attributes: true, 
+      attributeFilter: ['class', 'hidden'] 
+    });
   });
 </script>
         </media-gallery>
