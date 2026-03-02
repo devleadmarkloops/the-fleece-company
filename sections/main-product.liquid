@@ -1028,67 +1028,6 @@
             </div>
             <script src="{{ 'product-thumbnails.js' | asset_url }}" defer="defer"></script>
           {%- endif -%}
-          <style>
-  /* --- 1. MOBILE SWIPE FIX --- */
-  /* Disables the stacked 'fade' effect ONLY on mobile so native dragging/swiping works smoothly */
-  @media screen and (max-width: 749px) {
-    #Slider-Gallery-{{ section.id }}.slider--fade {
-      display: flex !important;
-      flex-wrap: nowrap !important;
-      overflow-x: auto !important;
-      scroll-snap-type: x mandatory !important;
-      scroll-behavior: smooth !important;
-    }
-    #Slider-Gallery-{{ section.id }}.slider--fade .product__media-item {
-      position: relative !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-      flex: 0 0 100% !important;
-      transform: none !important;
-    }
-  }
-</style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const gallery = document.querySelector('#MediaGallery-{{ section.id }}');
-    if (!gallery) return;
-
-    // --- 2. DYNAMIC ARROW HIDING LOGIC ---
-    function updateArrowVisibility() {
-      const allSlides = gallery.querySelectorAll('#Slider-Gallery-{{ section.id }} .product__media-item');
-      let visibleCount = 0;
-      
-      allSlides.forEach(slide => {
-         // Counts slides that are physically visible and flagged as active by your variant filter
-         if (window.getComputedStyle(slide).display !== 'none' && !slide.classList.contains('visually-hidden') && slide.classList.contains('is-active')) {
-           visibleCount++;
-         }
-      });
-
-      const sliderButtons = gallery.querySelector('.slider-buttons');
-      if (sliderButtons) {
-        // Force hide arrows if 1 or 0 slides are active. Otherwise, clear inline style to let default CSS take over.
-        sliderButtons.style.display = visibleCount <= 1 ? 'none' : '';
-      }
-    }
-
-    // Run immediately on page load to check the initial variant
-    updateArrowVisibility();
-
-    // Run dynamically whenever the theme's JS changes variants (watches for class changes on the slider)
-    const observer = new MutationObserver(updateArrowVisibility);
-    const slider = gallery.querySelector('#Slider-Gallery-{{ section.id }}');
-    if (slider) {
-      observer.observe(slider, { 
-        childList: true, 
-        attributes: true, 
-        subtree: true, 
-        attributeFilter: ['class', 'style'] 
-      });
-    }
-  });
-</script>
         </media-gallery>
       </div>
 
