@@ -1123,6 +1123,11 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   }
 }
 
+/* New Design Cart */
+.cart-drawer .mini-cart__header {
+  display: flex;
+  justify-content: space-between;
+}
 .cart-drawer .mini-cart__header drawer-close-button.header__icon--summary {
   position: unset;
 }
