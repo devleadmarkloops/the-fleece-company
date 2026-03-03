@@ -1122,3 +1122,7 @@ details[open].menu-opening > .cart-drawer [data-animate] {
     font-size: 1.2rem;
   }
 }
+
+.cart-drawer .mini-cart__header drawer-close-button.header__icon--summary {
+  position: unset;
+}
