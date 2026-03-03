@@ -53,7 +53,7 @@
     {%- if section.settings.show_sub_collections and section.settings.sub_collection_menu != blank -%}
     {%- assign sub_menu = linklists[section.settings.sub_collection_menu] -%}
 
-    <div class="sc-nav-wrapper page-width">
+    <div class="sc-nav-wrapper">
       <ul class="sc-grid" role="list">
         {%- for link in sub_menu.links -%}
           {%- if link.type == 'collection_link' -%}
