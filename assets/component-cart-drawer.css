@@ -1148,11 +1148,13 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   text-align: center;
 }
 .cart-drawer .mini-cart__header .free-shipping .free-shipping__progress {
+  max-width: 35rem;
   height: 0.7rem;
   background-color: #fff;
   border: 1px solid #3B3B3B;
   border-radius: 40px;
   margin-top: 0.5rem;
+  margin-inline: auto;
 }
 .cart-drawer .mini-cart__header .free-shipping .free-shipping__progress:after {
   background-color: #C5BBAE;
