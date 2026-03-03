@@ -1127,6 +1127,7 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 .cart-drawer .mini-cart__header {
   display: flex;
   justify-content: space-between;
+  padding: 1.5rem 2.5rem;
 }
 .cart-drawer .mini-cart__header drawer-close-button.header__icon--summary {
   position: unset;
