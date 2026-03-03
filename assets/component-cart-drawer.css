@@ -1125,6 +1125,8 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 
 /* New Design Cart */
 .cart-drawer .mini-cart__header {
+}
+.cart-drawer .mini-cart__header .heading-inner {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -1135,5 +1137,5 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 }
 .cart-drawer .mini-cart__header .free-shipping {
   width: 100%;
-  padding: 0.8rem 2rem;
+  padding: 0.8rem 0;
 }

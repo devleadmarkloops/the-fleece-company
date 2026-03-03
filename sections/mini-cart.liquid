@@ -31,12 +31,14 @@
   <div class="mini-cart__inner">
     {% render 'd5-timer' %}
     <div class="mini-cart__header" data-animate data-animate-delay-{{ animate_count }}>
-      <div class="title h1">{{ 'sections.cart.title' | t }} ({{ cart.item_count }})</div>
-      <drawer-close-button class="header__icon header__icon--summary header__icon--cart">
-        <svg class="icon icon-close" aria-hidden="true" focusable="false">
-          <use href="#icon-close"></use>
-        </svg>
-      </drawer-close-button>
+      <div class="heading-inner">
+        <div class="title h1">{{ 'sections.cart.title' | t }} ({{ cart.item_count }})</div>
+        <drawer-close-button class="header__icon header__icon--summary header__icon--cart">
+          <svg class="icon icon-close" aria-hidden="true" focusable="false">
+            <use href="#icon-close"></use>
+          </svg>
+        </drawer-close-button>v
+      </div>
       {%- liquid
         if settings.show_free_shipping_message and settings.free_shipping_minimum_amount != blank
           assign free_shipping_minimum_amounts = settings.free_shipping_minimum_amount | remove: ' ' | split: ','
