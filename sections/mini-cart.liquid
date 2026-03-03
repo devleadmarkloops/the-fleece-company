@@ -65,7 +65,7 @@
           endif
         endif
       -%}
-      <span class="mini-cart__border"></span>
+      {% comment %} <span class="mini-cart__border"></span> {% endcomment %}
     </div>
     <div class="mini-cart__empty center" data-animate data-animate-delay-{{ animate_count }}>
       <p class="mini-cart__empty-text h3">{{ 'sections.cart.empty' | t }}</p>
