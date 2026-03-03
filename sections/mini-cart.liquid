@@ -35,7 +35,7 @@
           <use href="#icon-close"></use>
         </svg>
       </drawer-close-button>
-      <div class="title h1">{{ 'sections.cart.title' | t }} • {{ cart.item_count }} items</div>
+      <div class="title h1">{{ 'sections.cart.title' | t }} ({{ cart.item_count }})</div>
       {%- liquid
         if settings.show_free_shipping_message and settings.free_shipping_minimum_amount != blank
           assign free_shipping_minimum_amounts = settings.free_shipping_minimum_amount | remove: ' ' | split: ','
