@@ -119,6 +119,13 @@
     letter-spacing: 0;
   }
 
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .product-grid {
+      --grid-horizontal-spacing: 1rem;
+      row-gap: 2.5rem;
+    }
+  }
+
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .page-width.facet-nav-wr {
       flex-wrap: wrap;
