@@ -1147,6 +1147,11 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   margin: 0;
   text-align: center;
 }
+.cart-drawer .mini-cart__header .free-shipping .free-shipping__progress {
+  background-color: #fff;
+  border: 1px solid #3B3B3B;
+  border-radius: 40px;
+}
 .cart-drawer .mini-cart__header .free-shipping .free-shipping__text {
   font-family: var(--new-font-body-family);
   font-size: 1.2rem;
