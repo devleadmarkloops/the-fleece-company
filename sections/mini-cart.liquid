@@ -29,6 +29,7 @@
   id="cart"
 >
   <div class="mini-cart__inner">
+    {% render 'd5-timer' %}
     <div class="mini-cart__header" data-animate data-animate-delay-{{ animate_count }}>
       <drawer-close-button class="header__icon header__icon--summary header__icon--cart">
         <svg class="icon icon-close" aria-hidden="true" focusable="false">
@@ -286,7 +287,6 @@
         </cart-recommendations>
       {%- endif -%}
 
-      {% render 'd5-timer' %}
       <cart-items>
         {%- assign animate_count = animate_count | plus: 1 -%}
         <ul class="mini-cart__navigation" data-animate data-animate-delay-{{ animate_count }}>
