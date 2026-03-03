@@ -71,6 +71,9 @@
         "heading_PcPCDH",
         "text_rrYCtB"
       ],
+      "custom_css": [
+        ".banner__text {font-weight: 500;}"
+      ],
       "name": "Image banner v2",
       "settings": {
         "image": "shopify://shop_images/Group_2147226748.webp",
