@@ -25,6 +25,78 @@
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
     --image-position: {{ section.settings.image_position }};
   }
+
+  #shopify-section-{{ section.id }} .sc-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  #shopify-section-{{ section.id }} .sc-item {
+    flex: 0 0 calc(33.33% - 1rem); /* 3 per row mobile */
+    max-width: calc(33.33% - 1rem);
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .sc-item {
+      flex: 0 0 12rem; /* Fixed width desktop */
+      max-width: 12rem;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .sc-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    text-align: center;
+    group;
+  }
+
+  #shopify-section-{{ section.id }} .sc-card__img-wr {
+    position: relative;
+    width: 100%;
+    border-radius: 50%; /* Circular "bubble" style */
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(var(--color-foreground), 0.1);
+    transition: border-color 0.3s ease;
+  }
+  
+  #shopify-section-{{ section.id }} .sc-card:hover .sc-card__img-wr {
+      border-color: rgba(var(--color-foreground), 1);
+  }
+
+  .sc-ratio--portrait { padding-bottom: 125%; }
+  .sc-ratio--square { padding-bottom: 100%; }
+  .sc-ratio--landscape { padding-bottom: 75%; }
+
+  #shopify-section-{{ section.id }} .sc-card__img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  #shopify-section-{{ section.id }} .sc-card:hover .sc-card__img {
+      transform: scale(1.08);
+  }
+
+  #shopify-section-{{ section.id }} .sc-card__title {
+    margin: 0;
+    /* Implied New Font Family and CSS Variables */
+    font-family: var(--new-font-body-family);
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.3;
+    color: rgb(var(--color-foreground));
+    word-break: break-word;
+  }
 {%- endstyle -%}
 
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
