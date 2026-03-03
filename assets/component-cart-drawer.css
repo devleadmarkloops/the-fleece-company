@@ -1132,6 +1132,7 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
   padding: 1.5rem 1.5rem 1.5rem 2.5rem;
   background-color: #F8F8F8;
 }
@@ -1140,5 +1141,5 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 }
 .cart-drawer .mini-cart__header .free-shipping {
   width: 100%;
-  padding: 0.8rem 0;
+  padding: 0.8rem 2rem;
 }
