@@ -1153,6 +1153,12 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   font-weight: 500;
   letter-spacing: 0;
 }
+.cart-drawer .mini-cart__header .free-shipping .free-shipping__text .price bdi {
+  font-family: var(--new-font-body-family);
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
 .cart-drawer .mini-cart__inner .mini-cart__main {
   margin-top: 2rem;
 }
