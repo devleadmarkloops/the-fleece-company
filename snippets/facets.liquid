@@ -50,114 +50,37 @@
   <div class="page-width facet-nav-wr{% if enable_filtering and filter_type == 'drawer' %} facets-container-drawer{% endif %}">
 
     <!-- ADD COLLECTION NAVIGATION HERE -->
-    {%- if section.settings.show_sub_collections and section.blocks.size > 0 -%}
-  {%- style -%}
-    #shopify-section-{{ section.id }} .sub-collection-nav {
-      margin-bottom: 4rem;
-    }
-    #shopify-section-{{ section.id }} .sub-collection-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    
-    #shopify-section-{{ section.id }} .sub-collection-item {
-      flex: 0 0 calc(33.33% - 1rem); /* 3 per row on mobile */
-      max-width: calc(33.33% - 1rem);
-    }
+    {%- if section.settings.show_sub_collections and section.settings.sub_collection_menu != blank -%}
+    {%- assign sub_menu = linklists[section.settings.sub_collection_menu] -%}
 
-    @media screen and (min-width: 750px) {
-      #shopify-section-{{ section.id }} .sub-collection-item {
-        flex: 0 0 12rem; /* Fixed width on desktop */
-        max-width: 12rem;
-      }
-    }
-
-    #shopify-section-{{ section.id }} .sub-collection-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      text-align: center;
-      group;
-    }
-
-    #shopify-section-{{ section.id }} .sub-collection-card__image-wrapper {
-      position: relative;
-      width: 100%;
-      border-radius: 50%; /* Making them circular based on design trends */
-      overflow: hidden;
-      margin-bottom: 1rem;
-      border: 1px solid rgba(var(--color-foreground), 0.1);
-      transition: border-color 0.3s ease;
-    }
-    
-    #shopify-section-{{ section.id }} .sub-collection-card:hover .sub-collection-card__image-wrapper {
-        border-color: rgba(var(--color-foreground), 1);
-    }
-
-    /* Ratio Classes */
-    .sc-ratio--portrait { padding-bottom: 125%; }
-    .sc-ratio--square { padding-bottom: 100%; }
-    .sc-ratio--landscape { padding-bottom: 75%; }
-
-    #shopify-section-{{ section.id }} .sub-collection-card__image {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    
-    #shopify-section-{{ section.id }} .sub-collection-card:hover .sub-collection-card__image {
-        transform: scale(1.08);
-    }
-
-    #shopify-section-{{ section.id }} .sub-collection-card__title {
-      margin: 0;
-      font-family: var(--font-body-family); /* Or your custom variable */
-      font-size: 1.3rem;
-      font-weight: 500;
-      line-height: 1.3;
-      color: rgb(var(--color-foreground));
-      word-break: break-word;
-    }
-  {%- endstyle -%}
-
-  <div class="sub-collection-nav page-width">
-    <ul class="sub-collection-grid" role="list">
-      {%- for block in section.blocks -%}
-        {%- liquid
-          assign collection = block.settings.collection
-          assign custom_image = block.settings.custom_image
-          assign custom_title = block.settings.custom_title
-          
-          # Logic: Use custom if provided, otherwise default to collection data, otherwise placeholder text
-          assign final_image = custom_image | default: collection.featured_image
-          assign final_title = custom_title | default: collection.title | default: 'Collection'
-          assign final_link = collection.url | default: '#'
-        -%}
-        
-        <li class="sub-collection-item" {{ block.shopify_attributes }}>
-          <a href="{{ final_link }}" class="sub-collection-card">
-            <div class="sub-collection-card__image-wrapper sc-ratio--{{ section.settings.sub_collection_image_ratio }}">
-              {%- if final_image != blank -%}
-                {{ final_image | image_url: width: 240 | image_tag: loading: 'lazy', class: 'sub-collection-card__image', sizes: '(min-width: 750px) 120px, 33vw', widths: '120, 240, 360' }}
-              {%- else -%}
-                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg sub-collection-card__image' }}
-              {%- endif -%}
-            </div>
-            <span class="sub-collection-card__title">{{ final_title | escape }}</span>
-          </a>
-        </li>
-      {%- endfor -%}
-    </ul>
-  </div>
-{%- endif -%}
+    <div class="sc-nav-wrapper">
+      <ul class="sc-grid" role="list">
+        {%- for link in sub_menu.links -%}
+          {%- if link.type == 'collection_link' -%}
+            {%- assign linked_collection = link.object -%}
+            
+            {% comment %} --- SMART LOGIC: Pulls the featured image automatically --- {% endcomment %}
+            {%- assign final_image = linked_collection.featured_image -%}
+            {%- assign final_title = link.title -%}
+            {%- assign final_link = link.url -%}
+            
+            <li class="sc-item">
+              <a href="{{ final_link }}" class="sc-card">
+                <div class="sc-card__img-wr sc-ratio--{{ section.settings.sub_collection_image_ratio }}">
+                  {%- if final_image != blank -%}
+                    {{ final_image | image_url: width: 240 | image_tag: loading: 'lazy', class: 'sc-card__img', sizes: '(min-width: 750px) 120px, 33vw', widths: '120, 240, 360' }}
+                  {%- else -%}
+                    {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg sc-card__img' }}
+                  {%- endif -%}
+                </div>
+                <span class="sc-card__title">{{ final_title | escape }}</span>
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- endif -%}
     <!-- END COLLECTION NAVIGATION -->
     <div class="page-width">
   <div class="active-facets-mobile">
