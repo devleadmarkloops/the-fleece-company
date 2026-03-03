@@ -173,8 +173,9 @@ details[open].menu-opening > .cart-drawer {
 
 .mini-cart__header .title {
   margin: 0;
-  line-height: 122.58%;
-  font-size: 3.1rem;
+  font-size: 2.6rem;
+  line-height: 1.2;
+  letter-spacing: 0;
 }
 
 .mini-cart__main {
