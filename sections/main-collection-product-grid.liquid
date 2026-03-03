@@ -30,14 +30,14 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
-    justify-content: center;
+    justify-content: flex-start;
     list-style: none;
     padding: 0;
     margin: 0;
   }
   #shopify-section-{{ section.id }} .sc-item {
-    flex: 0 0 calc(33.33% - 1rem);
-    max-width: calc(33.33% - 1rem);
+    flex: 0 0 6rem;
+      max-width: 6rem;
   }
 
   @media screen and (min-width: 750px) {
@@ -80,8 +80,6 @@
     width: 100%; height: 100%;
     object-fit: cover;
     transition: all 0.3s ease;
-  }
-  #shopify-section-{{ section.id }} .sc-card:hover .sc-card__img {
   }
   #shopify-section-{{ section.id }} .sc-card__title {
     margin: 0;
