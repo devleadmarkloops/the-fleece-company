@@ -1153,3 +1153,6 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   font-weight: 500;
   letter-spacing: 0;
 }
+.cart-drawer .mini-cart__inner .mini-cart__main {
+  margin-top: 2rem;
+}
