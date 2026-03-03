@@ -1138,6 +1138,8 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 }
 .cart-drawer .mini-cart__header drawer-close-button.header__icon--summary {
   position: unset;
+  width: 3rem;
+  height: 3rem;
 }
 .cart-drawer .mini-cart__header .free-shipping {
   width: 100%;
