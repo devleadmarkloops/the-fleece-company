@@ -50,7 +50,7 @@
   <div class="page-width facet-nav-wr{% if enable_filtering and filter_type == 'drawer' %} facets-container-drawer{% endif %}">
 
     <!-- ADD COLLECTION NAVIGATION HERE -->
-    {% comment %} {% if section.settings.show_collection_navigation and section.settings.collection_menu != blank %}
+    {% if section.settings.show_collection_navigation and section.settings.collection_menu != blank %}
       <div class="collection-navigation">
         {% assign collection_menu = linklists[section.settings.collection_menu] %}
         <nav class="collection-nav-links" 
@@ -70,7 +70,7 @@
           {% endfor %}
         </nav>
       </div>
-    {% endif %} {% endcomment %}
+    {% endif %}
     <!-- END COLLECTION NAVIGATION -->
     <div class="page-width">
   <div class="active-facets-mobile">
