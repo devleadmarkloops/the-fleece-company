@@ -226,7 +226,7 @@ header.header-new .mega-menu__promo-subheading strong {
 }
 
 /* ##### Collection Page ##### */
-/* .facet-nav-wr {
+.facet-nav-wr {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -276,7 +276,7 @@ header.header-new .mega-menu__promo-subheading strong {
   .collection-nav-links {
     flex-wrap: nowrap;
   }
-} */
+}
 
 /* Policy Pages */
 .shopify-policy__container {
