@@ -219,22 +219,29 @@
   "class": "section collection-grid-section",
   "settings": [
     {
+      "type": "header",
+      "content": "Sub-Collection Navigation"
+    },
+    {
       "type": "checkbox",
-      "id": "show_collection_navigation",
-      "label": "Show collection navigation",
-      "default": false
+      "id": "show_sub_collections",
+      "default": true,
+      "label": "Show collection links"
     },
     {
-      "type": "link_list",
-      "id": "collection_menu",
-      "label": "Collection navigation menu",
-      "info": "Create a menu with your collection links in Navigation settings"
+      "type": "select",
+      "id": "sub_collection_image_ratio",
+      "options": [
+        { "value": "portrait", "label": "Portrait (4:5)" },
+        { "value": "square", "label": "Square (1:1)" },
+        { "value": "landscape", "label": "Landscape (4:3)" }
+      ],
+      "default": "square",
+      "label": "Image Ratio"
     },
     {
-      "type": "color",
-      "id": "active_link_bg",
-      "label": "Active link background",
-      "default": "#000000"
+      "type": "header",
+      "content": "Product Grid"
     },
     {
       "type": "range",
