@@ -69,6 +69,7 @@
 }
 
 .mini-cart--open drawer-close-button.header__icon--summary::after {
+  background-color: transparent;
   transform: scale(1);
   transition-delay: var(--duration-long);
 }
