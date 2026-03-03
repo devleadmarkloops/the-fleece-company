@@ -92,6 +92,15 @@
     word-break: break-word;
   }
 
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .page-width.facet-nav-wr {
+      flex-wrap: wrap;
+    }
+    #shopify-section-{{ section.id }} .sc-grid {
+      width: 100%;
+    }
+  }
+
 {%- endstyle -%}
 
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
