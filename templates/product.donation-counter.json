@@ -38,7 +38,6 @@
         "donation_impact_Vaf4tz": {
           "type": "donation_impact",
           "settings": {
-            "icon_image": "shopify://shop_images/Vector_1_8c8bdc1d-f5b2-4fb7-b381-727de5071ae2.svg",
             "icon_size": 16,
             "heading": "Every Order Donates $1 to Women Escaping Abuse",
             "raised": 6847,
