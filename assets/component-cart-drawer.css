@@ -1125,12 +1125,15 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 
 /* New Design Cart */
 .cart-drawer .mini-cart__header {
+  padding: 0;
+  background-color: #F0EAE4;
 }
 .cart-drawer .mini-cart__header .heading-inner {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 1.5rem 1.5rem 1.5rem 2.5rem;
+  background-color: #F8F8F8;
 }
 .cart-drawer .mini-cart__header drawer-close-button.header__icon--summary {
   position: unset;
