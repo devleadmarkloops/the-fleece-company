@@ -1152,16 +1152,18 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   background-color: #fff;
   border: 1px solid #3B3B3B;
   border-radius: 40px;
+  margin-top: 0.5rem;
+}
+.cart-drawer .mini-cart__header .free-shipping .free-shipping__progress:after {
+  background-color: #C5BBAE;
+  background: #C5BBAE;
+  border-radius: 40px;
 }
 .cart-drawer .mini-cart__header .free-shipping .free-shipping__text {
   font-family: var(--new-font-body-family);
   font-size: 1.2rem;
   font-weight: 500;
   letter-spacing: 0;
-}
-.cart-drawer .mini-cart__header .free-shipping .free-shipping__progress:after {
-  background-color: #C5BBAE;
-  border-radius: 40px;
 }
 .cart-drawer .mini-cart__header .free-shipping .free-shipping__text .price bdi {
   font-family: var(--new-font-body-family);
