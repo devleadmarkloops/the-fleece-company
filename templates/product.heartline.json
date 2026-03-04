@@ -82,6 +82,7 @@
         },
         "icon_text_KLMX3D": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/Group_1.svg",
             "icon_size": 20,
