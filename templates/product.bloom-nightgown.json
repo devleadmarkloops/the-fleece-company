@@ -91,10 +91,10 @@
             "text_3": "Gentle and Skin Friendly",
             "text_4": "",
             "icon_size": 30,
-            "icon_size_mob": 24,
+            "icon_size_mob": 20,
             "text_size": 14,
-            "text_size_mob": 13,
-            "text_color": "#000000"
+            "text_size_mob": 11,
+            "text_color": "#3b3b3b"
           }
         },
         "icon_text_KLMX3D": {
