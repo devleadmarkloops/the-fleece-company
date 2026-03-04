@@ -74,6 +74,23 @@
             "enable_bg": true
           }
         },
+        "icon_text_grid_a7GTKx": {
+          "type": "icon_text_grid",
+          "settings": {
+            "icon_1": "shopify://shop_images/clouds.png",
+            "text_1": "Incredibly Soft",
+            "icon_2": "shopify://shop_images/air_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_2": "Breathable",
+            "icon_3": "shopify://shop_images/health_and_safety_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_3": "Gentle and Skin Friendly",
+            "text_4": "",
+            "icon_size": 30,
+            "icon_size_mob": 24,
+            "text_size": 14,
+            "text_size_mob": 13,
+            "text_color": "#000000"
+          }
+        },
         "text_custom_Vpdkyw": {
           "type": "text_custom",
           "disabled": true,
@@ -88,6 +105,7 @@
         },
         "icon_text_9Gxbx4": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/filter_drama_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
             "icon_size": 32,
@@ -102,6 +120,7 @@
         },
         "icon_text_KLMX3D": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/air_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
             "icon_size": 32,
@@ -116,6 +135,7 @@
         },
         "icon_text_R7iXXY": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/health_and_safety_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
             "icon_size": 32,
@@ -286,6 +306,7 @@
         "rating_static_jQpEEQ",
         "price",
         "icon_text_djetjH",
+        "icon_text_grid_a7GTKx",
         "text_custom_Vpdkyw",
         "icon_text_9Gxbx4",
         "icon_text_KLMX3D",
