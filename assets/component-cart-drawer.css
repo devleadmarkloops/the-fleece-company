@@ -1489,4 +1489,8 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   .os-switch-input-d5:checked + .os-slider-d5:before {
     transform: translateX(18px) !important;
   }
+  .cart-drawer .mini-cart__footer {
+    padding-top: 1.5rem;
+    padding-inline: 1.5rem;
+  }
 }
