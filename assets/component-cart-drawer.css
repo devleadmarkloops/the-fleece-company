@@ -1187,3 +1187,6 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 .cart-drawer .mini-cart__main .product-img-wr .product-image {
   width: 100%;
 }
+.cart-drawer .mini-cart__main .product-img-wr .product-quantity {
+  margin-top: 0;
+}
