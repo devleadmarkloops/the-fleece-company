@@ -1436,4 +1436,14 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   .cart-drawer .mini-cart__main .product-img-wr .product-quantity .quantity .quantity__input {
     width: 3rem;
   }
+  .cart-drawer .mini-cart__main .product-content .product-title {
+    font-size: 1.4rem;
+    margin-inline-end: 1rem;
+  }
+  .cart-drawer .mini-cart__main .product-content .quantity-price-d5 .price bdi {
+    font-size: 1.3rem;
+  }
+  .cart-drawer .mini-cart__main .product-content .quantity-price-d5 .price-save {
+    font-size: 1.2rem;
+  }
 }
