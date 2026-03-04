@@ -1316,3 +1316,10 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   background-color: #F0EAE4;
   border-radius: 10px;
 }
+.cart-drawer .mini-cart__main .os-container-d5 .os-protection-wrapper-d5 {
+  padding: 0;
+}
+.cart-drawer .mini-cart__main .os-protection-wrapper-d5 .os-icon-box-d5 {
+  width: 4rem;
+  height: 4rem;
+}
