@@ -3813,7 +3813,6 @@ span.alert-box:before {
 }
 .donation-bar-text {
   font-size: 12px;
-  font-weight: 600;
   color: #fff;
   white-space: nowrap;
 }
@@ -3863,7 +3862,6 @@ span.donation-bar-text svg {
   right: 0;
   top: 0;
   font-size: 12px;
-  font-weight:bold;
   height: 100%;
   padding: 0 10px;
   line-height: normal;
