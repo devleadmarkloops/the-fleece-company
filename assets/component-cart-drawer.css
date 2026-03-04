@@ -1496,7 +1496,7 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   .cart-drawer .mini-cart__footer .cd-final-pricing-d5 p {
     margin-bottom: 1rem;
   }
-  .cart-drawer .mini-cart__footer .sub-total {
+  .cart-drawer .mini-cart__footer .cd-final-pricing-d5 .sub-total {
     margin-bottom: 1.2rem;
   }
 }
