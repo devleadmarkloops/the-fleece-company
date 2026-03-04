@@ -698,15 +698,15 @@
                             {%- endif -%}
                           </dd>
                           {%- unless item.product.has_only_default_variant -%}
-  <dl class="cart-drawer__variant-options">
-    {%- for option in item.options_with_values -%}
-      <div class="cart-drawer__option-row">
-        <dt>{{ option.name }}:</dt>
-        <dd>{{ option.value }}</dd>
-      </div>
-    {%- endfor -%}
-  </dl>
-{%- endunless -%}
+                            <dl class="cart-drawer__variant-options">
+                              {%- for option in item.options_with_values -%}
+                                <div class="cart-drawer__option-row">
+                                  <dt>{{ option.name }}:</dt>
+                                  <dd>{{ option.value }}</dd>
+                                </div>
+                              {%- endfor -%}
+                            </dl>
+                          {%- endunless -%}
                         {%- endif -%}
 
                         {%- for property in item.properties -%}
