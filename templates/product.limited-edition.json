@@ -40,7 +40,9 @@
           "settings": {
             "title_size": "h1",
             "show_price": false,
-            "price_size": "medium"
+            "price_size": "medium",
+            "desktop_hide": false,
+            "mobile_hide": false
           }
         },
         "rating_static_jQpEEQ": {
@@ -76,9 +78,11 @@
             "icon_size": 20,
             "icon_size_mob": 18,
             "icon_text": "100% Skin friendly materials",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_KLMX3D": {
@@ -88,9 +92,11 @@
             "icon_size": 20,
             "icon_size_mob": 18,
             "icon_text": "Super soft, breathable fleece",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_R7iXXY": {
@@ -100,9 +106,11 @@
             "icon_size": 20,
             "icon_size_mob": 18,
             "icon_text": "Helps improve your mood",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "text_custom_Lpng9n": {
@@ -140,30 +148,36 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
+            "buy_buttons_version": "v1",
             "show_quantity_selector": false,
             "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false
+            "show_gift_card_recipient": false,
+            "enable_monogram": false,
+            "monogram_product": "",
+            "icon_text": ""
           }
         },
         "countdown_timer_4tCBwt": {
           "type": "countdown_timer",
           "settings": {
             "heading": "Early Women’s Month Sale ENDS IN:",
-            "heading_color": "#ffffff",
-            "background_color": "#c5bbae",
-            "timer_color": "#121212",
-            "label_color": "#121212",
+            "heading_color": "#3b3b3b",
+            "background_color": "#f0eae4",
+            "timer_color": "#3b3b3b",
+            "label_color": "#3b3b3b",
             "per_visitor_timer": true,
             "end_date": "2026-01-31 23:59:59",
             "visitor_days": 0,
             "visitor_hours": 20,
             "visitor_minutes": 3,
             "visitor_seconds": 30,
+            "enable_payment_icons": false,
             "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
           }
         },
         "icon_with_text_NArRNw": {
           "type": "icon_with_text",
+          "disabled": true,
           "settings": {
             "icon_1": "shopify://shop_images/local_shipping_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
             "text_1": "Fast + Tracked Shipping",
@@ -192,7 +206,7 @@
         "collapsible_tab_TbRiah": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Care",
             "content": "<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your blanket for years to come.</p>",
             "page": "",
@@ -215,7 +229,7 @@
         "shipping_metaobject_tLJRyV": {
           "type": "shipping_metaobject",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Shipping & Returns",
             "shipping_text": "default"
           }
@@ -249,6 +263,7 @@
         "sticky_cart"
       ],
       "settings": {
+        "enable_v2_styles": false,
         "enable_sticky_info": true,
         "media_position": "left",
         "media_size": "large",
@@ -261,6 +276,8 @@
         "enable_video_looping": false,
         "mobile_image_ratio": "square",
         "show_mobile_thumbnails": false,
+        "enable_variant_specific_media": false,
+        "enable_fade_slider": true,
         "padding_top": 0,
         "padding_bottom": 20
       }
@@ -568,10 +585,13 @@
         "show_quick_buy": true,
         "enable_quick_view": true,
         "enable_color_swatches": true,
+        "enable_other_variants": false,
         "enable_countdown": true,
         "colors_highlight": "#ffb503",
         "padding_top": 36,
         "padding_bottom": 36,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36,
         "enable_highlight": false,
         "highlight_style": "marker"
       }
