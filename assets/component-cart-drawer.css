@@ -1355,7 +1355,7 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   line-height: normal;
 }
 .cart-drawer .mini-cart__footer {
-  padding-top: 2.5rem;
+  padding-top: 2rem;
   border-top: 0;
 }
 .cart-drawer .mini-cart__footer .cd-final-pricing-d5 p {
