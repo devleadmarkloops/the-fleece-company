@@ -89,10 +89,13 @@
         "icon_text_grid_eqBhTV": {
           "type": "icon_text_grid",
           "settings": {
-            "text_1": "Lightweight Everyday Comfort",
-            "text_2": "100% Premium Muslin Cotton",
-            "text_3": "Breathable Muslin Weave",
-            "text_4": "Incredibly Soft Texture",
+            "icon_1": "shopify://shop_images/clouds.png",
+            "text_1": "Super Soft, breathable Fleece",
+            "icon_2": "shopify://shop_images/ggghi.png",
+            "text_2": "Elegant drape design",
+            "icon_3": "shopify://shop_images/ruler.png",
+            "text_3": "Effortless one-size fit",
+            "text_4": "",
             "icon_size": 30,
             "icon_size_mob": 24,
             "text_size": 14,
@@ -102,6 +105,7 @@
         },
         "icon_text_9Gxbx4": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/clouds.png",
             "icon_size": 32,
@@ -116,6 +120,7 @@
         },
         "icon_text_KLMX3D": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/ggghi.png",
             "icon_size": 32,
@@ -130,6 +135,7 @@
         },
         "icon_text_R7iXXY": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/ruler.png",
             "icon_size": 30,
