@@ -35,6 +35,14 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "breadcrumb_eNWpNz": {
+          "type": "breadcrumb",
+          "settings": {
+            "text_style": "body",
+            "show_divider": false,
+            "hide_mobile": true
+          }
+        },
         "title": {
           "type": "title",
           "settings": {
@@ -75,43 +83,32 @@
         "icon_text_9Gxbx4": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/filter_drama_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
-            "icon_size": 32,
-            "icon_size_mob": 28,
-            "icon_text": "Incredibly Soft",
-            "icon_richtext": "",
-            "text_color": "#121212",
-            "text_size": 16,
-            "text_size_mob": 14,
-            "enable_bg": false
+            "icon": "shopify://shop_images/Group_1.svg",
+            "icon_size": 20,
+            "icon_size_mob": 18,
+            "icon_text": "",
+            "icon_richtext": "<p><strong>Early Women's Month Sale:</strong> Buy One, Get One <strong>FREE</strong></p>",
+            "text_color": "#3b3b3b",
+            "text_size": 14,
+            "text_size_mob": 11,
+            "enable_bg": true
           }
         },
-        "icon_text_KLMX3D": {
-          "type": "icon_text",
+        "icon_text_grid_6agkcQ": {
+          "type": "icon_text_grid",
           "settings": {
-            "icon": "shopify://shop_images/air_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
-            "icon_size": 32,
-            "icon_size_mob": 28,
-            "icon_text": "Breathable",
-            "icon_richtext": "",
-            "text_color": "#121212",
-            "text_size": 16,
-            "text_size_mob": 14,
-            "enable_bg": false
-          }
-        },
-        "icon_text_R7iXXY": {
-          "type": "icon_text",
-          "settings": {
-            "icon": "shopify://shop_images/health_and_safety_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
-            "icon_size": 32,
-            "icon_size_mob": 28,
-            "icon_text": "Gentle and Skin Friendly",
-            "icon_richtext": "",
-            "text_color": "#121212",
-            "text_size": 16,
-            "text_size_mob": 14,
-            "enable_bg": false
+            "icon_1": "shopify://shop_images/filter_drama_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_1": "Incredibly Soft",
+            "icon_2": "shopify://shop_images/air_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_2": "Breathable",
+            "icon_3": "shopify://shop_images/health_and_safety_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_3": "Gentle and Skin Friendly",
+            "text_4": "",
+            "icon_size": 30,
+            "icon_size_mob": 20,
+            "text_size": 14,
+            "text_size_mob": 11,
+            "text_color": "#000000"
           }
         },
         "text_custom_Lpng9n": {
@@ -128,6 +125,7 @@
         },
         "custom_liquid_R6BQW3": {
           "type": "custom_liquid",
+          "disabled": true,
           "settings": {
             "custom_liquid": "<style>\n  /* tweak --lh if your theme's line-height looks different */\n  .special-msg {\n    --lh: 1.35;                    /* line-height for this block */\n    --dot: 8px;                    /* dot size */\n    color: #A63E3E;\n    font-weight: 600;\n    display: block;\n    margin: 5px 0;\n    padding-left: 18px;            /* room for the dot */\n    position: relative;\n    line-height: var(--lh);\n    text-align: left !important;\n    white-space: normal;\n    letter-spacing: .3px;\n  }\n\n  .special-msg::before {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    width: var(--dot);\n    height: var(--dot);\n    border-radius: 50%;\n    background: #A63E3E;\n    /* place the dot centered within the FIRST line only */\n    top: calc((var(--lh) * 1em - var(--dot)) / 2);\n    animation: blink 3.5s infinite ease-in-out;\n  }\n\n@keyframes blink {\n  /* Quick fade in */\n  0%   { opacity: 0; }\n  40%  { opacity: 1; }\n\n  /* Hold bright */\n  60%  { opacity: 1; }\n\n  /* Slow fade out */\n  100% { opacity: 0; }\n}\n\n</style>\n\n<div class=\"special-msg\">\n  Limited units available during our <b>Early Women’s Month Sale</b>\n</div>"
           }
@@ -163,36 +161,34 @@
             "show_gift_card_recipient": false,
             "enable_monogram": false,
             "monogram_product": "",
-            "icon_text": ""
+            "icon": "shopify://shop_images/Vector_2.svg",
+            "icon_text": "30 DAYS MONEY BACK GUARANTEE"
           }
         },
         "countdown_timer_4tCBwt": {
           "type": "countdown_timer",
           "settings": {
-            "heading": "Early Women’s Month Sale ENDS IN:",
-            "heading_color": "#ffffff",
-            "background_color": "#c5bbae",
-            "timer_color": "#121212",
-            "label_color": "#121212",
+            "heading": "Sale ENDS IN:",
+            "heading_color": "#3b3b3b",
+            "background_color": "#f0eae4",
+            "timer_color": "#3b3b3b",
+            "label_color": "#3b3b3b",
             "per_visitor_timer": true,
             "end_date": "2026-01-31 23:59:59",
             "visitor_days": 0,
             "visitor_hours": 20,
             "visitor_minutes": 3,
             "visitor_seconds": 27,
-            "enable_payment_icons": true,
+            "enable_payment_icons": false,
             "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
           }
         },
-        "icon_with_text_NArRNw": {
-          "type": "icon_with_text",
+        "richtext_box_J6BgHQ": {
+          "type": "richtext_box",
           "settings": {
-            "icon_1": "shopify://shop_images/local_shipping_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
-            "text_1": "Fast + Tracked Shipping",
-            "icon_2": "shopify://shop_images/undo_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
-            "text_2": "30 Days Money Back",
-            "icon_3": "shopify://shop_images/select_check_box_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
-            "text_3": "100% Cotton"
+            "rich_text": "<p><strong>Shipped in 1-3 Days</strong><br/>Fast & Tracked USPS Shipping</p>",
+            "text_size": 14,
+            "text_size_mob": 11
           }
         },
         "text_custom_A3eeDw": {
@@ -210,7 +206,7 @@
         "collapsible_tab_TbRiah": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Care",
             "content": "<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your clothes for years to come.</p>",
             "page": "",
@@ -221,7 +217,7 @@
         "collapsible_tab-0": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Details",
             "content": "<p>This pajama has a relaxed, baggy fit for maximum comfort. If you prefer a more standard or fitted look, we recommend sizing down.For an oversized look, stick to your usual size.</p>",
             "page": "",
@@ -244,7 +240,7 @@
         "shipping_metaobject_tLJRyV": {
           "type": "shipping_metaobject",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Shipping & Returns",
             "shipping_text": "default"
           }
@@ -257,20 +253,20 @@
         }
       },
       "block_order": [
+        "breadcrumb_eNWpNz",
         "title",
         "rating_static_jQpEEQ",
         "price",
         "text_custom_Vpdkyw",
         "icon_text_9Gxbx4",
-        "icon_text_KLMX3D",
-        "icon_text_R7iXXY",
+        "icon_text_grid_6agkcQ",
         "text_custom_Lpng9n",
         "custom_liquid_R6BQW3",
         "variant_picker",
         "kiwi_size_chart_recommender_kiwi_sizing_RaKeph",
         "buy_buttons",
         "countdown_timer_4tCBwt",
-        "icon_with_text_NArRNw",
+        "richtext_box_J6BgHQ",
         "text_custom_A3eeDw",
         "collapsible_tab_TbRiah",
         "collapsible_tab-0",
