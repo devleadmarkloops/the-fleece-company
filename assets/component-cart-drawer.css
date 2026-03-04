@@ -1493,4 +1493,7 @@ details[open].menu-opening > .cart-drawer [data-animate] {
     padding-top: 1.5rem;
     padding-inline: 1.5rem;
   }
+  .cart-drawer .mini-cart__footer .cd-final-pricing-d5 p {
+    margin-bottom: 1rem;
+  }
 }
