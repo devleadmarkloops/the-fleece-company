@@ -1328,4 +1328,5 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   font-size: 1.6rem;
   font-weight: 400;
   letter-spacing: 0;
+  color: rgba(var(--color-foreground),1);
 }
