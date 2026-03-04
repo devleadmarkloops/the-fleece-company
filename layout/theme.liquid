@@ -218,22 +218,17 @@
     {% render 'transition-cover' %}
 
     <div class="transition-body">
-      {%- if template.name == 'index' or template.name == 'collection' or template.suffix == 'muslin-blanket-le-new' or template.suffix == 'home-page-new' or template.suffix == 'donation-counter' -%}
         {% sections 'header-custom-group' %}
-      {%- else -%}
-        {% sections 'header-group' %}
-      {%- endif -%}
+      
 
       <div class="transition-content">
         <main id="MainContent" class="content-for-layout focus-none shopify-section" role="main" tabindex="-1">
           {{ content_for_layout }}
         </main>
 
-        {%- if template.name == 'index' or template.name == 'collection' or template.suffix == 'muslin-blanket-le-new' or template.suffix == 'home-page-new' -%}
+        
           {% sections 'footer-custom-group' %}
-        {% else %}
-          {% sections 'footer-group' %}
-        {% endif %}
+        
       </div>
     </div>
 
