@@ -1388,7 +1388,7 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 }
 .cart-drawer .mini-cart__footer .cd-trust-badge-d5 {
   margin-top: 1rem;
-  gap: 0.5rem;
+  gap: 0.3rem;
 }
 .cart-drawer .mini-cart__footer .cd-trust-badge-d5 span {
   width: 1.5rem;
