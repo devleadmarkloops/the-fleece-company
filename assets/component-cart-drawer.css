@@ -1453,4 +1453,8 @@ details[open].menu-opening > .cart-drawer [data-animate] {
     font-size: 1.3rem;
     padding-block: 0.35rem;
   }
+  .cart-drawer .mini-cart__main .discounts__discount {
+    font-size: 0.9rem;
+    padding: 0.2rem 0.8rem;
+  }
 }
