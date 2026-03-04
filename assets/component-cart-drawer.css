@@ -1461,4 +1461,18 @@ details[open].menu-opening > .cart-drawer [data-animate] {
     width: 1.2rem;
     height: 1.2rem;
   }
+  .cart-drawer .mini-cart__main .os-container-d5 {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .cart-drawer .mini-cart__main .os-protection-wrapper-d5 .os-icon-box-d5 {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  .cart-drawer .mini-cart__main .os-protection-wrapper-d5 .os-title-d5 {
+    font-size: 1.4rem;
+  }
+  .cart-drawer .mini-cart__main .os-protection-wrapper-d5 .os-description-d5 {
+    font-size: 1.1rem;
+  }
 }
