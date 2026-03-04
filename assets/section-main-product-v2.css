@@ -3839,6 +3839,17 @@ span.alert-box:before {
   .donation-right {
     width: 100%;
   }
+  span.donation-bar-text svg {
+    width: 15px;
+  }
+  .donation-bar-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    display: flex;
+    gap: 2px;
+  }
 }
 
 .donation-bar-goal {
