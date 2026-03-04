@@ -1487,6 +1487,6 @@ details[open].menu-opening > .cart-drawer [data-animate] {
     left: 2px;
   }
   .os-switch-input-d5:checked + .os-slider-d5:before {
-    transform: translateX(18px);
+    transform: translateX(18px) !important;
   }
 }
