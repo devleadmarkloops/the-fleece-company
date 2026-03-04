@@ -1330,3 +1330,10 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   letter-spacing: 0;
   color: rgba(var(--color-foreground),1);
 }
+.cart-drawer .mini-cart__main .os-protection-wrapper-d5 .os-description-d5 {
+  font-family: var(--new-font-body-family);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: rgba(var(--color-foreground),1);
+}
