@@ -35,12 +35,22 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "breadcrumb_mqYYwC": {
+          "type": "breadcrumb",
+          "settings": {
+            "text_style": "body",
+            "show_divider": false,
+            "hide_mobile": true
+          }
+        },
         "title": {
           "type": "title",
           "settings": {
             "title_size": "h1",
             "show_price": false,
-            "price_size": "medium"
+            "price_size": "medium",
+            "desktop_hide": false,
+            "mobile_hide": false
           }
         },
         "rating_static_jQpEEQ": {
@@ -66,43 +76,70 @@
             "text_color": "#a63e3e",
             "text_size": 16,
             "text_size_mob": 15,
+            "enable_normal": true,
             "enable_circle": false
+          }
+        },
+        "icon_text_grid_A6gzxH": {
+          "type": "icon_text_grid",
+          "settings": {
+            "icon_1": "shopify://shop_images/filter_drama_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_1": "Incredibly Soft",
+            "icon_2": "shopify://shop_images/air_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_2": "Breathable",
+            "icon_3": "shopify://shop_images/health_and_safety_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_3": "Gentle and Skin Friendly",
+            "text_4": "",
+            "icon_size": 30,
+            "icon_size_mob": 20,
+            "text_size": 14,
+            "text_size_mob": 11,
+            "text_color": "#3b3b3b"
           }
         },
         "icon_text_9Gxbx4": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/filter_drama_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Incredibly Soft",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_KLMX3D": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/air_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Breathable",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_R7iXXY": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/health_and_safety_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Gentle and Skin Friendly",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "text_custom_Lpng9n": {
@@ -113,6 +150,7 @@
             "text_color": "#a63e3e",
             "text_size": 16,
             "text_size_mob": 14,
+            "enable_normal": true,
             "enable_circle": true
           }
         },
@@ -141,13 +179,26 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
+            "buy_buttons_version": "v1",
             "show_quantity_selector": false,
             "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false
+            "show_gift_card_recipient": false,
+            "enable_monogram": false,
+            "monogram_product": "",
+            "icon_text": ""
+          }
+        },
+        "richtext_box_7QhRHy": {
+          "type": "richtext_box",
+          "settings": {
+            "rich_text": "<p><strong>Shipped in 1-3 Days</strong><br/>Fast & Tracked USPS Shipping</p>",
+            "text_size": 14,
+            "text_size_mob": 11
           }
         },
         "icon_with_text_NArRNw": {
           "type": "icon_with_text",
+          "disabled": true,
           "settings": {
             "icon_1": "shopify://shop_images/local_shipping_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
             "text_1": "Fast + Tracked Shipping",
@@ -165,13 +216,14 @@
             "text_color": "",
             "text_size": 14,
             "text_size_mob": 13,
+            "enable_normal": true,
             "enable_circle": false
           }
         },
         "collapsible_tab-0": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "What is Muslin Cotton?",
             "content": "<h4><strong>A Fabric Fit for Royalty</strong></h4><p>Originating from ancient Bengal (modern-day Bangladesh and India), muslin was once so rare and coveted that it was called <em>\"woven wind\"</em>—worn by queens, emperors, and aristocrats who prized its <strong>weightless luxury</strong>. The finest muslin was so sheer it could pass through a ring yet so strong it lasted generations. Today, authentic muslin remains a symbol of <strong>timeless elegance and craftsmanship</strong>.</p><h4><strong>Why Is Muslin Cotton Special?</strong></h4><ul><li><strong>Breathable & Lightweight</strong>: Its loose, open weave allows airflow like no other fabric, making it <strong>perfect for temperature regulation</strong>—cool in summer, cozy in winter.</li><li><strong>Luxuriously Soft</strong>: With every wash, muslin becomes even softer, developing a <strong>vintage, lived-in elegance</strong> that only improves with time.</li><li><strong>Gentle Yet Durable</strong>: Despite its delicate feel, high-quality muslin is surprisingly strong, resisting pulls and tears while maintaining its graceful drape.</li></ul><h4><strong>The Ultimate in Elevated Comfort</strong></h4><p>Our muslin pyjamas carry forward this legacy, offering you <strong>a touch of historical opulence with modern comfort</strong>.</p>",
             "page": "",
@@ -182,7 +234,7 @@
         "collapsible_tab_TbRiah": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Care",
             "content": "<p>Machine wash cold, do not tumble dry under any circumstances, and avoid ironing or using fabric softeners to maintain the softness and coziness of your clothes for years to come.</p>",
             "page": "",
@@ -205,7 +257,7 @@
         "shipping_metaobject_tLJRyV": {
           "type": "shipping_metaobject",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Shipping & Returns",
             "shipping_text": "default"
           }
@@ -218,10 +270,12 @@
         }
       },
       "block_order": [
+        "breadcrumb_mqYYwC",
         "title",
         "rating_static_jQpEEQ",
         "price",
         "text_custom_Vpdkyw",
+        "icon_text_grid_A6gzxH",
         "icon_text_9Gxbx4",
         "icon_text_KLMX3D",
         "icon_text_R7iXXY",
@@ -229,6 +283,7 @@
         "variant_picker",
         "kiwi_size_chart_recommender_kiwi_sizing_yje3fV",
         "buy_buttons",
+        "richtext_box_7QhRHy",
         "icon_with_text_NArRNw",
         "text_custom_A3eeDw",
         "collapsible_tab-0",
@@ -238,11 +293,12 @@
         "sticky_cart"
       ],
       "settings": {
+        "enable_v2_styles": false,
         "enable_sticky_info": true,
         "media_position": "left",
         "media_size": "large",
-        "gallery_layout": "thumbnail_slider",
-        "image_ratio": "square",
+        "gallery_layout": "vertical_slider",
+        "image_ratio": "adapt",
         "show_featured_media": true,
         "show_thumbnails": false,
         "hide_variants": false,
@@ -250,6 +306,8 @@
         "enable_video_looping": false,
         "mobile_image_ratio": "square",
         "show_mobile_thumbnails": false,
+        "enable_variant_specific_media": false,
+        "enable_fade_slider": true,
         "padding_top": 0,
         "padding_bottom": 20
       }
@@ -469,10 +527,13 @@
         "show_quick_buy": true,
         "enable_quick_view": true,
         "enable_color_swatches": true,
+        "enable_other_variants": false,
         "enable_countdown": true,
         "colors_highlight": "#ffb503",
         "padding_top": 36,
         "padding_bottom": 36,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36,
         "enable_highlight": false,
         "highlight_style": "marker"
       }
@@ -483,6 +544,7 @@
         "review_bYyVap": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I bought this cherry-print pyjama set for summer, and I’ve been living in it ever since. The muslin cotton is unbelievably soft and airy. It feels like being wrapped in a cloud. I’m already planning to order another color!",
             "author_name": "Sophia L."
           }
@@ -490,6 +552,7 @@
         "review_APGhgq": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I got this set for my best friend’s birthday and she told me the next morning it was the best sleep she’s had in ages. The fabric is so light yet cozy, and the cherry pattern is just adorable!",
             "author_name": "Hannah R."
           }
@@ -497,6 +560,7 @@
         "review_PH9Qck": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "The fabric feels amazing and so natural on the skin. Perfect for warm nights, super breathable, and honestly the comfiest pyjamas I’ve owned.",
             "author_name": "Laura M."
           }
@@ -504,6 +568,7 @@
         "review_BDtWFn": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I bought this cherry-print pyjama set for summer, and I’ve been living in it ever since. The muslin cotton is unbelievably soft and airy. It feels like being wrapped in a cloud. I’m already planning to order another color!",
             "author_name": "Sophia L."
           }
@@ -511,6 +576,7 @@
         "review_AAMEHx": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I got this set for my best friend’s birthday and she told me the next morning it was the best sleep she’s had in ages. The fabric is so light yet cozy, and the cherry pattern is just adorable!",
             "author_name": "Hannah R."
           }
@@ -518,6 +584,7 @@
         "review_RRjwad": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "The fabric feels amazing and so natural on the skin. Perfect for warm nights, super breathable, and honestly the comfiest pyjamas I’ve owned.",
             "author_name": "Laura M."
           }
