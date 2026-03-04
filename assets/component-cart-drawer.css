@@ -1386,3 +1386,10 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 .cart-drawer .mini-cart__footer .button-container .checkout-btn-d5:hover {
   opacity: 0.95;
 }
+.cart-drawer .mini-cart__footer .payment-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+}
