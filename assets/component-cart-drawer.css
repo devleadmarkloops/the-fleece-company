@@ -1392,4 +1392,6 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   justify-content: center;
   align-items: center;
   gap: 0.3rem;
+  padding: 0;
+  margin-block: 1.2rem;
 }
