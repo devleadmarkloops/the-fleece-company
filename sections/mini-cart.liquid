@@ -1165,7 +1165,7 @@
           {{ 'sections.cart.checkout' | t }}
       
           {%- if settings.disable_view_cart -%}
-           <span class="price" id="mini-cart-subtotal">{{ cart.total_price | money }}</span> 
+           ><strong class="text-price-d5" data-checked-price="{{ protection_product.price | plus: cart.total_price | money }}" data-unchecked-price="{{ cart.total_price | money }}">{{ cart.total_price | money }}</strong>
           {%- endif -%}
         </button>
         {%- unless settings.disable_view_cart -%}
