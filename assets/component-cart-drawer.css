@@ -1367,7 +1367,7 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   font-size: 1.8rem;
   font-weight: 400;
   letter-spacing: 0;
-  color: rgba(var(--color-foreground),1); 
+  color: rgba(var(--color-foreground),1);
 }
 .cart-drawer .mini-cart__footer .text-total-d5,
 .cart-drawer .mini-cart__footer .text-price-d5 {
@@ -1387,7 +1387,12 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   opacity: 0.95;
 }
 .cart-drawer .mini-cart__footer .cd-trust-badge-d5 {
-  margin-top: 1.2rem;
+  margin-top: 1rem;
+  font-family: var(--new-font-heading-family);
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: rgba(var(--color-foreground),1);
 }
 .cart-drawer .mini-cart__footer .payment-badges {
   display: flex;
