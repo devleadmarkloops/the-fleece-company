@@ -1264,10 +1264,10 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 .cart-drawer .mini-cart__main .cart-drawer__option-row dt {
   margin: 0;
   font-weight: 500;
-  color: rgba(var(--color-foreground), 0.7);
+  color: rgba(var(--color-foreground), 0.85);
 }
 .cart-drawer .mini-cart__main .cart-drawer__option-row dd {
   margin: 0;
   font-weight: 500;
-  color: rgb(var(--color-foreground));
+  color: rgba(var(--color-foreground), 0.85);
 }
