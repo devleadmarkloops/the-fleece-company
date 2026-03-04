@@ -1427,4 +1427,7 @@ details[open].menu-opening > .cart-drawer [data-animate] {
     margin-top: 1.5rem;
     padding-inline: 1.5rem;
   }
+  .cart-drawer .mini-cart__inner .product-container {
+    column-gap: 1rem;
+  }
 }
