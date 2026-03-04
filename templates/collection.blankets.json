@@ -87,9 +87,6 @@
     "product-grid": {
       "type": "main-collection-product-grid",
       "settings": {
-        "show_collection_navigation": true,
-        "collection_menu": "collections-menu",
-        "active_link_bg": "#c5bbae",
         "products_per_row": 4,
         "rows_per_page": 3,
         "columns_mobile": "2",

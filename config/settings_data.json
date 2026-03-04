@@ -61,7 +61,7 @@
     "show_add_discount_code": false,
     "show_shipping_calculator": false,
     "disable_view_cart": true,
-    "show_free_shipping_message": true,
+    "show_free_shipping_message": false,
     "free_shipping_minimum_amount": "USD:500,EUR:475,JPY:65000",
     "cart_recommendations_enabled": false,
     "cart_recommendations_heading": "You may also like",
