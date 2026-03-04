@@ -60,8 +60,23 @@
             "sale_badge_basis": "percentage"
           }
         },
+        "icon_text_QhYKfh": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/Group_1.svg",
+            "icon_size": 16,
+            "icon_size_mob": 16,
+            "icon_text": "",
+            "icon_richtext": "<p><strong>Early Women's Month Sale:</strong> Buy One, Get One <strong>FREE</strong></p>",
+            "text_color": "",
+            "text_size": 14,
+            "text_size_mob": 12,
+            "enable_bg": true
+          }
+        },
         "text_custom_Vpdkyw": {
           "type": "text_custom",
+          "disabled": true,
           "settings": {
             "text_custom": "<strong>Live Now: Buy 1 get 1 FREE</strong>",
             "text_color": "#a63e3e",
@@ -71,8 +86,26 @@
             "enable_circle": false
           }
         },
+        "icon_text_grid_qYzH8a": {
+          "type": "icon_text_grid",
+          "settings": {
+            "icon_1": "shopify://shop_images/clouds_1.png",
+            "text_1": "Incredibly Soft",
+            "icon_2": "shopify://shop_images/air_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_2": "Breathable",
+            "icon_3": "shopify://shop_images/health_and_safety_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_3": "Gentle and Skin Friendly",
+            "text_4": "",
+            "icon_size": 30,
+            "icon_size_mob": 24,
+            "text_size": 14,
+            "text_size_mob": 13,
+            "text_color": "#3b3b3b"
+          }
+        },
         "icon_text_9Gxbx4": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/filter_drama_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
             "icon_size": 32,
@@ -87,6 +120,7 @@
         },
         "icon_text_KLMX3D": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/air_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
             "icon_size": 32,
@@ -101,6 +135,7 @@
         },
         "icon_text_R7iXXY": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/health_and_safety_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
             "icon_size": 32,
@@ -127,6 +162,7 @@
         },
         "custom_liquid_KFHcDc": {
           "type": "custom_liquid",
+          "disabled": true,
           "settings": {
             "custom_liquid": "<style>\n  /* tweak --lh if your theme's line-height looks different */\n  .special-msg {\n    --lh: 1.35;                    /* line-height for this block */\n    --dot: 8px;                    /* dot size */\n    color: #A63E3E;\n    font-weight: 600;\n    display: block;\n    margin: 5px 0;\n    padding-left: 18px;            /* room for the dot */\n    position: relative;\n    line-height: var(--lh);\n    text-align: left !important;\n    white-space: normal;\n    letter-spacing: .3px;\n  }\n\n  .special-msg::before {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    width: var(--dot);\n    height: var(--dot);\n    border-radius: 50%;\n    background: #A63E3E;\n    /* place the dot centered within the FIRST line only */\n    top: calc((var(--lh) * 1em - var(--dot)) / 2);\n    animation: blink 3.5s infinite ease-in-out;\n  }\n\n@keyframes blink {\n  /* Quick fade in */\n  0%   { opacity: 0; }\n  40%  { opacity: 1; }\n\n  /* Hold bright */\n  60%  { opacity: 1; }\n\n  /* Slow fade out */\n  100% { opacity: 0; }\n}\n\n</style>\n\n<div class=\"special-msg\">\n  Limited units available during our <b>Early Women’s Month Sale</b>\n</div>"
           }
@@ -268,7 +304,9 @@
         "title",
         "rating_static_jQpEEQ",
         "price",
+        "icon_text_QhYKfh",
         "text_custom_Vpdkyw",
+        "icon_text_grid_qYzH8a",
         "icon_text_9Gxbx4",
         "icon_text_KLMX3D",
         "icon_text_R7iXXY",
