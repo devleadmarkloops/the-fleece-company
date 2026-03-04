@@ -1457,4 +1457,8 @@ details[open].menu-opening > .cart-drawer [data-animate] {
     font-size: 0.9rem;
     padding: 0.2rem 0.8rem;
   }
+  .cart-drawer .mini-cart__main .discounts__discount .icon-discount-new {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
 }
