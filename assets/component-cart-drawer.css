@@ -1376,3 +1376,9 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   font-weight: 400;
   letter-spacing: 0;
 }
+.cart-drawer .mini-cart__footer .button-container .checkout-btn-d5 {
+  font-family: var(--new-font-heading-family);
+  font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 0;
+}
