@@ -1507,4 +1507,8 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   .cart-drawer .mini-cart__footer .text-price-d5 {
     font-size: 1.8rem;
   }
+  .cart-drawer .mini-cart__footer .button-container .checkout-btn-d5 {
+    font-size: 1.6rem;
+    min-height: 4.2rem;
+  }
 }
