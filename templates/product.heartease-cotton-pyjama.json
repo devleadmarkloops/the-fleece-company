@@ -40,7 +40,9 @@
           "settings": {
             "title_size": "h1",
             "show_price": false,
-            "price_size": "medium"
+            "price_size": "medium",
+            "desktop_hide": false,
+            "mobile_hide": false
           }
         },
         "rating_static_jQpEEQ": {
@@ -60,6 +62,7 @@
         },
         "text_custom_Vpdkyw": {
           "type": "text_custom",
+          "disabled": true,
           "settings": {
             "text_custom": "<strong>Live Now: Buy 1 get 1 FREE</strong>",
             "text_color": "#a63e3e",
@@ -76,9 +79,11 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Incredibly Soft",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_KLMX3D": {
@@ -88,9 +93,11 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Breathable",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_R7iXXY": {
@@ -100,9 +107,11 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Gentle and Skin Friendly",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "text_custom_Lpng9n": {
@@ -148,9 +157,13 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
+            "buy_buttons_version": "v1",
             "show_quantity_selector": false,
             "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false
+            "show_gift_card_recipient": false,
+            "enable_monogram": false,
+            "monogram_product": "",
+            "icon_text": ""
           }
         },
         "countdown_timer_4tCBwt": {
@@ -167,6 +180,7 @@
             "visitor_hours": 20,
             "visitor_minutes": 3,
             "visitor_seconds": 27,
+            "enable_payment_icons": true,
             "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
           }
         },
@@ -265,11 +279,12 @@
         "sticky_cart"
       ],
       "settings": {
+        "enable_v2_styles": false,
         "enable_sticky_info": true,
         "media_position": "left",
         "media_size": "large",
-        "gallery_layout": "thumbnail_slider",
-        "image_ratio": "square",
+        "gallery_layout": "vertical_slider",
+        "image_ratio": "adapt",
         "show_featured_media": true,
         "show_thumbnails": false,
         "hide_variants": false,
@@ -277,6 +292,8 @@
         "enable_video_looping": false,
         "mobile_image_ratio": "square",
         "show_mobile_thumbnails": false,
+        "enable_variant_specific_media": false,
+        "enable_fade_slider": true,
         "padding_top": 0,
         "padding_bottom": 20
       }
@@ -496,10 +513,13 @@
         "show_quick_buy": true,
         "enable_quick_view": true,
         "enable_color_swatches": true,
+        "enable_other_variants": false,
         "enable_countdown": true,
         "colors_highlight": "#ffb503",
         "padding_top": 36,
         "padding_bottom": 36,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36,
         "enable_highlight": false,
         "highlight_style": "marker"
       }
@@ -510,6 +530,7 @@
         "review_BDtWFn": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I bought this pyjama set for a summer trip, and I’ve barely taken it off since. The cotton is unbelievably soft and airy. It feels like sleeping in a cloud. I’ll definitely be ordering another color!",
             "author_name": "Emilia"
           }
@@ -517,6 +538,7 @@
         "review_AAMEHx": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I got this for my sister’s birthday and she texted me the next morning saying it was the best sleep she’s had in weeks. The fabric is light but cozy, and the color is just gorgeous!",
             "author_name": "Megan"
           }
@@ -524,6 +546,7 @@
         "review_RRjwad": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "The material is amazing and feels very natural on the skin. It’s perfect for hot nights and super comfy!",
             "author_name": "Nina S."
           }
@@ -531,6 +554,7 @@
         "review_X8mgUV": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I bought this pyjama set for a summer trip, and I’ve barely taken it off since. The cotton is unbelievably soft and airy. It feels like sleeping in a cloud. I’ll definitely be ordering another color!",
             "author_name": "Emilia"
           }
@@ -538,6 +562,7 @@
         "review_iTGBXP": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I got this for my sister’s birthday and she texted me the next morning saying it was the best sleep she’s had in weeks. The fabric is light but cozy, and the color is just gorgeous!",
             "author_name": "Megan"
           }
@@ -545,6 +570,7 @@
         "review_wKiVqC": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "The material is amazing and feels very natural on the skin. It’s perfect for hot nights and super comfy!",
             "author_name": "Nina S."
           }
