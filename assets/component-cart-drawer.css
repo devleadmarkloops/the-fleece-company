@@ -1190,3 +1190,10 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 .cart-drawer .mini-cart__main .product-img-wr .product-quantity {
   margin-top: 0;
 }
+.cart-drawer .mini-cart__main .product-img-wr .product-quantity .quantity {
+  background-color: transparent;
+  width: 100%;
+  color: rgba(var(--color-foreground),1);
+  border: 1px solid rgba(var(--color-foreground),1);
+  border-radius: 0;
+}
