@@ -621,7 +621,7 @@
                       {%- endif -%}
                       {% if item.variant.compare_at_price > item.final_price %}
                       <dl>
-                        <dd class="price">
+                        <dd class="price price-save">
                           <strong>(You Save {{ item.variant.compare_at_price | minus:item.final_price | times: item.quantity | money  }})</strong>
                         </dd>
                       </dl>
