@@ -1305,4 +1305,6 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   font-size: 1.4rem;
   font-weight: 500;
   letter-spacing: 0;
+  line-height: normal;
+  text-underline-offset: 2px;
 }
