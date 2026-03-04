@@ -1206,24 +1206,11 @@
                     assign progress = 100
                   endif
                 -%}
-                <div class="donation-impact-block" {{ block.shopify_attributes }} style="max-width: 100%;margin: 10px 0;">
+                <div class="donation-impact-block {{ block.settings.display }}-device" {{ block.shopify_attributes }} style="max-width: 100%;margin: 10px 0;">
                   <div class="donation-row">
                     <!-- Left: Icon + Heading -->
                     <div class="donation-left">
-                      {% if block.settings.icon_image != blank %}
-                        <img
-                          src="{{ block.settings.icon_image | image_url: width: 80 }}"
-                          alt=""
-                          width="{{ block.settings.icon_size }}"
-                          height="{{ block.settings.icon_size }}"
-                          loading="eager"
-                          style="object-fit: contain; flex-shrink: 0;"
-                        >
-                      {% else %}
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="#f87171" stroke="none" style="flex-shrink: 0;">
-                          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                        </svg>
-                      {% endif %}
+                      
                       <p class="donation-heading" style="color: {{ block.settings.heading_color }};">
                         {{ block.settings.heading }}
                       </p>
@@ -1236,7 +1223,12 @@
                           width: {{ progress }}%;
                           background: {{ block.settings.bar_color }};
                         ">
-                          <span class="donation-bar-text">{{ raised | money_without_trailing_zeros}} raised</span>
+                          <span class="donation-bar-text">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" stroke="none" style="flex-shrink: 0;">
+                              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>  
+                            {{ raised | money_without_trailing_zeros}} raised
+                          </span>
                         </div>
                         <div class="donation-bar-goal">Goal {{ goal | money_without_trailing_zeros }}</div>
                       </div>
@@ -1253,7 +1245,7 @@
                 </p>
               {%- when 'title' -%}
                 <div class="product__title{% if block.settings.desktop_hide %} large-up-hide medium-hide{% endif %}{% if block.settings.mobile_hide %} small-hide{% endif %}" {{ block.shopify_attributes }}>
-                  <h1 class="product__heading {{ block.settings.title_size }}">
+                  <h1 class="product__heading h2">
                     {{ product.title | escape }}
                   </h1>
                   {%- if block.settings.show_price -%}
@@ -3169,8 +3161,27 @@ if (nextBtn) {
     {
       "type": "donation_impact",
       "name": "Donation Impact",
-      "limit": 1,
       "settings": [
+        {
+          "type": "select",
+          "id": "display",
+          "label": "Display",
+          "options":[
+            {
+              "label":"Desktop",
+              "value":"desktop"
+            },
+            {
+              "label":"Mobile",
+              "value":"mobile"
+            },
+            {
+              "label":"Both",
+              "value":"both"
+            }
+          ],
+          "default":"both"
+        },
         {
           "type": "image_picker",
           "id": "icon_image",
