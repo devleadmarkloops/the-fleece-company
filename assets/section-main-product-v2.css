@@ -3883,3 +3883,15 @@ span.donation-bar-text svg {
     display:block;
   }
 }
+.donation-heading {
+  position: relative;
+  display: inline;
+}
+.donation-info-trigger {
+  display: inline-flex;
+  align-items: center;
+}
+.donation-info-popup {
+  top: calc(100% + 6px);
+  left: 0;
+}

@@ -1222,6 +1222,19 @@
                       
                       <p class="donation-heading" style="color: {{ block.settings.heading_color }};">
                         {{ block.settings.heading }}
+                        {% if block.settings.info_popup_text != blank %}
+                          <span class="donation-info-trigger" data-donation-info="{{ block.id }}">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ block.settings.heading_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; cursor: pointer; margin-left: 4px;">
+                              <circle cx="12" cy="12" r="10"/>
+                              <line x1="12" y1="16" x2="12" y2="12"/>
+                              <line x1="12" y1="8" x2="12.01" y2="8"/>
+                            </svg>
+                          </span>
+                          <span class="donation-info-popup" id="donation-info-{{ block.id }}" style="display:none; position:absolute; z-index:10; background:#fff; border:1px solid #ddd; border-radius:8px; padding:12px 16px; box-shadow:0 4px 12px rgba(0,0,0,.12); max-width:260px; font-size:13px; line-height:1.5; color:{{ block.settings.text_color }};">
+                            {{ block.settings.info_popup_text }}
+                            <span class="donation-info-close" data-donation-close="{{ block.id }}" style="position:absolute; top:4px; right:8px; cursor:pointer; font-size:18px; line-height:1; color:#999;">&times;</span>
+                          </span>
+                        {% endif %}
                       </p>
                     </div>
 
