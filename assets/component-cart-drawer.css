@@ -1323,3 +1323,9 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   width: 4rem;
   height: 4rem;
 }
+.cart-drawer .mini-cart__main .os-protection-wrapper-d5 .os-title-d5 {
+  font-family: var(--new-font-heading-family);
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0;
+}
