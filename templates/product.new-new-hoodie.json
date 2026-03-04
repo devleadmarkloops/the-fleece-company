@@ -249,6 +249,7 @@
         },
         "complementary_Vzi83a": {
           "type": "complementary",
+          "disabled": true,
           "settings": {
             "icon": "none",
             "heading": "Complete the Look",
@@ -258,6 +259,15 @@
             "image_position": "center center",
             "show_vendor": false,
             "enable_image_fill": true
+          }
+        },
+        "pairs_well_H6cjnK": {
+          "type": "pairs_well",
+          "settings": {
+            "heading": "Pairs well with",
+            "product_list": [
+              "the-fleece-sweatpants"
+            ]
           }
         },
         "icon_with_text_NArRNw": {
@@ -366,6 +376,7 @@
         "countdown_timer_feYeJx",
         "payment_icons_46YHMi",
         "complementary_Vzi83a",
+        "pairs_well_H6cjnK",
         "icon_with_text_NArRNw",
         "richtext_box_YHHw9H",
         "text_custom_A3eeDw",
