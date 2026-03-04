@@ -88,11 +88,11 @@
         "icon_text_grid_mtbLpT": {
           "type": "icon_text_grid",
           "settings": {
-            "icon_1": "shopify://shop_images/check-mark_1.png",
+            "icon_1": "shopify://shop_images/check_circle_20dp_121212_FILL0_wght400_GRAD0_opsz20.svg",
             "text_1": "100% Skin friendly materials",
-            "icon_2": "shopify://shop_images/check-mark_1.png",
+            "icon_2": "shopify://shop_images/check_circle_20dp_121212_FILL0_wght400_GRAD0_opsz20.svg",
             "text_2": "Super soft, breathable fleece",
-            "icon_3": "shopify://shop_images/check-mark_1.png",
+            "icon_3": "shopify://shop_images/check_circle_20dp_121212_FILL0_wght400_GRAD0_opsz20.svg",
             "text_3": "Helps improve your mood",
             "text_4": "",
             "icon_size": 30,
