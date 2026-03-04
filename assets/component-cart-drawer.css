@@ -1416,4 +1416,11 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   .cart-drawer .mini-cart__header .heading-inner {
     padding: 1.2rem 1.2rem 1.2rem 1.5rem;
   }
+  .mini-cart__header .title {
+    font-size: 2.2rem;
+  }
+  .cart-drawer .timer-banner {
+    font-size: 1.3rem;
+    padding: 0.6rem 1rem;
+  }
 }
