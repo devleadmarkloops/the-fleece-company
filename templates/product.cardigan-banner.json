@@ -223,6 +223,7 @@
         },
         "icon_with_text_NArRNw": {
           "type": "icon_with_text",
+          "disabled": true,
           "settings": {
             "icon_1": "shopify://shop_images/local_shipping_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
             "text_1": "Fast + Tracked Shipping",
@@ -246,7 +247,7 @@
         "collapsible_tab-0": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Care & Details",
             "content": "<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your Fleece Drape Shawl for years to come.</p>",
             "page": "",
@@ -257,7 +258,7 @@
         "collapsible_tab_TbRiah": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Size",
             "content": "<p>LENGTH: 158 cm / 62.2 inch</p><p>WIDTH: 110 cm / 43.3 inch</p>",
             "page": "",
@@ -280,7 +281,7 @@
         "shipping_metaobject_tLJRyV": {
           "type": "shipping_metaobject",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Shipping & Returns",
             "shipping_text": "default"
           }
