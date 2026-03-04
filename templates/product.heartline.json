@@ -35,6 +35,14 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "breadcrumb_FT6Mi9": {
+          "type": "breadcrumb",
+          "settings": {
+            "text_style": "body",
+            "show_divider": false,
+            "hide_mobile": true
+          }
+        },
         "title": {
           "type": "title",
           "settings": {
@@ -75,43 +83,32 @@
         "icon_text_KLMX3D": {
           "type": "icon_text",
           "settings": {
-            "icon": "shopify://shop_images/filter_drama_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
-            "icon_size": 32,
-            "icon_size_mob": 28,
-            "icon_text": "Incredibly Soft",
-            "icon_richtext": "",
-            "text_color": "#121212",
-            "text_size": 16,
-            "text_size_mob": 14,
-            "enable_bg": false
+            "icon": "shopify://shop_images/Group_1.svg",
+            "icon_size": 20,
+            "icon_size_mob": 18,
+            "icon_text": "",
+            "icon_richtext": "<p><strong>Early Women's Month Sale:</strong> Buy One, Get One <strong>FREE</strong></p>",
+            "text_color": "#3b3b3b",
+            "text_size": 14,
+            "text_size_mob": 16,
+            "enable_bg": true
           }
         },
-        "icon_text_9Gxbx4": {
-          "type": "icon_text",
+        "icon_text_grid_AB7rfG": {
+          "type": "icon_text_grid",
           "settings": {
-            "icon": "shopify://shop_images/air_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
-            "icon_size": 32,
-            "icon_size_mob": 28,
-            "icon_text": "Breathable",
-            "icon_richtext": "",
-            "text_color": "#121212",
-            "text_size": 16,
-            "text_size_mob": 14,
-            "enable_bg": false
-          }
-        },
-        "icon_text_R7iXXY": {
-          "type": "icon_text",
-          "settings": {
-            "icon": "shopify://shop_images/health_and_safety_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
-            "icon_size": 32,
-            "icon_size_mob": 28,
-            "icon_text": "Gentle and Skin Friendly",
-            "icon_richtext": "",
-            "text_color": "#121212",
-            "text_size": 16,
-            "text_size_mob": 14,
-            "enable_bg": false
+            "icon_1": "shopify://shop_images/filter_drama_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_1": "Incredibly Soft",
+            "icon_2": "shopify://shop_images/air_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_2": "Breathable",
+            "icon_3": "shopify://shop_images/health_and_safety_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_3": "Gentle and Skin Friendly",
+            "text_4": "",
+            "icon_size": 30,
+            "icon_size_mob": 24,
+            "text_size": 14,
+            "text_size_mob": 13,
+            "text_color": "#000000"
           }
         },
         "text_custom_Lpng9n": {
@@ -207,7 +204,7 @@
         "collapsible_tab_WMLjkB": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Care",
             "content": "<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your clothes for years to come.</p>",
             "page": "",
@@ -218,7 +215,7 @@
         "collapsible_tab_TbRiah": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Details",
             "content": "<p>This pajama has a relaxed, baggy fit for maximum comfort. If you prefer a more standard or fitted look, we recommend sizing down.For an oversized look, stick to your usual size.</p>",
             "page": "",
@@ -241,7 +238,7 @@
         "shipping_metaobject_tLJRyV": {
           "type": "shipping_metaobject",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Shipping & Returns",
             "shipping_text": "default"
           }
@@ -254,13 +251,13 @@
         }
       },
       "block_order": [
+        "breadcrumb_FT6Mi9",
         "title",
         "rating_static_jQpEEQ",
         "price",
         "text_custom_Vpdkyw",
         "icon_text_KLMX3D",
-        "icon_text_9Gxbx4",
-        "icon_text_R7iXXY",
+        "icon_text_grid_AB7rfG",
         "text_custom_Lpng9n",
         "variant_picker",
         "kiwi_size_chart_recommender_kiwi_sizing_WKgn3j",
@@ -279,8 +276,8 @@
         "enable_sticky_info": true,
         "media_position": "left",
         "media_size": "large",
-        "gallery_layout": "thumbnail_slider",
-        "image_ratio": "square",
+        "gallery_layout": "vertical_slider",
+        "image_ratio": "adapt",
         "show_featured_media": true,
         "show_thumbnails": false,
         "hide_variants": false,
