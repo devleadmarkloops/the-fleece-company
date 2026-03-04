@@ -762,26 +762,28 @@
                     {%- endif -%}
                   </dd>
 
-                  <cart-remove-button
-                    id="Remove-{{ item.index | plus: 1 }}"
-                    data-index="{{ item.index | plus: 1 }}"
-                    {% unless gift_wrap_id == null or item.id != gift_wrap_id %}
-                      class="hidden"
-                    {% endunless %}
-                  >
-                    <a
-                      href="{{ item.url_to_remove }}"
-                      class="delete-product"
-                      aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}"
-                      data-no-instant
+                  <div class="cart-remove-wr">
+                    <cart-remove-button
+                      id="Remove-{{ item.index | plus: 1 }}"
+                      data-index="{{ item.index | plus: 1 }}"
+                      {% unless gift_wrap_id == null or item.id != gift_wrap_id %}
+                        class="hidden"
+                      {% endunless %}
                     >
-                      {% render 'icon', icon: 'remove' %}
-                    </a>
-                  </cart-remove-button>
+                      <a
+                        href="{{ item.url_to_remove }}"
+                        class="delete-product"
+                        aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}"
+                        data-no-instant
+                      >
+                        {% render 'icon', icon: 'remove' %}
+                      </a>
+                    </cart-remove-button>
 
-                  <p class="cart-item__error form__message errors" id="Line-item-error-{{ item.index | plus: 1 }}">
-                    <span class="cart-item__error-text"></span>
-                  </p>
+                    <p class="cart-item__error form__message errors" id="Line-item-error-{{ item.index | plus: 1 }}">
+                      <span class="cart-item__error-text"></span>
+                    </p>
+                  </div>
                 </div>
               </div>
             </li>
