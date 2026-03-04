@@ -323,62 +323,46 @@
                 <div class="product-description">
                   <div class="product-content">
                     <a href="{{ item.url }}" class="link product-title">{{ item.product.title }}</a>
-                    <cart-remove-button
-                      id="Remove-{{ item.index | plus: 1 }}"
-                      data-index="{{ item.index | plus: 1 }}"
-                      {% unless gift_wrap_id == null or item.id != gift_wrap_id %}
-                        class="hidden"
-                      {% endunless %}
-                    >
-                      <a
-                        href="{{ item.url_to_remove }}"
-                        class="delete-product"
-                        aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}"
-                        data-no-instant
-                      >
-                        {% render 'icon', icon: 'remove' %}
-                      </a>
-                    </cart-remove-button>
                     <div class="quantity-price-d5">
-                              {%- if item.variant.compare_at_price > item.final_price -%}
-                                <dl class="cart-item__discounted-prices">
-                                  <dt class="visually-hidden">
-                                    {{ 'products.product.price.regular_price' | t }}
-                                  </dt>
-                                  <dd class="price--on-sale test2">
-                                    <s class="price price-item--regular">
-                                      <price-money
-                                        ><bdi>{{ item.variant.compare_at_price | times: item.quantity | money }}</bdi></price-money
-                                      >
-                                    </s>
-                                  </dd>
-                                  <dt class="visually-hidden">
-                                    {{ 'products.product.price.sale_price' | t }}
-                                  </dt>
-                                  <dd class="price">
-                                    <price-money
-                                      ><bdi><strong>{{ item.final_price | times: item.quantity | money }}</strong></bdi></price-money
-                                    >
-                                  </dd>
-                                </dl>
-                              {%- else -%}
-                                <dl class="cart-item__discounted-prices">
-                                  <dd class="price">
-                                    <price-money
-                                      ><bdi>
-                                        <strong>{{ item.original_price | times: item.quantity | money }}</strong></bdi></price-money
-                                    >
-                                  </dd>
-                                </dl>
-                              {%- endif -%}
-                              {% if item.variant.compare_at_price > item.final_price %}
-                              <dl>
-                                <dd class="price">
-                                  <strong>(You Save {{ item.variant.compare_at_price | minus:item.final_price | times: item.quantity | money  }})</strong>
-                                </dd>
-                              </dl>
-                            {% endif %}
-                            </div>
+                      {%- if item.variant.compare_at_price > item.final_price -%}
+                        <dl class="cart-item__discounted-prices">
+                          <dt class="visually-hidden">
+                            {{ 'products.product.price.regular_price' | t }}
+                          </dt>
+                          <dd class="price--on-sale test2">
+                            <s class="price price-item--regular">
+                              <price-money
+                                ><bdi>{{ item.variant.compare_at_price | times: item.quantity | money }}</bdi></price-money
+                              >
+                            </s>
+                          </dd>
+                          <dt class="visually-hidden">
+                            {{ 'products.product.price.sale_price' | t }}
+                          </dt>
+                          <dd class="price">
+                            <price-money
+                              ><bdi><strong>{{ item.final_price | times: item.quantity | money }}</strong></bdi></price-money
+                            >
+                          </dd>
+                        </dl>
+                      {%- else -%}
+                        <dl class="cart-item__discounted-prices">
+                          <dd class="price">
+                            <price-money
+                              ><bdi>
+                                <strong>{{ item.original_price | times: item.quantity | money }}</strong></bdi></price-money
+                            >
+                          </dd>
+                        </dl>
+                      {%- endif -%}
+                      {% if item.variant.compare_at_price > item.final_price %}
+                      <dl>
+                        <dd class="price">
+                          <strong>(You Save {{ item.variant.compare_at_price | minus:item.final_price | times: item.quantity | money  }})</strong>
+                        </dd>
+                      </dl>
+                    {% endif %}
+                    </div>
                   </div>
 
                   {%- if item.product.has_only_default_variant == false
@@ -503,6 +487,24 @@
                       <div class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</div>
                     {%- endif -%}
                   {%- endif -%}
+
+                  <cart-remove-button
+                    id="Remove-{{ item.index | plus: 1 }}"
+                    data-index="{{ item.index | plus: 1 }}"
+                    {% unless gift_wrap_id == null or item.id != gift_wrap_id %}
+                      class="hidden"
+                    {% endunless %}
+                  >
+                    <a
+                      href="{{ item.url_to_remove }}"
+                      class="delete-product"
+                      aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}"
+                      data-no-instant
+                    >
+                      {% render 'icon', icon: 'remove' %}
+                    </a>
+                  </cart-remove-button>
+
                   {%- liquid
                     assign has_qty_rules = false
                     if item.variant.quantity_rule.increment > 1 or item.variant.quantity_rule.min > 1 or item.variant.quantity_rule.max != null
