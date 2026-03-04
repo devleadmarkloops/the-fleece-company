@@ -1217,6 +1217,7 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 }
 .cart-drawer .mini-cart__main .product-content .cart-item__discounted-prices {
   flex-wrap: nowrap;
+  column-gap: 0;
 }
 .cart-drawer .mini-cart__main .product-content .price--on-sale .price-item--regular bdi {
   font-family: var(--new-font-body-family);
