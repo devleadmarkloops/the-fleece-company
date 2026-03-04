@@ -29,7 +29,6 @@
   id="cart"
 >
   <div class="mini-cart__inner">
-    {% render 'd5-timer' %}
     <div class="mini-cart__header" data-animate data-animate-delay-{{ animate_count }}>
       <div class="heading-inner">
         <div class="title h1">{{ 'sections.cart.title' | t }} ({{ cart.item_count }})</div>
@@ -68,6 +67,7 @@
         endif
       -%}
       {% comment %} <span class="mini-cart__border"></span> {% endcomment %}
+       {% render 'd5-timer' %}
     </div>
     <div class="mini-cart__empty center" data-animate data-animate-delay-{{ animate_count }}>
       <p class="mini-cart__empty-text h3">{{ 'sections.cart.empty' | t }}</p>
