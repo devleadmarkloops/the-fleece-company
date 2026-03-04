@@ -1126,7 +1126,7 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 /* New Design Cart */
 .cart-drawer .mini-cart__header {
   padding: 0;
-  background-color: #F0EAE4;
+  background-color: transparent;
 }
 .cart-drawer .mini-cart__header .heading-inner {
   display: flex;
@@ -1134,7 +1134,7 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 1.5rem 1.5rem 2.5rem;
-  background-color: #F8F8F8;
+  background-color: transparent;
 }
 .cart-drawer .mini-cart__header drawer-close-button.header__icon--summary {
   position: unset;
