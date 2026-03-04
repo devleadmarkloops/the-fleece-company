@@ -35,6 +35,21 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "breadcrumb_XdeVq4": {
+          "type": "breadcrumb",
+          "settings": {
+            "text_style": "body",
+            "show_divider": false,
+            "hide_mobile": true
+          }
+        },
+        "rating_static_jQpEEQ": {
+          "type": "rating_static",
+          "settings": {
+            "rating_text": "(217 Reviews)",
+            "rating_link": ""
+          }
+        },
         "title": {
           "type": "title",
           "settings": {
@@ -43,13 +58,6 @@
             "price_size": "medium",
             "desktop_hide": false,
             "mobile_hide": false
-          }
-        },
-        "rating_static_jQpEEQ": {
-          "type": "rating_static",
-          "settings": {
-            "rating_text": "(217 Reviews)",
-            "rating_link": ""
           }
         },
         "price": {
@@ -282,8 +290,9 @@
         }
       },
       "block_order": [
-        "title",
+        "breadcrumb_XdeVq4",
         "rating_static_jQpEEQ",
+        "title",
         "price",
         "text_custom_Vpdkyw",
         "icon_text_grid_gL6t3d",
@@ -309,7 +318,7 @@
         "enable_sticky_info": true,
         "media_position": "left",
         "media_size": "large",
-        "gallery_layout": "vertical_slider",
+        "gallery_layout": "thumbnail_slider",
         "image_ratio": "square",
         "show_featured_media": true,
         "show_thumbnails": false,
