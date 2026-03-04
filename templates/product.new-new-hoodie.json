@@ -225,7 +225,7 @@
         "countdown_timer_feYeJx": {
           "type": "countdown_timer",
           "settings": {
-            "heading": "Sale ENDS IN:",
+            "heading": "SALE ENDS IN:",
             "heading_color": "#3b3b3b",
             "background_color": "#f0eae4",
             "timer_color": "#3b3b3b",
