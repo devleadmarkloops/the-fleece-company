@@ -1364,8 +1364,13 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 }
 .cart-drawer .mini-cart__footer .text-dis-d5 {
   font-family: var(--new-font-heading-family);
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 400;
   letter-spacing: 0;
   color: rgba(var(--color-foreground),1); 
+}
+.cart-drawer .mini-cart__footer .text-total-d5 {
+  font-size: 2.2rem;
+  font-weight: 400;
+  letter-spacing: 0;
 }
