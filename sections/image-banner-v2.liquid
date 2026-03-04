@@ -210,7 +210,7 @@
         </div>
       {%- endif -%}
       {%- if section.blocks.size > 0 -%}
-        <div class="banner__content banner__content--{{ section.settings.text_box_position }} page-width">
+        <div class="banner__content banner__content--{{ section.settings.text_box_position }} banner__content--mobile-{{ section.settings.mobile_content_position }} page-width">
           <div class="banner__box {{ section.settings.text_alignment }} mobile-{{ section.settings.mobile_text_alignment }}">
             {%- for block in section.blocks -%}
               {%- case block.type -%}
@@ -540,6 +540,26 @@
       ],
       "default": "center",
       "label": "t:sections.all.mobile_layout.mobile_text_alignment.label"
+    },
+    {
+      "type": "select",
+      "id": "mobile_content_position",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "middle",
+          "label": "Middle"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "bottom",
+      "label": "Mobile content position (overlay)"
     },
     {
       "type": "select",
