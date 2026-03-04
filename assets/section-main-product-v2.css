@@ -3870,3 +3870,16 @@ span.donation-bar-text svg {
   display: flex;
   align-items: center;
 }
+
+.donation-impact-block.mobile-device{
+  display:none;
+}
+@media(max-width:767px){
+  
+  .donation-impact-block.desktop-device{
+    display:none;
+  }
+  .donation-impact-block.mobile-device{
+    display:block;
+  }
+}
