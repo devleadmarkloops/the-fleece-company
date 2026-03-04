@@ -1298,3 +1298,11 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 .cart-drawer .mini-cart__main .product-description cart-remove-button {
   height: auto;
 }
+.cart-drawer .mini-cart__main .product-description cart-remove-button .delete-product {
+  width: auto;
+  height: auto;
+  font-family: var(--new-font-body-family);
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
