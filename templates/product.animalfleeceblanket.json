@@ -82,6 +82,7 @@
         },
         "icon_text_KLMX3D": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/Group_1.svg",
             "icon_size": 20,
@@ -171,6 +172,7 @@
         },
         "payment_icons_pmfpLb": {
           "type": "payment_icons",
+          "disabled": true,
           "settings": {
             "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
           }
@@ -209,7 +211,7 @@
         "collapsible_tab-0": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Material",
             "content": "",
             "page": "material-wild-fleece-blanket",
@@ -220,7 +222,7 @@
         "collapsible_tab_TbRiah": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Care & Details",
             "content": "<p>Machine wash cold on gentle cycle. Tumble dry low or air dry to preserve softness. Do not bleach or iron.</p><p>Made from premium ultra-soft fleece designed to stay plush and warm season after season. Lightweight, breathable, and perfect for year-round comfort on sofa or bed.</p>",
             "page": "",
@@ -243,7 +245,7 @@
         "shipping_metaobject_tLJRyV": {
           "type": "shipping_metaobject",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Shipping & Returns",
             "shipping_text": "default"
           }
