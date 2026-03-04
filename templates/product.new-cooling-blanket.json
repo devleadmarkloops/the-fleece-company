@@ -40,7 +40,9 @@
           "settings": {
             "title_size": "h1",
             "show_price": false,
-            "price_size": "medium"
+            "price_size": "medium",
+            "desktop_hide": false,
+            "mobile_hide": false
           }
         },
         "rating_static_jQpEEQ": {
@@ -66,6 +68,7 @@
             "text_color": "#a63e3e",
             "text_size": 16,
             "text_size_mob": 15,
+            "enable_normal": true,
             "enable_circle": false
           }
         },
@@ -76,9 +79,11 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Instant Cooling",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_9Gxbx4": {
@@ -88,9 +93,11 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Incredibly Soft",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_R7iXXY": {
@@ -100,9 +107,11 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Moisture Wicking Fabric",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "text_custom_Lpng9n": {
@@ -113,6 +122,7 @@
             "text_color": "#a63e3e",
             "text_size": 16,
             "text_size_mob": 14,
+            "enable_normal": true,
             "enable_circle": true
           }
         },
@@ -133,9 +143,13 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
+            "buy_buttons_version": "v1",
             "show_quantity_selector": false,
             "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false
+            "show_gift_card_recipient": false,
+            "enable_monogram": false,
+            "monogram_product": "",
+            "icon_text": ""
           }
         },
         "payment_icons_jBJADa": {
@@ -159,6 +173,7 @@
             "visitor_hours": 20,
             "visitor_minutes": 3,
             "visitor_seconds": 27,
+            "enable_payment_icons": true,
             "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
           }
         },
@@ -180,6 +195,7 @@
             "text_color": "",
             "text_size": 16,
             "text_size_mob": 15,
+            "enable_normal": true,
             "enable_circle": false
           }
         },
@@ -191,7 +207,7 @@
         "collapsible_tab_WMLjkB": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Care",
             "content": "<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your blanket for years to come.</p>",
             "page": "",
@@ -214,7 +230,7 @@
         "shipping_metaobject_tLJRyV": {
           "type": "shipping_metaobject",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Shipping & Returns",
             "shipping_text": "default"
           }
@@ -248,6 +264,7 @@
         "sticky_cart"
       ],
       "settings": {
+        "enable_v2_styles": false,
         "enable_sticky_info": true,
         "media_position": "left",
         "media_size": "large",
@@ -260,6 +277,8 @@
         "enable_video_looping": false,
         "mobile_image_ratio": "square",
         "show_mobile_thumbnails": false,
+        "enable_variant_specific_media": false,
+        "enable_fade_slider": true,
         "padding_top": 0,
         "padding_bottom": 20
       }
@@ -539,10 +558,13 @@
         "show_quick_buy": true,
         "enable_quick_view": true,
         "enable_color_swatches": true,
+        "enable_other_variants": false,
         "enable_countdown": true,
         "colors_highlight": "#ffb503",
         "padding_top": 36,
         "padding_bottom": 36,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36,
         "enable_highlight": false,
         "highlight_style": "marker"
       }
@@ -553,6 +575,7 @@
         "review_BDtWFn": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I’ve struggled with overheating at night for years, but this blanket is an absolute lifesaver! The cooling side is amazing—it feels instantly cool to the touch and helps regulate my temperature. The warming side is perfect for chillier nights, making it a year-round essential. Highly recommend!",
             "author_name": "Cassie O."
           }
@@ -560,6 +583,7 @@
         "review_TWUMfC": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I was skeptical at first, but this blanket really delivers. The cooling side keeps me from waking up sweaty, and the warming side is cozy but not too hot. It’s lightweight yet provides the perfect amount of comfort. Worth every penny!",
             "author_name": "Daniel R."
           }
@@ -567,6 +591,7 @@
         "review_K9yN6y": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "This blanket is a lifesaver! I used to wake up drenched in sweat, but the cooling side of this blanket actually works. The fabric is silky smooth and breathable. My husband prefers the warming side, so we both win!",
             "author_name": "Simona K."
           }
@@ -574,6 +599,7 @@
         "review_EFnpCM": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "The cooling effect is real! It feels refreshing as soon as you touch it, and it stays cool throughout the night. The warming side is soft and plush—great for winter. My only complaint is that I wish it came in more colors!",
             "author_name": "Alyssa S."
           }
@@ -581,6 +607,7 @@
         "review_W7QT7T": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I love how lightweight this blanket is—it doesn’t feel heavy but still provides great coverage. The cooling side really helps on hot nights, and the warming side is surprisingly cozy. It’s a great investment for anyone who struggles with temperature control while sleeping.",
             "author_name": "Charlie N."
           }
@@ -588,6 +615,7 @@
         "review_aFeTA6": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "This blanket feels like something you’d find in a high-end hotel! The cooling side is smooth and refreshing, while the warming side is soft and velvety. I was hesitant at first, but now I can’t sleep without it.",
             "author_name": "Jessie P."
           }
