@@ -207,7 +207,7 @@ details[open].menu-opening > .cart-drawer {
 
 .mini-cart__main cart-items {
   display: block;
-  padding: 1.5rem;
+  /* padding: 1.5rem; */
 }
 .cart-item__quantity quantity-popover .quantity{
   background: rgb(243,243,243);
