@@ -230,7 +230,7 @@
     {% render 'transition-cover' %}
 
     <div class="transition-body">
-      {%- if template.suffix == 'muslin-blanket-le-new' or template.suffix == 'donation-counter' -%}
+      {%- if template.suffix == 'muslin-blanket-le-new' or template.suffix == 'home-page-new' or template.suffix == 'donation-counter' -%}
         {% sections 'header-custom-group' %}
       {%- else -%}
         {% sections 'header-group' %}
@@ -241,7 +241,11 @@
           {{ content_for_layout }}
         </main>
 
-        {% sections 'footer-group' %}
+        {%- if template.suffix == 'muslin-blanket-le-new' or template.suffix == 'home-page-new' -%}
+          {% sections 'footer-custom-group' %}
+        {% else %}
+          {% sections 'footer-group' %}
+        {% endif %}
       </div>
     </div>
 

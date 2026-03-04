@@ -86,7 +86,7 @@
         {{ card_product.title | escape }}
       </a>
       {% if card_product.metafields.custom.subtitle != blank %}
-        <p class="meta-subtitle">{{ card_product.metafields.custom.subtitle.value }}</p>
+        {% comment %} <p class="meta-subtitle">{{ card_product.metafields.custom.subtitle.value }}</p> {% endcomment %}
       {% endif %}
       <div class="card-v2-price">
         {% render 'price', product: card_product, use_variant: true %}
