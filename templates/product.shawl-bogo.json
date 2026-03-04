@@ -40,7 +40,9 @@
           "settings": {
             "title_size": "h1",
             "show_price": false,
-            "price_size": "medium"
+            "price_size": "medium",
+            "desktop_hide": false,
+            "mobile_hide": false
           }
         },
         "rating_static_jQpEEQ": {
@@ -58,8 +60,23 @@
             "sale_badge_basis": "percentage"
           }
         },
+        "icon_text_kbMzrX": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/Group_1.svg",
+            "icon_size": 16,
+            "icon_size_mob": 16,
+            "icon_text": "",
+            "icon_richtext": "<p><strong>Early Women's Month Sale:</strong> Buy One, Get One <strong>FREE</strong></p>",
+            "text_color": "#3b3b3b",
+            "text_size": 14,
+            "text_size_mob": 12,
+            "enable_bg": true
+          }
+        },
         "text_custom_Vpdkyw": {
           "type": "text_custom",
+          "disabled": true,
           "settings": {
             "text_custom": "<strong>Live Now: Buy 1 get 1 FREE</strong>",
             "text_color": "#a63e3e",
@@ -69,6 +86,20 @@
             "enable_circle": false
           }
         },
+        "icon_text_grid_eqBhTV": {
+          "type": "icon_text_grid",
+          "settings": {
+            "text_1": "Lightweight Everyday Comfort",
+            "text_2": "100% Premium Muslin Cotton",
+            "text_3": "Breathable Muslin Weave",
+            "text_4": "Incredibly Soft Texture",
+            "icon_size": 30,
+            "icon_size_mob": 24,
+            "text_size": 14,
+            "text_size_mob": 13,
+            "text_color": "#000000"
+          }
+        },
         "icon_text_9Gxbx4": {
           "type": "icon_text",
           "settings": {
@@ -76,9 +107,11 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Super Soft, breathable Fleece",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_KLMX3D": {
@@ -88,9 +121,11 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Elegant drape design",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_R7iXXY": {
@@ -100,9 +135,11 @@
             "icon_size": 30,
             "icon_size_mob": 26,
             "icon_text": "Effortless one-size fit",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "text_custom_Lpng9n": {
@@ -119,6 +156,7 @@
         },
         "custom_liquid_Lk84ti": {
           "type": "custom_liquid",
+          "disabled": true,
           "settings": {
             "custom_liquid": "<style>\n  /* tweak --lh if your theme's line-height looks different */\n  .special-msg {\n    --lh: 1.35;                    /* line-height for this block */\n    --dot: 8px;                    /* dot size */\n    color: #A63E3E;\n    font-weight: 600;\n    display: block;\n    margin: 5px 0;\n    padding-left: 18px;            /* room for the dot */\n    position: relative;\n    line-height: var(--lh);\n    text-align: left !important;\n    white-space: normal;\n    letter-spacing: .3px;\n  }\n\n  .special-msg::before {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    width: var(--dot);\n    height: var(--dot);\n    border-radius: 50%;\n    background: #A63E3E;\n    /* place the dot centered within the FIRST line only */\n    top: calc((var(--lh) * 1em - var(--dot)) / 2);\n    animation: blink 3.5s infinite ease-in-out;\n  }\n\n@keyframes blink {\n  /* Quick fade in */\n  0%   { opacity: 0; }\n  40%  { opacity: 1; }\n\n  /* Hold bright */\n  60%  { opacity: 1; }\n\n  /* Slow fade out */\n  100% { opacity: 0; }\n}\n\n</style>\n\n<div class=\"special-msg\">\n  Limited units available during our <b>Early Women’s Month Sale</b>\n</div>"
           }
@@ -148,30 +186,45 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
+            "buy_buttons_version": "v1",
             "show_quantity_selector": false,
             "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false
+            "show_gift_card_recipient": false,
+            "enable_monogram": false,
+            "monogram_product": "",
+            "icon": "shopify://shop_images/Vector_2.svg",
+            "icon_text": "30 DAYS MONEY BACK GUARANTEE"
           }
         },
         "countdown_timer_4tCBwt": {
           "type": "countdown_timer",
           "settings": {
-            "heading": "Early Women’s Month Sale ENDS IN:",
-            "heading_color": "#ffffff",
-            "background_color": "#c5bbae",
-            "timer_color": "#121212",
-            "label_color": "#121212",
+            "heading": "SALE ENDS IN:",
+            "heading_color": "#3b3b3b",
+            "background_color": "#f0eae4",
+            "timer_color": "#3b3b3b",
+            "label_color": "#3b3b3b",
             "per_visitor_timer": true,
             "end_date": "2026-01-31 23:59:59",
             "visitor_days": 0,
             "visitor_hours": 20,
             "visitor_minutes": 3,
             "visitor_seconds": 27,
+            "enable_payment_icons": false,
             "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
+          }
+        },
+        "richtext_box_938FMh": {
+          "type": "richtext_box",
+          "settings": {
+            "rich_text": "<p><strong>Shipped in 1-3 Days</strong><br/>Fast & Tracked USPS Shipping</p>",
+            "text_size": 14,
+            "text_size_mob": 12
           }
         },
         "icon_with_text_NArRNw": {
           "type": "icon_with_text",
+          "disabled": true,
           "settings": {
             "icon_1": "shopify://shop_images/local_shipping_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
             "text_1": "Fast & Tracked Shipping",
@@ -245,7 +298,9 @@
         "title",
         "rating_static_jQpEEQ",
         "price",
+        "icon_text_kbMzrX",
         "text_custom_Vpdkyw",
+        "icon_text_grid_eqBhTV",
         "icon_text_9Gxbx4",
         "icon_text_KLMX3D",
         "icon_text_R7iXXY",
@@ -255,6 +310,7 @@
         "kiwi_size_chart_recommender_kiwi_sizing_yje3fV",
         "buy_buttons",
         "countdown_timer_4tCBwt",
+        "richtext_box_938FMh",
         "icon_with_text_NArRNw",
         "text_custom_A3eeDw",
         "collapsible_tab-0",
@@ -264,6 +320,7 @@
         "sticky_cart"
       ],
       "settings": {
+        "enable_v2_styles": false,
         "enable_sticky_info": true,
         "media_position": "left",
         "media_size": "large",
@@ -276,6 +333,8 @@
         "enable_video_looping": false,
         "mobile_image_ratio": "square",
         "show_mobile_thumbnails": false,
+        "enable_variant_specific_media": false,
+        "enable_fade_slider": true,
         "padding_top": 0,
         "padding_bottom": 32
       }
@@ -495,10 +554,13 @@
         "show_quick_buy": true,
         "enable_quick_view": true,
         "enable_color_swatches": true,
+        "enable_other_variants": false,
         "enable_countdown": true,
         "colors_highlight": "#ffb503",
         "padding_top": 36,
         "padding_bottom": 36,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36,
         "enable_highlight": false,
         "highlight_style": "marker"
       }
@@ -509,6 +571,7 @@
         "review_BDtWFn": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "This shawl is unbelievably soft and cozy. I wear it almost every day it keeps me warm without ever feeling heavy",
             "author_name": "Emily R."
           }
@@ -516,6 +579,7 @@
         "review_AAMEHx": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "My new favorite accessory! Whether I’m at the office, out for dinner, or relaxing at home it adds instant elegance.",
             "author_name": "Jessica D."
           }
@@ -523,6 +587,7 @@
         "review_RRjwad": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Exactly what I was looking for – light, warm, and perfect for travel. It folds up so easily and looks chic anywhere.",
             "author_name": "Hannah M."
           }
@@ -530,6 +595,7 @@
         "review_xDdeQd": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I love how versatile it is. Works just as well with jeans as with a dress, and it always looks polished.",
             "author_name": "Olivia K."
           }
@@ -537,6 +603,7 @@
         "review_NMUxqR": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Finally found a shawl that looks stylish without being bulky. I get compliments every time I wear it.",
             "author_name": "Eline"
           }
@@ -544,6 +611,7 @@
         "review_P7t8Mn": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Bought it as a gift for my mom and she absolutely adores it. Now I need to order one for myself too!",
             "author_name": "Maria"
           }
