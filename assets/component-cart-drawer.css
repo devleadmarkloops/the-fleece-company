@@ -296,7 +296,7 @@ details[open].menu-opening > .cart-drawer {
 
 .mini-cart__navigation .delete-product {
   line-height: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
   width: 2rem;
   height: 3rem;
   cursor: pointer;
@@ -1307,4 +1307,5 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   letter-spacing: 0;
   line-height: normal;
   text-underline-offset: 2px;
+  overflow: none;
 }
