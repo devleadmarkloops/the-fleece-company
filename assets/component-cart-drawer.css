@@ -1247,3 +1247,30 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 .cart-drawer .mini-cart__main .product-content .quantity-price-d5 .price-save strong {
   font-weight: 500;
 }
+/* --- CART DRAWER VARIANT STYLING --- */
+  .cart-drawer__variant-options {
+    margin: 0.5rem 0 0 0;
+    padding: 0;
+  }
+
+  .cart-drawer__option-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Space between "Color:" and "Dune" */
+    margin-bottom: 0.4rem;
+    font-family: var(--new-font-body-family); /* Implies your custom font */
+    font-size: 1.3rem; /* Adjust to match Figma */
+    line-height: 1.2;
+  }
+
+  .cart-drawer__option-row dt {
+    margin: 0;
+    font-weight: 600; /* Makes the label bold */
+    color: rgba(var(--color-foreground), 0.7);
+  }
+
+  .cart-drawer__option-row dd {
+    margin: 0;
+    font-weight: 400;
+    color: rgb(var(--color-foreground));
+  }
