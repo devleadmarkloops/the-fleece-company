@@ -1172,6 +1172,10 @@
           <a class="button button--secondary" href="{{ routes.cart_url }}">{{ 'general.cart.view' | t }}</a>
         {%- endunless -%}
       </div>
+      <div class="cd-trust-badge-d5">
+        <span>{% render 'icon', icon: 'tick' %}</span>
+        <p>100-DAY SATISFACTION GUARANTEE</p>
+      </div>
       <div class="payment-icons-wr">
         <ul class="payment-badges" role="list">
           {% assign enabled_payment_types = shop.enabled_payment_types %}
@@ -1189,10 +1193,6 @@
             </li>
           {%- endfor -%}
         </ul>
-      </div>
-      <div class="cd-trust-badge-d5">
-        <span>{% render 'icon', icon: 'tick' %}</span>
-        <p>100-DAY SATISFACTION GUARANTEE</p>
       </div>
     </div>
   </div>
