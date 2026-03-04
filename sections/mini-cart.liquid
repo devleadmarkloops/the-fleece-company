@@ -776,7 +776,8 @@
                         aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}"
                         data-no-instant
                       >
-                        {% render 'icon', icon: 'remove' %}
+                        {% comment %} {% render 'icon', icon: 'remove' %} {% endcomment %}
+                         Remove
                       </a>
                     </cart-remove-button>
 
