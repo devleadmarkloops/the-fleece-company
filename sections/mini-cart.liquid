@@ -1162,13 +1162,11 @@
       </div>
       <div class="button-container cd-btn-d5">
         <button class="button checkout-btn-d5 not-hover" name="checkout" type="submit" data-variant-id="{{ protection_product.variants.first.id }}">
-          Checkout
-          {% comment %}  {{ 'sections.cart.checkout' | t }}
+          {{ 'sections.cart.checkout' | t }}
       
           {%- if settings.disable_view_cart -%}
            <span class="price" id="mini-cart-subtotal">{{ cart.total_price | money_with_currency }}</span> 
           {%- endif -%}
-           {% endcomment %}
         </button>
         {%- unless settings.disable_view_cart -%}
           <a class="button button--secondary" href="{{ routes.cart_url }}">{{ 'general.cart.view' | t }}</a>
