@@ -48,6 +48,7 @@
       "blocks": {
         "heading_PcPCDH": {
           "type": "heading",
+          "disabled": true,
           "settings": {
             "heading": "All Products",
             "heading_size": "h1",
@@ -58,6 +59,7 @@
         },
         "text_rrYCtB": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "text": "<p>Discover our full range of thoughtfully crafted pieces designed for comfort, made for everyday living.</p>",
             "text_size": "typeset",
@@ -76,7 +78,7 @@
       ],
       "name": "Image banner v2",
       "settings": {
-        "image": "shopify://shop_images/Group_2147226748.webp",
+        "image": "shopify://shop_images/Home_Banner_1_0d60de1c-8f53-4f68-817b-7cee45940a26.webp",
         "image_position": "center center",
         "text_box_position": "middle-left",
         "text_alignment": "left",
