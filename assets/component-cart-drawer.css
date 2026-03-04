@@ -1205,3 +1205,10 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   border-right: 0;
   border-left: 0;
 }
+
+.cart-drawer .mini-cart__main .product-content .product-title {
+  font-family: var(--new-font-heading-family);
+  font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 0;
+}
