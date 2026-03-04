@@ -1208,7 +1208,7 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 
 .cart-drawer .mini-cart__main .product-content .product-title {
   font-family: var(--new-font-heading-family);
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 400;
   letter-spacing: 0;
 }
