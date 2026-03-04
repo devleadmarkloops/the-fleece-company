@@ -197,7 +197,7 @@
           "settings": {
             "rich_text": "<p><strong>Shipped in 1-3 Days</strong><br/>Fast & Tracked USPS Shipping</p>",
             "text_size": 14,
-            "text_size_mob": 15
+            "text_size_mob": 12
           }
         },
         "icon_with_text_NArRNw": {
@@ -226,7 +226,7 @@
         "collapsible_tab_WMLjkB": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Care",
             "content": "<p>Designed for everyday ease. Machine wash cold, tumble dry on low heat, and skip ironing or fabric softeners to keep your blanket’s softness and coziness lasting for years.</p>",
             "page": "",
@@ -237,7 +237,7 @@
         "collapsible_tab_TbRiah": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Size & Material",
             "content": "",
             "page": "rose-blanket",
@@ -260,7 +260,7 @@
         "shipping_metaobject_tLJRyV": {
           "type": "shipping_metaobject",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Shipping & Returns",
             "shipping_text": "default"
           }
