@@ -1235,3 +1235,9 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 .cart-drawer .mini-cart__main .product-content .quantity-price-d5 .price bdi strong {
   font-weight: 700;
 }
+.cart-drawer .mini-cart__main .product-content .quantity-price-d5 dd.price {
+  font-family: var(--new-font-body-family);
+  font-size: 1.4rem;
+  letter-spacing: 0;
+  line-height: normal; 
+}
