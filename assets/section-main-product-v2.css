@@ -3826,10 +3826,12 @@ span.alert-box:before {
 
 /* Mobile: stack vertically */
 @media (max-width: 749px) {
-  
+  .donation-heading{
+    font-size:12px;
+  }
   .donation-row {
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 5px;
   }
   .donation-left {
     width: 100%;
