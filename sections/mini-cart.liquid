@@ -1172,14 +1172,24 @@
           <a class="button button--secondary" href="{{ routes.cart_url }}">{{ 'general.cart.view' | t }}</a>
         {%- endunless -%}
       </div>
-      <img
-        class="cd-payment-icons-d5"
-        src="https://cdn.shopify.com/s/files/1/0872/8906/9899/files/Screenshot_2026-01-13_190348.png"
-        width="100%"
-        height="34"
-        alt="payment icons"
-        loading="lazy"
-      >
+      <div class="payment-icons-wr">
+        <ul class="payment-badges" role="list">
+          {% assign enabled_payment_types = shop.enabled_payment_types %}
+          {% if settings.enabled_payment_types != blank %}
+            {% assign enabled_payment_types = settings.enabled_payment_types
+              | remove: ' '
+              | split: ','
+            %}
+          {% endif %}
+
+          {%- for type in enabled_payment_types -%}
+            {% assign payment_type = type | strip %}
+            <li class="list-payment__item">
+              {{ payment_type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
       <div class="cd-trust-badge-d5">
         <span>{% render 'icon', icon: 'tick' %}</span>
         <p>100-DAY SATISFACTION GUARANTEE</p>
