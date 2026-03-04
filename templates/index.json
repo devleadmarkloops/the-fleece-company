@@ -155,6 +155,7 @@
         "announcement_AkGwYP",
         "announcement_AFLwJe"
       ],
+      "disabled": true,
       "name": "Scrolling promotion v2",
       "settings": {
         "static": false,
