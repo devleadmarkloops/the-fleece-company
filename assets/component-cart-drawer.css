@@ -1486,7 +1486,7 @@ details[open].menu-opening > .cart-drawer [data-animate] {
     height: 13px;
     left: 2px;
   }
-  .cart-drawer .mini-cart__main .os-protection-wrapper-d5 .os-switch-input-d5:checked + .cart-drawer .mini-cart__main .os-protection-wrapper-d5 .os-slider-d5:before {
+  .os-switch-input-d5:checked + .os-slider-d5:before {
     transform: translateX(18px);
   }
 }
