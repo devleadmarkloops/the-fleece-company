@@ -60,8 +60,26 @@
             "sale_badge_basis": "percentage"
           }
         },
+        "icon_text_grid_DLgfNT": {
+          "type": "icon_text_grid",
+          "settings": {
+            "icon_1": "shopify://shop_images/Cotton_Icon_1.png",
+            "text_1": "100% Cotton",
+            "icon_2": "shopify://shop_images/clouds.png",
+            "text_2": "Incredibly Soft",
+            "icon_3": "shopify://shop_images/air_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_3": "Breathable",
+            "text_4": "",
+            "icon_size": 30,
+            "icon_size_mob": 24,
+            "text_size": 14,
+            "text_size_mob": 13,
+            "text_color": "#000000"
+          }
+        },
         "icon_text_9Gxbx4": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/Cotton_Icon_1.png",
             "icon_size": 32,
@@ -76,6 +94,7 @@
         },
         "icon_text_KLMX3D": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/clouds.png",
             "icon_size": 32,
@@ -90,6 +109,7 @@
         },
         "icon_text_R7iXXY": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/arrow-up.webp",
             "icon_size": 32,
@@ -169,7 +189,7 @@
         "collapsible_tab-0": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "The Elegance of Cotton",
             "content": "<p>Crafted from 100% cotton, this scarf combines breathable comfort with natural warmth. Its smooth weave drapes effortlessly, while the bold pattern and refined details make it a standout accessory. Versatile enough for every season, it adds a touch of sophistication whether styled casually or dressed up.</p>",
             "page": "",
@@ -180,7 +200,7 @@
         "collapsible_tab_TbRiah": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Care & Details",
             "content": "<p>To maintain the softness and shape of your scarf, we recommend gentle hand washing in cold water with a mild detergent. Lay flat to dry on a clean towel, away from direct heat or sunlight. Avoid wringing or twisting to keep the fibers smooth. For best results, store folded rather than hanging to preserve its drape and design. With proper care, your scarf will remain a timeless accessory for years to come.</p><p><br/><strong>Size:</strong> 185 × 65 cm (approx. 73” × 26”)</p>",
             "page": "",
@@ -203,7 +223,7 @@
         "shipping_metaobject_tLJRyV": {
           "type": "shipping_metaobject",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Shipping & Returns",
             "shipping_text": "default"
           }
@@ -219,6 +239,7 @@
         "title",
         "rating_static_jQpEEQ",
         "price",
+        "icon_text_grid_DLgfNT",
         "icon_text_9Gxbx4",
         "icon_text_KLMX3D",
         "icon_text_R7iXXY",
