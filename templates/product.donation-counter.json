@@ -38,6 +38,7 @@
         "donation_impact_Vaf4tz": {
           "type": "donation_impact",
           "settings": {
+            "display": "mobile",
             "icon_size": 16,
             "heading": "Every Order Donates $1 to Women Escaping Abuse",
             "raised": 6847,
@@ -81,6 +82,22 @@
             "price_size": "medium",
             "show_badges": true,
             "sale_badge_basis": "auto"
+          }
+        },
+        "donation_impact_arQBr4": {
+          "type": "donation_impact",
+          "settings": {
+            "display": "desktop",
+            "icon_size": 16,
+            "heading": "Every Order Donates $1 to Women Escaping Abuse",
+            "raised": 6847,
+            "goal": 10000,
+            "orders_remaining": 800,
+            "bg_color": "#f0eae4",
+            "heading_color": "#1a1a1a",
+            "text_color": "#1a1a1a",
+            "bar_color": "#ff6955",
+            "bar_bg_color": "#f0eae4"
           }
         },
         "icon_text_9Gxbx4": {
@@ -242,6 +259,7 @@
         "breadcrumb_LGWKpR",
         "title",
         "price",
+        "donation_impact_arQBr4",
         "icon_text_9Gxbx4",
         "icon_text_grid_U3jbTR",
         "variant_picker",
