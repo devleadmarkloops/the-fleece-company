@@ -1307,8 +1307,7 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   letter-spacing: 0;
   line-height: normal;
   text-underline-offset: 2px;
-  overflow: none;
-  padding-block: 0.4rem;
+  padding-block: 0.5rem;
 }
 
 .cart-drawer .mini-cart__main .os-container-d5 {
