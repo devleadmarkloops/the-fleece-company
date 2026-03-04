@@ -1411,3 +1411,9 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   padding: 0;
   margin-block: 0.7rem 0.2rem;
 }
+
+@media screen and (max-width: 749px) {
+  .cart-drawer .mini-cart__header .heading-inner {
+    padding: 1.2rem 1.2rem 1.2rem 1.5rem;
+  }
+}
