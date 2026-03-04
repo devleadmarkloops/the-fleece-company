@@ -248,7 +248,7 @@
         "collapsible_tab-0": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Care & Details",
             "content": "<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your Shawl for years to come.</p>",
             "page": "",
@@ -259,7 +259,7 @@
         "collapsible_tab_TbRiah": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Size",
             "content": "",
             "page": "size-shawl",
@@ -282,7 +282,7 @@
         "shipping_metaobject_tLJRyV": {
           "type": "shipping_metaobject",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Shipping & Returns",
             "shipping_text": "default"
           }
