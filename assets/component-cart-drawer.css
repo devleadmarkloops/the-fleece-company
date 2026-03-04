@@ -1257,8 +1257,9 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   gap: 0.5rem;
   margin-bottom: 0.4rem;
   font-family: var(--new-font-body-family);
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   line-height: 1.2;
+  letter-spacing: 0;
 }
 .cart-drawer .mini-cart__main .cart-drawer__option-row dt {
   margin: 0;
@@ -1267,6 +1268,6 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 }
 .cart-drawer .mini-cart__main .cart-drawer__option-row dd {
   margin: 0;
-  font-weight: 400;
+  font-weight: 500;
   color: rgb(var(--color-foreground));
 }
