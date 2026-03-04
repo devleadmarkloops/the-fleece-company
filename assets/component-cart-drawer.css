@@ -1263,7 +1263,7 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 }
 .cart-drawer .mini-cart__main .cart-drawer__option-row dt {
   margin: 0;
-  font-weight: 600;
+  font-weight: 500;
   color: rgba(var(--color-foreground), 0.7);
 }
 .cart-drawer .mini-cart__main .cart-drawer__option-row dd {
