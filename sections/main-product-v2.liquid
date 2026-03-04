@@ -1259,6 +1259,7 @@
                 </div>
                 <script>
                   document.addEventListener('click', function(e) {
+                    alert('test');
                     var trigger = e.target.closest('[data-donation-info]');
                     if (trigger) {
                       e.stopPropagation();
