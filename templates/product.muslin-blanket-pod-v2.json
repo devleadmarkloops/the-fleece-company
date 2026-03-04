@@ -83,7 +83,7 @@
             "text_2": "Breathable",
             "icon_3": "shopify://shop_images/lightweight.png",
             "text_3": "Lightweight",
-            "text_4": "Incredibly Soft Texture",
+            "text_4": "",
             "icon_size": 30,
             "icon_size_mob": 24,
             "text_size": 14,
@@ -160,7 +160,7 @@
           "settings": {
             "show_variant_labels": true,
             "picker_type": "button",
-            "swatch_source": "variant",
+            "swatch_source": "file",
             "swatch_type": "round",
             "swatch_size": "large",
             "enable_swatch_unavailable_click": false,
