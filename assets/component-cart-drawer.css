@@ -1241,3 +1241,6 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   letter-spacing: 0;
   line-height: normal; 
 }
+.cart-drawer .mini-cart__main .product-content .quantity-price-d5 dd.price strong {
+  font-weight: 500;
+}
