@@ -15,8 +15,8 @@
         "16532649314269ba76-0": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Copy_of_FLEECE_BANNER.webp",
-            "image_mobile": "shopify://shop_images/Copy_of_FLEECE_BANNER_3.webp",
+            "image": "shopify://shop_images/Home_Banner_1.webp",
+            "image_mobile": "shopify://shop_images/Home_Banner_2.webp",
             "image_position": "center center",
             "text_box_position": "bottom-center",
             "subheading": "",
@@ -27,7 +27,7 @@
             "text": "",
             "text_size": "typeset3",
             "button_label": "Shop All",
-            "button_link": "shopify://collections/all",
+            "button_link": "shopify://collections/homepage",
             "button_size": "small",
             "button_style_secondary": false,
             "button_alt_label": "",
@@ -125,7 +125,6 @@
         "colors_text": "#ffffff",
         "colors_background": "#c5bbae",
         "gradient_background": "",
-        "hidden_templates": "",
         "padding_top": 12,
         "padding_bottom": 12
       }
@@ -188,7 +187,6 @@
         "colors_text": "#ffffff",
         "colors_background": "#c5bbae",
         "gradient_background": "",
-        "hidden_templates": "",
         "padding_top": 12,
         "padding_bottom": 12
       }

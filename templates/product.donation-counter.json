@@ -35,6 +35,21 @@
     "main": {
       "type": "main-product-v2",
       "blocks": {
+        "donation_impact_Vaf4tz": {
+          "type": "donation_impact",
+          "settings": {
+            "icon_size": 16,
+            "heading": "Every Order Donates $1 to Women Escaping Abuse",
+            "raised": 6847,
+            "goal": 10000,
+            "orders_remaining": 800,
+            "bg_color": "#f0eae4",
+            "heading_color": "#1a1a1a",
+            "text_color": "#1a1a1a",
+            "bar_color": "#ff6955",
+            "bar_bg_color": "#f0eae4"
+          }
+        },
         "rating_static_jQpEEQ": {
           "type": "rating_static",
           "settings": {
@@ -222,6 +237,7 @@
         }
       },
       "block_order": [
+        "donation_impact_Vaf4tz",
         "rating_static_jQpEEQ",
         "breadcrumb_LGWKpR",
         "title",
@@ -255,7 +271,7 @@
         "mobile_image_ratio": "portrait",
         "show_mobile_thumbnails": false,
         "enable_variant_specific_media": true,
-        "enable_fade_slider": false,
+        "enable_fade_slider": true,
         "padding_top": 0,
         "padding_bottom": 20
       }
@@ -392,7 +408,7 @@
           "type": "heading",
           "settings": {
             "heading": "Cozy All Night with The Muslin Blanket",
-            "heading_size": "h1",
+            "heading_size": "h0",
             "heading_tag": "h2",
             "enable_highlight": false,
             "highlight_style": "marker"

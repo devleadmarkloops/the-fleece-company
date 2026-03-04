@@ -2765,7 +2765,7 @@ input[type=checkbox] {
   display: flex;
   grid-area: icons;
   justify-self: end;
-  margin-inline-end: -0.3rem;
+  margin-inline-end: -0.7rem;
 }
 
 .header__icon:not(.header__icon--summary),

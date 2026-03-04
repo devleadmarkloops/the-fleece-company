@@ -47,7 +47,7 @@
       "type": "image-banner",
       "name": "t:sections.image-banner.presets.name",
       "settings": {
-        "image": "shopify://shop_images/VARIOUS_COLLECTION.webp",
+        "image": "shopify://shop_images/All_Colection_Banners_1.webp",
         "image_position": "center center",
         "text_box_position": "middle-center",
         "text_alignment": "center",
@@ -56,7 +56,7 @@
         "full_width": true,
         "show_divider": false,
         "image_behavior": "none",
-        "mobile_image": "shopify://shop_images/VARIOUS_COLLECTION_2.webp",
+        "mobile_image": "shopify://shop_images/Home_Banner_2.webp",
         "mobile_text_alignment": "center",
         "mobile_image_ratio": "400px",
         "stack_images_on_mobile": false,

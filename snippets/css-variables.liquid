@@ -47,73 +47,15 @@
     font-weight: 400;
     font-style: normal;
   }
-  /* CooperBTLight Family */
-  @font-face {
-    font-family: "CooperBTLight";
-    src: url('https://cdn.shopify.com/s/files/1/0872/8906/9899/files/CooperBTLight_normal_normal.otf?v=1771310699');
-    font-weight: 400;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: "ABeeZee";
-    src: url('https://cdn.shopify.com/s/files/1/0872/8906/9899/files/ABeeZee-Regular.ttf?v=1771831408') format('truetype');
-    font-weight: 900;
-    font-style: normal;
-  }
-  /* Gilroy Family */
-  @font-face {
-    font-family: "Gilroy";
-    src: url('https://cdn.shopify.com/s/files/1/0872/8906/9899/files/Gilroy-Black.ttf?v=1771310699') format('truetype');
-    font-weight: 900;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: "Gilroy";
-    src: url('https://cdn.shopify.com/s/files/1/0872/8906/9899/files/Gilroy-Extrabold.ttf?v=1771310699') format('truetype');
-    font-weight: 800;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: "Gilroy";
-    src: url('https://cdn.shopify.com/s/files/1/0872/8906/9899/files/Gilroy-Bold.ttf?v=1771310699') format('truetype');
-    font-weight: 700;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: "Gilroy";
-    src: url('https://cdn.shopify.com/s/files/1/0872/8906/9899/files/Gilroy-Semibold.ttf?v=1771310699') format('truetype');
-    font-weight: 600;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: "Gilroy";
-    src: url('https://cdn.shopify.com/s/files/1/0872/8906/9899/files/Gilroy-Medium.ttf?v=1771310699') format('truetype');
-    font-weight: 500;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: "Gilroy";
-    src: url('https://cdn.shopify.com/s/files/1/0872/8906/9899/files/Gilroy-Regular.ttf?v=1771310698') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: "Gilroy";
-    src: url('https://cdn.shopify.com/s/files/1/0872/8906/9899/files/Gilroy-Light.ttf?v=1771310698') format('truetype');
-    font-weight: 300;
-    font-style: normal;
-  }
 
   :root {
     --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
     /* --font-body-family: 'New_York_Small', {{ settings.type_body_font.fallback_families }}; */
-    --new-font-body-family: 'Gilroy', {{ settings.type_body_font.fallback_families }};
     --font-body-style: {{ settings.type_body_font.style }};
     --font-body-weight: {{ settings.type_body_font.weight }};
 
     --font-heading-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
     /* --font-heading-family: 'New_York_Small', {{ settings.type_header_font.fallback_families }}; */
-    --new-font-heading-family: 'CooperBTLight', {{ settings.type_header_font.fallback_families }};
     --font-heading-style: {{ settings.type_header_font.style }};
     --font-heading-weight: {{ settings.type_header_font.weight }};
 

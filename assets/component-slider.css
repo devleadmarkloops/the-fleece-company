@@ -45,6 +45,14 @@
     -webkit-overflow-scrolling: touch;
   }
 
+  /* Only lock gestures to horizontal on the main product
+     media list so thumbnails and other sliders can still
+     participate in normal vertical page scrolling. */
+  .product__media-list.slider.slider--mobile {
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
+  }
+
   .slider.slider--mobile .slider__slide {
     margin-bottom: 0;
     padding-bottom: 0;

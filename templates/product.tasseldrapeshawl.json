@@ -1,1 +1,579 @@
-{"sections":{"content_scrollspy_KjGLRV":{"type":"content-scrollspy","disabled":true,"name":"t:sections.content_scrollspy.presets.name","settings":{"heading_selector":".product__heading, h2.title","background_color":"#ffffff","text_color":"#000000","active_color":"#ffb503","border_color":"#ffb503","enable_animations":true,"animation_threshold":0.6,"hide_on_scroll_up":true,"show_scroll_indicator":true}},"empty-space":{"type":"empty-space","settings":{"desktop_height":32,"mobile_height":0}},"main":{"type":"main-product","blocks":{"title":{"type":"title","settings":{"title_size":"h1","show_price":false,"price_size":"medium"}},"rating_static_jQpEEQ":{"type":"rating_static","settings":{"rating_text":"(391 Reviews)","rating_link":""}},"price":{"type":"price","settings":{"price_size":"medium","show_badges":true,"sale_badge_basis":"percentage"}},"text_custom_dyMCny":{"type":"text_custom","settings":{"text_custom":"<strong>Live Now: Buy 1 get 1 FREE <\/strong>","text_color":"#a63e3e","text_size":16,"text_size_mob":15,"enable_normal":true,"enable_circle":false}},"icon_text_KLMX3D":{"type":"icon_text","settings":{"icon":"shopify:\/\/shop_images\/clouds.png","icon_size":32,"icon_size_mob":28,"icon_text":"Super Soft & breathable","text_color":"#121212","text_size":16,"text_size_mob":14}},"icon_text_9Gxbx4":{"type":"icon_text","settings":{"icon":"shopify:\/\/shop_images\/ggghi.png","icon_size":32,"icon_size_mob":28,"icon_text":"Elegant design","text_color":"#121212","text_size":16,"text_size_mob":14}},"icon_text_R7iXXY":{"type":"icon_text","settings":{"icon":"shopify:\/\/shop_images\/ruler.png","icon_size":26,"icon_size_mob":26,"icon_text":"Effortless one-size fit","text_color":"#121212","text_size":16,"text_size_mob":14}},"text_custom_DLLDJ4":{"type":"text_custom","disabled":true,"settings":{"text_custom":"Limited units available during our <strong>New Year Sale<\/strong>","text_color":"#a63e3e","text_size":16,"text_size_mob":15,"enable_normal":true,"enable_circle":true}},"custom_liquid_TaPG6c":{"type":"custom_liquid","settings":{"custom_liquid":"<style>\n  \/* tweak --lh if your theme's line-height looks different *\/\n  .special-msg {\n    --lh: 1.35;                    \/* line-height for this block *\/\n    --dot: 8px;                    \/* dot size *\/\n    color: #A63E3E;\n    font-weight: 600;\n    display: block;\n    margin: 5px 0;\n    padding-left: 18px;            \/* room for the dot *\/\n    position: relative;\n    line-height: var(--lh);\n    text-align: left !important;\n    white-space: normal;\n    letter-spacing: .3px;\n  }\n\n  .special-msg::before {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    width: var(--dot);\n    height: var(--dot);\n    border-radius: 50%;\n    background: #A63E3E;\n    \/* place the dot centered within the FIRST line only *\/\n    top: calc((var(--lh) * 1em - var(--dot)) \/ 2);\n    animation: blink 3.5s infinite ease-in-out;\n  }\n\n@keyframes blink {\n  \/* Quick fade in *\/\n  0%   { opacity: 0; }\n  40%  { opacity: 1; }\n\n  \/* Hold bright *\/\n  60%  { opacity: 1; }\n\n  \/* Slow fade out *\/\n  100% { opacity: 0; }\n}\n\n<\/style>\n\n<div class=\"special-msg\">\n  Limited units available during our <b>Valentine's Day Sale<\/b>\n<\/div>"}},"variant_picker":{"type":"variant_picker","settings":{"show_variant_labels":true,"picker_type":"button","swatch_source":"variant","swatch_type":"round","swatch_size":"large","enable_swatch_unavailable_click":false,"enable_limited":true,"limited_heading":"Limited Edition","size_chart":""}},"buy_buttons":{"type":"buy_buttons","settings":{"show_quantity_selector":false,"show_dynamic_checkout":false,"show_gift_card_recipient":false}},"countdown_timer_4tCBwt":{"type":"countdown_timer","settings":{"heading":"Valentine's Day Sale ENDS IN:","heading_color":"#ffffff","background_color":"#c5bbae","timer_color":"#121212","label_color":"#121212","per_visitor_timer":true,"end_date":"2026-01-31 23:59:59","visitor_days":0,"visitor_hours":20,"visitor_minutes":3,"visitor_seconds":27,"enabled_payment_types":"american_express, visa, master, apple_pay, google_pay, paypal"}},"icon_with_text_NArRNw":{"type":"icon_with_text","settings":{"icon_1":"shopify:\/\/shop_images\/local_shipping_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg","text_1":"Fast & Tracked Shipping","icon_2":"shopify:\/\/shop_images\/undo_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg","text_2":"30 Days Money Back","icon_3":"shopify:\/\/shop_images\/select_check_box_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg","text_3":"100 Days Guarantee"}},"text_custom_A3eeDw":{"type":"text_custom","settings":{"text_custom":"<strong>UPDATE: We're currently going viral on social media<\/strong> and have limited stock remaining!  Take advantage of our quantity discounts.","text_color":"","text_size":14,"text_size_mob":13,"enable_normal":true,"enable_circle":false}},"collapsible_tab_TbRiah":{"type":"collapsible_tab","settings":{"icon":"check_mark","heading":"Care & Details","content":"<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your Shawl for years to come.<\/p>","page":"","custom_liquid":"","keep_open":false}},"collapsible_tab_QNyfDk":{"type":"collapsible_tab","settings":{"icon":"check_mark","heading":"Size","content":"<p>105x160cm\/40x60in<\/p>","page":"","custom_liquid":"","keep_open":false}},"collapsible_tab-1":{"type":"collapsible_tab","disabled":true,"settings":{"icon":"check_mark","heading":"Shipping & Returns","content":"<p>All Orders are fulfilled and then shipped to anywhere in the <strong>US<\/strong> in <strong>1-3 working days<\/strong> on average.<\/p><p>All orders come with tracking information once shipped.<\/p><p><strong>Returns<\/strong><\/p><p>Not happy with your purchase? No worries, we've got you covered!<br\/><br\/>You may return it within 30 days of delivery for a full refund or exchange, no questions asked. To initiate a return, just contact our customer service team at <a href=\"mailto:support@thefleececompany.com\" target=\"_blank\" title=\"mailto:support@thefleececompany.com\">support@thefleececompany.com<\/a>.<\/p>","page":"","custom_liquid":"","keep_open":false}},"shipping_metaobject_tLJRyV":{"type":"shipping_metaobject","settings":{"icon":"check_mark","heading":"Shipping & Returns","shipping_text":"default"}},"sticky_cart":{"type":"sticky_cart","settings":{"show_quantity_selector":false}}},"block_order":["title","rating_static_jQpEEQ","price","text_custom_dyMCny","icon_text_KLMX3D","icon_text_9Gxbx4","icon_text_R7iXXY","text_custom_DLLDJ4","custom_liquid_TaPG6c","variant_picker","buy_buttons","countdown_timer_4tCBwt","icon_with_text_NArRNw","text_custom_A3eeDw","collapsible_tab_TbRiah","collapsible_tab_QNyfDk","collapsible_tab-1","shipping_metaobject_tLJRyV","sticky_cart"],"settings":{"enable_sticky_info":true,"media_position":"left","media_size":"large","gallery_layout":"thumbnail_slider","image_ratio":"square","show_featured_media":true,"show_thumbnails":false,"hide_variants":false,"enable_image_zoom":false,"enable_video_looping":false,"mobile_image_ratio":"square","show_mobile_thumbnails":false,"padding_top":0,"padding_bottom":20}},"image_with_text_v2_D8bENf":{"type":"image-with-text-v2","blocks":{"heading_bBmAeH":{"type":"heading","settings":{"heading":"Chic Comfort with The Tassel Drape Shawl","heading_size":"h1","heading_tag":"h2","enable_highlight":false,"highlight_style":"marker"}},"text_ziaWGB":{"type":"text","settings":{"text":"<p>The Tassel Drape Shawl envelopes you in effortless warmth and elegance from the very first wear. Made from soft, premium materials, it drapes naturally over the shoulders, delivering breathable comfort with a polished look. Its versatile design makes it the perfect companion for every occasion.<\/p>","text_size":"typeset","secondary_color":false,"enable_highlight":false,"highlight_style":"marker"}}},"block_order":["heading_bBmAeH","text_ziaWGB"],"name":"Image with text v2","settings":{"image":"shopify:\/\/shop_images\/freepik__enhance__36567.webp","image_position":"center center","layout":"text_first","text_box_position":"middle","text_alignment":"left","image_ratio":"adapt","enable_media_radius":true,"media_radius":12,"enlarge_content":false,"full_width":false,"show_divider":false,"image_behavior":"none","mobile_layout":"image_first","mobile_text_alignment":"center","mobile_image_ratio":"auto","enable_video_looping":false,"video_url":"","use_custom_colors":false,"colors_button_label":"#ffffff","colors_button_background":"#1a1b18","colors_text":"#212326","colors_background":"#ffffff","gradient_background":"","colors_highlight":"#ffb503","padding_top":32,"padding_bottom":0,"padding_top_mob":0,"padding_bottom_mob":0}},"image_with_text_v2_RabiRM":{"type":"image-with-text-v2","blocks":{"heading_wKRJry":{"type":"heading","settings":{"heading":"Here’s Why Our Shawls Are the Best","heading_size":"h1","heading_tag":"h2","enable_highlight":false,"highlight_style":"marker"}},"text_CN89GA":{"type":"text","settings":{"text":"<p>Crafted from luxuriously soft fabric that feels as effortless as it looks. The breathable weave keeps you warm without overheating, and its timeless drape makes it perfect for any occasion. Experience everyday elegance with a shawl designed to keep you chic and comfortable everywhere you go.<\/p>","text_size":"typeset","secondary_color":false,"enable_highlight":false,"highlight_style":"marker"}}},"block_order":["heading_wKRJry","text_CN89GA"],"name":"Image with text v2","settings":{"image":"shopify:\/\/shop_images\/freepik__enhance__36570.webp","image_position":"center center","layout":"image_first","text_box_position":"middle","text_alignment":"left","image_ratio":"adapt","enable_media_radius":true,"media_radius":12,"enlarge_content":false,"full_width":false,"show_divider":false,"image_behavior":"none","mobile_layout":"image_first","mobile_text_alignment":"center","mobile_image_ratio":"auto","enable_video_looping":false,"video_url":"","use_custom_colors":false,"colors_button_label":"#ffffff","colors_button_background":"#1a1b18","colors_text":"#212326","colors_background":"#ffffff","gradient_background":"","colors_highlight":"#ffb503","padding_top":4,"padding_bottom":4,"padding_top_mob":0,"padding_bottom_mob":0}},"image_with_text_v2_tLdkwa":{"type":"image-with-text-v2","blocks":{"heading_w4UPUz":{"type":"heading","settings":{"heading":"The Fleece Guarantee","heading_size":"h1","heading_tag":"h2","enable_highlight":false,"highlight_style":"marker"}},"text_TDiGmp":{"type":"text","settings":{"text":"<p>We won’t rest until you're completely happy and unbelievably cozy in your Shawl.<\/p>","text_size":"typeset","secondary_color":false,"enable_highlight":false,"highlight_style":"marker"}},"check_list_EmQBcw":{"type":"check_list","settings":{"enable_bg":false,"bg":"","list_icon":"shopify:\/\/shop_images\/check_circle_30dp_C5BBAE_FILL0_wght400_GRAD0_opsz24.svg","list_text_1":"100-day satisfaction guarantee","list_text_2":"Fast and tracked U.S. shipping","list_text_3":"Easy returns and exchanges","list_text_4":"We’re here for you, always.","list_text_5":""}}},"block_order":["heading_w4UPUz","text_TDiGmp","check_list_EmQBcw"],"name":"Image with text v2","settings":{"image":"shopify:\/\/shop_images\/asdasd.png","image_position":"center center","layout":"text_first","text_box_position":"middle","text_alignment":"left","image_ratio":"adapt","enable_media_radius":true,"media_radius":12,"enlarge_content":false,"full_width":false,"show_divider":false,"image_behavior":"none","mobile_layout":"image_first","mobile_text_alignment":"center","mobile_image_ratio":"auto","enable_video_looping":false,"video_url":"","use_custom_colors":false,"colors_button_label":"#ffffff","colors_button_background":"#1a1b18","colors_text":"#212326","colors_background":"#ffffff","gradient_background":"","colors_highlight":"#ffb503","padding_top":0,"padding_bottom":0,"padding_top_mob":0,"padding_bottom_mob":0}},"product-recommendations":{"type":"product-recommendations","disabled":true,"settings":{"product_list_limit":4,"show_divider":false,"heading":"You May Also Like","heading_size":"h1","heading_alignment":"center","heading_tag":"h2","columns_mobile":"1","swipe_on_mobile":true,"image_ratio":"portrait","image_position":"center center","enable_image_fill":true,"show_secondary_image":true,"show_vendor":true,"show_rating":true,"show_quick_buy":true,"enable_quick_view":true,"enable_color_swatches":true,"enable_countdown":true,"colors_highlight":"#ffb503","padding_top":36,"padding_bottom":36,"enable_highlight":false,"highlight_style":"marker"}},"reviews_slider_UFEH38":{"type":"reviews-slider","blocks":{"review_BDtWFn":{"type":"review","settings":{"review_text":"The tassels give it such a beautiful flow. Light, warm, and perfect for layering at work or out for dinner.","author_name":"Elena L."}},"review_kLfEf7":{"type":"review","settings":{"review_text":"Super soft and drapes naturally. I get compliments every single time I wear it.","author_name":"Valentina P."}},"review_QnwFXM":{"type":"review","settings":{"review_text":"Warm without feeling heavy. Folds small enough for travel and still looks chic instantly.","author_name":"Sarah M."}},"review_iWz8Ac":{"type":"review","settings":{"review_text":"I was worried it might feel heavy, but it’s so breathable and comfortable. The cut is very flattering and goes with everything.","author_name":"Olivia K."}},"review_nydR6B":{"type":"review","settings":{"review_text":"The quality is incredible. It feels luxurious, holds its shape, and elevates every outfit.","author_name":"Manuela W."}},"review_gxCkDd":{"type":"review","settings":{"review_text":"Exactly the right mix of comfort and elegance. The tassels add a subtle touch of style I love.","author_name":"Maria C."}}},"block_order":["review_BDtWFn","review_kLfEf7","review_QnwFXM","review_iWz8Ac","review_nydR6B","review_gxCkDd"],"name":"Reviews slider","settings":{"heading":"Our Customers Speaking","subheading":"Avg Rating: 4.8","use_custom_colors":true,"colors_text":"#212326","colors_background":"#ffffff","colors_card_background":"#f6f6f6","colors_stars":"#000000","colors_dots":"#000000","gradient_background":"","padding_top":36,"padding_bottom":52,"padding_top_mob":0,"padding_bottom_mob":40}}},"order":["content_scrollspy_KjGLRV","empty-space","main","image_with_text_v2_D8bENf","image_with_text_v2_RabiRM","image_with_text_v2_tLdkwa","product-recommendations","reviews_slider_UFEH38"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "content_scrollspy_KjGLRV": {
+      "type": "content-scrollspy",
+      "disabled": true,
+      "name": "t:sections.content_scrollspy.presets.name",
+      "settings": {
+        "heading_selector": ".product__heading, h2.title",
+        "background_color": "#ffffff",
+        "text_color": "#000000",
+        "active_color": "#ffb503",
+        "border_color": "#ffb503",
+        "enable_animations": true,
+        "animation_threshold": 0.6,
+        "hide_on_scroll_up": true,
+        "show_scroll_indicator": true
+      }
+    },
+    "empty-space": {
+      "type": "empty-space",
+      "settings": {
+        "desktop_height": 32,
+        "mobile_height": 0
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "title_size": "h1",
+            "show_price": false,
+            "price_size": "medium"
+          }
+        },
+        "rating_static_jQpEEQ": {
+          "type": "rating_static",
+          "settings": {
+            "rating_text": "(391 Reviews)",
+            "rating_link": ""
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "price_size": "medium",
+            "show_badges": true,
+            "sale_badge_basis": "percentage"
+          }
+        },
+        "text_custom_dyMCny": {
+          "type": "text_custom",
+          "settings": {
+            "text_custom": "<strong>Live Now: Buy 1 get 1 FREE </strong>",
+            "text_color": "#a63e3e",
+            "text_size": 16,
+            "text_size_mob": 15,
+            "enable_normal": true,
+            "enable_circle": false
+          }
+        },
+        "icon_text_KLMX3D": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/clouds.png",
+            "icon_size": 32,
+            "icon_size_mob": 28,
+            "icon_text": "Super Soft & breathable",
+            "text_color": "#121212",
+            "text_size": 16,
+            "text_size_mob": 14
+          }
+        },
+        "icon_text_9Gxbx4": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/ggghi.png",
+            "icon_size": 32,
+            "icon_size_mob": 28,
+            "icon_text": "Elegant design",
+            "text_color": "#121212",
+            "text_size": 16,
+            "text_size_mob": 14
+          }
+        },
+        "icon_text_R7iXXY": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/ruler.png",
+            "icon_size": 26,
+            "icon_size_mob": 26,
+            "icon_text": "Effortless one-size fit",
+            "text_color": "#121212",
+            "text_size": 16,
+            "text_size_mob": 14
+          }
+        },
+        "text_custom_DLLDJ4": {
+          "type": "text_custom",
+          "disabled": true,
+          "settings": {
+            "text_custom": "Limited units available during our <strong>New Year Sale</strong>",
+            "text_color": "#a63e3e",
+            "text_size": 16,
+            "text_size_mob": 15,
+            "enable_normal": true,
+            "enable_circle": true
+          }
+        },
+        "custom_liquid_TaPG6c": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<style>\n  /* tweak --lh if your theme's line-height looks different */\n  .special-msg {\n    --lh: 1.35;                    /* line-height for this block */\n    --dot: 8px;                    /* dot size */\n    color: #A63E3E;\n    font-weight: 600;\n    display: block;\n    margin: 5px 0;\n    padding-left: 18px;            /* room for the dot */\n    position: relative;\n    line-height: var(--lh);\n    text-align: left !important;\n    white-space: normal;\n    letter-spacing: .3px;\n  }\n\n  .special-msg::before {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    width: var(--dot);\n    height: var(--dot);\n    border-radius: 50%;\n    background: #A63E3E;\n    /* place the dot centered within the FIRST line only */\n    top: calc((var(--lh) * 1em - var(--dot)) / 2);\n    animation: blink 3.5s infinite ease-in-out;\n  }\n\n@keyframes blink {\n  /* Quick fade in */\n  0%   { opacity: 0; }\n  40%  { opacity: 1; }\n\n  /* Hold bright */\n  60%  { opacity: 1; }\n\n  /* Slow fade out */\n  100% { opacity: 0; }\n}\n\n</style>\n\n<div class=\"special-msg\">\n  Limited units available during our <b>Early Women’s Month Sale</b>\n</div>"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "show_variant_labels": true,
+            "picker_type": "button",
+            "swatch_source": "variant",
+            "swatch_type": "round",
+            "swatch_size": "large",
+            "enable_swatch_unavailable_click": false,
+            "enable_limited": true,
+            "limited_heading": "Limited Edition",
+            "size_chart": ""
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": false,
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false
+          }
+        },
+        "countdown_timer_4tCBwt": {
+          "type": "countdown_timer",
+          "settings": {
+            "heading": "Early Women’s Month Sale ENDS IN:",
+            "heading_color": "#ffffff",
+            "background_color": "#c5bbae",
+            "timer_color": "#121212",
+            "label_color": "#121212",
+            "per_visitor_timer": true,
+            "end_date": "2026-01-31 23:59:59",
+            "visitor_days": 0,
+            "visitor_hours": 20,
+            "visitor_minutes": 3,
+            "visitor_seconds": 27,
+            "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
+          }
+        },
+        "icon_with_text_NArRNw": {
+          "type": "icon_with_text",
+          "settings": {
+            "icon_1": "shopify://shop_images/local_shipping_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
+            "text_1": "Fast & Tracked Shipping",
+            "icon_2": "shopify://shop_images/undo_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
+            "text_2": "30 Days Money Back",
+            "icon_3": "shopify://shop_images/select_check_box_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
+            "text_3": "100 Days Guarantee"
+          }
+        },
+        "text_custom_A3eeDw": {
+          "type": "text_custom",
+          "settings": {
+            "text_custom": "<strong>UPDATE: We're currently going viral on social media</strong> and have limited stock remaining!  Take advantage of our quantity discounts.",
+            "text_color": "",
+            "text_size": 14,
+            "text_size_mob": 13,
+            "enable_normal": true,
+            "enable_circle": false
+          }
+        },
+        "collapsible_tab_TbRiah": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "check_mark",
+            "heading": "Care & Details",
+            "content": "<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your Shawl for years to come.</p>",
+            "page": "",
+            "custom_liquid": "",
+            "keep_open": false
+          }
+        },
+        "collapsible_tab_QNyfDk": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "check_mark",
+            "heading": "Size",
+            "content": "<p>105x160cm/40x60in</p>",
+            "page": "",
+            "custom_liquid": "",
+            "keep_open": false
+          }
+        },
+        "collapsible_tab-1": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "icon": "check_mark",
+            "heading": "Shipping & Returns",
+            "content": "<p>All Orders are fulfilled and then shipped to anywhere in the <strong>US</strong> in <strong>1-3 working days</strong> on average.</p><p>All orders come with tracking information once shipped.</p><p><strong>Returns</strong></p><p>Not happy with your purchase? No worries, we've got you covered!<br/><br/>You may return it within 30 days of delivery for a full refund or exchange, no questions asked. To initiate a return, just contact our customer service team at <a href=\"mailto:support@thefleececompany.com\" target=\"_blank\" title=\"mailto:support@thefleececompany.com\">support@thefleececompany.com</a>.</p>",
+            "page": "",
+            "custom_liquid": "",
+            "keep_open": false
+          }
+        },
+        "shipping_metaobject_tLJRyV": {
+          "type": "shipping_metaobject",
+          "settings": {
+            "icon": "check_mark",
+            "heading": "Shipping & Returns",
+            "shipping_text": "default"
+          }
+        },
+        "sticky_cart": {
+          "type": "sticky_cart",
+          "settings": {
+            "show_quantity_selector": false
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "rating_static_jQpEEQ",
+        "price",
+        "text_custom_dyMCny",
+        "icon_text_KLMX3D",
+        "icon_text_9Gxbx4",
+        "icon_text_R7iXXY",
+        "text_custom_DLLDJ4",
+        "custom_liquid_TaPG6c",
+        "variant_picker",
+        "buy_buttons",
+        "countdown_timer_4tCBwt",
+        "icon_with_text_NArRNw",
+        "text_custom_A3eeDw",
+        "collapsible_tab_TbRiah",
+        "collapsible_tab_QNyfDk",
+        "collapsible_tab-1",
+        "shipping_metaobject_tLJRyV",
+        "sticky_cart"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "media_position": "left",
+        "media_size": "large",
+        "gallery_layout": "thumbnail_slider",
+        "image_ratio": "square",
+        "show_featured_media": true,
+        "show_thumbnails": false,
+        "hide_variants": false,
+        "enable_image_zoom": false,
+        "enable_video_looping": false,
+        "mobile_image_ratio": "square",
+        "show_mobile_thumbnails": false,
+        "padding_top": 0,
+        "padding_bottom": 20
+      }
+    },
+    "image_with_text_v2_D8bENf": {
+      "type": "image-with-text-v2",
+      "blocks": {
+        "heading_bBmAeH": {
+          "type": "heading",
+          "settings": {
+            "heading": "Chic Comfort with The Tassel Drape Shawl",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "text_ziaWGB": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The Tassel Drape Shawl envelopes you in effortless warmth and elegance from the very first wear. Made from soft, premium materials, it drapes naturally over the shoulders, delivering breathable comfort with a polished look. Its versatile design makes it the perfect companion for every occasion.</p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "heading_bBmAeH",
+        "text_ziaWGB"
+      ],
+      "name": "Image with text v2",
+      "settings": {
+        "image": "shopify://shop_images/freepik__enhance__36567.webp",
+        "image_position": "center center",
+        "layout": "text_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "image_ratio": "adapt",
+        "enable_media_radius": true,
+        "media_radius": 12,
+        "enlarge_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_layout": "image_first",
+        "mobile_text_alignment": "center",
+        "mobile_image_ratio": "auto",
+        "enable_video_looping": false,
+        "video_url": "",
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1b18",
+        "colors_text": "#212326",
+        "colors_background": "#ffffff",
+        "gradient_background": "",
+        "colors_highlight": "#ffb503",
+        "padding_top": 32,
+        "padding_bottom": 0,
+        "padding_top_mob": 0,
+        "padding_bottom_mob": 0
+      }
+    },
+    "image_with_text_v2_RabiRM": {
+      "type": "image-with-text-v2",
+      "blocks": {
+        "heading_wKRJry": {
+          "type": "heading",
+          "settings": {
+            "heading": "Here’s Why Our Shawls Are the Best",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "text_CN89GA": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Crafted from luxuriously soft fabric that feels as effortless as it looks. The breathable weave keeps you warm without overheating, and its timeless drape makes it perfect for any occasion. Experience everyday elegance with a shawl designed to keep you chic and comfortable everywhere you go.</p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "heading_wKRJry",
+        "text_CN89GA"
+      ],
+      "name": "Image with text v2",
+      "settings": {
+        "image": "shopify://shop_images/freepik__enhance__36570.webp",
+        "image_position": "center center",
+        "layout": "image_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "image_ratio": "adapt",
+        "enable_media_radius": true,
+        "media_radius": 12,
+        "enlarge_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_layout": "image_first",
+        "mobile_text_alignment": "center",
+        "mobile_image_ratio": "auto",
+        "enable_video_looping": false,
+        "video_url": "",
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1b18",
+        "colors_text": "#212326",
+        "colors_background": "#ffffff",
+        "gradient_background": "",
+        "colors_highlight": "#ffb503",
+        "padding_top": 4,
+        "padding_bottom": 4,
+        "padding_top_mob": 0,
+        "padding_bottom_mob": 0
+      }
+    },
+    "image_with_text_v2_tLdkwa": {
+      "type": "image-with-text-v2",
+      "blocks": {
+        "heading_w4UPUz": {
+          "type": "heading",
+          "settings": {
+            "heading": "The Fleece Guarantee",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "text_TDiGmp": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We won’t rest until you're completely happy and unbelievably cozy in your Shawl.</p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "check_list_EmQBcw": {
+          "type": "check_list",
+          "settings": {
+            "enable_bg": false,
+            "bg": "",
+            "list_icon": "shopify://shop_images/check_circle_30dp_C5BBAE_FILL0_wght400_GRAD0_opsz24.svg",
+            "list_text_1": "100-day satisfaction guarantee",
+            "list_text_2": "Fast and tracked U.S. shipping",
+            "list_text_3": "Easy returns and exchanges",
+            "list_text_4": "We’re here for you, always.",
+            "list_text_5": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_w4UPUz",
+        "text_TDiGmp",
+        "check_list_EmQBcw"
+      ],
+      "name": "Image with text v2",
+      "settings": {
+        "image": "shopify://shop_images/asdasd.png",
+        "image_position": "center center",
+        "layout": "text_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "image_ratio": "adapt",
+        "enable_media_radius": true,
+        "media_radius": 12,
+        "enlarge_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_layout": "image_first",
+        "mobile_text_alignment": "center",
+        "mobile_image_ratio": "auto",
+        "enable_video_looping": false,
+        "video_url": "",
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1b18",
+        "colors_text": "#212326",
+        "colors_background": "#ffffff",
+        "gradient_background": "",
+        "colors_highlight": "#ffb503",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_mob": 0,
+        "padding_bottom_mob": 0
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "product_list_limit": 4,
+        "show_divider": false,
+        "heading": "You May Also Like",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "image_ratio": "portrait",
+        "image_position": "center center",
+        "enable_image_fill": true,
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_rating": true,
+        "show_quick_buy": true,
+        "enable_quick_view": true,
+        "enable_color_swatches": true,
+        "enable_countdown": true,
+        "colors_highlight": "#ffb503",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "enable_highlight": false,
+        "highlight_style": "marker"
+      }
+    },
+    "reviews_slider_UFEH38": {
+      "type": "reviews-slider",
+      "blocks": {
+        "review_BDtWFn": {
+          "type": "review",
+          "settings": {
+            "review_text": "The tassels give it such a beautiful flow. Light, warm, and perfect for layering at work or out for dinner.",
+            "author_name": "Elena L."
+          }
+        },
+        "review_kLfEf7": {
+          "type": "review",
+          "settings": {
+            "review_text": "Super soft and drapes naturally. I get compliments every single time I wear it.",
+            "author_name": "Valentina P."
+          }
+        },
+        "review_QnwFXM": {
+          "type": "review",
+          "settings": {
+            "review_text": "Warm without feeling heavy. Folds small enough for travel and still looks chic instantly.",
+            "author_name": "Sarah M."
+          }
+        },
+        "review_iWz8Ac": {
+          "type": "review",
+          "settings": {
+            "review_text": "I was worried it might feel heavy, but it’s so breathable and comfortable. The cut is very flattering and goes with everything.",
+            "author_name": "Olivia K."
+          }
+        },
+        "review_nydR6B": {
+          "type": "review",
+          "settings": {
+            "review_text": "The quality is incredible. It feels luxurious, holds its shape, and elevates every outfit.",
+            "author_name": "Manuela W."
+          }
+        },
+        "review_gxCkDd": {
+          "type": "review",
+          "settings": {
+            "review_text": "Exactly the right mix of comfort and elegance. The tassels add a subtle touch of style I love.",
+            "author_name": "Maria C."
+          }
+        }
+      },
+      "block_order": [
+        "review_BDtWFn",
+        "review_kLfEf7",
+        "review_QnwFXM",
+        "review_iWz8Ac",
+        "review_nydR6B",
+        "review_gxCkDd"
+      ],
+      "name": "Reviews slider",
+      "settings": {
+        "heading": "Our Customers Speaking",
+        "subheading": "Avg Rating: 4.8",
+        "use_custom_colors": true,
+        "colors_text": "#212326",
+        "colors_background": "#ffffff",
+        "colors_card_background": "#f6f6f6",
+        "colors_stars": "#000000",
+        "colors_dots": "#000000",
+        "gradient_background": "",
+        "padding_top": 36,
+        "padding_bottom": 52,
+        "padding_top_mob": 0,
+        "padding_bottom_mob": 40
+      }
+    }
+  },
+  "order": [
+    "content_scrollspy_KjGLRV",
+    "empty-space",
+    "main",
+    "image_with_text_v2_D8bENf",
+    "image_with_text_v2_RabiRM",
+    "image_with_text_v2_tLdkwa",
+    "product-recommendations",
+    "reviews_slider_UFEH38"
+  ]
+}
