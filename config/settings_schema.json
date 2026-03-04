@@ -642,6 +642,17 @@
       },
       {
         "type": "header",
+        "content": "Button footer"
+      },
+      {
+        "type": "text",
+        "id": "enabled_payment_types",
+        "label": "Custom payment icons to show",
+        "default": "american_express, visa, master, apple_pay, google_pay, paypal",
+        "info": "List of payments you want to show, split with a comma. Options are: afterpay, american_express, apple_pay, bitcoin, dankort, diners_club, discover, dogecoin, dwolla, facebook_pay, forbrugsforeningen, google_pay, ideal, jcb, klarna, klarna-pay-later, litecoin, maestro, master, paypal, shopify_pay, sofort, unionpay, visa"
+      },
+      {
+        "type": "header",
         "content": "t:settings_schema.cart-drawer.settings.header__3.content"
       },
       {
