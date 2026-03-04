@@ -1308,4 +1308,5 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   line-height: normal;
   text-underline-offset: 2px;
   overflow: none;
+  padding-block: 0.3rem;
 }
