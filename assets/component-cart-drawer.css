@@ -1276,4 +1276,9 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   background-color: transparent;
   border: 0;
   box-shadow: none;
+  font-family: var(--new-font-body-family);
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-style: italic;
 }
