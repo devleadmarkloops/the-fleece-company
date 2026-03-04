@@ -1287,6 +1287,10 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   /* font-style: italic; */
   padding: 0.3rem 1rem;
 }
+.cart-drawer .mini-cart__main .discounts__discount .icon-discount-new {
+  width: 1.4rem;
+  height: 1.4rem;
+}
 .cart-drawer .mini-cart__main .cart-remove-wr {
   margin-top: auto;
   display: flex;
