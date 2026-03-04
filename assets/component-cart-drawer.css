@@ -1290,6 +1290,7 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 .cart-drawer .mini-cart__main .discounts__discount .icon-discount-new {
   width: 1.4rem;
   height: 1.4rem;
+  margin-inline-end: 0.4rem;
 }
 .cart-drawer .mini-cart__main .cart-remove-wr {
   margin-top: auto;
