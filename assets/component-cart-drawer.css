@@ -1499,4 +1499,12 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   .cart-drawer .mini-cart__footer .cd-final-pricing-d5 .sub-total {
     margin-bottom: 1.2rem;
   }
+  .cart-drawer .mini-cart__footer .text-save-d5, 
+  .cart-drawer .mini-cart__footer .text-dis-d5 {
+    font-size: 1.6rem;
+  }
+  .cart-drawer .mini-cart__footer .text-total-d5, 
+  .cart-drawer .mini-cart__footer .text-price-d5 {
+    font-size: 1.8rem;
+  }
 }
