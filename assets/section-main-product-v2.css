@@ -3859,14 +3859,14 @@ span.donation-bar-text svg {
 }
 
 .donation-bar-goal {
-    position: absolute;
-    right: 0;
-    top: 0;
-    font-size: 12px;
-    font-weight:bold;
-    height: 100%;
-    padding: 0 10px;
-    line-height: normal;
-    display: flex;
-    align-items: center;
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 12px;
+  font-weight:bold;
+  height: 100%;
+  padding: 0 10px;
+  line-height: normal;
+  display: flex;
+  align-items: center;
 }
