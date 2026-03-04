@@ -1197,3 +1197,11 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   border: 1px solid rgba(var(--color-foreground),1);
   border-radius: 0;
 }
+.cart-drawer .mini-cart__main .product-img-wr .product-quantity .quantity .quantity__input {
+  font-family: var(--new-font-body-family);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  border-right: 0;
+  border-left: 0;
+}
