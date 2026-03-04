@@ -40,7 +40,7 @@
           "settings": {
             "text_style": "body",
             "show_divider": false,
-            "hide_mobile": false
+            "hide_mobile": true
           }
         },
         "title": {
