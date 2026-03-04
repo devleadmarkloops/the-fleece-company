@@ -1271,6 +1271,9 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   font-weight: 500;
   color: rgba(var(--color-foreground), 0.85);
 }
+.cart-drawer .mini-cart__main .discount-price-d5 {
+  margin: 0;
+}
 .cart-drawer .mini-cart__main .discounts__discount {
   background: transparent;
   background-color: transparent;
@@ -1281,4 +1284,5 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   font-weight: 400;
   letter-spacing: 0;
   font-style: italic;
+  padding: 0;
 }
