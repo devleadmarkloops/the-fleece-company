@@ -724,7 +724,7 @@
                     -%}
                     
                     {%- if is_free_item -%}
-                      <dl class="cart-item__discounted-prices">
+                      {% comment %} <dl class="cart-item__discounted-prices">
                         <dt class="visually-hidden">
                           {{ 'products.product.price.regular_price' | t }}
                         </dt>
@@ -743,7 +743,7 @@
                             <bdi><strong>{{ item.final_price | times: item.quantity | money }}</strong></bdi>
                           </price-money>
                         </dd>
-                      </dl>
+                      </dl> {% endcomment %}
                     {%- endif -%}
                     
                     {%- if is_free_item -%}
