@@ -1466,13 +1466,27 @@ details[open].menu-opening > .cart-drawer [data-animate] {
     gap: 1rem;
   }
   .cart-drawer .mini-cart__main .os-protection-wrapper-d5 .os-icon-box-d5 {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 3.2rem;
+    height: 3.2rem;
   }
   .cart-drawer .mini-cart__main .os-protection-wrapper-d5 .os-title-d5 {
     font-size: 1.4rem;
   }
   .cart-drawer .mini-cart__main .os-protection-wrapper-d5 .os-description-d5 {
     font-size: 1.1rem;
+  }
+  .cart-drawer .mini-cart__main .os-protection-wrapper-d5 .os-price-d5 {
+    font-size: 1.3rem;
+  }
+  .cart-drawer .mini-cart__main .os-protection-wrapper-d5 .os-switch-d5 {
+    height: 16px;
+  }
+  .cart-drawer .mini-cart__main .os-protection-wrapper-d5 .os-slider-d5:before {
+    width: 13px;
+    height: 13px;
+    left: 2px;
+  }
+  .cart-drawer .mini-cart__main .os-protection-wrapper-d5 .os-switch-input-d5:checked + .cart-drawer .mini-cart__main .os-protection-wrapper-d5 .os-slider-d5:before {
+    transform: translateX(18px);
   }
 }
