@@ -60,8 +60,22 @@
             "sale_badge_basis": "percentage"
           }
         },
+        "icon_text_gBwFhw": {
+          "type": "icon_text",
+          "settings": {
+            "icon_size": 16,
+            "icon_size_mob": 16,
+            "icon_text": "",
+            "icon_richtext": "<p><strong>Early Women's Month Sale:</strong> Buy One, Get One <strong>FREE</strong></p>",
+            "text_color": "",
+            "text_size": 14,
+            "text_size_mob": 12,
+            "enable_bg": true
+          }
+        },
         "text_custom_Vpdkyw": {
           "type": "text_custom",
+          "disabled": true,
           "settings": {
             "text_custom": "<strong>Live Now: Buy 1 get 1 FREE</strong>",
             "text_color": "#a63e3e",
@@ -71,8 +85,26 @@
             "enable_circle": false
           }
         },
+        "icon_text_grid_mtbLpT": {
+          "type": "icon_text_grid",
+          "settings": {
+            "icon_1": "shopify://shop_images/check-mark_1.png",
+            "text_1": "100% Skin friendly materials",
+            "icon_2": "shopify://shop_images/check-mark_1.png",
+            "text_2": "Super soft, breathable fleece",
+            "icon_3": "shopify://shop_images/check-mark_1.png",
+            "text_3": "Helps improve your mood",
+            "text_4": "",
+            "icon_size": 30,
+            "icon_size_mob": 24,
+            "text_size": 14,
+            "text_size_mob": 13,
+            "text_color": "#000000"
+          }
+        },
         "icon_text_9Gxbx4": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/check_circle_20dp_121212_FILL0_wght400_GRAD0_opsz20.svg",
             "icon_size": 20,
@@ -87,6 +119,7 @@
         },
         "icon_text_KLMX3D": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/check_circle_20dp_121212_FILL0_wght400_GRAD0_opsz20.svg",
             "icon_size": 20,
@@ -101,6 +134,7 @@
         },
         "icon_text_R7iXXY": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/check_circle_20dp_121212_FILL0_wght400_GRAD0_opsz20.svg",
             "icon_size": 20,
@@ -127,6 +161,7 @@
         },
         "custom_liquid_wrGHy6": {
           "type": "custom_liquid",
+          "disabled": true,
           "settings": {
             "custom_liquid": "<style>\n  /* tweak --lh if your theme's line-height looks different */\n  .special-msg {\n    --lh: 1.35;                    /* line-height for this block */\n    --dot: 8px;                    /* dot size */\n    color: #A63E3E;\n    font-weight: 600;\n    display: block;\n    margin: 5px 0;\n    padding-left: 18px;            /* room for the dot */\n    position: relative;\n    line-height: var(--lh);\n    text-align: left !important;\n    white-space: normal;\n    letter-spacing: .3px;\n  }\n\n  .special-msg::before {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    width: var(--dot);\n    height: var(--dot);\n    border-radius: 50%;\n    background: #A63E3E;\n    /* place the dot centered within the FIRST line only */\n    top: calc((var(--lh) * 1em - var(--dot)) / 2);\n    animation: blink 3.5s infinite ease-in-out;\n  }\n\n@keyframes blink {\n  /* Quick fade in */\n  0%   { opacity: 0; }\n  40%  { opacity: 1; }\n\n  /* Hold bright */\n  60%  { opacity: 1; }\n\n  /* Slow fade out */\n  100% { opacity: 0; }\n}\n\n</style>\n\n<div class=\"special-msg\">\n  Limited units available during our <b>Early Women’s Month Sale</b>\n</div>"
           }
@@ -154,13 +189,14 @@
             "show_gift_card_recipient": false,
             "enable_monogram": false,
             "monogram_product": "",
-            "icon_text": ""
+            "icon": "shopify://shop_images/Vector_2.svg",
+            "icon_text": "30 DAYS MONEY BACK GUARANTEE"
           }
         },
         "countdown_timer_4tCBwt": {
           "type": "countdown_timer",
           "settings": {
-            "heading": "Early Women’s Month Sale ENDS IN:",
+            "heading": "SALE ENDS IN:",
             "heading_color": "#3b3b3b",
             "background_color": "#f0eae4",
             "timer_color": "#3b3b3b",
@@ -173,6 +209,14 @@
             "visitor_seconds": 30,
             "enable_payment_icons": false,
             "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
+          }
+        },
+        "richtext_box_eCLfp3": {
+          "type": "richtext_box",
+          "settings": {
+            "rich_text": "<p><strong>Shipped in 1-3 Days</strong><br/>Fast & Tracked USPS Shipping</p>",
+            "text_size": 14,
+            "text_size_mob": 12
           }
         },
         "icon_with_text_NArRNw": {
@@ -245,7 +289,9 @@
         "title",
         "rating_static_jQpEEQ",
         "price",
+        "icon_text_gBwFhw",
         "text_custom_Vpdkyw",
+        "icon_text_grid_mtbLpT",
         "icon_text_9Gxbx4",
         "icon_text_KLMX3D",
         "icon_text_R7iXXY",
@@ -254,6 +300,7 @@
         "variant_picker",
         "buy_buttons",
         "countdown_timer_4tCBwt",
+        "richtext_box_eCLfp3",
         "icon_with_text_NArRNw",
         "text_custom_A3eeDw",
         "description_dJqPye",
