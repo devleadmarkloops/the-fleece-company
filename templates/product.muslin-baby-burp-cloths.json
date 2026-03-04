@@ -227,7 +227,7 @@
         "collapsible_description_aDVDEa": {
           "type": "collapsible_description",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "What are Muslin Burp Cloths?",
             "keep_open": false
           }
@@ -235,7 +235,7 @@
         "collapsible_tab_WMLjkB": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Care",
             "content": "<p>Machine wash cold, do not tumble dry under any circumstances, and avoid ironing or using fabric softeners to maintain the softness and coziness of your cloths for years to come.</p>",
             "page": "",
@@ -258,7 +258,7 @@
         "shipping_metaobject_tLJRyV": {
           "type": "shipping_metaobject",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Shipping & Returns",
             "shipping_text": "default"
           }
