@@ -1165,10 +1165,7 @@
           {{ 'sections.cart.checkout' | t }}
       
           {%- if settings.disable_view_cart -%}
-           <p class="sub-total">
-          <strong class="text-total-d5">Subtotal</strong
-          ><strong class="text-price-d5" data-checked-price="{{ protection_product.price | plus: cart.total_price | money }}" data-unchecked-price="{{ cart.total_price | money }}">{{ cart.total_price | money }}</strong>
-        </p>
+           {% comment %} <span class="price" id="mini-cart-subtotal">{{ cart.total_price | money_with_currency }}</span>  {% endcomment %}
           {%- endif -%}
         </button>
         {%- unless settings.disable_view_cart -%}
