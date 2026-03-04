@@ -754,7 +754,7 @@
                       >
                         {%- for discount in item.line_level_discount_allocations -%}
                           <li class="discounts__discount">
-                            {%- render 'icon', icon: 'discount' -%}
+                            {% comment %} {%- render 'icon', icon: 'discount' -%} {% endcomment %}
                             {{ discount.discount_application.title }}
                           </li>
                         {%- endfor -%}
