@@ -301,7 +301,7 @@
             >
               <div class="product-container{% unless item.image %} no-image{% endunless %}">
                 {% if item.image %}
-                  <div>
+                  <div class="product-img-wr">
                     <a href="{{ item.url }}" class="product-image media-wrapper media-wrapper--small">
                       <div
                         class="media media--adapt"
@@ -339,6 +339,46 @@
                         {% render 'icon', icon: 'remove' %}
                       </a>
                     </cart-remove-button>
+                    <div class="quantity-price-d5">
+                              {%- if item.variant.compare_at_price > item.final_price -%}
+                                <dl class="cart-item__discounted-prices">
+                                  <dt class="visually-hidden">
+                                    {{ 'products.product.price.regular_price' | t }}
+                                  </dt>
+                                  <dd class="price--on-sale test2">
+                                    <s class="price price-item--regular">
+                                      <price-money
+                                        ><bdi>{{ item.variant.compare_at_price | times: item.quantity | money }}</bdi></price-money
+                                      >
+                                    </s>
+                                  </dd>
+                                  <dt class="visually-hidden">
+                                    {{ 'products.product.price.sale_price' | t }}
+                                  </dt>
+                                  <dd class="price">
+                                    <price-money
+                                      ><bdi><strong>{{ item.final_price | times: item.quantity | money }}</strong></bdi></price-money
+                                    >
+                                  </dd>
+                                </dl>
+                              {%- else -%}
+                                <dl class="cart-item__discounted-prices">
+                                  <dd class="price">
+                                    <price-money
+                                      ><bdi>
+                                        <strong>{{ item.original_price | times: item.quantity | money }}</strong></bdi></price-money
+                                    >
+                                  </dd>
+                                </dl>
+                              {%- endif -%}
+                              {% if item.variant.compare_at_price > item.final_price %}
+                              <dl>
+                                <dd class="price">
+                                  <strong>(You Save {{ item.variant.compare_at_price | minus:item.final_price | times: item.quantity | money  }})</strong>
+                                </dd>
+                              </dl>
+                            {% endif %}
+                            </div>
                   </div>
 
                   {%- if item.product.has_only_default_variant == false
@@ -526,7 +566,7 @@
                               </quantity-input>
                             </div>
                             {%- render 'loading-spinner' -%}
-                            <div class="quantity-price-d5">
+                            {% comment %} <div class="quantity-price-d5">
                               {%- if item.variant.compare_at_price > item.final_price -%}
                                 <dl class="cart-item__discounted-prices">
                                   <dt class="visually-hidden">
@@ -565,7 +605,7 @@
                                 </dd>
                               </dl>
                             {% endif %}
-                            </div>
+                            </div> {% endcomment %}
                             {% comment %}
                               {%- if item.original_price != item.final_price -%}
                                 <dl class="cart-item__discounted-prices">
