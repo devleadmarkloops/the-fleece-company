@@ -1259,9 +1259,10 @@
                 </div>
                 <script>
                   document.addEventListener('click', function(e) {
-                    alert('test');
+                    
                     var trigger = e.target.closest('[data-donation-info]');
                     if (trigger) {
+                      alert('test');
                       e.stopPropagation();
                       var id = trigger.getAttribute('data-donation-info');
                       var popup = document.getElementById('donation-info-' + id);
