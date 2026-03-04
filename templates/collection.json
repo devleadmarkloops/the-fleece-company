@@ -48,6 +48,7 @@
       "blocks": {
         "heading_PcPCDH": {
           "type": "heading",
+          "disabled": true,
           "settings": {
             "heading": "All Products",
             "heading_size": "h1",
@@ -58,6 +59,7 @@
         },
         "text_rrYCtB": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "text": "<p>Discover our full range of thoughtfully crafted pieces designed for comfort, made for everyday living.</p>",
             "text_size": "typeset",
