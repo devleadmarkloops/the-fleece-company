@@ -3803,7 +3803,7 @@ span.alert-box:before {
   border-radius: 15px;
   display: flex;
   align-items: center;
-  padding: 0 14px;
+  padding: 0 8px;
   transition: width 1s ease;
   min-width: fit-content;
   position: absolute;
