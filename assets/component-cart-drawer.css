@@ -1423,4 +1423,8 @@ details[open].menu-opening > .cart-drawer [data-animate] {
     font-size: 1.3rem;
     padding: 0.6rem 1rem;
   }
+  .cart-drawer .mini-cart__inner .mini-cart__main {
+    margin-top: 1.5rem;
+    padding-inline: 1.5rem;
+  }
 }
