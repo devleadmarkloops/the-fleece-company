@@ -1287,3 +1287,14 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   color: #C55242;
   padding: 0;
 }
+.cart-drawer .mini-cart__main .cart-remove-wr {
+  margin-top: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.cart-drawer .mini-cart__main .product-description cart-remove-button {
+  height: auto;
+}
