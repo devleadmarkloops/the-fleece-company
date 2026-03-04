@@ -1241,6 +1241,7 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   letter-spacing: 0;
   line-height: normal;
   white-space: nowrap;
+  margin-top: 0.3rem;
 }
 .cart-drawer .mini-cart__main .product-content .quantity-price-d5 dd.price strong {
   font-weight: 500;
