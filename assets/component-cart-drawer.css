@@ -1388,6 +1388,11 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 }
 .cart-drawer .mini-cart__footer .cd-trust-badge-d5 {
   margin-top: 1rem;
+  gap: 0.5rem;
+}
+.cart-drawer .mini-cart__footer .cd-trust-badge-d5 span {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 .cart-drawer .mini-cart__footer .cd-trust-badge-d5 p {
   font-family: var(--new-font-heading-family);
