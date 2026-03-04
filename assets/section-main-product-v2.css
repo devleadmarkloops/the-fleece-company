@@ -3884,7 +3884,9 @@ span.donation-bar-text svg {
 }
 .donation-heading {
   position: relative;
-  display: inline;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 .donation-info-trigger {
   display: inline-flex;
