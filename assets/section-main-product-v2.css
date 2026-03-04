@@ -3798,6 +3798,7 @@ span.alert-box:before {
   overflow: hidden;
   position: relative;
   min-width: 120px;
+  font-weight: 600;
 }
 .donation-bar-fill {
   height: 100%;
@@ -3889,6 +3890,7 @@ span.donation-bar-text svg {
   gap: 0;
   justify-content:center;
   width:100%;
+  font-weight: 600;
 }
 .donation-info-trigger {
   display: inline-flex;
