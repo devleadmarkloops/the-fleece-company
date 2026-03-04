@@ -35,12 +35,22 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "breadcrumb_bqNxtU": {
+          "type": "breadcrumb",
+          "settings": {
+            "text_style": "body",
+            "show_divider": false,
+            "hide_mobile": false
+          }
+        },
         "title": {
           "type": "title",
           "settings": {
             "title_size": "h1",
             "show_price": false,
-            "price_size": "medium"
+            "price_size": "medium",
+            "desktop_hide": false,
+            "mobile_hide": false
           }
         },
         "rating_static_jQpEEQ": {
@@ -58,6 +68,20 @@
             "sale_badge_basis": "percentage"
           }
         },
+        "icon_text_grid_gm6jeE": {
+          "type": "icon_text_grid",
+          "settings": {
+            "text_1": "Incredibly Soft",
+            "text_2": "100% Premium Muslin Cotton",
+            "text_3": "Breathable Muslin Weave",
+            "text_4": "Incredibly Soft Texture",
+            "icon_size": 30,
+            "icon_size_mob": 24,
+            "text_size": 14,
+            "text_size_mob": 13,
+            "text_color": "#000000"
+          }
+        },
         "icon_text_9Gxbx4": {
           "type": "icon_text",
           "settings": {
@@ -65,9 +89,11 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Incredibly Soft",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_KLMX3D": {
@@ -77,9 +103,11 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Breathable",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_R7iXXY": {
@@ -89,9 +117,11 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Gentle and Skin Friendly",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "variant_picker": {
@@ -111,9 +141,13 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
+            "buy_buttons_version": "v1",
             "show_quantity_selector": false,
             "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false
+            "show_gift_card_recipient": false,
+            "enable_monogram": false,
+            "monogram_product": "",
+            "icon_text": ""
           }
         },
         "icon_with_text_NArRNw": {
@@ -135,6 +169,7 @@
             "text_color": "",
             "text_size": 14,
             "text_size_mob": 13,
+            "enable_normal": true,
             "enable_circle": false
           }
         },
@@ -188,9 +223,11 @@
         }
       },
       "block_order": [
+        "breadcrumb_bqNxtU",
         "title",
         "rating_static_jQpEEQ",
         "price",
+        "icon_text_grid_gm6jeE",
         "icon_text_9Gxbx4",
         "icon_text_KLMX3D",
         "icon_text_R7iXXY",
@@ -205,11 +242,12 @@
         "sticky_cart"
       ],
       "settings": {
+        "enable_v2_styles": false,
         "enable_sticky_info": true,
         "media_position": "left",
         "media_size": "large",
-        "gallery_layout": "thumbnail_slider",
-        "image_ratio": "square",
+        "gallery_layout": "vertical_slider",
+        "image_ratio": "adapt",
         "show_featured_media": true,
         "show_thumbnails": false,
         "hide_variants": false,
@@ -217,6 +255,8 @@
         "enable_video_looping": false,
         "mobile_image_ratio": "square",
         "show_mobile_thumbnails": false,
+        "enable_variant_specific_media": false,
+        "enable_fade_slider": true,
         "padding_top": 0,
         "padding_bottom": 20
       }
@@ -436,10 +476,13 @@
         "show_quick_buy": true,
         "enable_quick_view": true,
         "enable_color_swatches": true,
+        "enable_other_variants": false,
         "enable_countdown": true,
         "colors_highlight": "#ffb503",
         "padding_top": 36,
         "padding_bottom": 36,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36,
         "enable_highlight": false,
         "highlight_style": "marker"
       }
@@ -450,6 +493,7 @@
         "review_BDtWFn": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I bought this swaddle blanket for my newborn daughter and it's been one of our most-used items. It’s incredibly soft and breathable – perfect for warmer days and cozy enough for layering. I’ve also used it as a nursing cover and a stroller shade. Definitely ordering more!",
             "author_name": "Ariana"
           }
@@ -457,6 +501,7 @@
         "review_fLMUcW": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "My baby has very sensitive skin, so I’m really picky about fabrics. This muslin swaddle is so gentle and light – no irritation at all. It’s also surprisingly durable even after several washes. Love the size and the natural cotton feel!",
             "author_name": "Daniela"
           }
@@ -464,6 +509,7 @@
         "review_M37hUH": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I received this blanket as a baby shower gift and it quickly became our favorite. The material is soft right out of the package and gets even softer after each wash. It’s lightweight but still warm enough. Plus, it looks beautiful – simple and elegant!",
             "author_name": "Laura"
           }
@@ -471,6 +517,7 @@
         "review_PghPq6": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I bought this swaddle blanket for my newborn daughter and it's been one of our most-used items. It’s incredibly soft and breathable – perfect for warmer days and cozy enough for layering. I’ve also used it as a nursing cover and a stroller shade. Definitely ordering more!",
             "author_name": "Ariana"
           }
@@ -478,6 +525,7 @@
         "review_EBNEaN": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "My baby has very sensitive skin, so I’m really picky about fabrics. This muslin swaddle is so gentle and light – no irritation at all. It’s also surprisingly durable even after several washes. Love the size and the natural cotton feel!",
             "author_name": "Daniela"
           }
@@ -485,6 +533,7 @@
         "review_RRjwad": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I received this blanket as a baby shower gift and it quickly became our favorite. The material is soft right out of the package and gets even softer after each wash. It’s lightweight but still warm enough. Plus, it looks beautiful – simple and elegant!",
             "author_name": "Laura"
           }
