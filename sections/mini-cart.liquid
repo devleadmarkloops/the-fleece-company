@@ -650,53 +650,6 @@
                             Hides for free items (Buy X Get Y promotions)
                           {% endcomment %}
 
-                          <dd class="flex discount-price-d5">
-                            {%- liquid
-                              # Check if this is a free item from BOGO promotion (final price is $0.00)
-                              assign is_free_item = false
-                              if item.final_price == 0
-                                assign is_free_item = true
-                              endif
-                            -%}
-                            
-                            {%- if is_free_item -%}
-                              <dl class="cart-item__discounted-prices">
-                                <dt class="visually-hidden">
-                                  {{ 'products.product.price.regular_price' | t }}
-                                </dt>
-                                <dd class="price--on-sale test1">
-                                  <s class="price price-item--regular">
-                                    <price-money>
-                                      <bdi>{{ item.variant.compare_at_price | times: item.quantity | money }}</bdi>
-                                    </price-money>
-                                  </s>
-                                </dd>
-                                <dt class="visually-hidden">
-                                  {{ 'products.product.price.sale_price' | t }}
-                                </dt>
-                                <dd class="price">
-                                  <price-money>
-                                    <bdi><strong>{{ item.final_price | times: item.quantity | money }}</strong></bdi>
-                                  </price-money>
-                                </dd>
-                              </dl>
-                            {%- endif -%}
-                            
-                            {%- if is_free_item -%}
-                              <ul
-                                class="discounts list-unstyled"
-                                role="list"
-                                aria-label="{{ 'customer.order.discount' | t }}"
-                              >
-                                {%- for discount in item.line_level_discount_allocations -%}
-                                  <li class="discounts__discount">
-                                    {%- render 'icon', icon: 'discount' -%}
-                                    {{ discount.discount_application.title }}
-                                  </li>
-                                {%- endfor -%}
-                              </ul>
-                            {%- endif -%}
-                          </dd>
                           {%- unless item.product.has_only_default_variant -%}
                             <dl class="cart-drawer__variant-options">
                               {%- for option in item.options_with_values -%}
@@ -760,6 +713,54 @@
                       <div class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</div>
                     {%- endif -%}
                   {%- endif -%}
+
+                  <dd class="flex discount-price-d5">
+                    {%- liquid
+                      # Check if this is a free item from BOGO promotion (final price is $0.00)
+                      assign is_free_item = false
+                      if item.final_price == 0
+                        assign is_free_item = true
+                      endif
+                    -%}
+                    
+                    {%- if is_free_item -%}
+                      <dl class="cart-item__discounted-prices">
+                        <dt class="visually-hidden">
+                          {{ 'products.product.price.regular_price' | t }}
+                        </dt>
+                        <dd class="price--on-sale test1">
+                          <s class="price price-item--regular">
+                            <price-money>
+                              <bdi>{{ item.variant.compare_at_price | times: item.quantity | money }}</bdi>
+                            </price-money>
+                          </s>
+                        </dd>
+                        <dt class="visually-hidden">
+                          {{ 'products.product.price.sale_price' | t }}
+                        </dt>
+                        <dd class="price">
+                          <price-money>
+                            <bdi><strong>{{ item.final_price | times: item.quantity | money }}</strong></bdi>
+                          </price-money>
+                        </dd>
+                      </dl>
+                    {%- endif -%}
+                    
+                    {%- if is_free_item -%}
+                      <ul
+                        class="discounts list-unstyled"
+                        role="list"
+                        aria-label="{{ 'customer.order.discount' | t }}"
+                      >
+                        {%- for discount in item.line_level_discount_allocations -%}
+                          <li class="discounts__discount">
+                            {%- render 'icon', icon: 'discount' -%}
+                            {{ discount.discount_application.title }}
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- endif -%}
+                  </dd>
 
                   <cart-remove-button
                     id="Remove-{{ item.index | plus: 1 }}"
