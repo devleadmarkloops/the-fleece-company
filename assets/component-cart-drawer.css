@@ -1226,12 +1226,12 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   letter-spacing: 0;
   line-height: normal;
 }
-.cart-drawer .mini-cart__main .product-content .mini-cart__navigation .quantity-price-d5 .price bdi {
+.cart-drawer .mini-cart__main .product-content .quantity-price-d5 .price bdi {
   font-family: var(--new-font-body-family);
   font-size: 1.4rem;
   letter-spacing: 0;
   line-height: normal;
 }
-.cart-drawer .mini-cart__main .product-content .mini-cart__navigation .quantity-price-d5 .price bdi strong {
+.cart-drawer .mini-cart__main .product-content .quantity-price-d5 .price bdi strong {
   font-weight: 700;
 }
