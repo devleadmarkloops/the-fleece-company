@@ -1430,4 +1430,10 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   .cart-drawer .mini-cart__inner .product-container {
     column-gap: 1rem;
   }
+  .cart-drawer .mini-cart__main .product-img-wr {
+    max-width: 8rem;
+  }
+  .cart-drawer .mini-cart__main .product-img-wr .product-quantity .quantity .quantity__input {
+    width: 3rem;
+  }
 }
