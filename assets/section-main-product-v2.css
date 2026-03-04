@@ -3803,7 +3803,7 @@ span.alert-box:before {
   border-radius: 15px;
   display: flex;
   align-items: center;
-  padding: 0 14px;
+  padding: 0 8px;
   transition: width 1s ease;
   min-width: fit-content;
   position: absolute;
@@ -3823,13 +3823,21 @@ span.alert-box:before {
   white-space: nowrap;
   flex-shrink: 0;
 }
-
+.donation-bar-text {
+  display: flex;
+  gap: 2px;
+}
+span.donation-bar-text svg {
+  width: 15px;
+}
 /* Mobile: stack vertically */
 @media (max-width: 749px) {
-  
+  .donation-heading{
+    font-size:12px;
+  }
   .donation-row {
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 5px;
   }
   .donation-left {
     width: 100%;
@@ -3837,17 +3845,41 @@ span.alert-box:before {
   .donation-right {
     width: 100%;
   }
+  span.donation-bar-text svg {
+    width: 15px;
+  }
+  .donation-bar-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    display: flex;
+    gap: 2px;
+  }
 }
 
 .donation-bar-goal {
-    position: absolute;
-    right: 0;
-    top: 0;
-    font-size: 12px;
-    font-weight:bold;
-    height: 100%;
-    padding: 0 10px;
-    line-height: normal;
-    display: flex;
-    align-items: center;
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 12px;
+  font-weight:bold;
+  height: 100%;
+  padding: 0 10px;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+}
+
+.donation-impact-block.mobile-device{
+  display:none;
+}
+@media(max-width:767px){
+  
+  .donation-impact-block.desktop-device{
+    display:none;
+  }
+  .donation-impact-block.mobile-device{
+    display:block;
+  }
 }
