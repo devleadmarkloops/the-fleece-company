@@ -3823,7 +3823,10 @@ span.alert-box:before {
   white-space: nowrap;
   flex-shrink: 0;
 }
-
+.donation-bar-text {
+  display: flex;
+  gap: 2px;
+}
 /* Mobile: stack vertically */
 @media (max-width: 749px) {
   .donation-heading{
