@@ -3827,6 +3827,9 @@ span.alert-box:before {
   display: flex;
   gap: 2px;
 }
+span.donation-bar-text svg {
+  width: 15px;
+}
 /* Mobile: stack vertically */
 @media (max-width: 749px) {
   .donation-heading{
