@@ -3893,5 +3893,5 @@ span.donation-bar-text svg {
 }
 .donation-info-popup {
   top: calc(100% + 6px);
-  left: 0;
+  right: 0;
 }
