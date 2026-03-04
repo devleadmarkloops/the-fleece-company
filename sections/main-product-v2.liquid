@@ -1215,7 +1215,7 @@
                     assign progress = 100
                   endif
                 -%}
-                <div class="donation-impact-block" {{ block.shopify_attributes }} style="max-width: 100%;margin: 10px 0;">
+                <div class="donation-impact-block {{ block.settings.display }}-device" {{ block.shopify_attributes }} style="max-width: 100%;margin: 10px 0;">
                   <div class="donation-row">
                     <!-- Left: Icon + Heading -->
                     <div class="donation-left">
