@@ -1339,6 +1339,6 @@ details[open].menu-opening > .cart-drawer [data-animate] {
 }
 .cart-drawer .mini-cart__main .os-protection-wrapper-d5 .os-switch-wrapper-d5 {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 0.2rem;
 }
