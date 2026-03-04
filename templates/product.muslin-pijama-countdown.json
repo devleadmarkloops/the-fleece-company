@@ -40,7 +40,9 @@
           "settings": {
             "title_size": "h1",
             "show_price": false,
-            "price_size": "medium"
+            "price_size": "medium",
+            "desktop_hide": false,
+            "mobile_hide": false
           }
         },
         "rating_static_jQpEEQ": {
@@ -60,6 +62,7 @@
         },
         "text_custom_Vpdkyw": {
           "type": "text_custom",
+          "disabled": true,
           "settings": {
             "text_custom": "<strong>Live Now: Buy 1 get 1 FREE</strong>",
             "text_color": "#a63e3e",
@@ -69,6 +72,37 @@
             "enable_circle": false
           }
         },
+        "icon_text_TkQaDp": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/Group_1.svg",
+            "icon_size": 16,
+            "icon_size_mob": 16,
+            "icon_text": "",
+            "icon_richtext": "<p><strong>Early Women's Month Sale:</strong> Buy One, Get One <strong>FREE</strong></p>",
+            "text_color": "#3b3b3b",
+            "text_size": 14,
+            "text_size_mob": 12,
+            "enable_bg": true
+          }
+        },
+        "icon_text_grid_BNRmN8": {
+          "type": "icon_text_grid",
+          "settings": {
+            "icon_1": "shopify://shop_images/clouds.png",
+            "text_1": "Incredibly Soft",
+            "icon_2": "shopify://shop_images/air_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_2": "Breathable",
+            "icon_3": "shopify://shop_images/health_and_safety_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_3": "Gentle and Skin Friendly",
+            "text_4": "",
+            "icon_size": 30,
+            "icon_size_mob": 24,
+            "text_size": 14,
+            "text_size_mob": 13,
+            "text_color": "#000000"
+          }
+        },
         "icon_text_9Gxbx4": {
           "type": "icon_text",
           "settings": {
@@ -76,9 +110,11 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Incredibly Soft",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_KLMX3D": {
@@ -88,9 +124,11 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Breathable",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_R7iXXY": {
@@ -100,9 +138,11 @@
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Gentle and Skin Friendly",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "text_custom_bzFhAt": {
@@ -153,7 +193,8 @@
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": false,
             "enable_monogram": false,
-            "monogram_product": ""
+            "monogram_product": "",
+            "icon_text": ""
           }
         },
         "countdown_timer_4tCBwt": {
@@ -170,6 +211,7 @@
             "visitor_hours": 20,
             "visitor_minutes": 3,
             "visitor_seconds": 27,
+            "enable_payment_icons": true,
             "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
           }
         },
@@ -250,6 +292,8 @@
         "rating_static_jQpEEQ",
         "price",
         "text_custom_Vpdkyw",
+        "icon_text_TkQaDp",
+        "icon_text_grid_BNRmN8",
         "icon_text_9Gxbx4",
         "icon_text_KLMX3D",
         "icon_text_R7iXXY",
@@ -268,10 +312,11 @@
         "sticky_cart"
       ],
       "settings": {
+        "enable_v2_styles": false,
         "enable_sticky_info": true,
         "media_position": "left",
         "media_size": "large",
-        "gallery_layout": "thumbnail_slider",
+        "gallery_layout": "vertical_slider",
         "image_ratio": "adapt",
         "show_featured_media": false,
         "show_thumbnails": true,
@@ -501,10 +546,13 @@
         "show_quick_buy": true,
         "enable_quick_view": true,
         "enable_color_swatches": true,
+        "enable_other_variants": false,
         "enable_countdown": true,
         "colors_highlight": "#ffb503",
         "padding_top": 36,
         "padding_bottom": 36,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36,
         "enable_highlight": false,
         "highlight_style": "marker"
       }
