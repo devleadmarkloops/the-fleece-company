@@ -1177,3 +1177,13 @@ details[open].menu-opening > .cart-drawer [data-animate] {
   margin-top: 2rem;
   padding-inline: 2.5rem;
 }
+
+/* Product Items New Style */
+.cart-drawer .mini-cart__main .product-img-wr {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.cart-drawer .mini-cart__main .product-img-wr .product-image {
+  width: 100%;
+}
