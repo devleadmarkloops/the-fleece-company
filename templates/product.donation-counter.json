@@ -40,7 +40,7 @@
           "settings": {
             "display": "mobile",
             "icon_size": 16,
-            "heading": "<b>Every Order Donates $1 to Women Escaping Abuse</b>",
+            "heading": "Every Order Donates $1 to Women Escaping Abuse",
             "raised": 6847,
             "goal": 10000,
             "orders_remaining": 800,
@@ -50,7 +50,14 @@
             "text_color": "#1a1a1a",
             "bar_color": "#ff6955",
             "bar_bg_color": "#ffffff",
-            "info_popup_text": "A portion of every order is donated to support women escaping abuse. Track our progress toward the goal!"
+            "info_popup_text": "A portion of every order is donated to support women escaping abuse. Track our progress toward the goal!",
+            "full_width": false,
+            "padding_top": 20,
+            "padding_bottom": 10,
+            "padding_left": 10,
+            "padding_right": 10,
+            "Margin_top": 10,
+            "margin_bottom": 10
           }
         },
         "rating_static_jQpEEQ": {
@@ -101,7 +108,14 @@
             "text_color": "#3b3b3b",
             "bar_color": "#ff6955",
             "bar_bg_color": "#f3f3f3",
-            "info_popup_text": "A portion of every order is donated to support women escaping abuse. Track our progress toward the goal!"
+            "info_popup_text": "A portion of every order is donated to support women escaping abuse. Track our progress toward the goal!",
+            "full_width": false,
+            "padding_top": 10,
+            "padding_bottom": 10,
+            "padding_left": 10,
+            "padding_right": 10,
+            "Margin_top": 10,
+            "margin_bottom": 10
           }
         },
         "icon_text_9Gxbx4": {
