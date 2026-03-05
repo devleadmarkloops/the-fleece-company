@@ -3930,4 +3930,7 @@ span.donation-bar-text svg {
     width:calc(100% + 30px) !important;
     margin-left:-15px !important;
   }
+  .donation-impact-block.mobile_full .donation-row.row-bg {
+    border-radius:0;
+  }
 }
