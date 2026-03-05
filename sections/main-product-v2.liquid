@@ -1230,7 +1230,16 @@
                   endif
                 -%}
                 <div class="donation-impact-block {{ block.settings.display }}-device" {{ block.shopify_attributes }} style="max-width: 100%;margin: 10px 0;">
-                  <div class="donation-row{% if block.settings.enable_row_bg %} row-bg{% endif %}" style="--background-color: {{ block.settings.row_bg_color }};">
+                  <div class="donation-row{% if block.settings.enable_row_bg %} row-bg{% endif %}" style="
+                    --background-color: {{ block.settings.row_bg_color }};
+                    --pt: {{ block.settings.padding_top }}px;
+                    --pb: {{ block.settings.padding_bottom }}px;
+                    --pl: {{ block.settings.padding_left }}px;
+                    --pr: {{ block.settings.padding_right }}px;
+                    --mt: {{ block.settings.margin_top }}px;
+                    --mb: {{ block.settings.margin_bottom }}px;
+                    "
+                  >
                     <!-- Left: Icon + Heading -->
                     <div class="donation-left">
                       
