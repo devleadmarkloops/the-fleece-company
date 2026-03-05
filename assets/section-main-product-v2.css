@@ -3925,4 +3925,9 @@ span.donation-bar-text svg {
     width: 1.4rem;
     height: 1.4rem;
   }
+  .donation-impact-block.mobile_full{
+    max-width:calc(100% + 30px) !important;
+    width:calc(100% + 30px) !important;
+    margin-left:-15px !important;
+  }
 }
