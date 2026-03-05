@@ -2838,7 +2838,8 @@ span.alert-box:before {
     display: none;
   }
   .product .product__media-gallery .thumbnail-slider .thumbnail-list {
-    max-width: calc(100% - 3rem);
+    /* max-width: calc(100% - 3rem); */
+    max-width: 100%;
   }
 }
 
