@@ -50,8 +50,6 @@
   }
 </style>
 <style>
-  /* --- URGENT MOBILE SCROLL FIX --- */
-  /* Forces the browser to ALWAYS prioritize vertical page scrolling when touching the images */
   media-gallery,
   media-gallery .product__media-list,
   media-gallery .thumbnail-list,
@@ -83,7 +81,6 @@
       let scrollTop;
 
       thumbList.addEventListener('mousedown', (e) => {
-        // Only run custom mouse dragging on Desktop! 
         if (window.innerWidth < 750) return;
         
         isDown = true;
@@ -107,7 +104,7 @@
       thumbList.addEventListener('mousemove', (e) => {
         if (!isDown || window.innerWidth < 750) return;
         
-        e.preventDefault(); // Safe to use here now because it only runs on desktop cursors
+        e.preventDefault();
         const y = e.pageY - thumbList.offsetTop;
         const walk = (y - startY) * 2;
         thumbList.scrollTop = scrollTop - walk;
