@@ -3917,9 +3917,7 @@ span.donation-bar-text svg {
 }
 
 @media screen and (max-width: 749px) {
-  .donation-impact-block .donation-row.row-bg {
-    padding: 1.2rem 1rem;
-  }
+  
   .donation-impact-block .donation-heading {
     letter-spacing: 0;
   }
