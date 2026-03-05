@@ -2413,6 +2413,7 @@ product-gallery .product__media-toggle {
 .product__info-container .countdown-timer-block .countdown-heading {
   font-size: 1.5rem;
   font-weight: 600;
+  line-height: normal;
   letter-spacing: 1px;
   margin: 0 0 1.2rem 0;
   text-transform: uppercase;
@@ -2838,7 +2839,8 @@ span.alert-box:before {
     display: none;
   }
   .product .product__media-gallery .thumbnail-slider .thumbnail-list {
-    max-width: calc(100% - 3rem);
+    /* max-width: calc(100% - 3rem); */
+    max-width: 100%;
   }
 }
 
@@ -3134,7 +3136,12 @@ span.alert-box:before {
 .product__info-container .product-video-reels-wrapper {
   display: block;
   width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
+}
+@media screen and (max-width: 749px) {
+  .product__info-container .product-video-reels-wrapper .swiper {
+    overflow: visible;
+  }
 }
 .product__info-container .product-video-reels-wrapper .reel-slide {
   aspect-ratio: 9 / 16;
@@ -3629,7 +3636,7 @@ span.alert-box:before {
   }
   /* When Countdown Timer */
   .product__info-container .countdown-timer-block {
-    padding: 1.2rem 1.8rem;
+    padding: 1.2rem 1.8rem 1.1rem;
     border-radius: 6px;
   }
   .product__info-container .countdown-timer-block .countdown-heading {
@@ -3727,6 +3734,10 @@ span.alert-box:before {
     width: 1.7rem;
     height: 1.7rem;
   }
+  .product__info-container .pw-swatch-list .pw-color-indicator {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
 }
 
 /* Sticky ATC */
@@ -3754,6 +3765,8 @@ span.alert-box:before {
   font-size: 1.4rem;
   font-weight: 400;
   letter-spacing: 0;
+  background-color: rgb(var(--color-button-background));
+  color: rgb(var(--color-button-text));
 }
 .donation-row {
   display: flex;
