@@ -44,11 +44,13 @@
             "raised": 6847,
             "goal": 10000,
             "orders_remaining": 800,
-            "bg_color": "#f0eae4",
+            "enable_row_bg": true,
+            "row_bg_color": "#f0eae4",
             "heading_color": "#1a1a1a",
             "text_color": "#1a1a1a",
             "bar_color": "#ff6955",
-            "bar_bg_color": "#f0eae4"
+            "bar_bg_color": "#ffffff",
+            "info_popup_text": "A portion of every order is donated to support women escaping abuse. Track our progress toward the goal!"
           }
         },
         "rating_static_jQpEEQ": {
@@ -93,11 +95,13 @@
             "raised": 6847,
             "goal": 10000,
             "orders_remaining": 800,
-            "bg_color": "#f0eae4",
+            "enable_row_bg": true,
+            "row_bg_color": "#f0eae4",
             "heading_color": "#1a1a1a",
             "text_color": "#1a1a1a",
             "bar_color": "#ff6955",
-            "bar_bg_color": "#f0eae4"
+            "bar_bg_color": "#ffffff",
+            "info_popup_text": "A portion of every order is donated to support women escaping abuse. Track our progress toward the goal!"
           }
         },
         "icon_text_9Gxbx4": {
