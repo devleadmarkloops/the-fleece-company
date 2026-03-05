@@ -49,6 +49,17 @@
     }
   }
 </style>
+<style>
+  /* --- URGENT MOBILE SCROLL FIX --- */
+  /* Forces the browser to ALWAYS prioritize vertical page scrolling when touching the images */
+  media-gallery,
+  media-gallery .product__media-list,
+  media-gallery .thumbnail-list,
+  media-gallery use-animate {
+    touch-action: pan-y !important;
+  }
+</style>
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const mediaGalleries = document.querySelectorAll('media-gallery[data-desktop-layout="vertical_slider"]');
@@ -72,6 +83,9 @@
       let scrollTop;
 
       thumbList.addEventListener('mousedown', (e) => {
+        // Only run custom mouse dragging on Desktop! 
+        if (window.innerWidth < 750) return;
+        
         isDown = true;
         thumbList.classList.add('is-dragging');
         startY = e.pageY - thumbList.offsetTop;
@@ -79,18 +93,21 @@
       });
 
       thumbList.addEventListener('mouseleave', () => {
+        if (window.innerWidth < 750) return;
         isDown = false;
         thumbList.classList.remove('is-dragging');
       });
 
       thumbList.addEventListener('mouseup', () => {
+        if (window.innerWidth < 750) return;
         isDown = false;
         thumbList.classList.remove('is-dragging');
       });
 
       thumbList.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault(); 
+        if (!isDown || window.innerWidth < 750) return;
+        
+        e.preventDefault(); // Safe to use here now because it only runs on desktop cursors
         const y = e.pageY - thumbList.offsetTop;
         const walk = (y - startY) * 2;
         thumbList.scrollTop = scrollTop - walk;
