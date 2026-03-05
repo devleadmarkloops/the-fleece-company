@@ -1230,7 +1230,7 @@
                   endif
                 -%}
                 <div class="donation-impact-block {{ block.settings.display }}-device" {{ block.shopify_attributes }} style="max-width: 100%;margin: 10px 0;">
-                  <div class="donation-row">
+                  <div class="donation-row{% if block.settings.enable_row_bg %} row-bg{% endif %}" style="--background-color: {{ block.settings.row_bg_color }};">
                     <!-- Left: Icon + Heading -->
                     <div class="donation-left">
                       
@@ -3291,9 +3291,15 @@ if (nextBtn) {
           "default": 800
         },
         {
+          "type": "checkbox",
+          "id": "enable_row_bg",
+          "label": "Enable background (block)",
+          "default": false
+        },
+        {
           "type": "color",
-          "id": "bg_color",
-          "label": "Background Color",
+          "id": "row_bg_color",
+          "label": "Background Color (block)",
           "default": "#f5f5f5"
         },
         {
