@@ -2413,6 +2413,7 @@ product-gallery .product__media-toggle {
 .product__info-container .countdown-timer-block .countdown-heading {
   font-size: 1.5rem;
   font-weight: 600;
+  line-height: normal;
   letter-spacing: 1px;
   margin: 0 0 1.2rem 0;
   text-transform: uppercase;
