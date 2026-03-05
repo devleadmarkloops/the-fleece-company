@@ -37,6 +37,7 @@
       "blocks": {
         "breadcrumb_jaG8WY": {
           "type": "breadcrumb",
+          "disabled": true,
           "settings": {
             "text_style": "body",
             "show_divider": false,
