@@ -3905,13 +3905,13 @@ span.donation-bar-text svg {
 }
 .donation-impact-block .donation-row.row-bg {
   background-color: var(--background-color);
-  padding: 1rem;
+  padding: 1.4rem 1.2rem;
   border-radius: 4px;
 }
 
 @media screen and (max-width: 749px) {
   .donation-impact-block .donation-row.row-bg {
-    padding: 0.8rem;
+    padding: 1.2rem 1rem;
   }
   .donation-impact-block .donation-heading {
     letter-spacing: 0;
