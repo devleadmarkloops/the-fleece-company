@@ -3136,8 +3136,15 @@ span.alert-box:before {
 .product__info-container .product-video-reels-wrapper {
   display: block;
   width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
+
+@media screen and (max-width: 749px) {
+  .product__info-container .product-video-reels-wrapper .swiper {
+    overflow: hidden;
+  }
+}
+
 .product__info-container .product-video-reels-wrapper .reel-slide {
   aspect-ratio: 9 / 16;
   border-radius: 8px;
