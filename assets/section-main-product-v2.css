@@ -3901,8 +3901,16 @@ span.donation-bar-text svg {
   top: calc(100% + 6px);
   right: 0;
 }
+.donation-impact-block .donation-row.row-bg {
+  background-color: var(--background-color);
+  padding: 1rem;
+  border-radius: 4px;
+}
 
 @media screen and (max-width: 749px) {
+  .donation-impact-block .donation-row.row-bg {
+    padding: 0.8rem;
+  }
   .donation-impact-block .donation-heading {
     letter-spacing: 0;
   }
