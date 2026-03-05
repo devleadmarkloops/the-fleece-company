@@ -3771,6 +3771,10 @@ span.alert-box:before {
   background-color: #000;
   color: rgb(var(--color-button-text));
 }
+.sticky-cart .sticky-cart__form .button::before,
+.sticky-cart .sticky-cart__form .button::after {
+  background-color: #000;
+}
 .donation-row {
   display: flex;
   align-items: center;
