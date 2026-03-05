@@ -108,7 +108,7 @@
       "settings": {
         "show_sub_collections": true,
         "sub_collection_menu": "collections-menu",
-        "sub_collection_image_ratio": "square",
+        "sub_collection_image_ratio": "portrait",
         "products_per_row": 4,
         "rows_per_page": 3,
         "columns_mobile": "2",
