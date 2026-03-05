@@ -40,7 +40,7 @@
           "settings": {
             "display": "mobile",
             "icon_size": 16,
-            "heading": "Every Order Donates $1 to Women Escaping Abuse",
+            "heading": "<b>Every Order Donates $1 to Women Escaping Abuse</b>",
             "raised": 6847,
             "goal": 10000,
             "orders_remaining": 800,
@@ -49,7 +49,7 @@
             "heading_color": "#1a1a1a",
             "text_color": "#1a1a1a",
             "bar_color": "#ff6955",
-            "bar_bg_color": "#f3f3f3",
+            "bar_bg_color": "#ffffff",
             "info_popup_text": "A portion of every order is donated to support women escaping abuse. Track our progress toward the goal!"
           }
         },
