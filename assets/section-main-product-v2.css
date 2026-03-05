@@ -3736,8 +3736,8 @@ span.alert-box:before {
     height: 1.7rem;
   }
   .product__info-container .pw-swatch-list .pw-color-indicator {
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 2.8rem;
+    height: 2.8rem;
   }
 }
 
@@ -3766,6 +3766,8 @@ span.alert-box:before {
   font-size: 1.4rem;
   font-weight: 400;
   letter-spacing: 0;
+  background-color: rgb(var(--color-button-background));
+  color: rgb(var(--color-button-text));
 }
 .donation-row {
   display: flex;
