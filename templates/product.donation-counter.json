@@ -51,13 +51,13 @@
             "bar_color": "#ff6955",
             "bar_bg_color": "#ffffff",
             "info_popup_text": "A portion of every order is donated to support women escaping abuse. Track our progress toward the goal!",
-            "full_width": false,
+            "full_width": true,
             "padding_top": 20,
-            "padding_bottom": 10,
-            "padding_left": 10,
-            "padding_right": 10,
-            "Margin_top": 10,
-            "margin_bottom": 10
+            "padding_bottom": 20,
+            "padding_left": 20,
+            "padding_right": 20,
+            "Margin_top": 20,
+            "margin_bottom": 20
           }
         },
         "rating_static_jQpEEQ": {
