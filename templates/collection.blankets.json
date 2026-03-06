@@ -60,7 +60,7 @@
       "custom_css": [],
       "name": "t:sections.image-banner.presets.name",
       "settings": {
-        "image": "shopify://shop_images/Blanket_banners_1.webp",
+        "image": "shopify://shop_images/Blanket_banners_1_425ea67a-d731-437b-af79-437252ad8e67.webp",
         "image_position": "center center",
         "text_box_position": "middle-center",
         "text_alignment": "center",
@@ -69,7 +69,7 @@
         "full_width": true,
         "show_divider": false,
         "image_behavior": "none",
-        "mobile_image": "shopify://shop_images/Blanket_banners_2.webp",
+        "mobile_image": "shopify://shop_images/Blanket_banners_2_6b28ef5f-b25e-4778-b647-62c0123a658b.webp",
         "mobile_text_alignment": "center",
         "mobile_image_ratio": "400px",
         "stack_images_on_mobile": false,
