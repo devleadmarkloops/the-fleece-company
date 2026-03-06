@@ -14,7 +14,7 @@
       "blocks": {
         "variant_picker": {
           "settings": {
-            "swatch_source": "variant"
+            "swatch_source": "file"
           }
         },
         "shipping_metaobject_tLJRyV": {
