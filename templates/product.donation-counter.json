@@ -35,7 +35,7 @@
     "main": {
       "type": "main-product-v2",
       "blocks": {
-        "donation_impact_Vaf4tz": {
+        "donation_impact_arQBr4": {
           "type": "donation_impact",
           "settings": {
             "display": "mobile",
@@ -44,11 +44,20 @@
             "raised": 6847,
             "goal": 10000,
             "orders_remaining": 800,
-            "bg_color": "#f0eae4",
+            "enable_row_bg": true,
+            "row_bg_color": "#f7eedd",
             "heading_color": "#1a1a1a",
             "text_color": "#1a1a1a",
             "bar_color": "#ff6955",
-            "bar_bg_color": "#f0eae4"
+            "bar_bg_color": "#f0eae4",
+            "info_popup_text": "A portion of every order is donated to support women escaping abuse. Track our progress toward the goal!",
+            "padding_top": 30,
+            "padding_bottom": 30,
+            "padding_left": 30,
+            "padding_right": 30,
+            "margin_top": 30,
+            "margin_bottom": 30,
+            "full_width": true
           }
         },
         "rating_static_jQpEEQ": {
@@ -84,7 +93,7 @@
             "sale_badge_basis": "auto"
           }
         },
-        "donation_impact_arQBr4": {
+        "donation_impact_eHeGdG": {
           "type": "donation_impact",
           "settings": {
             "display": "desktop",
@@ -93,11 +102,20 @@
             "raised": 6847,
             "goal": 10000,
             "orders_remaining": 800,
-            "bg_color": "#f0eae4",
+            "enable_row_bg": true,
+            "row_bg_color": "#f7eedd",
             "heading_color": "#1a1a1a",
             "text_color": "#1a1a1a",
             "bar_color": "#ff6955",
-            "bar_bg_color": "#f0eae4"
+            "bar_bg_color": "#f0eae4",
+            "info_popup_text": "A portion of every order is donated to support women escaping abuse. Track our progress toward the goal!",
+            "padding_top": 20,
+            "padding_bottom": 20,
+            "padding_left": 20,
+            "padding_right": 20,
+            "margin_top": 10,
+            "margin_bottom": 30,
+            "full_width": false
           }
         },
         "icon_text_9Gxbx4": {
@@ -254,12 +272,12 @@
         }
       },
       "block_order": [
-        "donation_impact_Vaf4tz",
+        "donation_impact_arQBr4",
         "rating_static_jQpEEQ",
         "breadcrumb_LGWKpR",
         "title",
         "price",
-        "donation_impact_arQBr4",
+        "donation_impact_eHeGdG",
         "icon_text_9Gxbx4",
         "icon_text_grid_U3jbTR",
         "variant_picker",
@@ -462,9 +480,11 @@
         "image_behavior": "none",
         "mobile_image": "shopify://shop_images/Banner_2_1.webp",
         "mobile_text_alignment": "left",
+        "mobile_content_alignment": "bottom",
         "mobile_image_ratio": "400px",
         "stack_images_on_mobile": false,
         "show_text_below": false,
+        "hide_mobile": false,
         "colors_button_label": "#1a1b18",
         "colors_button_background": "#ffffff",
         "colors_text": "#ffffff",
