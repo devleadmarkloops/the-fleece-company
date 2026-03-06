@@ -586,6 +586,7 @@ cart-remove-button{
 
 .mini-cart__footer .button-container .button {
   width: 100%;
+  background-color: #000000;
   min-width: auto;
   min-height: 4.9rem;
   white-space: nowrap;
