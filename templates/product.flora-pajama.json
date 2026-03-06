@@ -172,9 +172,9 @@
           "settings": {
             "show_variant_labels": true,
             "picker_type": "button",
-            "swatch_source": "variant",
+            "swatch_source": "file",
             "swatch_type": "round",
-            "swatch_size": "large",
+            "swatch_size": "medium",
             "enable_swatch_unavailable_click": false,
             "enable_limited": true,
             "limited_heading": "Limited Edition",
