@@ -91,9 +91,11 @@
         "image_behavior": "none",
         "mobile_image": "shopify://shop_images/All_Colection_Banners_2.webp",
         "mobile_text_alignment": "center",
+        "mobile_content_alignment": "bottom",
         "mobile_image_ratio": "400px",
         "stack_images_on_mobile": false,
         "show_text_below": false,
+        "hide_mobile": true,
         "colors_button_label": "#1a1b18",
         "colors_button_background": "#ffffff",
         "colors_text": "#3b3b3b",
@@ -102,6 +104,60 @@
         "colors_highlight": "#ffb503",
         "padding_top": 0,
         "padding_bottom": 0
+      }
+    },
+    "rich_text_aectyc": {
+      "type": "rich-text",
+      "blocks": {
+        "custom_liquid_WwEAay": {
+          "type": "custom_liquid",
+          "disabled": true,
+          "settings": {
+            "custom_liquid": "<h1 class=\"h1 heading\">{{ collection.title }}</h1>"
+          }
+        },
+        "heading_GPVz4w": {
+          "type": "heading",
+          "settings": {
+            "heading": "All Products",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "text_CRPiF7": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Discover our full range of thoughtfully crafted pieces designed for comfort, made for everyday living.</p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "custom_liquid_WwEAay",
+        "heading_GPVz4w",
+        "text_CRPiF7"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "text_alignment": "left",
+        "mobile_text_alignment": "left",
+        "horizontal_content": false,
+        "narrow": false,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1b18",
+        "colors_text": "#212326",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#ffb503",
+        "gradient_background": "",
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     },
     "product-grid": {
@@ -143,6 +199,7 @@
     "banner",
     "subs",
     "image_banner_v2_Anqw8P",
+    "rich_text_aectyc",
     "product-grid"
   ]
 }
