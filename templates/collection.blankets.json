@@ -112,7 +112,7 @@
         "custom_liquid_W89Mdc": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<h1 class=\"rich-text__heading h1\">{{ collection.title }}</h1>"
+            "custom_liquid": "<h1 class=\"heading h1\">{{ collection.title }}</h1>"
           }
         },
         "text_Ni69QP": {
