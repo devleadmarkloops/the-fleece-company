@@ -29,7 +29,7 @@
           else
             assign custom_swatch_trigger = 'products.product.color_swatch_trigger' | t | downcase
             assign downcased_option = option.name | downcase
-            if custom_swatch_trigger contains downcased_option
+            if custom_swatch_trigger contains downcased_option or downcased_option == 'color' or downcased_option == 'colour'
               assign custom_swatch_eligible = true
             endif
           endif
