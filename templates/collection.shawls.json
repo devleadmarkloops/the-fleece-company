@@ -62,7 +62,7 @@
       ],
       "name": "t:sections.image-banner.presets.name",
       "settings": {
-        "image": "shopify://shop_images/Drape_shawl_Banners_1.webp",
+        "image": "shopify://shop_images/Drape_shawl_Banners_1_e1f7bfbe-e1ea-4a6f-b4f3-995937724574.webp",
         "image_position": "center center",
         "text_box_position": "middle-center",
         "text_alignment": "center",
@@ -71,7 +71,7 @@
         "full_width": true,
         "show_divider": false,
         "image_behavior": "none",
-        "mobile_image": "shopify://shop_images/Drape_shawl_Banners_2.webp",
+        "mobile_image": "shopify://shop_images/Drape_shawl_Banners_2_fef29f31-39ea-4066-929d-429ac0948f3d.webp",
         "mobile_text_alignment": "center",
         "mobile_image_ratio": "400px",
         "stack_images_on_mobile": false,
