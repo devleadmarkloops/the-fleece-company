@@ -25,7 +25,7 @@
     {%- assign section_image = section.settings.mobile_image | default: section.settings.mobile_image_2 -%}
     @media screen and (max-width: 749px) {
       #shopify-section-{{ section.id }} {
-        {% comment %}--image-ratio-percent: {{ 1 | divided_by: section_image.aspect_ratio | times: 100 }}%;{% endcomment %}
+        
       }
     }  
   {% endif -%}
@@ -100,6 +100,15 @@
       font-size: 1.5rem;
       min-width: 16rem;
     }
+    #shopify-section-{{ section.id }} .banner__content.mobile-align-top {
+      align-items: flex-start !important;
+    }
+    #shopify-section-{{ section.id }} .banner__content.mobile-align-center {
+      align-items: center !important;
+    }
+    #shopify-section-{{ section.id }} .banner__content.mobile-align-bottom {
+      align-items: flex-end !important;
+    }
   }
 
 {%- endstyle -%}
@@ -120,7 +129,7 @@
   endif
 -%}
 
-<div class="section--padding{% if section.settings.show_divider %} section--divider{% endif %}">
+<div class="section--padding{% if section.settings.show_divider %} section--divider{% endif %}{% if section.settings.hide_mobile %} small-hide{% endif %}">
   <div class="page-width{% if section.settings.full_width %} page-width--full-width{% endif %}">
     <div id="Banner-{{ section.id }}" class="banner banner-v2{% if section.settings.stack_images_on_mobile and section.settings.image != blank and section.settings.image_2 != blank %} banner--stacked{% endif %}{% if section.settings.show_text_box %} banner--container{% endif %}{% if section.settings.show_text_below %} banner--mobile-bottom{% endif %}">
       {%- if section.settings.image != blank -%}
@@ -210,7 +219,7 @@
         </div>
       {%- endif -%}
       {%- if section.blocks.size > 0 -%}
-        <div class="banner__content banner__content--{{ section.settings.text_box_position }} page-width">
+        <div class="banner__content banner__content--{{ section.settings.text_box_position }} page-width mobile-align-{{ section.settings.mobile_content_alignment }}">
           <div class="banner__box {{ section.settings.text_alignment }} mobile-{{ section.settings.mobile_text_alignment }}">
             {%- for block in section.blocks -%}
               {%- case block.type -%}
@@ -543,6 +552,26 @@
     },
     {
       "type": "select",
+      "id": "mobile_content_alignment",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "bottom",
+      "label": "Mobile vertical alignment"
+    },
+    {
+      "type": "select",
       "id": "mobile_image_ratio",
       "options": [
         {
@@ -600,6 +629,12 @@
       "id": "show_text_below",
       "default": true,
       "label": "t:sections.image-banner.settings.show_text_below.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "default": false,
+      "label": "Hide on mobile"
     },
     {
       "type": "header",
