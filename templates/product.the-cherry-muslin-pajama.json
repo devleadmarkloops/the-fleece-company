@@ -159,7 +159,7 @@
           "settings": {
             "show_variant_labels": true,
             "picker_type": "button",
-            "swatch_source": "variant",
+            "swatch_source": "file",
             "swatch_type": "round",
             "swatch_size": "large",
             "enable_swatch_unavailable_click": false,
