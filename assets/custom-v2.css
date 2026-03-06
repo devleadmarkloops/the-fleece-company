@@ -60,6 +60,10 @@ header.header-new.header--middle-left .header__inline-menu {
 header.header-new .header__inline-menu .header__menu-item {
   font-family: var(--new-font-body-family);
   font-weight: 500;
+  transition: 0.2s ease;
+}
+header.header-new .header__inline-menu .header__menu-item:hover {
+  text-decoration: under;
 }
 header.header-new .is-megamenu > .list-menu-dropdown .page-width {
   --grid-horizontal-spacing: 4rem;
