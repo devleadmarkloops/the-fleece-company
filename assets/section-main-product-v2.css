@@ -3799,6 +3799,7 @@ span.alert-box:before {
 .donation-bar-wrapper {
   flex: 1;
   height: 20px;
+  line-height: 22px;
   border-radius: 15px;
   overflow: hidden;
   position: relative;
@@ -3819,7 +3820,6 @@ span.alert-box:before {
 }
 .donation-bar-text {
   font-size: 12px;
-  font-weight: 600;
   color: #fff;
   white-space: nowrap;
 }
@@ -3869,7 +3869,6 @@ span.donation-bar-text svg {
   right: 0;
   top: 0;
   font-size: 12px;
-  font-weight:bold;
   height: 100%;
   padding: 0 10px;
   line-height: normal;
@@ -3887,5 +3886,52 @@ span.donation-bar-text svg {
   }
   .donation-impact-block.mobile-device{
     display:block;
+  }
+}
+.donation-heading {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  justify-content:center;
+  width:100%;
+}
+.donation-info-trigger {
+  display: inline-flex;
+  align-items: center;
+}
+.donation-info-popup {
+  top: calc(100% + 6px);
+  right: 0;
+}
+.donation-impact-block .donation-row.row-bg {
+  background-color: var(--background-color);
+  border-radius: 4px;
+}
+.donation-impact-block .donation-row {
+  margin-top: var(--mt);
+  margin-bottom: var(--mb);
+  padding-top: var(--pt);
+  padding-bottom: var(--pb);
+  padding-left: var(--pl);
+  padding-right: var(--pr);
+}
+
+@media screen and (max-width: 749px) {
+  
+  .donation-impact-block .donation-heading {
+    letter-spacing: 0;
+  }
+  .donation-impact-block .donation-info-trigger svg {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+  .donation-impact-block.mobile_full{
+    max-width:calc(100% + 30px) !important;
+    width:calc(100% + 30px) !important;
+    margin-left:-15px !important;
+  }
+  .donation-impact-block.mobile_full .donation-row.row-bg {
+    border-radius:0;
   }
 }
