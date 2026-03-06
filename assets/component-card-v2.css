@@ -71,9 +71,9 @@
 .card-product-v2 .card-v2-view-all-colors {
   background: none;
   border: none;
-  font-size: 12px;
+  font-size: 1.4rem;
   cursor: pointer;
-  text-decoration: underline;
+  text-decoration: none;
   padding: 0;
 }
 
