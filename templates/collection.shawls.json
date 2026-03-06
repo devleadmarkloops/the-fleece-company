@@ -109,10 +109,14 @@
     "rich_text_NnjfwY": {
       "type": "rich-text",
       "blocks": {
-        "custom_liquid_wg7ULd": {
-          "type": "custom_liquid",
+        "heading_W6NLcC": {
+          "type": "heading",
           "settings": {
-            "custom_liquid": "<h1 class=\"h1 heading\">{{ collection.title }}</h1>"
+            "heading": "{{ collection.title }}",
+            "heading_size": "h1",
+            "heading_tag": "h1",
+            "enable_highlight": false,
+            "highlight_style": "marker"
           }
         },
         "text_VcK6hA": {
@@ -127,7 +131,7 @@
         }
       },
       "block_order": [
-        "custom_liquid_wg7ULd",
+        "heading_W6NLcC",
         "text_VcK6hA"
       ],
       "name": "t:sections.rich-text.presets.name",
