@@ -63,6 +63,7 @@ header.header-new .header__inline-menu .header__menu-item {
   transition: 0.2s ease;
 }
 header.header-new .header__inline-menu .header__menu-item:hover {
+  color: rgba(var(--color-header-foreground), 1);
   text-decoration: underline;
   text-underline-offset: 4px;
   opacity: 0;
