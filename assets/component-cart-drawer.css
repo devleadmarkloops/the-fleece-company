@@ -1521,3 +1521,6 @@ details[open].menu-opening > .cart-drawer [data-animate] {
     margin-block: 0.5rem 0.1rem;
   }
 }
+button.button.checkout-btn-d5{
+  background:#000 !important;
+}
