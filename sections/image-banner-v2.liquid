@@ -25,7 +25,7 @@
     {%- assign section_image = section.settings.mobile_image | default: section.settings.mobile_image_2 -%}
     @media screen and (max-width: 749px) {
       #shopify-section-{{ section.id }} {
-        {% comment %}--image-ratio-percent: {{ 1 | divided_by: section_image.aspect_ratio | times: 100 }}%;{% endcomment %}
+        
       }
     }  
   {% endif -%}
@@ -99,6 +99,15 @@
     #shopify-section-{{ section.id }} .button {
       font-size: 1.5rem;
       min-width: 16rem;
+    }
+    #shopify-section-{{ section.id }} .banner__content.mobile-align-top {
+      align-items: flex-start !important;
+    }
+    #shopify-section-{{ section.id }} .banner__content.mobile-align-center {
+      align-items: center !important;
+    }
+    #shopify-section-{{ section.id }} .banner__content.mobile-align-bottom {
+      align-items: flex-end !important;
     }
   }
 
@@ -210,7 +219,7 @@
         </div>
       {%- endif -%}
       {%- if section.blocks.size > 0 -%}
-        <div class="banner__content banner__content--{{ section.settings.text_box_position }} page-width">
+        <div class="banner__content banner__content--{{ section.settings.text_box_position }} page-width mobile-align-{{ section.settings.mobile_content_alignment }}">
           <div class="banner__box {{ section.settings.text_alignment }} mobile-{{ section.settings.mobile_text_alignment }}">
             {%- for block in section.blocks -%}
               {%- case block.type -%}
@@ -540,6 +549,26 @@
       ],
       "default": "center",
       "label": "t:sections.all.mobile_layout.mobile_text_alignment.label"
+    },
+    {
+      "type": "select",
+      "id": "mobile_content_alignment",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "bottom",
+      "label": "Mobile vertical alignment"
     },
     {
       "type": "select",
