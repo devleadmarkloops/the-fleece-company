@@ -3247,9 +3247,15 @@ if (nextBtn) {
           "default": 800
         },
         {
+          "type": "checkbox",
+          "id": "enable_row_bg",
+          "label": "Enable background (block)",
+          "default": false
+        },
+        {
           "type": "color",
-          "id": "bg_color",
-          "label": "Background Color",
+          "id": "row_bg_color",
+          "label": "Background Color (block)",
           "default": "#f5f5f5"
         },
         {
@@ -3275,6 +3281,71 @@ if (nextBtn) {
           "id": "bar_bg_color",
           "label": "Progress Bar Background",
           "default": "#e0e0e0"
+        },
+        {
+          "type": "text",
+          "id": "info_popup_text",
+          "label": "Info Popup Text",
+          "default": "A portion of every order is donated to support women escaping abuse. Track our progress toward the goal!"
+        },
+        {
+          "type":"range",
+          "id":"padding_top",
+          "label":"Padding Top",
+          "step":1,
+          "max":30,
+          "min":5,
+          "default":10
+        },
+        {
+          "type":"range",
+          "id":"padding_bottom",
+          "label":"Padding bottom",
+          "step":1,
+          "max":30,
+          "min":5,
+          "default":10
+        },
+        {
+          "type":"range",
+          "id":"padding_left",
+          "label":"Padding left",
+          "step":1,
+          "max":30,
+          "min":5,
+          "default":10
+        },
+        {
+          "type":"range",
+          "id":"padding_right",
+          "label":"Padding right",
+          "step":1,
+          "max":30,
+          "min":5,
+          "default":10
+        },
+        {
+          "type":"range",
+          "id":"margin_top",
+          "label":"Margin Top",
+          "step":1,
+          "max":30,
+          "min":5,
+          "default":10
+        },
+        {
+          "type":"range",
+          "id":"margin_bottom",
+          "label":"Margin bottom",
+          "step":1,
+          "max":30,
+          "min":5,
+          "default":10
+        },
+        {
+          "type":"checkbox",
+          "id":"full_width",
+          "label":"Full width On Mobile"
         }
       ]
     },
