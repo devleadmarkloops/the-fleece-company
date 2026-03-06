@@ -40,7 +40,9 @@
           "settings": {
             "title_size": "h1",
             "show_price": false,
-            "price_size": "medium"
+            "price_size": "medium",
+            "desktop_hide": false,
+            "mobile_hide": false
           }
         },
         "rating_static_jQpEEQ": {
@@ -65,9 +67,11 @@
             "icon_size": 34,
             "icon_size_mob": 30,
             "icon_text": "Cloud-Level Comfort",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_KLMX3D": {
@@ -77,9 +81,11 @@
             "icon_size": 34,
             "icon_size_mob": 30,
             "icon_text": "Lightweight",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_R7iXXY": {
@@ -89,9 +95,11 @@
             "icon_size": 34,
             "icon_size_mob": 30,
             "icon_text": "Breathable",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "variant_picker": {
@@ -99,8 +107,9 @@
           "settings": {
             "show_variant_labels": true,
             "picker_type": "button",
-            "swatch_source": "variant",
+            "swatch_source": "file",
             "swatch_type": "round",
+            "swatch_size": "medium",
             "enable_swatch_unavailable_click": false,
             "enable_limited": true,
             "limited_heading": "Limited Edition",
@@ -110,9 +119,13 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
+            "buy_buttons_version": "v1",
             "show_quantity_selector": false,
             "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false
+            "show_gift_card_recipient": false,
+            "enable_monogram": false,
+            "monogram_product": "",
+            "icon_text": ""
           }
         },
         "countdown_timer_4tCBwt": {
@@ -129,9 +142,8 @@
             "visitor_hours": 20,
             "visitor_minutes": 3,
             "visitor_seconds": 27,
-            "border_radius": 8,
-            "padding_top": 15,
-            "padding_bottom": 10
+            "enable_payment_icons": true,
+            "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
           }
         },
         "icon_with_text_NArRNw": {
@@ -152,6 +164,7 @@
             "text_color": "",
             "text_size": 14,
             "text_size_mob": 13,
+            "enable_normal": true,
             "enable_circle": false
           }
         },
@@ -201,6 +214,7 @@
         "sticky_cart"
       ],
       "settings": {
+        "enable_v2_styles": false,
         "enable_sticky_info": true,
         "media_position": "left",
         "media_size": "large",
@@ -213,6 +227,8 @@
         "enable_video_looping": false,
         "mobile_image_ratio": "adapt",
         "show_mobile_thumbnails": false,
+        "enable_variant_specific_media": false,
+        "enable_fade_slider": true,
         "padding_top": 0,
         "padding_bottom": 32
       }
@@ -272,7 +288,9 @@
         "gradient_background": "",
         "colors_highlight": "#ffb503",
         "padding_top": 32,
-        "padding_bottom": 0
+        "padding_bottom": 0,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36
       }
     },
     "image_with_text_v2_RabiRM": {
@@ -330,7 +348,9 @@
         "gradient_background": "",
         "colors_highlight": "#ffb503",
         "padding_top": 4,
-        "padding_bottom": 4
+        "padding_bottom": 4,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36
       }
     },
     "image_with_text_v2_tLdkwa": {
@@ -359,6 +379,8 @@
         "check_list_EmQBcw": {
           "type": "check_list",
           "settings": {
+            "enable_bg": false,
+            "bg": "",
             "list_icon": "shopify://shop_images/check_circle_30dp_C5BBAE_FILL0_wght400_GRAD0_opsz24.svg",
             "list_text_1": "100-night satisfaction guarantee",
             "list_text_2": "Fast and tracked shipping",
@@ -400,7 +422,9 @@
         "gradient_background": "",
         "colors_highlight": "#ffb503",
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 0,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36
       }
     },
     "product-recommendations": {
@@ -424,10 +448,13 @@
         "show_quick_buy": true,
         "enable_quick_view": true,
         "enable_color_swatches": true,
+        "enable_other_variants": false,
         "enable_countdown": true,
         "colors_highlight": "#ffb503",
         "padding_top": 36,
         "padding_bottom": 36,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36,
         "enable_highlight": false,
         "highlight_style": "marker"
       }
@@ -438,6 +465,7 @@
         "review_BDtWFn": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Beautiful quality—soft, warm, and stylish. The crochet texture feels luxurious, and it instantly upgraded the look of my living room decor.",
             "author_name": "Laura J."
           }
@@ -445,6 +473,7 @@
         "review_AAMEHx": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Perfect as both a throw and a nap blanket. It’s lightweight enough for summer evenings but still cozy when it gets chilly.",
             "author_name": "Rachel L."
           }
@@ -452,6 +481,7 @@
         "review_RRjwad": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I absolutely love the texture and colors. It feels premium, adds charm to my sofa, and washes well without losing softness or shape.",
             "author_name": "Jenny P."
           }
@@ -459,6 +489,7 @@
         "review_xqXGte": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "My cat used to claw our couch. This blanket not only protects the fabric, but she now prefers lying on it—win-win.",
             "author_name": "Irene"
           }
@@ -466,6 +497,7 @@
         "review_DdtGiD": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "The anti-slip layer is no joke. Our kids treat the couch like a trampoline, and this blanket doesn’t budge. Washes well too.",
             "author_name": "Elin"
           }
@@ -473,6 +505,7 @@
         "review_xAYbix": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I was looking for something cozy but also durable—and this blanket delivers. Soft velvet on top, sturdy underside, and my leather couch still looks brand new.",
             "author_name": "Maria"
           }
@@ -489,13 +522,7 @@
       "name": "Reviews slider",
       "settings": {
         "heading": "Our Customers Speaking",
-        "enable_loop": false,
-        "enable_autoplay": false,
-        "autoplay_delay": 5,
-        "show_arrows_desktop": false,
-        "show_dots_desktop": false,
-        "show_arrows_mobile": false,
-        "show_dots_mobile": true,
+        "subheading": "Avg Rating: 4.8",
         "use_custom_colors": true,
         "colors_text": "#212326",
         "colors_background": "#fcfbf7",
