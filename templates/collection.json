@@ -149,6 +149,7 @@
         "horizontal_content": false,
         "narrow": false,
         "show_divider": false,
+        "hide_desktop": true,
         "use_custom_colors": false,
         "colors_button_label": "#ffffff",
         "colors_button_background": "#1a1b18",
@@ -157,7 +158,7 @@
         "colors_highlight": "#ffb503",
         "gradient_background": "",
         "padding_top": 40,
-        "padding_bottom": 40
+        "padding_bottom": 20
       }
     },
     "product-grid": {
