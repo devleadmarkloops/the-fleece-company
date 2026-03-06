@@ -26,7 +26,7 @@
             "heading_tag": "h2",
             "text": "",
             "text_size": "typeset3",
-            "button_label": "Shop All",
+            "button_label": "",
             "button_link": "shopify://collections/homepage",
             "button_size": "small",
             "button_style_secondary": false,
