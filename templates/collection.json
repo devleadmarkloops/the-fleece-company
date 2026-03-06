@@ -121,7 +121,7 @@
           "settings": {
             "heading": "All Products",
             "heading_size": "h1",
-            "heading_tag": "h2",
+            "heading_tag": "h1",
             "enable_highlight": false,
             "highlight_style": "marker"
           }
