@@ -77,6 +77,12 @@
   padding: 0;
 }
 
+@media screen and (max-width: 749px) {
+  .card-product-v2 .card-v2-view-all-colors {
+    font-size: 1.2rem;
+  }
+}
+
 .card-product-v2 .card-v2-pills {
   display: flex;
   gap: 6px;
