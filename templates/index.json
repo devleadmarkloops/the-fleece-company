@@ -15,8 +15,8 @@
         "16532649314269ba76-0": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Home_Banner_1.webp",
-            "image_mobile": "shopify://shop_images/Home_Banner_2.webp",
+            "image": "shopify://shop_images/Home_Banner_1_97215919-ecc7-4ac7-a716-aa9f387b5444.webp",
+            "image_mobile": "shopify://shop_images/Home_Banner_2_8f223316-eaaa-4161-adfe-b214bb58e9e0.webp",
             "image_position": "center center",
             "text_box_position": "bottom-center",
             "subheading": "",
@@ -125,6 +125,7 @@
         "colors_text": "#ffffff",
         "colors_background": "#c5bbae",
         "gradient_background": "",
+        "hidden_templates": "",
         "padding_top": 12,
         "padding_bottom": 12
       }
@@ -187,6 +188,7 @@
         "colors_text": "#ffffff",
         "colors_background": "#c5bbae",
         "gradient_background": "",
+        "hidden_templates": "",
         "padding_top": 12,
         "padding_bottom": 12
       }
