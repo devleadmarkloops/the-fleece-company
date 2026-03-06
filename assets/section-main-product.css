@@ -2386,7 +2386,7 @@ product-gallery .product__media-toggle {
   z-index: 1;
   transition: color 0.3s ease-in-out;
   color: rgb(var(--color-background));
-  background-color: rgb(var(--color-foreground));
+  background-color: #000;
   /* border: 1px solid rgb(var(--color-foreground));
   color: rgb(var(--color-background));
   background-color: transparent; */
