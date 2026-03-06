@@ -103,8 +103,8 @@
             "icon_3": "shopify://shop_images/check_circle_20dp_121212_FILL0_wght400_GRAD0_opsz20.svg",
             "text_3": "Super soft, breathable fleece",
             "text_4": "",
-            "icon_size": 30,
-            "icon_size_mob": 24,
+            "icon_size": 24,
+            "icon_size_mob": 20,
             "text_size": 14,
             "text_size_mob": 13,
             "text_color": "#000000"
