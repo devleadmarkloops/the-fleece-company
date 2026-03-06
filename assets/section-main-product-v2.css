@@ -3774,7 +3774,8 @@ span.alert-box:before {
   font-size: 1.4rem;
   font-weight: 400;
   letter-spacing: 0;
-  background-color: rgb(var(--color-button-background));
+  /* background-color: rgb(var(--color-button-background)); */
+  background-color: #000;
   color: rgb(var(--color-button-text));
 }
 .donation-row {
