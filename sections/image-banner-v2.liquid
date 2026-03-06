@@ -129,7 +129,7 @@
   endif
 -%}
 
-<div class="section--padding{% if section.settings.show_divider %} section--divider{% endif %}">
+<div class="section--padding{% if section.settings.show_divider %} section--divider{% endif %}{% if section.settings.hide_mobile %} small-hide{% endif %}">
   <div class="page-width{% if section.settings.full_width %} page-width--full-width{% endif %}">
     <div id="Banner-{{ section.id }}" class="banner banner-v2{% if section.settings.stack_images_on_mobile and section.settings.image != blank and section.settings.image_2 != blank %} banner--stacked{% endif %}{% if section.settings.show_text_box %} banner--container{% endif %}{% if section.settings.show_text_below %} banner--mobile-bottom{% endif %}">
       {%- if section.settings.image != blank -%}
@@ -629,6 +629,12 @@
       "id": "show_text_below",
       "default": true,
       "label": "t:sections.image-banner.settings.show_text_below.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "default": false,
+      "label": "Hide on mobile"
     },
     {
       "type": "header",
