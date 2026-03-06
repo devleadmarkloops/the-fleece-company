@@ -78,7 +78,7 @@
       ],
       "name": "Image banner v2",
       "settings": {
-        "image": "shopify://shop_images/Blanket_banners_1_98f54ad9-e05a-42f9-9f99-440ef0306663.webp",
+        "image": "shopify://shop_images/Blanket_banners_1_425ea67a-d731-437b-af79-437252ad8e67.webp",
         "image_position": "center center",
         "text_box_position": "middle-left",
         "text_alignment": "left",
@@ -89,10 +89,13 @@
         "enable_content_max_width": true,
         "content_max_width": 550,
         "image_behavior": "none",
+        "mobile_image": "shopify://shop_images/Blanket_banners_2_6b28ef5f-b25e-4778-b647-62c0123a658b.webp",
         "mobile_text_alignment": "center",
-        "mobile_image_ratio": "200px",
+        "mobile_content_alignment": "bottom",
+        "mobile_image_ratio": "400px",
         "stack_images_on_mobile": false,
         "show_text_below": false,
+        "hide_mobile": true,
         "colors_button_label": "#1a1b18",
         "colors_button_background": "#ffffff",
         "colors_text": "#3b3b3b",
@@ -101,6 +104,49 @@
         "colors_highlight": "#ffb503",
         "padding_top": 0,
         "padding_bottom": 0
+      }
+    },
+    "rich_text_fnzmjx": {
+      "type": "rich-text",
+      "blocks": {
+        "custom_liquid_GhtAyy": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<h1 class=\"h1 heading\">{{ collection.title }}</h1>"
+          }
+        },
+        "text_hxcykQ": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Discover our full range of thoughtfully crafted pieces designed for comfort, made for everyday living.</p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "custom_liquid_GhtAyy",
+        "text_hxcykQ"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "text_alignment": "left",
+        "mobile_text_alignment": "left",
+        "horizontal_content": false,
+        "narrow": false,
+        "show_divider": false,
+        "hide_desktop": true,
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1b18",
+        "colors_text": "#212326",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#ffb503",
+        "gradient_background": "",
+        "padding_top": 40,
+        "padding_bottom": 12
       }
     },
     "product-grid": {
@@ -142,6 +188,7 @@
     "banner",
     "subs",
     "image_banner_v2_Anqw8P",
+    "rich_text_fnzmjx",
     "product-grid"
   ]
 }
