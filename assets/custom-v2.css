@@ -64,7 +64,7 @@ header.header-new .header__inline-menu .header__menu-item {
 }
 header.header-new .header__inline-menu .header__menu-item:hover {
   text-decoration: underline;
-  text-underline-offset: 3px;
+  text-underline-offset: 4px;
 }
 header.header-new .is-megamenu > .list-menu-dropdown .page-width {
   --grid-horizontal-spacing: 4rem;
