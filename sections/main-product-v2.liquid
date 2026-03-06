@@ -3172,6 +3172,36 @@ if (nextBtn) {
     })();
   </script>
 </product-info>
+<script>
+  document.addEventListener('click', function(e) {
+    
+    var trigger = e.target.closest('[data-donation-info]');
+    if (trigger) {
+      
+      e.stopPropagation();
+      var id = trigger.getAttribute('data-donation-info');
+      var popup = document.getElementById('donation-info-' + id);
+      if (popup) {
+        // Close any other open popups first
+        document.querySelectorAll('.donation-info-popup').forEach(function(p) {
+          if (p !== popup) p.style.display = 'none';
+        });
+        popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+      }
+      return;
+    }
+    var closeBtn = e.target.closest('[data-donation-close]');
+    if (closeBtn) {
+      var id = closeBtn.getAttribute('data-donation-close');
+      document.getElementById('donation-info-' + id).style.display = 'none';
+      return;
+    }
+    // Click outside closes all
+    document.querySelectorAll('.donation-info-popup').forEach(function(p) {
+      p.style.display = 'none';
+    });
+  });
+</script>
 {% schema %}
 {
   "name": "t:sections.main-product.name",
