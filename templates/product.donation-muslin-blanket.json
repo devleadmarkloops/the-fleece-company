@@ -61,6 +61,31 @@
             "full_width": false
           }
         },
+        "donation_impact_wb9GJR": {
+          "type": "donation_impact",
+          "settings": {
+            "display": "both",
+            "icon_size": 24,
+            "heading": "Your order donates $1 to women escaping abuse",
+            "raised": 6847,
+            "goal": 10000,
+            "orders_remaining": 800,
+            "enable_row_bg": true,
+            "row_bg_color": "#e8e8e8",
+            "heading_color": "#1a1a1a",
+            "text_color": "#1a1a1a",
+            "bar_color": "#e87461",
+            "bar_bg_color": "#d2cfcf",
+            "info_popup_text": "$1 per order donated. For every muslin blanket ordered, we donate $1 to The Salvation Army's Women's Shelters. Providing safe housing, meals, and support services to women and children experiencing homelessness or domestic violence. Donations apply to orders placed from March 7, 2026 at 8:00 AM EST through March 8, 2026 at midnight EST.",
+            "padding_top": 8,
+            "padding_bottom": 9,
+            "padding_left": 5,
+            "padding_right": 5,
+            "margin_top": 5,
+            "margin_bottom": 5,
+            "full_width": true
+          }
+        },
         "rating_static_jQpEEQ": {
           "type": "rating_static",
           "settings": {
@@ -249,6 +274,7 @@
       },
       "block_order": [
         "donation_impact_8kJ6Hj",
+        "donation_impact_wb9GJR",
         "rating_static_jQpEEQ",
         "breadcrumb_LGWKpR",
         "title",
