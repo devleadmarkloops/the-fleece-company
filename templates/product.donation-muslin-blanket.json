@@ -66,7 +66,7 @@
           "settings": {
             "display": "both",
             "icon_size": 24,
-            "heading": "Your order donates $1 to women escaping abuse",
+            "heading": "<b>Your order donates $1 to women escaping abuse</b>",
             "raised": 6847,
             "goal": 10000,
             "orders_remaining": 800,
