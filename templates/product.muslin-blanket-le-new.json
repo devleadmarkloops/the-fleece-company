@@ -35,6 +35,32 @@
     "main": {
       "type": "main-product-v2",
       "blocks": {
+        "donation_impact_8kJ6Hj": {
+          "type": "donation_impact",
+          "disabled": true,
+          "settings": {
+            "display": "both",
+            "icon_size": 24,
+            "heading": "Your order donates $1 to women escaping abuse",
+            "raised": 6847,
+            "goal": 10000,
+            "orders_remaining": 800,
+            "enable_row_bg": true,
+            "row_bg_color": "#e8e8e8",
+            "heading_color": "#1a1a1a",
+            "text_color": "#1a1a1a",
+            "bar_color": "#e87461",
+            "bar_bg_color": "#d2cfcf",
+            "info_popup_text": "A portion of every order is donated to support women escaping abuse. Track our progress toward the goal!",
+            "padding_top": 8,
+            "padding_bottom": 9,
+            "padding_left": 5,
+            "padding_right": 5,
+            "margin_top": 5,
+            "margin_bottom": 5,
+            "full_width": false
+          }
+        },
         "rating_static_jQpEEQ": {
           "type": "rating_static",
           "settings": {
@@ -222,6 +248,7 @@
         }
       },
       "block_order": [
+        "donation_impact_8kJ6Hj",
         "rating_static_jQpEEQ",
         "breadcrumb_LGWKpR",
         "title",
