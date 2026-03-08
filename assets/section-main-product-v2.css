@@ -2746,7 +2746,7 @@ span.alert-box:before {
 
 @media screen and (max-width: 749px) {
   .product--mobile-adapt .product__media-list.slider--fade {
-    padding-bottom: 0 !important;
+    padding-bottom: 100% !important;
   }
 }
 
