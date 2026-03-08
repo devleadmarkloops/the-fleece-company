@@ -2119,7 +2119,7 @@ product-gallery .product__media-toggle {
 
 @media screen and (min-width: 1280px) and (max-width: 1550px) {
   .product .product__media-gallery .product__media.media--square {
-    padding-bottom: 80%;
+    padding-bottom: 100%;
   }
 }
 
