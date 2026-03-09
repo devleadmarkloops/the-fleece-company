@@ -444,8 +444,8 @@
         "heading_EqjbwL": {
           "type": "heading",
           "settings": {
-            "heading": "Cozy All Night",
-            "heading_size": "h0",
+            "heading": "Effortless, Deep Sleep.",
+            "heading_size": "h1",
             "heading_tag": "h2",
             "enable_highlight": false,
             "highlight_style": "marker"
@@ -454,7 +454,7 @@
         "text_kiWgwG": {
           "type": "text",
           "settings": {
-            "text": "<p>The Muslin Blanket delivers effortless, breathable comfort from the first touch</p>",
+            "text": "<p>\"I'm out within minutes and don't wake up once\"</p>",
             "text_size": "typeset2",
             "secondary_color": false,
             "enable_highlight": false,
