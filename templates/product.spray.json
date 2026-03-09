@@ -218,7 +218,7 @@
           "settings": {
             "icon": "none",
             "heading": "How much product do I receive?",
-            "content": "<p>Each bottle contains 2 fl oz (60 ml) of Good Night Pillow Mist. A full 30-day supply.</p>",
+            "content": "<p>Each bottle contains 2 fl oz (60 ml) of Good Night Pillow Spray. A full 30-Day supply.</p>",
             "page": "",
             "custom_liquid": "",
             "keep_open": false
@@ -416,6 +416,7 @@
         "button_PNj8Jx",
         "icons_row_wymn3C"
       ],
+      "disabled": true,
       "name": "Advanced Rich Text",
       "settings": {
         "text_alignment": "center",
@@ -443,7 +444,7 @@
         "heading_EqjbwL": {
           "type": "heading",
           "settings": {
-            "heading": "Cozy All Night with The Muslin Blanket",
+            "heading": "Cozy All Night with The Sleep Spray",
             "heading_size": "h0",
             "heading_tag": "h2",
             "enable_highlight": false,
