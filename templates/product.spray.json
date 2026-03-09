@@ -224,6 +224,17 @@
             "keep_open": false
           }
         },
+        "collapsible_tab_aL69mB": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "heading": "Ingredients",
+            "content": "<p>Aqua, Glycerin, Lavandula Angustifolia (Lavender) Extract, Chamomilla Recutita (Matricaria) Flower Extract, Ethylhexylglycerin</p>",
+            "page": "",
+            "custom_liquid": "",
+            "keep_open": false
+          }
+        },
         "shipping_metaobject_tLJRyV": {
           "type": "shipping_metaobject",
           "settings": {
@@ -264,6 +275,7 @@
         "video_reels_Uf7aUQ",
         "collapsible_tab_TbRiah",
         "collapsible_tab-0",
+        "collapsible_tab_aL69mB",
         "shipping_metaobject_tLJRyV",
         "sticky_cart",
         "iwt_gallery_WzN9xF"
