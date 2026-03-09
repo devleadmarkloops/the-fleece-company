@@ -207,7 +207,7 @@
           "settings": {
             "icon": "none",
             "heading": "Benefits",
-            "content": "<p><strong>Sleep deeper, naturally.</strong> Our Good Night Spray blends pure lavender and chamomile, two botanicals clinically proven to reduce anxiety and improve sleep quality across 65+ studies and nearly 8,000 patients. Just one spray activates similar calming brain receptors as prescription sedatives, without the side effects.</p>",
+            "content": "<p><strong>Sleep deeper, naturally.</strong> Our Good Night Spray blends pure lavender and chamomile, two botanicals clinically proven to <a href=\"https://pubmed.ncbi.nlm.nih.gov/23476690/\" title=\"https://pubmed.ncbi.nlm.nih.gov/23476690/\">reduce anxiety and improve sleep quality</a> across 65+ studies and nearly 8,000 patients. Just one spray activates similar calming brain receptors as prescription sedatives, without the side effects.</p>",
             "page": "",
             "custom_liquid": "",
             "keep_open": false
