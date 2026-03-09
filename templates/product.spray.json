@@ -444,7 +444,7 @@
         "heading_EqjbwL": {
           "type": "heading",
           "settings": {
-            "heading": "Effortless, Deep Sleep.",
+            "heading": "<strong>Effortless, Deep Sleep.</strong>",
             "heading_size": "h1",
             "heading_tag": "h2",
             "enable_highlight": false,
@@ -454,7 +454,7 @@
         "text_kiWgwG": {
           "type": "text",
           "settings": {
-            "text": "<p>\"I'm out within minutes and don't wake up once\"</p>",
+            "text": "<p><strong>\"I'm out within minutes and don't wake up once\"</strong></p>",
             "text_size": "typeset2",
             "secondary_color": false,
             "enable_highlight": false,
