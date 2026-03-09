@@ -37,6 +37,7 @@
       "blocks": {
         "breadcrumb_KMcXr6": {
           "type": "breadcrumb",
+          "disabled": true,
           "settings": {
             "text_style": "body",
             "show_divider": false,
