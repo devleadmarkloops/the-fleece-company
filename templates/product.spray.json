@@ -557,9 +557,10 @@
         "full_width": true,
         "show_divider": false,
         "image_behavior": "none",
-        "mobile_layout": "no_image",
+        "image_mobile": "shopify://shop_images/Gemini_Generated_Image_gch2d6gch2d6gch2.png",
+        "mobile_layout": "text_first",
         "mobile_text_alignment": "left",
-        "mobile_image_ratio": "auto",
+        "mobile_image_ratio": "adapt",
         "enable_video_looping": false,
         "video_url": "",
         "use_custom_colors": false,
@@ -644,6 +645,7 @@
         "column_te4dbz",
         "column_UxzJ3X"
       ],
+      "disabled": true,
       "name": "Multicolumn v2",
       "settings": {
         "subheading": "<p>THE PROCESS</p>",
