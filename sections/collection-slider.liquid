@@ -218,19 +218,21 @@
       
       {% comment %} --- LEFT: INFO & NAV --- {% endcomment %}
       <div class="collection-slider__info">
-        {%- if section.settings.subheading != blank -%}
-          <div class="subheading">{{ section.settings.subheading }}</div>
-        {%- endif -%}
-        
-        {%- if section.settings.heading != blank -%}
-          <{{ section.settings.heading_tag }} class="title {{ section.settings.heading_size }}">
-            {{ section.settings.heading }}
-          </{{ section.settings.heading_tag }}>
-        {%- endif -%}
+        <div class="header-wr">
+          {%- if section.settings.subheading != blank -%}
+            <div class="subheading">{{ section.settings.subheading }}</div>
+          {%- endif -%}
+          
+          {%- if section.settings.heading != blank -%}
+            <{{ section.settings.heading_tag }} class="title {{ section.settings.heading_size }}">
+              {{ section.settings.heading }}
+            </{{ section.settings.heading_tag }}>
+          {%- endif -%}
 
-        {%- if section.settings.description != blank -%}
-          <div class="description rte">{{ section.settings.description }}</div>
-        {%- endif -%}
+          {%- if section.settings.description != blank -%}
+            <div class="description rte">{{ section.settings.description }}</div>
+          {%- endif -%}
+        </div>
 
         <div class="collection-slider__nav">
           <button class="slider-nav-btn cs-prev-{{ section.id }}" aria-label="Previous slide">
