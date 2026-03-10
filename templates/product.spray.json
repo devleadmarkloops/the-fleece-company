@@ -213,6 +213,17 @@
             "keep_open": false
           }
         },
+        "collapsible_tab_HbbKet": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "heading": "Benefits new",
+            "content": "<p><strong>Sleep deeper, naturally.</strong> Our Good Night Spray blends pure lavender, chamomile, and valerian root — three botanicals clinically proven to reduce anxiety and improve sleep quality across 65+ studies and nearly 8,000 patients. Just one spray activates similar calming brain receptors as prescription sedatives, without the side effects.</p><p></p><ul><li><strong>Lavender</strong></li></ul><p>Lavender's active compound linalool naturally activates your brain's calming GABA receptors, promoting deep relaxation and restful sleep. Used in hospitals worldwide, backed by 65+ clinical studies, and trusted for over 2,500 years.<br/></p><ul><li><strong>Chamomile</strong></li></ul><p>Nature's oldest sleep botanical — prescribed by Hippocrates, trusted by every civilization since. Chamomile's star molecule apigenin binds directly to your brain's relaxation receptors, calming your nervous system naturally, still powerful enough for adults who've tried everything.</p><p></p><ul><li><strong>Valerian Root</strong></li></ul><p>Used for centuries as nature's strongest sleep root. Valerian's active compound valerenic acid directly enhances GABA activity in the brain, reducing the time it takes to fall asleep and improving overall sleep depth. Backed by a systematic review and meta-analysis confirming its effectiveness, and shown to improve sleep quality in clinical trials.</p><p></p><ul><li><strong>The Blend</strong></li></ul><p>Our Good Night Spray blends pure lavender, chamomile, and valerian root — three botanicals clinically proven to reduce anxiety and improve sleep quality across 65+ studies. Three natural compounds, three calming pathways, one spray</p>",
+            "page": "",
+            "custom_liquid": "",
+            "keep_open": false
+          }
+        },
         "collapsible_tab_cBk8E9": {
           "type": "collapsible_tab",
           "settings": {
@@ -285,6 +296,7 @@
         "pairs_well_rqaHeU",
         "video_reels_Uf7aUQ",
         "collapsible_tab_TbRiah",
+        "collapsible_tab_HbbKet",
         "collapsible_tab_cBk8E9",
         "collapsible_tab-0",
         "collapsible_tab_aL69mB",
