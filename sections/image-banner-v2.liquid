@@ -78,6 +78,11 @@
     #shopify-section-{{ section.id }} .banner__box {
       width: 100%;
     }
+    {% if section.settings.enable_banner_height_tablet %}
+      #shopify-section-{{ section.id }} .banner__media .media {
+        height: {{ section.settings.banner_height_tablet }};
+      }
+    {% endif %}
   }
 
   @media screen and (max-width: 749px) {
@@ -501,6 +506,64 @@
       "unit": "px",
       "default": 500,
       "label": "Content max width"
+    },
+    {
+      "type": "header",
+      "content": "Tablet layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_banner_height_tablet",
+      "default": false,
+      "label": "Enable banner height"
+    },
+    {
+      "type": "select",
+      "id": "banner_height_tablet",
+      "options": [
+        {
+          "label": "t:sections.all.mobile_layout.mobile_image_ratio.options__1.label",
+          "value": "auto"
+        },
+        {
+          "label": "150px",
+          "value": "150px"
+        },
+        {
+          "label": "t:sections.all.mobile_layout.mobile_image_ratio.options__2.label",
+          "value": "200px"
+        },
+        {
+          "label": "t:sections.all.mobile_layout.mobile_image_ratio.options__3.label",
+          "value": "250px"
+        },
+        {
+          "label": "t:sections.all.mobile_layout.mobile_image_ratio.options__4.label",
+          "value": "300px"
+        },
+        {
+          "label": "t:sections.all.mobile_layout.mobile_image_ratio.options__5.label",
+          "value": "400px"
+        },
+        {
+          "label": "t:sections.all.mobile_layout.mobile_image_ratio.options__6.label",
+          "value": "500px"
+        },
+        {
+          "label": "t:sections.all.mobile_layout.mobile_image_ratio.options__7.label",
+          "value": "600px"
+        },
+        {
+          "label": "t:sections.all.mobile_layout.mobile_image_ratio.options__8.label",
+          "value": "100vh"
+        },
+        {
+          "label": "t:sections.all.mobile_layout.mobile_image_ratio.options__9.label",
+          "value": "adapt"
+        }
+      ],
+      "default": "auto",
+      "label": "t:sections.all.mobile_layout.mobile_image_ratio.label"
     },
     {
       "type": "header",
