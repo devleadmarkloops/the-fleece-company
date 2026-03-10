@@ -55,7 +55,7 @@
 -%}
 
 {%- if section.settings.show_divider %}<div class="section--divider">{% endif -%}
-  <div class="page-width{% if section.settings.narrow %} page-width--inner{% endif %}{% if section.settings.hide_desktop %} large-up-hide{% endif %}">
+  <div class="page-width{% if section.settings.narrow %} page-width--inner{% endif %}{% if section.settings.hide_desktop %} medium-hide large-up-hide{% endif %}">
     <div class="rich-text section--padding{{ custom_class }}">
       <div class="rich-text__blocks {{ section.settings.text_alignment }} mobile-{{ section.settings.mobile_text_alignment }}">
         {%- for block in section.blocks -%}
