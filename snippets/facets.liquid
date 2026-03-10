@@ -19,9 +19,7 @@
 {% endcomment %}
 
 {%- liquid
-  comment assign sort_by = results.sort_by | default: results.default_sort_by
-  endcomment
-  assign sort_by = results.sort_by | default: 'best-selling'
+  assign sort_by = results.sort_by | default: results.default_sort_by
   assign default_presentation = 'text'
   assign total_active_values = 0
   if results.url
