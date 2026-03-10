@@ -499,6 +499,17 @@
                   </div>
                 {%- when 'custom_liquid' -%}
                   <div class="image-with-text__text rte" {{ block.shopify_attributes }}>{{ block.settings.custom_liquid }}</div>
+                {%- when 'signature' -%}
+                  <div class="iwt-v3__signature" {{ block.shopify_attributes }}>
+                    {%- if block.settings.image != blank -%}
+                      <img src="{{ block.settings.image | image_url: width: 400 }}"
+                          alt="{{ block.settings.image.alt | escape }}"
+                          loading="lazy"
+                          width="{{ block.settings.image.width }}"
+                          height="{{ block.settings.image.height }}"
+                          style="max-width: {{ block.settings.image_width }}px;">
+                    {%- endif -%}
+                  </div>
                 {%- when 'button' -%}
                   <div class="button-group">
                     {%- if block.settings.button_label != blank or block.settings.button_alt_label != blank -%}
@@ -1219,6 +1230,27 @@
       "settings": [
         {
           "type": "liquid", "id": "custom_liquid", "label": "t:sections.custom-liquid.settings.custom_liquid.label", "info": "t:sections.custom-liquid.settings.custom_liquid.info"
+        }
+      ]
+    },
+    {
+      "type": "signature",
+      "name": "Signature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Signature image"
+        },
+        {
+          "type": "range",
+          "id": "image_width",
+          "min": 50,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "label": "Image width",
+          "default": 150
         }
       ]
     },
