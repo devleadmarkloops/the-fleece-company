@@ -187,6 +187,13 @@
     transform: scale(1.01);
   }
 
+  @media screen and (min-width: 750px) and (max-width: 950px) {
+    #shopify-section-{{ section.id }} .collection-slider__info {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .collection-slider__info {
       gap: 1.2rem;
