@@ -513,7 +513,7 @@
         "subheading_3fc6Lg": {
           "type": "subheading",
           "settings": {
-            "subheading": "Materials",
+            "subheading": "INGREDIENTS",
             "subheading_size": "h5",
             "secondary_color": false,
             "enable_highlight": false,
@@ -523,8 +523,8 @@
         "heading_XXgdCP": {
           "type": "heading",
           "settings": {
-            "heading": "Made from Pure Muslin Cotton",
-            "heading_size": "h0",
+            "heading": "Made from Nature's Strongest",
+            "heading_size": "h1",
             "heading_tag": "h2",
             "enable_highlight": false,
             "highlight_style": "marker"
@@ -533,7 +533,7 @@
         "text_UUnUCe": {
           "type": "text",
           "settings": {
-            "text": "<p>Our Muslin Blanket is made from 100% natural muslin cotton, woven with an open, breathable structure that feels soft, luxurious, and relaxed. This time-tested fabric allows continuous airflow, helping regulate temperature naturally for comfort use throughout the year.</p>",
+            "text": "<p>Three clinically studied botanicals: lavender, chamomile, and valerian root. Each selected for their proven ability to calm the nervous system and promote deep, uninterrupted sleep. No synthetics. No fillers. Just pure plant science, perfected.</p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
