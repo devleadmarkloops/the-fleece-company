@@ -1,1 +1,311 @@
-{"sections":{"main":{"type":"main-page","disabled":true,"settings":{"narrow":false,"padding_top":60,"padding_bottom":72}},"rich_text_WyqBXt":{"type":"rich-text","blocks":{"heading_He939P":{"type":"heading","settings":{"heading":"We're here for you","heading_size":"h1","heading_tag":"h2","enable_highlight":false,"highlight_style":"marker"}},"text_GcEDrg":{"type":"text","settings":{"text":"<p>Whether you have a question, need assistance, or just want to share your thoughts, our team is ready to help you with care and attention.<\/p><p>E-Mail: support@thefleececompany.com<br\/><\/p>","text_size":"typeset","secondary_color":false,"enable_highlight":false,"highlight_style":"marker"}}},"block_order":["heading_He939P","text_GcEDrg"],"name":"t:sections.rich-text.presets.name","settings":{"text_alignment":"left","mobile_text_alignment":"left","horizontal_content":false,"narrow":true,"show_divider":false,"use_custom_colors":false,"colors_button_label":"#ffffff","colors_button_background":"#1a1b18","colors_text":"#212326","colors_background":"#ffffff","colors_highlight":"#ffb503","gradient_background":"","padding_top":40,"padding_bottom":32}},"form":{"type":"contact-form","blocks":{"contact-0":{"type":"contact","disabled":true,"settings":{"heading":"Information","text":"info@yourstore.com","link":"mailto:info@yourstore.com"}},"contact-1":{"type":"contact","disabled":true,"settings":{"heading":"Customer service","text":"shop@yourstore.com","link":"mailto:shop@yourstore.com"}},"contact-2":{"type":"contact","disabled":true,"settings":{"heading":"Sales","text":"sales@yourstore.com","link":"mailto:sales@yourstore.com"}},"contact-3":{"type":"contact","disabled":true,"settings":{"heading":"Press","text":"press@yourstore.com","link":"mailto:press@yourstore.com"}},"media":{"type":"media","disabled":true,"settings":{"heading":"Follow us"}}},"block_order":["contact-0","contact-1","contact-2","contact-3","media"],"custom_css":["button {width: 100%; border-radius: 10px; background: #000; color: #fff;}","input,textarea {border-radius: 10px;}"],"settings":{"return_url":"","show_phone":true,"show_divider":false,"heading":"Contact form","heading_size":"h1","heading_tag":"h2","padding_top":32,"padding_bottom":52}}},"order":["main","rich_text_WyqBXt","form"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "narrow": false,
+        "padding_top": 60,
+        "padding_bottom": 72
+      }
+    },
+    "image_banner_v2_PVgRB8": {
+      "type": "image-banner-v2",
+      "blocks": {
+        "heading_HLqJhz": {
+          "type": "heading",
+          "settings": {
+            "heading": "Get in Touch",
+            "heading_size": "h1",
+            "heading_tag": "h1",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "text_gKQrwj": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We're here to help with any questions you may have</p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "heading_HLqJhz",
+        "text_gKQrwj"
+      ],
+      "name": "Image banner v2",
+      "settings": {
+        "image": "shopify://shop_images/Rectangle_19.webp",
+        "image_position": "center center",
+        "text_box_position": "middle-center",
+        "text_alignment": "center",
+        "image_ratio": "adapt",
+        "show_text_box": false,
+        "full_width": true,
+        "show_divider": false,
+        "enable_content_max_width": false,
+        "content_max_width": 500,
+        "image_behavior": "none",
+        "mobile_text_alignment": "center",
+        "mobile_image_ratio": "200px",
+        "stack_images_on_mobile": false,
+        "show_text_below": false,
+        "colors_button_label": "#1a1b18",
+        "colors_button_background": "#ffffff",
+        "colors_text": "#ffffff",
+        "colors_overlay": "#000000",
+        "colors_overlay_opacity": 0,
+        "colors_highlight": "#ffb503",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "icon_info_columns_pwNmia": {
+      "type": "icon-info-columns",
+      "blocks": {
+        "column_yWWRmN": {
+          "type": "column",
+          "settings": {
+            "icon": "shopify://shop_images/Icon.svg",
+            "subtext": "Email Us",
+            "heading": "<p><a href=\"mailto:hello@thefleececompany.com\" target=\"_blank\" title=\"mailto:hello@thefleececompany.com\">hello@thefleececompany.com</a></p>",
+            "text": "We'll respond within 24 hours",
+            "alignment": "center"
+          }
+        },
+        "column_Jgagzj": {
+          "type": "column",
+          "settings": {
+            "icon": "shopify://shop_images/Icon_1.svg",
+            "subtext": "Call Us",
+            "heading": "<p><a href=\"tel:1-800-555-1234\" target=\"_blank\" title=\"tel:1-800-555-1234\">1-800-555-1234</a></p>",
+            "text": "Mon-Fri, 9am-6pm EST",
+            "alignment": "center"
+          }
+        },
+        "column_kMtyNP": {
+          "type": "column",
+          "settings": {
+            "icon": "shopify://shop_images/Icon_2.svg",
+            "subtext": "Live Chat",
+            "heading": "<p>Start a conversation</p>",
+            "text": "Available during business hours",
+            "alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "column_yWWRmN",
+        "column_Jgagzj",
+        "column_kMtyNP"
+      ],
+      "name": "Icon Info Columns",
+      "settings": {
+        "heading": "",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "heading_alignment": "center",
+        "icon_size": 32,
+        "icon_size_mobile": 32,
+        "enable_separator": true,
+        "use_custom_colors": true,
+        "colors_background": "#f8f8f8",
+        "colors_text": "#3b3b3b",
+        "show_divider": false,
+        "padding_top": 52,
+        "padding_bottom": 52,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36
+      }
+    },
+    "contact_form_v2_HidDhk": {
+      "type": "contact-form-v2",
+      "blocks": {
+        "custom_field_9RbFdn": {
+          "type": "custom_field",
+          "settings": {
+            "type": "select",
+            "label": "Subject",
+            "required": false,
+            "select_options": "Returns, Shipping, General Inquiry"
+          }
+        }
+      },
+      "block_order": [
+        "custom_field_9RbFdn"
+      ],
+      "name": "Custom Contact Form",
+      "settings": {
+        "heading": "Send Us a Message",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "description": "<p>Have a question or comment? Fill out the form below and we'll get back to you as soon as possible.</p>",
+        "header_alignment": "center",
+        "show_phone": false,
+        "btn_label": "Send Message",
+        "content_max_width": 700,
+        "form_radius": 8,
+        "section_bg_color": "#f8f8f8",
+        "form_bg_color": "#ffffff",
+        "text_color": "#1a1b18",
+        "btn_bg_color": "#3b3b3b",
+        "btn_text_color": "#ffffff",
+        "padding_top": 52,
+        "padding_bottom": 40,
+        "padding_top_mob": 32,
+        "padding_bottom_mob": 24
+      }
+    },
+    "collapsible_content_LPBwBt": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_n6cxC9": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What is your return policy?",
+            "row_content": "<p>We offer a <strong>30-day risk-free trial</strong>. If you are not fully satisfied with your purchase for any reason, you can return your item within 30 days of receiving it for a full refund. Items must be in their original condition. To start a return, please contact our customer support team with your order number.</p>",
+            "page": "",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "collapsible_row_rkRqnQ": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How long does shipping take?",
+            "row_content": "<p>Orders are typically processed within 1-2 business days. Once shipped, standard delivery usually takes <strong>3-7 business days</strong> depending on your location. You will receive a tracking number via email as soon as your order leaves our warehouse so you can monitor its progress.</p>",
+            "page": "",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "collapsible_row_TgK8mP": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do you offer wholesale or bulk pricing?",
+            "row_content": "<p>Yes, we do offer wholesale opportunities for boutiques, interior designers, and hospitality partners. If you are interested in purchasing a large quantity of blankets, please reach out through our contact form or email us directly at <a href=\"mailto:support@thefleececompany.com\" target=\"_blank\" title=\"mailto:support@thefleececompany.com\"><strong>support@thefleececompany.com</strong></a> with your business details to receive our wholesale catalog and pricing.</p>",
+            "page": "",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "collapsible_row_KG4mYM": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How should I care for my blanket?",
+            "row_content": "<p>To keep your blanket soft and prevent pilling, we recommend:</p><ul><li><strong>Washing:</strong> Machine wash cold on a gentle cycle with like colors.</li><li><strong>Detergent:</strong> Use a mild, liquid detergent and avoid fabric softeners (which can coat the fibers and reduce breathability).</li><li><strong>Drying:</strong> Air drying is best to preserve the fabric's integrity. If you must use a dryer, use the \"Tumble Dry Low\" or \"Air Fluff\" setting.</li><li><strong>Avoid:</strong> Do not bleach or iron.</li></ul>",
+            "page": "",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_n6cxC9",
+        "collapsible_row_rkRqnQ",
+        "collapsible_row_TgK8mP",
+        "collapsible_row_KG4mYM"
+      ],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "open_first_collapsible_row": false,
+        "narrow": false,
+        "show_divider": false,
+        "subheading": "LEARN MORE",
+        "heading": "Frequently Asked Questions",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "heading_tag": "h2",
+        "enable_faq_schema": false,
+        "colors_highlight": "#ffb503",
+        "padding_top": 40,
+        "padding_bottom": 60,
+        "padding_top_mob": 20,
+        "padding_bottom_mob": 40,
+        "enable_highlight": false,
+        "highlight_style": "marker"
+      }
+    },
+    "rich_text_v2_mKXkd4": {
+      "type": "rich-text-v2",
+      "blocks": {
+        "heading_NWDnkX": {
+          "type": "heading",
+          "settings": {
+            "heading": "Still Need Help?",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "text_DXEdzH": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our customer care team is standing by to assist you with anything you need</p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button_6ajtXp": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Call Now | 1-800-555-1234",
+            "button_link": "tel:1-800-555-1234",
+            "button_style_secondary": false,
+            "button_alt_label": "",
+            "button_alt_link": "",
+            "button_alt_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_NWDnkX",
+        "text_DXEdzH",
+        "button_6ajtXp"
+      ],
+      "name": "Rich text v2",
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": false,
+        "show_divider": false,
+        "hide_desktop": false,
+        "use_custom_colors": true,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#3b3b3b",
+        "colors_text": "#3b3b3b",
+        "colors_background": "#f0eae4",
+        "colors_highlight": "#ffb503",
+        "gradient_background": "",
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_banner_v2_PVgRB8",
+    "icon_info_columns_pwNmia",
+    "contact_form_v2_HidDhk",
+    "collapsible_content_LPBwBt",
+    "rich_text_v2_mKXkd4"
+  ]
+}
