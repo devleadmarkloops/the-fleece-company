@@ -190,6 +190,7 @@
   @media screen and (min-width: 750px) and (max-width: 950px) {
     #shopify-section-{{ section.id }} .collection-slider__info {
       flex-direction: row;
+      flex-wrap; wrap;
       justify-content: space-between;
       align-items: center;
     }
@@ -201,6 +202,10 @@
     }
     #shopify-section-{{ section.id }} .subheading {
       font-size: 1.2rem;
+      margin-bottom: 0.7rem;
+    }
+    #shopify-section-{{ section.id }} .title {
+      margin-bottom: 1rem;
     }
     #shopify-section-{{ section.id }} .title.h0 {
       font-size: 3rem;
