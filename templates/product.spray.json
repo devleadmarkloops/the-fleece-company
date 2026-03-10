@@ -457,7 +457,7 @@
         "heading_EqjbwL": {
           "type": "heading",
           "settings": {
-            "heading": "<strong>Effortless, Deep Sleep.</strong>",
+            "heading": "Effortless, Deep Sleep.",
             "heading_size": "h1",
             "heading_tag": "h2",
             "enable_highlight": false,
@@ -467,7 +467,7 @@
         "text_kiWgwG": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>\"I'm out within minutes and don't wake up once\"</strong></p>",
+            "text": "<p>\"I'm out within minutes and don't wake up once\"</p>",
             "text_size": "typeset2",
             "secondary_color": false,
             "enable_highlight": false,
@@ -491,12 +491,16 @@
         "show_divider": false,
         "enable_content_max_width": true,
         "content_max_width": 480,
+        "enable_banner_height_tablet": false,
+        "banner_height_tablet": "auto",
         "image_behavior": "none",
         "mobile_image": "shopify://shop_images/Banner_2_1.webp",
         "mobile_text_alignment": "left",
+        "mobile_content_alignment": "bottom",
         "mobile_image_ratio": "400px",
         "stack_images_on_mobile": false,
         "show_text_below": false,
+        "hide_mobile": false,
         "colors_button_label": "#1a1b18",
         "colors_button_background": "#ffffff",
         "colors_text": "#ffffff",
@@ -668,6 +672,7 @@
         "heading_alignment": "center",
         "text_alignment": "center",
         "enable_card_style": false,
+        "enable_card_border": false,
         "image_width": "full",
         "columns_desktop": 3,
         "icon_size_desktop": 48,
