@@ -3533,6 +3533,12 @@ span.alert-box:before {
   overflow: visible !important;
 }
 
+@media screen and (min-width: 750px) and (max-width: 950px) {
+  .product__info-container .product-form__input {
+    --swatch-input--size: 4rem;
+  }
+}
+
 @media screen and (min-width: 750px) {
   .product__info-container .rating-static-wr {
     margin-top: 0
