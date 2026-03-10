@@ -311,7 +311,7 @@
         "media_position": "left",
         "media_size": "large",
         "gallery_layout": "vertical_slider",
-        "image_ratio": "adapt",
+        "image_ratio": "portrait",
         "show_featured_media": true,
         "show_thumbnails": true,
         "hide_variants": false,
