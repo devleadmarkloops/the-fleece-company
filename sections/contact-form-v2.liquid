@@ -1,0 +1,528 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.section_bg_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --section-padding-top: {{ section.settings.padding_top_mob }}px;
+      --section-padding-bottom: {{ section.settings.padding_bottom_mob }}px;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .ccf-wrapper {
+    padding-top: var(--section-padding-top);
+    padding-bottom: var(--section-padding-bottom);
+    max-width: {{ section.settings.content_max_width }}px;
+    margin: 0 auto;
+    padding-inline: 2rem;
+  }
+  #shopify-section-{{ section.id }} .ccf-header {
+    text-align: {{ section.settings.header_alignment }};
+    max-width: 55rem;
+    margin-inline: auto;
+    margin-bottom: 3.5rem;
+  }
+  #shopify-section-{{ section.id }} .ccf-heading {
+    margin: 0 0 1.5rem 0;
+    font-family: var(--new-font-heading-family);
+    color: {{ section.settings.text_color }};
+  }
+  #shopify-section-{{ section.id }} .ccf-heading.h0 {
+    font-size: 5.2rem;
+  }
+  #shopify-section-{{ section.id }} .ccf-heading.h1 {
+    font-size: 4.2rem;
+  }
+  #shopify-section-{{ section.id }} .ccf-description {
+    font-family: var(--new-font-body-family);
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0;
+    color: rgba({{ section.settings.text_color | color_extract: 'red' }}, {{ section.settings.text_color | color_extract: 'green' }}, {{ section.settings.text_color | color_extract: 'blue' }}, 0.8);
+  }
+  #shopify-section-{{ section.id }} .ccf-form-box {
+    background-color: {{ section.settings.form_bg_color }};
+    padding: 4rem;
+    border-radius: {{ section.settings.form_radius }}px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .ccf-header {
+      margin-bottom: 2.5rem;
+    }
+    #shopify-section-{{ section.id }} .ccf-heading {
+      margin-bottom: 1.2rem;
+    }
+    #shopify-section-{{ section.id }} .ccf-heading.h0 {
+      font-size: 3rem;
+    }
+    #shopify-section-{{ section.id }} .ccf-heading.h1 {
+      font-size: 2.6rem;
+    }
+    #shopify-section-{{ section.id }} .ccf-description {
+      font-size: 1.4rem;
+    }
+    #shopify-section-{{ section.id }} .ccf-form-box {
+      padding: 2.2rem 1.8rem;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .ccf-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+  #shopify-section-{{ section.id }} .ccf-row {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .ccf-row {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    #shopify-section-{{ section.id }} .ccf-form {
+      gap: 1.5rem;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .ccf-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  #shopify-section-{{ section.id }} .ccf-label {
+    font-family: var(--new-font-heading-family);
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: {{ section.settings.text_color }};
+  }
+  #shopify-section-{{ section.id }} .ccf-input,
+  #shopify-section-{{ section.id }} .ccf-select,
+  #shopify-section-{{ section.id }} .ccf-textarea {
+    width: 100%;
+    padding: 1.4rem;
+    font-family: var(--new-font-body-family);
+    font-size: 1.5rem;
+    color: {{ section.settings.text_color }};
+    background-color: #fff;
+    border: 1px solid #AFAFAF;
+    border-radius: 10px;
+    transition: border-color 0.3s ease;
+  }
+  #shopify-section-{{ section.id }} .ccf-input:focus,
+  #shopify-section-{{ section.id }} .ccf-select:focus,
+  #shopify-section-{{ section.id }} .ccf-textarea:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: {{ section.settings.text_color }};
+  }
+  #shopify-section-{{ section.id }} .ccf-textarea {
+    resize: vertical;
+    min-height: 12rem;
+    resize: none;
+  }
+  #shopify-section-{{ section.id }} .ccf-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' viewBox='0 0 14 8' fill='none'%3E%3Cpath d='M1 1L7 7L13 1' stroke='%23503D2D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.5rem top 50%;
+    background-size: 1.4rem auto;
+  }
+  #shopify-section-{{ section.id }} .ccf-submit {
+    margin-top: 0;
+    padding: 1.5rem 3rem;
+    font-family: var(--new-font-heading-family);
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: {{ section.settings.btn_text_color }};
+    background-color: {{ section.settings.btn_bg_color }};
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    width: 100%;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .ccf-submit {
+      width: auto;
+      min-width: 20rem;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .ccf-submit:hover {
+    opacity: 0.85;
+  }
+  #shopify-section-{{ section.id }} .ccf-message {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+    border-radius: 4px;
+    font-family: var(--new-font-body-family);
+    font-size: 1.4rem;
+    letter-spacing: 0;
+  }
+  #shopify-section-{{ section.id }} .ccf-error {
+    color: #dc2626;
+    font-size: 1.3rem;
+    letter-spacing: 0;
+    margin-top: 0.5rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .ccf-field {
+      gap: 0.7rem;
+    }
+    #shopify-section-{{ section.id }} .ccf-label {
+      font-size: 1.5rem;
+    }
+    #shopify-section-{{ section.id }} .ccf-input,
+    #shopify-section-{{ section.id }} .ccf-select,
+    #shopify-section-{{ section.id }} .ccf-textarea {
+      padding: 1.1rem 1.2rem;
+      font-size: 1.4rem;
+    }
+    #shopify-section-{{ section.id }} .ccf-select {
+      background-size: 1.2rem auto;
+      background-position: right 1.3rem top 50%;
+    }
+  }
+{%- endstyle -%}
+
+<div class="ccf-wrapper">
+  {%- if section.settings.heading != blank or section.settings.description != blank -%}
+    <div class="ccf-header">
+      {%- if section.settings.heading != blank -%}
+        <{{ section.settings.heading_tag }} class="ccf-heading {{ section.settings.heading_size }}">
+          {{ section.settings.heading }}
+        </{{ section.settings.heading_tag }}>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="ccf-description rte">
+          {{ section.settings.description }}
+        </div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="ccf-form-box">
+    {%- assign form_id = 'CustomContactForm-' | append: section.id -%}
+    {%- form 'contact', id: form_id, class: 'ccf-form' -%}
+      
+      {%- if form.posted_successfully? -%}
+        <div class="ccf-message" tabindex="-1" autofocus>
+          {{ 'templates.contact.form.post_success' | t }}
+        </div>
+      {%- endif -%}
+
+      <div class="ccf-row">
+        <div class="ccf-field">
+          <label class="ccf-label" for="{{ form_id }}-name">{{ 'templates.contact.form.name' | t }}</label>
+          <input class="ccf-input" id="{{ form_id }}-name" autocomplete="name" type="text" name="contact[{{ 'templates.contact.form.name' | t }}]" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" placeholder="John Doe">
+        </div>
+        
+        <div class="ccf-field">
+          <label class="ccf-label" for="{{ form_id }}-email">{{ 'templates.contact.form.email' | t }} *</label>
+          <input class="ccf-input" id="{{ form_id }}-email" autocomplete="email" type="email" name="contact[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required placeholder="john@example.com">
+          {%- if form.errors contains 'email' -%}
+            <span class="ccf-error">
+              {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+            </span>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- if section.settings.show_phone -%}
+        <div class="ccf-row">
+          <div class="ccf-field">
+            <label class="ccf-label" for="{{ form_id }}-phone">{{ 'templates.contact.form.phone' | t }}</label>
+            <input class="ccf-input" id="{{ form_id }}-phone" type="tel" autocomplete="tel" name="contact[{{ 'templates.contact.form.phone' | t }}]" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}" placeholder="+1 (555) 000-0000">
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          <div class="ccf-row" {{ block.shopify_attributes }}>
+            <div class="ccf-field">
+              <label class="ccf-label" for="{{ form_id }}-{{ block.id }}">{{ block.settings.label }} {% if block.settings.required %}*{% endif %}</label>
+              
+              {%- case block.settings.type -%}
+                {%- when 'text' -%}
+                  <input class="ccf-input" id="{{ form_id }}-{{ block.id }}" type="text" name="contact[{{ block.settings.label | escape }}]" {% if block.settings.required %}required{% endif %} placeholder="{{ block.settings.label | escape }}">
+                
+                {%- when 'textarea' -%}
+                  <textarea class="ccf-textarea" id="{{ form_id }}-{{ block.id }}" name="contact[{{ block.settings.label | escape }}]" {% if block.settings.required %}required{% endif %} placeholder="{{ block.settings.label | escape }}"></textarea>
+                
+                {%- when 'select' -%}
+                  {%- assign options = block.settings.select_options | split: ',' -%}
+                  <select class="ccf-select" id="{{ form_id }}-{{ block.id }}" name="contact[{{ block.settings.label | escape }}]" {% if block.settings.required %}required{% endif %}>
+                    <option value="" disabled selected hidden>Select an option</option>
+                    {%- for option in options -%}
+                      <option value="{{ option | strip | escape }}">{{ option | strip | escape }}</option>
+                    {%- endfor -%}
+                  </select>
+              {%- endcase -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+
+      <div class="ccf-row">
+        <div class="ccf-field">
+          <label class="ccf-label" for="{{ form_id }}-body">{{ 'templates.contact.form.comment' | t }} *</label>
+          <textarea class="ccf-textarea" id="{{ form_id }}-body" rows="6" name="contact[{{ 'templates.contact.form.comment' | t }}]" required placeholder="How can we help you?">{{ form.body }}</textarea>
+        </div>
+      </div>
+
+      <div class="ccf-row">
+        <button type="submit" class="ccf-submit">
+          {{ section.settings.btn_label }}
+        </button>
+      </div>
+
+    {%- endform -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact Form v2",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header Settings"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Get in Touch"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading Size"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2",
+      "label": "Heading Tag"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Fill out the form below and our team will get back to you within 24 hours.</p>"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Header Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Form Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_phone",
+      "default": false,
+      "label": "Show Phone Number field"
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Submit Button Label",
+      "default": "Send Message"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 400,
+      "max": 1200,
+      "step": 20,
+      "unit": "px",
+      "label": "Content Max Width",
+      "default": 800
+    },
+    {
+      "type": "range",
+      "id": "form_radius",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Form Box Border Radius",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section Background",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "color",
+      "id": "form_bg_color",
+      "label": "Form Box Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#1a1b18"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg_color",
+      "label": "Button Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding (Desktop)",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding (Desktop)",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mob",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding (Mobile)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mob",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding (Mobile)",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "custom_field",
+      "name": "Custom Input Field",
+      "settings": [
+        {
+          "type": "select",
+          "id": "type",
+          "options": [
+            { "value": "text", "label": "Single line text" },
+            { "value": "textarea", "label": "Multi-line text" },
+            { "value": "select", "label": "Dropdown select" }
+          ],
+          "default": "text",
+          "label": "Field Type"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Field Label",
+          "default": "Subject"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Is this field required?",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Dropdown Options"
+        },
+        {
+          "type": "text",
+          "id": "select_options",
+          "label": "Options (Comma separated)",
+          "info": "Only applies if 'Dropdown select' is chosen. Example: Returns, Shipping, General Info",
+          "default": "Returns, Shipping, General Inquiry"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Form v2",
+      "blocks": [
+        {
+          "type": "custom_field",
+          "settings": {
+            "type": "select",
+            "label": "Subject"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
