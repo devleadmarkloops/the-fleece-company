@@ -124,7 +124,7 @@
     align-items: center;
     gap: 4px;
     margin: 0;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     font-family: var(--new-font-body-family);
     font-size: 1.4rem;
     color: #34CE73;
@@ -193,10 +193,16 @@
     opacity: 0.3;
     margin: 0 3px !important;
   }
-
   .reviews-slider-{{ section.id }} .swiper-pagination-bullet-active {
-  opacity: 1;
+    opacity: 1;
   }
+
+  @media screen and (max-width: 1080px) {
+    .reviews-slider-{{ section.id }} .review-verified {
+      font-size: 1.3rem;
+    }
+  }
+
   @media screen and (max-width: 749px) {
     .reviews-slider-{{ section.id }} .slider-arrow {
       display: none;
