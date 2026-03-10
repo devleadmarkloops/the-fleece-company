@@ -558,7 +558,7 @@
       ],
       "name": "Image with text v3",
       "settings": {
-        "image": "shopify://shop_images/THE_FLEECE_BLANKET_1080_x_1080_px_9.webp",
+        "image": "shopify://shop_images/Untitled_design_-_2026-03-10T162745.690.webp",
         "image_position": "center center",
         "layout": "image_first",
         "text_box_position": "middle",
@@ -886,36 +886,36 @@
         "accordion_fRXT8k": {
           "type": "accordion",
           "settings": {
-            "title": "How do I wash my muslin blanket?",
-            "content": "<p>Machine wash cold on a gentle cycle and hang to dry. The blanket gets softer with every wash.</p>"
+            "title": "How long will it take to see results?",
+            "content": "<p>Most customers notice a difference from the very first use. The calming scent of lavender, chamomile, and valerian works immediately to help you relax and fall asleep faster. With consistent nightly use, sleep quality continues to improve over the first 1–2 weeks.</p>"
           }
         },
         "accordion_bPKVgG": {
           "type": "accordion",
           "settings": {
-            "title": "Is a muslin blanket suitable for all seasons?",
-            "content": "<p>Yes. Muslin cotton is naturally breathable and temperature-regulating, keeping you cool in summer and comfortably warm in winter. It adapts to your body temperature, making it the perfect all-season companion.</p>"
+            "title": "Is it safe to use every night?",
+            "content": "<p>Yes. Our formula contains only natural botanical extracts — no synthetic chemicals, no melatonin, no drugs. Unlike prescription sleep aids, Good Night Pillow Mist is non-habit forming and carries zero risk of dependency. It's designed for nightly use.</p>"
           }
         },
         "accordion_PExgrx": {
           "type": "accordion",
           "settings": {
-            "title": "Why are muslin cotton blankets better than regular blankets?",
-            "content": "<p>Muslin cotton blankets are made from 100% natural fibers, making them breathable, hypoallergenic and gentle on sensitive skin, including babies. Unlike synthetic blankets, muslin gets softer with every wash, meaning it only gets better over time. It regulates temperature naturally, keeping you cool in summer and warm in winter, making it a truly all-season blanket. On top of that, muslin is durable, long-lasting and free of harsh chemicals, a healthier, more sustainable choice for you and your family.</p>"
+            "title": "Will it stain my pillow or bedding?",
+            "content": "<p>No. Our formula is specifically designed to absorb quickly without leaving stains, residue, or oily marks on fabric. It works with all pillow types including silk, cotton, and linen.</p>"
           }
         },
         "accordion_C4D3jA": {
           "type": "accordion",
           "settings": {
-            "title": "Does the blanket shrink after washing?",
-            "content": "<p>To preserve the shape and size of your blanket, we strongly recommend hanging it to dry, tumble drying will cause shrinkage. As muslin cotton is a natural and slightly elastic fabric, size variations are normal. Following the care instructions will ensure the best fit and feel over time</p>"
+            "title": "Can I use it alongside other sleep supplements?",
+            "content": "<p>Yes. Good Night Spray Formula is an aromatherapy product applied to your pillow, not ingested. It can be safely used alongside melatonin, magnesium, or any other supplements you currently take. Always consult your doctor if you have specific concerns.</p>"
           }
         },
         "accordion_tG4bPa": {
           "type": "accordion",
           "settings": {
-            "title": "How long does a muslin blanket last?",
-            "content": "<p>With proper care, a high quality muslin blanket can last for years. Thanks to its durable weave and natural fibers, it holds up exceptionally well over time and unlike most blankets, it actually improves with age and washing.</p>"
+            "title": "Is it safe for children and pets?",
+            "content": "<p>Our ingredients are 100% natural, however we recommend keeping the product out of reach of small children. For use around pets, consult your veterinarian. Some essential oils can be sensitive for cats in particular. Not intended for direct skin application.</p>"
           }
         }
       },
