@@ -233,6 +233,16 @@ header.header-new .mega-menu__promo-subheading strong {
   }
 }
 
+/* Prevent iOS Safari from auto-styling numbers (like swatch counters) as blue phone links */
+a[href^="tel"],
+.card-wrapper .card-information small,
+.card-v2-view-all-colors,
+.link.link--text small,
+.monogram-unit-price-display {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
 /* ##### Collection Page ##### */
 /* .facet-nav-wr {
   display: flex;
