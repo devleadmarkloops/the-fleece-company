@@ -88,6 +88,8 @@
         "show_divider": false,
         "enable_content_max_width": true,
         "content_max_width": 550,
+        "enable_banner_height_tablet": false,
+        "banner_height_tablet": "auto",
         "image_behavior": "none",
         "mobile_image": "shopify://shop_images/All_Colection_Banners_2.webp",
         "mobile_text_alignment": "center",
@@ -111,6 +113,7 @@
       "blocks": {
         "heading_iUTWAQ": {
           "type": "heading",
+          "disabled": true,
           "settings": {
             "heading": "Shop All",
             "heading_size": "h1",
@@ -121,6 +124,7 @@
         },
         "text_BxUnbn": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>",
             "text_size": "typeset2",
@@ -134,6 +138,7 @@
         "heading_iUTWAQ",
         "text_BxUnbn"
       ],
+      "disabled": true,
       "name": "t:sections.rich-text.presets.name",
       "settings": {
         "text_alignment": "left",
