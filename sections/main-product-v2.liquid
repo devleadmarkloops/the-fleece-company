@@ -49,6 +49,15 @@
     }
   }
 </style>
+<style>
+  media-gallery,
+  media-gallery .product__media-list,
+  media-gallery .thumbnail-list,
+  media-gallery use-animate {
+    touch-action: pan-y !important;
+  }
+</style>
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const mediaGalleries = document.querySelectorAll('media-gallery[data-desktop-layout="vertical_slider"]');
@@ -72,6 +81,8 @@
       let scrollTop;
 
       thumbList.addEventListener('mousedown', (e) => {
+        if (window.innerWidth < 750) return;
+        
         isDown = true;
         thumbList.classList.add('is-dragging');
         startY = e.pageY - thumbList.offsetTop;
@@ -79,18 +90,21 @@
       });
 
       thumbList.addEventListener('mouseleave', () => {
+        if (window.innerWidth < 750) return;
         isDown = false;
         thumbList.classList.remove('is-dragging');
       });
 
       thumbList.addEventListener('mouseup', () => {
+        if (window.innerWidth < 750) return;
         isDown = false;
         thumbList.classList.remove('is-dragging');
       });
 
       thumbList.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault(); 
+        if (!isDown || window.innerWidth < 750) return;
+        
+        e.preventDefault();
         const y = e.pageY - thumbList.offsetTop;
         const walk = (y - startY) * 2;
         thumbList.scrollTop = scrollTop - walk;
