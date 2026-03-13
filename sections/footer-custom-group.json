@@ -58,7 +58,7 @@
         "enable_follow_on_shop": false,
         "show_social": true,
         "social_heading": "",
-        "enable_country_selector": false,
+        "enable_country_selector": true,
         "enable_language_selector": false,
         "payment_enable": false,
         "show_policy": false,
