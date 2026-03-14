@@ -336,7 +336,7 @@
           "type": "collection",
           "settings": {
             "collection": "shawls",
-            "custom_image": "shopify://shop_images/THE_FLEECE_BLANKET_1080_x_1080_px_14.png",
+            "custom_image": "shopify://shop_images/THE_FLEECE_BLANKET_1080_x_1080_px_15.png",
             "custom_title": ""
           }
         },
@@ -344,7 +344,7 @@
           "type": "collection",
           "settings": {
             "collection": "various",
-            "custom_image": "shopify://shop_images/THE_FLEECE_BLANKET_1080_x_1080_px_19.png",
+            "custom_image": "shopify://shop_images/THE_FLEECE_BLANKET_1080_x_1080_px_21.png",
             "custom_title": ""
           }
         }
