@@ -590,6 +590,7 @@
         },
         "collection_EY8pUT": {
           "type": "collection",
+          "disabled": true,
           "settings": {
             "collection": "various",
             "custom_image": "shopify://shop_images/Rectangle_161125187.webp",
