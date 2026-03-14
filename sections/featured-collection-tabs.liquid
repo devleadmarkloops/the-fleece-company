@@ -138,6 +138,17 @@
     height: auto !important;
     box-sizing: border-box;
   }
+  .fc-tabs-section-{{ section.id }} .swiper-wrapper {
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .fc-tabs-section-{{ section.id }} .swiper {
+    cursor: grab;
+  }
+  .fc-tabs-section-{{ section.id }} .swiper:active {
+    cursor: grabbing;
+  }
 
   @media screen and (max-width: 749px) {
     .fc-tabs-nav {
@@ -299,6 +310,13 @@
           spaceBetween: 8,
           observer: true, 
           observeParents: true,
+          simulateTouch: true,
+          allowTouchMove: true,
+          grabCursor: true,
+          touchRatio: 1,
+          touchAngle: 45,
+          passiveListeners: true,
+          preventInteractionOnTransition: false,
           breakpoints: {
             768: {
               slidesPerView: 3,
