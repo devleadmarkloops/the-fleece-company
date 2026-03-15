@@ -317,6 +317,17 @@
           touchAngle: 45,
           passiveListeners: true,
           preventInteractionOnTransition: false,
+          mousewheel: {
+            forceToAxis: true,
+            releaseOnEdges: true,
+            thresholdDelta: 10
+          },
+          freeMode: {
+            enabled: true,
+            sticky: true,
+            momentumRatio: 0.5,
+            momentumBounceRatio: 0.5
+          },
           breakpoints: {
             768: {
               slidesPerView: 3,
