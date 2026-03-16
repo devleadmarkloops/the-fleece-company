@@ -43,47 +43,21 @@
     margin: 3px 0;
     box-shadow: .25rem .25rem .75rem #0000001f;
   }
-  #MainProduct-{{ section.id }} product-gallery {
-    position: relative;
-  }
-  .mobile-gallery-prev,
-  .mobile-gallery-next {
-    display: none;
-  }
-  @media screen and (max-width: 749px) {
-    .mobile-gallery-prev,
-    .mobile-gallery-next {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 3;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: #121212bf;
-      border: none;
-      color: #fff;
-      cursor: pointer;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .mobile-gallery-prev { left: 8px; }
-    .mobile-gallery-next { right: 8px; }
-    {% comment %} .mobile-gallery-prev:active,
-    .mobile-gallery-next:active {
-      background: rgba(255, 255, 255, 1);
-      transform: translateY(-50%) scale(0.92);
-    } {% endcomment %}
-    .mobile-gallery-prev.is-disabled,
-    .mobile-gallery-next.is-disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
+  @media(min-width: 750px){
+    product-info .slider-buttons.no-js-hidden{
+      display: none !important;
     }
   }
 </style>
+<style>
+  media-gallery,
+  media-gallery .product__media-list,
+  media-gallery .thumbnail-list,
+  media-gallery use-animate {
+    touch-action: pan-y !important;
+  }
+</style>
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const mediaGalleries = document.querySelectorAll('media-gallery[data-desktop-layout="vertical_slider"]');
@@ -107,6 +81,8 @@
       let scrollTop;
 
       thumbList.addEventListener('mousedown', (e) => {
+        if (window.innerWidth < 750) return;
+        
         isDown = true;
         thumbList.classList.add('is-dragging');
         startY = e.pageY - thumbList.offsetTop;
@@ -114,18 +90,21 @@
       });
 
       thumbList.addEventListener('mouseleave', () => {
+        if (window.innerWidth < 750) return;
         isDown = false;
         thumbList.classList.remove('is-dragging');
       });
 
       thumbList.addEventListener('mouseup', () => {
+        if (window.innerWidth < 750) return;
         isDown = false;
         thumbList.classList.remove('is-dragging');
       });
 
       thumbList.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault(); 
+        if (!isDown || window.innerWidth < 750) return;
+        
+        e.preventDefault();
         const y = e.pageY - thumbList.offsetTop;
         const walk = (y - startY) * 2;
         thumbList.scrollTop = scrollTop - walk;
@@ -564,6 +543,34 @@
                   {%- endif -%}
                 {%- endfor -%}
               </ul>
+              <div class="slider-buttons no-js-hidden{% if media_count < 2 or section.settings.show_mobile_thumbnails %} small-hide{% endif %}">
+                <div class="slider-counter caption">
+                  <span class="slider-counter--current">1</span>
+                  <span aria-hidden="true"> / </span>
+                  <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
+                  <span class="slider-counter--total">{{ media_count }}</span>
+                </div>
+                <button
+                  type="button"
+                  class="slider-button slider-button--prev"
+                  name="previous"
+                  aria-label="{{ 'general.slider.previous_slide' | t }}"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40" focusable="false">
+                    <path d="m15.5 0.932-4.3 4.38 14.5 14.6-14.5 14.5 4.3 4.4 14.6-14.6 4.4-4.3-4.4-4.4-14.6-14.6z"></path>
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  class="slider-button slider-button--next"
+                  name="next"
+                  aria-label="{{ 'general.slider.next_slide' | t }}"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40" focusable="false">
+                    <path d="m15.5 0.932-4.3 4.38 14.5 14.6-14.5 14.5 4.3 4.4 14.6-14.6 4.4-4.3-4.4-4.4-14.6-14.6z"></path>
+                  </svg>
+                </button>
+              </div>
 
               {%- if section.settings.enable_image_zoom -%}
                 <div class="gallery-cursor">
@@ -590,12 +597,6 @@
                 {% endif %}
               {% endfor %}
 
-              <button type="button" class="mobile-gallery-prev no-js-hidden" id="MobileGalleryPrev-{{ section.id }}" aria-label="{{ 'general.slider.previous_slide' | t }}">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-              </button>
-              <button type="button" class="mobile-gallery-next no-js-hidden" id="MobileGalleryNext-{{ section.id }}" aria-label="{{ 'general.slider.next_slide' | t }}">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg>
-              </button>
             </product-gallery>
           </use-animate>
           {%- if first_3d_model -%}
@@ -1077,6 +1078,22 @@
                 }
               }
 
+              gallery.addEventListener('click', function(e) {
+                const btn = e.target.closest('.slider-button');
+                if (btn && btn.closest('product-gallery')) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  
+                  if (btn.style.cursor === 'not-allowed') return;
+
+                  if (btn.classList.contains('slider-button--next') || btn.name === 'next') {
+                    navigateGallery('next');
+                  } else if (btn.classList.contains('slider-button--prev') || btn.name === 'previous') {
+                    navigateGallery('prev');
+                  }
+                }
+              }, true); 
+
               let touchStartX = 0;
               let touchStartY = 0;
 
@@ -1103,29 +1120,53 @@
                 }
               }, { passive: true });
 
-              var mobilePrev = document.getElementById('MobileGalleryPrev-{{ section.id }}');
-              var mobileNext = document.getElementById('MobileGalleryNext-{{ section.id }}');
+              function updateUI() {
+                const buttonsWrapper = gallery.querySelector('product-gallery .slider-buttons');
+                const allSlides = gallery.querySelectorAll('#Slider-Gallery-{{ section.id }} .product__media-item');
+                const nextBtn = gallery.querySelector('product-gallery .slider-button--next');
+                const prevBtn = gallery.querySelector('product-gallery .slider-button--prev');
+                const activeThumbBtn = gallery.querySelector('.thumbnail-list__item button[aria-current="true"]');
 
-              if (mobilePrev) mobilePrev.addEventListener('click', function() { navigateGallery('prev'); });
-              if (mobileNext) mobileNext.addEventListener('click', function() { navigateGallery('next'); });
+                if (!buttonsWrapper || !allSlides.length) return;
 
-              function updateMobileNav() {
-                if (!mobilePrev || !mobileNext) return;
-                var activeThumb = gallery.querySelector('.thumbnail-list__item button[aria-current="true"]');
-                if (!activeThumb) return;
-                var currentLi = activeThumb.closest('.thumbnail-list__item');
-                var hasPrev = !!getValidSibling(currentLi, 'prev');
-                var hasNext = !!getValidSibling(currentLi, 'next');
-                mobilePrev.style.opacity = hasPrev ? '1' : '0.3';
-                mobilePrev.style.cursor = hasPrev ? 'pointer' : 'not-allowed';
-                mobileNext.style.opacity = hasNext ? '1' : '0.3';
-                mobileNext.style.cursor = hasNext ? 'pointer' : 'not-allowed';
+                let validSlides = 0;
+                allSlides.forEach(slide => {
+                  if (slide.style.display !== 'none' && !slide.classList.contains('visually-hidden') && !slide.hasAttribute('hidden')) {
+                    validSlides++;
+                  }
+                });
+                buttonsWrapper.style.display = validSlides <= 1 ? 'none' : '';
+
+                if (activeThumbBtn && nextBtn && prevBtn) {
+                  const currentLi = activeThumbBtn.closest('.thumbnail-list__item');
+                  const hasNext = !!getValidSibling(currentLi, 'next');
+                  const hasPrev = !!getValidSibling(currentLi, 'prev');
+
+                  nextBtn.disabled = false;
+                  nextBtn.removeAttribute('disabled');
+                  prevBtn.disabled = false;
+                  prevBtn.removeAttribute('disabled');
+
+                  nextBtn.style.opacity = hasNext ? '1' : '0.3';
+                  nextBtn.style.cursor = hasNext ? 'pointer' : 'not-allowed';
+
+                  prevBtn.style.opacity = hasPrev ? '1' : '0.3';
+                  prevBtn.style.cursor = hasPrev ? 'pointer' : 'not-allowed';
+                }
               }
 
-              updateMobileNav();
-              var navObserver = new MutationObserver(function() { setTimeout(updateMobileNav, 60); });
-              navObserver.observe(gallery, { subtree: true, attributes: true, attributeFilter: ['aria-current', 'class', 'hidden'] });
+              setTimeout(updateUI, 150);
 
+              const observer = new MutationObserver(() => {
+                setTimeout(updateUI, 50);
+              });
+              
+              observer.observe(gallery, { 
+                childList: true, 
+                subtree: true, 
+                attributes: true, 
+                attributeFilter: ['class', 'hidden', 'disabled', 'aria-current'] 
+              });
             });
           </script>
         </media-gallery>
@@ -1418,11 +1459,7 @@
                   {% endif %}
                 </div>
               {%- when 'icon_text_grid' -%}
-                <div
-                  class="icon-text-grid-wrapper"
-                  {{ block.shopify_attributes }}
-                  style="--icon-grid-cols-desktop: {{ block.settings.grid_columns_desktop | default: 2 }}; --icon-grid-cols-mobile: {{ block.settings.grid_columns_mobile | default: 2 }}; --icon-grid-column-gap-desktop: {{ block.settings.column_gap_desktop | default: 15 }}px; --icon-grid-column-gap-mobile: {{ block.settings.column_gap_mobile | default: 10 }}px; --icon-grid-row-gap-desktop: {{ block.settings.row_gap_desktop | default: 15 }}px; --icon-grid-row-gap-mobile: {{ block.settings.row_gap_mobile | default: 10 }}px;"
-                >
+                <div class="icon-text-grid-wrapper" {{ block.shopify_attributes }}>
 
                   {%- for i in (1..4) -%}
                     {%- capture current_icon -%}icon_{{ i }}{%- endcapture -%}
@@ -4350,7 +4387,7 @@ if (nextBtn) {
           "max": 100,
           "step": 1,
           "unit": "px",
-          "label": "Icon size (Desktop)",
+          "label": "Icon size",
           "default": 30
         },
         {
@@ -4370,7 +4407,7 @@ if (nextBtn) {
           "max": 40,
           "step": 1,
           "unit": "px",
-          "label": "Text size (Desktop)",
+          "label": "Text size",
           "default": 14
         },
         {
@@ -4388,68 +4425,6 @@ if (nextBtn) {
           "id": "text_color",
           "label": "Text color",
           "default": "#000000"
-        },
-        {
-          "type": "header",
-          "content": "Grid layout"
-        },
-        {
-          "type": "range",
-          "id": "grid_columns_desktop",
-          "min": 1,
-          "max": 4,
-          "step": 1,
-          "label": "Icon grid columns (Desktop)",
-          "default": 2
-        },
-        {
-          "type": "range",
-          "id": "grid_columns_mobile",
-          "min": 1,
-          "max": 4,
-          "step": 1,
-          "label": "Icon grid columns (Mobile)",
-          "default": 2
-        },
-        {
-          "type": "range",
-          "id": "column_gap_desktop",
-          "min": 0,
-          "max": 60,
-          "step": 1,
-          "unit": "px",
-          "label": "Column gap (Desktop)",
-          "default": 15
-        },
-        {
-          "type": "range",
-          "id": "column_gap_mobile",
-          "min": 0,
-          "max": 48,
-          "step": 1,
-          "unit": "px",
-          "label": "Column gap (Mobile)",
-          "default": 10
-        },
-        {
-          "type": "range",
-          "id": "row_gap_desktop",
-          "min": 0,
-          "max": 60,
-          "step": 1,
-          "unit": "px",
-          "label": "Row gap (Desktop)",
-          "default": 15
-        },
-        {
-          "type": "range",
-          "id": "row_gap_mobile",
-          "min": 0,
-          "max": 48,
-          "step": 1,
-          "unit": "px",
-          "label": "Row gap (Mobile)",
-          "default": 10
         }
       ]
     },
