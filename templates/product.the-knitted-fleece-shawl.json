@@ -135,7 +135,7 @@
           "settings": {
             "show_variant_labels": true,
             "picker_type": "button",
-            "swatch_source": "variant",
+            "swatch_source": "file",
             "swatch_type": "round",
             "swatch_size": "medium",
             "enable_swatch_unavailable_click": false,
@@ -323,7 +323,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/3_dfc3bc80-345a-451d-9031-e8deb563c7f1.png",
+        "image": "shopify://shop_images/1_2caf40e4-042c-46b8-b8ad-d2212854fa7f.png",
         "image_position": "center center",
         "layout": "text_first",
         "text_box_position": "middle",
@@ -383,7 +383,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/2_a31a946e-ac95-4f4e-b17b-3734128d4501.png",
+        "image": "shopify://shop_images/2_e265add8-026d-4339-814c-4940d2bf165e.png",
         "image_position": "center center",
         "layout": "image_first",
         "text_box_position": "middle",
@@ -457,7 +457,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/fleece_guarantee_ce58bf30-3e98-4ac8-9785-2fef3dffe68d.png",
+        "image": "shopify://shop_images/fleece_guarantee_4f95d95d-1fef-4825-ab62-bc2138eb2b4d.png",
         "image_position": "center center",
         "layout": "text_first",
         "text_box_position": "middle",
