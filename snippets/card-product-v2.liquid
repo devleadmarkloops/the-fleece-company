@@ -99,7 +99,7 @@
                 {%- assign downcased_option = option.name | downcase -%}
                 
                 {% comment %} --- EXACT THEME COLOR SWATCH LOGIC --- {% endcomment %}
-                {%- if downcased_option contains 'color' or downcased_option contains 'colour' or downcased_option contains 'design' -%}
+                {%- if downcased_option contains 'color' or downcased_option contains 'colour' or downcased_option contains 'farbe' or downcased_option contains 'design' or downcased_option contains 'style' -%}
                   {%- if enable_color_swatches -%}
                     <div class="card-v2-swatches-wrapper">
                       <label class="visually-hidden">{{ option.name }}</label>
@@ -161,7 +161,7 @@
                               
                               if swatch_image != blank
                                 assign swatch_value = 'url(' | append: swatch_image | append: ')'
-                              elsif downcased_option contains 'design'
+                              elsif downcased_option contains 'design' or downcased_option contains 'style'
                                 assign found_variant_image = false
                                 assign option_index = option.position | minus: 1
                                 for variant in card_product.variants
