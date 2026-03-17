@@ -87,7 +87,7 @@
         "image_behavior": "none",
         "mobile_text_alignment": "center",
         "mobile_content_alignment": "center",
-        "mobile_image_ratio": "600px",
+        "mobile_image_ratio": "500px",
         "stack_images_on_mobile": false,
         "show_text_below": false,
         "hide_mobile": false,
