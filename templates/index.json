@@ -85,6 +85,7 @@
         "enable_banner_height_tablet": true,
         "banner_height_tablet": "400px",
         "image_behavior": "none",
+        "mobile_image": "shopify://shop_images/Dune_4.webp",
         "mobile_text_alignment": "center",
         "mobile_content_alignment": "center",
         "mobile_image_ratio": "500px",
@@ -95,7 +96,7 @@
         "colors_button_background": "#ffffff",
         "colors_text": "#ffffff",
         "colors_overlay": "#000000",
-        "colors_overlay_opacity": 0,
+        "colors_overlay_opacity": 32,
         "colors_highlight": "#ffb503",
         "padding_top": 0,
         "padding_bottom": 0
