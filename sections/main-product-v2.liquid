@@ -1431,8 +1431,12 @@
                   {{ block.shopify_attributes }}
                   style="--text-size: {{ block.settings.text_size }}px; --text-size-mob: {{ block.settings.text_size_mob }}px;"
                 >
-                  {%- if request.market.handle == 'us' and block.settings.us_rich_text != blank -%}
-                    {{ block.settings.us_rich_text }}
+                  {%- if request.market.handle == 'us' or request.market.handle == 'default' -%}
+                    {%- if block.settings.us_rich_text != blank -%}
+                      {{ block.settings.us_rich_text }}
+                    {%- else -%}
+                      {{ block.settings.rich_text }}
+                    {%- endif -%}
                   {%- else -%}
                     {{ block.settings.rich_text }}
                   {%- endif -%}
