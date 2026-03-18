@@ -299,7 +299,7 @@
                   {% for option in product.options_with_values %}
                     {% if option.name == 'Color' or option.name == 'Colour' %}
                       {% for value in option.values %}
-                        <li class="flex-grid__item" order="{{ counter }}-d5" style="order: {{ counter }}">
+                        <li class="flex-grid__item" order="{{ counter }}-d5">
                           {% render 'card-product-v2',
                             card_product: product,
                             card_collection: collection,
@@ -319,7 +319,7 @@
                     {% endif %}
                   {% endfor %}
                 {% else %}
-                  <li class="flex-grid__item" style="order: {{ counter }}">
+                  <li class="flex-grid__item">
                     {% render 'card-product-v2',
                       card_product: product,
                       card_collection: collection,
