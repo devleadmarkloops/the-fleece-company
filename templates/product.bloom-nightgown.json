@@ -129,7 +129,7 @@
           "settings": {
             "show_variant_labels": true,
             "picker_type": "button",
-            "swatch_source": "variant",
+            "swatch_source": "file",
             "swatch_type": "round",
             "swatch_size": "medium",
             "enable_swatch_unavailable_click": false,
@@ -162,7 +162,7 @@
         "richtext_box_BNHcfC": {
           "type": "richtext_box",
           "settings": {
-            "rich_text": "<p><strong>Shipped in 1-3 Days</strong><br/>Fast & Tracked USPS Shipping</p>",
+            "rich_text": "<p><strong>Shipped in 1-3 Days</strong><br/>Fast & Tracked Shipping</p>",
             "text_size": 14,
             "text_size_mob": 12
           }
