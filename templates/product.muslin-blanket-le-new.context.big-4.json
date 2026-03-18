@@ -10,7 +10,7 @@
 {
   "parent": "product.muslin-blanket-le-new.json",
   "context": {
-    "market": "canada"
+    "market": "big-4"
   },
   "sections": {
     "main": {
@@ -23,7 +23,7 @@
         },
         "shipping_metaobject_tLJRyV": {
           "settings": {
-            "shipping_text": "cad"
+            "shipping_text": "nz"
           }
         }
       }
