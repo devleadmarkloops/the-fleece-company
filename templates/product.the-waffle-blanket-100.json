@@ -242,8 +242,20 @@
             "keep_open": false
           }
         },
+        "collapsible_tab_ByQcUi": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "heading": "Material",
+            "content": "<p>Made from 100% cotton for natural softness, breathability, and everyday comfort.</p>",
+            "page": "",
+            "custom_liquid": "",
+            "keep_open": false
+          }
+        },
         "collapsible_tab_TbRiah": {
           "type": "collapsible_tab",
+          "disabled": true,
           "settings": {
             "icon": "none",
             "heading": "Size & Material",
@@ -298,6 +310,7 @@
         "icon_with_text_NArRNw",
         "text_custom_A3eeDw",
         "collapsible_tab_WMLjkB",
+        "collapsible_tab_ByQcUi",
         "collapsible_tab_TbRiah",
         "collapsible_tab-1",
         "shipping_metaobject_tLJRyV",
@@ -329,7 +342,7 @@
         "heading_bBmAeH": {
           "type": "heading",
           "settings": {
-            "heading": "Sleep in Bloom with the Rose Blanket",
+            "heading": "Sleep in Comfort with the Waffle Blanket",
             "heading_size": "h1",
             "heading_tag": "h2",
             "enable_highlight": false,
@@ -339,7 +352,7 @@
         "text_ziaWGB": {
           "type": "text",
           "settings": {
-            "text": "<p>The Rose Blanket wraps you in effortless comfort with its washed cotton fabric and soft soybean fiber fill. Lightweight yet warming, it’s designed to keep you cool through spring nights and snug when the air turns crisp. The delicate rose print adds a touch of timeless elegance, making your bed as beautiful as it is inviting. Perfect for year-round relaxation, this blanket combines breathable softness with lasting durability.</p>",
+            "text": "<p>The Waffle Blanket wraps you in effortless comfort with its premium 100% cotton and signature textured weave. Lightweight yet gently warming, it keeps you cool on warmer nights while staying cozy when it gets cooler.</p><p>Its elegant waffle texture adds a timeless touch, combining breathable softness with lasting durabilityperfect for year-round comfort.</p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
@@ -353,7 +366,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/7_85af302b-5b7a-45c2-9386-ad2b9695966b.webp",
+        "image": "shopify://shop_images/Untitled_design_07a22647-7a94-4a59-bebd-b7f14ba63670.png",
         "image_position": "center center",
         "layout": "text_first",
         "text_box_position": "middle",
@@ -399,7 +412,7 @@
         "text_CN89GA": {
           "type": "text",
           "settings": {
-            "text": "<p>Made from washed cotton fabric with a plush soybean fiber fill, the Rose Blanket surrounds you in cloud-like softness. Its lightweight design delivers warmth without heaviness, making it ideal for every season. Whether layered on cool spring nights or wrapped around you on crisp autumn mornings, it offers effortless comfort and timeless elegance all year long.</p>",
+            "text": "<p>Crafted from premium 100% cotton, the Waffle Blanket surrounds you in breathable, cloud-like softness. Its lightweight design provides warmth without heaviness, making it perfect for every season.</p><p>Whether layered on cool nights or used on its own, it delivers effortless comfort and timeless elegance all year long.</p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
@@ -413,7 +426,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/8_601216c6-3d57-471a-9c2b-9ebcb80f7a47.webp",
+        "image": "shopify://shop_images/create_a_close_up_image_of_the_fiber_of_muslin_cotton_fiber_in_beige_color_1_1_a5c5d5f7-0e23-416e-90e1-600466d059a3.webp",
         "image_position": "center center",
         "layout": "image_first",
         "text_box_position": "middle",
@@ -487,7 +500,7 @@
       ],
       "name": "Image with text v2",
       "settings": {
-        "image": "shopify://shop_images/Guarantee_Batch_8026904f-81ba-444c-b9e7-2363a992fe16.png",
+        "image": "shopify://shop_images/fleece_guarantee_12c22323-9eb9-4cbb-a075-9ffb72c244f2.png",
         "image_position": "center center",
         "layout": "text_first",
         "text_box_position": "middle",
@@ -556,8 +569,8 @@
           "type": "review",
           "settings": {
             "review_title": "",
-            "review_text": "The blanket is even prettier in person! The floral print gives my bedroom such a fresh, cozy look. It’s warm but not heavy—exactly what I wanted for year-round use.",
-            "author_name": "Jennifer"
+            "review_text": "So soft and breathable! I use it every night and it never feels too hot or too cold. Perfect balance.",
+            "author_name": "Mia"
           }
         },
         "review_BDtWFn": {
@@ -573,23 +586,23 @@
           "type": "review",
           "settings": {
             "review_title": "",
-            "review_text": "The blanket is even prettier in person! The floral print gives my bedroom such a fresh, cozy look. It’s warm but not heavy—exactly what I wanted for year-round use.",
-            "author_name": "Anne L."
+            "review_text": "The texture looks so premium in real life. It instantly made my bedroom feel more cozy and aesthetic.",
+            "author_name": "Laura K."
           }
         },
         "review_Ap9jLm": {
           "type": "review",
           "settings": {
             "review_title": "",
-            "review_text": "Lightweight but still keeps me warm at night. The stitching feels durable, and the colors haven’t faded after washing. Only wish I had ordered the bigger size!",
-            "author_name": "Zoe"
+            "review_text": "Didn’t expect it to be this good. Super lightweight but still keeps me warm exactly what I was looking for.",
+            "author_name": "Sophie"
           }
         },
         "review_TegQtT": {
           "type": "review",
           "settings": {
             "review_title": "",
-            "review_text": "Absolutely love this blanket. It feels breathable yet snuggly, and the rose pattern is gorgeous. My friends have already asked me where I got it.",
+            "review_text": "The quality is amazing for the price. Feels very high-end and holds up perfectly after washing.",
             "author_name": "Irene"
           }
         },
@@ -597,7 +610,7 @@
           "type": "review",
           "settings": {
             "review_title": "",
-            "review_text": "The quality is great for the price. Soft, warm, and looks just like the photos. I use it as my main quilt and it’s perfect for spring and autumn.",
+            "review_text": "I love how airy it feels. Great for summer but still cozy enough for cooler nights.",
             "author_name": "Elin"
           }
         },
@@ -605,7 +618,7 @@
           "type": "review",
           "settings": {
             "review_title": "",
-            "review_text": "I’m obsessed with this blanket—it’s both functional and beautiful. The floral design makes the whole room feel brighter, and it’s surprisingly warm without being too heavy.",
+            "review_text": "Bought this for my couch and now I want another one for the bed. Looks beautiful and feels even better.",
             "author_name": "Maria"
           }
         }
