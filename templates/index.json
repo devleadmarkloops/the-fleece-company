@@ -72,11 +72,11 @@
       ],
       "name": "Image banner v2",
       "settings": {
-        "image": "shopify://shop_images/Group_2147226775.webp",
+        "image": "shopify://shop_images/Untitled_design_-_2026-03-18T151445.220.webp",
         "image_position": "center center",
         "text_box_position": "bottom-center",
         "text_alignment": "center",
-        "image_ratio": "adapt",
+        "image_ratio": "400px",
         "show_text_box": false,
         "full_width": true,
         "show_divider": false,
