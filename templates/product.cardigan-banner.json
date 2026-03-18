@@ -246,6 +246,7 @@
           "type": "richtext_box",
           "settings": {
             "rich_text": "<p><strong>Shipped in 1-3 Days</strong><br/>Fast & Tracked Shipping</p>",
+            "us_rich_text": "<p><strong>Shipped in 1-3 Days</strong><br/>Fast & Tracked USPS Shipping</p>",
             "text_size": 14,
             "text_size_mob": 12
           }
