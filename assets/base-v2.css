@@ -3809,3 +3809,6 @@ details em:not(.highlighted-text),
     font-size: max(var (--text-sm), 16px) ;
   }
 }
+.jdgm-star {
+  font-family: "JudgemeStar" !important;
+}
