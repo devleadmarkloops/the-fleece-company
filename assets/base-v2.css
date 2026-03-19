@@ -3812,3 +3812,17 @@ details em:not(.highlighted-text),
 .jdgm-star {
   font-family: "JudgemeStar" !important;
 }
+.jdgm-preview-badge .jdgm-star {
+    color: #3B3B3B;
+    font-size: 13px;
+    padding: 0 !important;
+    padding-left: 2px !important;
+}
+.jdgm-prev-badge__text {
+  visibility: unset;
+  font-size: 1.4rem;
+  letter-spacing: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 400;
+}
