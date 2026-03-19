@@ -77,7 +77,8 @@
             "text_2": "Breathable warmth",
             "icon_3": "shopify://shop_images/ruler.png",
             "text_3": "Effortless one-size fit",
-            "text_4": "",
+            "icon_4": "shopify://shop_images/textile.png",
+            "text_4": "Knitted with love",
             "icon_size": 30,
             "icon_size_mob": 24,
             "text_size": 14,
@@ -187,6 +188,7 @@
           "type": "richtext_box",
           "settings": {
             "rich_text": "<p><strong>Shipped in 1-3 Days</strong><br/>Fast & Tracked Shipping</p>",
+            "us_rich_text": "<p><strong>Shipped in 1-3 Days</strong><br/>Fast & Tracked USPS Shipping</p>",
             "text_size": 14,
             "text_size_mob": 12
           }
