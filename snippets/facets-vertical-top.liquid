@@ -18,6 +18,13 @@
 
 {%- liquid
   assign sort_by = results.sort_by | default: results.default_sort_by
+  assign sort_by_label = ''
+  for option in results.sort_options
+    if option.value == sort_by
+      assign sort_by_label = option.name
+      break
+    endif
+  endfor
   assign default_presentation = 'text'
   assign total_active_values = 0
   if results.url
@@ -62,8 +69,7 @@
                 <div class="facet-filters__field">
                   <details class="disclosure-has-popup facets__disclosure facet-filters__sort">
                     <summary class="facets__summary">
-                      
-                      <span class="button button--tertiary button--small">{{ 'products.facets.sort_by_label' | t }}{% render 'icon', icon: 'caret' %}</span>
+                      <span class="button button--tertiary button--small"><span class="facets__sort-label">{{ 'products.facets.sort_by_label' | t }}</span><span class="facets__sort-value">{{ sort_by_label | escape }}</span>{% render 'icon', icon: 'caret' %}</span>
                     </summary>
                     <div class="facets__display">
                       <ul class="facets__list list-unstyled" role="list">
