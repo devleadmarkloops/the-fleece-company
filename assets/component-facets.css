@@ -185,6 +185,28 @@
   height: 4rem;
 }
 
+.facet-filters__sort .facets__summary {
+  display: flex;
+  align-items: center;
+}
+
+.facet-filters__sort .facets__summary .button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.facet-filters__sort .facets__sort-value {
+  flex: 1;
+  min-width: 0;
+  text-align: start;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 @media screen and (min-width: 750px) {
   .facet-filters__sort {
     width: 20rem;
@@ -1408,30 +1430,29 @@ facet-drawer.loading > details[open] > summary::after {
 .list-view__item span {
   position: relative;
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .list-view__item .icon {
-  width: 2.5rem;
-  height: 2rem;
-  stroke: rgb(var(--color-border));
-  transition: stroke var(--duration-default) ease;
+  width: 1.8rem;
+  height: 1.8rem;
+  color: rgb(var(--color-border));
+  transition: color var(--duration-default) ease;
 }
 
 .list-view__item .icon-grid-3 {
-  width: 3.1rem;
+  width: 2.8rem;
 }
 
 .list-view__item .icon-grid-4 {
-  width: 3.9rem;
+  width: 3.8rem;
 }
 
 .list-view__item .icon + i {
-  font-size: 1.2rem;
-  position: absolute;
-  left: 100%;
-  top: 0;
-  font-style: normal;
-  pointer-events: none;
+  display: none;
 }
 
 .list-view__item--active {
@@ -1439,7 +1460,7 @@ facet-drawer.loading > details[open] > summary::after {
 }
 
 .list-view__item--active .icon {
-  stroke: currentColor;
+  color: currentColor;
 }
 
 @media screen and (hover: hover) {
@@ -1901,4 +1922,7 @@ facet-drawer.loading > details[open] > summary::after {
     color: #fff;
     border-radius: 8px;
   }
+}
+span.button.button--tertiary.button--small {
+    padding-left: 10px;
 }
