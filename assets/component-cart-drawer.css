@@ -2,6 +2,8 @@
 .mini-cart--opening,
 .mini-cart--closing {
   overflow: hidden;
+  touch-action: none;
+  -webkit-overflow-scrolling: auto;
 }
 
 .mini-cart--open .transition-body:after,
