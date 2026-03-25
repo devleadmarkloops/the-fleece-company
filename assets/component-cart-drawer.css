@@ -95,11 +95,11 @@
   height: 100vh;
 }
 
-@supports (height: 100svh) {
+/* @supports (height: 100svh) {
   .shopify-section-header-sticky.shopify-section-header-hidden .cart-drawer {
     height: 100svh;
   }
-}
+} */
 
 .cart-drawer-container summary.header__icon::after {
   content: '';
