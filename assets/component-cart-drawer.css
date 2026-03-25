@@ -3,7 +3,9 @@
 .mini-cart--closing {
   touch-action: none;
   -webkit-overflow-scrolling: auto;
-  
+  width: 100%;
+  height: 100%;
+  position: absolute;
   overflow: hidden;
 }
 
@@ -98,7 +100,7 @@
 
 @supports (height: 100svh) {
   .shopify-section-header-sticky.shopify-section-header-hidden .cart-drawer {
-    height: 100vh;
+    height: 100svh;
   }
 }
 
@@ -908,9 +910,9 @@ cart-remove-button{
 .cart-drawer [data-animate] {
   opacity: 0;
   transform: translateX(4rem);
-  transition-property: *;
+  transition-property: transform, opacity;
   transition-timing-function: ease;
-  transition-duration: 500ms;
+  transition-duration: var(--duration-long);
 }
 
 .cart-drawer [data-animate-delay-1] {
