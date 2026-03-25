@@ -908,7 +908,7 @@ cart-remove-button{
 .cart-drawer [data-animate] {
   opacity: 0;
   transform: translateX(4rem);
-  transition-property: transform, opacity;
+  transition-property: *;
   transition-timing-function: ease;
   transition-duration: 500ms;
 }
