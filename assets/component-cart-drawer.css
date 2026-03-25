@@ -1,9 +1,12 @@
 .mini-cart--open,
 .mini-cart--opening,
 .mini-cart--closing {
-  overflow: hidden;
   touch-action: none;
   -webkit-overflow-scrolling: auto;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  overflow: hidden;
 }
 
 .mini-cart--open .transition-body:after,
