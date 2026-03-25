@@ -910,7 +910,7 @@ cart-remove-button{
   transform: translateX(4rem);
   transition-property: transform, opacity;
   transition-timing-function: ease;
-  transition-duration: var(--duration-long);
+  transition-duration: 500ms;
 }
 
 .cart-drawer [data-animate-delay-1] {
