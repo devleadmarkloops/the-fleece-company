@@ -33,7 +33,6 @@
   }
   #shopify-section-{{ section.id }} .sc-grid {
     display: flex;
-    /* flex-wrap: wrap; */
     gap: 1.5rem;
     justify-content: flex-start;
     list-style: none;
@@ -275,12 +274,7 @@
             -%}
             {% assign current_sort = collection.sort_by | default: collection.default_sort_by %}
             <ul id="product-grid" data-id="{{ section.id }}" class="product-grid {{ grid_class }}" role="list">
-              {% comment %} {% if results.sort_by == 'best-s' %} {% endcomment %}
-              {% if current_sort == 'best-selling' %}
-              {% assign counter = 1 %}
-              {% else %}
-              {% assign counter = '' %}
-              {% endif %}
+
               {%- for product in collection.products -%}
                 {%- liquid
                   assign lazy_load = true
@@ -289,36 +283,48 @@
                   endif
                 -%}
 
-              {% if current_sort == 'best-selling' %}
-              {% assign counter = counter |plus: 1 %}
-              {% else %}
-              {% assign counter = '' %}
-              {% endif %}
-                {% if section.settings.enable_color_as_products or product.metafields.custom.color_as_products.value == true %}
+                {%- if section.settings.enable_color_as_products and product.metafields.custom.color_as_products.value == true -%}
 
-                  {% for option in product.options_with_values %}
-                    {% if option.name == 'Color' or option.name == 'Colour' %}
-                      {% for value in option.values %}
-                        <li class="flex-grid__item">
-                          {% render 'card-product-v2',
-                            card_product: product,
-                            card_collection: collection,
-                            media_size: section.settings.image_ratio,
-                            show_secondary_image: section.settings.show_secondary_image,
-                            enable_quick_add: section.settings.show_quick_buy,
-                            show_vendor: section.settings.show_vendor,
-                            show_rating: section.settings.show_rating,
-                            enable_quick_view: section.settings.enable_quick_view,
-                            enable_color_swatches: section.settings.enable_color_swatches,
-                            enable_other_variants: section.settings.enable_other_variants,
-                            enable_countdown: section.settings.enable_countdown,
-                            enable_image_fill: section.settings.enable_image_fill
-                          %}
-                        </li>
-                      {% endfor %}
-                    {% endif %}
-                  {% endfor %}
-                {% else %}
+                  {%- comment -%} Find the color option index once per product {%- endcomment -%}
+                  {%- assign color_option_index = nil -%}
+                  {%- for option in product.options_with_values -%}
+                    {%- assign opt_name_down = option.name | downcase -%}
+                    {%- if opt_name_down == 'color' or opt_name_down == 'colour' -%}
+                      {%- assign color_option_index = option.position | minus: 1 -%}
+                      {%- break -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                  {%- if color_option_index != nil -%}
+                    {%- for option in product.options_with_values -%}
+                      {%- assign opt_name_down = option.name | downcase -%}
+                      {%- if opt_name_down == 'color' or opt_name_down == 'colour' -%}
+                        {%- for value in option.values -%}
+                          <li class="flex-grid__item">
+                            {% render 'card-product-v3',
+                              card_product: product,
+                              card_collection: collection,
+                              media_size: section.settings.image_ratio,
+                              show_secondary_image: section.settings.show_secondary_image,
+                              enable_quick_add: section.settings.show_quick_buy,
+                              show_vendor: section.settings.show_vendor,
+                              show_rating: section.settings.show_rating,
+                              enable_quick_view: section.settings.enable_quick_view,
+                              enable_color_swatches: section.settings.enable_color_swatches,
+                              enable_other_variants: section.settings.enable_other_variants,
+                              enable_countdown: section.settings.enable_countdown,
+                              enable_image_fill: section.settings.enable_image_fill,
+                              forced_color_value: value,
+                              forced_option_index: color_option_index
+                            %}
+                          </li>
+                        {%- endfor -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endif -%}
+
+                {%- else -%}
+
                   <li class="flex-grid__item">
                     {% render 'card-product-v2',
                       card_product: product,
@@ -335,7 +341,8 @@
                       enable_image_fill: section.settings.enable_image_fill
                     %}
                   </li>
-                {% endif %}
+
+                {%- endif -%}
               {%- endfor -%}
             </ul>
 
