@@ -129,21 +129,12 @@
     {% endif %}
   {% endcomment %}
 >
-  {% if section.settings.enable_v2_styles %}
     {{ 'section-main-product-v2.css' | asset_url | stylesheet_tag }}
     {{ 'component-accordion-v2.css' | asset_url | stylesheet_tag }}
     {{ 'component-price-v2.css' | asset_url | stylesheet_tag }}
     {{ 'component-rte-v2.css' | asset_url | stylesheet_tag }}
     {{ 'component-slider-v2.css' | asset_url | stylesheet_tag }}
     {{ 'component-rating-v2.css' | asset_url | stylesheet_tag }}
-  {% else %}
-    {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
-    {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
-    {{ 'component-price.css' | asset_url | stylesheet_tag }}
-    {{ 'component-rte.css' | asset_url | stylesheet_tag }}
-    {{ 'component-slider.css' | asset_url | stylesheet_tag }}
-    {{ 'component-rating.css' | asset_url | stylesheet_tag }}
-  {% endif %}
 
   {%- if product.quantity_price_breaks_configured? -%}
     {{ 'component-volume-pricing.css' | asset_url | stylesheet_tag }}
@@ -235,7 +226,7 @@
 
   <section class="page-width section--padding">
 
-    {% for block in section.blocks %}
+    {% comment %} {% for block in section.blocks %}
       {% if block.type == 'breadcrumb' %}
         <div class="breadcrumb-wrapper{% if block.settings.hide_mobile %} small-hide{% endif %}" {{ block.shopify_attributes }}>
           {% render 'breadcrumbs',
@@ -244,7 +235,7 @@
           %}
         </div>
       {% endif %}
-    {% endfor %}
+    {% endfor %} {% endcomment %}
 
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} flex-grid flex-grid--1-col {% if product.media.size > 0 %}flex-grid--2-col-tablet{% else %}product--no-media{% endif %}{% if section.settings.gallery_layout == 'thumbnail_slider' and section.settings.show_thumbnails == false %} product--hide-thumbnails{% endif %}{% if section.settings.image_ratio == 'adapt' %} product--adapt{% endif %}{% if section.settings.mobile_image_ratio == 'adapt' %} product--mobile-adapt{% endif %}{% unless section.settings.enable_image_zoom %} product--zoom-disabled{% endunless %}">
       <product-recently-viewed data-product-id="{{ product.id }}" class="hidden"></product-recently-viewed>
@@ -590,15 +581,15 @@
               {% for block in section.blocks %}
                 {% if block.type == 'iwt_gallery' %}
                   <div class="iwt-gallery-wr">
-                    <div class="iwt-gallery-item">
+                    <div class="iwt-gallery-item" style="box-sizing: border-box; height: 30px; padding: {{ block.settings.item1_padding_y }}px 0.7rem {{ block.settings.item1_padding_y }}px {{ block.settings.item1_padding_x }}px;">
                       {% if block.settings.icon1 != blank %}
-                        <img src="{{ block.settings.icon1 | image_url }}" width="" height="" alt="{{ block.settings.text1 }} Icon">
+                        <img src="{{ block.settings.icon1 | image_url }}" width="" height="" alt="{{ block.settings.text1 }} Icon" style="height: {{ block.settings.icon1_size }}px;">
                       {% endif %}
                       <span class="icon-text">{{ block.settings.text1 }}</span>
                     </div>
-                    <div class="iwt-gallery-item">
+                    <div class="iwt-gallery-item" style="box-sizing: border-box; height: 30px; padding: {{ block.settings.item2_padding_y }}px 0.7rem {{ block.settings.item2_padding_y }}px {{ block.settings.item2_padding_x }}px;">
                       {% if block.settings.icon2 != blank %}
-                        <img src="{{ block.settings.icon2 | image_url }}" width="" height="" alt="{{ block.settings.text2 }} Icon">
+                        <img src="{{ block.settings.icon2 | image_url }}" width="" height="" alt="{{ block.settings.text2 }} Icon" style="height: {{ block.settings.icon2_size }}px;">
                       {% endif %}
                       <span class="icon-text">{{ block.settings.text2 }}</span>
                     </div>
@@ -1291,7 +1282,7 @@
                 </p>
               {%- when 'title' -%}
                 <div class="product__title{% if block.settings.desktop_hide %} large-up-hide medium-hide{% endif %}{% if block.settings.mobile_hide %} small-hide{% endif %}" {{ block.shopify_attributes }}>
-                  <h1 class="product__heading {{ block.settings.title_size }}">
+                  <h1 class="product__heading h2">
                     {{ product.title | escape }}
                   </h1>
                   {%- if block.settings.show_price -%}
@@ -1440,7 +1431,15 @@
                   {{ block.shopify_attributes }}
                   style="--text-size: {{ block.settings.text_size }}px; --text-size-mob: {{ block.settings.text_size_mob }}px;"
                 >
-                  {{ block.settings.rich_text }}
+                  {%- if localization.market.handle == 'usa' or localization.market.handle == 'default' -%}
+                    {%- if block.settings.us_rich_text != blank -%}
+                      {{ block.settings.us_rich_text }}
+                    {%- else -%}
+                      {{ block.settings.rich_text }}
+                    {%- endif -%}
+                  {%- else -%}
+                    {{ block.settings.rich_text }}
+                  {%- endif -%}
                 </div>
               {%- when 'icon_text' -%}
                 <div
@@ -2760,7 +2759,7 @@
                 </div>
               </div>
             </div>
-            <product-form class="sticky-cart__form">
+            {% comment %} <product-form class="sticky-cart__form">
               <div class="product-form__error-message-wrapper" role="alert" hidden>
                 {%- render 'icon', icon: 'error-red' -%}
                 <span class="product-form__error-message"></span>
@@ -2904,13 +2903,89 @@
                   </button>
                 </div>
               {%- endform -%}
-            </product-form>
+            </product-form> {% endcomment %}
+            <div class="sticky-cart__form">
+              <div class="product-form__buttons">
+                <button
+                  type="button"
+                  class="not-hover product-form__submit button button--small sticky-trigger-btn"
+                  {%- if product.selected_or_first_available_variant.available == false %}
+                    disabled="disabled"
+                  {% endif -%}
+                >
+                  <span class="sticky-btn-text">
+                    {%- liquid
+                      if product.selected_or_first_available_variant.available
+                        if product.template_suffix != 'pre-order'
+                          echo 'products.product.add_to_cart' | t
+                        else
+                          echo 'products.product.pre_order' | t
+                        endif
+                      else
+                        echo 'products.product.sold_out' | t
+                      endif
+                    -%}
+                  </span>
+                  <span class="sticky-btn-spinner" style="display:none;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="animation:sticky-spin .6s linear infinite;">
+                      <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="31.4 31.4" stroke-linecap="round"/>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+            <style>
+              @keyframes sticky-spin{to{transform:rotate(360deg)}}
+              .sticky-trigger-btn.is-loading .sticky-btn-text{visibility:hidden}
+              .sticky-trigger-btn.is-loading .sticky-btn-spinner{display:inline-flex !important;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+              .sticky-trigger-btn{position:relative}
+            </style>
           </div>
         </div>
       </animate-sticky>
     {%- endif -%}
   </section>
+  <script>
+    (function(){
+      var mainForm = document.getElementById('product-form-{{ section.id }}');
+      var stickyBtn = document.querySelector('.sticky-trigger-btn');
+      var stickyText = stickyBtn ? stickyBtn.querySelector('.sticky-btn-text') : null;
+      if(!mainForm || !stickyBtn || !stickyText) return;
 
+      stickyBtn.addEventListener('click', function(){
+        var mainBtn = mainForm.querySelector('button[type=submit][name=add]');
+        if(!mainBtn || mainBtn.disabled) return;
+        stickyBtn.classList.add('is-loading');
+        stickyBtn.disabled = true;
+        mainBtn.click();
+      });
+
+      // Listen for fetch completion to remove loader
+      var origFetch = window.fetch;
+      window.fetch = function(){
+        var args = arguments;
+        var promise = origFetch.apply(this, args);
+        if(args[0] && typeof args[0] === 'string' && args[0].indexOf('/cart/add') !== -1){
+          promise.finally(function(){
+            stickyBtn.classList.remove('is-loading');
+            stickyBtn.disabled = false;
+          });
+        }
+        return promise;
+      };
+
+      // Sync text/disabled with main button
+      var observer = new MutationObserver(function(){
+        var mainBtn = mainForm.querySelector('button[type=submit][name=add]');
+        if(!mainBtn) return;
+        
+        if(!stickyBtn.classList.contains('is-loading')){
+          stickyBtn.disabled = mainBtn.disabled;
+        }
+      });
+      observer.observe(mainForm, { childList: true, subtree: true, attributes: true, attributeFilter: ['disabled'] });
+    })();
+  </script>
   {%- if product.media.size > 0 -%}
     <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
@@ -3224,6 +3299,116 @@ if (nextBtn) {
       p.style.display = 'none';
     });
   });
+</script>
+<script>
+/**
+ * Sync Kaching Bundles selection with Sticky Cart Bar
+ */
+(function() {
+  'use strict';
+
+  function initKachingStickySync() {
+    const kachingBars = document.querySelector('.kaching-bundles__bars');
+    if (!kachingBars) return; // Kaching not enabled, bail
+
+    const stickyPriceContainer = document.querySelector('#Price-Alt-{{ section.id }}');
+    const stickyBtnText = document.querySelector('.sticky-btn-text');
+    if (!stickyPriceContainer || !stickyBtnText) return;
+
+    // Store original sticky price HTML for fallback
+    const originalPriceHTML = stickyPriceContainer.innerHTML;
+
+    function getSelectedDeal() {
+      const selectedBar = kachingBars.querySelector('.kaching-bundles__bar--selected');
+      if (!selectedBar) return null;
+
+      const title = selectedBar.querySelector('.kaching-bundles__bar-title');
+      const price = selectedBar.querySelector('.kaching-bundles__bar-price');
+      const fullPrice = selectedBar.querySelector('.kaching-bundles__bar-full-price');
+      const badge = selectedBar.querySelector('.kaching-bundles__bar-most-popular__content');
+
+      return {
+        title: title ? title.textContent.trim() : '',
+        price: price ? price.textContent.trim() : '',
+        fullPrice: fullPrice ? fullPrice.textContent.trim() : '',
+        badge: badge ? badge.textContent.trim() : '',
+      };
+    }
+
+    function updateStickyCart() {
+      const deal = getSelectedDeal();
+      if (!deal || !deal.price) {
+        // No bundle selected — restore original
+        stickyPriceContainer.innerHTML = originalPriceHTML;
+        stickyBtnText.textContent = stickyBtnText.textContent; // keep as-is
+        return;
+      }
+
+      // Build updated price HTML
+      let priceHTML = '<div class="price" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">';
+      priceHTML += '<span class="price-item price-item--sale" style="font-weight:700;">' + deal.price + '</span>';
+      if (deal.fullPrice) {
+        priceHTML += '<s class="price-item price-item--regular" style="opacity:.6;text-decoration:line-through;">' + deal.fullPrice + '</s>';
+      }
+      priceHTML += '</div>';
+
+      // Add bundle label below price
+      priceHTML += '<span class="sticky-bundle-label" style="font-size:11px;line-height:1.2;color:var(--color-foreground);opacity:.75;display:block;margin-top:2px;">';
+      priceHTML += deal.title;
+      
+      priceHTML += '</span>';
+
+      stickyPriceContainer.innerHTML = priceHTML;
+    }
+
+    // Observe Kaching for changes (deal selection, variant changes)
+    const observer = new MutationObserver(function(mutations) {
+      let shouldUpdate = false;
+      for (const m of mutations) {
+        if (m.type === 'attributes' && (m.attributeName === 'class' || m.attributeName === 'style')) {
+          shouldUpdate = true;
+          break;
+        }
+        if (m.type === 'childList') {
+          shouldUpdate = true;
+          break;
+        }
+      }
+      if (shouldUpdate) {
+        requestAnimationFrame(updateStickyCart);
+      }
+    });
+
+    observer.observe(kachingBars, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class', 'style']
+    });
+
+    // Also listen for radio changes (deal switching)
+    kachingBars.addEventListener('change', function(e) {
+      if (e.target.type === 'radio' && e.target.name && e.target.name.startsWith('kaching-bundles-deal')) {
+        // Small delay to let Kaching update its --selected class
+        setTimeout(updateStickyCart, 100);
+      }
+    });
+
+    // Initial sync
+    setTimeout(updateStickyCart, 500);
+  }
+
+  // Wait for Kaching to render (it's a Vue app, loads async)
+  let attempts = 0;
+  const waitForKaching = setInterval(function() {
+    attempts++;
+    if (document.querySelector('.kaching-bundles__bars')) {
+      clearInterval(waitForKaching);
+      initKachingStickySync();
+    }
+    if (attempts > 50) clearInterval(waitForKaching); // stop after ~5s
+  }, 100);
+})();
 </script>
 {% schema %}
 {
@@ -4187,6 +4372,36 @@ if (nextBtn) {
           "label": "Text 1"
         },
         {
+          "type": "range",
+          "id": "icon1_size",
+          "min": 10,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "default": 20,
+          "label": "Icon 1 size"
+        },
+        {
+          "type": "range",
+          "id": "item1_padding_x",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "default": 7,
+          "label": "Item 1 horizontal padding"
+        },
+        {
+          "type": "range",
+          "id": "item1_padding_y",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "default": 5,
+          "label": "Item 1 vertical padding"
+        },
+        {
           "type": "image_picker",
           "id": "icon2",
           "label": "Icon 2"
@@ -4195,6 +4410,36 @@ if (nextBtn) {
           "type": "text",
           "id": "text2",
           "label": "Text 2"
+        },
+        {
+          "type": "range",
+          "id": "icon2_size",
+          "min": 10,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "default": 20,
+          "label": "Icon 2 size"
+        },
+        {
+          "type": "range",
+          "id": "item2_padding_x",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "default": 7,
+          "label": "Item 2 horizontal padding"
+        },
+        {
+          "type": "range",
+          "id": "item2_padding_y",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "default": 5,
+          "label": "Item 2 vertical padding"
         }
       ]
     },
@@ -4270,6 +4515,12 @@ if (nextBtn) {
           "type": "richtext",
           "id": "rich_text",
           "label": "Richtext"
+        },
+        {
+          "type": "richtext",
+          "id": "us_rich_text",
+          "label": "USA Richtext",
+          "default":"<p><strong>Shipped in 1-3 Days</strong><br/>Fast & Tracked USPS Shipping</p>"
         },
         {
           "type": "range",

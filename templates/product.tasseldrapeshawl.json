@@ -35,12 +35,12 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "title": {
-          "type": "title",
+        "breadcrumb_d3HqzW": {
+          "type": "breadcrumb",
           "settings": {
-            "title_size": "h1",
-            "show_price": false,
-            "price_size": "medium"
+            "text_style": "body",
+            "show_divider": false,
+            "hide_mobile": true
           }
         },
         "rating_static_jQpEEQ": {
@@ -48,6 +48,16 @@
           "settings": {
             "rating_text": "(391 Reviews)",
             "rating_link": ""
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "title_size": "h1",
+            "show_price": false,
+            "price_size": "medium",
+            "desktop_hide": false,
+            "mobile_hide": false
           }
         },
         "price": {
@@ -58,8 +68,23 @@
             "sale_badge_basis": "percentage"
           }
         },
+        "icon_text_c7U6Kb": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/Group_1.svg",
+            "icon_size": 16,
+            "icon_size_mob": 16,
+            "icon_text": "",
+            "icon_richtext": "<p><strong>Spring Sale:</strong> Buy One, Get One <strong>FREE</strong></p>",
+            "text_color": "#3b3b3b",
+            "text_size": 14,
+            "text_size_mob": 12,
+            "enable_bg": true
+          }
+        },
         "text_custom_dyMCny": {
           "type": "text_custom",
+          "disabled": true,
           "settings": {
             "text_custom": "<strong>Live Now: Buy 1 get 1 FREE </strong>",
             "text_color": "#a63e3e",
@@ -69,40 +94,66 @@
             "enable_circle": false
           }
         },
+        "icon_text_grid_DnjDY3": {
+          "type": "icon_text_grid",
+          "settings": {
+            "icon_1": "shopify://shop_images/clouds.png",
+            "text_1": "Super Soft & breathable",
+            "icon_2": "shopify://shop_images/ggghi.png",
+            "text_2": "Elegant design",
+            "icon_3": "shopify://shop_images/ruler.png",
+            "text_3": "Effortless one-size fit",
+            "text_4": "Incredibly Soft Texture",
+            "icon_size": 30,
+            "icon_size_mob": 24,
+            "text_size": 14,
+            "text_size_mob": 13,
+            "text_color": "#000000"
+          }
+        },
         "icon_text_KLMX3D": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/clouds.png",
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Super Soft & breathable",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_9Gxbx4": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/ggghi.png",
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Elegant design",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_R7iXXY": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/ruler.png",
             "icon_size": 26,
             "icon_size_mob": 26,
             "icon_text": "Effortless one-size fit",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "text_custom_DLLDJ4": {
@@ -119,8 +170,9 @@
         },
         "custom_liquid_TaPG6c": {
           "type": "custom_liquid",
+          "disabled": true,
           "settings": {
-            "custom_liquid": "<style>\n  /* tweak --lh if your theme's line-height looks different */\n  .special-msg {\n    --lh: 1.35;                    /* line-height for this block */\n    --dot: 8px;                    /* dot size */\n    color: #A63E3E;\n    font-weight: 600;\n    display: block;\n    margin: 5px 0;\n    padding-left: 18px;            /* room for the dot */\n    position: relative;\n    line-height: var(--lh);\n    text-align: left !important;\n    white-space: normal;\n    letter-spacing: .3px;\n  }\n\n  .special-msg::before {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    width: var(--dot);\n    height: var(--dot);\n    border-radius: 50%;\n    background: #A63E3E;\n    /* place the dot centered within the FIRST line only */\n    top: calc((var(--lh) * 1em - var(--dot)) / 2);\n    animation: blink 3.5s infinite ease-in-out;\n  }\n\n@keyframes blink {\n  /* Quick fade in */\n  0%   { opacity: 0; }\n  40%  { opacity: 1; }\n\n  /* Hold bright */\n  60%  { opacity: 1; }\n\n  /* Slow fade out */\n  100% { opacity: 0; }\n}\n\n</style>\n\n<div class=\"special-msg\">\n  Limited units available during our <b>Women’s Month Sale</b>\n</div>"
+            "custom_liquid": "<style>\n  /* tweak --lh if your theme's line-height looks different */\n  .special-msg {\n    --lh: 1.35;                    /* line-height for this block */\n    --dot: 8px;                    /* dot size */\n    color: #A63E3E;\n    font-weight: 600;\n    display: block;\n    margin: 5px 0;\n    padding-left: 18px;            /* room for the dot */\n    position: relative;\n    line-height: var(--lh);\n    text-align: left !important;\n    white-space: normal;\n    letter-spacing: .3px;\n  }\n\n  .special-msg::before {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    width: var(--dot);\n    height: var(--dot);\n    border-radius: 50%;\n    background: #A63E3E;\n    /* place the dot centered within the FIRST line only */\n    top: calc((var(--lh) * 1em - var(--dot)) / 2);\n    animation: blink 3.5s infinite ease-in-out;\n  }\n\n@keyframes blink {\n  /* Quick fade in */\n  0%   { opacity: 0; }\n  40%  { opacity: 1; }\n\n  /* Hold bright */\n  60%  { opacity: 1; }\n\n  /* Slow fade out */\n  100% { opacity: 0; }\n}\n\n</style>\n\n<div class=\"special-msg\">\n  Limited units available during our <b>Easter Sale</b>\n</div>"
           }
         },
         "variant_picker": {
@@ -128,7 +180,7 @@
           "settings": {
             "show_variant_labels": true,
             "picker_type": "button",
-            "swatch_source": "variant",
+            "swatch_source": "file",
             "swatch_type": "round",
             "swatch_size": "large",
             "enable_swatch_unavailable_click": false,
@@ -140,30 +192,45 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
+            "buy_buttons_version": "v1",
             "show_quantity_selector": false,
             "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false
+            "show_gift_card_recipient": false,
+            "enable_monogram": false,
+            "monogram_product": "",
+            "icon": "shopify://shop_images/Vector_2.svg",
+            "icon_text": "30 DAYS MONEY BACK GUARANTEE"
           }
         },
         "countdown_timer_4tCBwt": {
           "type": "countdown_timer",
           "settings": {
-            "heading": "Women’s Month Sale ENDS IN:",
-            "heading_color": "#ffffff",
-            "background_color": "#c5bbae",
-            "timer_color": "#121212",
-            "label_color": "#121212",
+            "heading": "SALE ENDS IN:",
+            "heading_color": "#3b3b3b",
+            "background_color": "#f0eae4",
+            "timer_color": "#3b3b3b",
+            "label_color": "#3b3b3b",
             "per_visitor_timer": true,
             "end_date": "2026-01-31 23:59:59",
             "visitor_days": 0,
             "visitor_hours": 20,
             "visitor_minutes": 3,
             "visitor_seconds": 27,
+            "enable_payment_icons": false,
             "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
+          }
+        },
+        "richtext_box_jyY4Ti": {
+          "type": "richtext_box",
+          "settings": {
+            "rich_text": "<p><strong>Shipped in 1-3 Days</strong><br/>Fast & Tracked Shipping</p>",
+            "text_size": 14,
+            "text_size_mob": 12
           }
         },
         "icon_with_text_NArRNw": {
           "type": "icon_with_text",
+          "disabled": true,
           "settings": {
             "icon_1": "shopify://shop_images/local_shipping_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
             "text_1": "Fast & Tracked Shipping",
@@ -187,7 +254,7 @@
         "collapsible_tab_TbRiah": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Care & Details",
             "content": "<p>Machine wash cold, tumble dry on low heat, and avoid ironing or using fabric softeners to maintain the softness and coziness of your Shawl for years to come.</p>",
             "page": "",
@@ -198,7 +265,7 @@
         "collapsible_tab_QNyfDk": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Size",
             "content": "<p>105x160cm/40x60in</p>",
             "page": "",
@@ -221,7 +288,7 @@
         "shipping_metaobject_tLJRyV": {
           "type": "shipping_metaobject",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Shipping & Returns",
             "shipping_text": "default"
           }
@@ -234,10 +301,13 @@
         }
       },
       "block_order": [
-        "title",
+        "breadcrumb_d3HqzW",
         "rating_static_jQpEEQ",
+        "title",
         "price",
+        "icon_text_c7U6Kb",
         "text_custom_dyMCny",
+        "icon_text_grid_DnjDY3",
         "icon_text_KLMX3D",
         "icon_text_9Gxbx4",
         "icon_text_R7iXXY",
@@ -246,6 +316,7 @@
         "variant_picker",
         "buy_buttons",
         "countdown_timer_4tCBwt",
+        "richtext_box_jyY4Ti",
         "icon_with_text_NArRNw",
         "text_custom_A3eeDw",
         "collapsible_tab_TbRiah",
@@ -255,6 +326,7 @@
         "sticky_cart"
       ],
       "settings": {
+        "enable_v2_styles": false,
         "enable_sticky_info": true,
         "media_position": "left",
         "media_size": "large",
@@ -267,6 +339,8 @@
         "enable_video_looping": false,
         "mobile_image_ratio": "square",
         "show_mobile_thumbnails": false,
+        "enable_variant_specific_media": false,
+        "enable_fade_slider": true,
         "padding_top": 0,
         "padding_bottom": 20
       }
@@ -486,10 +560,13 @@
         "show_quick_buy": true,
         "enable_quick_view": true,
         "enable_color_swatches": true,
+        "enable_other_variants": false,
         "enable_countdown": true,
         "colors_highlight": "#ffb503",
         "padding_top": 36,
         "padding_bottom": 36,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36,
         "enable_highlight": false,
         "highlight_style": "marker"
       }
@@ -500,6 +577,7 @@
         "review_BDtWFn": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "The tassels give it such a beautiful flow. Light, warm, and perfect for layering at work or out for dinner.",
             "author_name": "Elena L."
           }
@@ -507,6 +585,7 @@
         "review_kLfEf7": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Super soft and drapes naturally. I get compliments every single time I wear it.",
             "author_name": "Valentina P."
           }
@@ -514,6 +593,7 @@
         "review_QnwFXM": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Warm without feeling heavy. Folds small enough for travel and still looks chic instantly.",
             "author_name": "Sarah M."
           }
@@ -521,6 +601,7 @@
         "review_iWz8Ac": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I was worried it might feel heavy, but it’s so breathable and comfortable. The cut is very flattering and goes with everything.",
             "author_name": "Olivia K."
           }
@@ -528,6 +609,7 @@
         "review_nydR6B": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "The quality is incredible. It feels luxurious, holds its shape, and elevates every outfit.",
             "author_name": "Manuela W."
           }
@@ -535,6 +617,7 @@
         "review_gxCkDd": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "Exactly the right mix of comfort and elegance. The tassels add a subtle touch of style I love.",
             "author_name": "Maria C."
           }

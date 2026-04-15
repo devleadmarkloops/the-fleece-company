@@ -35,12 +35,12 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "title": {
-          "type": "title",
+        "breadcrumb_D6x8DT": {
+          "type": "breadcrumb",
           "settings": {
-            "title_size": "h1",
-            "show_price": false,
-            "price_size": "medium"
+            "text_style": "body",
+            "show_divider": false,
+            "hide_mobile": true
           }
         },
         "rating_static_jQpEEQ": {
@@ -48,6 +48,16 @@
           "settings": {
             "rating_text": "(129 Reviews)",
             "rating_link": ""
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "title_size": "h1",
+            "show_price": false,
+            "price_size": "medium",
+            "desktop_hide": false,
+            "mobile_hide": false
           }
         },
         "price": {
@@ -66,43 +76,70 @@
             "text_color": "#a63e3e",
             "text_size": 16,
             "text_size_mob": 15,
+            "enable_normal": true,
             "enable_circle": false
+          }
+        },
+        "icon_text_grid_9AV6fG": {
+          "type": "icon_text_grid",
+          "settings": {
+            "icon_1": "shopify://shop_images/clouds.png",
+            "text_1": "Incredibly Soft",
+            "icon_2": "shopify://shop_images/water_drop_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_2": "Highly Absorbent",
+            "icon_3": "shopify://shop_images/health_and_safety_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_3": "Gentle and Skin Friendly",
+            "text_4": "",
+            "icon_size": 30,
+            "icon_size_mob": 24,
+            "text_size": 14,
+            "text_size_mob": 13,
+            "text_color": "#000000"
           }
         },
         "icon_text_KLMX3D": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/filter_drama_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Incredibly Soft",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_9Gxbx4": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/water_drop_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Highly Absorbent",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_R7iXXY": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/health_and_safety_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Gentle and Skin Friendly",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "text_custom_Lpng9n": {
@@ -113,6 +150,7 @@
             "text_color": "#a63e3e",
             "text_size": 16,
             "text_size_mob": 14,
+            "enable_normal": true,
             "enable_circle": true
           }
         },
@@ -121,7 +159,7 @@
           "settings": {
             "show_variant_labels": true,
             "picker_type": "button",
-            "swatch_source": "variant",
+            "swatch_source": "file",
             "swatch_type": "round",
             "swatch_size": "medium",
             "enable_swatch_unavailable_click": false,
@@ -133,9 +171,14 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
+            "buy_buttons_version": "v1",
             "show_quantity_selector": false,
             "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false
+            "show_gift_card_recipient": false,
+            "enable_monogram": false,
+            "monogram_product": "",
+            "icon": "shopify://shop_images/Vector_2.svg",
+            "icon_text": "30 DAYS MONEY BACK GUARANTEE"
           }
         },
         "countdown_timer_4tCBwt": {
@@ -153,11 +196,21 @@
             "visitor_hours": 20,
             "visitor_minutes": 3,
             "visitor_seconds": 27,
+            "enable_payment_icons": true,
             "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
+          }
+        },
+        "richtext_box_qjA8ex": {
+          "type": "richtext_box",
+          "settings": {
+            "rich_text": "<p><strong>Shipped in 1-3 Days</strong><br/>Fast & Tracked Shipping</p>",
+            "text_size": 14,
+            "text_size_mob": 12
           }
         },
         "icon_with_text_NArRNw": {
           "type": "icon_with_text",
+          "disabled": true,
           "settings": {
             "icon_1": "shopify://shop_images/local_shipping_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
             "text_1": "Fast + Tracked Shipping",
@@ -175,13 +228,14 @@
             "text_color": "",
             "text_size": 16,
             "text_size_mob": 15,
+            "enable_normal": true,
             "enable_circle": false
           }
         },
         "collapsible_description_aDVDEa": {
           "type": "collapsible_description",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "What are Muslin Burp Cloths?",
             "keep_open": false
           }
@@ -189,7 +243,7 @@
         "collapsible_tab_WMLjkB": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Care",
             "content": "<p>Machine wash cold, do not tumble dry under any circumstances, and avoid ironing or using fabric softeners to maintain the softness and coziness of your cloths for years to come.</p>",
             "page": "",
@@ -212,7 +266,7 @@
         "shipping_metaobject_tLJRyV": {
           "type": "shipping_metaobject",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Shipping & Returns",
             "shipping_text": "default"
           }
@@ -225,10 +279,12 @@
         }
       },
       "block_order": [
-        "title",
+        "breadcrumb_D6x8DT",
         "rating_static_jQpEEQ",
+        "title",
         "price",
         "text_custom_Vpdkyw",
+        "icon_text_grid_9AV6fG",
         "icon_text_KLMX3D",
         "icon_text_9Gxbx4",
         "icon_text_R7iXXY",
@@ -236,6 +292,7 @@
         "variant_picker",
         "buy_buttons",
         "countdown_timer_4tCBwt",
+        "richtext_box_qjA8ex",
         "icon_with_text_NArRNw",
         "text_custom_A3eeDw",
         "collapsible_description_aDVDEa",
@@ -245,10 +302,11 @@
         "sticky_cart"
       ],
       "settings": {
+        "enable_v2_styles": false,
         "enable_sticky_info": true,
         "media_position": "left",
         "media_size": "large",
-        "gallery_layout": "thumbnail_slider",
+        "gallery_layout": "vertical_slider",
         "image_ratio": "square",
         "show_featured_media": true,
         "show_thumbnails": false,
@@ -257,6 +315,8 @@
         "enable_video_looping": false,
         "mobile_image_ratio": "square",
         "show_mobile_thumbnails": false,
+        "enable_variant_specific_media": false,
+        "enable_fade_slider": true,
         "padding_top": 0,
         "padding_bottom": 20
       }
@@ -476,10 +536,13 @@
         "show_quick_buy": true,
         "enable_quick_view": true,
         "enable_color_swatches": true,
+        "enable_other_variants": false,
         "enable_countdown": true,
         "colors_highlight": "#ffb503",
         "padding_top": 36,
         "padding_bottom": 36,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36,
         "enable_highlight": false,
         "highlight_style": "marker"
       }
@@ -490,6 +553,7 @@
         "review_BDtWFn": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I use these cloths every single day — after baths, during feedings, even as a light blanket in the stroller. They’re super soft and wash really well. Definitely a must-have for new parents!",
             "author_name": "Emily R."
           }
@@ -497,6 +561,7 @@
         "review_k3xhUq": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "These muslin cloths are incredibly gentle and breathable. My baby has very sensitive skin, and we’ve had zero irritation. I love that they’re all-natural and feel so high quality.",
             "author_name": "Anastasia"
           }
@@ -504,6 +569,7 @@
         "review_Ap9jLm": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I bought a few sets and ended up ordering more — they’re that good! We keep them all over the house. Great for burping, drying, wiping little messes… honestly, they do it all.",
             "author_name": "Sophia M."
           }
@@ -511,6 +577,7 @@
         "review_4jRcVd": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I use these cloths every single day — after baths, during feedings, even as a light blanket in the stroller. They’re super soft and wash really well. Definitely a must-have for new parents!",
             "author_name": "Emily R."
           }
@@ -518,6 +585,7 @@
         "review_g8rw9b": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "These muslin cloths are incredibly gentle and breathable. My baby has very sensitive skin, and we’ve had zero irritation. I love that they’re all-natural and feel so high quality.",
             "author_name": "Anastasia"
           }
@@ -525,6 +593,7 @@
         "review_penC9N": {
           "type": "review",
           "settings": {
+            "review_title": "",
             "review_text": "I bought a few sets and ended up ordering more — they’re that good! We keep them all over the house. Great for burping, drying, wiping little messes… honestly, they do it all.",
             "author_name": "Sophia M."
           }

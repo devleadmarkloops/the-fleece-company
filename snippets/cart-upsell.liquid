@@ -1,0 +1,351 @@
+{% comment %}
+  Cart Upsell Section
+  Displays upsell products from product metafields in the cart drawer.
+  Metafield: custom.cart_upsell_product (single product reference)
+  Uses inline onclick handlers to bypass optimizer.js interference.
+{% endcomment %}
+
+<style>
+  .cart-upsell-swatch-dropdown {
+    position: relative;
+    width: 6.5rem;
+  }
+  .cart-upsell-swatch-dropdown .pw-swatch-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.55rem;
+    border: 1px solid rgba(var(--color-foreground), 0.15);
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    height: 38px;
+  }
+  .cart-upsell-swatch-dropdown .pw-swatch-trigger svg {
+    width: 10px;
+    fill: currentColor;
+    flex-shrink: 0;
+  }
+  .cart-upsell-swatch-dropdown .pw-color-indicator {
+    display: block;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 4px;
+    border: 1px solid rgba(var(--color-foreground), 0.15);
+    pointer-events: none;
+  }
+  .cart-upsell-swatch-dropdown .pw-swatch-list {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    width: max-content;
+    background: white;
+    border: 1px solid rgba(var(--color-foreground), 0.15);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 0 0 0.5rem 0;
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+    z-index: 10;
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+    list-style: none;
+  }
+  .cart-upsell-swatch-dropdown.active .pw-swatch-list {
+    display: grid;
+    z-index: 999;
+  }
+  .cart-upsell-swatch-dropdown .pw-swatch-item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    outline: 1px solid transparent;
+    outline-offset: 2px;
+    transition: outline 0.2s;
+    padding: 0;
+    margin: 0;
+  }
+  .cart-upsell-swatch-dropdown .pw-swatch-item.is-selected,
+  .cart-upsell-swatch-dropdown .pw-swatch-item:hover {
+    outline: 1px solid rgb(var(--color-foreground));
+  }
+  .cart-upsell-swatch-dropdown .pw-swatch-list .pw-color-indicator {
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+
+</style>
+
+{%- if cart != empty -%}
+  {%- liquid
+    assign upsell_handles_shown = ''
+    assign cart_handles = ''
+
+    for item in cart.items
+      assign cart_handles = cart_handles | append: item.product.handle | append: ','
+    endfor
+  -%}
+
+  {%- assign has_upsell = false -%}
+
+  {%- for item in cart.items -%}
+    {%- assign upsell_product = item.product.metafields.custom.cart_upsell_product.value -%}
+    {%- if upsell_product != blank and upsell_product.title != blank -%}
+      {%- unless cart_handles contains upsell_product.handle -%}
+        {%- unless upsell_handles_shown contains upsell_product.handle -%}
+          {%- assign has_upsell = true -%}
+        {%- endunless -%}
+      {%- endunless -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if has_upsell -%}
+    <div class="cart-upsell" id="cart-upsell">
+      <div class="cart-upsell__heading">
+        <span class="cart-upsell__heading-text">YOU MAY ALSO LIKE</span>
+      </div>
+
+      {%- assign upsell_count = 0 -%}
+      {%- assign upsell_handles_shown = '' -%}
+
+      {%- for item in cart.items -%}
+        {%- if upsell_count >= 2 -%}
+          {%- break -%}
+        {%- endif -%}
+
+        {%- assign upsell_product = item.product.metafields.custom.cart_upsell_product.value -%}
+
+        {%- if upsell_product != blank and upsell_product.title != blank -%}
+          {%- unless cart_handles contains upsell_product.handle -%}
+            {%- unless upsell_handles_shown contains upsell_product.handle -%}
+
+              <div class="cart-upsell__product" data-product-handle="{{ upsell_product.handle }}">
+                <div class="cart-upsell__product-inner">
+                  {%- if upsell_product.featured_image -%}
+                    <div class="cart-upsell__image">
+                      <a href="{{ upsell_product.url }}">
+                        <img
+                          srcset="{{ upsell_product.featured_image | image_url: width: 100 }} 1x, {{ upsell_product.featured_image | image_url: width: 200 }} 2x"
+                          src="{{ upsell_product.featured_image | image_url: width: 100 }}"
+                          alt="{{ upsell_product.featured_image.alt | escape }}"
+                          width="100"
+                          height="{{ 100 | divided_by: upsell_product.featured_image.aspect_ratio | ceil }}"
+                          loading="lazy"
+                        >
+                      </a>
+                    </div>
+                  {%- endif -%}
+
+                  <div class="cart-upsell__details">
+                    <div class="cart-upsell__header">
+                      <a href="{{ upsell_product.url }}" class="cart-upsell__title">{{ upsell_product.title }}</a>
+                      <div class="cart-upsell__price">
+                        <span class="cart-upsell__current-price">{{ upsell_product.price | money }}</span>
+                      </div>
+                    </div>
+
+                    <div class="cart-upsell__row-variants">
+                    {%- if upsell_product.has_only_default_variant -%}
+                      {%- comment -%} No variant selector needed {%- endcomment -%}
+                    {%- else -%}
+                      <div class="cart-upsell__variants-wrapper">
+                        {%- for option in upsell_product.options_with_values -%}
+                          {%- assign downcased_option = option.name | downcase -%}
+                          {%- assign is_color = false -%}
+                          {%- if downcased_option contains 'color' or downcased_option contains 'colour' -%}
+                            {%- assign is_color = true -%}
+                          {%- endif -%}
+
+                          <div class="cart-upsell__option-wrapper pw-swatch-wrapper" style="min-width: 60px;">
+                            <label class="visually-hidden">{{ option.name }}</label>
+                            
+                            {%- if is_color -%}
+                              {%- assign initial_swatch = '' -%}
+                              {%- capture swatch_list_items -%}
+                                {%- for value in option.values -%}
+                                  {%- assign val_string = value.name | default: value -%}
+                                  {%- assign swatch_value = '' -%}
+                                  
+                                  {%- liquid
+                                    assign swatch_value = val_string | split: ' ' | last | handle
+                                    assign is_native_swatch = false
+                                    
+                                    if value.swatch.image
+                                      assign image_url = value.swatch.image | image_url: width: 50
+                                      assign swatch_value = 'url(' | append: image_url | append: ')'
+                                      assign is_native_swatch = true
+                                    elsif value.swatch.color
+                                      assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+                                      assign is_native_swatch = true
+                                    endif
+                                    
+                                    unless is_native_swatch
+                                      assign swatch_file_extension = 'png'
+                                      assign file_name_uniq = upsell_product.id | append: '_' | append: val_string | handle | append: '.' | append: swatch_file_extension
+                                      assign file_name_custom = blank
+                                      assign file_name_alt = val_string | handle | append: '.' | append: swatch_file_extension
+                                      assign value_downcase = val_string | downcase
+                                      assign swatch_config = settings.swatch_config | newline_to_br | split: '<br />'
+                                      
+                                      for swatch in swatch_config
+                                        assign swatch_parts = swatch | strip | split: '|'
+                                        assign swatch_name = swatch_parts.first | downcase | strip
+                                        if swatch_name == value_downcase
+                                          assign swatch_entry = swatch_parts.last | strip
+                                          if swatch_entry contains '#'
+                                            assign swatch_value = swatch_entry
+                                            assign file_name_alt = blank
+                                          else
+                                            assign file_name_custom = swatch_entry
+                                          endif
+                                          break
+                                        endif
+                                      endfor
+                                      
+                                      assign file_name_final = blank
+                                      if images[file_name_uniq] != blank
+                                        assign file_name_final = file_name_uniq
+                                      elsif file_name_custom != blank and images[file_name_custom] != blank 
+                                        assign file_name_final = file_name_custom
+                                      elsif images[file_name_alt] != blank
+                                        assign file_name_final = file_name_alt
+                                      endif
+                                      
+                                      assign swatch_image = blank
+                                      if images[file_name_final] != blank
+                                        assign swatch_image = images[file_name_final] | image_url: width: 50
+                                      elsif file_name_final contains '//cdn.shopify.com/'
+                                        assign swatch_image = file_name_final
+                                      endif 
+                                      
+                                      if swatch_image != blank
+                                        assign swatch_value = 'url(' | append: swatch_image | append: ')'
+                                      endif
+                                    endunless
+                                  -%}
+
+                                  {%- if option.selected_value == value or option.selected_value == val_string -%}
+                                     {%- assign initial_swatch = swatch_value -%}
+                                  {%- endif -%}
+
+                                  <li tabindex="0" class="pw-swatch-item {% if option.selected_value == value or option.selected_value == val_string %}is-selected{% endif %}" 
+                                      data-value="{{ value | escape }}" 
+                                      data-swatch-bg="{{ swatch_value }}"
+                                      onclick="
+                                        var dropdown = this.closest('.cart-upsell-swatch-dropdown');
+                                        dropdown.querySelectorAll('.pw-swatch-item').forEach(function(el) { el.classList.remove('is-selected'); });
+                                        this.classList.add('is-selected');
+                                        dropdown.querySelector('.selected-swatch-indicator').style.background = '{{ swatch_value }}';
+                                        var select = dropdown.nextElementSibling;
+                                        select.value = '{{ value | escape }}';
+                                        select.dispatchEvent(new Event('change', {bubbles: true}));
+                                        dropdown.classList.remove('active');
+                                        this.blur();
+                                      "
+                                  >
+                                    <span class="pw-color-indicator" style="background: {{ swatch_value }}; background-size: cover; background-position: center;" title="{{ value | escape }}"></span>
+                                  </li>
+                                {%- endfor -%}
+                              {%- endcapture -%}
+                              
+                              <div class="pw-custom-swatch-dropdown cart-upsell-swatch-dropdown" style="margin-top: 0; min-height: 38px;" tabindex="0" onblur="setTimeout(() => { if (!this.contains(document.activeElement)) this.classList.remove('active'); }, 100);">
+                                <div class="pw-swatch-trigger" style="height: 38px;" onclick="this.parentElement.classList.toggle('active')">
+                                  <span class="pw-color-indicator selected-swatch-indicator" style="background: {{ initial_swatch }}; background-size: cover; background-position: center; width: 22px; height: 22px;"></span>
+                                  <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path>
+                                  </svg>
+                                </div>
+                                <ul class="pw-swatch-list">
+                                  {{ swatch_list_items }}
+                                </ul>
+                              </div>
+                              <select class="cart-upsell__option-select visually-hidden" data-position="option{{ option.position }}" onchange="(function(selectEl) { var wrapper = selectEl.closest('.cart-upsell__product-inner'); var variantsJsonStr = wrapper.querySelector('.cart-upsell-variant-json').textContent; if (!variantsJsonStr) return; var variantsJson = JSON.parse(variantsJsonStr); var selects = wrapper.querySelectorAll('.cart-upsell__option-select'); var optionValues = Array.from(selects).map(function(s) { return s.value; }); var currentVariant = variantsJson.find(function(v) { return v.options.every(function(opt, index) { return opt === optionValues[index]; }); }); var btn = wrapper.querySelector('.cart-upsell__add-btn'); var currentPriceEl = wrapper.querySelector('.cart-upsell__current-price'); var imgEl = wrapper.querySelector('.cart-upsell__image img'); if (currentVariant) { btn.setAttribute('data-variant-id', currentVariant.id); if (currentVariant.available) { btn.textContent = 'Add'; btn.disabled = false; } else { btn.textContent = 'Sold Out'; btn.disabled = true; } currentPriceEl.innerHTML = currentVariant.price; if (currentVariant.featured_image && imgEl) { imgEl.src = currentVariant.featured_image; imgEl.srcset = currentVariant.featured_image + ' 1x, ' + currentVariant.featured_image.replace('width=200', 'width=400') + ' 2x'; } } else { btn.textContent = 'Unavailable'; btn.disabled = true; } })(this)">
+                                {%- for value in option.values -%}
+                                  <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
+                                {%- endfor -%}
+                              </select>
+                            {%- else -%}
+                              <div class="cart-upsell__variant-select" style="margin-top: 0; height: 38px; width: 100%;">
+                                <select class="cart-upsell__option-select cart-upsell__select" style="margin-top: 0; height: 38px; width: 100%; padding-right: 25px;" data-position="option{{ option.position }}" onchange="(function(selectEl) { var wrapper = selectEl.closest('.cart-upsell__product-inner'); var variantsJsonStr = wrapper.querySelector('.cart-upsell-variant-json').textContent; if (!variantsJsonStr) return; var variantsJson = JSON.parse(variantsJsonStr); var selects = wrapper.querySelectorAll('.cart-upsell__option-select'); var optionValues = Array.from(selects).map(function(s) { return s.value; }); var currentVariant = variantsJson.find(function(v) { return v.options.every(function(opt, index) { return opt === optionValues[index]; }); }); var btn = wrapper.querySelector('.cart-upsell__add-btn'); var currentPriceEl = wrapper.querySelector('.cart-upsell__current-price'); var imgEl = wrapper.querySelector('.cart-upsell__image img'); if (currentVariant) { btn.setAttribute('data-variant-id', currentVariant.id); if (currentVariant.available) { btn.textContent = 'Add'; btn.disabled = false; } else { btn.textContent = 'Sold Out'; btn.disabled = true; } currentPriceEl.innerHTML = currentVariant.price; if (currentVariant.featured_image && imgEl) { imgEl.src = currentVariant.featured_image; imgEl.srcset = currentVariant.featured_image + ' 1x, ' + currentVariant.featured_image.replace('width=200', 'width=400') + ' 2x'; } } else { btn.textContent = 'Unavailable'; btn.disabled = true; } })(this)">
+                                  {%- for value in option.values -%}
+                                    <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
+                                  {%- endfor -%}
+                                </select>
+                                <svg class="cart-upsell__select-icon" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                              </div>
+                            {%- endif -%}
+                          </div>
+                        {%- endfor -%}
+                      </div>
+
+                      <script type="application/json" class="cart-upsell-variant-json">
+                        [
+                        {%- for variant in upsell_product.variants -%}
+                          {
+                            "id": {{ variant.id }},
+                            "options": {{ variant.options | json }},
+                            "available": {{ variant.available }},
+                            "price": "{{ variant.price | money }}",
+                            "compare_at_price": {% if variant.compare_at_price > variant.price %}"{{ variant.compare_at_price | money }}"{% else %}null{% endif %},
+                            "featured_image": "{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 200 }}{% endif %}"
+                          }{% unless forloop.last %},{% endunless %}
+                        {%- endfor -%}
+                        ]
+                      </script>
+
+                    {%- endif -%}
+                    <div class="cart-upsell__actions" data-product-id="{{ upsell_product.id }}">
+                    <button
+                      type="button"
+                      class="cart-upsell__add-btn"
+                      data-variant-id="{{ upsell_product.selected_or_first_available_variant.id }}"
+                      {% unless upsell_product.available %}disabled{% endunless %}
+                      onclick="(function(btn){
+                        var vid = btn.getAttribute('data-variant-id');
+                        if(!vid) return;
+                        var orig = btn.textContent.trim();
+                        btn.textContent = 'Adding...';
+                        btn.disabled = true;
+                        var mc = document.querySelector('mini-cart');
+                        var secs = [];
+                        try { secs = mc.getSectionsToRender().map(function(s){return s.id}); } catch(e){}
+                        var root = (window.Shopify && window.Shopify.routes && window.Shopify.routes.root) || '/';
+                        fetch(root + 'cart/add.js', {
+                          method:'POST',
+                          headers:{'Content-Type':'application/json','Accept':'application/json'},
+                          body:JSON.stringify({id:parseInt(vid),quantity:1,sections:secs,sections_url:window.location.pathname})
+                        })
+                        .then(function(r){return r.json()})
+                        .then(function(d){
+                          if(d.status===422){btn.textContent=d.description||'Error';setTimeout(function(){btn.textContent=orig;btn.disabled=false},2e3);return}
+                          if(mc && d.sections){mc.renderContents(d)} else {window.location.reload()}
+                          try{document.dispatchEvent(new CustomEvent('ajaxProduct:added',{detail:{product:d}}))}catch(e){}
+                        })
+                        .catch(function(e){console.error('Upsell:',e);btn.textContent=orig;btn.disabled=false});
+                      })(this)"
+                    >
+                      {%- if upsell_product.available -%}
+                        Add
+                      {%- else -%}
+                        Sold Out
+                      {%- endif -%}
+                    </button>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {%- assign upsell_handles_shown = upsell_handles_shown | append: upsell_product.handle | append: ',' -%}
+              {%- assign upsell_count = upsell_count | plus: 1 -%}
+            {%- endunless -%}
+          {%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+{%- endif -%}

@@ -109,7 +109,7 @@
           "settings": {
             "show_variant_labels": true,
             "picker_type": "button",
-            "swatch_source": "variant",
+            "swatch_source": "file",
             "swatch_type": "round",
             "enable_swatch_unavailable_click": false,
             "enable_limited": true,
@@ -138,10 +138,7 @@
             "visitor_days": 0,
             "visitor_hours": 20,
             "visitor_minutes": 3,
-            "visitor_seconds": 27,
-            "border_radius": 8,
-            "padding_top": 15,
-            "padding_bottom": 10
+            "visitor_seconds": 27
           }
         },
         "icon_with_text_NArRNw": {
@@ -508,13 +505,6 @@
       "name": "Reviews slider",
       "settings": {
         "heading": "Our Customers Speaking",
-        "enable_loop": false,
-        "enable_autoplay": false,
-        "autoplay_delay": 5,
-        "show_arrows_desktop": false,
-        "show_dots_desktop": false,
-        "show_arrows_mobile": false,
-        "show_dots_mobile": true,
         "use_custom_colors": true,
         "colors_text": "#212326",
         "colors_background": "#fcfbf7",

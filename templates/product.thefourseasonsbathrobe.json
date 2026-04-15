@@ -35,12 +35,12 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "title": {
-          "type": "title",
+        "breadcrumb_AkPYa4": {
+          "type": "breadcrumb",
           "settings": {
-            "title_size": "h2",
-            "show_price": false,
-            "price_size": "medium"
+            "text_style": "body",
+            "show_divider": false,
+            "hide_mobile": false
           }
         },
         "rating_static_jQpEEQ": {
@@ -48,6 +48,16 @@
           "settings": {
             "rating_text": "(222 Reviews)",
             "rating_link": ""
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "title_size": "h2",
+            "show_price": false,
+            "price_size": "medium",
+            "desktop_hide": false,
+            "mobile_hide": false
           }
         },
         "price": {
@@ -82,40 +92,66 @@
             "enable_circle": false
           }
         },
+        "icon_text_grid_UFiqMX": {
+          "type": "icon_text_grid",
+          "settings": {
+            "icon_1": "shopify://shop_images/clouds.png",
+            "text_1": "Incredibly Soft",
+            "icon_2": "shopify://shop_images/water_drop_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_2": "Highly Absorbent",
+            "icon_3": "shopify://shop_images/health_and_safety_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
+            "text_3": "Gentle and Skin Friendly",
+            "text_4": "",
+            "icon_size": 30,
+            "icon_size_mob": 24,
+            "text_size": 14,
+            "text_size_mob": 13,
+            "text_color": "#000000"
+          }
+        },
         "icon_text_KLMX3D": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/filter_drama_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Incredibly Soft",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_9Gxbx4": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/water_drop_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Highly Absorbent",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "icon_text_R7iXXY": {
           "type": "icon_text",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/health_and_safety_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg",
             "icon_size": 32,
             "icon_size_mob": 28,
             "icon_text": "Gentle and Skin Friendly",
+            "icon_richtext": "",
             "text_color": "#121212",
             "text_size": 16,
-            "text_size_mob": 14
+            "text_size_mob": 14,
+            "enable_bg": false
           }
         },
         "text_custom_Lpng9n": {
@@ -134,14 +170,14 @@
           "type": "custom_liquid",
           "disabled": true,
           "settings": {
-            "custom_liquid": "<style>\n  /* tweak --lh if your theme's line-height looks different */\n  .special-msg {\n    --lh: 1.35;                    /* line-height for this block */\n    --dot: 8px;                    /* dot size */\n    color: #A63E3E;\n    font-weight: 600;\n    display: block;\n    margin: 5px 0;\n    padding-left: 18px;            /* room for the dot */\n    position: relative;\n    line-height: var(--lh);\n    text-align: left !important;\n    white-space: normal;\n    letter-spacing: .3px;\n  }\n\n  .special-msg::before {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    width: var(--dot);\n    height: var(--dot);\n    border-radius: 50%;\n    background: #A63E3E;\n    /* place the dot centered within the FIRST line only */\n    top: calc((var(--lh) * 1em - var(--dot)) / 2);\n    animation: blink 3.5s infinite ease-in-out;\n  }\n\n@keyframes blink {\n  /* Quick fade in */\n  0%   { opacity: 0; }\n  40%  { opacity: 1; }\n\n  /* Hold bright */\n  60%  { opacity: 1; }\n\n  /* Slow fade out */\n  100% { opacity: 0; }\n}\n\n</style>\n\n<div class=\"special-msg\">\n  Limited units available during our <b>Women’s Month Sale</b>\n</div>"
+            "custom_liquid": "<style>\n  /* tweak --lh if your theme's line-height looks different */\n  .special-msg {\n    --lh: 1.35;                    /* line-height for this block */\n    --dot: 8px;                    /* dot size */\n    color: #A63E3E;\n    font-weight: 600;\n    display: block;\n    margin: 5px 0;\n    padding-left: 18px;            /* room for the dot */\n    position: relative;\n    line-height: var(--lh);\n    text-align: left !important;\n    white-space: normal;\n    letter-spacing: .3px;\n  }\n\n  .special-msg::before {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    width: var(--dot);\n    height: var(--dot);\n    border-radius: 50%;\n    background: #A63E3E;\n    /* place the dot centered within the FIRST line only */\n    top: calc((var(--lh) * 1em - var(--dot)) / 2);\n    animation: blink 3.5s infinite ease-in-out;\n  }\n\n@keyframes blink {\n  /* Quick fade in */\n  0%   { opacity: 0; }\n  40%  { opacity: 1; }\n\n  /* Hold bright */\n  60%  { opacity: 1; }\n\n  /* Slow fade out */\n  100% { opacity: 0; }\n}\n\n</style>\n\n<div class=\"special-msg\">\n  Limited units available during our <b>Easter Sale</b>\n</div>"
           }
         },
         "custom_liquid_LbTgXA": {
           "type": "custom_liquid",
           "disabled": true,
           "settings": {
-            "custom_liquid": "<style>\n  /* tweak --lh if your theme's line-height looks different */\n  .special-msg {\n    --lh: 1.35;                    /* line-height for this block */\n    --dot: 8px;                    /* dot size */\n    color: #A63E3E;\n    font-weight: 600;\n    display: block;\n    margin: 5px 0;\n    padding-left: 18px;            /* room for the dot */\n    position: relative;\n    line-height: var(--lh);\n    text-align: left !important;\n    white-space: normal;\n    letter-spacing: .3px;\n  }\n\n  .special-msg::before {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    width: var(--dot);\n    height: var(--dot);\n    border-radius: 50%;\n    background: #A63E3E;\n    /* place the dot centered within the FIRST line only */\n    top: calc((var(--lh) * 1em - var(--dot)) / 2);\n    animation: blink 3.5s infinite ease-in-out;\n  }\n\n@keyframes blink {\n  /* Quick fade in */\n  0%   { opacity: 0; }\n  40%  { opacity: 1; }\n\n  /* Hold bright */\n  60%  { opacity: 1; }\n\n  /* Slow fade out */\n  100% { opacity: 0; }\n}\n\n</style>\n\n<div class=\"special-msg\">\n  Limited units available during our <b>Women’s Month Sale</b>\n</div>"
+            "custom_liquid": "<style>\n  /* tweak --lh if your theme's line-height looks different */\n  .special-msg {\n    --lh: 1.35;                    /* line-height for this block */\n    --dot: 8px;                    /* dot size */\n    color: #A63E3E;\n    font-weight: 600;\n    display: block;\n    margin: 5px 0;\n    padding-left: 18px;            /* room for the dot */\n    position: relative;\n    line-height: var(--lh);\n    text-align: left !important;\n    white-space: normal;\n    letter-spacing: .3px;\n  }\n\n  .special-msg::before {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    width: var(--dot);\n    height: var(--dot);\n    border-radius: 50%;\n    background: #A63E3E;\n    /* place the dot centered within the FIRST line only */\n    top: calc((var(--lh) * 1em - var(--dot)) / 2);\n    animation: blink 3.5s infinite ease-in-out;\n  }\n\n@keyframes blink {\n  /* Quick fade in */\n  0%   { opacity: 0; }\n  40%  { opacity: 1; }\n\n  /* Hold bright */\n  60%  { opacity: 1; }\n\n  /* Slow fade out */\n  100% { opacity: 0; }\n}\n\n</style>\n\n<div class=\"special-msg\">\n  Limited units available during our <b>Easter Sale</b>\n</div>"
           }
         },
         "variant_picker": {
@@ -149,13 +185,21 @@
           "settings": {
             "show_variant_labels": true,
             "picker_type": "button",
-            "swatch_source": "variant",
+            "swatch_source": "file",
             "swatch_type": "round",
             "swatch_size": "large",
             "enable_swatch_unavailable_click": false,
             "enable_limited": true,
             "limited_heading": "Limited Edition",
             "size_chart": ""
+          }
+        },
+        "text_dxBGU9": {
+          "type": "text",
+          "settings": {
+            "icon": "none",
+            "text": "Runs small. Most US customers size up 2–3 sizes. Size up 2 for a regular fit, 3 for a relaxed fit.",
+            "text_style": "body"
           }
         },
         "buy_buttons": {
@@ -166,14 +210,16 @@
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": false,
             "enable_monogram": false,
-            "monogram_product": ""
+            "monogram_product": "",
+            "icon": "shopify://shop_images/Vector_2.svg",
+            "icon_text": "30 DAYS MONEY BACK GUARANTEE"
           }
         },
         "countdown_timer_NcnznL": {
           "type": "countdown_timer",
           "disabled": true,
           "settings": {
-            "heading": "Women’s Month Sale ENDS IN:",
+            "heading": "Easter Sale ENDS IN:",
             "heading_color": "#ffffff",
             "background_color": "#c5bbae",
             "timer_color": "#121212",
@@ -184,6 +230,7 @@
             "visitor_hours": 20,
             "visitor_minutes": 3,
             "visitor_seconds": 27,
+            "enable_payment_icons": true,
             "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
           }
         },
@@ -191,7 +238,7 @@
           "type": "countdown_timer",
           "disabled": true,
           "settings": {
-            "heading": "Women’s Month Sale ENDS IN:",
+            "heading": "Easter Sale ENDS IN:",
             "heading_color": "#ffffff",
             "background_color": "#c5bbae",
             "timer_color": "#121212",
@@ -202,11 +249,22 @@
             "visitor_hours": 20,
             "visitor_minutes": 3,
             "visitor_seconds": 27,
+            "enable_payment_icons": true,
             "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
+          }
+        },
+        "richtext_box_4LL3MA": {
+          "type": "richtext_box",
+          "settings": {
+            "rich_text": "<p><strong>Shipped in 1-3 Days</strong><br/>Fast & Tracked Shipping</p>",
+            "us_rich_text": "<p><strong>Shipped in 1-3 Days</strong><br/>Fast & Tracked USPS Shipping</p>",
+            "text_size": 16,
+            "text_size_mob": 15
           }
         },
         "icon_with_text_NArRNw": {
           "type": "icon_with_text",
+          "disabled": true,
           "settings": {
             "icon_1": "shopify://shop_images/local_shipping_48dp_121212_FILL0_wght400_GRAD0_opsz48.svg",
             "text_1": "Fast & Tracked Shipping",
@@ -235,7 +293,7 @@
         "collapsible_tab-0": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "What is Muslin Cotton?",
             "content": "<h4><strong>A Fabric Fit for Royalty</strong></h4><p>Originating from ancient Bengal (modern-day Bangladesh and India), muslin was once so rare and coveted that it was called <em>\"woven wind\", </em>worn by queens, emperors, and aristocrats who prized its <strong>weightless luxury</strong>. The finest muslin was so sheer it could pass through a ring yet so strong it lasted generations. Today, authentic muslin remains a symbol of <strong>timeless elegance and craftsmanship</strong>.</p><h4><strong>Why Is Muslin Cotton Special?</strong></h4><ul><li><strong>Breathable & Lightweight</strong>: Its loose, open weave allows airflow like no other fabric, making it <strong>perfect for temperature regulation, </strong>cool in summer, cozy in winter.</li><li><strong>Luxuriously Soft</strong>: With every wash, muslin becomes even softer, developing a <strong>vintage, lived-in elegance</strong> that only improves with time.</li><li><strong>Gentle Yet Durable</strong>: Despite its delicate feel, high-quality muslin is surprisingly strong, resisting pulls and tears while maintaining its graceful drape.</li></ul>",
             "page": "",
@@ -246,7 +304,7 @@
         "collapsible_tab_TbRiah": {
           "type": "collapsible_tab",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Care",
             "content": "<p>Machine wash cold, do not tumble dry under any circumstances, and avoid ironing or using fabric softeners to maintain the softness and coziness of your cloths for years to come.</p>",
             "page": "",
@@ -269,7 +327,7 @@
         "shipping_metaobject_tLJRyV": {
           "type": "shipping_metaobject",
           "settings": {
-            "icon": "check_mark",
+            "icon": "none",
             "heading": "Shipping & Returns",
             "shipping_text": "default"
           }
@@ -282,11 +340,13 @@
         }
       },
       "block_order": [
-        "title",
+        "breadcrumb_AkPYa4",
         "rating_static_jQpEEQ",
+        "title",
         "price",
         "text_custom_aCgja3",
         "text_custom_Vpdkyw",
+        "icon_text_grid_UFiqMX",
         "icon_text_KLMX3D",
         "icon_text_9Gxbx4",
         "icon_text_R7iXXY",
@@ -294,9 +354,11 @@
         "custom_liquid_xDKKPB",
         "custom_liquid_LbTgXA",
         "variant_picker",
+        "text_dxBGU9",
         "buy_buttons",
         "countdown_timer_NcnznL",
         "countdown_timer_4tCBwt",
+        "richtext_box_4LL3MA",
         "icon_with_text_NArRNw",
         "text_custom_A3eeDw",
         "description_wcdcrg",
@@ -307,6 +369,7 @@
         "sticky_cart"
       ],
       "settings": {
+        "enable_v2_styles": false,
         "enable_sticky_info": true,
         "media_position": "left",
         "media_size": "large",
@@ -540,10 +603,13 @@
         "show_quick_buy": true,
         "enable_quick_view": true,
         "enable_color_swatches": true,
+        "enable_other_variants": false,
         "enable_countdown": true,
         "colors_highlight": "#ffb503",
         "padding_top": 36,
         "padding_bottom": 36,
+        "padding_top_mob": 36,
+        "padding_bottom_mob": 36,
         "enable_highlight": false,
         "highlight_style": "marker"
       }

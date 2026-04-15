@@ -22,6 +22,8 @@
 
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 
+{{ 'component-cart-upsell.css' | asset_url | stylesheet_tag }}
+
 <form
   class="mini-cart{% if cart == empty %} is-empty{% endif %}"
   action="{{ routes.cart_url }}"
@@ -30,12 +32,14 @@
 >
   <div class="mini-cart__inner">
     <div class="mini-cart__header" data-animate data-animate-delay-{{ animate_count }}>
-      <drawer-close-button class="header__icon header__icon--summary header__icon--cart">
-        <svg class="icon icon-close" aria-hidden="true" focusable="false">
-          <use href="#icon-close"></use>
-        </svg>
-      </drawer-close-button>
-      <div class="title h1">{{ 'sections.cart.title' | t }} • {{ cart.item_count }} items</div>
+      <div class="heading-inner">
+        <div class="title h1">{{ 'sections.cart.title' | t }} ({{ cart.item_count }})</div>
+        <drawer-close-button class="header__icon header__icon--summary header__icon--cart">
+          <svg class="icon icon-close" aria-hidden="true" focusable="false">
+            <use href="#icon-close"></use>
+          </svg>
+        </drawer-close-button>
+      </div>
       {%- liquid
         if settings.show_free_shipping_message and settings.free_shipping_minimum_amount != blank
           assign free_shipping_minimum_amounts = settings.free_shipping_minimum_amount | remove: ' ' | split: ','
@@ -64,7 +68,8 @@
           endif
         endif
       -%}
-      <span class="mini-cart__border"></span>
+      {% comment %} <span class="mini-cart__border"></span> {% endcomment %}
+       {% render 'd5-timer' %}
     </div>
     <div class="mini-cart__empty center" data-animate data-animate-delay-{{ animate_count }}>
       <p class="mini-cart__empty-text h3">{{ 'sections.cart.empty' | t }}</p>
@@ -286,7 +291,6 @@
         </cart-recommendations>
       {%- endif -%}
 
-      {% render 'd5-timer' %}
       <cart-items>
         {%- assign animate_count = animate_count | plus: 1 -%}
         <ul class="mini-cart__navigation" data-animate data-animate-delay-{{ animate_count }}>
@@ -299,7 +303,7 @@
             >
               <div class="product-container{% unless item.image %} no-image{% endunless %}">
                 {% if item.image %}
-                  <div>
+                  <div class="product-img-wr">
                     <a href="{{ item.url }}" class="product-image media-wrapper media-wrapper--small">
                       <div
                         class="media media--adapt"
@@ -316,152 +320,7 @@
                         >
                       </div>
                     </a>
-                  </div>
-                {% endif %}
-                <div class="product-description">
-                  <div class="product-content">
-                    <a href="{{ item.url }}" class="link product-title">{{ item.product.title }}</a>
-                    <cart-remove-button
-                      id="Remove-{{ item.index | plus: 1 }}"
-                      data-index="{{ item.index | plus: 1 }}"
-                      {% unless gift_wrap_id == null or item.id != gift_wrap_id %}
-                        class="hidden"
-                      {% endunless %}
-                    >
-                      <a
-                        href="{{ item.url_to_remove }}"
-                        class="delete-product"
-                        aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}"
-                        data-no-instant
-                      >
-                        {% render 'icon', icon: 'remove' %}
-                      </a>
-                    </cart-remove-button>
-                  </div>
-
-                  {%- if item.product.has_only_default_variant == false
-                    or item.properties.size != 0
-                    or item.selling_plan_allocation != null
-                  -%}
-                    {%- if item.product.has_only_default_variant == false or item.properties.size != 0 -%}
-                      <dl>
-                        {%- if item.product.has_only_default_variant == false -%}
-                          {% comment %}
-                            {%- for option in item.options_with_values -%}
-                              <div class="product-option">
-                                <dt>{{ option.name }}:</dt>
-                                <dd>{{ option.value }}</dd>
-                              </div>
-                            {%- endfor -%}
-                          {% endcomment %}
-                          
-                          {% comment %}
-                            Updated discount price section - only shows for items with actual discounts
-                            Hides for free items (Buy X Get Y promotions)
-                          {% endcomment %}
-
-                          <dd class="flex discount-price-d5">
-                            {%- liquid
-                              # Check if this is a free item from BOGO promotion (final price is $0.00)
-                              assign is_free_item = false
-                              if item.final_price == 0
-                                assign is_free_item = true
-                              endif
-                            -%}
-                            
-                            {%- if is_free_item -%}
-                              <dl class="cart-item__discounted-prices">
-                                <dt class="visually-hidden">
-                                  {{ 'products.product.price.regular_price' | t }}
-                                </dt>
-                                <dd class="price--on-sale test1">
-                                  <s class="price price-item--regular">
-                                    <price-money>
-                                      <bdi>{{ item.variant.compare_at_price | times: item.quantity | money }}</bdi>
-                                    </price-money>
-                                  </s>
-                                </dd>
-                                <dt class="visually-hidden">
-                                  {{ 'products.product.price.sale_price' | t }}
-                                </dt>
-                                <dd class="price">
-                                  <price-money>
-                                    <bdi><strong>{{ item.final_price | times: item.quantity | money }}</strong></bdi>
-                                  </price-money>
-                                </dd>
-                              </dl>
-                            {%- endif -%}
-                            
-                            {%- if is_free_item -%}
-                              <ul
-                                class="discounts list-unstyled"
-                                role="list"
-                                aria-label="{{ 'customer.order.discount' | t }}"
-                              >
-                                {%- for discount in item.line_level_discount_allocations -%}
-                                  <li class="discounts__discount">
-                                    {%- render 'icon', icon: 'discount' -%}
-                                    {{ discount.discount_application.title }}
-                                  </li>
-                                {%- endfor -%}
-                              </ul>
-                            {%- endif -%}
-                          </dd>
-                          <dd class="variant-title-d5">{{ item.variant.title }}</dd>
-                        {%- endif -%}
-
-                        {%- for property in item.properties -%}
-                          {%- assign property_first_char = property.first | slice: 0 -%}
-                          {%- if property.last != blank and property_first_char != '_' -%}
-                            <div class="product-option">
-                              <dt>{{ property.first }}:</dt>
-                              <dd>
-                                {%- if property.last contains '/uploads/' -%}
-                                  <a
-                                    href="{{ property.last }}"
-                                    target="_blank"
-                                    aria-describedby="a11y-new-window-message"
-                                  >
-                                    {{ property.last | split: '/' | last }}
-                                  </a>
-                                {%- else -%}
-                                  {{ property.last }}
-                                {%- endif -%}
-                              </dd>
-                            </div>
-                          {%- endif -%}
-                        {%- endfor -%}
-
-                        {%- if item.variant.available and item.unit_price_measurement -%}
-                          <div class="unit-price">
-                            <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
-                            <price-money
-                              ><bdi>
-                                {%- if settings.currency_code_enabled -%}
-                                  {{- item.variant.unit_price | money_with_currency -}}
-                                {%- else -%}
-                                  {{- item.variant.unit_price | money -}}
-                                {%- endif -%}
-                              </bdi></price-money
-                            >
-                            <span aria-hidden="true">/</span>
-                            <span class="visually-hidden"
-                              >&nbsp;{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span
-                            >
-                            {%- if item.variant.unit_price_measurement.reference_value != 1 -%}
-                              {{- item.variant.unit_price_measurement.reference_value -}}
-                            {%- endif -%}
-                            {{ item.variant.unit_price_measurement.reference_unit }}
-                          </div>
-                        {%- endif -%}
-                      </dl>
-                    {%- endif -%}
-
-                    {%- if item.selling_plan_allocation != null -%}
-                      <div class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</div>
-                    {%- endif -%}
-                  {%- endif -%}
-                  {%- liquid
+                    {%- liquid
                     assign has_qty_rules = false
                     if item.variant.quantity_rule.increment > 1 or item.variant.quantity_rule.min > 1 or item.variant.quantity_rule.max != null
                       assign has_qty_rules = true
@@ -524,7 +383,7 @@
                               </quantity-input>
                             </div>
                             {%- render 'loading-spinner' -%}
-                            <div class="quantity-price-d5">
+                            {% comment %} <div class="quantity-price-d5">
                               {%- if item.variant.compare_at_price > item.final_price -%}
                                 <dl class="cart-item__discounted-prices">
                                   <dt class="visually-hidden">
@@ -563,7 +422,7 @@
                                 </dd>
                               </dl>
                             {% endif %}
-                            </div>
+                            </div> {% endcomment %}
                             {% comment %}
                               {%- if item.original_price != item.final_price -%}
                                 <dl class="cart-item__discounted-prices">
@@ -725,23 +584,226 @@
                       {%- endif -%}
                     </dt>
                   </div>
-                  <p class="cart-item__error form__message errors" id="Line-item-error-{{ item.index | plus: 1 }}">
-                    <span class="cart-item__error-text"></span>
-                  </p>
+                  </div>
+                {% endif %}
+                <div class="product-description">
+                  <div class="product-content">
+                    <a href="{{ item.url }}" class="link product-title">{{ item.product.title }}</a>
+                    <div class="quantity-price-d5">
+                      {%- if item.variant.compare_at_price > item.final_price -%}
+                        <dl class="cart-item__discounted-prices">
+                          <dt class="visually-hidden">
+                            {{ 'products.product.price.regular_price' | t }}
+                          </dt>
+                          <dd class="price--on-sale test2">
+                            <s class="price price-item--regular">
+                              <price-money
+                                ><bdi>{{ item.variant.compare_at_price | times: item.quantity | money }}</bdi></price-money
+                              >
+                            </s>
+                          </dd>
+                          <dt class="visually-hidden">
+                            {{ 'products.product.price.sale_price' | t }}
+                          </dt>
+                          <dd class="price">
+                            <price-money
+                              ><bdi><strong>{{ item.final_price | times: item.quantity | money }}</strong></bdi></price-money
+                            >
+                          </dd>
+                        </dl>
+                      {%- else -%}
+                        <dl class="cart-item__discounted-prices">
+                          <dd class="price">
+                            <price-money
+                              ><bdi>
+                                <strong>{{ item.original_price | times: item.quantity | money }}</strong></bdi></price-money
+                            >
+                          </dd>
+                        </dl>
+                      {%- endif -%}
+                      {% if item.variant.compare_at_price > item.final_price %}
+                      <dl>
+                        <dd class="price price-save">
+                          <strong>(You Save {{ item.variant.compare_at_price | minus:item.final_price | times: item.quantity | money  }})</strong>
+                        </dd>
+                      </dl>
+                    {% endif %}
+                    </div>
+                  </div>
+
+                  {%- if item.product.has_only_default_variant == false
+                    or item.properties.size != 0
+                    or item.selling_plan_allocation != null
+                  -%}
+                    {%- if item.product.has_only_default_variant == false or item.properties.size != 0 -%}
+                      <dl>
+                        {%- if item.product.has_only_default_variant == false -%}
+                          {% comment %}
+                            {%- for option in item.options_with_values -%}
+                              <div class="product-option">
+                                <dt>{{ option.name }}:</dt>
+                                <dd>{{ option.value }}</dd>
+                              </div>
+                            {%- endfor -%}
+                          {% endcomment %}
+                          
+                          {% comment %}
+                            Updated discount price section - only shows for items with actual discounts
+                            Hides for free items (Buy X Get Y promotions)
+                          {% endcomment %}
+
+                          {%- unless item.product.has_only_default_variant -%}
+                            <dl class="cart-drawer__variant-options">
+                              {%- for option in item.options_with_values -%}
+                                <div class="cart-drawer__option-row">
+                                  <dt>{{ option.name }}:</dt>
+                                  <dd>{{ option.value }}</dd>
+                                </div>
+                              {%- endfor -%}
+                            </dl>
+                          {%- endunless -%}
+                        {%- endif -%}
+
+                        {%- for property in item.properties -%}
+                          {%- assign property_first_char = property.first | slice: 0 -%}
+                          {%- if property.last != blank and property_first_char != '_' -%}
+                            <div class="product-option">
+                              <dt>{{ property.first }}:</dt>
+                              <dd>
+                                {%- if property.last contains '/uploads/' -%}
+                                  <a
+                                    href="{{ property.last }}"
+                                    target="_blank"
+                                    aria-describedby="a11y-new-window-message"
+                                  >
+                                    {{ property.last | split: '/' | last }}
+                                  </a>
+                                {%- else -%}
+                                  {{ property.last }}
+                                {%- endif -%}
+                              </dd>
+                            </div>
+                          {%- endif -%}
+                        {%- endfor -%}
+
+                        {%- if item.variant.available and item.unit_price_measurement -%}
+                          <div class="unit-price">
+                            <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
+                            <price-money
+                              ><bdi>
+                                {%- if settings.currency_code_enabled -%}
+                                  {{- item.variant.unit_price | money_with_currency -}}
+                                {%- else -%}
+                                  {{- item.variant.unit_price | money -}}
+                                {%- endif -%}
+                              </bdi></price-money
+                            >
+                            <span aria-hidden="true">/</span>
+                            <span class="visually-hidden"
+                              >&nbsp;{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span
+                            >
+                            {%- if item.variant.unit_price_measurement.reference_value != 1 -%}
+                              {{- item.variant.unit_price_measurement.reference_value -}}
+                            {%- endif -%}
+                            {{ item.variant.unit_price_measurement.reference_unit }}
+                          </div>
+                        {%- endif -%}
+                      </dl>
+                    {%- endif -%}
+
+                    {%- if item.selling_plan_allocation != null -%}
+                      <div class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</div>
+                    {%- endif -%}
+                  {%- endif -%}
+
+                  <dd class="flex discount-price-d5">
+                    {%- liquid
+                      # Check if this is a free item from BOGO promotion (final price is $0.00)
+                      assign is_free_item = false
+                      if item.final_price == 0
+                        assign is_free_item = true
+                      endif
+                    -%}
+                    
+                    {%- if is_free_item -%}
+                      {% comment %} <dl class="cart-item__discounted-prices">
+                        <dt class="visually-hidden">
+                          {{ 'products.product.price.regular_price' | t }}
+                        </dt>
+                        <dd class="price--on-sale test1">
+                          <s class="price price-item--regular">
+                            <price-money>
+                              <bdi>{{ item.variant.compare_at_price | times: item.quantity | money }}</bdi>
+                            </price-money>
+                          </s>
+                        </dd>
+                        <dt class="visually-hidden">
+                          {{ 'products.product.price.sale_price' | t }}
+                        </dt>
+                        <dd class="price">
+                          <price-money>
+                            <bdi><strong>{{ item.final_price | times: item.quantity | money }}</strong></bdi>
+                          </price-money>
+                        </dd>
+                      </dl> {% endcomment %}
+                    {%- endif -%}
+                    
+                    {%- if is_free_item -%}
+                      <ul
+                        class="discounts list-unstyled"
+                        role="list"
+                        aria-label="{{ 'customer.order.discount' | t }}"
+                      >
+                        {%- for discount in item.line_level_discount_allocations -%}
+                          <li class="discounts__discount">
+                            {% render 'icon-discount-new' %}
+                            {{ discount.discount_application.title }}
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- endif -%}
+                  </dd>
+
+                  <div class="cart-remove-wr">
+                    <cart-remove-button
+                      id="Remove-{{ item.index | plus: 1 }}"
+                      data-index="{{ item.index | plus: 1 }}"
+                      {% unless gift_wrap_id == null or item.id != gift_wrap_id %}
+                        class="hidden"
+                      {% endunless %}
+                    >
+                      <a
+                        href="{{ item.url_to_remove }}"
+                        class="delete-product"
+                        aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}"
+                        data-no-instant
+                      >
+                        {% comment %} {% render 'icon', icon: 'remove' %} {% endcomment %}
+                         Remove
+                      </a>
+                    </cart-remove-button>
+
+                    <p class="cart-item__error form__message errors" id="Line-item-error-{{ item.index | plus: 1 }}">
+                      <span class="cart-item__error-text"></span>
+                    </p>
+                  </div>
                 </div>
               </div>
             </li>
           {%- endfor -%}
-           <li
-            >
+          {% if settings.order_protection %}
+            <li>
               {% render 'd5-order-protection', product: protection_product %}
             </li> 
+          {%endif %}
         </ul>
       </cart-items>
     </div>
 
     {%- assign animate_count = animate_count | plus: 1 -%}
     <div class="mini-cart__footer" data-animate data-animate-delay-{{ animate_count }}>
+      {% render 'cart-upsell' %}
+      
       {%- if gift_wrapping != null -%}
         <gift-wrapping
           class="gift-wrapping"
@@ -1105,29 +1167,37 @@
       </div>
       <div class="button-container cd-btn-d5">
         <button class="button checkout-btn-d5 not-hover" name="checkout" type="submit" data-variant-id="{{ protection_product.variants.first.id }}">
-          Checkout
-          {% comment %}  {{ 'sections.cart.checkout' | t }}
+          {{ 'sections.cart.checkout' | t }}
       
           {%- if settings.disable_view_cart -%}
-           <span class="price" id="mini-cart-subtotal">{{ cart.total_price | money_with_currency }}</span> 
+           {% comment %} <span class="price" id="mini-cart-subtotal">{{ cart.total_price | money_with_currency }}</span>  {% endcomment %}
           {%- endif -%}
-           {% endcomment %}
         </button>
         {%- unless settings.disable_view_cart -%}
           <a class="button button--secondary" href="{{ routes.cart_url }}">{{ 'general.cart.view' | t }}</a>
         {%- endunless -%}
       </div>
-      <img
-        class="cd-payment-icons-d5"
-        src="https://cdn.shopify.com/s/files/1/0872/8906/9899/files/Screenshot_2026-01-13_190348.png"
-        width="100%"
-        height="34"
-        alt="payment icons"
-        loading="lazy"
-      >
       <div class="cd-trust-badge-d5">
-        <span>{% render 'icon', icon: 'tick' %}</span>
+        <span>{% render 'icon-check-new' %}</span>
         <p>100-DAY SATISFACTION GUARANTEE</p>
+      </div>
+      <div class="payment-icons-wr">
+        <ul class="payment-badges" role="list">
+          {% assign enabled_payment_types = shop.enabled_payment_types %}
+          {% if settings.enabled_payment_types != blank %}
+            {% assign enabled_payment_types = settings.enabled_payment_types
+              | remove: ' '
+              | split: ','
+            %}
+          {% endif %}
+
+          {%- for type in enabled_payment_types -%}
+            {% assign payment_type = type | strip %}
+            <li class="list-payment__item">
+              {{ payment_type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+            </li>
+          {%- endfor -%}
+        </ul>
       </div>
     </div>
   </div>

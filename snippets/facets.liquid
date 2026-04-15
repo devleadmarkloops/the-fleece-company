@@ -50,27 +50,33 @@
   <div class="page-width facet-nav-wr{% if enable_filtering and filter_type == 'drawer' %} facets-container-drawer{% endif %}">
 
     <!-- ADD COLLECTION NAVIGATION HERE -->
-    {% comment %} {% if section.settings.show_collection_navigation and section.settings.collection_menu != blank %}
-      <div class="collection-navigation">
-        {% assign collection_menu = linklists[section.settings.collection_menu] %}
-        <nav class="collection-nav-links" 
-          role="navigation"
-          style="--active-link-bg: {{ section.settings.active_link_bg }};"
-        >
-          {% for link in collection_menu.links %}
-            {% assign is_active = false %}
-            {% if link.url == collection.url %}
-              {% assign is_active = true %}
-            {% endif %}
+    {%- if section.settings.show_sub_collections and section.settings.sub_collection_menu != blank -%}
+    {%- assign sub_menu = linklists[section.settings.sub_collection_menu] -%}
+
+    <div class="sc-nav-wrapper">
+      <ul class="sc-grid" role="list">
+        {%- for link in sub_menu.links -%}
+          {%- if link.type == 'collection_link' -%}
+            {%- assign linked_collection = link.object -%}
+            {%- assign final_image = linked_collection.featured_image -%}
             
-            <a href="{{ link.url }}" 
-              class="collection-nav-link{% if is_active %} active{% endif %}">
-              {{ link.title }}
-            </a>
-          {% endfor %}
-        </nav>
-      </div>
-    {% endif %} {% endcomment %}
+            <li class="sc-item">
+              <a href="{{ link.url }}" class="sc-card {% if link.current %}is-active{% endif %}" {% if link.current %}aria-current="page"{% endif %}>
+                <div class="sc-card__img-wr sc-ratio--{{ section.settings.sub_collection_image_ratio }}">
+                  {%- if final_image != blank -%}
+                    {{ final_image | image_url: width: 240 | image_tag: loading: 'lazy', class: 'sc-card__img', sizes: '(min-width: 750px) 120px, 33vw', widths: '120, 240, 360' }}
+                  {%- else -%}
+                    {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg sc-card__img' }}
+                  {%- endif -%}
+                </div>
+                <span class="sc-card__title">{{ link.title | escape }}</span>
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- endif -%}
     <!-- END COLLECTION NAVIGATION -->
     <div class="page-width">
   <div class="active-facets-mobile">

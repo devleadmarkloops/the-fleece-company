@@ -283,7 +283,7 @@
           {%- endif -%}
 
           {%- assign animate_count = animate_count | plus: 1 -%}
-          <div class="menu-drawer__utility-links" data-animate data-animate-delay-{{ animate_count }}>
+          {% comment %} <div class="menu-drawer__utility-links" data-animate data-animate-delay-{{ animate_count }}>
             {%- if shop.customer_accounts_enabled -%}
               <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="menu-drawer__account link link-with-icon focus-inset">
                 {% render 'icon', icon: 'account' %}
@@ -298,7 +298,7 @@
                 </span>
               </a>
             {%- endif -%}
-          </div>
+          </div> {% endcomment %}
         </div>
       </div>
     </div>

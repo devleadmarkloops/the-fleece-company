@@ -25,6 +25,143 @@
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
     --image-position: {{ section.settings.image_position }};
   }
+
+  #shopify-section-{{ section.id }} .page-width.facet-nav-wr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #shopify-section-{{ section.id }} .sc-grid {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: flex-start;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  #shopify-section-{{ section.id }} .sc-item {
+    flex: 0 0 calc(25% - 1.125rem);
+    max-width: calc(25% - 1.125rem);
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .sc-item {
+      flex: 0 0 7rem;
+      max-width: 7rem;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .sc-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    text-align: center;
+  }
+  #shopify-section-{{ section.id }} .sc-card__img-wr {
+    position: relative;
+    width: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    outline: 2px solid #D9D9D9;
+    outline-offset: 3px;
+    transition: all 0.3s ease;
+  }
+  #shopify-section-{{ section.id }} .sc-card:hover .sc-card__img-wr {
+    outline: 2px solid rgba(var(--color-foreground), 0.5);
+  }
+  #shopify-section-{{ section.id }} .sc-card.is-active .sc-card__img-wr {
+    outline: 2px solid rgba(var(--color-foreground), 1);
+  }
+  .sc-ratio--portrait { padding-bottom: 125%; }
+  .sc-ratio--square { padding-bottom: 100%; }
+  .sc-ratio--landscape { padding-bottom: 75%; }
+
+  #shopify-section-{{ section.id }} .sc-card__img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+  }
+  #shopify-section-{{ section.id }} .sc-card__title {
+    margin: 0;
+    font-family: var(--new-font-heading-family);
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: 0;
+    color: rgb(var(--color-foreground));
+    word-break: break-word;
+  }
+
+  /* Header Right */
+  #shopify-section-{{ section.id }} .facets__form .product-count {
+    order: -1;
+  }
+  #shopify-section-{{ section.id }} .facets__form .product-count__text {
+    font-family: var(--new-font-body-family);
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: rgba(var(--color-foreground),1);
+  }
+  #shopify-section-{{ section.id }} .facets__form .facet-filters__sort {
+    width: auto;
+  }
+  #shopify-section-{{ section.id }} .facets__form .facets__summary>span {
+    min-width: unset;
+    background-color: #F0EAE4;
+    padding-inline-start: 1rem;
+    font-family: var(--new-font-body-family);
+    font-size: 1.4rem;
+  }
+  #shopify-section-{{ section.id }} .facets__form .facet-checkbox {
+    font-family: var(--new-font-body-family);
+    font-size: 1.4rem;
+    letter-spacing: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .product-grid {
+      --grid-horizontal-spacing: 1rem;
+      row-gap: 2.5rem;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .page-width.facet-nav-wr {
+      flex-wrap: wrap;
+      row-gap: 1.5rem;
+    }
+    #shopify-section-{{ section.id }} .sc-nav-wrapper {
+      width: 100%;
+    }
+    #shopify-section-{{ section.id }} .sc-card__title {
+      font-size: 1.4rem;
+    }
+    #shopify-section-{{ section.id }} .mobile-facets__wrapper {
+      background-color: #F0EAE4;
+      padding: 0.8rem;
+      border-radius: 6px;
+    }
+    #shopify-section-{{ section.id }} .mobile-facets__open.button span,
+    #shopify-section-{{ section.id }} .mobile-facets__open.button svg,
+    #shopify-section-{{ section.id }} .active-facets-mobile .product-count__text {
+      color: rgba(var(--color-foreground),1);
+      font-family: var(--new-font-body-family);
+      font-size: 1.4rem;
+      letter-spacing: 0;
+    }
+    #shopify-section-{{ section.id }} .mobile-facets__open.button svg {
+      width: 1.8rem;
+    }
+    #shopify-section-{{ section.id }} .active-facets-mobile .product-count__text {
+      font-weight: 600;
+    }
+  }
+
 {%- endstyle -%}
 
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
@@ -137,12 +274,7 @@
             -%}
             {% assign current_sort = collection.sort_by | default: collection.default_sort_by %}
             <ul id="product-grid" data-id="{{ section.id }}" class="product-grid {{ grid_class }}" role="list">
-              {% comment %} {% if results.sort_by == 'best-s' %} {% endcomment %}
-              {% if current_sort == 'best-selling' %}
-              {% assign counter = 1 %}
-              {% else %}
-              {% assign counter = '' %}
-              {% endif %}
+
               {%- for product in collection.products -%}
                 {%- liquid
                   assign lazy_load = true
@@ -151,54 +283,66 @@
                   endif
                 -%}
 
-              {% if current_sort == 'best-selling' %}
-              {% assign counter = counter |plus: 1 %}
-              {% else %}
-              {% assign counter = '' %}
-              {% endif %}
-                {% if section.settings.enable_color_as_products or product.metafields.custom.color_as_products.value == true %}
+                {%- if section.settings.enable_color_as_products and product.metafields.custom.color_as_products.value == true -%}
 
-                  {% for option in product.options_with_values %}
-                    {% if option.name == 'Color' or option.name == 'Colour' %}
-                      {% for value in option.values %}
-                        <li class="flex-grid__item" order="{{ counter }}-d5" style="order: {{ counter }}">
-                          {% render 'd5-card-variant',
-                            card_product: product,
-                            value: value,
-                            card_collection: collection,
-                            media_size: section.settings.image_ratio,
-                            show_secondary_image: section.settings.show_secondary_image,
-                            show_quick_buy: section.settings.show_quick_buy,
-                            show_vendor: section.settings.show_vendor,
-                            show_rating: section.settings.show_rating,
-                            enable_quick_view: section.settings.enable_quick_view,
-                            enable_color_swatches: section.settings.enable_color_swatches,
-                            enable_countdown: section.settings.enable_countdown,
-                            enable_image_fill: section.settings.enable_image_fill,
-                            lazy_load: lazy_load
-                          %}
-                        </li>
-                      {% endfor %}
-                    {% endif %}
-                  {% endfor %}
-                {% else %}
-                  <li class="flex-grid__item" style="order: {{ counter }}">
-                    {% render 'card-product',
+                  {%- comment -%} Find the color option index once per product {%- endcomment -%}
+                  {%- assign color_option_index = nil -%}
+                  {%- for option in product.options_with_values -%}
+                    {%- assign opt_name_down = option.name | downcase -%}
+                    {%- if opt_name_down == 'color' or opt_name_down == 'colour' -%}
+                      {%- assign color_option_index = option.position | minus: 1 -%}
+                      {%- break -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                  {%- if color_option_index != nil -%}
+                    {%- for option in product.options_with_values -%}
+                      {%- assign opt_name_down = option.name | downcase -%}
+                      {%- if opt_name_down == 'color' or opt_name_down == 'colour' -%}
+                        {%- for value in option.values -%}
+                          <li class="flex-grid__item">
+                            {% render 'card-product-v3',
+                              card_product: product,
+                              card_collection: collection,
+                              media_size: section.settings.image_ratio,
+                              show_secondary_image: section.settings.show_secondary_image,
+                              enable_quick_add: section.settings.show_quick_buy,
+                              show_vendor: section.settings.show_vendor,
+                              show_rating: section.settings.show_rating,
+                              enable_quick_view: section.settings.enable_quick_view,
+                              enable_color_swatches: section.settings.enable_color_swatches,
+                              enable_other_variants: section.settings.enable_other_variants,
+                              enable_countdown: section.settings.enable_countdown,
+                              enable_image_fill: section.settings.enable_image_fill,
+                              forced_color_value: value,
+                              forced_option_index: color_option_index
+                            %}
+                          </li>
+                        {%- endfor -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endif -%}
+
+                {%- else -%}
+
+                  <li class="flex-grid__item">
+                    {% render 'card-product-v2',
                       card_product: product,
                       card_collection: collection,
                       media_size: section.settings.image_ratio,
                       show_secondary_image: section.settings.show_secondary_image,
-                      show_quick_buy: section.settings.show_quick_buy,
+                      enable_quick_add: section.settings.show_quick_buy,
                       show_vendor: section.settings.show_vendor,
                       show_rating: section.settings.show_rating,
                       enable_quick_view: section.settings.enable_quick_view,
                       enable_color_swatches: section.settings.enable_color_swatches,
+                      enable_other_variants: section.settings.enable_other_variants,
                       enable_countdown: section.settings.enable_countdown,
-                      enable_image_fill: section.settings.enable_image_fill,
-                      lazy_load: lazy_load
+                      enable_image_fill: section.settings.enable_image_fill
                     %}
                   </li>
-                {% endif %}
+
+                {%- endif -%}
               {%- endfor -%}
             </ul>
 
@@ -212,6 +356,138 @@
   </div>
 </div>
 
+<script>
+  if (!customElements.get('card-v2-variant-selector')) {
+    customElements.define('card-v2-variant-selector', class extends HTMLElement {
+      
+      connectedCallback() {
+        if (this.initialized) return;
+        this.initialized = true;
+
+        this.addEventListener('change', this.onVariantChange.bind(this));
+        this.addEventListener('click', this.onClick.bind(this));
+        
+        setTimeout(() => { this.updateCardData(true); }, 50);
+      }
+
+      onClick(e) {
+        if (e.target.matches('.card-v2-view-all-colors')) {
+          e.preventDefault();
+          this.querySelectorAll('.hidden-swatch').forEach(el => el.style.display = 'block');
+          e.target.style.display = 'none';
+        }
+      }
+
+      onVariantChange(e) {
+        if (!e.target.matches('.card-v2-radio')) return;
+
+        if (e.target.classList.contains('card-v2-radio-color')) {
+          const wrapper = e.target.closest('.card-v2-swatches');
+          wrapper.querySelectorAll('.card-v2-swatch').forEach(lbl => lbl.style.outline = 'none');
+          const label = e.target.closest('label');
+          if (label) {
+            label.style.outline = '1px solid rgb(var(--color-foreground))';
+            label.style.outlineOffset = '2px';
+          }
+        } else if (e.target.classList.contains('card-v2-radio-pill')) {
+          const wrapper = e.target.closest('.card-v2-pills');
+          wrapper.querySelectorAll('.card-v2-pill').forEach(lbl => {
+            lbl.style.background = 'rgb(var(--color-background))'; 
+            lbl.style.color = 'rgb(var(--color-foreground))'; 
+            lbl.style.borderColor = '#e1e1e1';
+          });
+          const label = e.target.closest('label');
+          if (label) {
+            label.style.background = 'rgb(var(--color-foreground))';
+            label.style.color = 'rgb(var(--color-background))';
+            label.style.borderColor = 'rgb(var(--color-foreground))';
+          }
+        }
+
+        this.updateCardData(false);
+      }
+
+      updateCardData(isInitialLoad = false) {
+        const jsonScript = this.querySelector('.card-v2-json');
+        if (!jsonScript) return;
+        
+        let variants;
+        try {
+          variants = JSON.parse(jsonScript.textContent); 
+        } catch(err) {
+          console.error("Card V2 JSON parsing error:", err);
+          return;
+        }
+
+        const checkedRadios = Array.from(this.querySelectorAll('.card-v2-radio:checked'));
+        if (checkedRadios.length === 0) return;
+
+        const match = variants.find(v => {
+          return checkedRadios.every(radio => {
+            const optionIndex = parseInt(radio.dataset.optionIndex);
+            return v.options[optionIndex] === radio.value;
+          });
+        });
+
+        if (match) {
+          const card = this.closest('.card-wrapper');
+          if(!card) return;
+
+          const idInput = card.querySelector('.card-v2-final-id');
+          if (idInput) idInput.value = match.id;
+
+          const links = card.querySelectorAll('.card__media, .card-v2-title');
+          links.forEach(link => {
+            try {
+              const url = new URL(link.href);
+              url.searchParams.set('variant', match.id);
+              link.href = url.toString();
+            } catch(e) {}
+          });
+
+          if (!isInitialLoad && match.featured_image) {
+            const img = card.querySelector('.card-v2-main-image');
+            if (img) {
+              // Performance: build responsive srcset from Shopify CDN URL instead of single resolution
+              const baseUrl = match.featured_image.split('?')[0];
+              const buildSrcset = (url) => {
+                const widths = [165, 360, 535, 750, 940, 1100];
+                return widths.map(w => {
+                  const u = url.replace(/(_\d+x\d*)(\.(?:jpg|png|webp|gif))/i, `_${w}x$2`)
+                               .replace(/(\.(?:jpg|png|webp|gif))(\?.*)?$/i, `_${w}x$1`);
+                  return `${u} ${w}w`;
+                }).join(', ');
+              };
+              img.src = match.featured_image;
+              img.srcset = buildSrcset(match.featured_image);
+            }
+            const pictureSources = card.querySelectorAll('picture source');
+            pictureSources.forEach(source => {
+              source.srcset = match.featured_image;
+            });
+          }
+
+          const btn = card.querySelector('.card-v2-add-btn');
+          if (btn) {
+            if (match.available) {
+              btn.textContent = window.variantStrings?.addToCart || "Add to cart";
+              btn.disabled = false;
+              btn.classList.remove('disabled');
+            } else {
+              btn.textContent = window.variantStrings?.soldOut || "Sold out";
+              btn.disabled = true;
+              btn.classList.add('disabled');
+            }
+          }
+
+          const priceRegular = card.querySelector('.price-item--regular');
+          if (priceRegular) priceRegular.innerHTML = match.price; 
+        }
+      }
+    });
+  }
+</script>
+
 {% schema %}
 {
   "name": "t:sections.main-collection-product-grid.name",
@@ -219,22 +495,35 @@
   "class": "section collection-grid-section",
   "settings": [
     {
+      "type": "header",
+      "content": "Sub-Collection Navigation"
+    },
+    {
       "type": "checkbox",
-      "id": "show_collection_navigation",
-      "label": "Show collection navigation",
-      "default": false
+      "id": "show_sub_collections",
+      "default": true,
+      "label": "Show collection links"
     },
     {
       "type": "link_list",
-      "id": "collection_menu",
-      "label": "Collection navigation menu",
-      "info": "Create a menu with your collection links in Navigation settings"
+      "id": "sub_collection_menu",
+      "label": "Sub-Collection Menu",
+      "info": "Select a menu containing links to collections."
     },
     {
-      "type": "color",
-      "id": "active_link_bg",
-      "label": "Active link background",
-      "default": "#000000"
+      "type": "select",
+      "id": "sub_collection_image_ratio",
+      "options": [
+        { "value": "portrait", "label": "Portrait (4:5)" },
+        { "value": "square", "label": "Square (1:1)" },
+        { "value": "landscape", "label": "Landscape (4:3)" }
+      ],
+      "default": "square",
+      "label": "Image Ratio"
+    },
+    {
+      "type": "header",
+      "content": "Product Grid"
     },
     {
       "type": "range",
@@ -494,6 +783,12 @@
     },
     {
       "type": "checkbox",
+      "id": "enable_other_variants",
+      "default": false,
+      "label": "Enable other variants"
+    },
+    {
+      "type": "checkbox",
       "id": "enable_countdown",
       "default": true,
       "label": "t:sections.all.product_card.enable_countdown.label"
@@ -582,6 +877,29 @@
           "type": "url",
           "id": "link",
           "label": "t:sections.main-collection-product-grid.blocks.image.settings.link.label"
+        }
+      ]
+    },
+    {
+      "type": "collection_link",
+      "name": "Collection Link",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Image",
+          "info": "Overrides the featured image of the selected collection."
+        },
+        {
+          "type": "text",
+          "id": "custom_title",
+          "label": "Custom Title",
+          "info": "Overrides the default collection title."
         }
       ]
     }

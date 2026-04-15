@@ -10,7 +10,7 @@
   }
 {%- endstyle -%}
 
-{{ 'section-footer.css' | asset_url | stylesheet_tag }}
+{{ 'section-footer-new.css' | asset_url | stylesheet_tag }}
 
 <link rel="stylesheet" href="{{ 'component-newsletter.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-accordion.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -261,7 +261,7 @@
         </div>
       </div>
       <div class="footer__column footer__column--extra">
-        <small class="developed-by">Designed & Developed by <a href="https://markloops.com/" target="_blank">Markloops</a></small>
+        {% comment %} <small class="developed-by">Designed & Developed by <a href="https://markloops.com/" target="_blank">Markloops</a></small> {% endcomment %}
         <div class="footer__localization">
           {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
             <noscript>

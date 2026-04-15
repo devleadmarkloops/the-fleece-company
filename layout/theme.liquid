@@ -4,11 +4,15 @@
   {%- if text_direction == 'rtl' %} dir="rtl"{% endif -%}
 >
   <head>
-    <script src="{{ 'pandectes-rules.js' | file_url }}"></script>
+    {%- comment -%}CWV FIX: Defer non-critical pandectes script{%- endcomment -%}
+    <script src="{{ 'pandectes-rules.js' | file_url }}" defer></script>
+    {% render 'elevateab' %}
+
     {% render 'replo-head' %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
     <meta name="theme-color" content="">
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
@@ -34,53 +38,66 @@
 
     {% render 'meta-tags' %}
 
+    {%- comment -%}Swiper CSS + JS síncronos: custom elements inicializam no connectedCallback() durante o parsing, antes de scripts defer carregarem{%- endcomment -%}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    {%- comment -%}SiteSpeed: DNS prefetch for deferred third-party pixels (lighter than preconnect){%- endcomment -%}
+    <link rel="dns-prefetch" href="https://static.newsbreak.com">
+    <link rel="dns-prefetch" href="https://amplify.outbrain.com">
+    <link rel="dns-prefetch" href="https://cdn.taboola.com">
+    <link rel="dns-prefetch" href="https://www.clarity.ms">
+
+    {%- comment -%}CWV FIX: Defer NewsBreak pixel to load event{%- endcomment -%}
     <script>
-    !(function (e, n, t, i, p, a, s) {
-      e[i] ||
-        (((p = e[i] =
-          function () {
-            p.process ? p.process.apply(p, arguments) : p.queue.push(arguments);
-          }).queue = []),
-        (p.t = +new Date()),
-        ((a = n.createElement(t)).async = 1),
-        (a.src = 'https://static.newsbreak.com/business/tracking/nbpixel.js?t=' + 864e5 * Math.ceil(new Date() / 864e5)),
-        (s = n.getElementsByTagName(t)[0]).parentNode.insertBefore(a, s));
-    })(window, document, 'script', 'nbpix'),
-      nbpix('init', 'ID-1885415750284668929'),
-      nbpix('event', 'pageload');
+      window.addEventListener('load', function() {
+        !(function (e, n, t, i, p, a, s) {
+          e[i] ||
+            (((p = e[i] =
+              function () {
+                p.process ? p.process.apply(p, arguments) : p.queue.push(arguments);
+              }).queue = []),
+            (p.t = +new Date()),
+            ((a = n.createElement(t)).async = 1),
+            (a.src = 'https://static.newsbreak.com/business/tracking/nbpixel.js?t=' + 864e5 * Math.ceil(new Date() / 864e5)),
+            (s = n.getElementsByTagName(t)[0]).parentNode.insertBefore(a, s));
+        })(window, document, 'script', 'nbpix'),
+          nbpix('init', 'ID-1885415750284668929'),
+          nbpix('event', 'pageload');
+      }, { once: true });
     </script>
 
-    <script data-obct type = "text/javascript">
-      /** DO NOT MODIFY THIS CODE**/
-      !function(_window, _document) {
-        var OB_ADV_ID = '00671669d458c7010d5ffb2e665f2a3061';
-        if (_window.obApi) {
-          var toArray = function(object) {
-            return Object.prototype.toString.call(object) === '[object Array]' ? object : [object];
+    {%- comment -%}CWV FIX: Defer Outbrain pixel to load event{%- endcomment -%}
+    <script>
+      window.addEventListener('load', function() {
+        !function(_window, _document) {
+          var OB_ADV_ID = '00671669d458c7010d5ffb2e665f2a3061';
+          if (_window.obApi) {
+            var toArray = function(object) {
+              return Object.prototype.toString.call(object) === '[object Array]' ? object : [object];
+            };
+            _window.obApi.marketerId = toArray(_window.obApi.marketerId).concat(toArray(OB_ADV_ID));
+            return;
+          }
+          var api = _window.obApi = function() {
+            api.dispatch ? api.dispatch.apply(api, arguments) : api.queue.push(arguments);
           };
-          _window.obApi.marketerId = toArray(_window.obApi.marketerId).concat(toArray(OB_ADV_ID));
-          return;
-        }
-        var api = _window.obApi = function() {
-          api.dispatch ? api.dispatch.apply(api, arguments) : api.queue.push(arguments);
-        };
-        api.version = '1.1';
-        api.loaded = true;
-        api.marketerId = OB_ADV_ID;
-        api.queue = [];
-        var tag = _document.createElement('script');
-        tag.async = true;
-        tag.src = '//amplify.outbrain.com/cp/obtp.js';
-        tag.type = 'text/javascript';
-        var script = _document.getElementsByTagName('script')[0];
-        script.parentNode.insertBefore(tag, script);
-      }(window, document);
+          api.version = '1.1';
+          api.loaded = true;
+          api.marketerId = OB_ADV_ID;
+          api.queue = [];
+          var tag = _document.createElement('script');
+          tag.async = true;
+          tag.src = '//amplify.outbrain.com/cp/obtp.js';
+          tag.type = 'text/javascript';
+          var script = _document.getElementsByTagName('script')[0];
+          script.parentNode.insertBefore(tag, script);
+        }(window, document);
 
-      obApi('track', 'PAGE_VIEW');
+        obApi('track', 'PAGE_VIEW');
+      }, { once: true });
     </script>
 
     <script type="importmap">
@@ -100,8 +117,7 @@
     <script src="{{ 'modules-basis.js' | asset_url }}" defer="defer"></script>
 
     {{ content_for_header }}
-{% if template.suffix == 'muslin-blanket-le-new' or  template.suffix == 'donation-counter' %}
-     {%- liquid
+    {%- liquid
       render 'css-variables-v2'
       echo 'base-v2.css' | asset_url | stylesheet_tag: preload: true
       echo 'custom-v2.css' | asset_url | stylesheet_tag: preload: true
@@ -110,23 +126,14 @@
         echo 'rtl.css' | asset_url | stylesheet_tag
       endif
     -%}
-{% else %}
-   {%- liquid
-      render 'css-variables'
-      echo 'base.css' | asset_url | stylesheet_tag: preload: true
-      echo 'custom.css' | asset_url | stylesheet_tag: preload: true
-      
-      if text_direction == 'rtl'
-        echo 'rtl.css' | asset_url | stylesheet_tag
-      endif
-    -%}
-{% endif %}
  
 
     <link rel="stylesheet" href="{{ 'apps.css' | asset_url }}" media="print" fetchpriority="low" onload="this.media='all'">
 
     {% # theme-check-disable %}
+    {%- comment -%}CWV FIX: Add font-display: swap to avoid FOUT (CLS/LCP){%- endcomment -%}
     {%- unless settings.type_body_font.system? -%}
+      {{ settings.type_body_font | font_face: font_display: 'swap' }}
       <link
         rel="preload"
         as="font"
@@ -136,6 +143,7 @@
       >
     {%- endunless -%}
     {%- unless settings.type_header_font.system? -%}
+      {{ settings.type_header_font | font_face: font_display: 'swap' }}
       <link
         rel="preload"
         as="font"
@@ -167,36 +175,44 @@
       if (Shopify.designMode) {
         document.documentElement.classList.add('shopify-design-mode');
       }
-    </script><link rel="preload" href="https://quickstart-41d588e3.myshopify.com/cdn/shop/t/3/assets/lazysizes-8.0.50.js" as="script"><script src="https://quickstart-41d588e3.myshopify.com/cdn/shop/t/3/assets/lazysizes-8.0.50.js"></script>
+    </script>
 
+    {%- comment -%}CWV FIX: Defer lazysizes to load event instead of blocking{%- endcomment -%}
+    <script defer src="https://quickstart-41d588e3.myshopify.com/cdn/shop/t/3/assets/lazysizes-8.0.50.js"></script>
+
+    {%- comment -%}CWV FIX: Defer Taboola pixel to load event{%- endcomment -%}
     <!-- Taboola Pixel Code -->
-    <script type='text/javascript'>
-      window._tfa = window._tfa || [];
-      window._tfa.push({notify: 'event', name: 'page_view', id: 1776931});
-      !function (t, f, a, x) {
-            if (!document.getElementById(x)) {
-                t.async = 1;t.src = a;t.id=x;f.parentNode.insertBefore(t, f);
-            }
-      }(document.createElement('script'),
-      document.getElementsByTagName('script')[0],
-      '//cdn.taboola.com/libtrc/unip/1776931/tfa.js',
-      'tb_tfa_script');
+    <script>
+      window.addEventListener('load', function() {
+        window._tfa = window._tfa || [];
+        window._tfa.push({notify: 'event', name: 'page_view', id: 1776931});
+        !function (t, f, a, x) {
+              if (!document.getElementById(x)) {
+                  t.async = 1;t.src = a;t.id=x;f.parentNode.insertBefore(t, f);
+              }
+        }(document.createElement('script'),
+        document.getElementsByTagName('script')[0],
+        '//cdn.taboola.com/libtrc/unip/1776931/tfa.js',
+        'tb_tfa_script');
+      }, { once: true });
     </script>
     <!-- End of Taboola Pixel Code -->
 
-    {%- if content_for_header contains "elevateab.app" -%}{%- unless request.design_mode -%} <script>try{window.eab_data={selectors:JSON.parse(`{{shop.metafields.elevateab.select}}`)||{},allTests:JSON.parse(`{{shop.metafields.elevateab.tests}}`)||{},currencyFormat:{% if settings.currency_code_enabled %}"{{ shop.money_with_currency_format}}"{% else %}"{{ shop.money_format}}"{% endif %}};}catch(error){console.log(error);window.eab_data={selectors:{},allTests:{},currencyFormat:{% if settings.currency_code_enabled %}"{{ shop.money_with_currency_format}}"{% else %}"{{ shop.money_format}}"{% endif %}};}</script><script src="https://ds0wlyksfn0sb.cloudfront.net/redirect.js"></script> {%- endunless -%}{%- endif -%} 
     {% render 'kiwiSizing' %}
+    {%- comment -%}CWV FIX: Defer Microsoft Clarity script to load event{%- endcomment -%}
     {% if settings.clarity_product_templates != blank and template.name == 'product' %}
       {% assign clarity_templates = settings.clarity_product_templates | split: ',' %}
       {% for tmpl in clarity_templates %}
         {% assign clean_template = tmpl | strip | downcase %}
         {% if template.suffix == clean_template %}
           <script type="text/javascript">
-            (function(c,l,a,r,i,t,y){
-              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/v5ev3r1bgu";
-              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "v5ev3r1bgu");
+            window.addEventListener('load', function() {
+              (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/v5ev3r1bgu";
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window, document, "clarity", "script", "v5ev3r1bgu");
+            }, { once: true });
           </script>
           {% break %}
         {% endif %}
@@ -230,18 +246,17 @@
     {% render 'transition-cover' %}
 
     <div class="transition-body">
-      {%- if template.suffix == 'muslin-blanket-le-new' or template.suffix == 'donation-counter' -%}
         {% sections 'header-custom-group' %}
-      {%- else -%}
-        {% sections 'header-group' %}
-      {%- endif -%}
+      
 
       <div class="transition-content">
         <main id="MainContent" class="content-for-layout focus-none shopify-section" role="main" tabindex="-1">
           {{ content_for_layout }}
         </main>
 
-        {% sections 'footer-group' %}
+        
+        {% sections 'footer-custom-group' %}
+        
       </div>
     </div>
 
@@ -275,6 +290,36 @@
     {%- endif -%}
     
     {% render 'js-utilities' %}
+
+    {%- if request.page_type == 'cart' -%}
+      <script>window.location.replace('/?open_cart=true');</script>
+    {%- endif -%}
+
+    <script>
+      (function() {
+        var params = new URLSearchParams(window.location.search);
+        if (params.has('open_cart')) {
+          var cleanUrl = new URL(window.location);
+          cleanUrl.searchParams.delete('open_cart');
+          window.history.replaceState({}, '', cleanUrl);
+
+          function tryOpenMiniCart() {
+            var miniCart = document.querySelector('mini-cart');
+            if (miniCart && typeof miniCart.open === 'function') {
+              miniCart.open();
+            } else {
+              setTimeout(tryOpenMiniCart, 150);
+            }
+          }
+
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() { setTimeout(tryOpenMiniCart, 300); });
+          } else {
+            setTimeout(tryOpenMiniCart, 300);
+          }
+        }
+      })();
+    </script>
     <script>
         const TIMER_DURATION = 300;
         let timerInterval = null;
@@ -419,7 +464,8 @@
       </script>
     {% endif %}
 
-    <script src="//cdn.shopify.com/s/files/1/0690/1995/9522/files/optimizer.js?v=1709233602" type="text/javascript"></script>
+    {%- comment -%}SiteSpeed FIX: Defer optimizer.js to avoid render-blocking{%- endcomment -%}
+    <script src="//cdn.shopify.com/s/files/1/0690/1995/9522/files/optimizer.js?v=1709233602" type="text/javascript" defer></script>
     {% if template.name == "checkout" and checkout.order_id %}
       <script>
       gtag('event', 'purchase', {
