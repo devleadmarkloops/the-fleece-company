@@ -167,6 +167,14 @@
         crossorigin
       >
     {%- endunless -%}
+    {%- comment -%} Heading stack (CooperBTLight): preload reduz CLS intermitente em heroes/banners antes da pintura. {%- endcomment -%}
+    <link
+      rel="preload"
+      as="font"
+      href="https://cdn.shopify.com/s/files/1/0872/8906/9899/files/CooperBTLight_normal_normal.otf?v=1771310699"
+      type="font/otf"
+      crossorigin
+    >
     {% # theme-check-enable %}
     
     {%- if settings.predictive_search_enabled -%}

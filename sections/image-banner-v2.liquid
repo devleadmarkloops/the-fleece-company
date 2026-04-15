@@ -6,6 +6,10 @@
       {%- assign section_image = section.settings.image | default: section.settings.image_2 -%}
       --image-ratio-percent: {{ 1 | divided_by: section_image.aspect_ratio | times: 100 }}%;
       --image-position: {{ section.settings.image_position }};
+    {%- elsif section.settings.mobile_image != blank or section.settings.mobile_image_2 != blank %}
+      {%- assign section_image_mobile_only = section.settings.mobile_image | default: section.settings.mobile_image_2 -%}
+      --image-ratio-percent: {{ 1 | divided_by: section_image_mobile_only.aspect_ratio | times: 100 }}%;
+      --image-position: {{ section.settings.image_position }};
     {% endif -%}
     --color-overlay-opacity: {{ section.settings.colors_overlay_opacity | divided_by: 100.0 }};
     --color-overlay: {{ section.settings.colors_overlay.red }}, {{ section.settings.colors_overlay.green }}, {{ section.settings.colors_overlay.blue }};
@@ -22,12 +26,12 @@
   }
 
   {%- if section.settings.mobile_image != blank or section.settings.mobile_image_2 != blank %}
-    {%- assign section_image = section.settings.mobile_image | default: section.settings.mobile_image_2 -%}
+    {%- assign mobile_ratio_src = section.settings.mobile_image | default: section.settings.mobile_image_2 -%}
     @media screen and (max-width: 749px) {
       #shopify-section-{{ section.id }} {
-        
+        --image-ratio-percent: {{ 1 | divided_by: mobile_ratio_src.aspect_ratio | times: 100 }}%;
       }
-    }  
+    }
   {% endif -%}
 
   {% if section.settings.enable_content_max_width %}
@@ -72,6 +76,14 @@
     font-weight: 600;
     letter-spacing: 0;
     min-width: 20rem;
+  }
+  /* CLS: evita overflow horizontal em flex que por vezes reflow com fontes. */
+  #shopify-section-{{ section.id }} .banner__box {
+    min-width: 0;
+  }
+  #shopify-section-{{ section.id }} .media--adapt,
+  #shopify-section-{{ section.id }} .media-mobile--adapt {
+    padding-bottom: var(--image-ratio-percent, 56.25%);
   }
 
   @media screen and (min-width: 750px) and (max-width: 950px) {
