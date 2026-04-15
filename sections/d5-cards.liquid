@@ -50,7 +50,13 @@
                 <div class="cs-card-d5">
                     {% if block.settings.img != blank %}
                     <div class="cs-img-d5">
-                        <img src="{{ block.settings.img | image_url: width: 400 }}" loading="lazy" width="" height="" alt="{{ block.settings.txt }}">
+                        <img
+                          src="{{ block.settings.img | image_url: width: 400 }}"
+                          width="{{ block.settings.img.width }}"
+                          height="{{ block.settings.img.height }}"
+                          loading="lazy"
+                          alt="{{ block.settings.txt }}"
+                        >
                     </div>
                     {% endif %}
                     {% if block.settings.txt != blank %}

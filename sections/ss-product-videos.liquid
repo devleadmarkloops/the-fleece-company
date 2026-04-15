@@ -8,7 +8,7 @@ For inquiries or permissions, contact daniel@section.store
 ---------------------------------------------------------
 {% endcomment %}
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+{% render 'swiper-loader' %}
 
 {%- liquid 
   assign padding_horizontal = section.settings.padding_horizontal
@@ -1193,7 +1193,7 @@ For inquiries or permissions, contact daniel@section.store
   </template>
 {% endif %}
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@8.4.7/swiper-bundle.min.js"></script>
+{# CWV FIX: Swiper carregado via theme.liquid com defer #}
 
 {% if lazy %}
 <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.2/dist/lazyload.min.js"></script>
@@ -1201,12 +1201,13 @@ For inquiries or permissions, contact daniel@section.store
 
 <script>
   function initProductVideos() {
-    setTimeout(() => {
+    var slider, slider2;
 
-      const slider=new Swiper('.video-slider-{{ section.id }}',{speed:300,slidesPerView: "auto", navigation:{nextEl:'.video-btn-next-{{ section.id }}',prevEl:'.video-btn-prev-{{ section.id }}'},breakpoints:{320:{spaceBetween:{{ slider_gap_mobile }}},768:{spaceBetween:{{ slider_gap_mobile }}},1024:{spaceBetween:{{ slider_gap }}}}});
+    window.SwiperReady(function() {
+      slider = new Swiper('.video-slider-{{ section.id }}',{speed:300,slidesPerView: "auto", navigation:{nextEl:'.video-btn-next-{{ section.id }}',prevEl:'.video-btn-prev-{{ section.id }}'},breakpoints:{320:{spaceBetween:{{ slider_gap_mobile }}},768:{spaceBetween:{{ slider_gap_mobile }}},1024:{spaceBetween:{{ slider_gap }}}}});
 
-
-      const slider2=new Swiper('.video-modal-slider-{{ section.id }}',{speed:300,slidesPerView:1,allowTouchMove:!1,spaceBetween:20,navigation:{nextEl:'.video-modal-next-{{ section.id }}',prevEl:'.video-modal-prev-{{ section.id }}'},on:{slideChange:function(){const e=this.slides;for(let t=0;t<e.length;t++){let n=e[t].querySelector('video'),s=e[t].querySelector('iframe'),a=e[t].querySelector('.video-modal-action-{{ section.id }}'),o,r;if(s){o=s.getAttribute('data-src'),r=s.getAttribute('data-src2')}t===this.activeIndex?(n&&(n.play(),n.muted=!1),s&&(s.src=r),a&&a.classList.add('active')):(n&&n.pause(),s&&(s.src=o))}}}});
+      slider2 = new Swiper('.video-modal-slider-{{ section.id }}',{speed:300,slidesPerView:1,allowTouchMove:!1,spaceBetween:20,navigation:{nextEl:'.video-modal-next-{{ section.id }}',prevEl:'.video-modal-prev-{{ section.id }}'},on:{slideChange:function(){const e=this.slides;for(let t=0;t<e.length;t++){let n=e[t].querySelector('video'),s=e[t].querySelector('iframe'),a=e[t].querySelector('.video-modal-action-{{ section.id }}'),o,r;if(s){o=s.getAttribute('data-src'),r=s.getAttribute('data-src2')}t===this.activeIndex?(n&&(n.play(),n.muted=!1),s&&(s.src=r),a&&a.classList.add('active')):(n&&n.pause(),s&&(s.src=o))}}}});
+    });
 
 
       const toggles = document.querySelectorAll('.video-slide-video-{{ section.id }}');

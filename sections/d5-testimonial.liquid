@@ -1,8 +1,6 @@
-{% comment %} <!-- Swiper CSS -->
-{% if section.settings.slider %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+{% render 'swiper-loader' %}
 
-<!-- Swiper JS -->
+{% comment %} <!-- Swiper é carregado via swiper-loader.liquid -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 {% endif %} {% endcomment %}
 <style>
@@ -199,7 +197,13 @@
                                 {% if block.settings.video != blank %}
                                 {{ block.settings.video | video_tag: autoplay: true, muted: true, loop: true }}
                                 {% else %}
-                                <img src="{{ block.settings.img | image_url: width: 600 }}" width="" height="" loading="lazy" alt="{{ block.settings.heading | strip_html }}">
+                                <img
+                                  src="{{ block.settings.img | image_url: width: 600 }}"
+                                  width="{{ block.settings.img.width }}"
+                                  height="{{ block.settings.img.height }}"
+                                  loading="lazy"
+                                  alt="{{ block.settings.heading | strip_html }}"
+                                >
                                 {% endif %}
                             </div>
                             {% endif %}
@@ -227,49 +231,47 @@
 </div>
 {% if section.settings.slider %}
 <script>
+  window.SwiperReady(function() {
     {% if section.settings.sliderm %}
-     const swiper = new Swiper('.ts-swiper-{{ section.id }}-d5', {
-  loop: true,
-  spaceBetween: 15,
-  slidesPerView: 3,
-  
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-  },
-  autoplay: {
-    delay: 5000,  
-    disableOnInteraction: false,  
-  },
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-  
-});
-{% else %}
-    if(window.innerWidth > 750){
-    const swiper = new Swiper('.ts-swiper-{{ section.id }}-d5', {
-  loop: true,
-  spaceBetween: 40,
-  slidesPerView: 3,
-  
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-  },
-  autoplay: {
-    delay: 5000,  
-    disableOnInteraction: false,  
-  },
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-  
-});
-}
-{% endif %}
+    new Swiper('.ts-swiper-{{ section.id }}-d5', {
+      loop: true,
+      spaceBetween: 15,
+      slidesPerView: 3,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+    {% else %}
+    if (window.innerWidth > 750) {
+      new Swiper('.ts-swiper-{{ section.id }}-d5', {
+        loop: true,
+        spaceBetween: 40,
+        slidesPerView: 3,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    }
+    {% endif %}
+  });
 </script>
 {% endif %}
 {% schema %}

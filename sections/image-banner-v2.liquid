@@ -124,6 +124,44 @@
 
 {%- endstyle -%}
 
+{%- comment -%}CWV FIX: Preload da imagem LCP para as primeiras seções ativas da página (index 1 e 2, pois "main" está desabilitado). Avisa o browser para buscar a imagem mais importante o quanto antes.{%- endcomment -%}
+{%- if section.index == 1 or section.index == 2 -%}
+  {%- assign lcp_image = section.settings.image -%}
+  {%- assign lcp_mobile_image = section.settings.mobile_image | default: lcp_image -%}
+  {%- if lcp_image != blank -%}
+    {%- assign lcp_widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840' | split: ', ' -%}
+    {%- capture lcp_srcset -%}
+      {%- for w in lcp_widths -%}
+        {{ lcp_image | image_url: width: w }} {{ w }}w{%- unless forloop.last -%}, {%- endunless -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- capture lcp_mobile_srcset -%}
+      {%- for w in lcp_widths -%}
+        {{ lcp_mobile_image | image_url: width: w }} {{ w }}w{%- unless forloop.last -%}, {%- endunless -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+    <link
+      rel="preload"
+      as="image"
+      href="{{ lcp_image | image_url: width: 1500 }}"
+      imagesrcset="{{ lcp_srcset | strip_newlines | strip }}"
+      imagesizes="100vw"
+      fetchpriority="high"
+    >
+    {%- if section.settings.mobile_image != blank -%}
+      <link
+        rel="preload"
+        as="image"
+        href="{{ lcp_mobile_image | image_url: width: 750 }}"
+        imagesrcset="{{ lcp_mobile_srcset | strip_newlines | strip }}"
+        imagesizes="100vw"
+        media="(max-width: 749px)"
+        fetchpriority="high"
+      >
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}
+
 {{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
@@ -176,12 +214,14 @@
                 {%- liquid
                   assign loading = 'lazy'
                   assign fetchpriority = 'low'
-                  if section.index == 1
+                  assign image_element = 'lazy-image'
+                  if section.index == 1 or section.index == 2
                     assign loading = 'eager'
                     assign fetchpriority = 'high'
+                    assign image_element = 'direct-image'
                   endif
                 -%}
-                {%- echo image | image_url: width: 3840 | image_tag: loading: loading, class: image_class, sizes: sizes, widths: widths, is: 'lazy-image', fetchpriority: fetchpriority -%}
+                {%- echo image | image_url: width: 2000 | image_tag: loading: loading, class: image_class, sizes: sizes, widths: widths, is: image_element, fetchpriority: fetchpriority -%}
               </picture>
             </div>
           </use-animate>
@@ -223,7 +263,7 @@
                   -%}
                   <source media="(max-width: 749px)" srcset="{{ srcset_mobile_2 }}" sizes="{{ sizes_2nd }}">
                 {%- endif -%}
-                {%- echo image_2nd | image_url: width: 3840 | image_tag: loading: 'lazy', class: image_class_2nd, sizes: sizes_2nd, widths: widths, is: 'lazy-image' -%}
+                {%- echo image_2nd | image_url: width: 2000 | image_tag: loading: 'lazy', class: image_class_2nd, sizes: sizes_2nd, widths: widths, is: 'lazy-image' -%}
               </picture>
             </div>
           </use-animate>

@@ -38,19 +38,32 @@
 
     {% render 'meta-tags' %}
 
-    {%- comment -%}Swiper CSS + JS síncronos: custom elements inicializam no connectedCallback() durante o parsing, antes de scripts defer carregarem{%- endcomment -%}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+    {%- comment -%}CWV FIX: Swiper removido do theme.liquid. Cada componente que usa Swiper agora carrega via swiper-loader.liquid com validação de duplicatas{%- endcomment -%}
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    {%- comment -%}SiteSpeed: DNS prefetch for deferred third-party pixels (lighter than preconnect){%- endcomment -%}
+    {%- comment -%}CWV FIX: Preload first slideshow image to reduce LCP{%- endcomment -%}
+    {%- if request.page_type == 'index' -%}
+      {%- for section in sections.body -%}
+        {%- if section.type == 'slideshow' and section.blocks.size > 0 -%}
+          {%- assign first_block = section.blocks | first -%}
+          {%- assign hero_image = first_block.settings.image_mobile | default: first_block.settings.image -%}
+          {%- if hero_image != blank -%}
+            <link rel="preload" as="image"
+              href="{{ hero_image | image_url: width: 2000 }}"
+              imagesrcset="{{ hero_image | image_url: width: 750 }} 750w, {{ hero_image | image_url: width: 1500 }} 1500w, {{ hero_image | image_url: width: 2000 }} 2000w"
+              imagesizes="100vw">
+          {%- endif -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+
     <link rel="dns-prefetch" href="https://static.newsbreak.com">
     <link rel="dns-prefetch" href="https://amplify.outbrain.com">
     <link rel="dns-prefetch" href="https://cdn.taboola.com">
     <link rel="dns-prefetch" href="https://www.clarity.ms">
 
-    {%- comment -%}CWV FIX: Defer NewsBreak pixel to load event{%- endcomment -%}
     <script>
       window.addEventListener('load', function() {
         !(function (e, n, t, i, p, a, s) {
@@ -69,7 +82,6 @@
       }, { once: true });
     </script>
 
-    {%- comment -%}CWV FIX: Defer Outbrain pixel to load event{%- endcomment -%}
     <script>
       window.addEventListener('load', function() {
         !function(_window, _document) {
@@ -111,10 +123,13 @@
       }
     </script>
 
-    <script src="{{ 'vendor-v4.js' | asset_url | split: '?' | first }}" defer="defer"></script>
+    <script src="{{ 'vendor-v4.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'modules-basis.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'global.min.js' | asset_url }}" defer="defer"></script>
+
+    {%- if request.page_type == 'product' or request.page_type == 'collection' or request.page_type == 'index' -%}
+      <script src="{{ 'modules-basis.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
 
     {{ content_for_header }}
     {%- liquid
@@ -177,8 +192,11 @@
       }
     </script>
 
-    {%- comment -%}CWV FIX: Defer lazysizes to load event instead of blocking{%- endcomment -%}
-    <script defer src="https://quickstart-41d588e3.myshopify.com/cdn/shop/t/3/assets/lazysizes-8.0.50.js"></script>
+    {%- comment -%}
+      lazysizes removido: o tema usa lazyimage.js (custom element nativo) e o GemPages
+      usa gp-lazyload.v2.js próprio. O script anterior apontava para CDN de outra loja
+      (quickstart-41d588e3), o que era um risco de estabilidade e uma requisição extra.
+    {%- endcomment -%}
 
     {%- comment -%}CWV FIX: Defer Taboola pixel to load event{%- endcomment -%}
     <!-- Taboola Pixel Code -->

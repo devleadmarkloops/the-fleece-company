@@ -1,3 +1,4 @@
+{% render 'swiper-loader' %}
 
 {%- liquid
   if section.settings.image_ratio == 'auto'
@@ -260,7 +261,7 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+  window.SwiperReady(function () {
     const sectionEl = document.getElementById('section-{{ section.id }}');
     const swiperEl = document.getElementById('swiper-{{ section.id }}');
     if (!swiperEl) return;

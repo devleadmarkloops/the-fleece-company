@@ -20,6 +20,8 @@ class LazyImage extends HTMLImageElement {
   }
 
   handleLazy () {
+    if (this.classList.contains('no-lazy') || this.getAttribute('loading') === 'eager' || this.getAttribute('fetchpriority') === 'high') return;
+
     const mql = window.matchMedia('(min-width: 750px)');
     if (mql.matches && this.classList.contains('medium-hide')) return;
     if (!mql.matches && this.classList.contains('small-hide')) return;
@@ -37,6 +39,13 @@ class LazyImage extends HTMLImageElement {
   }
 }
 window.customElements.define('lazy-image', LazyImage, { extends: 'img' });
+
+class DirectImage extends HTMLImageElement {
+  constructor() {
+    super();
+  }
+}
+window.customElements.define('direct-image', DirectImage, { extends: 'img' });
 
 class ProgPicture extends HTMLPictureElement {
   constructor() {

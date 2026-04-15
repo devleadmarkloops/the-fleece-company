@@ -1,3 +1,5 @@
+{% render 'swiper-loader' %}
+
 {%- style -%}
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
@@ -205,6 +207,9 @@
       {%- endif -%}
     </div>
 
+    {%- comment -%} Alinha `sizes` ao Swiper (slidesPerView + spaceBetween) para evitar pedir 750px quando o slot do card ~303px CSS. {%- endcomment -%}
+    {%- capture fc_tabs_card_sizes -%}(min-width: 1024px) calc((min(100vw, {{ settings.page_width }}px) - 10rem - 45px) / 4), (min-width: 768px) calc((100vw - 10rem - 24px) / 3), calc((100vw - 3rem - 16px) / 2.07){%- endcapture -%}
+
     <div class="fc-tabs-content">
       {%- for block in section.blocks -%}
         {%- assign collection = block.settings.collection -%}
@@ -225,7 +230,8 @@
                     enable_quick_view: section.settings.enable_quick_view,
                     enable_color_swatches: section.settings.enable_color_swatches,
                     enable_countdown: section.settings.enable_countdown,
-                    enable_image_fill: section.settings.enable_image_fill
+                    enable_image_fill: section.settings.enable_image_fill,
+                    card_image_sizes: fc_tabs_card_sizes
                   %}
                 </div>
               {%- else -%}
@@ -302,7 +308,7 @@
       if (currentActive) updateIndicator(currentActive);
     });
 
-    if (typeof Swiper !== 'undefined') {
+    window.SwiperReady(function() {
       const swipers = sectionEl.querySelectorAll('.swiper');
       swipers.forEach(swiperEl => {
         new Swiper(swiperEl, {
@@ -340,9 +346,7 @@
           }
         });
       });
-    } else {
-      console.warn('Swiper JS not loaded on this page. Slider will fall back to flex row.');
-    }
+    });
   });
 </script>
 <script>

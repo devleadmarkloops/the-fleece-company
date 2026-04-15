@@ -4,18 +4,24 @@
       style="--image-position: {{ block.settings.image_position }}"
     >
       {%- if image_behavior == 'ambient' -%}
-        {%- assign widths = '450, 900, 1320, 1800, 2136, 2400, 3600, 4680' -%}
+        {%- assign widths = '450, 900, 1320, 1800, 2136, 2400' -%}
         {%- capture sizes -%}calc(100vw / 1.667){%- endcapture -%}
       {%- else -%}
-        {%- assign widths = '375, 750, 1100, 1500, 1780, 2000, 3000, 3840' -%}
+        {%- assign widths = '750, 1500, 2000' -%}
         {%- capture sizes -%}100vw{%- endcapture -%}
       {%- endif -%}
       {%- liquid
+        assign lazy_image_class = ''
+        assign image_element = 'lazy-image'
+        if loading == 'eager'
+          assign lazy_image_class = 'no-lazy'
+          assign image_element = 'direct-image'
+        endif
         if block.settings.image_mobile == blank
-          echo block.settings.image | image_url: width: 3840 | image_tag: loading: loading, fetchpriority: fetchpriority, sizes: sizes, widths: widths, is: 'lazy-image'
+          echo block.settings.image | image_url: width: 2000 | image_tag: loading: loading, fetchpriority: fetchpriority, sizes: sizes, widths: widths, class: lazy_image_class, is: image_element
         else
-          echo block.settings.image_mobile | image_url: width: 3840 | image_tag: loading: loading, fetchpriority: fetchpriority, class: 'medium-hide large-up-hide', sizes: sizes, widths: widths, is: 'lazy-image'
-          echo block.settings.image | image_url: width: 3840 | image_tag: loading: loading, fetchpriority: fetchpriority, class: 'small-hide', sizes: sizes, widths: widths, is: 'lazy-image'
+          echo block.settings.image_mobile | image_url: width: 1000 | image_tag: loading: loading, fetchpriority: fetchpriority, class: 'medium-hide large-up-hide ' | append: lazy_image_class, sizes: sizes, widths: widths, is: image_element
+          echo block.settings.image | image_url: width: 2000 | image_tag: loading: loading, fetchpriority: fetchpriority, class: 'small-hide ' | append: lazy_image_class, sizes: sizes, widths: widths, is: image_element
         endif
       -%}
       </div>
@@ -29,3 +35,4 @@
     <a href="{{ block.settings.button_link }}" class="full-unstyled-link" aria-label="{{ 'accessibility.view_slide_image' | t }}">&nbsp;</a>
   {%- endif -%}
 </div>
+

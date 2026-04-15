@@ -87,7 +87,8 @@
           <div class="slideshow__slide">
             {%- case block.type -%}
               {%- when 'image' -%}
-                {% render 'slide-image', block: block, position: forloop.index, image_behavior: image_behavior, loading: 'lazy', fetchpriority: 'low' %}
+                {%- comment -%}CWV FIX: First slide should load eagerly with high priority for LCP optimization{%- endcomment -%}
+                {% render 'slide-image', block: block, position: forloop.index, image_behavior: image_behavior, loading: 'eager', fetchpriority: 'high' %}
               {%- when 'video' -%}
                 {% render 'slide-video', block: block, position: forloop.index, image_behavior: image_behavior, section: section %}
             {%- endcase -%}
