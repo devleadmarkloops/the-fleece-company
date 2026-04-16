@@ -167,6 +167,16 @@
   }
 {%- endstyle -%}
 
+{% comment %} LCP: Preload crítico CSS inline para renderização mais rápida {% endcomment %}
+<style>
+  .fc-tabs-section-{{ section.id }} { display: block; }
+  .fc-tabs-section-{{ section.id }} .fc-tabs-header-row { display: flex; }
+  .fc-tabs-section-{{ section.id }} .fc-tab-panel { display: none; }
+  .fc-tabs-section-{{ section.id }} .fc-tab-panel.is-active { display: block; }
+  @media screen and (min-width: 768px) { .fc-tabs-section-{{ section.id }} .swiper { min-height: 420px; } }
+  @media screen and (min-width: 1024px) { .fc-tabs-section-{{ section.id }} .swiper { min-height: 460px; } }
+</style>
+
 <link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
 
@@ -207,9 +217,9 @@
       {%- endif -%}
     </div>
 
-    {%- comment -%} Alinha `sizes` ao Swiper (slidesPerView + spaceBetween) para evitar pedir 750px quando o slot do card ~303px CSS. {%- endcomment -%}
     {%- capture fc_tabs_card_sizes -%}(min-width: 1024px) calc((min(100vw, {{ settings.page_width }}px) - 10rem - 45px) / 4), (min-width: 768px) calc((100vw - 10rem - 24px) / 3), calc((100vw - 3rem - 16px) / 2.07){%- endcapture -%}
 
+    {% comment %} CLS: Reserve space for Swiper with min-height to prevent layout shifts {% endcomment %}
     <div class="fc-tabs-content">
       {%- for block in section.blocks -%}
         {%- assign collection = block.settings.collection -%}
@@ -263,6 +273,53 @@
 </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+  var sectionEl = document.querySelector('.fc-tabs-section-{{ section.id }}');
+  if (!sectionEl) return;
+
+  window.SwiperReady(function() {
+    var swipers = sectionEl.querySelectorAll('.swiper');
+    swipers.forEach(function(swiperEl) {
+      new Swiper(swiperEl, {
+        slidesPerView: 2.07,
+        spaceBetween: 8,
+        observer: true,
+        observeParents: true,
+        simulateTouch: true,
+        allowTouchMove: true,
+        grabCursor: true,
+        touchRatio: 1,
+        touchAngle: 45,
+        passiveListeners: true,
+        preventInteractionOnTransition: false,
+        mousewheel: {
+          forceToAxis: true,
+          releaseOnEdges: true,
+          thresholdDelta: 10
+        },
+        freeMode: {
+          enabled: true,
+          sticky: true,
+          momentumRatio: 0.5,
+          momentumBounceRatio: 0.5
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 12
+          },
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 15
+          }
+        }
+      });
+    });
+  });
+});
+</script>
+
+<script>
   document.addEventListener('DOMContentLoaded', function() {
     const sectionEl = document.querySelector('.fc-tabs-section-{{ section.id }}');
     if (!sectionEl) return;
@@ -273,16 +330,15 @@
 
     function updateIndicator(activeBtn) {
       if (!indicator || !activeBtn) return;
-      const offsetLeft = activeBtn.offsetLeft;
-      const width = activeBtn.offsetWidth;
-      
-      indicator.style.transform = `translateX(${offsetLeft}px)`;
-      indicator.style.width = `${width}px`;
+      const rect = activeBtn.getBoundingClientRect();
+      const parentRect = indicator.parentElement.getBoundingClientRect();
+      indicator.style.transform = `translateX(${rect.left - parentRect.left}px)`;
+      indicator.style.width = `${rect.width}px`;
     }
 
     const initialActiveBtn = sectionEl.querySelector('.fc-tab-btn.is-active');
     if (initialActiveBtn) {
-      setTimeout(() => updateIndicator(initialActiveBtn), 100); 
+      requestAnimationFrame(() => updateIndicator(initialActiveBtn));
     }
 
     tabBtns.forEach(btn => {
@@ -306,47 +362,7 @@
     window.addEventListener('resize', () => {
       const currentActive = sectionEl.querySelector('.fc-tab-btn.is-active');
       if (currentActive) updateIndicator(currentActive);
-    });
-
-    window.SwiperReady(function() {
-      const swipers = sectionEl.querySelectorAll('.swiper');
-      swipers.forEach(swiperEl => {
-        new Swiper(swiperEl, {
-          slidesPerView: 2.07,
-          spaceBetween: 8,
-          observer: true, 
-          observeParents: true,
-          simulateTouch: true,
-          allowTouchMove: true,
-          grabCursor: true,
-          touchRatio: 1,
-          touchAngle: 45,
-          passiveListeners: true,
-          preventInteractionOnTransition: false,
-          mousewheel: {
-            forceToAxis: true,
-            releaseOnEdges: true,
-            thresholdDelta: 10
-          },
-          freeMode: {
-            enabled: true,
-            sticky: true,
-            momentumRatio: 0.5,
-            momentumBounceRatio: 0.5
-          },
-          breakpoints: {
-            768: {
-              slidesPerView: 3,
-              spaceBetween: 12
-            },
-            1024: {
-              slidesPerView: 4,
-              spaceBetween: 15
-            }
-          }
-        });
-      });
-    });
+    }, { passive: true });
   });
 </script>
 <script>
