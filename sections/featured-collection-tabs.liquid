@@ -229,8 +229,6 @@
           <div class="swiper fc-swiper-{{ section.id }}-{{ block.id }}">
             <div class="swiper-wrapper">
               {%- for product in collection.products limit: section.settings.products_to_show -%}
-                {%- assign is_eager_mobile = forloop.index0 < 2 -%}
-                {%- assign is_eager_desktop = forloop.index0 < 4 -%}
                 <div class="swiper-slide">
                   {% render 'card-product-v2',
                     card_product: product,
@@ -243,9 +241,7 @@
                     enable_color_swatches: section.settings.enable_color_swatches,
                     enable_countdown: section.settings.enable_countdown,
                     enable_image_fill: section.settings.enable_image_fill,
-                    card_image_sizes: fc_tabs_card_sizes,
-                    load_image_eager: is_eager_desktop,
-                    load_image_eager_mobile: is_eager_mobile
+                    card_image_sizes: fc_tabs_card_sizes
                   %}
                 </div>
               {%- else -%}
