@@ -24,6 +24,15 @@
         assign featured_media_aspect_ratio = card_product.featured_media.aspect_ratio | default: 1
         assign card_product_media = card_product.featured_media
         assign image_loading = 'lazy'
+        assign image_fetchpriority = 'low'
+        if load_image_eager == true
+          assign image_loading = 'eager'
+          assign image_fetchpriority = 'high'
+        endif
+        if load_image_eager_mobile == true
+          assign image_loading = 'eager'
+          assign image_fetchpriority = 'high'
+        endif
         assign image = card_product.featured_media
         assign alt = image.alt | escape | split: '#' | first
         if card_image_widths != blank
@@ -53,7 +62,7 @@
         >
           <picture is="prog-picture" class="motion-reduce" data-hq="{{ image.preview_image | image_url: width: 1000 }}">
             <source srcset="{{ srcset_mobile_retina }}" sizes="{{ sizes }}">
-            {{ image.preview_image | image_url: width: 450 | image_tag: loading: image_loading, class: 'motion-reduce card-v2-main-image', sizes: sizes, widths: widths, alt: alt, is: 'lazy-image' }}
+            {{ image.preview_image | image_url: width: 450 | image_tag: loading: image_loading, fetchpriority: image_fetchpriority, class: 'motion-reduce card-v2-main-image', sizes: sizes, widths: widths, alt: alt, is: 'lazy-image' }}
           </picture>
           {%- if card_product.media[1] != nil and show_secondary_image -%}
             {%- liquid
@@ -67,7 +76,7 @@
               {%- capture sizes_second -%}(min-width: 990px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, 1px{%- endcapture -%}
             {%- endif -%}
             <picture class="motion-reduce">
-              {{ image_second.preview_image | image_url: width: 450 | image_tag: loading: image_loading, sizes: sizes_second, widths: widths_second, alt: alt_second, is: 'lazy-image' }}
+              {{ image_second.preview_image | image_url: width: 450 | image_tag: loading: image_loading, fetchpriority: image_fetchpriority, sizes: sizes_second, widths: widths_second, alt: alt_second, is: 'lazy-image' }}
             </picture>
           {%- endif -%}
         </div>
