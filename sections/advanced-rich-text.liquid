@@ -259,7 +259,29 @@
                             {% if current_svg != blank %}
                               {{ current_svg }}
                             {% elsif current_image != blank %}
-                              <img src="{{ current_image | image_url: width: 100 }}" alt="{{ current_image.alt | escape }}" loading="lazy">
+                              {%- comment -%}
+                                CWV FIX (CLS): sem width/height o <img> renderiza
+                                com intrínseco 0×0 até o load, e quando o asset
+                                chega o .icon-wrapper (que é var(--current-icon-size))
+                                expande e empurra conteúdo abaixo. Reservamos a
+                                geometria final aqui. icon_size em advanced-rich-text
+                                costuma variar por bloco/section; usamos 32px como
+                                default sensato (desktop). A regra CSS inline
+                                `.icon-wrapper img{width:100%;height:auto}` continua
+                                governando o tamanho real dentro do wrapper.
+                              {%- endcomment -%}
+                              {%- assign cwv_ir_ar = current_image.aspect_ratio | default: 1.0 -%}
+                              {%- assign cwv_ir_w = 32 -%}
+                              {%- assign cwv_ir_h = cwv_ir_w | times: 1.0 | divided_by: cwv_ir_ar | round: 0 -%}
+                              {%- if cwv_ir_h < 1 -%}{%- assign cwv_ir_h = cwv_ir_w -%}{%- endif -%}
+                              <img
+                                src="{{ current_image | image_url: width: 100 }}"
+                                width="{{ cwv_ir_w }}"
+                                height="{{ cwv_ir_h }}"
+                                alt="{{ current_image.alt | escape }}"
+                                loading="lazy"
+                                decoding="async"
+                              >
                             {% elsif block.settings.show_default_check %}
                                <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
                             {% endif %}

@@ -1,0 +1,241 @@
+{% comment %}
+  Renders the countdown_timer block (days/hours/mins/secs + optional payment icons).
+
+  Accepts:
+  - block: {Object} Block object
+
+  Mechanical extraction of the 'countdown_timer' case from main-product-v2.liquid (lines 1519-1797).
+{% endcomment %}
+
+<div
+  class="countdown-timer-block"
+  style="background-color: {{ block.settings.background_color }};"
+>
+  {% if block.settings.heading != blank %}
+    <h3
+      class="countdown-heading"
+      style="color: {{ block.settings.heading_color }};"
+    >
+      {{ block.settings.heading }}
+    </h3>
+  {% endif %}
+
+  <div
+    class="countdown-timer"
+    id="bf-countdown-{{ block.id }}"
+    data-end-date="{{ block.settings.end_date }}"
+    data-per-visitor="{{ block.settings.per_visitor_timer }}"
+    data-visitor-days="{{ block.settings.visitor_days }}"
+    data-visitor-hours="{{ block.settings.visitor_hours }}"
+    data-visitor-minutes="{{ block.settings.visitor_minutes }}"
+    data-visitor-seconds="{{ block.settings.visitor_seconds }}"
+  >
+    <div class="timer-unit">
+      <span
+        class="timer-number"
+        data-days
+        data-unit="days"
+        style="color: {{ block.settings.timer_color }};"
+        >00</span
+      >
+      <div
+        class="timer-label"
+        style="color: {{ block.settings.label_color }};"
+      >
+        Days
+      </div>
+    </div>
+
+    <span
+      class="timer-separator"
+      style="color: {{ block.settings.timer_color }};"
+      >:</span
+    >
+
+    <div class="timer-unit">
+      <span
+        class="timer-number"
+        data-hours
+        data-unit="hours"
+        style="color: {{ block.settings.timer_color }};"
+        >00</span
+      >
+      <div
+        class="timer-label"
+        style="color: {{ block.settings.label_color }};"
+      >
+        Hrs
+      </div>
+    </div>
+
+    <span
+      class="timer-separator"
+      style="color: {{ block.settings.timer_color }};"
+      >:</span
+    >
+
+    <div class="timer-unit">
+      <span
+        class="timer-number"
+        data-unit="mins"
+        data-minutes
+        style="color: {{ block.settings.timer_color }};"
+        >00</span
+      >
+      <div
+        class="timer-label"
+        style="color: {{ block.settings.label_color }};"
+      >
+        Mins
+      </div>
+    </div>
+
+    <span
+      class="timer-separator"
+      style="color: {{ block.settings.timer_color }};"
+      >:</span
+    >
+
+    <div class="timer-unit">
+      <span
+        class="timer-number"
+        data-unit="seconds"
+        data-seconds
+        style="color: {{ block.settings.timer_color }};"
+        >00</span
+      >
+      <div
+        class="timer-label"
+        style="color: {{ block.settings.label_color }};"
+      >
+        Secs
+      </div>
+    </div>
+  </div>
+</div>
+{% if block.settings.enable_payment_icons %}
+  <div class="payment-icons-wr">
+    <ul class="payment-badges" role="list">
+      {% assign enabled_payment_types = shop.enabled_payment_types %}
+      {% if block.settings.enabled_payment_types != blank %}
+        {% assign enabled_payment_types = block.settings.enabled_payment_types
+          | remove: ' '
+          | split: ','
+        %}
+      {% endif %}
+
+      {%- for type in enabled_payment_types -%}
+        {% assign payment_type = type | strip %}
+        <li class="list-payment__item">
+          {{ payment_type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+{% endif %}
+{%- comment -%}
+  CWV FIX (F6): countdown timer inline movido para
+  assets/product-countdown-timer.js (defer). O loader é idempotente — o
+  mesmo arquivo pode ser referenciado por múltiplos blocos countdown_timer
+  sem inicializar duas vezes (cada container usa a flag __countdownInited).
+{%- endcomment -%}
+<script src="{{ 'product-countdown-timer.js' | asset_url }}" defer="defer"></script>
+{% comment %}
+  <script>
+              (function() {
+    'use strict';
+
+    function initCountdownTimers() {
+      const countdownTimers = document.querySelectorAll('.countdown-timer');
+
+      if (countdownTimers.length === 0) return;
+
+      countdownTimers.forEach(function(timer) {
+        const isPerVisitor = timer.dataset.perVisitor === 'true';
+        const storageKey = 'countdown_timer_' + window.location.pathname;
+
+        let endDate;
+
+        if (isPerVisitor) {
+          // Per-visitor timer logic
+          const storedEndDate = localStorage.getItem(storageKey);
+
+          if (storedEndDate) {
+            endDate = parseInt(storedEndDate, 10);
+          } else {
+            // First visit - calculate the next local midnight for this visitor
+            function getNextMidnight() {
+              var now = new Date();          // visitor's local time
+              var target = new Date(now);
+              // 24:00 today = 00:00 tomorrow in their local timezone
+              target.setHours(24, 0, 0, 0);
+              return target.getTime();
+            }
+
+            endDate = getNextMidnight(); // Get the visitor's next local midnight
+            localStorage.setItem(storageKey, endDate.toString());
+          }
+        } else {
+          // Fixed date timer logic
+          const endDateString = timer.dataset.endDate;
+
+          if (!endDateString) {
+            console.warn('Countdown timer missing end date');
+            return;
+          }
+
+          endDate = new Date(endDateString).getTime();
+        }
+
+        const daysEl = timer.querySelector('[data-days]');
+        const hoursEl = timer.querySelector('[data-hours]');
+        const minutesEl = timer.querySelector('[data-minutes]');
+        const secondsEl = timer.querySelector('[data-seconds]');
+
+        if (!daysEl || !hoursEl || !minutesEl || !secondsEl) {
+          console.warn('Countdown timer missing required elements');
+          return;
+        }
+
+        function updateCountdown() {
+          const now = new Date().getTime();
+          const distance = endDate - now;
+
+          if (distance < 0) {
+            daysEl.textContent = '00';
+            hoursEl.textContent = '00';
+            minutesEl.textContent = '00';
+            secondsEl.textContent = '00';
+            return;
+          }
+
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          daysEl.textContent = String(days).padStart(2, '0');
+          hoursEl.textContent = String(hours).padStart(2, '0');
+          minutesEl.textContent = String(minutes).padStart(2, '0');
+          secondsEl.textContent = String(seconds).padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initCountdownTimers);
+    } else {
+      initCountdownTimers();
+    }
+
+    if (typeof Shopify !== 'undefined' && Shopify.designMode) {
+      document.addEventListener('shopify:section:load', initCountdownTimers);
+      document.addEventListener('shopify:block:select', initCountdownTimers);
+    }
+  })();
+
+            </script>
+{% endcomment %}

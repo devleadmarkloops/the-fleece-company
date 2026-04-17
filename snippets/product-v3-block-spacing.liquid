@@ -1,0 +1,14 @@
+{% comment %}
+  Renders a spacing block with configurable desktop/mobile heights.
+
+  Accepts:
+  - block: {Object} Block object
+
+  Mechanical extraction of the 'spacing' case from main-product-v2.liquid (lines 2361-2366).
+{% endcomment %}
+
+<div
+  class="spacing-section"
+  style="--spacing-section-desktop: {{ block.settings.desktop_height }}px; --spacing-section-mobile: {{ block.settings.mobile_height }}px;"
+  {{ block.shopify_attributes }}
+></div>

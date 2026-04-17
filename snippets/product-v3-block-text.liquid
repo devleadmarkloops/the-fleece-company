@@ -1,0 +1,25 @@
+{% comment %}
+  Renders a product info "text" block.
+
+  Accepts:
+  - block:   {Object} Block object
+  - product: {Object} Product object (for vendor link)
+
+  Mechanical extraction of the 'text' case from main-product-v2.liquid (lines 1207-1222).
+{% endcomment %}
+
+{%- if block.settings.text != blank -%}
+  <p
+    class="product__text{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
+    {{ block.shopify_attributes }}
+  >
+    {%- liquid
+      if block.settings.text != product.vendor
+        render 'icon-accordion', icon: block.settings.icon
+        echo block.settings.text
+      else
+        echo product.vendor | link_to_vendor: class: 'link'
+      endif
+    -%}
+  </p>
+{%- endif -%}

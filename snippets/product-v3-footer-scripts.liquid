@@ -1,0 +1,34 @@
+{% comment %}
+  Renders the footer-level scripts that live INSIDE the <product-info> custom element
+  (after the </section> close and before </product-info>) for main-product-v3.
+
+  Etapa 2 — F4: a maior parte do JS inline foi movida para
+  assets/product-v3-controllers.js (carregado via defer), ficando neste
+  snippet apenas o que depende de interpolação Liquid:
+    - tags <script src=...> condicionais (product-modal, media-gallery, product-model)
+    - <script type="application/json"> (ProductJSON 3D e structured_data JSON-LD)
+
+  Accepts:
+  - product:        {Object} Product object (for media.size, id, structured_data)
+  - section:        {Object} Section object (for section.id)
+  - first_3d_model: {Object|Nil} Pre-resolved 3D model media (nil if none)
+{% endcomment %}
+
+  <script src="{{ 'product-v3-controllers.js' | asset_url }}" defer="defer"></script>
+
+  {%- if product.media.size > 0 -%}
+    <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+
+  {%- if first_3d_model -%}
+    <script type="application/json" id="ProductJSON-{{ product.id }}">
+      {{ product.media | where: 'media_type', 'model' | json }}
+    </script>
+
+    <script src="{{ 'product-model.js' | asset_url }}" defer></script>
+  {%- endif -%}
+
+  <script type="application/ld+json">
+    {{ product | structured_data }}
+  </script>

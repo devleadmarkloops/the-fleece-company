@@ -1,0 +1,57 @@
+{% comment %}
+  Renders the icon_text block.
+
+  Accepts:
+  - block: {Object} Block object
+
+  Mechanical extraction of the 'icon_text' case from main-product-v2.liquid (lines 1458-1487).
+{% endcomment %}
+
+<div
+  class="icon-text-wr {% if block.settings.enable_bg %} bg-wr{% endif %}"
+  {{ block.shopify_attributes }}
+  style="--icon-size: {{ block.settings.icon_size }}px; --icon-size-mob: {{ block.settings.icon_size_mob }}px;"
+>
+  {% comment %}
+    CWV FIX (CLS): reservar geometria final do ícone no HTML para evitar
+    shift quando o CSS assíncrono aplicar width:var(--icon-size).
+
+    Antes: width="{{ icon.width }}" height="{{ icon.height }}" (ex.: 512×512)
+    → reservava o tamanho bruto do asset e colapsava para ~20-30px assim que
+      o CSS chegasse, empurrando todo o painel direito da PDP para cima
+      (0.074 + 0.045 atribuídos a .icon-text-wr > img no Lighthouse).
+
+    Agora: width/height = icon_size (respeitando a aspect-ratio do asset),
+    e servimos uma versão do PNG na resolução 2x para retina sem desperdício.
+  {% endcomment %}
+  {% if block.settings.icon != blank %}
+    {%- assign cwv_icon_ar = block.settings.icon.aspect_ratio | default: 1.0 -%}
+    {%- assign cwv_icon_w = block.settings.icon_size | default: 30 -%}
+    {%- assign cwv_icon_h = cwv_icon_w | times: 1.0 | divided_by: cwv_icon_ar | round: 0 -%}
+    {%- if cwv_icon_h < 1 -%}{%- assign cwv_icon_h = cwv_icon_w -%}{%- endif -%}
+    {%- assign cwv_icon_src_w = cwv_icon_w | times: 2 -%}
+    <img
+      src="{{ block.settings.icon | image_url: width: cwv_icon_src_w }}"
+      width="{{ cwv_icon_w }}"
+      height="{{ cwv_icon_h }}"
+      alt="Icon"
+      loading="lazy"
+      decoding="async"
+    >
+  {% endif %}
+  {% if block.settings.icon_richtext != blank %}
+    <div
+      class="icon-text"
+      style="--text-size: {{ block.settings.text_size }}px; --text-size-mob: {{ block.settings.text_size_mob }}px; --text-color: {{ block.settings.text_color }};"
+    >
+      {{ block.settings.icon_richtext }}
+    </div>
+  {% else %}
+    <span
+      class="icon-text"
+      style="--text-size: {{ block.settings.text_size }}px; --text-size-mob: {{ block.settings.text_size_mob }}px; --text-color: {{ block.settings.text_color }};"
+    >
+      {{ block.settings.icon_text }}
+    </span>
+  {% endif %}
+</div>

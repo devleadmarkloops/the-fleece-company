@@ -38,7 +38,6 @@
 
     {% render 'meta-tags' %}
 
-    {%- comment -%}CWV FIX: Swiper removido do theme.liquid. Cada componente que usa Swiper agora carrega via swiper-loader.liquid com validação de duplicatas{%- endcomment -%}
     <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -59,58 +58,40 @@
       {%- endfor -%}
     {%- endif -%}
 
-    <link rel="dns-prefetch" href="https://static.newsbreak.com">
-    <link rel="dns-prefetch" href="https://amplify.outbrain.com">
-    <link rel="dns-prefetch" href="https://cdn.taboola.com">
-    <link rel="dns-prefetch" href="https://www.clarity.ms">
+    {%- comment -%}
+      CWV FIX (L1): Preload LCP image on product pages.
+      The PDP hero is the featured media of the selected (or first available) variant.
+      Mirrors the sizes used by snippets/product-image.liquid so the preload is
+      picked up instead of triggering an extra download.
+    {%- endcomment -%}
+    {%- if request.page_type == 'product' and product != blank -%}
+      {%- assign lcp_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
+      {%- if lcp_media != blank and lcp_media.preview_image != blank -%}
+        {%- comment -%}
+          CWV FIX (LCP-2): preload `imagesizes` agora replica o `sizes` do
+          <img> emitido por snippets/product-image.liquid (mesma fórmula).
+          Antes: `(min-width: 990px) 50vw, 100vw` — desbatia com o real
+          `(min-width:990px) calc(55vw - 10rem)` → browser ignorava preload
+          e baixava de novo (1760ms de Resource load delay no Lighthouse).
+          Agora: 100vw como base (mobile, onde Lighthouse mede); o desktop
+          usa um valor menor mas o browser faz fallback para o maior elegível.
+          Também declara `widths` idêntico ao image_tag do snippet.
+        {%- endcomment -%}
+        <link rel="preload" as="image"
+          href="{{ lcp_media.preview_image | image_url: width: 1500 }}"
+          imagesrcset="{{ lcp_media.preview_image | image_url: width: 165 }} 165w, {{ lcp_media.preview_image | image_url: width: 360 }} 360w, {{ lcp_media.preview_image | image_url: width: 535 }} 535w, {{ lcp_media.preview_image | image_url: width: 750 }} 750w, {{ lcp_media.preview_image | image_url: width: 1100 }} 1100w, {{ lcp_media.preview_image | image_url: width: 1500 }} 1500w"
+          imagesizes="(min-width: 990px) calc(55vw - 10rem), (min-width: 750px) calc((100vw - 10rem) / 2), calc(100vw - 3rem)"
+          fetchpriority="high">
+      {%- endif -%}
+    {%- endif -%}
 
-    <script>
-      window.addEventListener('load', function() {
-        !(function (e, n, t, i, p, a, s) {
-          e[i] ||
-            (((p = e[i] =
-              function () {
-                p.process ? p.process.apply(p, arguments) : p.queue.push(arguments);
-              }).queue = []),
-            (p.t = +new Date()),
-            ((a = n.createElement(t)).async = 1),
-            (a.src = 'https://static.newsbreak.com/business/tracking/nbpixel.js?t=' + 864e5 * Math.ceil(new Date() / 864e5)),
-            (s = n.getElementsByTagName(t)[0]).parentNode.insertBefore(a, s));
-        })(window, document, 'script', 'nbpix'),
-          nbpix('init', 'ID-1885415750284668929'),
-          nbpix('event', 'pageload');
-      }, { once: true });
-    </script>
-
-    <script>
-      window.addEventListener('load', function() {
-        !function(_window, _document) {
-          var OB_ADV_ID = '00671669d458c7010d5ffb2e665f2a3061';
-          if (_window.obApi) {
-            var toArray = function(object) {
-              return Object.prototype.toString.call(object) === '[object Array]' ? object : [object];
-            };
-            _window.obApi.marketerId = toArray(_window.obApi.marketerId).concat(toArray(OB_ADV_ID));
-            return;
-          }
-          var api = _window.obApi = function() {
-            api.dispatch ? api.dispatch.apply(api, arguments) : api.queue.push(arguments);
-          };
-          api.version = '1.1';
-          api.loaded = true;
-          api.marketerId = OB_ADV_ID;
-          api.queue = [];
-          var tag = _document.createElement('script');
-          tag.async = true;
-          tag.src = '//amplify.outbrain.com/cp/obtp.js';
-          tag.type = 'text/javascript';
-          var script = _document.getElementsByTagName('script')[0];
-          script.parentNode.insertBefore(tag, script);
-        }(window, document);
-
-        obApi('track', 'PAGE_VIEW');
-      }, { once: true });
-    </script>
+    {%- comment -%}
+      CWV FIX (P3): dns-prefetch clarity.ms removido — o script Clarity
+      só carrega no window.load event (após LCP), então economizar DNS antes
+      não agrega valor e só adiciona ruído no <head>. Mantido o preconnect
+      gstatic/fonts.gstatic (L41-42) porque é usado por snippets/buy-buttons*
+      que carregam Pinyon Script + Playfair Display.
+    {%- endcomment -%}
 
     <script type="importmap">
       {
@@ -167,14 +148,19 @@
         crossorigin
       >
     {%- endunless -%}
-    {%- comment -%} Heading stack (CooperBTLight): preload reduz CLS intermitente em heroes/banners antes da pintura. {%- endcomment -%}
-    <link
-      rel="preload"
-      as="font"
-      href="https://cdn.shopify.com/s/files/1/0872/8906/9899/files/CooperBTLight_normal_normal.otf?v=1771310699"
-      type="font/otf"
-      crossorigin
-    >
+    {%- comment -%}
+      CWV FIX (P1): Preload do CooperBTLight.otf REMOVIDO.
+      Razão: arquivo era OTF (~300KB), que é 2-3x maior que WOFF2 e mais
+      pesado de processar. Além disso o preload forçava a fonte a baixar
+      ANTES da imagem LCP, competindo por banda. Com font-display: swap
+      no @font-face (já presente em snippets/css-variables-v2.liquid),
+      o heading aparece com fallback até a fonte chegar — FOUT breve
+      em vez de LCP degradado.
+
+      PRÓXIMO PASSO (usuário): rodar scripts/convert-fonts.sh para
+      converter as 10 fontes TTF/OTF do tema para WOFF2 (ganho estimado
+      de 600KB-1MB de download inicial). Ver reports/fonts-guide.md.
+    {%- endcomment -%}
     {% # theme-check-enable %}
     
     {%- if settings.predictive_search_enabled -%}
@@ -199,30 +185,6 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
-
-    {%- comment -%}
-      lazysizes removido: o tema usa lazyimage.js (custom element nativo) e o GemPages
-      usa gp-lazyload.v2.js próprio. O script anterior apontava para CDN de outra loja
-      (quickstart-41d588e3), o que era um risco de estabilidade e uma requisição extra.
-    {%- endcomment -%}
-
-    {%- comment -%}CWV FIX: Defer Taboola pixel to load event{%- endcomment -%}
-    <!-- Taboola Pixel Code -->
-    <script>
-      window.addEventListener('load', function() {
-        window._tfa = window._tfa || [];
-        window._tfa.push({notify: 'event', name: 'page_view', id: 1776931});
-        !function (t, f, a, x) {
-              if (!document.getElementById(x)) {
-                  t.async = 1;t.src = a;t.id=x;f.parentNode.insertBefore(t, f);
-              }
-        }(document.createElement('script'),
-        document.getElementsByTagName('script')[0],
-        '//cdn.taboola.com/libtrc/unip/1776931/tfa.js',
-        'tb_tfa_script');
-      }, { once: true });
-    </script>
-    <!-- End of Taboola Pixel Code -->
 
     {% render 'kiwiSizing' %}
     {%- comment -%}CWV FIX: Defer Microsoft Clarity script to load event{%- endcomment -%}
@@ -300,7 +262,13 @@
     </svg>
 
     {%- if settings.image_loading_bar_enabled %}
-      <script src="{{ 'lazyimage.js' | asset_url }}" async></script>
+      {%- comment -%}
+        CWV FIX (P4): async→defer. lazyimage.js depende do DOM (procura
+        todas as <img is="lazy-image"> na página). Com async podia rodar
+        antes do parse terminar e perder imagens. defer garante que roda
+        só após parse completo, sem regredir LCP.
+      {%- endcomment -%}
+      <script src="{{ 'lazyimage.js' | asset_url }}" defer="defer"></script>
     {% endif -%}
     {%- if settings.predictive_search_enabled -%}
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
@@ -321,142 +289,16 @@
       <script>window.location.replace('/?open_cart=true');</script>
     {%- endif -%}
 
-    <script>
-      (function() {
-        var params = new URLSearchParams(window.location.search);
-        if (params.has('open_cart')) {
-          var cleanUrl = new URL(window.location);
-          cleanUrl.searchParams.delete('open_cart');
-          window.history.replaceState({}, '', cleanUrl);
-
-          function tryOpenMiniCart() {
-            var miniCart = document.querySelector('mini-cart');
-            if (miniCart && typeof miniCart.open === 'function') {
-              miniCart.open();
-            } else {
-              setTimeout(tryOpenMiniCart, 150);
-            }
-          }
-
-          if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function() { setTimeout(tryOpenMiniCart, 300); });
-          } else {
-            setTimeout(tryOpenMiniCart, 300);
-          }
-        }
-      })();
-    </script>
-    <script>
-        const TIMER_DURATION = 300;
-        let timerInterval = null;
-        let timerEndTime = null;
-
-        window.initializeTimer = function() {
-            // Only set endTime if it doesn't exist or has expired
-            if (!timerEndTime || timerEndTime <= Date.now()) {
-                timerEndTime = Date.now() + (TIMER_DURATION * 1000);
-            }
-            
-            // Clear any existing interval to prevent duplicates
-            if (timerInterval) {
-                clearInterval(timerInterval);
-            }
-            
-            timerInterval = setInterval(() => {
-                const remaining = Math.max(0, timerEndTime - Date.now());
-                const seconds = Math.ceil(remaining / 1000);
-                
-                if (seconds <= 0) {
-                    timerEndTime = Date.now() + (TIMER_DURATION * 1000);
-                }
-                
-                const mins = Math.floor(seconds / 60);
-                const secs = seconds % 60;
-                const timerElement = document.getElementById('timer-d5');
-                if (timerElement) {
-                    timerElement.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-                }
-            }, 100);
-        }
-        
-        document.addEventListener('click', (e) => {
-          if (e.target.classList.contains('checkout-btn-d5')) {
-            const savedState = localStorage.getItem('cozycare_protection');
-              if (savedState === 'true') {
-                        e.preventDefault();
-                       fetch('/cart/add.js', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                id: e.target.getAttribute('data-variant-id'), 
-                                quantity: 1       
-                            })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                          window.location.href = '/checkout'
-                        })
-                        .catch(error => {
-                          window.location.href = '/checkout'
-                        });
-
-                      }
-                    }
-                });
-
-          window.initOrderProtection = function() {
-            const toggle = document.getElementById('orderProtection');
-            const subtotal = document.querySelector('.text-price-d5');
-            if (toggle) {
-                const savedState = localStorage.getItem('cozycare_protection');
-                if (savedState === 'true') {
-                    toggle.checked = true;
-                      subtotal.textContent = subtotal.getAttribute('data-checked-price');
-                }else{
-                  subtotal.textContent = subtotal.getAttribute('data-unchecked-price');
-                }
-            }
-        }
-
-        window.handleProtectionChange = function(toggle) {
-            const subtotal = document.querySelector('.text-price-d5');
-
-            if (toggle && toggle.checked !== undefined && subtotal) {
-                if (toggle.checked) {
-                    subtotal.textContent = subtotal.getAttribute('data-checked-price');
-                } else {
-                    subtotal.textContent = subtotal.getAttribute('data-unchecked-price');
-                }
-
-                localStorage.setItem('cozycare_protection', toggle.checked.toString());
-            }
-        }
-      document.addEventListener('DOMContentLoaded', function() {
-        const key = parseInt(document.querySelector('.remove-protection-d5').getAttribute('data-key'));
-        fetch('/cart/change.js', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                line: key,
-                quantity: 0
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            //window.location.href = '/cart';
-        })
-        .catch(error => {
-            console.error('Error removing item from cart:', error);
-        });
-    });
-
-
-
-    </script>
+    {%- comment -%}
+      CWV FIX (P2): ~135 linhas de JS inline (timer 5min com setInterval 100ms,
+      checkout-btn handler, initOrderProtection, fetch /cart/change.js no
+      DOMContentLoaded) foram movidas para assets/theme-inline-body.js.
+      Ganhos: parser não bloqueia em script inline; setInterval só roda quando
+      #timer-d5 existe (antes rodava em toda página); intervalo 100ms→1000ms
+      (timer mostra segundos, não milissegundos); fetch só dispara com key
+      válida (antes disparava NaN→422 em toda pageview sem protection).
+    {%- endcomment -%}
+    <script src="{{ 'theme-inline-body.js' | asset_url }}" defer="defer"></script>
 
     {% if settings.disable_inspect %}
       <script>

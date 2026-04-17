@@ -23,7 +23,21 @@
   %}
 {% endcomment %}
 
-{%- capture sizes -%}(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | times: media_width | round }}px, (min-width: 990px) calc({{ media_width | times: 100 }}vw - 10rem), (min-width: 750px) calc((100vw - 10rem) / 2), calc(100vw - 3rem){%- endcapture -%}
+{%- comment -%}
+  CWV FIX (LCP): `sizes` deve refletir exatamente o `imagesizes` do
+  <link rel="preload" as="image"> emitido em layout/theme.liquid para
+  request.page_type == 'product'. Antes o primeiro termo usava um valor em
+  pixel fixo `(min-width: page_width) (page_width-100)*media_width px` que
+  divergia da fórmula viewport-relative do preload (`calc(55vw - 10rem)`) em
+  viewport >= page_width — o preloader selecionava uma URL de srcset e o
+  <img> pedia outra, forçando re-download da LCP (aumenta "Resource load
+  delay").
+
+  Mantemos apenas as 3 cláusulas viewport-relative, idênticas às do preload.
+  Em viewports acima de page_width o browser ainda seleciona o maior item
+  elegível do srcset (1500w), então não há regressão visual.
+{%- endcomment -%}
+{%- capture sizes -%}(min-width: 990px) calc({{ media_width | times: 100 }}vw - 10rem), (min-width: 750px) calc((100vw - 10rem) / 2), calc(100vw - 3rem){%- endcapture -%}
 {%- liquid
   comment
     Default to lazy-loading to keep mobile swiping smooth.
@@ -42,6 +56,23 @@
 
   assign alt = media.alt | escape | split: '#' | first
   assign widths = '165, 360, 535, 750, 1100, 1500'
+
+  comment
+    CWV FIX (LCP): a featured image que é o LCP candidate da PDP NÃO pode
+    passar pelo wrapper <use-animate data-animate="zoom-fade-small">, porque
+    o CSS [data-animate-image] use-animate[data-animate^=zoom-fade] .image-animate
+    aplica opacity:0 até o JS adicionar o atributo `animate`. Com defer,
+    isso adia o pintar da LCP em 700-1000ms (Element render delay).
+    Também não pode usar `is: 'lazy-image'` porque isso obriga o browser
+    a esperar o customElement upgrade antes de finalizar o paint.
+
+    Para a featured eager: emite <img> nativa com loading=eager + fetchpriority=high
+    direto, sem custom element e sem wrapper de animação.
+  endcomment
+  assign is_lcp_image = false
+  if position == 'featured' and image_loading == 'eager' and media.media_type == 'image'
+    assign is_lcp_image = true
+  endif
 -%}
 
 <noscript>
@@ -102,21 +133,75 @@
     </span>
   {%- endif -%}
 
-  <use-animate data-animate="{% if position == 'featured' %}zoom-fade-small{% else %}fade-up{% endif %}" style="--intrinsic-width:{{ media.preview_image.width }}px;" class="media-wrapper{% if settings.use_intrinsic_image_size_on_product_page %} media-wrapper--intrinsic-size{% endif %}">
-    <div class="product__media image-animate media media--{{ image_ratio }}{% if mobile_image_ratio %} media-mobile--{{ mobile_image_ratio }}{% endif %}"
-      {%- if image_ratio == 'adapt' or mobile_image_ratio == 'adapt' %} style="--image-ratio-percent: {{ 1 | divided_by: media.preview_image.aspect_ratio | times: 100 }}%;"{% endif -%}
-    >
-      {{ media.preview_image | image_url: width: 1500 | image_tag:
-        loading: image_loading,
-        decoding: image_decoding,
-        fetchpriority: image_fetchpriority,
-        sizes: sizes,
-        widths: widths,
-        alt: alt,
-        is: 'lazy-image'
-      }}
+  {%- comment -%}
+    CWV FIX (CLS 0.502 no LCP wrapper): o wrapper .product-media-wrapper--lcp
+    (e o <use-animate> do path não-LCP) não tinha reserva de altura própria;
+    dependia exclusivamente de o filho `.product__media.media.media--adapt`
+    propagar altura via `height:0; padding-bottom:var(--image-ratio-percent)`.
+
+    Por que isso gerou shift gigante depois da refatoração do CSS crítico:
+
+      - `base-v2.css` (onde mora `.media > * { position:absolute; width:100%;
+        height:100% }`) é carregada async (preload + onload swap).
+      - Antes dela chegar, o <img> fica `position:static` dentro de um pai
+        com `height:0; overflow:hidden`. A altura efetiva do wrapper depende
+        do engine resolver a ancestry: se o filho contribuir com altura
+        (via padding-bottom), wrapper fica na altura correta; se o engine
+        tratar o pai com height:0 como 0 (o que acontece em alguns paths
+        de reflow quando o <img> ainda não baixou a primeira resposta de
+        bytes), o wrapper colapsa para 0 até o async CSS promover o <img>
+        pra absolute e o filho voltar a "reservar" via padding-bottom.
+      - Esse flip 0 → altura-do-padding foi medido como 0.502 de CLS no
+        Lighthouse desktop — o wrapper some no primeiro paint e depois
+        reaparece, empurrando todo o conteúdo abaixo.
+
+    Fix: reservar `aspect-ratio` nativo DIRETAMENTE no wrapper via inline
+    style. Com width:100% + aspect-ratio + height:auto, a altura do wrapper
+    é `width / aspect` desde o 1º paint, independente do timing do async
+    CSS, do upgrade de <use-animate>, e do modo de posicionamento do <img>.
+    Mantemos o padding-bottom do filho como fallback pra browsers sem
+    aspect-ratio (~<5% share). Em mobile com mobile_image_ratio fixo
+    (portrait/square), o filho cresce além do aspect-ratio do wrapper quando
+    o async CSS chega — mas isso já acontecia antes do fix, sem regressão.
+  {%- endcomment -%}
+  {%- assign preview_aspect = media.preview_image.aspect_ratio | default: 1 -%}
+  {%- if is_lcp_image -%}
+    {%- comment -%}
+      CWV FIX (LCP): caminho da imagem LCP — sem <use-animate> e sem
+      `is: lazy-image`. Pinta no primeiro paint sem esperar JS.
+    {%- endcomment -%}
+    <div class="media-wrapper product-media-wrapper--lcp{% if settings.use_intrinsic_image_size_on_product_page %} media-wrapper--intrinsic-size{% endif %}" style="--intrinsic-width:{{ media.preview_image.width }}px;aspect-ratio:{{ preview_aspect }};">
+      <div class="product__media media media--{{ image_ratio }}{% if mobile_image_ratio %} media-mobile--{{ mobile_image_ratio }}{% endif %}"
+        {%- if image_ratio == 'adapt' or mobile_image_ratio == 'adapt' %} style="--image-ratio-percent: {{ 1 | divided_by: preview_aspect | times: 100 }}%;"{% endif -%}
+      >
+        {{ media.preview_image | image_url: width: 1500 | image_tag:
+          loading: 'eager',
+          decoding: 'async',
+          fetchpriority: 'high',
+          sizes: sizes,
+          widths: widths,
+          alt: alt,
+          class: 'product-media-img--lcp'
+        }}
+      </div>
     </div>
-  </use-animate>
+  {%- else -%}
+    <use-animate data-animate="{% if position == 'featured' %}zoom-fade-small{% else %}fade-up{% endif %}" style="--intrinsic-width:{{ media.preview_image.width }}px;aspect-ratio:{{ preview_aspect }};" class="media-wrapper{% if settings.use_intrinsic_image_size_on_product_page %} media-wrapper--intrinsic-size{% endif %}">
+      <div class="product__media image-animate media media--{{ image_ratio }}{% if mobile_image_ratio %} media-mobile--{{ mobile_image_ratio }}{% endif %}"
+        {%- if image_ratio == 'adapt' or mobile_image_ratio == 'adapt' %} style="--image-ratio-percent: {{ 1 | divided_by: preview_aspect | times: 100 }}%;"{% endif -%}
+      >
+        {{ media.preview_image | image_url: width: 1500 | image_tag:
+          loading: image_loading,
+          decoding: image_decoding,
+          fetchpriority: image_fetchpriority,
+          sizes: sizes,
+          widths: widths,
+          alt: alt,
+          is: 'lazy-image'
+        }}
+      </div>
+    </use-animate>
+  {%- endif -%}
   {%- if zoom -%}
     <button class="product__media-toggle" type="button" aria-haspopup="dialog" data-media-id="{{ media.id }}">
       <span class="visually-hidden">

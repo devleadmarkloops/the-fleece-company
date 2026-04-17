@@ -1,0 +1,68 @@
+{% comment %}
+  Renders the inventory_status block (stock label + progress bar + incoming).
+
+  Accepts:
+  - block:   {Object} Block object
+  - product: {Object} Product object
+  - section: {Object} Section object
+
+  Mechanical extraction of the 'inventory_status' case from main-product-v2.liquid (lines 2107-2164).
+{% endcomment %}
+
+<ul
+  class="product__inventory list-unstyled"
+  id="Inventory-{{ section.id }}"
+  {{ block.shopify_attributes }}
+>
+  {%- liquid
+    assign inventory_visible = false
+    if product.selected_or_first_available_variant.inventory_management == 'shopify'
+      if product.selected_or_first_available_variant.inventory_quantity <= block.settings.inventory_threshold and product.selected_or_first_available_variant.inventory_quantity >= 0
+        assign inventory_visible = true
+      endif
+    endif
+
+    if product.selected_or_first_available_variant.inventory_quantity == 0 or product.selected_or_first_available_variant.inventory_policy == 'continue'
+      assign inventory_visible = false
+    endif
+
+    assign show_incoming = false
+    if product.selected_or_first_available_variant.incoming and inventory_visible == false and product.selected_or_first_available_variant.inventory_quantity <= block.settings.inventory_threshold
+      assign show_incoming = true
+    endif
+  -%}
+  {%- if product.selected_or_first_available_variant.available and inventory_visible -%}
+    <li class="product__inventory-item">
+      {{
+        'products.product.inventory.stock_label'
+        | t: count: product.selected_or_first_available_variant.inventory_quantity
+      }}
+      <progress-bar
+        class="{{ block.settings.color_scheme }}"
+        data-quantity="{{ product.selected_or_first_available_variant.inventory_quantity }}"
+      ></progress-bar>
+    </li>
+  {%- endif -%}
+  {%- if block.settings.show_inventory_transfer and show_incoming -%}
+    <li class="product__inventory-item">
+      <span class="icon-and-text">
+        <span class="icon icon--inventory"></span>
+        <span class="js-incoming-text">
+          {%- liquid
+            if product.selected_or_first_available_variant.next_incoming_date
+              assign date = product.selected_or_first_available_variant.next_incoming_date | date: format: 'date'
+              if product.selected_or_first_available_variant.available
+                echo 'products.product.inventory.will_not_ship_until' | t: date: date
+              else
+                echo 'products.product.inventory.will_be_in_stock_after' | t: date: date
+              endif
+            else
+              echo 'products.product.inventory.waiting_for_stock' | t
+            endif
+          -%}
+        </span>
+      </span>
+    </li>
+  {%- endif -%}
+</ul>
+{{ 'component-product-inventory.css' | asset_url | stylesheet_tag }}

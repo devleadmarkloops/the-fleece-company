@@ -33,7 +33,7 @@
       }
     },
     "main": {
-      "type": "main-product-v2",
+      "type": "main-product-v3",
       "blocks": {
         "donation_impact_8kJ6Hj": {
           "type": "donation_impact",

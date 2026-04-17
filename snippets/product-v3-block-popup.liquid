@@ -1,0 +1,29 @@
+{% comment %}
+  Renders the popup opener (button/link). The actual modal content is rendered in
+  product-v3-modals for all popup-type blocks.
+
+  Accepts:
+  - block: {Object} Block object
+
+  Mechanical extraction of the 'popup' case from main-product-v2.liquid (lines 2081-2100).
+{% endcomment %}
+
+<modal-opener
+  class="product-popup-modal__opener no-js-hidden"
+  data-modal="#PopupModal-{{ block.id }}"
+  {{ block.shopify_attributes }}
+>
+  <button
+    id="ProductPopup-{{ block.id }}"
+    class="product-popup-modal__button link link-with-icon"
+    type="button"
+    aria-haspopup="dialog"
+  >
+    {% render 'icon-accordion', icon: block.settings.icon %}
+    <span class="label">{{ block.settings.link_label | default: block.settings.page.title }}</span>
+  </button>
+</modal-opener>
+<a href="{{ block.settings.page.url }}" class="product-popup-modal__button link link-with-icon no-js">
+  {% render 'icon-accordion', icon: block.settings.icon %}
+  <span class="label">{{ block.settings.link_label | default: block.settings.page.title }}</span>
+</a>

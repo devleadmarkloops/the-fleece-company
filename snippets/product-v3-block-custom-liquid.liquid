@@ -1,0 +1,17 @@
+{% comment %}
+  Renders the custom_liquid block.
+
+  Accepts:
+  - block:   {Object} Block object
+  - section: {Object} Section object
+
+  Mechanical extraction of the 'custom_liquid' case from main-product-v2.liquid (lines 1987-1994).
+{% endcomment %}
+
+<div
+  class="custom__liquid custom__liquid-{{ section.id }}"
+  id="custom__liquid-{{ section.id }}-{{ block.id }}"
+  {{ block.shopify_attributes }}
+>
+  {{ block.settings.custom_liquid }}
+</div>

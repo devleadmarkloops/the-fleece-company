@@ -1,0 +1,27 @@
+{% comment %}
+  Renders the payment_icons block.
+
+  Accepts:
+  - block: {Object} Block object
+
+  Mechanical extraction of the 'payment_icons' case from main-product-v2.liquid (lines 1826-1844).
+{% endcomment %}
+
+<div class="payment-icons-wr" {{ block.shopify_attributes }}>
+  <ul class="payment-badges" role="list">
+    {% assign enabled_payment_types = shop.enabled_payment_types %}
+    {% if block.settings.enabled_payment_types != blank %}
+      {% assign enabled_payment_types = block.settings.enabled_payment_types
+        | remove: ' '
+        | split: ','
+      %}
+    {% endif %}
+
+    {%- for type in enabled_payment_types -%}
+      {% assign payment_type = type | strip %}
+      <li class="list-payment__item">
+        {{ payment_type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>

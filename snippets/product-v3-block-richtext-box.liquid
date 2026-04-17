@@ -1,0 +1,24 @@
+{% comment %}
+  Renders the richtext_box block (with market-specific text).
+
+  Accepts:
+  - block: {Object} Block object
+
+  Mechanical extraction of the 'richtext_box' case from main-product-v2.liquid (lines 1442-1457).
+{% endcomment %}
+
+<div
+  class="rich-text-box"
+  {{ block.shopify_attributes }}
+  style="--text-size: {{ block.settings.text_size }}px; --text-size-mob: {{ block.settings.text_size_mob }}px;"
+>
+  {%- if localization.market.handle == 'usa' or localization.market.handle == 'default' -%}
+    {%- if block.settings.us_rich_text != blank -%}
+      {{ block.settings.us_rich_text }}
+    {%- else -%}
+      {{ block.settings.rich_text }}
+    {%- endif -%}
+  {%- else -%}
+    {{ block.settings.rich_text }}
+  {%- endif -%}
+</div>

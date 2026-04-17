@@ -1,0 +1,15 @@
+{% comment %}
+  Renders the share block by delegating to the existing share-button snippet.
+
+  Accepts:
+  - block:   {Object} Block object
+  - product: {Object} Product object
+
+  Mechanical extraction of the 'share' case from main-product-v2.liquid (lines 2101-2106).
+{% endcomment %}
+
+{%- liquid
+  assign share_url = product.selected_variant.url | default: product.url | prepend: request.origin
+  assign share_image = product.selected_or_first_available_variant.featured_media.preview_image | default: product.featured_media.preview_image
+  render 'share-button', block: block, share_link: share_url, share_image: share_image, share_title: product.title
+-%}

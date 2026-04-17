@@ -33,7 +33,7 @@
       }
     },
     "main": {
-      "type": "main-product-v2",
+      "type": "main-product-v3",
       "blocks": {
         "donation_impact_CETWbb": {
           "type": "donation_impact",

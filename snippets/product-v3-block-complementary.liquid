@@ -1,0 +1,117 @@
+{% comment %}
+  Renders the complementary products block (product recommendations).
+
+  Accepts:
+  - block:   {Object} Block object
+  - product: {Object} Product object
+  - section: {Object} Section object
+
+  Mechanical extraction of the 'complementary' case from main-product-v2.liquid (lines 2367-2430).
+{% endcomment %}
+
+{%- comment -%}
+  CWV FIX (F2): regras CSS específicas do upsell complementar + card d5
+  (antes viviam no <style> global do head-assets). Só entram no HTML quando
+  o bloco complementary é usado — evita custo em PDPs sem upsell.
+{%- endcomment -%}
+<style>
+  .varian-selector-d5 select {
+    height: 2rem;
+    font-size: 1.1rem;
+    padding: 0 21px 0 7px;
+    border-radius: 4px;
+  }
+  .complementary-products .card-wrapper .full-unstyled-link {
+    display: none;
+  }
+  .complementary-products .summary__title {
+    justify-content: center;
+    font-size: 20px;
+  }
+  .complementary-products li {
+    padding: 12px;
+    margin: 3px 0;
+    box-shadow: .25rem .25rem .75rem #0000001f;
+  }
+  #com-form-d5 button {
+    width: 62px;
+    height: 29px;
+    background: #111;
+    color: #fff;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #com-form-d5 button.loading,
+  #com-form-d5 button.disable {
+    opacity: .5;
+    pointer-events: none;
+  }
+</style>
+
+<product-recommendations
+  class="complementary-products{% if block.settings.make_collapsible_row %} is-accordion{% endif %} no-js-hidden"
+  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ block.settings.product_list_limit }}&intent=complementary"
+>
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    {%- capture complementary_products -%}
+  <ul class="list-unstyled" role="list" style="--image-position: {{ block.settings.image_position }}">
+    {%- for product in recommendations.products -%}
+      <li>
+        {% render 'd5-card-product',
+          card_product: product,
+          card_collection: collection,
+          media_size: block.settings.image_ratio,
+          show_secondary_image: false,
+          show_quick_buy: false,
+          show_vendor: block.settings.show_vendor,
+          show_rating: false,
+          enable_quick_view: false,
+          d5_icon: true,
+          enable_color_swatches: false,
+          enable_countdown: false,
+          enable_image_fill: block.settings.enable_image_fill,
+          button_custom_class: 'button button--small button--cta'
+        %}
+      </li>
+    {%- endfor -%}
+  </ul>
+{%- endcapture -%}
+    {%- if block.settings.make_collapsible_row -%}
+      <accordion-tab class="product__accordion accordion" {{ block.shopify_attributes }}>
+        <details open>
+          <summary>
+            <span class="summary__title">
+              {% render 'icon-accordion', icon: block.settings.icon %}
+              <span class="accordion__title">
+                {{ block.settings.heading | escape }}
+              </span>
+            </span>
+            {% render 'icon', icon: 'caret' %}
+          </summary>
+          <div class="accordion__content">
+            {{ complementary_products }}
+          </div>
+        </details>
+      </accordion-tab>
+    {%- else -%}
+      <div class="product__accordion accordion" {{ block.shopify_attributes }}>
+        <span class="summary__title">
+          {% render 'icon-accordion', icon: block.settings.icon %}
+          <span class="accordion__title">
+            {{ block.settings.heading | escape }}
+          </span>
+        </span>
+        <div class="pd-content">
+          {{ complementary_products }}
+        </div>
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+  {{ 'component-card.css' | asset_url | stylesheet_tag }}
+  {{ 'section-product-recommendations.css' | asset_url | stylesheet_tag }}
+  {{ 'component-complementary-products.css' | asset_url | stylesheet_tag }}
+</product-recommendations>

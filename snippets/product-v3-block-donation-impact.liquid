@@ -1,0 +1,74 @@
+{% comment %}
+  Renders the donation_impact block with progress bar.
+
+  Accepts:
+  - block:   {Object} Block object
+  - product: {Object} Product object (unused but kept for call consistency)
+
+  Mechanical extraction of the 'donation_impact' case from main-product-v2.liquid (lines 1223-1288).
+{% endcomment %}
+
+{%- liquid
+  assign raised = shop.metafields.custom.donations_raised | default: block.settings.raised
+  assign goal = shop.metafields.custom.donation_goal | default: block.settings.goal
+  assign goal = goal | times: 100
+  assign raised = raised | times: 100
+  assign progress = raised | times: 100 | divided_by: goal
+  if progress == 0 and raised > 0
+    assign progress = 1
+  endif
+  if progress > 100
+    assign progress = 100
+  endif
+-%}
+<div class="donation-impact-block {{ block.settings.display }}-device {% if block.settings.full_width %} mobile_full{% endif %}" {{ block.shopify_attributes }} style="max-width: 100%;">
+  <div class="donation-row{% if block.settings.enable_row_bg %} row-bg{% endif %}" style="
+    --background-color: {{ block.settings.row_bg_color }};
+    --pt: {{ block.settings.padding_top }}px;
+    --pb: {{ block.settings.padding_bottom }}px;
+    --pl: {{ block.settings.padding_left }}px;
+    --pr: {{ block.settings.padding_right }}px;
+    --mt: {{ block.settings.margin_top }}px;
+    --mb: {{ block.settings.margin_bottom }}px;
+    "
+  >
+    <!-- Left: Icon + Heading -->
+    <div class="donation-left">
+
+      <p class="donation-heading" style="color: {{ block.settings.heading_color }};">
+        {{ block.settings.heading }}
+        {% if block.settings.info_popup_text != blank %}
+          <span class="donation-info-trigger" data-donation-info="{{ block.id }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ block.settings.heading_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; cursor: pointer; margin-left: 4px;">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="16" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+          </span>
+          <span class="donation-info-popup" id="donation-info-{{ block.id }}" style="display:none; position:absolute; z-index:10; background:#fff; border:1px solid #ddd; border-radius:8px; padding:12px 16px; box-shadow:0 4px 12px rgba(0,0,0,.12); max-width:260px; font-size:13px; line-height:1.5; color:{{ block.settings.text_color }};">
+            {{ block.settings.info_popup_text }}
+            <span class="donation-info-close" data-donation-close="{{ block.id }}" style="position:absolute; top:4px; right:8px; cursor:pointer; font-size:18px; line-height:1; color:#999;">&times;</span>
+          </span>
+        {% endif %}
+      </p>
+    </div>
+
+    <!-- Right: Progress Bar + Goal -->
+    <div class="donation-right">
+      <div class="donation-bar-wrapper" style="background: {{ block.settings.bar_bg_color }};">
+        <div class="donation-bar-fill" style="
+          width: {{ progress }}%;
+          background: {{ block.settings.bar_color }};
+        ">
+          <span class="donation-bar-text">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" stroke="none" style="flex-shrink: 0;">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+            {{ raised | money_without_trailing_zeros}} raised
+          </span>
+        </div>
+        <div class="donation-bar-goal">Goal {{ goal | money_without_trailing_zeros }}</div>
+      </div>
+    </div>
+  </div>
+</div>
