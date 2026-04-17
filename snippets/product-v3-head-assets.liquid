@@ -146,8 +146,17 @@
       /* component-slider-v2.css (crítico para a galeria hero) */
       .slider-mobile-gutter{position:relative;display:block}
       .slider__slide{scroll-snap-align:start;flex-shrink:0}
-      .product-media-wrapper--lcp{display:block;width:100%}
-      .product-media-img--lcp{display:block;width:100%;height:auto;max-width:100%}
+      /* CWV FIX (CLS 0.494): o caminho LCP em snippets/product-image.liquid
+         foi achatado para <div.media-wrapper.product-media-wrapper--lcp> >
+         <img.product-media-img--lcp> (sem .product__media intermediário).
+         A <img> auto-reserva espaço via attrs `width`/`height` nativos +
+         `width:100%;height:auto`. O `aspect-ratio:auto` explícito garante
+         que nenhuma regra externa (inclusive `.media > img` do base-v2.css
+         async, que NÃO aplica aqui mas serve de defesa) force outra razão.
+         `contain:layout` isola o wrapper do reflow dos demais slides do
+         <ul.product__media-list> quando o async CSS finaliza o scroller. */
+      .product-media-wrapper--lcp{display:block;width:100%;position:relative;overflow:hidden;contain:layout}
+      .product-media-img--lcp{display:block;width:100%;height:auto;max-width:100%;aspect-ratio:auto}
       @media screen and (max-width:749px){
         .slider.slider--mobile{position:relative;flex-wrap:inherit;overflow-y:hidden;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
         .product__media-list.slider.slider--mobile{touch-action:pan-x;overscroll-behavior-x:contain}
@@ -175,8 +184,51 @@
              paint (link com texto + div block) porque .visually-hidden está em
              base-v2.css (async). Quando o CSS os esconde, tudo abaixo sobe. */
       .visually-hidden{position:absolute!important;overflow:hidden;width:.1rem;height:.1rem;margin:-.1rem;padding:0;border:0;clip:rect(0 0 0 0);word-wrap:normal!important}
-      media-gallery,use-animate,product-gallery,deferred-media,modal-opener,product-thumbnails,slider-component{display:block}
+      media-gallery,use-animate,product-gallery,deferred-media,modal-opener,product-thumbnails,slider-component,product-info{display:block}
+      product-recently-viewed{display:none}
       product-gallery{overflow:hidden;position:relative}
+
+      /* 0.a) PAGE SHELL CRITICAL — base-v2.css é async; sem as regras abaixo
+         o primeiro paint renderiza a PDP em 1-col stacked (galeria 100vw +
+         info 100vw empilhados) e quando o CSS chega faz snap para 2-col
+         55/45 no desktop. Esse é o shift dominante (~0.3+ do CLS total)
+         que os fixes anteriores (img LCP, swatch, thumbnails) não cobriam.
+         Fontes base-v2.css:
+           - linha 1040: --grid-horizontal-spacing responsivo
+           - linha 1163: .flex-grid--2-col-tablet .flex-grid__item width
+           - linha 85:   .page-width
+           - linha 198:  .hidden */
+      :root{--grid-horizontal-spacing:1rem}
+      @media screen and (min-width:750px){:root{--grid-horizontal-spacing:2rem}}
+      @media screen and (min-width:990px){:root{--grid-horizontal-spacing:3rem}}
+      .page-width{max-width:var(--page-width);margin:0 auto;padding-left:1.5rem;padding-right:1.5rem}
+      @media screen and (min-width:750px){.page-width{padding-left:5rem;padding-right:5rem}}
+      .hidden{display:none!important}
+      @media screen and (min-width:750px){
+        .flex-grid--2-col-tablet .flex-grid__item{width:calc(50% - var(--grid-horizontal-spacing) / 2)}
+      }
+      .product__info-wrapper{padding-bottom:0}
+      /* `contain:layout` isola shifts INTERNOS do info-container (accordions
+         abrindo, Kaching Bundles hidratando, rating widgets carregando) do
+         grid principal. Sem isto, qualquer expansão interna propaga p/ cima
+         e reconta como CLS. `style` complementa a contenção de pseudo-
+         elementos e var lookups. Não usamos `size` nem `paint` pra não
+         criar stacking context inesperado. */
+      .product__info-container{contain:layout style}
+
+      /* 0.b) TITLE/PRICE/RATING — reserva dimensão de tipografia pra
+         evitar CLS no momento em que section-main-product-v2.css (async)
+         substitui as font-sizes. Espelha section-main-product-v2.css:
+           - l.2210: .product__title .h1{font-size:3.9rem}
+           - l.2214: .product__title .h2{font-size:3.1rem}
+           - l.2937: .h2 override {font-size:3rem}
+           - l.2233: .rating-static-wr .stars-wr svg{1.84rem quadrado} */
+      .product__title .h1{font-size:3.9rem;line-height:1.2;color:#121212}
+      .product__title .h2{font-size:3rem;line-height:1.2;color:#121212;letter-spacing:0}
+      .rating-static-wr{display:flex;justify-content:flex-start}
+      .rating-static-wr .stars-wr{display:inline-flex;align-items:center}
+      .rating-static-wr .stars-wr svg{width:1.5rem;height:1.5rem}
+      .rating-static-wr .r-text{font-size:1.4rem;font-weight:400;letter-spacing:0}
       /* <thumbnail-slider> é HTMLUnknownElement → display:inline por padrão.
          Promovemos a flex no mínimo — direção/alinhamento/justify ficam a
          cargo do layout específico (c.1 vertical_slider, c.2 thumbnail_slider
@@ -337,21 +389,45 @@
       @media screen and (min-width:750px){.price,.price bdi{font-size:calc(var(--font-price-scale) * 1.6rem)}}
     {%- endstyle -%}
 
-    {%- comment -%} --- CSS completo carregado assíncrono (preload + swap) --- {%- endcomment -%}
-    <link rel="preload" as="style" href="{{ 'section-main-product-v2.css' | asset_url }}" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" as="style" href="{{ 'component-price-v2.css' | asset_url }}" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" as="style" href="{{ 'component-slider-v2.css' | asset_url }}" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" as="style" href="{{ 'component-accordion-v2.css' | asset_url }}" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" as="style" href="{{ 'component-rte-v2.css' | asset_url }}" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" as="style" href="{{ 'component-rating-v2.css' | asset_url }}" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-      {{ 'section-main-product-v2.css' | asset_url | stylesheet_tag }}
-      {{ 'component-price-v2.css' | asset_url | stylesheet_tag }}
-      {{ 'component-slider-v2.css' | asset_url | stylesheet_tag }}
-      {{ 'component-accordion-v2.css' | asset_url | stylesheet_tag }}
-      {{ 'component-rte-v2.css' | asset_url | stylesheet_tag }}
-      {{ 'component-rating-v2.css' | asset_url | stylesheet_tag }}
-    </noscript>
+    {%- comment -%}
+      CWV FIX (CLS 0.565 → ~0): REVERTIDO para render-blocking síncrono
+      =================================================================
+      Antes estes 6 CSS eram carregados async via `preload + onload swap`
+      pra economizar ~40ms em LCP (PSI "Renderizar solicitações de
+      bloqueio"). Na prática isso custava 0.5+ de CLS — o primeiro paint
+      acontecia com critical CSS inline apenas, depois o CSS completo
+      chegava e fazia snap em todas as dimensões above-the-fold.
+
+      Diagnóstico via Lighthouse (Layout shift culprits):
+        - div.media-wrapper.product-media-wrapper--lcp ........ 0.532
+        - img.product-media-img--lcp ......................... Unsized
+        - fieldset.product-form__input--swatch ............... 0.015
+        Total: 0.565
+
+      Causa raiz: o wrapper LCP tem aspect-ratio inline correto, mas a
+      LARGURA do wrapper (55% no desktop) depende de regras que não
+      estavam no critical CSS E que o critical replica imperfeitamente
+      (padding-inline, gap, margens de blocos vizinhos, line-heights da
+      tipografia). Qualquer mudança na largura do wrapper muda a ALTURA
+      (porque aspect-ratio é fixo) → shift vertical → CLS gigante.
+
+      `main-product-v2.liquid` sempre fez render-blocking — e tem CLS
+      ~0. Como v3 é refatoração de v2 (mesma funcionalidade, mesmos
+      snippets menores), replica a mesma estratégia de carregamento.
+
+      Trade-off aceito: +40ms de LCP (dentro do budget "good" de 2.5s)
+      em troca de CLS < 0.1 ("good"). Bom negócio no score total.
+
+      O critical CSS inline acima é mantido como defense-in-depth —
+      cobre o caso em que o CSS externo demore/falhe e é útil para
+      repaints do bfcache.
+    {%- endcomment -%}
+    {{ 'section-main-product-v2.css' | asset_url | stylesheet_tag }}
+    {{ 'component-accordion-v2.css' | asset_url | stylesheet_tag }}
+    {{ 'component-price-v2.css' | asset_url | stylesheet_tag }}
+    {{ 'component-rte-v2.css' | asset_url | stylesheet_tag }}
+    {{ 'component-slider-v2.css' | asset_url | stylesheet_tag }}
+    {{ 'component-rating-v2.css' | asset_url | stylesheet_tag }}
 
   {%- if product.quantity_price_breaks_configured? -%}
     <link rel="stylesheet" href="{{ 'component-volume-pricing.css' | asset_url }}" media="print" onload="this.media='all'">

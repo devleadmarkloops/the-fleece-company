@@ -31,6 +31,33 @@
   featured_media: featured_media
 %}
 
+{%- comment -%}
+  CWV FIX (CLS) — Layout stability pre-CSS-async
+  ----------------------------------------------
+  Depois dos fixes no LCP image + gallery o CLS continuava alto. Diagnóstico:
+  o critical CSS em `product-v3-head-assets.liquid` não cobria o layout de
+  grid. base-v2.css (async) define:
+
+    - `--grid-horizontal-spacing` responsivo (l.1040-1053)
+    - `.flex-grid--2-col-tablet .flex-grid__item {width:calc(50% - spacing/2)}` (l.1163)
+    - `.page-width` (l.85) e `.hidden` (l.198)
+
+  Sem essas regras, o primeiro paint renderiza:
+    - Desktop: galeria 100vw + info 100vw stacked (1-col).
+    - Mobile: conteúdo full-bleed sem page-width.
+    - `<product-recently-viewed class="hidden">` como inline no flex-grid.
+
+  Quando base-v2.css chega, snap para 2-col 55/45 → CLS dominante (~0.3+).
+
+  As regras faltantes foram movidas para o critical CSS de head-assets
+  (secção "0.a PAGE SHELL"). Aqui a refatoração é apenas estrutural:
+    - `<product-recently-viewed>` sai do flex-grid (era HTMLUnknownElement
+      inline e contaminava o layout). Usa `hidden` HTML attr em vez de
+      `class="hidden"` — funciona sem CSS.
+    - Removido o loop de breadcrumb morto (estava inteiramente comentado).
+    - Removido comentário dead-code sobre `data-zoom-on-hover`.
+{%- endcomment -%}
+
 <product-info
   id="MainProduct-{{ section.id }}"
   class="section-{{ section.id }}-padding{% if section.settings.enable_v2_styles %} product-v2{% endif %}"
@@ -42,62 +69,28 @@
   {% else %}
     data-url="{{ product.url }}"
   {% endif %}
-  {% comment %}
-    {% if section.settings.image_zoom == 'hover' %}
-      data-zoom-on-hover
-    {% endif %}
-  {% endcomment %}
 >
+  {%- comment -%}
+    CWV FIX: `<product-recently-viewed>` é um tracking element sem UI. Ele
+    era HTMLUnknownElement (display:inline default) dentro do flex-grid e
+    contribuía pra inconsistência de layout antes do CSS async chegar. Foi
+    movido pra fora do grid + recebe `display:none` via critical CSS
+    (head-assets, secção 0) e inline `hidden` HTML attr como defesa em
+    profundidade (funciona mesmo sem CSS).
+  {%- endcomment -%}
+  <product-recently-viewed data-product-id="{{ product.id }}" hidden></product-recently-viewed>
 
   <section class="page-width section--padding">
-
-    {% comment %} {% for block in section.blocks %}
-      {% if block.type == 'breadcrumb' %}
-        <div class="breadcrumb-wrapper{% if block.settings.hide_mobile %} small-hide{% endif %}" {{ block.shopify_attributes }}>
-          {% render 'breadcrumbs',
-            text_style: block.settings.text_style,
-            show_divider: block.settings.show_divider
-          %}
-        </div>
-      {% endif %}
-    {% endfor %} {% endcomment %}
-
     {%- comment -%}
-      CWV FIX (C2): reserva de altura no .product__media-wrapper antes do
-      media-gallery/Swiper hidratar. Usamos aspect-ratio nativo com a razão
-      da primeira imagem, então o wrapper ocupa exatamente a mesma área
-      que a imagem LCP vai preencher. Se o aspect-ratio não estiver
-      disponível (~<5% dos navegadores), fica sem reserva — sem regressão.
-
-      Aplicado apenas ao wrapper (não aos filhos) para não interferir na
-      geometria interna do <media-gallery>/Swiper.
+      CWV FIX (C2 v2): NÃO reservamos aspect-ratio no wrapper externo
+      .product__media-wrapper. A reserva vive no wrapper interno
+      .product-media-wrapper--lcp (snippets/product-v3-image.liquid), que
+      tem aspect-ratio inline idêntico ao da imagem LCP. Trocar
+      aspect-ratio para 'auto' quando <media-gallery> adiciona .is-mounted
+      causava CLS — o wrapper externo mudava de tamanho reservado para
+      natural no momento da hidratação JS.
     {%- endcomment -%}
-    {%- liquid
-      assign gallery_min_aspect = first_image.aspect_ratio | default: 1
-    -%}
-    <style>
-      @supports (aspect-ratio: 1 / 1) {
-        #MainProduct-{{ section.id }} .product__media-wrapper {
-          aspect-ratio: {{ gallery_min_aspect }};
-          min-height: 0;
-          contain: layout;
-        }
-        @media screen and (min-width: 990px) {
-          #MainProduct-{{ section.id }} .product__media-wrapper {
-            aspect-ratio: {{ gallery_min_aspect }};
-          }
-        }
-        /* Após hidratar, o gallery controla sua própria altura; limpamos
-           a reserva para permitir que thumbnails/modo zoom funcionem. */
-        #MainProduct-{{ section.id }} media-gallery.is-mounted ~ .product__media-wrapper,
-        #MainProduct-{{ section.id }} .product__media-wrapper:has(media-gallery.is-mounted) {
-          aspect-ratio: auto;
-        }
-      }
-    </style>
-
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} flex-grid flex-grid--1-col {% if product.media.size > 0 %}flex-grid--2-col-tablet{% else %}product--no-media{% endif %}{% if section.settings.gallery_layout == 'thumbnail_slider' and section.settings.show_thumbnails == false %} product--hide-thumbnails{% endif %}{% if section.settings.image_ratio == 'adapt' %} product--adapt{% endif %}{% if section.settings.mobile_image_ratio == 'adapt' %} product--mobile-adapt{% endif %}{% unless section.settings.enable_image_zoom %} product--zoom-disabled{% endunless %}">
-      <product-recently-viewed data-product-id="{{ product.id }}" class="hidden"></product-recently-viewed>
       <div class="flex-grid__item product__media-wrapper">
         <span id="ProductImages"></span>
         {% render 'product-v3-gallery',

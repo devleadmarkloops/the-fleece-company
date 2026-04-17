@@ -1,0 +1,268 @@
+{% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
+{% comment %}
+  ============================================================================
+  product-v3-image
+  ============================================================================
+  Versão CWV-otimizada do `product-image.liquid` para uso exclusivo em
+  `snippets/product-v3-gallery.liquid`. Substitui os renders das linhas
+  201-212 (featured) e 289-299 (demais slides).
+
+  Optimizações vs. product-image.liquid:
+
+    LCP (hero image):
+      - `sizes` idêntico ao `imagesizes` do <link rel="preload" as="image">
+        emitido em layout/theme.liquid (request.page_type == 'product').
+        Qualquer divergência → preload desperdiçado, re-download.
+      - `widths: '165, 360, 535, 750, 900, 1200'` replica o `imagesrcset`
+        do preload para que o browser pick-paire 1:1.
+      - `fetchpriority=high` + `loading=eager` + `decoding=async`.
+      - DOM plano: a <img> é filha DIRETA de um <div> sem class
+        `no-js-hidden`. O <modal-opener> vira overlay absoluto SOBRE a img
+        (não wrapper). Elimina o race condition em que base-v2.css
+        (carregado async via preload+swap) aplica
+        `html.no-js .no-js-hidden{display:none!important}` antes do script
+        que troca `no-js`→`js` rodar, derrubando a img LCP e gerando
+        CLS ≈ 0.49.
+
+    CLS (todos os slides):
+      - `width`/`height` explícitos como params de `image_tag` (o tema não
+        emite automaticamente).
+      - `aspect-ratio` inline no wrapper para reservar geometria mesmo
+        antes do CSS async chegar.
+      - Poster de vídeo/modelo com mesma estratégia.
+
+    Slides não-LCP (2..n, sempre off-viewport no primeiro paint):
+      - Mantém `<modal-opener class="no-js-hidden">` para zoom — seguro
+        porque o shift só aconteceria DEPOIS do swipe, fora da janela de
+        CLS reportada pelo Chrome.
+      - `loading=lazy` + `fetchpriority=auto` + `is='lazy-image'`.
+
+  Aceita:
+    - media: {Object}  Media object do produto
+    - position: {String|Number}  'featured' para o hero, índice para demais
+    - zoom: {Boolean}  Habilita o modal de zoom
+    - loop: {Boolean}  Loop de vídeo
+    - modal_id: {String}  ID do modal (normalmente section.id)
+    - xr_button: {Boolean}  Renderiza botão AR (apenas models)
+    - media_width: {Float}  Fração da largura da coluna de mídia no desktop
+    - image_ratio: {String}  Setting de ratio
+    - mobile_image_ratio: {String}  Setting de ratio mobile
+    - lazy_load: {Boolean}  default true; passar false apenas no hero
+{% endcomment %}
+
+{%- capture sizes -%}(min-width: 990px) calc({{ media_width | times: 100 }}vw - 10rem), (min-width: 750px) calc((100vw - 10rem) / 2), calc(100vw - 3rem){%- endcapture -%}
+
+{%- liquid
+  assign image_loading = 'lazy'
+  if lazy_load == false
+    assign image_loading = 'eager'
+  endif
+
+  assign image_decoding = 'async'
+  assign image_fetchpriority = 'auto'
+  if position == 'featured' and image_loading == 'eager'
+    assign image_fetchpriority = 'high'
+  endif
+
+  assign alt = media.alt | escape | split: '#' | first
+  assign widths = '165, 360, 535, 750, 900, 1200'
+  assign preview_aspect = media.preview_image.aspect_ratio | default: 1
+
+  assign is_lcp_image = false
+  if position == 'featured' and image_loading == 'eager' and media.media_type == 'image'
+    assign is_lcp_image = true
+  endif
+-%}
+
+{%- if media.media_type == 'image' -%}
+
+  {%- if is_lcp_image -%}
+    {%- comment -%} ===== LCP path: DOM plano, <img> fora de <modal-opener> ===== {%- endcomment -%}
+    <div
+      class="media-wrapper product-media-wrapper--lcp{% if settings.use_intrinsic_image_size_on_product_page %} media-wrapper--intrinsic-size{% endif %}"
+      style="--intrinsic-width:{{ media.preview_image.width }}px;display:block;position:relative;overflow:hidden;width:100%;aspect-ratio:{{ preview_aspect }};"
+    >
+      {{ media.preview_image | image_url: width: 1200 | image_tag:
+        loading: 'eager',
+        decoding: 'async',
+        fetchpriority: 'high',
+        sizes: sizes,
+        widths: widths,
+        width: media.preview_image.width,
+        height: media.preview_image.height,
+        alt: alt,
+        class: 'product-media-img--lcp'
+      }}
+
+      {%- if zoom -%}
+        <modal-opener
+          class="product__modal-opener product__modal-opener--image product__modal-opener--lcp"
+          data-modal="#ProductModal-{{ modal_id }}"
+          style="position:absolute;inset:0;display:block;z-index:2;"
+        >
+          <span
+            class="product__media-icon motion-reduce"
+            aria-hidden="true"
+            style="position:absolute;top:1rem;right:1rem;z-index:3;pointer-events:none;"
+          >
+            {%- render 'icon', icon: 'zoom' -%}
+          </span>
+          <button
+            class="product__media-toggle product__media-toggle--lcp"
+            type="button"
+            aria-haspopup="dialog"
+            data-media-id="{{ media.id }}"
+            style="position:absolute;inset:0;width:100%;height:100%;background:transparent;border:0;padding:0;margin:0;cursor:zoom-in;"
+          >
+            <span class="visually-hidden">
+              {{- 'products.product.media.open_media' | t -}}
+            </span>
+          </button>
+        </modal-opener>
+      {%- endif -%}
+    </div>
+
+  {%- else -%}
+    {%- comment -%} ===== Non-LCP image: lazy + aspect-ratio inline ===== {%- endcomment -%}
+    <noscript>
+      <div class="media-wrapper" style="aspect-ratio:{{ preview_aspect }};">
+        <div class="product__media media media--{{ image_ratio }}{% if mobile_image_ratio %} media-mobile--{{ mobile_image_ratio }}{% endif %}"
+          {%- if image_ratio == 'adapt' or mobile_image_ratio == 'adapt' %} style="--image-ratio-percent: {{ 1 | divided_by: preview_aspect | times: 100 }}%;"{% endif -%}
+        >
+          {{ media.preview_image | image_url: width: 1200 | image_tag:
+            loading: image_loading,
+            decoding: image_decoding,
+            sizes: sizes,
+            widths: widths,
+            width: media.preview_image.width,
+            height: media.preview_image.height,
+            alt: alt
+          }}
+        </div>
+      </div>
+    </noscript>
+
+    <modal-opener
+      class="product__modal-opener product__modal-opener--image no-js-hidden"
+      data-modal="#ProductModal-{{ modal_id }}"
+    >
+      {%- if zoom -%}
+        <span class="product__media-icon motion-reduce" aria-hidden="true">
+          {%- render 'icon', icon: 'zoom' -%}
+        </span>
+      {%- endif -%}
+
+      <div
+        class="media-wrapper{% if settings.use_intrinsic_image_size_on_product_page %} media-wrapper--intrinsic-size{% endif %}"
+        style="--intrinsic-width:{{ media.preview_image.width }}px;aspect-ratio:{{ preview_aspect }};"
+      >
+        <div
+          class="product__media media media--{{ image_ratio }}{% if mobile_image_ratio %} media-mobile--{{ mobile_image_ratio }}{% endif %}"
+          {%- if image_ratio == 'adapt' or mobile_image_ratio == 'adapt' %} style="--image-ratio-percent: {{ 1 | divided_by: preview_aspect | times: 100 }}%;"{% endif -%}
+        >
+          {{ media.preview_image | image_url: width: 1200 | image_tag:
+            loading: image_loading,
+            decoding: image_decoding,
+            fetchpriority: image_fetchpriority,
+            sizes: sizes,
+            widths: widths,
+            width: media.preview_image.width,
+            height: media.preview_image.height,
+            alt: alt,
+            is: 'lazy-image'
+          }}
+        </div>
+      </div>
+
+      {%- if zoom -%}
+        <button class="product__media-toggle" type="button" aria-haspopup="dialog" data-media-id="{{ media.id }}">
+          <span class="visually-hidden">
+            {%- if position == 'featured' -%}
+              {{ 'products.product.media.open_media' | t }}
+            {%- else -%}
+              {{ 'products.product.media.open_media' | t: index: position }}
+            {%- endif -%}
+          </span>
+        </button>
+      {%- endif -%}
+    </modal-opener>
+  {%- endif -%}
+
+{%- else -%}
+  {%- comment -%} ===== Video / external_video / 3D model ===== {%- endcomment -%}
+  {%- assign media_aspect = media.aspect_ratio | default: preview_aspect -%}
+  <div class="media-wrapper" style="aspect-ratio:{{ media_aspect }};">
+    {%- if media.media_type == 'model' -%}
+      <product-model
+        class="deferred-media media media--{{ image_ratio }}{% if mobile_image_ratio %} media-mobile--{{ mobile_image_ratio }}{% endif %} no-js-hidden"
+        data-media-id="{{ media.id }}"
+        {%- if image_ratio == 'adapt' or mobile_image_ratio == 'adapt' %} style="--image-ratio-percent: 100%;"{% endif -%}
+      >
+    {%- else -%}
+      <deferred-media
+        class="deferred-media media media--{{ image_ratio }}{% if mobile_image_ratio %} media-mobile--{{ mobile_image_ratio }}{% endif %} no-js-hidden"
+        data-media-id="{{ media.id }}"
+        {%- if image_ratio == 'adapt' or mobile_image_ratio == 'adapt' %} style="--image-ratio-percent: {{ 1 | divided_by: media_aspect | times: 100 }}%;"{% endif -%}
+      >
+    {%- endif -%}
+      {{ media.preview_image | image_url: width: 1200 | image_tag:
+        loading: image_loading,
+        decoding: image_decoding,
+        fetchpriority: image_fetchpriority,
+        class: 'deferred-media__poster',
+        sizes: sizes,
+        widths: widths,
+        width: media.preview_image.width,
+        height: media.preview_image.height,
+        alt: alt
+      }}
+      <button id="Deferred-Poster-{{ media.id }}" class="deferred-media__poster" type="button">
+        <span class="deferred-media__poster-button motion-reduce">
+          {%- if media.media_type == 'model' -%}
+            <span class="visually-hidden">{{ 'products.product.media.play_model' | t }}</span>
+            {%- render 'icon', icon: '3d-model' -%}
+          {%- else -%}
+            <span class="visually-hidden">{{ 'products.product.media.play_video' | t }}</span>
+            {%- render 'icon', icon: 'play' -%}
+          {%- endif -%}
+        </span>
+      </button>
+      <template>
+        {%- liquid
+          case media.media_type
+          when 'external_video'
+            assign video_class = 'js-' | append: media.host
+            if media.host == 'youtube'
+              echo media | external_video_url: autoplay: true, loop: loop, playlist: media.external_id | external_video_tag: class: video_class, loading: 'lazy'
+            else
+              echo media | external_video_url: autoplay: true, loop: loop | external_video_tag: class: video_class, loading: 'lazy'
+            endif
+          when 'video'
+            echo media | media_tag: image_size: '2048x', autoplay: true, loop: loop, controls: true, controlsList: 'nodownload', preload: 'none'
+          when 'model'
+            echo media | media_tag: image_size: '2048x', toggleable: true
+          endcase
+        -%}
+      </template>
+
+      {%- if media.media_type == 'model' -%}
+      </product-model>
+      {%- if xr_button -%}
+        <button
+          class="button button--full-width product__xr-button"
+          type="button"
+          aria-label="{{ 'products.product.xr_button_label' | t }}"
+          data-shopify-xr
+          data-shopify-model3d-id="{{ media.id }}"
+          data-shopify-title="title"
+          data-shopify-xr-hidden
+        >
+          {% render 'icon', icon: '3d-model' %}
+          {{ 'products.product.xr_button' | t }}
+        </button>
+      {%- endif -%}
+    {%- else -%}
+      </deferred-media>
+    {%- endif -%}
+  </div>
+{%- endif -%}

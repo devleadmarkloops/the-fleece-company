@@ -78,8 +78,8 @@
           Também declara `widths` idêntico ao image_tag do snippet.
         {%- endcomment -%}
         <link rel="preload" as="image"
-          href="{{ lcp_media.preview_image | image_url: width: 1500 }}"
-          imagesrcset="{{ lcp_media.preview_image | image_url: width: 165 }} 165w, {{ lcp_media.preview_image | image_url: width: 360 }} 360w, {{ lcp_media.preview_image | image_url: width: 535 }} 535w, {{ lcp_media.preview_image | image_url: width: 750 }} 750w, {{ lcp_media.preview_image | image_url: width: 1100 }} 1100w, {{ lcp_media.preview_image | image_url: width: 1500 }} 1500w"
+          href="{{ lcp_media.preview_image | image_url: width: 1200 }}"
+          imagesrcset="{{ lcp_media.preview_image | image_url: width: 165 }} 165w, {{ lcp_media.preview_image | image_url: width: 360 }} 360w, {{ lcp_media.preview_image | image_url: width: 535 }} 535w, {{ lcp_media.preview_image | image_url: width: 750 }} 750w, {{ lcp_media.preview_image | image_url: width: 900 }} 900w, {{ lcp_media.preview_image | image_url: width: 1200 }} 1200w"
           imagesizes="(min-width: 990px) calc(55vw - 10rem), (min-width: 750px) calc((100vw - 10rem) / 2), calc(100vw - 3rem)"
           fetchpriority="high">
       {%- endif -%}
