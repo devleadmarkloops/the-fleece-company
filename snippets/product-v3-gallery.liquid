@@ -509,8 +509,15 @@
                           para evitar "Unsized image element". Neste tema, image_tag
                           requer image_url como input e não emite width/height
                           automaticamente — precisam vir como params.
+
+                          CWV FIX (LCP/FCP): thumbnails ficam abaixo da imagem principal
+                          (candidata a LCP). `loading: 'lazy'` + `fetchpriority: 'low'`
+                          impedem que disputem banda com o LCP; os que estão no viewport
+                          ainda são baixados assim que o layout é calculado.
+                          `src` de fallback reduzido de 416 → 208 e widths reduzidas
+                          para ~324 (displayed ≈ 226 px CSS) para evitar over-delivery.
                         endcomment
-                        echo featured_media.preview_image | image_url: width: 416 | image_tag: loading: 'eager', id: image_id, sizes: sizes, widths: '54, 74, 162, 208, 324, 416', width: featured_media.preview_image.width, height: featured_media.preview_image.height, alt: alt
+                        echo featured_media.preview_image | image_url: width: 208 | image_tag: loading: 'lazy', fetchpriority: 'low', id: image_id, sizes: sizes, widths: '54, 74, 108, 162, 208, 260, 324', width: featured_media.preview_image.width, height: featured_media.preview_image.height, alt: alt
                       -%}
                     </button>
                   </li>
@@ -615,10 +622,11 @@
                           assign image_id = 'Thumbnail-' | append: section.id | append: '-' | append: forloop.index
                           assign alt = media.alt | escape | split: '#' | first
                           comment
-                            CWV FIX (CLS): `width`/`height` explícitos como params
-                            do image_tag — ver explicação no thumbnail da featured_media.
+                            CWV FIX (CLS + LCP/FCP): `width`/`height` explícitos, `lazy`
+                            + `fetchpriority: 'low'` e `src`/widths reduzidos — ver
+                            explicação no thumbnail da featured_media.
                           endcomment
-                          echo media.preview_image | image_url: width: 416 | image_tag: loading: 'eager', id: image_id, sizes: sizes, widths: '54, 74, 162, 208, 324, 416', width: media.preview_image.width, height: media.preview_image.height, alt: alt
+                          echo media.preview_image | image_url: width: 208 | image_tag: loading: 'lazy', fetchpriority: 'low', id: image_id, sizes: sizes, widths: '54, 74, 108, 162, 208, 260, 324', width: media.preview_image.width, height: media.preview_image.height, alt: alt
                         -%}
                       </button>
                     </li>
@@ -670,10 +678,11 @@
                           assign image_id = 'Thumbnail-all-' | append: section.id | append: '-' | append: forloop.index
                           assign alt = media.alt | escape | split: '#' | first
                           comment
-                            CWV FIX (CLS): `width`/`height` explícitos como params
-                            do image_tag — ver explicação no thumbnail da featured_media.
+                            CWV FIX (CLS + LCP/FCP): `width`/`height` explícitos, `lazy`
+                            + `fetchpriority: 'low'` e `src`/widths reduzidos — ver
+                            explicação no thumbnail da featured_media.
                           endcomment
-                          echo media.preview_image | image_url: width: 416 | image_tag: loading: 'eager', id: image_id, sizes: sizes, widths: '54, 74, 162, 208, 324, 416', width: media.preview_image.width, height: media.preview_image.height, alt: alt
+                          echo media.preview_image | image_url: width: 208 | image_tag: loading: 'lazy', fetchpriority: 'low', id: image_id, sizes: sizes, widths: '54, 74, 108, 162, 208, 260, 324', width: media.preview_image.width, height: media.preview_image.height, alt: alt
                         -%}
                       </button>
                     </li>

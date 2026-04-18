@@ -661,7 +661,7 @@
                       {%- liquid
                         assign image_id = 'Thumbnail-' | append: section.id | append: '-0'
                         assign alt = featured_media.alt | escape | split: '#' | first
-                        echo featured_media.preview_image | image_url: width: 416 | image_tag: loading: 'eager', id: image_id, sizes: sizes, widths: '54, 74, 162, 208, 324, 416', alt: alt
+                        echo featured_media.preview_image | image_url: width: 208 | image_tag: loading: 'lazy', fetchpriority: 'low', id: image_id, sizes: sizes, widths: '54, 74, 108, 162, 208, 260, 324', alt: alt
                       -%}
                     </button>
                   </li>
@@ -765,7 +765,7 @@
                         {%- liquid
                           assign image_id = 'Thumbnail-' | append: section.id | append: '-' | append: forloop.index
                           assign alt = media.alt | escape | split: '#' | first
-                          echo media.preview_image | image_url: width: 416 | image_tag: loading: 'eager', id: image_id, sizes: sizes, widths: '54, 74, 162, 208, 324, 416', alt: alt
+                          echo media.preview_image | image_url: width: 208 | image_tag: loading: 'lazy', fetchpriority: 'low', id: image_id, sizes: sizes, widths: '54, 74, 108, 162, 208, 260, 324', alt: alt
                         -%}
                       </button>
                     </li>
@@ -816,7 +816,7 @@
                         {%- liquid
                           assign image_id = 'Thumbnail-all-' | append: section.id | append: '-' | append: forloop.index
                           assign alt = media.alt | escape | split: '#' | first
-                          echo media.preview_image | image_url: width: 416 | image_tag: loading: 'eager', id: image_id, sizes: sizes, widths: '54, 74, 162, 208, 324, 416', alt: alt
+                          echo media.preview_image | image_url: width: 208 | image_tag: loading: 'lazy', fetchpriority: 'low', id: image_id, sizes: sizes, widths: '54, 74, 108, 162, 208, 260, 324', alt: alt
                         -%}
                       </button>
                     </li>
