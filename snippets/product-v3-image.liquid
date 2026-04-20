@@ -65,7 +65,7 @@
   endif
 
   assign alt = media.alt | escape | split: '#' | first
-  assign widths = '165, 360, 535, 750, 900, 1200'
+  assign widths = '165, 360, 575'
   assign preview_aspect = media.preview_image.aspect_ratio | default: 1
 
   assign is_lcp_image = false
@@ -82,7 +82,7 @@
       class="media-wrapper product-media-wrapper--lcp{% if settings.use_intrinsic_image_size_on_product_page %} media-wrapper--intrinsic-size{% endif %}"
       style="--intrinsic-width:{{ media.preview_image.width }}px;display:block;position:relative;overflow:hidden;width:100%;aspect-ratio:{{ preview_aspect }};"
     >
-      {{ media.preview_image | image_url: width: 1088 | image_tag:
+      {{ media.preview_image | image_url: width: 575, format: 'webp' | image_tag:
         loading: 'eager',
         decoding: 'async',
         fetchpriority: 'high',

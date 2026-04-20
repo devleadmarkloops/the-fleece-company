@@ -517,7 +517,7 @@
                           `src` de fallback reduzido de 416 → 208 e widths reduzidas
                           para ~324 (displayed ≈ 226 px CSS) para evitar over-delivery.
                         endcomment
-                        echo featured_media.preview_image | image_url: width: 208 | image_tag: loading: 'lazy', fetchpriority: 'low', id: image_id, sizes: sizes, widths: '54, 74, 108, 162, 208, 260, 324', width: featured_media.preview_image.width, height: featured_media.preview_image.height, alt: alt
+                        echo featured_media.preview_image | image_url: width: 208, format: 'webp' | image_tag: loading: 'lazy', fetchpriority: 'low', id: image_id, sizes: sizes, widths: '54, 74, 108, 162, 208, 260, 324', width: featured_media.preview_image.width, height: featured_media.preview_image.height, alt: alt
                       -%}
                     </button>
                   </li>
