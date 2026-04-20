@@ -185,8 +185,6 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
-
-    {% render 'kiwiSizing' %}
     {%- comment -%}CWV FIX: Defer Microsoft Clarity script to load event{%- endcomment -%}
     {% if settings.clarity_product_templates != blank and template.name == 'product' %}
       {% assign clarity_templates = settings.clarity_product_templates | split: ',' %}
@@ -345,4 +343,8 @@
       </script>
     {% endif %}
   </body>
+  {% if t contains '/product.' %} 
+    <script async src="https://app.kiwisizing.com/web/js/dist/kiwiSizing/plugin/SizingPlugin.prod.js?v=334">
+    </script> 
+    {% endif %}
 </html>
