@@ -515,7 +515,7 @@
             "show_variant_labels": true,
             "size_chart": "",
             "swatch_size": "medium",
-            "swatch_source": "variant",
+            "swatch_source": "file",
             "swatch_type": "round"
           },
           "type": "variant_picker"

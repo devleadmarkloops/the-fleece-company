@@ -63,6 +63,13 @@
       padding-bottom: 0 !important;
     }
   {%- endunless -%}
+
+  {% if section.settings.enable_card_border %}
+    #shopify-section-{{ section.id }} .multicolumn-card {
+      border: .1rem solid rgb(var(--color-border));
+      border-radius: 8px;
+    }
+  {% endif %}
   
   #shopify-section-{{ section.id }} .multicolumn-card__info {
     gap: 0;
@@ -113,6 +120,9 @@
     #shopify-section-{{ section.id }} .center .multicolumn-card__icon-wrapper { margin-left: auto; margin-right: auto; }
     #shopify-section-{{ section.id }} .right .multicolumn-card__icon-wrapper { margin-left: auto; margin-right: 0; }
     #shopify-section-{{ section.id }} .left .multicolumn-card__icon-wrapper { margin-left: 0; margin-right: auto; }
+    #shopify-section-{{ section.id }} .multicolumn-list {
+      row-gap: 3rem;
+    }
   }
 
   @media screen and (max-width: 749px) {
@@ -462,6 +472,12 @@
       "default": true,
       "label": "Enable Card Style",
       "info": "Adds padding and background color to each block. Uncheck for a clean, flat layout."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_card_border",
+      "default": false,
+      "label": "Enable Card Border"
     },
     {
       "type": "select",

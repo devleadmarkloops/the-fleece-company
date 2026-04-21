@@ -350,6 +350,37 @@
   letter-spacing: 0.07rem;
 }
 
+.card-information .rating,
+.card-information .rating-text,
+.card-information .rating-count {
+  display: none;
+}
+
+.product-grid .flex-grid__item {
+  display: flex;
+}
+
+.product-grid .card-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.product-grid .card + .card-information {
+  flex: 1;
+  flex-direction: column;
+}
+
+.product-grid .card-information__wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.product-grid .card-information__wrapper .price {
+  margin-top: auto;
+}
+
 .card-wrapper {
   color: inherit;
   display: block;

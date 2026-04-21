@@ -86,7 +86,7 @@
         {{ card_product.title | escape }}
       </a>
       {% if card_product.metafields.custom.subtitle != blank %}
-        <p class="meta-subtitle">{{ card_product.metafields.custom.subtitle.value }}</p>
+        {% comment %} <p class="meta-subtitle">{{ card_product.metafields.custom.subtitle.value }}</p> {% endcomment %}
       {% endif %}
       <div class="card-v2-price">
         {% render 'price', product: card_product, use_variant: true %}
@@ -99,7 +99,7 @@
                 {%- assign downcased_option = option.name | downcase -%}
                 
                 {% comment %} --- EXACT THEME COLOR SWATCH LOGIC --- {% endcomment %}
-                {%- if downcased_option contains 'color' or downcased_option contains 'colour' -%}
+                {%- if downcased_option contains 'color' or downcased_option contains 'colour' or downcased_option contains 'farbe' or downcased_option contains 'design' or downcased_option contains 'style' -%}
                   {%- if enable_color_swatches -%}
                     <div class="card-v2-swatches-wrapper">
                       <label class="visually-hidden">{{ option.name }}</label>
@@ -161,6 +161,21 @@
                               
                               if swatch_image != blank
                                 assign swatch_value = 'url(' | append: swatch_image | append: ')'
+                              elsif downcased_option contains 'design' or downcased_option contains 'style'
+                                assign found_variant_image = false
+                                assign option_index = option.position | minus: 1
+                                for variant in card_product.variants
+                                  assign variant_option = variant.options[option_index]
+                                  if variant_option == val_string and variant.featured_image
+                                    assign variant_img_url = variant.featured_image | image_url: width: 80
+                                    assign swatch_value = 'url(' | append: variant_img_url | append: ')'
+                                    assign found_variant_image = true
+                                    break
+                                  endif
+                                endfor
+                                unless found_variant_image
+                                  assign swatch_value = '#ccc'
+                                endunless
                               endif
                             endunless
                           -%}

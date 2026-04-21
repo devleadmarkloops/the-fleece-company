@@ -1,0 +1,972 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "content_scrollspy_KjGLRV": {
+      "type": "content-scrollspy",
+      "disabled": true,
+      "name": "t:sections.content_scrollspy.presets.name",
+      "settings": {
+        "heading_selector": ".product__heading, h2.title",
+        "background_color": "#ffffff",
+        "text_color": "#000000",
+        "active_color": "#ffb503",
+        "border_color": "#ffb503",
+        "enable_animations": true,
+        "animation_threshold": 0.6,
+        "hide_on_scroll_up": true,
+        "show_scroll_indicator": true
+      }
+    },
+    "empty-space": {
+      "type": "empty-space",
+      "settings": {
+        "desktop_height": 32,
+        "mobile_height": 0
+      }
+    },
+    "main": {
+      "type": "main-product-v2",
+      "blocks": {
+        "donation_impact_8kJ6Hj": {
+          "type": "donation_impact",
+          "disabled": true,
+          "settings": {
+            "display": "both",
+            "icon_size": 24,
+            "heading": "Your order donates $1 to women escaping abuse",
+            "raised": 6847,
+            "goal": 10000,
+            "orders_remaining": 800,
+            "enable_row_bg": true,
+            "row_bg_color": "#e8e8e8",
+            "heading_color": "#1a1a1a",
+            "text_color": "#1a1a1a",
+            "bar_color": "#e87461",
+            "bar_bg_color": "#d2cfcf",
+            "info_popup_text": "A portion of every order is donated to support women escaping abuse. Track our progress toward the goal!",
+            "padding_top": 8,
+            "padding_bottom": 9,
+            "padding_left": 5,
+            "padding_right": 5,
+            "margin_top": 5,
+            "margin_bottom": 5,
+            "full_width": false
+          }
+        },
+        "rating_static_jQpEEQ": {
+          "type": "rating_static",
+          "settings": {
+            "rating_text": "548 Reviews",
+            "rating_link": ""
+          }
+        },
+        "breadcrumb_LGWKpR": {
+          "type": "breadcrumb",
+          "settings": {
+            "text_style": "body",
+            "show_divider": false,
+            "hide_mobile": true
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "title_size": "h2",
+            "show_price": false,
+            "price_size": "medium",
+            "desktop_hide": false,
+            "mobile_hide": false
+          }
+        },
+        "price": {
+          "type": "price",
+          "disabled": true,
+          "settings": {
+            "price_size": "medium",
+            "show_badges": true,
+            "sale_badge_basis": "auto"
+          }
+        },
+        "icon_text_9Gxbx4": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/Group_1.svg",
+            "icon_size": 20,
+            "icon_size_mob": 18,
+            "icon_text": "",
+            "icon_richtext": "<p><strong>Spring Sale:</strong> Buy One, Get One <strong>FREE</strong></p>",
+            "text_color": "#3b3b3b",
+            "text_size": 14,
+            "text_size_mob": 12,
+            "enable_bg": true
+          }
+        },
+        "icon_text_grid_U3jbTR": {
+          "type": "icon_text_grid",
+          "settings": {
+            "icon_1": "shopify://shop_images/Untitled_design_-_2026-03-12T200530.142.webp",
+            "text_1": "Sleep Better",
+            "icon_2": "shopify://shop_images/13_1.webp",
+            "text_2": "Lowers Cortisol",
+            "icon_3": "shopify://shop_images/14_41b54c0a-b81e-4755-803f-f7305fcd5fe6.webp",
+            "text_3": "Targets Anxiety & Stress",
+            "icon_4": "shopify://shop_images/12_1.webp",
+            "text_4": "Keeps GABA Active",
+            "icon_size": 30,
+            "icon_size_mob": 20,
+            "text_size": 14,
+            "text_size_mob": 11,
+            "text_color": "#3b3b3b"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "show_variant_labels": true,
+            "picker_type": "button",
+            "swatch_source": "file",
+            "swatch_type": "square",
+            "swatch_size": "medium",
+            "enable_swatch_unavailable_click": false,
+            "enable_limited": true,
+            "limited_heading": "Limited Edition",
+            "size_chart": ""
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "buy_buttons_version": "v1",
+            "show_quantity_selector": false,
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false,
+            "enable_monogram": false,
+            "monogram_product": "monogram-test-product",
+            "icon": "shopify://shop_images/Vector_2.svg",
+            "icon_text": "30 DAYS MONEY BACK GUARANTEE"
+          }
+        },
+        "countdown_timer_4tCBwt": {
+          "type": "countdown_timer",
+          "settings": {
+            "heading": "SALE ENDS IN:",
+            "heading_color": "#3b3b3b",
+            "background_color": "#f0eae4",
+            "timer_color": "#3b3b3b",
+            "label_color": "#3b3b3b",
+            "per_visitor_timer": true,
+            "end_date": "2026-01-31 23:59:59",
+            "visitor_days": 0,
+            "visitor_hours": 20,
+            "visitor_minutes": 3,
+            "visitor_seconds": 27,
+            "enable_payment_icons": false,
+            "enabled_payment_types": "american_express, visa, master, apple_pay, google_pay, paypal"
+          }
+        },
+        "richtext_box_ehkChy": {
+          "type": "richtext_box",
+          "settings": {
+            "rich_text": "<p><strong>Shipped in 1-3 Days</strong><br/>Fast & Tracked Shipping</p>",
+            "text_size": 14,
+            "text_size_mob": 12
+          }
+        },
+        "pairs_well_rqaHeU": {
+          "type": "pairs_well",
+          "settings": {
+            "heading": "Pairs well with",
+            "product_list": [
+              "the-muslin-pillow-case-100-muslin-cotton"
+            ]
+          }
+        },
+        "video_reels_Uf7aUQ": {
+          "type": "video_reels",
+          "disabled": true,
+          "settings": {
+            "autoplay_in_view": true,
+            "mute_videos": true,
+            "video_1": "shopify://files/videos/IG_reel_moments_of_rohan_2026-01-22.webm",
+            "video_2": "shopify://files/videos/ashley v.webm",
+            "video_3": "shopify://files/videos/IG_reel_life_with_brandy_2026-02-10.webm",
+            "video_4": "shopify://files/videos/IG_reel_asimpleendeavour_2026-01-21.webm",
+            "video_5": "shopify://files/videos/IG_reel_rebekahcharaelise_2026-02-03.webm",
+            "video_6": "shopify://files/videos/IG_reel_ambermfernandes__muslinblanket.webm"
+          }
+        },
+        "collapsible_tab_TbRiah": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "icon": "none",
+            "heading": "Benefits",
+            "content": "<p><strong>Sleep deeper, naturally.</strong> Our Good Night Spray blends pure lavender and chamomile, two botanicals clinically proven to <a href=\"https://pubmed.ncbi.nlm.nih.gov/23476690/\" title=\"https://pubmed.ncbi.nlm.nih.gov/23476690/\">reduce anxiety and improve sleep quality</a> across 65+ studies and nearly 8,000 patients. Just one spray activates similar calming brain receptors as prescription sedatives, without the side effects.</p><ul><li><strong>Lavender</strong></li></ul><p>Lavender's active compound linalool naturally activates your brain's calming GABA receptors, promoting deep relaxation and restful sleep. Used in hospitals worldwide, backed by <a href=\"https://pubmed.ncbi.nlm.nih.gov/31655395/\" target=\"_blank\" title=\"https://pubmed.ncbi.nlm.nih.gov/31655395/\">65+ clinical studies</a>, and trusted for over 2,500 years.<br/></p><ul><li><strong>Chamomile</strong></li></ul><p>Nature's oldest sleep botanical, prescribed by Hippocrates, trusted by every civilization since. Chamomile's star molecule apigenin <a href=\"https://pubmed.ncbi.nlm.nih.gov/8553734/\" title=\"https://pubmed.ncbi.nlm.nih.gov/8553734/\">binds directly to your brain's relaxation receptors</a>, calming your nervous system naturally, still powerful enough for adults who've tried everything.<br/></p><ul><li><strong>Blend</strong></li></ul><p>Our Good Night Spray blends pure lavender and chamomile, two botanicals <a href=\"https://pubmed.ncbi.nlm.nih.gov/23476690/\" title=\"https://pubmed.ncbi.nlm.nih.gov/23476690/\">clinically proven to reduce anxiety and improve sleep quality</a> across 65+ studies. Two natural compounds, two calming pathways, one spray. </p>",
+            "page": "",
+            "custom_liquid": "",
+            "keep_open": false
+          }
+        },
+        "collapsible_tab_HbbKet": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "heading": "Benefits",
+            "content": "<p><strong>Sleep deeper, naturally.</strong> Our Good Night Spray Formula made from pure lavender, chamomile, and valerian root , three botanicals <a href=\"https://pubmed.ncbi.nlm.nih.gov/31655395/\" title=\"https://pubmed.ncbi.nlm.nih.gov/31655395/\">clinically proven to reduce anxiety and improve sleep quality</a> across <a href=\"https://pubmed.ncbi.nlm.nih.gov/33086877/\" title=\"https://pubmed.ncbi.nlm.nih.gov/33086877/\">65+ studies</a> and nearly 8,000 patients. Just one spray activates similar calming brain receptors as prescription sedatives, without the side effects.</p><p></p><ul><li><strong>Lavender</strong></li></ul><p>Lavender's active compound linalool naturally activates your brain's calming GABA receptors, promoting deep relaxation and restful sleep. Used in hospitals worldwide, backed by <a href=\"https://pubmed.ncbi.nlm.nih.gov/31655395/\" title=\"https://pubmed.ncbi.nlm.nih.gov/31655395/\">65+ clinical studies</a>, and trusted for over 2,500 years.<br/></p><ul><li><strong>Chamomile</strong></li></ul><p>Nature's oldest sleep botanical, prescribed by Hippocrates, trusted by every civilization since. Chamomile's star molecule apigenin <a href=\"https://pubmed.ncbi.nlm.nih.gov/8553734/\" title=\"https://pubmed.ncbi.nlm.nih.gov/8553734/\">binds directly to your brain's relaxation receptors</a>, calming your nervous system naturally, still powerful enough for adults who've tried everything.</p><p></p><ul><li><strong>Valerian Root</strong></li></ul><p>Used for centuries as nature's strongest sleep root. Valerian's active compound valerenic acid <a href=\"https://pubmed.ncbi.nlm.nih.gov/29035887/\" title=\"https://pubmed.ncbi.nlm.nih.gov/29035887/\">directly enhances GABA activity in the brain</a>, reducing the time it takes to fall asleep and improving overall sleep depth. Backed by a <a href=\"https://pubmed.ncbi.nlm.nih.gov/33086877/\" title=\"https://pubmed.ncbi.nlm.nih.gov/33086877/\">systematic review and meta-analysis</a> confirming its effectiveness, and shown to improve sleep quality in clinical trials.</p><p></p><ul><li><strong>The Blend</strong></li></ul><p>Our Good Night Spray Formula pure lavender, chamomile, and valerian root, three botanicals clinically proven to <a href=\"https://pubmed.ncbi.nlm.nih.gov/23476690/\" title=\"https://pubmed.ncbi.nlm.nih.gov/23476690/\">reduce anxiety and improve sleep quality</a> across 65+ studies. Three natural compounds, three calming pathways, one spray.</p>",
+            "page": "",
+            "custom_liquid": "",
+            "keep_open": false
+          }
+        },
+        "collapsible_tab_cBk8E9": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "heading": "How much product do I receive?",
+            "content": "<p>Each bottle contains 2 fl oz (60 ml) of Good Night Spray Formula. A full 30-Day supply.</p>",
+            "page": "",
+            "custom_liquid": "",
+            "keep_open": false
+          }
+        },
+        "collapsible_tab-0": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "heading": "How do i take it for maximum benefits?",
+            "content": "<p>For optimal results, spray 2–3 times onto your pillow each evening, approximately 10 minutes before bed. Most customers notice a difference from the very first use and consistent nightly application only deepens the effect over time.</p>",
+            "page": "",
+            "custom_liquid": "",
+            "keep_open": false
+          }
+        },
+        "collapsible_tab_aL69mB": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "heading": "Ingredients",
+            "content": "<p>Aqua, Glycerin, Lavandula Angustifolia (Lavender) Extract, Chamomilla Recutita (Matricaria) Flower Extract, Ethylhexylglycerin</p>",
+            "page": "",
+            "custom_liquid": "",
+            "keep_open": false
+          }
+        },
+        "shipping_metaobject_tLJRyV": {
+          "type": "shipping_metaobject",
+          "settings": {
+            "icon": "none",
+            "heading": "Shipping & Returns",
+            "shipping_text": "default"
+          }
+        },
+        "sticky_cart": {
+          "type": "sticky_cart",
+          "settings": {
+            "show_quantity_selector": false
+          }
+        },
+        "iwt_gallery_WzN9xF": {
+          "type": "iwt_gallery",
+          "settings": {
+            "icon1": "shopify://shop_images/cloud_2.png",
+            "text1": "All Season",
+            "icon2": "shopify://shop_images/leaf.png",
+            "text2": "Natural"
+          }
+        }
+      },
+      "block_order": [
+        "donation_impact_8kJ6Hj",
+        "rating_static_jQpEEQ",
+        "breadcrumb_LGWKpR",
+        "title",
+        "price",
+        "icon_text_9Gxbx4",
+        "icon_text_grid_U3jbTR",
+        "variant_picker",
+        "buy_buttons",
+        "countdown_timer_4tCBwt",
+        "richtext_box_ehkChy",
+        "pairs_well_rqaHeU",
+        "video_reels_Uf7aUQ",
+        "collapsible_tab_TbRiah",
+        "collapsible_tab_HbbKet",
+        "collapsible_tab_cBk8E9",
+        "collapsible_tab-0",
+        "collapsible_tab_aL69mB",
+        "shipping_metaobject_tLJRyV",
+        "sticky_cart",
+        "iwt_gallery_WzN9xF"
+      ],
+      "settings": {
+        "enable_v2_styles": true,
+        "enable_sticky_info": true,
+        "media_position": "left",
+        "media_size": "large",
+        "gallery_layout": "vertical_slider",
+        "image_ratio": "adapt",
+        "show_featured_media": true,
+        "show_thumbnails": true,
+        "hide_variants": false,
+        "enable_image_zoom": false,
+        "enable_video_looping": false,
+        "mobile_image_ratio": "portrait",
+        "show_mobile_thumbnails": false,
+        "enable_variant_specific_media": false,
+        "enable_fade_slider": true,
+        "padding_top": 0,
+        "padding_bottom": 20
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "product_list_limit": 6,
+        "show_divider": false,
+        "heading": "You May Also Like",
+        "heading_size": "h0",
+        "heading_alignment": "left",
+        "heading_tag": "h2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "image_ratio": "square",
+        "image_position": "center center",
+        "enable_image_fill": true,
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "show_quick_buy": false,
+        "enable_quick_view": false,
+        "enable_color_swatches": true,
+        "enable_other_variants": false,
+        "enable_countdown": false,
+        "colors_highlight": "#ffb503",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_top_mob": 24,
+        "padding_bottom_mob": 24,
+        "enable_highlight": false,
+        "highlight_style": "marker"
+      }
+    },
+    "advanced_rich_text_QYx3gt": {
+      "type": "advanced-rich-text",
+      "blocks": {
+        "tag_eCj9Gh": {
+          "type": "tag",
+          "settings": {
+            "tag_text": "The Fleece Guarantee",
+            "tag_bg_color": "#f8f5f2",
+            "tag_text_color": "#000000"
+          }
+        },
+        "heading_mwH73M": {
+          "type": "heading",
+          "settings": {
+            "heading": "100 Nights Satisfaction Guarantee",
+            "heading_size": "h0",
+            "heading_tag": "h2"
+          }
+        },
+        "text_JC9bmy": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Enjoy breathable comfort with complete peace of mind.</p>",
+            "text_size": "typeset"
+          }
+        },
+        "button_PNj8Jx": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Try It Risk-Free",
+            "button_link": "",
+            "scroll_target": ".icon-text-grid-wrapper",
+            "button_style_secondary": false,
+            "button_alt_label": "",
+            "button_alt_link": "",
+            "button_alt_scroll_target": "",
+            "button_alt_style_secondary": false
+          }
+        },
+        "icons_row_wymn3C": {
+          "type": "icons_row",
+          "settings": {
+            "layout": "inline",
+            "show_default_check": true,
+            "icon_size_desktop": 24,
+            "icon_size_mobile": 16,
+            "text_size_desktop": 16,
+            "text_size_mobile": 12,
+            "image_1": "shopify://shop_images/Secure_Checkout_1.png",
+            "custom_svg_1": "",
+            "text_1": "<p>Tracked Shipping</p>",
+            "image_2": "shopify://shop_images/60_Days_Return_1.png",
+            "custom_svg_2": "",
+            "text_2": "<p>Easy Returns</p>",
+            "image_3": "shopify://shop_images/support.png",
+            "custom_svg_3": "",
+            "text_3": "<p>Always here</p>",
+            "custom_svg_4": "",
+            "text_4": "",
+            "custom_svg_5": "",
+            "text_5": ""
+          }
+        }
+      },
+      "block_order": [
+        "tag_eCj9Gh",
+        "heading_mwH73M",
+        "text_JC9bmy",
+        "button_PNj8Jx",
+        "icons_row_wymn3C"
+      ],
+      "disabled": true,
+      "name": "Advanced Rich Text",
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": false,
+        "show_divider": false,
+        "use_custom_colors": true,
+        "bg_width": "full_width",
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#3b3b3b",
+        "colors_text": "#3b3b3b",
+        "colors_background": "#f0eae4",
+        "colors_highlight": "#ffb503",
+        "gradient_background": "",
+        "padding_top": 52,
+        "padding_bottom": 44,
+        "padding_top_mob": 40,
+        "padding_bottom_mob": 32
+      }
+    },
+    "image_banner_v2_VMQtKU": {
+      "type": "image-banner-v2",
+      "blocks": {
+        "heading_EqjbwL": {
+          "type": "heading",
+          "settings": {
+            "heading": "Effortless, Deep Sleep.",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "text_kiWgwG": {
+          "type": "text",
+          "settings": {
+            "text": "<p>\"I'm out within minutes and don't wake up once\"</p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "heading_EqjbwL",
+        "text_kiWgwG"
+      ],
+      "name": "Image banner v2",
+      "settings": {
+        "image": "shopify://shop_images/Banner_1_1.webp",
+        "image_position": "center center",
+        "text_box_position": "bottom-left",
+        "text_alignment": "left",
+        "image_ratio": "550px",
+        "show_text_box": false,
+        "full_width": true,
+        "show_divider": false,
+        "enable_content_max_width": true,
+        "content_max_width": 480,
+        "enable_banner_height_tablet": false,
+        "banner_height_tablet": "auto",
+        "image_behavior": "none",
+        "mobile_image": "shopify://shop_images/Banner_2_1.webp",
+        "mobile_text_alignment": "left",
+        "mobile_content_alignment": "bottom",
+        "mobile_image_ratio": "400px",
+        "stack_images_on_mobile": false,
+        "show_text_below": false,
+        "hide_mobile": false,
+        "colors_button_label": "#1a1b18",
+        "colors_button_background": "#ffffff",
+        "colors_text": "#ffffff",
+        "colors_overlay": "#000000",
+        "colors_overlay_opacity": 28,
+        "colors_highlight": "#ffb503",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "image_with_text_v3_GKBbPb": {
+      "type": "image-with-text-v3",
+      "blocks": {
+        "subheading_3fc6Lg": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "INGREDIENTS",
+            "subheading_size": "h5",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading_XXgdCP": {
+          "type": "heading",
+          "settings": {
+            "heading": "Made from Nature's Strongest",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "text_UUnUCe": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Three clinically studied botanicals: lavender, chamomile, and valerian root. Each selected for their proven ability to calm the nervous system and promote deep, uninterrupted sleep. No synthetics. No fillers. Just pure plant science, perfected.</p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "images_grid_cddeMC": {
+          "type": "images_grid",
+          "disabled": true,
+          "settings": {
+            "image1": "shopify://shop_images/Button_Made_from_sustainably_farmed_organic_cotton.png",
+            "image2": "shopify://shop_images/Button_Made_from_sustainably_farmed_organic_cotton_1.png",
+            "image3": "shopify://shop_images/Button_Made_from_sustainably_farmed_organic_cotton_2.png"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_3fc6Lg",
+        "heading_XXgdCP",
+        "text_UUnUCe",
+        "images_grid_cddeMC"
+      ],
+      "name": "Image with text v3",
+      "settings": {
+        "image": "shopify://shop_images/Untitled_design_-_2026-03-10T162745.690.webp",
+        "image_position": "center center",
+        "layout": "image_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "image_ratio": "700px",
+        "enable_media_radius": false,
+        "media_radius": 0,
+        "enlarge_content": false,
+        "full_width": true,
+        "show_divider": false,
+        "image_behavior": "none",
+        "image_mobile": "shopify://shop_images/Untitled_design_-_2026-03-10T162745.690.webp",
+        "mobile_layout": "text_first",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "adapt",
+        "enable_video_looping": false,
+        "video_url": "",
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1b18",
+        "colors_text": "#212326",
+        "colors_background": "#ffffff",
+        "gradient_background": "",
+        "colors_highlight": "#ffb503",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_mob": 0,
+        "padding_bottom_mob": 0
+      }
+    },
+    "multicolumn_v2_zxzHia": {
+      "type": "multicolumn-v2",
+      "blocks": {
+        "column_izAxqx": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/2nd_Image_8.webp",
+            "icon_image": "shopify://shop_images/118.png",
+            "icon_svg": "",
+            "title": "Everything starts with the Boll...",
+            "title_size": "h2",
+            "text": "<p>Natural cotton is harvested and cleaned, then spun into fine, durable yarn. No synthetics. No blends. Just cotton.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false,
+            "background_color": "#f2f2f2",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff",
+            "show_popup": false,
+            "popup_image_position": "top",
+            "justify_text": false
+          }
+        },
+        "column_te4dbz": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/3rd_Image_1.webp",
+            "icon_image": "shopify://shop_images/119.png",
+            "icon_svg": "",
+            "title": "Then it gets Weaved",
+            "title_size": "h2",
+            "text": "<p>Yarn is fed through specialized looms and woven into a multi-layer open muslin structure, giving it that signature breathable feel.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false,
+            "background_color": "#f2f2f2",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff",
+            "show_popup": false,
+            "popup_image_position": "top",
+            "justify_text": false
+          }
+        },
+        "column_UxzJ3X": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/2nd_Image_2.webp",
+            "icon_image": "shopify://shop_images/Group_6.svg",
+            "icon_svg": "",
+            "title": "Finally Washed & Finished",
+            "title_size": "h2",
+            "text": "<p>Each blanket is pre-washed and quality checked by hand before it ships. Soft on arrival, softer with every wash after.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false,
+            "background_color": "#f2f2f2",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff",
+            "show_popup": false,
+            "popup_image_position": "top",
+            "justify_text": false
+          }
+        }
+      },
+      "block_order": [
+        "column_izAxqx",
+        "column_te4dbz",
+        "column_UxzJ3X"
+      ],
+      "disabled": true,
+      "name": "Multicolumn v2",
+      "settings": {
+        "subheading": "<p>THE PROCESS</p>",
+        "heading": "How our Blankets are Made",
+        "heading_size": "h0",
+        "heading_tag": "h2",
+        "heading_alignment": "center",
+        "text_alignment": "center",
+        "enable_card_style": false,
+        "enable_card_border": false,
+        "image_width": "full",
+        "columns_desktop": 3,
+        "icon_size_desktop": 48,
+        "icon_size_mobile": 40,
+        "mobile_text_alignment": "center",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "image_ratio": "adapt",
+        "image_position": "center center",
+        "use_custom_colors": true,
+        "colors_background": "#c5bbae",
+        "colors_text": "#ffffff",
+        "show_divider": false,
+        "open_in_new_tab": false,
+        "colors_highlight": "#ffb503",
+        "card_border_radius": 4,
+        "padding_top": 60,
+        "padding_bottom": 52,
+        "padding_top_mob": 40,
+        "padding_bottom_mob": 24,
+        "enable_highlight": false,
+        "highlight_style": "marker"
+      }
+    },
+    "image_floating_features_NyGtrV": {
+      "type": "image-floating-features",
+      "blocks": {
+        "feature_qNQqT3": {
+          "type": "feature",
+          "settings": {
+            "side": "left",
+            "position_top": 45,
+            "line_length": 150,
+            "icon_svg": "",
+            "icon_image": "shopify://shop_images/Group_7.svg",
+            "heading": "Sleeping",
+            "text": "<p>Provides light coverage that moves with your body without feeling restrictive overnight.</p>"
+          }
+        },
+        "feature_FYXfJF": {
+          "type": "feature",
+          "settings": {
+            "side": "right",
+            "position_top": 25,
+            "line_length": 150,
+            "icon_svg": "",
+            "icon_image": "shopify://shop_images/Group_8.svg",
+            "heading": "Lounging",
+            "text": "<p>Comfortable enough for slow mornings, evenings on the couch, or relaxed downtime.</p>"
+          }
+        },
+        "feature_fbqt8F": {
+          "type": "feature",
+          "settings": {
+            "side": "right",
+            "position_top": 68,
+            "line_length": 150,
+            "icon_svg": "",
+            "icon_image": "shopify://shop_images/Group_9.svg",
+            "heading": "Layering",
+            "text": "<p>Pairs easily with sheets or duvets when temperatures shift throughout the year.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_qNQqT3",
+        "feature_FYXfJF",
+        "feature_fbqt8F"
+      ],
+      "disabled": true,
+      "name": "Image Floating Features",
+      "settings": {
+        "subheading": "<p>GET THE PERFECT SLEEP</p>",
+        "heading": "Designed for Everyday Living",
+        "heading_size": "h0",
+        "heading_tag": "h2",
+        "heading_alignment": "center",
+        "main_image": "shopify://shop_images/Rectangle_21_1.webp",
+        "image_max_width": 420,
+        "image_radius": 10,
+        "icon_size": 48,
+        "button_label": "Try It Risk-Free",
+        "button_link": "",
+        "scroll_target": ".icon-text-grid-wrapper",
+        "button_style_secondary": false,
+        "footer_icon_svg_1": "",
+        "footer_icon_image_1": "shopify://shop_images/Secure_Checkout_1.png",
+        "footer_text_1": "Secure Checkout",
+        "footer_icon_svg_2": "",
+        "footer_icon_image_2": "shopify://shop_images/Free_Shipping_1.png",
+        "footer_text_2": "Free Shipping",
+        "footer_icon_svg_3": "",
+        "footer_icon_image_3": "shopify://shop_images/60_Days_Return_1.png",
+        "footer_text_3": "Easy Returns",
+        "show_divider": false,
+        "line_color": "#212326",
+        "use_custom_colors": false,
+        "colors_background": "#ffffff",
+        "colors_text": "#212326",
+        "padding_top": 52,
+        "padding_bottom": 52,
+        "padding_top_mob": 40,
+        "padding_bottom_mob": 32
+      }
+    },
+    "reviews_slider_v1_7hqRz8": {
+      "type": "reviews-slider-v1",
+      "blocks": {
+        "review_4i3BLT": {
+          "type": "review",
+          "settings": {
+            "author_name": "Nicole",
+            "star_rating": 5,
+            "review_text": "\"This muslin blanket feels incredibly soft and breathable. I sleep comfortably without overheating, and it looks beautiful on my bed every single night.\""
+          }
+        },
+        "review_rTCgpp": {
+          "type": "review",
+          "settings": {
+            "author_name": "Erin C.",
+            "star_rating": 5,
+            "review_text": "\"Lightweight yet cozy, this blanket is perfect year-round. It drapes nicely, washes well, and feels even softer over time. Definitely worth it.\""
+          }
+        },
+        "review_Xnjwtt": {
+          "type": "review",
+          "settings": {
+            "author_name": "Sonia",
+            "star_rating": 5,
+            "review_text": "\"This muslin blanket feels incredibly soft and breathable. I sleep comfortably without overheating, and it looks beautiful on my bed every single night.\""
+          }
+        },
+        "review_8ihXrT": {
+          "type": "review",
+          "settings": {
+            "author_name": "Nicole",
+            "star_rating": 5,
+            "review_text": "\"This muslin blanket feels incredibly soft and breathable. I sleep comfortably without overheating, and it looks beautiful on my bed every single night.\""
+          }
+        },
+        "review_NnMbVQ": {
+          "type": "review",
+          "settings": {
+            "author_name": "Erin C.",
+            "star_rating": 5,
+            "review_text": "\"Lightweight yet cozy, this blanket is perfect year-round. It drapes nicely, washes well, and feels even softer over time. Definitely worth it.\""
+          }
+        },
+        "review_rmXFME": {
+          "type": "review",
+          "settings": {
+            "author_name": "Sonia",
+            "star_rating": 5,
+            "review_text": "\"This muslin blanket feels incredibly soft and breathable. I sleep comfortably without overheating, and it looks beautiful on my bed every single night.\""
+          }
+        }
+      },
+      "block_order": [
+        "review_4i3BLT",
+        "review_rTCgpp",
+        "review_Xnjwtt",
+        "review_8ihXrT",
+        "review_NnMbVQ",
+        "review_rmXFME"
+      ],
+      "name": "Reviews slider v1",
+      "settings": {
+        "heading": "Trusted by 400,000+ Customers",
+        "heading_size": "h0",
+        "show_verified": true,
+        "verified_label": "Verified Customer",
+        "button_label": "",
+        "button_link": "shopify://collections/all",
+        "use_custom_colors": true,
+        "colors_text": "#27272a",
+        "colors_background": "#f0eae4",
+        "colors_card_background": "#ffffff",
+        "colors_stars": "#e07b39",
+        "colors_dots": "#000000",
+        "gradient_background": "",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "padding_top_mob": 40,
+        "padding_bottom_mob": 40
+      }
+    },
+    "17718302163b5e340b": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_QjEyLX": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_QjEyLX"
+      ],
+      "disabled": true,
+      "settings": {
+        "sec_bg_color": "#f0eae4",
+        "include_margins": true,
+        "show_divider": false,
+        "custom_class": "reviews-slider",
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    },
+    "image_with_accordion_NRBNzn": {
+      "type": "image-with-accordion",
+      "blocks": {
+        "accordion_fRXT8k": {
+          "type": "accordion",
+          "settings": {
+            "title": "How long will it take to see results?",
+            "content": "<p>Most customers notice a difference from the very first use. The calming scent of lavender, chamomile, and valerian works immediately to help you relax and fall asleep faster. With consistent nightly use, sleep quality continues to improve over the first 1–2 weeks.</p>"
+          }
+        },
+        "accordion_bPKVgG": {
+          "type": "accordion",
+          "settings": {
+            "title": "Is it safe to use every night?",
+            "content": "<p>Yes. Our formula contains only natural botanical extracts — no synthetic chemicals, no melatonin, no drugs. Unlike prescription sleep aids, Good Night Pillow Mist is non-habit forming and carries zero risk of dependency. It's designed for nightly use.</p>"
+          }
+        },
+        "accordion_PExgrx": {
+          "type": "accordion",
+          "settings": {
+            "title": "Will it stain my pillow or bedding?",
+            "content": "<p>No. Our formula is specifically designed to absorb quickly without leaving stains, residue, or oily marks on fabric. It works with all pillow types including silk, cotton, and linen.</p>"
+          }
+        },
+        "accordion_C4D3jA": {
+          "type": "accordion",
+          "settings": {
+            "title": "Can I use it alongside other sleep supplements?",
+            "content": "<p>Yes. Good Night Spray Formula is an aromatherapy product applied to your pillow, not ingested. It can be safely used alongside melatonin, magnesium, or any other supplements you currently take. Always consult your doctor if you have specific concerns.</p>"
+          }
+        },
+        "accordion_tG4bPa": {
+          "type": "accordion",
+          "settings": {
+            "title": "Is it safe for children and pets?",
+            "content": "<p>Our ingredients are 100% natural, however we recommend keeping the product out of reach of small children. For use around pets, consult your veterinarian. Some essential oils can be sensitive for cats in particular. Not intended for direct skin application.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "accordion_fRXT8k",
+        "accordion_bPKVgG",
+        "accordion_PExgrx",
+        "accordion_C4D3jA",
+        "accordion_tG4bPa"
+      ],
+      "name": "Image with Accordion",
+      "settings": {
+        "main_image": "shopify://shop_images/image_8.webp",
+        "image_position": "right",
+        "layout_ratio": "40/60",
+        "image_height": "adapt",
+        "image_radius": 10,
+        "subheading": "<p>LEARN MORE</p>",
+        "heading": "Frequently Asked Questions",
+        "heading_size": "h0",
+        "heading_tag": "h2",
+        "heading_alignment": "left",
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_background": "#ffffff",
+        "colors_text": "#212326",
+        "padding_top": 52,
+        "padding_bottom": 60,
+        "padding_top_mob": 32,
+        "padding_bottom_mob": 40
+      }
+    }
+  },
+  "order": [
+    "content_scrollspy_KjGLRV",
+    "empty-space",
+    "main",
+    "product-recommendations",
+    "advanced_rich_text_QYx3gt",
+    "image_banner_v2_VMQtKU",
+    "image_with_text_v3_GKBbPb",
+    "multicolumn_v2_zxzHia",
+    "image_floating_features_NyGtrV",
+    "reviews_slider_v1_7hqRz8",
+    "17718302163b5e340b",
+    "image_with_accordion_NRBNzn"
+  ]
+}

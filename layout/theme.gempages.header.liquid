@@ -5,6 +5,8 @@
 >
   <head>
     <script src="{{ 'pandectes-rules.js' | file_url }}"></script>
+    {% render 'elevateab' %}
+
     {% render 'replo-head' %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -171,8 +173,7 @@
       'tb_tfa_script');
     </script>
     <!-- End of Taboola Pixel Code -->
-
-    {%- if content_for_header contains "elevateab.app" -%}{%- unless request.design_mode -%} <script>try{window.eab_data={selectors:JSON.parse(`{{shop.metafields.elevateab.select}}`)||{},allTests:JSON.parse(`{{shop.metafields.elevateab.tests}}`)||{},currencyFormat:{% if settings.currency_code_enabled %}"{{ shop.money_with_currency_format}}"{% else %}"{{ shop.money_format}}"{% endif %}};}catch(error){console.log(error);window.eab_data={selectors:{},allTests:{},currencyFormat:{% if settings.currency_code_enabled %}"{{ shop.money_with_currency_format}}"{% else %}"{{ shop.money_format}}"{% endif %}};}</script><script src="https://ds0wlyksfn0sb.cloudfront.net/redirect.js"></script> {%- endunless -%}{%- endif -%} 
+ 
     {% render 'kiwiSizing' %}
     <script type="text/javascript">
       (function(c,l,a,r,i,t,y){

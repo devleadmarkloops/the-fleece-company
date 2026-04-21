@@ -10,7 +10,9 @@
   }
 {%- endstyle -%}
 
-{{ 'section-footer.css' | asset_url | stylesheet_tag }}
+{%- comment -%}Performance: Defer footer CSS (non-critical){%- endcomment -%}
+<link rel="stylesheet" href="{{ 'section-footer-new.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="{{ 'section-footer-new.css' | asset_url }}"></noscript>
 
 <link rel="stylesheet" href="{{ 'component-newsletter.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-accordion.css' | asset_url }}" media="print" onload="this.media='all'">
