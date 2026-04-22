@@ -28,12 +28,18 @@
     assign is_lcp = true
   endif
 
+  # CWV FIX v6 (LCP priority): has_image_1/2 agora consideram também as
+  # variantes mobile_image/mobile_image_2. Antes, se o usuário configurasse
+  # APENAS mobile_image (sem a desktop), has_image_1 era false e a section
+  # caía no placeholder SVG — matando preload e toda a branch LCP (eager,
+  # fetchpriority=high, decoding=sync). Com esse fallback, o LCP path também
+  # dispara para setups mobile-only (caso comum em landing pages mobile-first).
   assign has_image_1 = false
   assign has_image_2 = false
-  if section.settings.image != blank
+  if section.settings.image != blank or section.settings.mobile_image != blank
     assign has_image_1 = true
   endif
-  if section.settings.image_2 != blank
+  if section.settings.image_2 != blank or section.settings.mobile_image_2 != blank
     assign has_image_2 = true
   endif
 
@@ -276,8 +282,15 @@
 {%- endcomment -%}
 {% # theme-check-disable ImgLazyLoading, ImgWidthAndHeight, AssetPreload %}
 {%- if is_lcp and has_image_1 -%}
-  {%- assign lcp_image = section.settings.image -%}
-  {%- assign lcp_mobile_image = section.settings.mobile_image | default: lcp_image -%}
+  {%- comment -%}
+    CWV FIX v6 (LCP priority): fallback bidirecional. lcp_image agora também
+    pode cair em mobile_image se o desktop estiver vazio (mobile-only setup),
+    evitando preload quebrado (href sem URL). O preload mobile (media="(max-width:749px)")
+    é o que realmente importa pra substituir o popup do Klaviyo como LCP em
+    viewports de celular.
+  {%- endcomment -%}
+  {%- assign lcp_image = section.settings.image | default: section.settings.mobile_image -%}
+  {%- assign lcp_mobile_image = section.settings.mobile_image | default: section.settings.image -%}
   {%- comment -%}
     CWV FIX v4: preload desktop usa apenas widths_desktop_list (sem poluir
     com widths mobile), preload mobile usa apenas widths_mobile_list. Com
@@ -302,10 +315,17 @@
       {{ lcp_mobile_image | image_url: width: w }} {{ w }}w{%- unless forloop.last -%}, {%- endunless -%}
     {%- endfor -%}
   {%- endcapture -%}
+  {%- comment -%}
+    CWV FIX v6 (LCP priority mobile): href atualizado para 450w (antes 650w)
+    porque o novo sizes mobile = 50vw faz o browser pedir ~450w em DPR 2 no
+    viewport típico de 412. Alinha o fallback do preload ao que o <source>
+    do <picture> realmente seleciona, evitando discrepância em browsers
+    antigos (que usam href em vez de imagesrcset).
+  {%- endcomment -%}
   <link
     rel="preload"
     as="image"
-    href="{{ lcp_mobile_image | image_url: width: 650 }}"
+    href="{{ lcp_mobile_image | image_url: width: 450 }}"
     imagesrcset="{{ lcp_mobile_srcset | strip_newlines | strip }}"
     imagesizes="{{ img1_sizes }}"
     media="(max-width: 749px)"
@@ -321,7 +341,10 @@
     <div id="Banner-{{ section.id }}" class="banner banner-v2{% if section.settings.stack_images_on_mobile and has_image_1 and has_image_2 %} banner--stacked{% endif %}{% if section.settings.show_text_box %} banner--container{% endif %}{% if section.settings.show_text_below %} banner--mobile-bottom{% endif %}">
       {%- if has_image_1 -%}
         {%- liquid
-          assign image = section.settings.image
+          # CWV FIX v6 (LCP priority): image com fallback para mobile_image
+          # quando a desktop está vazia — garante que o <img> do <picture>
+          # tenha src/srcset válidos mesmo em setups mobile-only.
+          assign image = section.settings.image | default: section.settings.mobile_image
           assign image_class = 'image-fit'
           if has_image_2
             assign image_class = image_class | append: ' banner__media-image-half'
@@ -391,7 +414,9 @@
 
       {%- if has_image_2 -%}
         {%- liquid
-          assign image_2nd = section.settings.image_2
+          # CWV FIX v6 (LCP priority): fallback desktop <- mobile_image_2,
+          # espelhando a lógica de image_1.
+          assign image_2nd = section.settings.image_2 | default: section.settings.mobile_image_2
           assign image_class_2nd = 'image-fit'
           if has_image_1
             assign image_class_2nd = image_class_2nd | append: ' banner__media-image-half'
