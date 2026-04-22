@@ -152,6 +152,52 @@
     cursor: grabbing;
   }
 
+  {%- comment -%}
+    CLS FIX: Reserva largura correta dos .swiper-slide ANTES do Swiper JS
+    inicializar (carregado async do CDN). O seletor :not(.swiper-initialized)
+    aplica apenas no intervalo entre render inicial e boot do Swiper — que é
+    justamente onde o shift de 0.110 ocorria. Valores espelham slidesPerView
+    e spaceBetween do script abaixo (2.07/8px, 3/12px, 4/15px).
+  {%- endcomment -%}
+  .fc-tabs-section-{{ section.id }} .swiper:not(.swiper-initialized) .swiper-wrapper {
+    gap: 8px;
+  }
+  .fc-tabs-section-{{ section.id }} .swiper:not(.swiper-initialized) .swiper-slide {
+    flex: 0 0 calc((100% - (8px * 1.07)) / 2.07);
+    max-width: calc((100% - (8px * 1.07)) / 2.07);
+  }
+  @media screen and (min-width: 768px) {
+    .fc-tabs-section-{{ section.id }} .swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: 12px;
+    }
+    .fc-tabs-section-{{ section.id }} .swiper:not(.swiper-initialized) .swiper-slide {
+      flex: 0 0 calc((100% - 24px) / 3);
+      max-width: calc((100% - 24px) / 3);
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    .fc-tabs-section-{{ section.id }} .swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: 15px;
+    }
+    .fc-tabs-section-{{ section.id }} .swiper:not(.swiper-initialized) .swiper-slide {
+      flex: 0 0 calc((100% - 45px) / 4);
+      max-width: calc((100% - 45px) / 4);
+    }
+  }
+
+  {%- comment -%}
+    CLS FIX: o font-swap (Gilroy/CooperBTLight com font-display:swap) altera
+    a altura do bloco de texto abaixo da imagem. Reservamos o espaço mínimo
+    das 2 linhas do título + preço antes da fonte custom assumir.
+  {%- endcomment -%}
+  .fc-tabs-section-{{ section.id }} .card-product-v2 .card-information__wrapper .card-information__text {
+    min-height: 2.4em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
   @media screen and (max-width: 749px) {
     .fc-tabs-nav {
       /* width: 100%; */
@@ -167,14 +213,15 @@
   }
 {%- endstyle -%}
 
-{% comment %} LCP: Preload crítico CSS inline para renderização mais rápida {% endcomment %}
+{% comment %} LCP/CLS: Preload crítico CSS inline para renderização mais rápida e reserva de altura dos swipers em TODOS os breakpoints (antes só ≥768px reservava, deixando mobile sem reserva e gerando CLS). {% endcomment %}
 <style>
   .fc-tabs-section-{{ section.id }} { display: block; }
   .fc-tabs-section-{{ section.id }} .fc-tabs-header-row { display: flex; }
   .fc-tabs-section-{{ section.id }} .fc-tab-panel { display: none; }
   .fc-tabs-section-{{ section.id }} .fc-tab-panel.is-active { display: block; }
-  @media screen and (min-width: 768px) { .fc-tabs-section-{{ section.id }} .swiper { min-height: 420px; } }
-  @media screen and (min-width: 1024px) { .fc-tabs-section-{{ section.id }} .swiper { min-height: 460px; } }
+  .fc-tabs-section-{{ section.id }} .swiper { min-height: 380px; }
+  @media screen and (min-width: 768px) { .fc-tabs-section-{{ section.id }} .swiper { min-height: 460px; } }
+  @media screen and (min-width: 1024px) { .fc-tabs-section-{{ section.id }} .swiper { min-height: 500px; } }
 </style>
 
 <link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">

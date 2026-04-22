@@ -149,7 +149,19 @@
   /* CLS: evita overflow horizontal em flex que por vezes reflow com fontes. */
   #shopify-section-{{ section.id }} .banner__box {
     min-width: 0;
+    /* CLS FIX v3: contain isola o reflow interno do banner__box quando a fonte
+       custom (Gilroy/CooperBTLight com font-display:swap) carrega e muda a
+       métrica do heading — o box tem height:fit-content, então sem contain o
+       shift do heading empurra o botão (CLS 0.002 reportado). */
+    contain: layout;
   }
+  /* CLS FIX v3: reserva altura mínima aproximada do heading/subheading para
+     que o swap de fonte não reflua o .banner__box. line-height 1.2 + font-size
+     definido acima para cada size class. */
+  #shopify-section-{{ section.id }} .banner__heading.h0 { min-height: 1.2em; }
+  #shopify-section-{{ section.id }} .banner__heading.h1 { min-height: 1.2em; }
+  #shopify-section-{{ section.id }} .banner__subheading.h4,
+  #shopify-section-{{ section.id }} .banner__subheading.h5 { min-height: 1.25em; }
   #shopify-section-{{ section.id }} .media--adapt,
   #shopify-section-{{ section.id }} .media-mobile--adapt {
     padding-bottom: var(--image-ratio-percent, 56.25%);
