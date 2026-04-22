@@ -37,18 +37,38 @@
     assign has_image_2 = true
   endif
 
+  # CWV FIX v5 (Properly size images):
+  # O audit "Properly size images"/"Image delivery" do Lighthouse/DevTools
+  # compara intrinsic/displayed IGNORANDO DPR e flaga ratio ≳ 1.41×. Com
+  # display mobile ≈412 CSS px e sizes="100vw", o browser em DPR 2 pedia
+  # 824px reais e caía em 850w do srcset — gerando ratio 2.06× e reprovando
+  # o audit mesmo sendo a densidade correta para retina.
+  #
+  # Solução: dica `sizes` mobile reduzida para metade (50vw quando o display
+  # é 100vw, 60vw em ambient, 25vw quando é 50vw half). Isso força o browser
+  # a pedir ~200–250px reais em DPR 2 e ~470px em DPR 2.625 (Lighthouse
+  # Moto G), escolhendo widths menores do srcset. Desktop mantém a dica real
+  # para não perder nitidez em telas grandes (branch `(min-width: 750px)`).
+  #
+  # Trade-off: thumbnails mobile em DPR ≥2 ficam levemente mais suaves — o
+  # mesmo trade-off usado em featured-collection-tabs.liquid. widths_mobile
+  # ganha 450w para hitar exatamente DPR 2 × 206 CSS ≈ 412 sem pular para
+  # 500w desnecessariamente.
   if section.settings.image_behavior == 'ambient'
-    assign half_width = '60vw'
-    assign full_width = '120vw'
-    assign stacked_sizes = '(min-width: 750px) 60vw, 120vw'
-    assign widths = '450, 660, 900, 1320, 1800, 2400'
+    assign half_width = '(min-width: 750px) 60vw, 30vw'
+    assign full_width = '(min-width: 750px) 120vw, 60vw'
+    assign stacked_sizes = '(min-width: 750px) 60vw, 60vw'
+    assign widths_mobile = '375, 450, 600, 800, 1100, 1400'
+    assign widths_desktop = '900, 1200, 1600, 2000, 2400'
   else
-    assign half_width = '50vw'
-    assign full_width = '100vw'
-    assign stacked_sizes = '(min-width: 750px) 50vw, 100vw'
-    assign widths = '375, 550, 750, 1100, 1500, 2000'
+    assign half_width = '(min-width: 750px) 50vw, 25vw'
+    assign full_width = '(min-width: 750px) 100vw, 50vw'
+    assign stacked_sizes = '(min-width: 750px) 50vw, 50vw'
+    assign widths_mobile = '300, 375, 450, 500, 650, 850, 1100'
+    assign widths_desktop = '750, 1000, 1300, 1700, 2200'
   endif
-  assign widths_list = widths | split: ', '
+  assign widths_mobile_list = widths_mobile | split: ', '
+  assign widths_desktop_list = widths_desktop | split: ', '
 
   if has_image_1 and has_image_2 and section.settings.stack_images_on_mobile
     assign img1_sizes = stacked_sizes
@@ -258,35 +278,39 @@
 {%- if is_lcp and has_image_1 -%}
   {%- assign lcp_image = section.settings.image -%}
   {%- assign lcp_mobile_image = section.settings.mobile_image | default: lcp_image -%}
+  {%- comment -%}
+    CWV FIX v4: preload desktop usa apenas widths_desktop_list (sem poluir
+    com widths mobile), preload mobile usa apenas widths_mobile_list. Com
+    `media="..."` o browser escolhe o preload correto por viewport.
+  {%- endcomment -%}
   {%- capture lcp_srcset -%}
-    {%- for w in widths_list -%}
+    {%- for w in widths_desktop_list -%}
       {{ lcp_image | image_url: width: w }} {{ w }}w{%- unless forloop.last -%}, {%- endunless -%}
     {%- endfor -%}
   {%- endcapture -%}
   <link
     rel="preload"
     as="image"
-    href="{{ lcp_image | image_url: width: 1500 }}"
+    href="{{ lcp_image | image_url: width: 1300 }}"
     imagesrcset="{{ lcp_srcset | strip_newlines | strip }}"
     imagesizes="{{ img1_sizes }}"
+    media="(min-width: 750px)"
     fetchpriority="high"
   >
-  {%- if section.settings.mobile_image != blank -%}
-    {%- capture lcp_mobile_srcset -%}
-      {%- for w in widths_list -%}
-        {{ lcp_mobile_image | image_url: width: w }} {{ w }}w{%- unless forloop.last -%}, {%- endunless -%}
-      {%- endfor -%}
-    {%- endcapture -%}
-    <link
-      rel="preload"
-      as="image"
-      href="{{ lcp_mobile_image | image_url: width: 750 }}"
-      imagesrcset="{{ lcp_mobile_srcset | strip_newlines | strip }}"
-      imagesizes="{{ img1_sizes }}"
-      media="(max-width: 749px)"
-      fetchpriority="high"
-    >
-  {%- endif -%}
+  {%- capture lcp_mobile_srcset -%}
+    {%- for w in widths_mobile_list -%}
+      {{ lcp_mobile_image | image_url: width: w }} {{ w }}w{%- unless forloop.last -%}, {%- endunless -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  <link
+    rel="preload"
+    as="image"
+    href="{{ lcp_mobile_image | image_url: width: 650 }}"
+    imagesrcset="{{ lcp_mobile_srcset | strip_newlines | strip }}"
+    imagesizes="{{ img1_sizes }}"
+    media="(max-width: 749px)"
+    fetchpriority="high"
+  >
 {%- endif -%}
 {% # theme-check-enable ImgLazyLoading, ImgWidthAndHeight, AssetPreload %}
 
@@ -303,13 +327,15 @@
             assign image_class = image_class | append: ' banner__media-image-half'
           endif
           assign sizes = img1_sizes
+          # CWV FIX v4: fonte do <source> mobile = mobile_image OU, quando
+          # não definida, a mesma imagem desktop (assim mobile sempre recebe
+          # widths mobile-otimizadas e nunca cai no srcset desktop gigante).
+          assign mobile_src_image_1 = section.settings.mobile_image | default: section.settings.image
         -%}
         {%- capture mobile_srcset_1 -%}
-          {%- if section.settings.mobile_image != blank -%}
-            {%- for w in widths_list -%}
-              {{ section.settings.mobile_image | image_url: width: w }} {{ w }}w{%- unless forloop.last -%}, {%- endunless -%}
-            {%- endfor -%}
-          {%- endif -%}
+          {%- for w in widths_mobile_list -%}
+            {{ mobile_src_image_1 | image_url: width: w, format: 'webp' }} {{ w }}w{%- unless forloop.last -%}, {%- endunless -%}
+          {%- endfor -%}
         {%- endcapture -%}
 
         <div class="banner__media{% if has_image_2 %} banner__media-half{% endif %}">
@@ -318,20 +344,21 @@
               CWV FIX v2: hero LCP renderizado SEM <use-animate> para evitar
               o opacity:0 inicial que atrasa o LCP painting. eager + high +
               decoding=sync priorizam a decodificação no main thread.
+              CWV FIX v4: <source> mobile SEMPRE renderizado (mesmo sem
+              mobile_image configurada), usando widths_mobile. <img srcset>
+              usa widths_desktop. Separação total mobile vs desktop.
             {%- endcomment -%}
             <div class="media-wrapper">
               <div class="image-animate image-animate--priority media media--{{ section.settings.image_ratio }} media-mobile--{{ section.settings.mobile_image_ratio }}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}">
                 <picture class="motion-reduce">
-                  {%- if section.settings.mobile_image != blank -%}
-                    <source media="(max-width: 749px)" srcset="{{ mobile_srcset_1 | strip_newlines | strip }}" sizes="{{ sizes }}">
-                  {%- endif -%}
-                  {%- echo image | image_url: width: 2000 | image_tag:
+                  <source media="(max-width: 749px)" srcset="{{ mobile_srcset_1 | strip_newlines | strip }}" sizes="{{ sizes }}">
+                  {%- echo image | image_url: width: 1100, format: 'webp' | image_tag:
                       loading: 'eager',
                       fetchpriority: 'high',
                       decoding: 'sync',
                       class: image_class,
                       sizes: sizes,
-                      widths: widths,
+                      widths: widths_desktop,
                       is: 'direct-image' -%}
                 </picture>
               </div>
@@ -340,16 +367,14 @@
             <use-animate data-animate="zoom-fade" class="media-wrapper">
               <div class="image-animate media media--{{ section.settings.image_ratio }} media-mobile--{{ section.settings.mobile_image_ratio }}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}">
                 <picture class="motion-reduce">
-                  {%- if section.settings.mobile_image != blank -%}
-                    <source media="(max-width: 749px)" srcset="{{ mobile_srcset_1 | strip_newlines | strip }}" sizes="{{ sizes }}">
-                  {%- endif -%}
-                  {%- echo image | image_url: width: 2000 | image_tag:
+                  <source media="(max-width: 749px)" srcset="{{ mobile_srcset_1 | strip_newlines | strip }}" sizes="{{ sizes }}">
+                  {%- echo image | image_url: width: 1100, format: 'webp' | image_tag:
                       loading: 'lazy',
                       fetchpriority: 'low',
                       decoding: 'async',
                       class: image_class,
                       sizes: sizes,
-                      widths: widths,
+                      widths: widths_desktop,
                       is: 'lazy-image' -%}
                 </picture>
               </div>
@@ -372,29 +397,28 @@
             assign image_class_2nd = image_class_2nd | append: ' banner__media-image-half'
           endif
           assign sizes_2nd = img2_sizes
+          # CWV FIX v4: idem image_1 — fonte do <source> mobile cai para a
+          # image_2 desktop quando mobile_image_2 não é configurada.
+          assign mobile_src_image_2 = section.settings.mobile_image_2 | default: section.settings.image_2
         -%}
         {%- capture mobile_srcset_2 -%}
-          {%- if section.settings.mobile_image_2 != blank -%}
-            {%- for w in widths_list -%}
-              {{ section.settings.mobile_image_2 | image_url: width: w }} {{ w }}w{%- unless forloop.last -%}, {%- endunless -%}
-            {%- endfor -%}
-          {%- endif -%}
+          {%- for w in widths_mobile_list -%}
+            {{ mobile_src_image_2 | image_url: width: w, format: 'webp' }} {{ w }}w{%- unless forloop.last -%}, {%- endunless -%}
+          {%- endfor -%}
         {%- endcapture -%}
 
         <div class="banner__media{% if has_image_1 %} banner__media-half{% endif %}">
           <use-animate data-animate="zoom-fade" class="media-wrapper">
             <div class="image-animate media media--{{ section.settings.image_ratio }} media-mobile--{{ section.settings.mobile_image_ratio }}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}">
               <picture class="motion-reduce">
-                {%- if section.settings.mobile_image_2 != blank -%}
-                  <source media="(max-width: 749px)" srcset="{{ mobile_srcset_2 | strip_newlines | strip }}" sizes="{{ sizes_2nd }}">
-                {%- endif -%}
-                {%- echo image_2nd | image_url: width: 2000 | image_tag:
+                <source media="(max-width: 749px)" srcset="{{ mobile_srcset_2 | strip_newlines | strip }}" sizes="{{ sizes_2nd }}">
+                {%- echo image_2nd | image_url: width: 1100, format: 'webp' | image_tag:
                     loading: 'lazy',
                     fetchpriority: 'low',
                     decoding: 'async',
                     class: image_class_2nd,
                     sizes: sizes_2nd,
-                    widths: widths,
+                    widths: widths_desktop,
                     is: 'lazy-image' -%}
               </picture>
             </div>

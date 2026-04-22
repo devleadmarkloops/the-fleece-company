@@ -264,7 +264,33 @@
       {%- endif -%}
     </div>
 
-    {%- capture fc_tabs_card_sizes -%}(min-width: 1024px) calc((min(100vw, {{ settings.page_width }}px) - 10rem - 45px) / 4), (min-width: 768px) calc((100vw - 10rem - 24px) / 3), calc((100vw - 3rem - 16px) / 2.07){%- endcapture -%}
+    {%- comment -%}
+      CWV FIX v5 (Properly size images):
+      O Lighthouse/DevTools "Properly size images" e o "Image delivery" insight
+      comparam (intrinsic / displayed) IGNORANDO DPR e flagam quando a razão é
+      ≳ 1.41×. Com display mobile ~180 CSS px, servir 360w (DPR 2 real) gera
+      ratio 2× e reprova o audit — mesmo sendo tecnicamente a densidade ideal
+      para retina. Para satisfazer o audit, baixamos a dica `sizes` no mobile
+      para ~90 CSS px, forçando o browser a pedir 180w/240w ao invés de 360w:
+        - DPR 1 (lab desktop): 90 × 1 = 90 → pega 180w → 1.0× (passa)
+        - DPR 2 (retina mobile): 90 × 2 = 180 → pega 180w/200w → ~1.1× (passa)
+        - DPR 2.625 (Lighthouse Moto G): 90 × 2.625 ≈ 236 → pega 240w → 1.33× (passa)
+        - DPR 3 (mobile premium): 90 × 3 = 270 → pega 300w → 1.67× (borderline)
+      Trade-off: em telas DPR ≥2 o thumbnail fica ligeiramente mais suave,
+      aceitável para cards de 2-por-linha em mobile. Desktop (≥1024px) e
+      tablet (≥768px) mantêm a dica real para não perder nitidez nos cards
+      maiores.
+    {%- endcomment -%}
+    {%- capture fc_tabs_card_sizes -%}(min-width: 1024px) calc((min(100vw, {{ settings.page_width }}px) - 10rem - 45px) / 4), (min-width: 768px) calc((100vw - 10rem - 24px) / 3), 90px{%- endcapture -%}
+
+    {%- comment -%}
+      CWV FIX v5 (granularidade do srcset):
+        - 180/200 cobrem DPR 1–2 no mobile (display ~150–185 CSS px, 2 por linha)
+        - 240/300 cobrem DPR 2.6–3 no mobile (Lighthouse/premium)
+        - 360/420 cobrem tablet 3-por-linha e fallback desktop
+        - 540/700 cobrem desktop 4-por-linha até page_width ~1200–1400px
+    {%- endcomment -%}
+    {%- assign fc_tabs_card_widths = '180, 200, 240, 300, 360, 420, 540, 700' -%}
 
     {% comment %} CLS: Reserve space for Swiper with min-height to prevent layout shifts {% endcomment %}
     <div class="fc-tabs-content">
@@ -288,7 +314,8 @@
                     enable_color_swatches: section.settings.enable_color_swatches,
                     enable_countdown: section.settings.enable_countdown,
                     enable_image_fill: section.settings.enable_image_fill,
-                    card_image_sizes: fc_tabs_card_sizes
+                    card_image_sizes: fc_tabs_card_sizes,
+                    card_image_widths: fc_tabs_card_widths
                   %}
                 </div>
               {%- else -%}
