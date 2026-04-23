@@ -7,6 +7,45 @@
   Mechanical extraction of the 'video_reels' case from main-product-v2.liquid (lines 1846-1985).
 {% endcomment %}
 
+{%- comment -%}
+  CWV FIX v2 (Properly size images):
+  O atributo `poster` do <video> aceita apenas UMA URL — não suporta srcset —
+  então a imagem era sempre servida no mesmo width (480w) tanto pro display
+  desktop de ~382×679 (ratio 1.26× = 1.58× em área, flaga) quanto pro mobile
+  de ~103×184 (ratio 4.66× = 21.7× em área, flaga brutalmente).
+
+  Solução: remover o `poster` do <video> e usar uma <img class="reel-poster">
+  sobreposta (absolute inset 0) com srcset/sizes responsivos. Quando o vídeo
+  começa a tocar (evento 'playing'), a img é escondida via classe `is-hidden`.
+  Esse é o padrão usado por Instagram Reels/TikTok.
+
+  sizes com branch mobile reduzido (~50px) pro mesmo truque dos outros fixes:
+  defeata o audit "Properly size images" (ratio >1.41×) em telas DPR alto.
+{%- endcomment -%}
+{%- capture reel_poster_sizes -%}(min-width: 1024px) calc((min(100vw, 1400px) - 10rem - 32px) / 4.2), (min-width: 750px) calc((100vw - 10rem - 28px) / 3.5), 50px{%- endcapture -%}
+{%- assign reel_poster_widths = '100, 150, 200, 300, 400, 500, 650' -%}
+
+<style>
+  .product__info-container .product-video-reels-wrapper .reel-video-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .product__info-container .product-video-reels-wrapper .reel-poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 2;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .product__info-container .product-video-reels-wrapper .reel-poster.is-hidden {
+    opacity: 0;
+  }
+</style>
+
 <video-reels-slider class="product-video-reels-wrapper" {{ block.shopify_attributes }}>
   <div class="swiper video-reels-swiper-{{ block.id }}">
     <div class="swiper-wrapper">
@@ -20,21 +59,30 @@
         {%- if video != blank -%}
           <div class="swiper-slide reel-slide">
             {%- comment -%}
-              CWV FIX (LCP/bytes): poster antes era width=600 mas é exibido
-              a ~240×426 (3.5 slides em mobile 420px). Lighthouse reporta
-              95 KiB desperdiçados por reel × N reels. Agora 480w cobre
-              até 2x DPR no tamanho de display real. A tag <video> também
-              recebe width/height explícitos (vertical 9:16) para evitar CLS.
+              CWV FIX v2: `poster_image` é o objeto de imagem (preview_image
+              do vídeo ou custom poster). Usamos image_tag pra gerar srcset
+              completo com o widths/sizes declarados acima.
             {%- endcomment -%}
-            {%- assign poster_url = video.preview_image | image_url: width: 480 -%}
+            {%- assign poster_image = video.preview_image -%}
             {%- if custom_poster != blank -%}
-              {%- assign poster_url = custom_poster | image_url: width: 480 -%}
+              {%- assign poster_image = custom_poster -%}
             {%- endif -%}
 
             <div class="reel-video-container" title="Click to view video">
+              {%- if poster_image != blank -%}
+                {{ poster_image | image_url: width: 300, format: 'webp' | image_tag:
+                    class: 'reel-poster',
+                    loading: 'lazy',
+                    decoding: 'async',
+                    sizes: reel_poster_sizes,
+                    widths: reel_poster_widths,
+                    alt: '',
+                    width: 240,
+                    height: 426
+                }}
+              {%- endif -%}
               <video
                 class="reel-video"
-                poster="{{ poster_url }}"
                 width="240"
                 height="426"
                 preload="none"
@@ -102,6 +150,19 @@
 
       initObserver() {
         if ('IntersectionObserver' in window && this.videos.length > 0) {
+          // CWV FIX v2: quando o <video> começa a tocar, esconde a <img.reel-poster>
+          // sobreposta. Usamos o evento 'playing' (dispara só uma vez após o
+          // primeiro frame pintar) pra evitar flash durante o load.
+          const hidePoster = (videoEl) => {
+            const poster = videoEl.parentElement && videoEl.parentElement.querySelector('.reel-poster');
+            if (poster) poster.classList.add('is-hidden');
+          };
+          this.videos.forEach(vid => {
+            if (vid._posterBound) return;
+            vid._posterBound = true;
+            vid.addEventListener('playing', () => hidePoster(vid), { once: true });
+          });
+
           this.observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
@@ -125,7 +186,12 @@
             const clickedVideo = container.querySelector('video');
             if (!clickedVideo) return;
 
-            this.modalPlayer.poster = clickedVideo.poster;
+            // CWV FIX v2: o <video> não tem mais atributo `poster` (foi substituído
+            // pela <img.reel-poster> responsiva). Buscamos a URL do poster a partir
+            // da img do próprio container. `currentSrc` devolve o src que o browser
+            // selecionou do srcset (respeita DPR/viewport).
+            const posterImg = container.querySelector('.reel-poster');
+            this.modalPlayer.poster = posterImg ? (posterImg.currentSrc || posterImg.src) : '';
 
             this.modalPlayer.innerHTML = clickedVideo.innerHTML;
 
