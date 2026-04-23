@@ -287,6 +287,41 @@
       <script>window.location.replace('/?open_cart=true');</script>
     {%- endif -%}
 
+    <script>
+      (function() {
+        var params = new URLSearchParams(window.location.search);
+        if (params.has('open_cart')) {
+          var cleanUrl = new URL(window.location);
+          cleanUrl.searchParams.delete('open_cart');
+          window.history.replaceState({}, '', cleanUrl);
+
+          function tryOpenMiniCart() {
+            var miniCart = document.querySelector('mini-cart');
+            if (miniCart && typeof miniCart.open === 'function') {
+              miniCart.open();
+            } else {
+              setTimeout(tryOpenMiniCart, 150);
+            }
+          }
+
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() { setTimeout(tryOpenMiniCart, 300); });
+          } else {
+            setTimeout(tryOpenMiniCart, 300);
+          }
+        }
+      })();
+    </script>
+    <script>
+        const TIMER_DURATION = 300;
+        let timerInterval = null;
+        let timerEndTime = null;
+      </script>
+
+    {%- if request.page_type == 'cart' -%}
+      <script>window.location.replace('/?open_cart=true');</script>
+    {%- endif -%}
+
     {%- comment -%}
       CWV FIX (P2): ~135 linhas de JS inline (timer 5min com setInterval 100ms,
       checkout-btn handler, initOrderProtection, fetch /cart/change.js no
