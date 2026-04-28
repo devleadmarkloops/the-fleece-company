@@ -3006,7 +3006,12 @@ span.alert-box:before {
   margin-bottom: 2px;
 }
 .product__info-container .kaching-bundles .kaching-bundles__bar-variant-select {
-  background-color: #F0EAE4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  background: white;
+  border: 1px solid rgba(var(--color-foreground), 0.15);
   border-radius: 8px;
   padding-block: 1rem;
   padding-inline-start: 1.2rem;

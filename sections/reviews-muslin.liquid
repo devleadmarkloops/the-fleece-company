@@ -1,0 +1,437 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .reviews-muslin-{{ section.id }} {
+    padding-top: var(--section-padding-top);
+    padding-bottom: var(--section-padding-bottom);
+    background: {{ section.settings.bg_color }};
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-heading {
+    text-align: center;
+    margin-bottom: 0.6rem;
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-subheading {
+    text-align: center;
+    font-size: 1.5rem;
+    color: rgb(var(--color-foreground));
+    opacity: 0.65;
+    margin-bottom: 3rem;
+    letter-spacing: 0.05em;
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap;
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-avg-score {
+    font-size: 4.8rem;
+    font-weight: 700;
+    line-height: 1;
+    color: rgb(var(--color-foreground));
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-summary-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-stars-row {
+    display: flex;
+    gap: 0.2rem;
+    align-items: center;
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-star {
+    width: 2rem;
+    height: 2rem;
+    fill: {{ section.settings.star_color }};
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-star.empty {
+    fill: none;
+    stroke: {{ section.settings.star_color }};
+    stroke-width: 1.5;
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-total-count {
+    font-size: 1.3rem;
+    color: rgb(var(--color-foreground));
+    opacity: 0.6;
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  @media screen and (max-width: 989px) {
+    .reviews-muslin-{{ section.id }} .rm-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 599px) {
+    .reviews-muslin-{{ section.id }} .rm-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-card {
+    background: {{ section.settings.card_color }};
+    border-radius: 12px;
+    padding: 2.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-card-stars {
+    display: flex;
+    gap: 0.2rem;
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-card-star {
+    width: 1.6rem;
+    height: 1.6rem;
+    fill: {{ section.settings.star_color }};
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-card-content {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: rgb(var(--color-foreground));
+    opacity: 0.85;
+    letter-spacing: 0.03em;
+    flex: 1;
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-card-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: rgb(var(--color-foreground));
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-card-date {
+    font-size: 1.2rem;
+    color: rgb(var(--color-foreground));
+    opacity: 0.5;
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 16rem;
+    padding: 1.2rem 2.4rem;
+    background: {{ section.settings.btn_bg }};
+    color: {{ section.settings.btn_color }};
+    border: none;
+    border-radius: 8px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: opacity 0.2s;
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-btn:hover {
+    opacity: 0.85;
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-page-info {
+    font-size: 1.3rem;
+    color: rgb(var(--color-foreground));
+    opacity: 0.55;
+    min-width: 10rem;
+    text-align: center;
+  }
+
+  .reviews-muslin-{{ section.id }} .rm-loading {
+    text-align: center;
+    padding: 4rem;
+    font-size: 1.4rem;
+    color: rgb(var(--color-foreground));
+    opacity: 0.5;
+  }
+{%- endstyle -%}
+
+<div class="reviews-muslin-{{ section.id }}">
+  <div class="rm-inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="rm-heading {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subheading != blank -%}
+      <p class="rm-subheading">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+
+    <div class="rm-summary" id="rm-summary-{{ section.id }}">
+      <div class="rm-loading">Loading reviews…</div>
+    </div>
+
+    <div class="rm-grid" id="rm-grid-{{ section.id }}"></div>
+
+    <div class="rm-pagination" id="rm-pagination-{{ section.id }}" style="display:none;">
+      <button class="rm-btn" id="rm-prev-{{ section.id }}" onclick="rmChangePage_{{ section.id }}(-1)">← Previous</button>
+      <span class="rm-page-info" id="rm-pageinfo-{{ section.id }}"></span>
+      <button class="rm-btn" id="rm-next-{{ section.id }}" onclick="rmChangePage_{{ section.id }}(1)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var SECTION_ID = '{{ section.id }}';
+  var PER_PAGE = {{ section.settings.per_page }};
+  var STAR_COLOR = '{{ section.settings.star_color }}';
+  var allReviews = [];
+  var currentPage = 1;
+
+  function starsSVG(rating) {
+    var html = '';
+    for (var i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        html += '<svg class="rm-card-star" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><polygon points="10,1 12.9,7 19.5,7.6 14.7,11.8 16.2,18.5 10,15 3.8,18.5 5.3,11.8 0.5,7.6 7.1,7"/></svg>';
+      } else {
+        html += '<svg class="rm-card-star" style="fill:none;stroke:' + STAR_COLOR + ';stroke-width:1.5" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><polygon points="10,1 12.9,7 19.5,7.6 14.7,11.8 16.2,18.5 10,15 3.8,18.5 5.3,11.8 0.5,7.6 7.1,7"/></svg>';
+      }
+    }
+    return html;
+  }
+
+  function summaryStarsSVG(rating) {
+    var html = '';
+    for (var i = 1; i <= 5; i++) {
+      if (i <= Math.round(rating)) {
+        html += '<svg class="rm-star" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><polygon points="10,1 12.9,7 19.5,7.6 14.7,11.8 16.2,18.5 10,15 3.8,18.5 5.3,11.8 0.5,7.6 7.1,7"/></svg>';
+      } else {
+        html += '<svg class="rm-star empty" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><polygon points="10,1 12.9,7 19.5,7.6 14.7,11.8 16.2,18.5 10,15 3.8,18.5 5.3,11.8 0.5,7.6 7.1,7"/></svg>';
+      }
+    }
+    return html;
+  }
+
+  function formatDate(dateStr) {
+    var d = new Date(dateStr);
+    if (isNaN(d)) return dateStr;
+    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  }
+
+  function renderPage() {
+    var grid = document.getElementById('rm-grid-' + SECTION_ID);
+    var start = (currentPage - 1) * PER_PAGE;
+    var end = Math.min(start + PER_PAGE, allReviews.length);
+    var slice = allReviews.slice(start, end);
+    var totalPages = Math.ceil(allReviews.length / PER_PAGE);
+
+    var html = '';
+    for (var i = 0; i < slice.length; i++) {
+      var r = slice[i];
+      html += '<div class="rm-card">';
+      html += '<div class="rm-card-stars">' + starsSVG(r.rating) + '</div>';
+      html += '<p class="rm-card-content">' + escapeHTML(r.content) + '</p>';
+      html += '<div class="rm-card-footer">';
+      html += '<span class="rm-card-name">' + escapeHTML(r.name) + '</span>';
+      html += '<span class="rm-card-date">' + formatDate(r.date) + '</span>';
+      html += '</div></div>';
+    }
+    grid.innerHTML = html;
+
+    var pageInfo = document.getElementById('rm-pageinfo-' + SECTION_ID);
+    pageInfo.textContent = 'Page ' + currentPage + ' of ' + totalPages;
+
+    document.getElementById('rm-prev-' + SECTION_ID).disabled = (currentPage === 1);
+    document.getElementById('rm-next-' + SECTION_ID).disabled = (currentPage === totalPages);
+
+    document.getElementById('rm-pagination-' + SECTION_ID).style.display = 'flex';
+
+    // Scroll to top of section on page change
+    if (currentPage > 1) {
+      var section = document.getElementById('shopify-section-{{ section.id }}');
+      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function renderSummary(reviews) {
+    var totalRating = 0;
+    for (var i = 0; i < reviews.length; i++) totalRating += reviews[i].rating;
+    var avg = totalRating / reviews.length;
+    var avgStr = avg.toFixed(1);
+
+    var summaryEl = document.getElementById('rm-summary-' + SECTION_ID);
+    summaryEl.innerHTML =
+      '<div class="rm-avg-score">' + avgStr + '</div>' +
+      '<div class="rm-summary-right">' +
+        '<div class="rm-stars-row">' + summaryStarsSVG(avg) + '</div>' +
+        '<div class="rm-total-count">Based on ' + reviews.length.toLocaleString() + ' reviews</div>' +
+      '</div>';
+  }
+
+  function escapeHTML(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  window['rmChangePage_' + SECTION_ID] = function(delta) {
+    var totalPages = Math.ceil(allReviews.length / PER_PAGE);
+    currentPage = Math.max(1, Math.min(totalPages, currentPage + delta));
+    renderPage();
+  };
+
+  // Load the reviews JSON asset
+  fetch('{{ 'muslin-reviews.json' | asset_url }}')
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      allReviews = data;
+      renderSummary(allReviews);
+      renderPage();
+    })
+    .catch(function(err) {
+      document.getElementById('rm-grid-' + SECTION_ID).innerHTML =
+        '<p style="text-align:center;opacity:0.5;">Could not load reviews.</p>';
+      document.getElementById('rm-summary-' + SECTION_ID).innerHTML = '';
+      console.error('Reviews load error:', err);
+    });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Muslin Reviews",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        { "value": "h1", "label": "X-Large" },
+        { "value": "h2", "label": "Large" },
+        { "value": "h3", "label": "Medium" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "The Muslin Blanket — Verified Purchases"
+    },
+    {
+      "type": "range",
+      "id": "per_page",
+      "label": "Reviews per page",
+      "min": 6,
+      "max": 48,
+      "step": 6,
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star color",
+      "default": "#ffb503"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_color",
+      "label": "Card background",
+      "default": "#f7f5f2"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button background",
+      "default": "#3b3b3b"
+    },
+    {
+      "type": "color",
+      "id": "btn_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Muslin Reviews"
+    }
+  ]
+}
+{% endschema %}
