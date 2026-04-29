@@ -152,3 +152,50 @@ product-info .price--on-sale .price-item--regular bdi{
   font-family: var(--font-heading-family);
   font-size: calc(var(--font-heading-scale) * 1.3rem);
 }
+
+/* ── Sale badge: peach/amber style ── */
+.price__badge-sale-percentage-off {
+  background-color: #f5ead6 !important;
+  color: #653d16 !important;
+  border-color: #f5ead6 !important;
+  font-weight: 700 !important;
+}
+
+.price__badge-sale-percentage-off {
+  background-color: #f5ead6 !important;
+  color: #653d16 !important;
+  border-color: #f5ead6 !important;
+  font-weight: 700 !important;
+}
+
+/* ── B1G1 Savings bar ── */
+.price__savings-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background-color: #dbf6e5;
+  color: #295b38;
+  border-radius: 0.6rem;
+  padding: 1rem 1.4rem;
+  margin-top: 1.2rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.4;
+  width: fit-content;
+}
+
+.price__savings-bar svg {
+  flex-shrink: 0;
+}
+
+.price__savings-bar strong {
+  font-weight: 700;
+}
+
+.price__savings-note {
+  color: rgba(var(--color-foreground), 0.55);
+  font-size: 1.2rem;
+  margin-top: 0.6rem;
+  margin-bottom: 0;
+  padding: 0;
+}
