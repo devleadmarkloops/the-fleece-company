@@ -1,5 +1,6 @@
 {% comment %}
-  Renders a list of product's price (regular, sale)
+  Renders a list of product's price (regular, sale) — Version B (A/B test)
+  Same as price.liquid but includes the B1G1 savings bar and "X% off" badge via percentage_off basis.
 
   Accepts:
   - product: {Object} Product Liquid object (optional)
@@ -11,7 +12,7 @@
   - show_compare_at_price: {Boolean} Renders the compare at price if the product matches the condition (optional)
 
   Usage:
-  {% render 'price', product: product %}
+  {% render 'price-b', product: product %}
 {% endcomment %}
 {%- liquid
   if use_variant
@@ -155,28 +156,40 @@
     {%- elsif target.compare_at_price > target.price -%}
       {%- assign on_sale_text = 'products.product.on_sale' | t -%}
       {%- if on_sale_text != blank and sale_badge_basis != 'disable' -%}
-        <span class="badge price__badge-sale {% if sale_badge_basis == 'percentage_off' %}price__badge-sale-percentage-off{% endif %}" aria-hidden="true">
-          {% comment %} <svg aria-hidden="true" focusable="false" class="icon icon-discount color-foreground-text" viewBox="0 0 12 12">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M7 0h3a2 2 0 012 2v3a1 1 0 01-.3.7l-6 6a1 1 0 01-1.4 0l-4-4a1 1 0 010-1.4l6-6A1 1 0 017 0zm2 2a1 1 0 102 0 1 1 0 00-2 0z" fill="currentColor">
-          </path></svg> {% endcomment %}
+        <span class="badge price__badge-sale price__badge-sale-percentage-off" aria-hidden="true">
           {%- case sale_badge_basis %}
           {%- when 'text' -%}
             {{ 'products.product.on_sale' | t }}
           {%- when 'percentage' -%}
-            Save {{ target.compare_at_price | minus: target.price | times: 100.0 | divided_by: target.compare_at_price | round }}%
-          {%- when 'percentage_off' -%}
             {{ target.compare_at_price | minus: target.price | times: 100.0 | divided_by: target.compare_at_price | round }}% off
           {%- when 'value' -%}
             &#8211;{% if settings.currency_code_enabled %}{{ target.compare_at_price | minus: target.price | money_with_currency }}{% else %}{{ target.compare_at_price | minus: target.price | money }}{% endif %}
           {%- else %}
-            {%- if product.variants.size == 1 -%}
-              &#8211;{{ target.compare_at_price | minus: target.price | times: 100.0 | divided_by: target.compare_at_price | round }}%
-            {%- else -%}
-              {{ 'products.product.on_sale' | t }}
-            {%- endif -%}
+            {{ target.compare_at_price | minus: target.price | times: 100.0 | divided_by: target.compare_at_price | round }}% off
           {%- endcase %}
         </span>
       {%- endif -%}
     {%- endif -%}
   {%- endif -%}
 </div>
+
+{%- comment -%} B1G1 Savings Bar — only shows when metafield is configured {%- endcomment -%}
+{%- assign savings_label = product.metafields.custom.savings_label.value -%}
+{%- assign product_note = product.metafields.custom.product_note.value -%}
+{%- if savings_label != blank and target.compare_at_price > target.price and target.available -%}
+  {%- assign savings_amount = target.compare_at_price | minus: target.price -%}
+  <div class="price__savings-bar">
+    <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="10" cy="10" r="10" fill="currentColor"/>
+      <path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>
+      You save
+      <strong>{% if settings.currency_code_enabled %}{{ savings_amount | money_with_currency }}{% else %}{{ savings_amount | money }}{% endif %}</strong>
+      &mdash; {{ savings_label }}
+    </span>
+  </div>
+  {%- if product_note != blank -%}
+    <p class="price__savings-note"><em>{{ product_note }}</em></p>
+  {%- endif -%}
+{%- endif -%}

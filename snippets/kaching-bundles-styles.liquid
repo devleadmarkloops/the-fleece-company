@@ -59,11 +59,22 @@
   }
 
   @media screen and (max-width: 749px) {
+    /* SAFARI FIX + LAYOUT MALEÁVEL:
+       1ª track `minmax(0, 1fr)` = flexível, encolhe até 0 quando precisa de
+       espaço. 2ª track `auto` = tamanho do conteúdo do select de tamanho
+       (ex.: "Full 50x60 in" mostra inteiro). O 1º dropdown (Color) é o que
+       sacrifica espaço quando o card está apertado.
+       `min-width: 0` no container e nos itens libera o "auto min-width" do
+       grid (que no Safari permite items estourarem a track). */
     .product__info-container .kaching-bundles .kaching-bundles__bar-variant-selects {
-      grid-template-columns: auto 1fr;
+      grid-template-columns: minmax(0, 1fr) auto;
+      min-width: 0;
     }
     .product__info-container .kaching-bundles .kaching-bundles__bar-variant-select {
-      width: fit-content;
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
     }
   }
 </style>
