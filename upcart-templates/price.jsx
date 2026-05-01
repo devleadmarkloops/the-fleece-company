@@ -1,29 +1,27 @@
-<div className="upcart-internal-component-product-tile__properties upcart-public-component-product-tile__properties">
-  {(!!props.subscriptionLabel || !!props.productProperties.length) && (
-    <div>
-      {props.subscriptionLabel && (
-        <p className="upcart-public-product-properties__subscription" key="subscription-label">
-          {props.subscriptionLabel}
-        </p>
-      )}
-      {props.productProperties.map(({ key, value, isUrl }) => (
-        <div key={key} className="upcart-public-product-properties__item">
-          {isUrl ? (
-            <a
-              href={value}
-              target="_blank"
-              rel="noreferrer"
-              className="upcart-internal-product-properties__link upcart-internal-cart-items__key-value-pair upcart-public-product-properties__link"
-            >
-              {key}
-            </a>
-          ) : (
-            <span className="upcart-internal-cart-items__key-value-pair upcart-public-cart-items__key-value-pair">
-              {key}: {value}
-            </span>
-          )}
-        </div>
-      ))}
-    </div>
+<div className="upcart-internal-component-product-tile__product-pricing upcart-public-component-product-tile__product-pricing fc-tile__pricing">
+  {props.compareAtPrice && (
+    <span
+      className="upcart-internal-component-product-tile__price-compare-at upcart-public-component-product-tile__price-compare-at"
+      data-upcart-chunk="cart-item-compare-at-price"
+      dangerouslySetInnerHTML={{
+        __html: props.compareAtPrice,
+      }}
+    />
+  )}
+  <span
+    className="upcart-internal-component-product-tile__price upcart-public-component-product-tile__price"
+    data-upcart-chunk="cart-item-price"
+    dangerouslySetInnerHTML={{
+      __html: props.price,
+    }}
+  />
+  {props.savings && (
+    <span
+      className="upcart-internal-component-product-tile__savings upcart-public-component-product-tile__savings"
+      data-upcart-chunk="cart-item-savings"
+      dangerouslySetInnerHTML={{
+        __html: props.savings,
+      }}
+    />
   )}
 </div>

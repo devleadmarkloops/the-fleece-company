@@ -1,20 +1,213 @@
+:root {
+  --upcart-internal-desktop-cart-width: 520px;
+}
+
+.upcartPopupShow [class*="styles_CartPreview__right__"] {
+  max-width: 520px !important;
+}
+
+@media (min-width: 600px) {
+  .styles_CartPreview__.styles_active__ {
+    width: 100%;
+  }
+}
+
+.upcart-cart {
+  font-family: 'CooperBTLight', Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, sans-serif;
+  color: #3b3b3b;
+}
+
+.styles_Footer__ {
+  padding: 10px 25px 15px;
+}
+
+@media screen and (max-width: 749px) {
+  .styles_Footer__ {
+    padding: 10px 15px 15px;
+  }
+}
+
+.upcart-internal-announcement p {
+  font-family: 'Gilroy', Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+}
+
+[class*="styles_CartPreview__empty__body"] {
+  flex-direction: column;
+  padding: 0;
+  justify-content: flex-start;
+}
+
+.mini-cart__empty-message {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+[class*="styles_CartPreview__empty__"] {
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+[class*="styles_CartPreview__empty__"] h3:empty {
+  display: none;
+}
+
+[class*="styles_CartPreview__empty__"] p {
+  font-size: 20px;
+}
+
+[class*="styles_CartPreview__empty__"] .mini-cart__empty-message p {
+  font-size: 16px;
+  font-family: 'Gilroy', "Iowan Old Style", "Apple Garamond", Baskerville, "Times New Roman", "Droid Serif", Times, "Source Serif Pro", serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  line-height: 21px;
+}
+
+[class*="styles_CartPreview__empty__"] .mini-cart__empty {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  gap: 1.2rem;
+}
+
+[class*="styles_CartPreview__empty__"] .button--tertiary {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff !important;
+  color: #3b3b3b !important;
+  box-shadow: inset 0 0 0 0.1rem #c9c9c9;
+  border: none !important;
+  border-radius: 5px !important;
+  padding: 1rem 2.4rem !important;
+  min-height: 4.4rem;
+  min-width: 15rem;
+  text-decoration: none !important;
+  font-family: 'Gilroy';
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  margin-top: 0.8rem;
+  cursor: pointer;
+}
+
+[class*="styles_CartPreview__empty__"] .button--tertiary:hover {
+  box-shadow: inset 0 0 0 .2rem #d2d5d9!important;
+  transition-delay: 0s;
+}
+
+.upcart-public-cart-summary {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0rem;
+  line-height: 1;
+}
+
+.upcart-public-cart-summary__discount-label {
+  font-family: 'CooperBTLight', Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: #121212;
+}
+
+.upcart-public-cart-summary__total-discount {
+  font-family: 'CooperBTLight', Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: #121212;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 749px) {
+  .upcart-public-cart-summary__discount-label,
+  .upcart-public-cart-summary__total-discount {
+    font-size: 1.6rem;
+  }
+}
+
+.upcart-internal-cart-summary__slide-codes {
+  display: none;
+}
+
+.upcart-guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+}
+
+.upcart-guarantee__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.upcart-guarantee__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.upcart-guarantee__text {
+  font-family: 'CooperBTLight', Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: #121212;
+  margin: 0;
+}
+
+.upcart-payment-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  list-style: none;
+  padding: 0;
+  margin: 0.7rem 0 0.2rem;
+}
+
+.upcart-payment-badges .list-payment__item {
+  display: flex;
+  align-items: center;
+}
+
+.upcart-payment-badges svg {
+  display: block;
+  height: 24px;
+  width: 38px;
+}
+
 /* ==========================================================================
    THE FLEECE COMPANY — UpCart Custom Cart Item Styles
+   Referência: component-cart-drawer.css (novo design do mini-cart)
    Cole este bloco no campo "Custom CSS" do UpCart
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
    ROW 1 — flex com 3 colunas: Imagem | Info | Preços
+   Ref: .mini-cart__navigation .product-container { display: flex; column-gap: 1.5rem; }
    -------------------------------------------------------------------------- */
 
 .fc-tile__row1 {
   display: flex !important;
   flex-direction: row !important;
   align-items: flex-start !important;
-  gap: 1rem !important;
+  gap: 1.5rem !important;
 }
 
-/* Col 1 — imagem (largura fixa, sem crescer) */
+/* --------------------------------------------------------------------------
+   IMAGEM
+   Ref: .mini-cart__navigation .product-image { flex: 0 0 auto; width: 7rem; }
+        .cart-drawer .mini-cart__main .product-img-wr .product-image { border-radius: 0; }
+   -------------------------------------------------------------------------- */
+
 .fc-tile__row1 .upcart-internal-component-product-tile__image-wrapper {
   flex: 0 0 auto !important;
   width: 7rem !important;
@@ -25,48 +218,34 @@
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 0;
+  border-radius: 0 !important;
   object-fit: cover;
 }
 
-/* Col 2 — info (cresce, ocupa o espaço do meio) */
+/* --------------------------------------------------------------------------
+   COL 2 — INFO (título + variante + propriedades + badges)
+   Ref: .mini-cart__navigation .product-description { flex: 1 1 auto; display: flex; flex-direction: column; }
+   -------------------------------------------------------------------------- */
+
 .fc-tile__info {
   flex: 1 1 auto !important;
   min-width: 0 !important;
-  padding: 0 !important;
-}
-
-/* Remove o display flex padrão do __header (era title + botão lixeira lado a lado) */
-.fc-tile__info .upcart-internal-component-product-tile__header {
-  display: block !important;
-  margin-bottom: 0.3rem;
-}
-
-/* Col 3 — preços (alinha à direita, sem crescer) */
-.fc-tile__pricing {
-  flex: 0 0 auto !important;
   display: flex !important;
   flex-direction: column !important;
-  align-items: flex-end !important;
-  text-align: right !important;
-  gap: 0.2rem !important;
   padding: 0 !important;
-  margin: 0 !important;
+  gap: 0 !important;
 }
 
-/* --------------------------------------------------------------------------
-   ROW 2 — Quantidade | Remover
-   -------------------------------------------------------------------------- */
-
-.fc-tile__row2 {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 0.8rem;
+/* Remove o display flex / justify-content: space-between do __header padrão do UpCart */
+.fc-tile__info .upcart-internal-component-product-tile__header {
+  display: block !important;
 }
 
 /* --------------------------------------------------------------------------
    TÍTULO
+   Ref: .cart-drawer .mini-cart__main .product-content .product-title
+        { font-family: var(--new-font-heading-family); font-size: 1.6rem; font-weight: 400; letter-spacing: 0; }
+        .mini-cart__navigation .product-content .link { margin-inline-end: 2rem; }
    -------------------------------------------------------------------------- */
 
 .upcart-internal-component-product-tile__product-title {
@@ -85,6 +264,8 @@
   line-height: 1.3 !important;
   color: rgb(var(--color-foreground)) !important;
   text-decoration: none !important;
+  display: block !important;
+  margin-inline-end: 2rem !important;
 }
 
 .upcart-internal-component-product-tile__title-link:hover {
@@ -93,50 +274,129 @@
 }
 
 /* --------------------------------------------------------------------------
-   VARIANTE (injeta via props.variant — estilo semelhante ao mini-cart atual)
+   VARIANTE
+   Ref: .upcart-internal-cart-items__key-value-pair (classe usada pelo variant.jsx)
+        cor/fonte igual ao .cart-drawer__option-row do mini-cart
    -------------------------------------------------------------------------- */
 
-.upcart-internal-component-product-tile__variant,
-.upcart-cart-drawer__variant-options,
-.upcart-cart-drawer__option-row,
+.upcart-internal-component-product-tile__variant {
+  margin-top: 0.4rem !important;
+}
+
 .upcart-internal-cart-items__key-value-pair {
   font-family: var(--new-font-body-family, var(--font-body-family)) !important;
   font-size: 1.4rem !important;
   font-weight: 500 !important;
   letter-spacing: 0 !important;
+  line-height: 1.2 !important;
   color: rgba(var(--color-foreground), 0.85) !important;
-  line-height: 1.3 !important;
+}
+
+/* caso properties.jsx use dt/dd (cart-drawer__option-row) */
+.upcart-cart-drawer__variant-options {
+  margin: 0.5rem 0 0 !important;
+  padding: 0 !important;
 }
 
 .upcart-cart-drawer__option-row {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  margin-bottom: 0.2rem;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  margin-bottom: 0.4rem !important;
+  font-family: var(--new-font-body-family, var(--font-body-family)) !important;
+  font-size: 1.4rem !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0 !important;
 }
 
 .upcart-cart-drawer__option-row dt,
 .upcart-cart-drawer__option-row dd {
-  margin: 0;
+  margin: 0 !important;
+  font-weight: 500 !important;
+  color: rgba(var(--color-foreground), 0.85) !important;
 }
 
 /* --------------------------------------------------------------------------
-   PREÇOS
+   BADGES DE DESCONTO (ex: "Buy 1, get 1 free!")
+   Ref: .cart-drawer .mini-cart__main .discounts__discount
    -------------------------------------------------------------------------- */
 
-/* Preço riscado (compare at) */
-.upcart-internal-component-product-tile__price-compare-at {
+.upcart-internal-component-product-tile__discount-codes {
+  margin-top: 0.5rem !important;
+}
+
+.upcart-internal-component-tag {
+  display: inline-flex !important;
+  align-items: center !important;
+  background: #F0EAE4 !important;
+  border: 0 !important;
+  border-radius: 40px !important;
+  box-shadow: none !important;
   font-family: var(--new-font-body-family, var(--font-body-family)) !important;
-  font-size: 1.3rem !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  padding: 0.3rem 1rem !important;
+  color: rgb(var(--color-foreground)) !important;
+  gap: 0.4rem !important;
+}
+
+.upcart-internal-component-tag__text {
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
+.upcart-internal-component-tag__icon {
+  width: 1.4rem !important;
+  height: 1.4rem !important;
+  flex: 0 0 auto !important;
+}
+
+.upcart-internal-component-tag__icon svg {
+  fill: rgb(var(--color-foreground)) !important;
+  color: rgb(var(--color-foreground)) !important;
+  width: 1.4rem !important;
+  height: 1.4rem !important;
+}
+
+/* --------------------------------------------------------------------------
+   COL 3 — PREÇOS (alinhado à direita, coluna própria)
+   Ref: .mini-cart__navigation .product-content { display: flex; justify-content: space-between; }
+        .cart-drawer .mini-cart__main .product-content .cart-item__discounted-prices { flex-wrap: nowrap; column-gap: 0; }
+   -------------------------------------------------------------------------- */
+
+.fc-tile__pricing {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  text-align: right !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  gap: 0.2rem !important;
+}
+
+/* Preço riscado (compare at)
+   Ref: .cart-drawer .mini-cart__main .product-content .price--on-sale .price-item--regular bdi
+        { font-size: 1.2rem; font-weight: 500; letter-spacing: 0; }
+        .mini-cart__inner .price--on-sale .price-item--regular bdi { opacity: 0.7; } */
+.upcart-internal-component-product-tile__price-compare-at,
+.upcart-internal-component-product-tile__price-compare-at bdi,
+.upcart-internal-component-product-tile__price-compare-at * {
+  font-family: var(--new-font-body-family, var(--font-body-family)) !important;
+  font-size: 1.2rem !important;
   font-weight: 500 !important;
   letter-spacing: 0 !important;
   line-height: normal !important;
-  color: rgba(var(--color-foreground), 0.6) !important;
+  color: rgba(var(--color-foreground), 0.7) !important;
   text-decoration: line-through !important;
 }
 
-/* Preço atual */
-.upcart-internal-component-product-tile__price {
+/* Preço atual
+   Ref: .cart-drawer .mini-cart__main .product-content .quantity-price-d5 .price bdi { font-size: 1.4rem; }
+        .price bdi strong { font-weight: 700; } */
+.upcart-internal-component-product-tile__price,
+.upcart-internal-component-product-tile__price bdi {
   font-family: var(--new-font-body-family, var(--font-body-family)) !important;
   font-size: 1.4rem !important;
   font-weight: 700 !important;
@@ -145,62 +405,62 @@
   color: rgb(var(--color-foreground)) !important;
 }
 
-/* Economia (You Save X) */
-.upcart-internal-component-product-tile__savings {
+.upcart-internal-component-product-tile__price strong,
+.upcart-internal-component-product-tile__price bdi strong {
+  font-weight: 700 !important;
+}
+
+/* Economia (You Save / Save)
+   Ref: .cart-drawer .mini-cart__main .product-content .quantity-price-d5 .price-save
+        { font-size: 1.4rem; font-weight: 500; white-space: nowrap; margin-top: 0.3rem; } */
+.upcart-internal-component-product-tile__savings,
+.upcart-internal-component-product-tile__savings bdi,
+.upcart-internal-component-product-tile__savings * {
   font-family: var(--new-font-body-family, var(--font-body-family)) !important;
-  font-size: 1.2rem !important;
+  font-size: 1.4rem !important;
   font-weight: 500 !important;
   letter-spacing: 0 !important;
   line-height: normal !important;
-  color: rgba(var(--color-foreground), 0.7) !important;
+  color: rgba(var(--color-foreground), 0.85) !important;
   white-space: nowrap !important;
+  margin-top: 0.1rem !important;
 }
 
 /* --------------------------------------------------------------------------
-   BADGES DE DESCONTO (ex: "Buy 1, get 1 free!")
+   ROW 2 — Quantidade | Remover
    -------------------------------------------------------------------------- */
 
-.upcart-internal-component-product-tile__discount-codes {
-  margin-top: 0.4rem;
-}
-
-.upcart-internal-component-tag {
-  background: #F0EAE4 !important;
-  border-radius: 40px !important;
-  font-family: var(--new-font-body-family, var(--font-body-family)) !important;
-  font-size: 1rem !important;
-  font-weight: 500 !important;
-  letter-spacing: 0 !important;
-  padding: 0.3rem 0.9rem !important;
-  color: rgb(var(--color-foreground)) !important;
-}
-
-.upcart-internal-component-tag__icon {
-  width: 1.1rem !important;
-  height: 1.1rem !important;
+.fc-tile__row2 {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  margin-top: 0.8rem !important;
 }
 
 /* --------------------------------------------------------------------------
    SELETOR DE QUANTIDADE
+   Ref: .cart-drawer .mini-cart__main .product-img-wr .product-quantity .quantity
+        { border: 1px solid rgba(var(--color-foreground),1); border-radius: 0; background-color: transparent; }
+        .mini-cart__navigation .quantity__button { flex: 0 0 2.5rem; height: 25px; }
+        .mini-cart__navigation .quantity__input { height: 25px; font-size: 1.3rem; border-left: 1px solid #888; border-right: 1px solid #888; }
+        NEW: input { font-size: 1.2rem; border-right: 0; border-left: 0; }
    -------------------------------------------------------------------------- */
 
-/* Container da quantidade (- input +) */
 .upcart-internal-component-product-tile__quantity-selector {
   display: flex !important;
   align-items: center !important;
+  width: 9rem !important;
   border: 1px solid rgba(var(--color-foreground), 1) !important;
   border-radius: 0 !important;
   background: transparent !important;
   overflow: hidden !important;
-  width: 9rem !important;
 }
 
-/* Botões - e + */
 .upcart-internal-component-product-tile__quantity-minus,
 .upcart-internal-component-product-tile__quantity-plus {
   flex: 0 0 2.5rem !important;
   width: 2.5rem !important;
-  height: 2.5rem !important;
+  height: 25px !important;
   background: transparent !important;
   border: none !important;
   display: flex !important;
@@ -209,47 +469,59 @@
   cursor: pointer !important;
   color: rgb(var(--color-foreground)) !important;
   padding: 0 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+.upcart-internal-component-product-tile__quantity-minus svg,
+.upcart-internal-component-product-tile__quantity-plus svg {
+  width: 0.8rem !important;
+  height: 0.8rem !important;
+  flex: 0 0 0.8rem !important;
 }
 
 .upcart-internal-component-product-tile__quantity-minus:disabled,
 .upcart-internal-component-product-tile__quantity-plus:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+  opacity: 0.4 !important;
+  cursor: not-allowed !important;
 }
 
-/* Input da quantidade */
+/* Input de quantidade: sem borda interna (novo design) */
 .upcart-internal-component-product-tile__quantity-selector input[type="text"] {
   flex: 1 1 auto !important;
-  width: 3.5rem !important;
-  height: 2.5rem !important;
+  height: 25px !important;
   text-align: center !important;
-  border: none !important;
-  border-left: 1px solid rgba(var(--color-foreground), 0.35) !important;
-  border-right: 1px solid rgba(var(--color-foreground), 0.35) !important;
   background: transparent !important;
+  border: none !important;
+  border-left: none !important;
+  border-right: none !important;
   font-family: var(--new-font-body-family, var(--font-body-family)) !important;
   font-size: 1.2rem !important;
   font-weight: 500 !important;
   letter-spacing: 0 !important;
   color: rgb(var(--color-foreground)) !important;
   padding: 0 !important;
+  width: 4rem !important;
   -moz-appearance: textfield !important;
 }
 
 .upcart-internal-component-product-tile__quantity-selector input[type="text"]::-webkit-outer-spin-button,
 .upcart-internal-component-product-tile__quantity-selector input[type="text"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+  -webkit-appearance: none !important;
+  margin: 0 !important;
 }
 
 /* --------------------------------------------------------------------------
-   BOTÃO REMOVER — texto "Remove", não ícone de lixeira
+   BOTÃO REMOVER — texto "Remove", sem ícone de lixeira
+   Ref: .cart-drawer .mini-cart__main .product-description cart-remove-button .delete-product
+        { font-family: var(--new-font-body-family); font-size: 1.4rem; font-weight: 500;
+          letter-spacing: 0; text-underline-offset: 2px; padding-block: 0.5rem; }
    -------------------------------------------------------------------------- */
 
 .fc-tile__remove-btn {
   background: none !important;
   border: none !important;
-  padding: 0.4rem 0 !important;
+  padding: 0.5rem 0 !important;
   cursor: pointer !important;
   font-family: var(--new-font-body-family, var(--font-body-family)) !important;
   font-size: 1.4rem !important;
@@ -263,44 +535,70 @@
   min-height: 0 !important;
 }
 
-/* Oculta o SVG de lixeira — já foi substituído por texto */
+/* Oculta o ícone SVG de lixeira padrão do UpCart */
 .fc-tile__remove-btn svg {
   display: none !important;
 }
 
 .fc-tile__remove-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+  opacity: 0.4 !important;
+  cursor: not-allowed !important;
 }
 
 /* --------------------------------------------------------------------------
-   RESPONSIVO — Mobile (< 750px)
+   RESPONSIVO — Mobile (max 749px)
+   Ref: mesmos breakpoints do mini-cart
    -------------------------------------------------------------------------- */
 
 @media screen and (max-width: 749px) {
-  .upcart-internal-component-product-tile__title-link {
-    font-size: 1.4rem !important;
+  .fc-tile__row1 {
+    gap: 1rem !important;
   }
 
-  .upcart-internal-component-product-tile__price {
+  .fc-tile__row1 .upcart-internal-component-product-tile__image-wrapper {
+    width: 7rem !important;
+  }
+
+  /* Ref: .cart-drawer .mini-cart__main .product-content .product-title { font-size: 1.4rem; margin-inline-end: 1rem; } */
+  .upcart-internal-component-product-tile__title-link {
+    font-size: 1.4rem !important;
+    margin-inline-end: 1rem !important;
+  }
+
+  /* Ref: .cart-drawer .mini-cart__main .product-content .quantity-price-d5 .price bdi { font-size: 1.3rem; } */
+  .upcart-internal-component-product-tile__price,
+  .upcart-internal-component-product-tile__price bdi {
     font-size: 1.3rem !important;
   }
 
+  /* Ref: .cart-drawer .mini-cart__main .product-content .quantity-price-d5 .price-save { font-size: 1.2rem; } */
+  .upcart-internal-component-product-tile__savings,
+  .upcart-internal-component-product-tile__savings bdi,
+  .upcart-internal-component-product-tile__savings * {
+    font-size: 1.2rem !important;
+  }
+
   .upcart-internal-component-product-tile__price-compare-at,
-  .upcart-internal-component-product-tile__savings {
+  .upcart-internal-component-product-tile__price-compare-at bdi,
+  .upcart-internal-component-product-tile__price-compare-at * {
     font-size: 1.1rem !important;
   }
 
+  /* Ref: .cart-drawer .mini-cart__main .cart-drawer__option-row { font-size: 1.2rem; } */
   .upcart-internal-cart-items__key-value-pair,
   .upcart-cart-drawer__option-row {
     font-size: 1.2rem !important;
   }
 
+  /* Ref: .cart-drawer .mini-cart__main .product-description cart-remove-button .delete-product { font-size: 1.3rem; } */
   .fc-tile__remove-btn {
     font-size: 1.3rem !important;
+    padding: 0.35rem 0 !important;
   }
 
-  .fc-tile__row1 .upcart-internal-component-product-tile__image-wrapper {
-    width: 7rem !important;
+  /* Ref: .cart-drawer .mini-cart__main .discounts__discount { font-size: 0.9rem; padding: 0.2rem 0.8rem; } */
+  .upcart-internal-component-tag {
+    font-size: 0.9rem !important;
+    padding: 0.2rem 0.8rem !important;
   }
 }
