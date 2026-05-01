@@ -2,6 +2,7 @@
   Name: Announcement Bar Multi
   Description: A multi-announcement carousel using Swiper with full touch/swipe support
 {%- endcomment -%}
+{% render 'swiper-loader' %}
 
 {%- liquid
   assign show_announcement_bar = true
@@ -111,14 +112,17 @@
         var section = container.closest('.announcement-bar-multi');
         var blockCount = {{ announcement_blocks.size }};
 
+        var prevButtons = Array.from(section.querySelectorAll('.announcement-button-prev'));
+        var nextButtons = Array.from(section.querySelectorAll('.announcement-button-next'));
+
         var swiperConfig = {
           loop: blockCount > 1,
           grabCursor: true,
           simulateTouch: true,
           allowTouchMove: true,
           navigation: {
-            prevEl: section.querySelector('.announcement-button-prev:not(.announcement-button-mobile)'),
-            nextEl: section.querySelector('.announcement-button-next:not(.announcement-button-mobile)'),
+            prevEl: prevButtons.length ? prevButtons : null,
+            nextEl: nextButtons.length ? nextButtons : null,
           },
           pagination: {
             el: section.querySelector('.announcement-pagination-desktop .swiper-pagination') || section.querySelector('.announcement-pagination-mobile .swiper-pagination'),

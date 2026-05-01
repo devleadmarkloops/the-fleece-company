@@ -1,0 +1,63 @@
+<script>
+(function () {
+  var done = false;
+  var observer = null;
+  var pollId = null;
+
+  function cleanup() {
+    if (observer) {
+      observer.disconnect();
+      observer = null;
+    }
+    if (pollId !== null) {
+      clearInterval(pollId);
+      pollId = null;
+    }
+  }
+
+  function runAfterUpcartDrawer() {
+    if (done) return;
+
+    var upsell = document.querySelector('.styles_CartPreview__bottomModules__');
+    var footer = document.querySelector('.styles_Footer__');
+
+    if (!footer || !upsell) return;
+
+    done = true;
+    cleanup();
+
+    footer.prepend(upsell);
+  }
+
+  function startWatching() {
+    runAfterUpcartDrawer();
+    if (done) return;
+
+    observer = new MutationObserver(function () {
+      runAfterUpcartDrawer();
+    });
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+
+    var attempts = 0;
+    pollId = setInterval(function () {
+      runAfterUpcartDrawer();
+      if (done || ++attempts >= 300) {
+        if (pollId !== null) {
+          clearInterval(pollId);
+          pollId = null;
+        }
+        if (!done && observer) {
+          observer.disconnect();
+          observer = null;
+        }
+      }
+    }, 100);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startWatching);
+  } else {
+    startWatching();
+  }
+})();
+</script>
