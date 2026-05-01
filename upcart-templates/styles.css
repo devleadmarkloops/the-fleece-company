@@ -1,0 +1,306 @@
+/* ==========================================================================
+   THE FLEECE COMPANY — UpCart Custom Cart Item Styles
+   Cole este bloco no campo "Custom CSS" do UpCart
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   ROW 1 — flex com 3 colunas: Imagem | Info | Preços
+   -------------------------------------------------------------------------- */
+
+.fc-tile__row1 {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  gap: 1rem !important;
+}
+
+/* Col 1 — imagem (largura fixa, sem crescer) */
+.fc-tile__row1 .upcart-internal-component-product-tile__image-wrapper {
+  flex: 0 0 auto !important;
+  width: 7rem !important;
+  align-self: flex-start !important;
+}
+
+.fc-tile__row1 .upcart-internal-component-product-tile__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0;
+  object-fit: cover;
+}
+
+/* Col 2 — info (cresce, ocupa o espaço do meio) */
+.fc-tile__info {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+}
+
+/* Remove o display flex padrão do __header (era title + botão lixeira lado a lado) */
+.fc-tile__info .upcart-internal-component-product-tile__header {
+  display: block !important;
+  margin-bottom: 0.3rem;
+}
+
+/* Col 3 — preços (alinha à direita, sem crescer) */
+.fc-tile__pricing {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  text-align: right !important;
+  gap: 0.2rem !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* --------------------------------------------------------------------------
+   ROW 2 — Quantidade | Remover
+   -------------------------------------------------------------------------- */
+
+.fc-tile__row2 {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.8rem;
+}
+
+/* --------------------------------------------------------------------------
+   TÍTULO
+   -------------------------------------------------------------------------- */
+
+.upcart-internal-component-product-tile__product-title {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: normal !important;
+}
+
+.upcart-internal-component-product-tile__title-link {
+  font-family: var(--new-font-heading-family, var(--font-heading-family)) !important;
+  font-size: 1.6rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.3 !important;
+  color: rgb(var(--color-foreground)) !important;
+  text-decoration: none !important;
+}
+
+.upcart-internal-component-product-tile__title-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   VARIANTE (injeta via props.variant — estilo semelhante ao mini-cart atual)
+   -------------------------------------------------------------------------- */
+
+.upcart-internal-component-product-tile__variant,
+.upcart-cart-drawer__variant-options,
+.upcart-cart-drawer__option-row,
+.upcart-internal-cart-items__key-value-pair {
+  font-family: var(--new-font-body-family, var(--font-body-family)) !important;
+  font-size: 1.4rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  color: rgba(var(--color-foreground), 0.85) !important;
+  line-height: 1.3 !important;
+}
+
+.upcart-cart-drawer__option-row {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 0.2rem;
+}
+
+.upcart-cart-drawer__option-row dt,
+.upcart-cart-drawer__option-row dd {
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   PREÇOS
+   -------------------------------------------------------------------------- */
+
+/* Preço riscado (compare at) */
+.upcart-internal-component-product-tile__price-compare-at {
+  font-family: var(--new-font-body-family, var(--font-body-family)) !important;
+  font-size: 1.3rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  line-height: normal !important;
+  color: rgba(var(--color-foreground), 0.6) !important;
+  text-decoration: line-through !important;
+}
+
+/* Preço atual */
+.upcart-internal-component-product-tile__price {
+  font-family: var(--new-font-body-family, var(--font-body-family)) !important;
+  font-size: 1.4rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+  line-height: normal !important;
+  color: rgb(var(--color-foreground)) !important;
+}
+
+/* Economia (You Save X) */
+.upcart-internal-component-product-tile__savings {
+  font-family: var(--new-font-body-family, var(--font-body-family)) !important;
+  font-size: 1.2rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  line-height: normal !important;
+  color: rgba(var(--color-foreground), 0.7) !important;
+  white-space: nowrap !important;
+}
+
+/* --------------------------------------------------------------------------
+   BADGES DE DESCONTO (ex: "Buy 1, get 1 free!")
+   -------------------------------------------------------------------------- */
+
+.upcart-internal-component-product-tile__discount-codes {
+  margin-top: 0.4rem;
+}
+
+.upcart-internal-component-tag {
+  background: #F0EAE4 !important;
+  border-radius: 40px !important;
+  font-family: var(--new-font-body-family, var(--font-body-family)) !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  padding: 0.3rem 0.9rem !important;
+  color: rgb(var(--color-foreground)) !important;
+}
+
+.upcart-internal-component-tag__icon {
+  width: 1.1rem !important;
+  height: 1.1rem !important;
+}
+
+/* --------------------------------------------------------------------------
+   SELETOR DE QUANTIDADE
+   -------------------------------------------------------------------------- */
+
+/* Container da quantidade (- input +) */
+.upcart-internal-component-product-tile__quantity-selector {
+  display: flex !important;
+  align-items: center !important;
+  border: 1px solid rgba(var(--color-foreground), 1) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  overflow: hidden !important;
+  width: 9rem !important;
+}
+
+/* Botões - e + */
+.upcart-internal-component-product-tile__quantity-minus,
+.upcart-internal-component-product-tile__quantity-plus {
+  flex: 0 0 2.5rem !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  background: transparent !important;
+  border: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  color: rgb(var(--color-foreground)) !important;
+  padding: 0 !important;
+}
+
+.upcart-internal-component-product-tile__quantity-minus:disabled,
+.upcart-internal-component-product-tile__quantity-plus:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Input da quantidade */
+.upcart-internal-component-product-tile__quantity-selector input[type="text"] {
+  flex: 1 1 auto !important;
+  width: 3.5rem !important;
+  height: 2.5rem !important;
+  text-align: center !important;
+  border: none !important;
+  border-left: 1px solid rgba(var(--color-foreground), 0.35) !important;
+  border-right: 1px solid rgba(var(--color-foreground), 0.35) !important;
+  background: transparent !important;
+  font-family: var(--new-font-body-family, var(--font-body-family)) !important;
+  font-size: 1.2rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  color: rgb(var(--color-foreground)) !important;
+  padding: 0 !important;
+  -moz-appearance: textfield !important;
+}
+
+.upcart-internal-component-product-tile__quantity-selector input[type="text"]::-webkit-outer-spin-button,
+.upcart-internal-component-product-tile__quantity-selector input[type="text"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   BOTÃO REMOVER — texto "Remove", não ícone de lixeira
+   -------------------------------------------------------------------------- */
+
+.fc-tile__remove-btn {
+  background: none !important;
+  border: none !important;
+  padding: 0.4rem 0 !important;
+  cursor: pointer !important;
+  font-family: var(--new-font-body-family, var(--font-body-family)) !important;
+  font-size: 1.4rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  line-height: normal !important;
+  color: rgb(var(--color-foreground)) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 2px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+/* Oculta o SVG de lixeira — já foi substituído por texto */
+.fc-tile__remove-btn svg {
+  display: none !important;
+}
+
+.fc-tile__remove-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVO — Mobile (< 750px)
+   -------------------------------------------------------------------------- */
+
+@media screen and (max-width: 749px) {
+  .upcart-internal-component-product-tile__title-link {
+    font-size: 1.4rem !important;
+  }
+
+  .upcart-internal-component-product-tile__price {
+    font-size: 1.3rem !important;
+  }
+
+  .upcart-internal-component-product-tile__price-compare-at,
+  .upcart-internal-component-product-tile__savings {
+    font-size: 1.1rem !important;
+  }
+
+  .upcart-internal-cart-items__key-value-pair,
+  .upcart-cart-drawer__option-row {
+    font-size: 1.2rem !important;
+  }
+
+  .fc-tile__remove-btn {
+    font-size: 1.3rem !important;
+  }
+
+  .fc-tile__row1 .upcart-internal-component-product-tile__image-wrapper {
+    width: 7rem !important;
+  }
+}
