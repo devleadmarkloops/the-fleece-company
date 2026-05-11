@@ -1,4 +1,4 @@
-<div className="upcart-internal-component-product-tile upcart-public-component-product-tile product-container fc-mini-cart-item">
+<div className={`upcart-internal-component-product-tile upcart-public-component-product-tile product-container fc-mini-cart-item ${props.productUrl && props.productUrl.indexOf('the-muslin-blanket-100-muslin-cotton-b1g1') !== -1 ? 'fc-tile-img--tall' : ''}`}>
 
   {/* Coluna esquerda — espelha sections/mini-cart.liquid: product-img-wr */}
   <div className="product-img-wr">
@@ -12,7 +12,7 @@
           src={props.imageUrl}
           alt={props.title}
           width={92}
-          height={115}
+          height={props.productUrl && props.productUrl.indexOf('the-muslin-blanket-100-muslin-cotton-b1g1') !== -1 ? 115 : 92}
           className="upcart-internal-component-product-tile__image upcart-public-component-product-tile__image"
         />
       ) : (

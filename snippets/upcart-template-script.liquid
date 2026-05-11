@@ -15,28 +15,79 @@
     }
   }
 
-  function runAfterUpcartDrawer() {
-    if (done) return;
+  function finishPollingOnly() {
+    if (pollId !== null) {
+      clearInterval(pollId);
+      pollId = null;
+    }
+  }
 
+  function formatKeyValuePairs() {
+    var nodes = document.querySelectorAll(
+      '.upcart-internal-cart-items__key-value-pair:not([data-fleece-kv-split])'
+    );
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      var text = (el.textContent || '').trim();
+      if (!text) {
+        el.setAttribute('data-fleece-kv-split', '1');
+        continue;
+      }
+      if (text.indexOf(',') === -1) {
+        el.setAttribute('data-fleece-kv-split', '1');
+        continue;
+      }
+      var parts = text
+        .split(',')
+        .map(function (s) {
+          return s.trim();
+        })
+        .filter(Boolean);
+      el.textContent = '';
+      for (var p = 0; p < parts.length; p++) {
+        if (p > 0) {
+          el.appendChild(document.createElement('br'));
+        }
+        el.appendChild(document.createTextNode(parts[p]));
+      }
+      el.setAttribute('data-fleece-kv-split', '1');
+    }
+  }
+
+  function moveUpsellToFooter() {
     var upsell = document.querySelector('.styles_CartPreview__bottomModules__');
     var footer = document.querySelector('.styles_Footer__');
-
-    if (!footer || !upsell) return;
-
-    done = true;
-    cleanup();
-
+    if (!footer || !upsell) return false;
+    if (upsell.parentNode === footer && footer.firstElementChild === upsell) {
+      return true;
+    }
     footer.prepend(upsell);
+    return true;
+  }
+
+  function runAfterUpcartDrawer() {
+    formatKeyValuePairs();
+
+    var moved = moveUpsellToFooter();
+    if (moved && !done) {
+      done = true;
+      finishPollingOnly();
+    }
+
+    formatKeyValuePairs();
   }
 
   function startWatching() {
-    runAfterUpcartDrawer();
-    if (done) return;
+    if (!observer) {
+      observer = new MutationObserver(function () {
+        runAfterUpcartDrawer();
+      });
+      observer.observe(document.documentElement, { childList: true, subtree: true });
+    }
 
-    observer = new MutationObserver(function () {
-      runAfterUpcartDrawer();
-    });
-    observer.observe(document.documentElement, { childList: true, subtree: true });
+    runAfterUpcartDrawer();
+
+    if (done) return;
 
     var attempts = 0;
     pollId = setInterval(function () {
@@ -61,3 +112,4 @@
   }
 })();
 </script>
+
