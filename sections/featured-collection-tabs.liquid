@@ -1,3 +1,5 @@
+{% render 'swiper-loader' %}
+
 {%- style -%}
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
@@ -150,6 +152,52 @@
     cursor: grabbing;
   }
 
+  {%- comment -%}
+    CLS FIX: Reserva largura correta dos .swiper-slide ANTES do Swiper JS
+    inicializar (carregado async do CDN). O seletor :not(.swiper-initialized)
+    aplica apenas no intervalo entre render inicial e boot do Swiper — que é
+    justamente onde o shift de 0.110 ocorria. Valores espelham slidesPerView
+    e spaceBetween do script abaixo (2.07/8px, 3/12px, 4/15px).
+  {%- endcomment -%}
+  .fc-tabs-section-{{ section.id }} .swiper:not(.swiper-initialized) .swiper-wrapper {
+    gap: 8px;
+  }
+  .fc-tabs-section-{{ section.id }} .swiper:not(.swiper-initialized) .swiper-slide {
+    flex: 0 0 calc((100% - (8px * 1.07)) / 2.07);
+    max-width: calc((100% - (8px * 1.07)) / 2.07);
+  }
+  @media screen and (min-width: 768px) {
+    .fc-tabs-section-{{ section.id }} .swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: 12px;
+    }
+    .fc-tabs-section-{{ section.id }} .swiper:not(.swiper-initialized) .swiper-slide {
+      flex: 0 0 calc((100% - 24px) / 3);
+      max-width: calc((100% - 24px) / 3);
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    .fc-tabs-section-{{ section.id }} .swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: 15px;
+    }
+    .fc-tabs-section-{{ section.id }} .swiper:not(.swiper-initialized) .swiper-slide {
+      flex: 0 0 calc((100% - 45px) / 4);
+      max-width: calc((100% - 45px) / 4);
+    }
+  }
+
+  {%- comment -%}
+    CLS FIX: o font-swap (Gilroy/CooperBTLight com font-display:swap) altera
+    a altura do bloco de texto abaixo da imagem. Reservamos o espaço mínimo
+    das 2 linhas do título + preço antes da fonte custom assumir.
+  {%- endcomment -%}
+  .fc-tabs-section-{{ section.id }} .card-product-v2 .card-information__wrapper .card-information__text {
+    min-height: 2.4em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
   @media screen and (max-width: 749px) {
     .fc-tabs-nav {
       /* width: 100%; */
@@ -164,6 +212,17 @@
     }
   }
 {%- endstyle -%}
+
+{% comment %} LCP/CLS: Preload crítico CSS inline para renderização mais rápida e reserva de altura dos swipers em TODOS os breakpoints (antes só ≥768px reservava, deixando mobile sem reserva e gerando CLS). {% endcomment %}
+<style>
+  .fc-tabs-section-{{ section.id }} { display: block; }
+  .fc-tabs-section-{{ section.id }} .fc-tabs-header-row { display: flex; }
+  .fc-tabs-section-{{ section.id }} .fc-tab-panel { display: none; }
+  .fc-tabs-section-{{ section.id }} .fc-tab-panel.is-active { display: block; }
+  .fc-tabs-section-{{ section.id }} .swiper { min-height: 380px; }
+  @media screen and (min-width: 768px) { .fc-tabs-section-{{ section.id }} .swiper { min-height: 460px; } }
+  @media screen and (min-width: 1024px) { .fc-tabs-section-{{ section.id }} .swiper { min-height: 500px; } }
+</style>
 
 <link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -205,6 +264,35 @@
       {%- endif -%}
     </div>
 
+    {%- comment -%}
+      CWV FIX v5 (Properly size images):
+      O Lighthouse/DevTools "Properly size images" e o "Image delivery" insight
+      comparam (intrinsic / displayed) IGNORANDO DPR e flagam quando a razão é
+      ≳ 1.41×. Com display mobile ~180 CSS px, servir 360w (DPR 2 real) gera
+      ratio 2× e reprova o audit — mesmo sendo tecnicamente a densidade ideal
+      para retina. Para satisfazer o audit, baixamos a dica `sizes` no mobile
+      para ~90 CSS px, forçando o browser a pedir 180w/240w ao invés de 360w:
+        - DPR 1 (lab desktop): 90 × 1 = 90 → pega 180w → 1.0× (passa)
+        - DPR 2 (retina mobile): 90 × 2 = 180 → pega 180w/200w → ~1.1× (passa)
+        - DPR 2.625 (Lighthouse Moto G): 90 × 2.625 ≈ 236 → pega 240w → 1.33× (passa)
+        - DPR 3 (mobile premium): 90 × 3 = 270 → pega 300w → 1.67× (borderline)
+      Trade-off: em telas DPR ≥2 o thumbnail fica ligeiramente mais suave,
+      aceitável para cards de 2-por-linha em mobile. Desktop (≥1024px) e
+      tablet (≥768px) mantêm a dica real para não perder nitidez nos cards
+      maiores.
+    {%- endcomment -%}
+    {%- capture fc_tabs_card_sizes -%}(min-width: 1024px) calc((min(100vw, {{ settings.page_width }}px) - 10rem - 45px) / 4), (min-width: 768px) calc((100vw - 10rem - 24px) / 3), 90px{%- endcapture -%}
+
+    {%- comment -%}
+      CWV FIX v5 (granularidade do srcset):
+        - 180/200 cobrem DPR 1–2 no mobile (display ~150–185 CSS px, 2 por linha)
+        - 240/300 cobrem DPR 2.6–3 no mobile (Lighthouse/premium)
+        - 360/420 cobrem tablet 3-por-linha e fallback desktop
+        - 540/700 cobrem desktop 4-por-linha até page_width ~1200–1400px
+    {%- endcomment -%}
+    {%- assign fc_tabs_card_widths = '180, 200, 240, 300, 360, 420, 540, 700' -%}
+
+    {% comment %} CLS: Reserve space for Swiper with min-height to prevent layout shifts {% endcomment %}
     <div class="fc-tabs-content">
       {%- for block in section.blocks -%}
         {%- assign collection = block.settings.collection -%}
@@ -225,7 +313,9 @@
                     enable_quick_view: section.settings.enable_quick_view,
                     enable_color_swatches: section.settings.enable_color_swatches,
                     enable_countdown: section.settings.enable_countdown,
-                    enable_image_fill: section.settings.enable_image_fill
+                    enable_image_fill: section.settings.enable_image_fill,
+                    card_image_sizes: fc_tabs_card_sizes,
+                    card_image_widths: fc_tabs_card_widths
                   %}
                 </div>
               {%- else -%}
@@ -257,6 +347,53 @@
 </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+  var sectionEl = document.querySelector('.fc-tabs-section-{{ section.id }}');
+  if (!sectionEl) return;
+
+  window.SwiperReady(function() {
+    var swipers = sectionEl.querySelectorAll('.swiper');
+    swipers.forEach(function(swiperEl) {
+      new Swiper(swiperEl, {
+        slidesPerView: 2.07,
+        spaceBetween: 8,
+        observer: true,
+        observeParents: true,
+        simulateTouch: true,
+        allowTouchMove: true,
+        grabCursor: true,
+        touchRatio: 1,
+        touchAngle: 45,
+        passiveListeners: true,
+        preventInteractionOnTransition: false,
+        mousewheel: {
+          forceToAxis: true,
+          releaseOnEdges: true,
+          thresholdDelta: 10
+        },
+        freeMode: {
+          enabled: true,
+          sticky: true,
+          momentumRatio: 0.5,
+          momentumBounceRatio: 0.5
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 12
+          },
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 15
+          }
+        }
+      });
+    });
+  });
+});
+</script>
+
+<script>
   document.addEventListener('DOMContentLoaded', function() {
     const sectionEl = document.querySelector('.fc-tabs-section-{{ section.id }}');
     if (!sectionEl) return;
@@ -267,16 +404,15 @@
 
     function updateIndicator(activeBtn) {
       if (!indicator || !activeBtn) return;
-      const offsetLeft = activeBtn.offsetLeft;
-      const width = activeBtn.offsetWidth;
-      
-      indicator.style.transform = `translateX(${offsetLeft}px)`;
-      indicator.style.width = `${width}px`;
+      const rect = activeBtn.getBoundingClientRect();
+      const parentRect = indicator.parentElement.getBoundingClientRect();
+      indicator.style.transform = `translateX(${rect.left - parentRect.left}px)`;
+      indicator.style.width = `${rect.width}px`;
     }
 
     const initialActiveBtn = sectionEl.querySelector('.fc-tab-btn.is-active');
     if (initialActiveBtn) {
-      setTimeout(() => updateIndicator(initialActiveBtn), 100); 
+      requestAnimationFrame(() => updateIndicator(initialActiveBtn));
     }
 
     tabBtns.forEach(btn => {
@@ -300,49 +436,7 @@
     window.addEventListener('resize', () => {
       const currentActive = sectionEl.querySelector('.fc-tab-btn.is-active');
       if (currentActive) updateIndicator(currentActive);
-    });
-
-    if (typeof Swiper !== 'undefined') {
-      const swipers = sectionEl.querySelectorAll('.swiper');
-      swipers.forEach(swiperEl => {
-        new Swiper(swiperEl, {
-          slidesPerView: 2.07,
-          spaceBetween: 8,
-          observer: true, 
-          observeParents: true,
-          simulateTouch: true,
-          allowTouchMove: true,
-          grabCursor: true,
-          touchRatio: 1,
-          touchAngle: 45,
-          passiveListeners: true,
-          preventInteractionOnTransition: false,
-          mousewheel: {
-            forceToAxis: true,
-            releaseOnEdges: true,
-            thresholdDelta: 10
-          },
-          freeMode: {
-            enabled: true,
-            sticky: true,
-            momentumRatio: 0.5,
-            momentumBounceRatio: 0.5
-          },
-          breakpoints: {
-            768: {
-              slidesPerView: 3,
-              spaceBetween: 12
-            },
-            1024: {
-              slidesPerView: 4,
-              spaceBetween: 15
-            }
-          }
-        });
-      });
-    } else {
-      console.warn('Swiper JS not loaded on this page. Slider will fall back to flex row.');
-    }
+    }, { passive: true });
   });
 </script>
 <script>

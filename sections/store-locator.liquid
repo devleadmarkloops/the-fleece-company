@@ -29,6 +29,10 @@
 
 {{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
 
+{%- comment -%}CWV FIX: Preconnects moved here from global head — only needed when Google Maps actually loads{%- endcomment -%}
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <div class="section--padding{% if section.settings.show_divider %} section--divider{% endif %}">
   <div class="page-width{% if section.settings.full_width %} page-width--full-width{% endif %}">
 		<div class="media-wrapper">

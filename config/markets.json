@@ -12,10 +12,10 @@
     "big-4": {
       "parent": "@default"
     },
-    "austr": {
+    "usa": {
       "parent": "@default"
     },
-    "unite": {
+    "austr": {
       "parent": "@default"
     },
     "canada": {
@@ -24,7 +24,7 @@
     "international": {
       "parent": "@default"
     },
-    "usa": {
+    "unite": {
       "parent": "@default"
     }
   }

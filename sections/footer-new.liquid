@@ -238,7 +238,12 @@
   <div class="footer-logo-wr page-width">
     <div class="footer-logo">
       {% if section.settings.footer_logo != blank %}
-        <img src="{{ section.settings.footer_logo | image_url }}" width="" height="" alt="Footer Logo">
+        <img
+          src="{{ section.settings.footer_logo | image_url }}"
+          width="{{ section.settings.footer_logo.width }}"
+          height="{{ section.settings.footer_logo.height }}"
+          alt="Footer Logo"
+        >
       {% endif %}
     </div>
   </div>

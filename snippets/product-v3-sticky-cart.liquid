@@ -1,0 +1,259 @@
+{% comment %}
+  Renders the sticky add-to-cart bar for main-product-v3:
+  - Deferred CSS load (component-product-sticky-cart.css via media=print swap)
+  - <animate-sticky> wrapper with product image, title, price (#Price-Alt-*),
+    and a `.sticky-trigger-btn` that proxies clicks to the main product form button
+  - Contains large commented-out legacy <product-form> block (kept verbatim)
+  - Inline <style> for sticky button spinner animation
+
+  Only rendered when section.blocks contains a block of type 'sticky_cart'.
+
+  Accepts:
+  - product:        {Object} Product object
+  - section:        {Object} Section object (for section.id and section.blocks)
+  - featured_media: {Object} Pre-resolved featured media (fallback chain: featured_media -> first_image)
+  - first_image:    {Object} Fallback image
+
+  Mechanical extraction of lines 2741-2967 of main-product-v2.liquid. No optimizations applied.
+{% endcomment %}
+
+    {%- assign sticky_cart = section.blocks | where: 'type', 'sticky_cart' | first -%}
+    {%- if sticky_cart -%}
+      <link
+        rel="stylesheet"
+        href="{{ 'component-product-sticky-cart.css' | asset_url }}"
+        media="print"
+        onload="this.media='all'"
+      >
+      <animate-sticky class="sticky-cart-wrapper hidden">
+        <span class="sticky-cart-block" {{ sticky_cart.shopify_attributes }}></span>
+        <div class="product-sticky-cart" id="sticky-cart-{{ section.id }}">
+          <div class="sticky-cart page-width">
+            <div class="sticky-cart__content">
+              <div class="sticky-cart__content-image media-wrapper media-wrapper--small small-hide medium-hide">
+                {%- assign block_image = featured_media | default: first_image -%}
+                {%- if block_image != null -%}
+                  <div>
+                    {%- comment -%}
+                      CWV FIX (L7): sticky cart fica fora da viewport no load
+                      inicial (classe .hidden em <animate-sticky>), então a
+                      imagem não é LCP. loading="lazy" evita competir com o
+                      LCP real da galeria principal.
+                    {%- endcomment -%}
+                    <img
+                      srcset="{{ block_image.preview_image | image_url: width: 70 }} 1x, {{ block_image.preview_image | image_url: width: 140 }} 2x"
+                      src="{{ block_image.preview_image | image_url: width: 70 }}"
+                      alt="{{ block_image.preview_image.alt | escape | split: '#' | first }}"
+                      loading="lazy"
+                      decoding="async"
+                      fetchpriority="low"
+                      width="70"
+                      height="{{ 70 | divided_by: block_image.preview_image.aspect_ratio | ceil }}"
+                      is="lazy-image"
+                    >
+                  </div>
+                {%- endif -%}
+              </div>
+              {% comment %} <img class="sticky-image-d5 small-hide" src="{{ product.featured_image | image_url: width: 120 }}" width="52" height="52" alt="{{ product.title }}" loading="lazy"> {% endcomment %}
+              <div class="sticky-cart__content-heading">
+                <p class="h4">{{ product.title | escape }}</p>
+                <div class="no-js-hidden" id="Price-Alt-{{ section.id }}">
+                  {%- render 'price',
+                    product: product,
+                    use_variant: true,
+                    show_badges: true,
+                    sale_badge_basis: 'auto'
+                  -%}
+                </div>
+              </div>
+            </div>
+            {% comment %} <product-form class="sticky-cart__form">
+              <div class="product-form__error-message-wrapper" role="alert" hidden>
+                {%- render 'icon', icon: 'error-red' -%}
+                <span class="product-form__error-message"></span>
+              </div>
+              {%- assign sticky_cart_form_id = product_form_id | append: '--alt' -%}
+              {%- form 'product',
+                product,
+                id: sticky_cart_form_id,
+                novalidate: 'novalidate',
+                data-type: 'add-to-cart-form'
+              -%}
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{{ product.selected_or_first_available_variant.id }}"
+                  disabled="disabled"
+                >
+
+                <div class="product-form__buttons">
+                  {%- if sticky_cart.settings.show_quantity_selector -%}
+                    {% comment %} TODO: enable theme-check once `item_count_for_variant` is accepted as valid filter {% endcomment %}
+                    {% # theme-check-disable %}
+                    {%- assign cart_qty = cart
+                      | item_count_for_variant: product.selected_or_first_available_variant.id
+                    -%}
+                    {% # theme-check-enable %}
+                    <div
+                      class="product-form__quantity product-form__quantity-sticky small-hide"
+                      id="Quantity-Form-{{ section.id }}-sticky"
+                    >
+                      <label for="Quantity-{{ sticky_cart.id }}" class="visually-hidden">
+                        {{- 'products.product.quantity.label' | t -}}
+                      </label>
+                      <quantity-input class="quantity">
+                        <input
+                          class="quantity__input quantity__input-sticky"
+                          type="number"
+                          name="quantity"
+                          id="Quantity-{{ sticky_cart.id }}"
+                          data-cart-quantity="{{ cart_qty }}"
+                          data-min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                          min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                          {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
+                            data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                            max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                          {% endif %}
+                          step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
+                          value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                          form="{{ sticky_cart_form_id }}"
+                        >
+                      </quantity-input>
+                    </div>
+                  {%- endif -%}
+
+                  {%- unless product.has_only_default_variant -%}
+                    <variant-selects
+                      data-sticky
+                      class="no-js-hidden small-hide"
+                      data-section="{{ section.id }}"
+                      data-url="{{ product.url }}"
+                      data-no-scroll
+                    >
+                      {%- for option in product.options_with_values -%}
+                        {%- assign option_idx = forloop.index -%}
+                        <div
+                          class="product-form__input variant-input-wrapper"
+                          data-option-index="option{{ option_idx }}"
+                          data-option-slug="{{ option.name | handleize }}"
+                        >
+                          <select-wrapper class="select button--small">
+                            <select
+                              class="select__select"
+                              id="OptionAlt-{{ section.id }}-{{ forloop.index0 }}"
+                              name="options[{{ option.name | escape }}]"
+                              form="{{ sticky_cart_form_id }}"
+                            >
+                              {%- for value in option.values -%}
+                                {%- liquid
+                                  assign option_disabled = true
+                                  if value.available
+                                    assign option_disabled = false
+                                  endif
+                                -%}
+                                {%- capture input_id -%}
+                                {{ section.id }}-{{ option.position }}-{{ forloop.index0 -}}
+                              {%- endcapture -%}
+                                {%- capture input_dataset -%}
+                                data-product-url="{{ value.product_url }}"
+                                data-option-value-id="{{ value.id }}"
+                                {% if option_disabled %}data-crossout{% endif %}
+                              {%- endcapture -%}
+                                <option
+                                  id="{{ input_id }}"
+                                  value="{{ value | escape }}"
+                                  {% if option.selected_value == value %}
+                                    selected="selected"
+                                  {% endif %}
+                                  {{ input_dataset }}
+                                >
+                                  {% if option_disabled -%}
+                                    {{- 'products.product.value_unavailable' | t: option_value: value -}}
+                                  {%- else -%}
+                                    {{- value -}}
+                                  {%- endif %}
+                                </option>
+                              {%- endfor -%}
+                            </select>
+                            {% render 'icon', icon: 'caret' %}
+                          </select-wrapper>
+                        </div>
+                      {%- endfor -%}
+
+                      <script type="application/json">
+                        {{ product.variants | json }}
+                      </script>
+                    </variant-selects>
+                  {%- endunless -%}
+
+                  <button
+                    type="submit"
+                    name="add"
+                    class="not-hover product-form__submit button button--small"
+                    {%- if product.selected_or_first_available_variant.available == false %}
+                      disabled="disabled"
+                    {% endif -%}
+                    {%- if product.template_suffix == 'pre-order' %}
+                      data-pre-order="true"
+                    {% endif -%}
+                  >
+                    {%- liquid
+                      if product.selected_or_first_available_variant.available
+                        if product.template_suffix != 'pre-order'
+                          echo 'products.product.add_to_cart' | t
+                        else
+                          echo 'products.product.pre_order' | t
+                        endif
+                      else
+                        echo 'products.product.sold_out' | t
+                      endif
+                    -%}
+                  </button>
+                </div>
+              {%- endform -%}
+            </product-form> {% endcomment %}
+            <div class="sticky-cart__form">
+              <div class="product-form__buttons">
+                <button
+                  type="button"
+                  class="not-hover product-form__submit button button--small sticky-trigger-btn"
+                  {%- if product.selected_or_first_available_variant.available == false %}
+                    disabled="disabled"
+                  {% endif -%}
+                >
+                  <span class="sticky-btn-text">
+                    {%- liquid
+                      if product.selected_or_first_available_variant.available
+                        if product.template_suffix != 'pre-order'
+                          echo 'products.product.add_to_cart' | t
+                        else
+                          echo 'products.product.pre_order' | t
+                        endif
+                      else
+                        echo 'products.product.sold_out' | t
+                      endif
+                    -%}
+                  </span>
+                  <span class="sticky-btn-spinner" style="display:none;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="animation:sticky-spin .6s linear infinite;">
+                      <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="31.4 31.4" stroke-linecap="round"/>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+            <style>
+              @keyframes sticky-spin{to{transform:rotate(360deg)}}
+              .sticky-trigger-btn.is-loading .sticky-btn-text{visibility:hidden}
+              .sticky-trigger-btn.is-loading .sticky-btn-spinner{display:inline-flex !important;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+              /* CWV FIX (C3): o texto do botão alterna entre 'Add to cart' /
+                 'Sold out' / 'Pre-order' dependendo do estado da variante —
+                 min-width garante que a troca não cause CLS em telas
+                 estreitas e white-space:nowrap impede quebra de linha. */
+              .sticky-trigger-btn{position:relative;min-width:11ch;white-space:nowrap}
+              .sticky-btn-text{display:inline-block;min-width:9ch;text-align:center}
+            </style>
+          </div>
+        </div>
+      </animate-sticky>
+    {%- endif -%}

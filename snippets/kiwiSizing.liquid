@@ -1,3 +1,10 @@
+{%- comment -%}
+  CWV FIX (P5): só emite a configuração do KiwiSizing se o app estiver
+  instalado (detectado via content_for_header). Antes rodava em toda PDP
+  fazendo product.images|json (pesado) + product.variants|json — desperdício
+  quando o app não está ativo.
+{%- endcomment -%}
+{%- if content_for_header contains 'kiwisizing' or content_for_header contains 'kiwi-sizing' -%}
 <script>
   window.KiwiSizing = window.KiwiSizing === undefined ? {} : window.KiwiSizing;
   KiwiSizing.shop = "{{ shop.permanent_domain }}";
@@ -33,3 +40,4 @@
   };
   {% endif %}
 </script>
+{%- endif -%}

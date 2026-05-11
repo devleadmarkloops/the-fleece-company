@@ -1,3 +1,5 @@
+{% render 'swiper-loader' %}
+
 {%- style -%}
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
@@ -332,7 +334,7 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  window.SwiperReady(function() {
     new Swiper('.reviews-swiper-{{ section.id }}', {
       slidesPerView: 1.4,
       spaceBetween: 16,

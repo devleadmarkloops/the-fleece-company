@@ -76,7 +76,7 @@
             if forloop.index >= 2
               echo ', '
             endif
-            echo image.preview_image | image_url: width: retina_mobile_width | append: ' ' | append: a_width | append: 'w'
+            echo image.preview_image | image_url: width: retina_mobile_width, format: 'webp' | append: ' ' | append: a_width | append: 'w'
           endfor
         endcapture
       -%}
@@ -84,12 +84,12 @@
         <div class="card--image-animate image-animate media media--{{ media_size }} media--hover-effect{% unless enable_image_fill %} media--image-contain{% endunless %}"
           {%- if media_size == 'adapt' %} style="--image-ratio-percent: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;"{% endif -%}
         >
-          <picture is="prog-picture" class="motion-reduce" data-hq="{{ image.preview_image | image_url: width: 2000 }}">
+          <picture is="prog-picture" class="motion-reduce" data-hq="{{ image.preview_image | image_url: width: 2000, format: 'webp' }}">
             <source srcset="{{ srcset_mobile_retina }}" sizes="{{ sizes }}">
             {%- if image.preview_image -%}
-  {{ image.preview_image | image_url: width: 1100 | image_tag: loading: image_loading, class: 'motion-reduce card-v2-main-image', sizes: sizes, widths: widths, alt: alt, is: 'lazy-image' }}
+  {{ image.preview_image | image_url: width: 1100, format: 'webp' | image_tag: loading: image_loading, class: 'motion-reduce card-v2-main-image', sizes: sizes, widths: widths, alt: alt, is: 'lazy-image' }}
 {%- else -%}
-  {{ image | image_url: width: 1100 | image_tag: loading: image_loading, class: 'motion-reduce card-v2-main-image', sizes: sizes, widths: widths, alt: alt, is: 'lazy-image' }}
+  {{ image | image_url: width: 1100, format: 'webp' | image_tag: loading: image_loading, class: 'motion-reduce card-v2-main-image', sizes: sizes, widths: widths, alt: alt, is: 'lazy-image' }}
 {%- endif -%}
           </picture>
           {%- if card_product.media[1] != nil and show_secondary_image -%}
@@ -100,7 +100,7 @@
             -%}
             {%- capture sizes_second -%}(min-width: 990px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, 1px{%- endcapture -%}
             <picture class="motion-reduce">
-              {{ image_second.preview_image | image_url: width: 1100 | image_tag: loading: image_loading, sizes: sizes_second, widths: widths_second, alt: alt_second, is: 'lazy-image' }}
+              {{ image_second.preview_image | image_url: width: 1100, format: 'webp' | image_tag: loading: image_loading, sizes: sizes_second, widths: widths_second, alt: alt_second, is: 'lazy-image' }}
             </picture>
           {%- endif -%}
         </div>

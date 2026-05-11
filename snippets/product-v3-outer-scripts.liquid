@@ -1,0 +1,14 @@
+{% comment %}
+  Etapa 2 — F4: os dois blocos inline que originalmente viviam aqui
+  (Donation info popup + Kaching Bundles <-> Sticky Cart sync) foram
+  consolidados em assets/product-v3-controllers.js (carregado no
+  footer-scripts com defer).
+
+  O snippet é mantido por compatibilidade estrutural com o main-product-v3:
+  ele continua sendo renderizado no mesmo ponto (fora de </product-info>),
+  apenas sem emitir <script> inline. Caso novos scripts "outer" sejam
+  necessários no futuro, este é o lugar natural para adicioná-los.
+
+  Accepts:
+  - section: {Object} Section object (preservado para compatibilidade)
+{% endcomment %}

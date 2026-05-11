@@ -1,0 +1,11 @@
+{% comment %}
+  Renders the product description block.
+
+  Accepts:
+  - block:   {Object} Block object
+  - product: {Object} Product object
+
+  Mechanical extraction of the 'description' case from main-product-v2.liquid (lines 1362-1363).
+{% endcomment %}
+
+<div class="product__description rte" {{ block.shopify_attributes }}>{{ product.description }}</div>

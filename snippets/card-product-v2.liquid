@@ -23,41 +23,51 @@
       {%- liquid
         assign featured_media_aspect_ratio = card_product.featured_media.aspect_ratio | default: 1
         assign card_product_media = card_product.featured_media
-      -%}
-      {%- capture sizes -%}(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 10rem) / 4), (min-width: 750px) calc((100vw - 10rem) / 3), calc(62vw - 3rem){%- endcapture -%}
-      {%- liquid
         assign image_loading = 'lazy'
-        assign widths = '165, 360, 535, 750, 940, 1100'
         assign image = card_product.featured_media
         assign alt = image.alt | escape | split: '#' | first
-        capture srcset_mobile_retina
-          assign a_widths = widths | remove: ' ' | split: ','
-          for a_width in a_widths
-            assign retina_mobile_width = a_width | divided_by: 1 | floor
-            if forloop.index >= 2
-              echo ', '
-            endif
-            echo image.preview_image | image_url: width: retina_mobile_width | append: ' ' | append: a_width | append: 'w'
-          endfor
-        endcapture
+        if card_image_widths != blank
+          assign widths = card_image_widths
+        else
+          assign widths = '165, 246, 330, 360, 450, 535, 600, 750'
+        endif
       -%}
+      {%- if card_image_sizes != blank -%}
+        {%- assign sizes = card_image_sizes -%}
+      {%- else -%}
+        {%- capture sizes -%}(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 10rem) / 4), (min-width: 750px) calc((100vw - 10rem) / 3), calc(62vw - 3rem){%- endcapture -%}
+      {%- endif -%}
+      {%- capture srcset_mobile_retina -%}
+        {%- assign a_widths = widths | remove: ' ' | split: ',' -%}
+        {%- assign srcset_sep = '' -%}
+        {%- for a_width in a_widths -%}
+          {%- if a_width != blank -%}
+            {{- srcset_sep -}}{{- image.preview_image | image_url: width: a_width, format: 'webp' | append: ' ' | append: a_width | append: 'w' -}}
+            {%- assign srcset_sep = ', ' -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endcapture -%}
       <a href="{{ card_url }}"{% if disable_image_click %} onclick="if (!theme.config.mqlSmall) { return false; }"{% endif %} class="card__media media-wrapper" tabindex="-1" aria-label="{{ card_product.title | escape }}">
         <div class="card--image-animate image-animate media media--{{ media_size }} media--hover-effect{% unless enable_image_fill %} media--image-contain{% endunless %}"
           {%- if media_size == 'adapt' %} style="--image-ratio-percent: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;"{% endif -%}
         >
-          <picture is="prog-picture" class="motion-reduce" data-hq="{{ image.preview_image | image_url: width: 2000 }}">
+          <picture is="prog-picture" class="motion-reduce" data-hq="{{ image.preview_image | image_url: width: 1000, format: 'webp' }}">
             <source srcset="{{ srcset_mobile_retina }}" sizes="{{ sizes }}">
-            {{ image.preview_image | image_url: width: 1100 | image_tag: loading: image_loading, class: 'motion-reduce card-v2-main-image', sizes: sizes, widths: widths, alt: alt, is: 'lazy-image' }}
+            {{ image.preview_image | image_url: width: 450, format: 'webp' | image_tag: loading: image_loading, class: 'motion-reduce card-v2-main-image', sizes: sizes, widths: widths, alt: alt, is: 'lazy-image' }}
           </picture>
           {%- if card_product.media[1] != nil and show_secondary_image -%}
             {%- liquid
               assign image_second = card_product.media[1]
               assign alt_second = image_second.alt | escape | split: '#' | first
-              assign widths_second = '1, 165, 360, 535, 750, 940, 1100'
+              assign widths_second = '1, ' | append: widths
             -%}
-            {%- capture sizes_second -%}(min-width: 990px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, 1px{%- endcapture -%}
+            {%- if card_image_sizes != blank -%}
+              {%- assign sizes_second = card_image_sizes -%}
+            {%- else -%}
+              {%- capture sizes_second -%}(min-width: 990px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, 1px{%- endcapture -%}
+            {%- endif -%}
             <picture class="motion-reduce">
-              {{ image_second.preview_image | image_url: width: 1100 | image_tag: loading: image_loading, sizes: sizes_second, widths: widths_second, alt: alt_second, is: 'lazy-image' }}
+              {{ image_second.preview_image | image_url: width: 450, format: 'webp' | image_tag: loading: image_loading, sizes: sizes_second, widths: widths_second, alt: alt_second, is: 'lazy-image' }}
             </picture>
           {%- endif -%}
         </div>

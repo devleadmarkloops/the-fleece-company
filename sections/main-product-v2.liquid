@@ -1,13 +1,10 @@
+{% render 'swiper-loader' %}
+
 <style>
   {% comment %} footer.footer{
     position: relative;
     z-index: 999;
   } {% endcomment %}
-
-  variant-selects>fieldset>legend:has(div.ks-chart-container)>div.ks-chart-container {
-    margin-left: 0 !important;
-  }
-  
   .kaching-bundles__bar-radio, .kaching-bundles__swatch{
     display: block !important;
   }
@@ -588,13 +585,25 @@
                   <div class="iwt-gallery-wr">
                     <div class="iwt-gallery-item" style="box-sizing: border-box; height: 30px; padding: {{ block.settings.item1_padding_y }}px 0.7rem {{ block.settings.item1_padding_y }}px {{ block.settings.item1_padding_x }}px;">
                       {% if block.settings.icon1 != blank %}
-                        <img src="{{ block.settings.icon1 | image_url }}" width="" height="" alt="{{ block.settings.text1 }} Icon" style="height: {{ block.settings.icon1_size }}px;">
+                        <img
+                          src="{{ block.settings.icon1 | image_url }}"
+                          width="{{ block.settings.icon1.width }}"
+                          height="{{ block.settings.icon1.height }}"
+                          alt="{{ block.settings.text1 }} Icon"
+                          style="height: {{ block.settings.icon1_size }}px;"
+                        >
                       {% endif %}
                       <span class="icon-text">{{ block.settings.text1 }}</span>
                     </div>
                     <div class="iwt-gallery-item" style="box-sizing: border-box; height: 30px; padding: {{ block.settings.item2_padding_y }}px 0.7rem {{ block.settings.item2_padding_y }}px {{ block.settings.item2_padding_x }}px;">
                       {% if block.settings.icon2 != blank %}
-                        <img src="{{ block.settings.icon2 | image_url }}" width="" height="" alt="{{ block.settings.text2 }} Icon" style="height: {{ block.settings.icon2_size }}px;">
+                        <img
+                          src="{{ block.settings.icon2 | image_url }}"
+                          width="{{ block.settings.icon2.width }}"
+                          height="{{ block.settings.icon2.height }}"
+                          alt="{{ block.settings.text2 }} Icon"
+                          style="height: {{ block.settings.icon2_size }}px;"
+                        >
                       {% endif %}
                       <span class="icon-text">{{ block.settings.text2 }}</span>
                     </div>
@@ -699,7 +708,7 @@
                       {%- liquid
                         assign image_id = 'Thumbnail-' | append: section.id | append: '-0'
                         assign alt = featured_media.alt | escape | split: '#' | first
-                        echo featured_media.preview_image | image_url: width: 416 | image_tag: loading: 'eager', id: image_id, sizes: sizes, widths: '54, 74, 162, 208, 324, 416', alt: alt
+                        echo featured_media.preview_image | image_url: width: 208 | image_tag: loading: 'lazy', fetchpriority: 'low', id: image_id, sizes: sizes, widths: '54, 74, 108, 162, 208, 260, 324', alt: alt
                       -%}
                     </button>
                   </li>
@@ -803,7 +812,7 @@
                         {%- liquid
                           assign image_id = 'Thumbnail-' | append: section.id | append: '-' | append: forloop.index
                           assign alt = media.alt | escape | split: '#' | first
-                          echo media.preview_image | image_url: width: 416 | image_tag: loading: 'eager', id: image_id, sizes: sizes, widths: '54, 74, 162, 208, 324, 416', alt: alt
+                          echo media.preview_image | image_url: width: 208 | image_tag: loading: 'lazy', fetchpriority: 'low', id: image_id, sizes: sizes, widths: '54, 74, 108, 162, 208, 260, 324', alt: alt
                         -%}
                       </button>
                     </li>
@@ -854,7 +863,7 @@
                         {%- liquid
                           assign image_id = 'Thumbnail-all-' | append: section.id | append: '-' | append: forloop.index
                           assign alt = media.alt | escape | split: '#' | first
-                          echo media.preview_image | image_url: width: 416 | image_tag: loading: 'eager', id: image_id, sizes: sizes, widths: '54, 74, 162, 208, 324, 416', alt: alt
+                          echo media.preview_image | image_url: width: 208 | image_tag: loading: 'lazy', fetchpriority: 'low', id: image_id, sizes: sizes, widths: '54, 74, 108, 162, 208, 260, 324', alt: alt
                         -%}
                       </button>
                     </li>
@@ -1453,7 +1462,12 @@
                   style="--icon-size: {{ block.settings.icon_size }}px; --icon-size-mob: {{ block.settings.icon_size_mob }}px;"
                 >
                   {% if block.settings.icon != blank %}
-                    <img src="{{ block.settings.icon | image_url }}" width="" height="" alt="Icon">
+                    <img
+                      src="{{ block.settings.icon | image_url }}"
+                      width="{{ block.settings.icon.width }}"
+                      height="{{ block.settings.icon.height }}"
+                      alt="Icon"
+                    >
                   {% endif %}
                   {% if block.settings.icon_richtext != blank %}
                     <div
@@ -1896,8 +1910,10 @@
                       }
 
                       initSwiper() {
-                        if (this.swiperContainer && typeof Swiper !== 'undefined') {
-                          this.swiperInstance = new Swiper(this.swiperContainer, {
+                        if (!this.swiperContainer) return;
+                        const self = this;
+                        window.SwiperReady(function() {
+                          self.swiperInstance = new Swiper(self.swiperContainer, {
                             slidesPerView: 3.5,
                             spaceBetween: 8,
                             grabCursor: true,
@@ -1908,7 +1924,7 @@
                               }
                             }
                           });
-                        }
+                        });
                       }
 
                       initObserver() {
@@ -2436,7 +2452,7 @@
                   </div>
 
                   <script>
-                    document.addEventListener('DOMContentLoaded', function() {
+                    window.SwiperReady(function() {
                       new Swiper('.pairs-well-swiper-{{ block.id }}', {
                         slidesPerView: 1,
                         spaceBetween: 10,

@@ -33,7 +33,7 @@
       }
     },
     "main": {
-      "type": "main-product-v2",
+      "type": "main-product-v3",
       "blocks": {
         "donation_impact_arQBr4": {
           "type": "donation_impact",
@@ -125,7 +125,7 @@
             "icon_size": 20,
             "icon_size_mob": 18,
             "icon_text": "",
-            "icon_richtext": "<p><strong>Spring Sale:</strong> Buy One, Get One <strong>FREE</strong></p>",
+            "icon_richtext": "<p><strong>Mother's Day Sale:</strong> Buy One, Get One <strong>FREE</strong></p>",
             "text_color": "#3b3b3b",
             "text_size": 14,
             "text_size_mob": 12,

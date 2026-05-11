@@ -1,0 +1,57 @@
+{% comment %}
+  Renders the rating block (reads product.metafields.reviews.rating).
+
+  Accepts:
+  - block:   {Object} Block object
+  - product: {Object} Product object
+
+  Mechanical extraction of the 'rating' case from main-product-v2.liquid (lines 2219-2254).
+{% endcomment %}
+
+{%- comment -%}
+  CWV FIX (C8): min-height defensivo no wrapper do rating — Judge.me (via
+  app block) pode injetar um preview badge próximo deste componente. O
+  valor cobre a altura típica das estrelas (~18px) + texto em 1 linha.
+{%- endcomment -%}
+<style>
+  #MainProduct-{{ section.id }} .rating,
+  #MainProduct-{{ section.id }} .rating-text,
+  #MainProduct-{{ section.id }} .rating-count {
+    min-height: 18px;
+  }
+</style>
+{%- if product.metafields.reviews.rating.value != blank -%}
+  {% liquid
+    assign rating_decimal = 0
+    assign decimal = product.metafields.reviews.rating.value.rating | modulo: 1
+    if decimal >= 0.3 and decimal <= 0.7
+      assign rating_decimal = 0.5
+    elsif decimal > 0.7
+      assign rating_decimal = 1
+    endif
+  %}
+  <div
+    class="rating"
+    role="img"
+    aria-label="{{ 'accessibility.star_reviews_info' | t: rating_value: product.metafields.reviews.rating.value, rating_max: product.metafields.reviews.rating.value.scale_max }}"
+  >
+    <span
+      aria-hidden="true"
+      class="rating-star"
+      style="--rating: {{ product.metafields.reviews.rating.value.rating | floor }}; --rating-max: {{ product.metafields.reviews.rating.value.scale_max }}; --rating-decimal: {{ rating_decimal }};"
+    ></span>
+  </div>
+  <p class="rating-text caption">
+    <span aria-hidden="true">
+      {{- product.metafields.reviews.rating.value }} /
+      {{ product.metafields.reviews.rating.value.scale_max -}}
+    </span>
+  </p>
+  <p class="rating-count caption">
+    <span aria-hidden="true">({{ product.metafields.reviews.rating_count }})</span>
+    <span class="visually-hidden">
+      {{- product.metafields.reviews.rating_count }}
+      {{ 'accessibility.total_reviews' | t -}}
+    </span>
+  </p>
+{%- endif -%}

@@ -1,3 +1,5 @@
+{% render 'swiper-loader' %}
+
 <style>
   {% comment %} footer.footer{
     position: relative;
@@ -542,13 +544,23 @@
                   <div class="iwt-gallery-wr">
                     <div class="iwt-gallery-item">
                       {% if block.settings.icon1 != blank %}
-                        <img src="{{ block.settings.icon1 | image_url }}" width="" height="" alt="{{ block.settings.text1 }} Icon">
+                        <img
+                          src="{{ block.settings.icon1 | image_url }}"
+                          width="{{ block.settings.icon1.width }}"
+                          height="{{ block.settings.icon1.height }}"
+                          alt="{{ block.settings.text1 }} Icon"
+                        >
                       {% endif %}
                       <span class="icon-text">{{ block.settings.text1 }}</span>
                     </div>
                     <div class="iwt-gallery-item">
                       {% if block.settings.icon2 != blank %}
-                        <img src="{{ block.settings.icon2 | image_url }}" width="" height="" alt="{{ block.settings.text2 }} Icon">
+                        <img
+                          src="{{ block.settings.icon2 | image_url }}"
+                          width="{{ block.settings.icon2.width }}"
+                          height="{{ block.settings.icon2.height }}"
+                          alt="{{ block.settings.text2 }} Icon"
+                        >
                       {% endif %}
                       <span class="icon-text">{{ block.settings.text2 }}</span>
                     </div>
@@ -653,7 +665,7 @@
                       {%- liquid
                         assign image_id = 'Thumbnail-' | append: section.id | append: '-0'
                         assign alt = featured_media.alt | escape | split: '#' | first
-                        echo featured_media.preview_image | image_url: width: 416 | image_tag: loading: 'eager', id: image_id, sizes: sizes, widths: '54, 74, 162, 208, 324, 416', alt: alt
+                        echo featured_media.preview_image | image_url: width: 208 | image_tag: loading: 'lazy', fetchpriority: 'low', id: image_id, sizes: sizes, widths: '54, 74, 108, 162, 208, 260, 324', alt: alt
                       -%}
                     </button>
                   </li>
@@ -757,7 +769,7 @@
                         {%- liquid
                           assign image_id = 'Thumbnail-' | append: section.id | append: '-' | append: forloop.index
                           assign alt = media.alt | escape | split: '#' | first
-                          echo media.preview_image | image_url: width: 416 | image_tag: loading: 'eager', id: image_id, sizes: sizes, widths: '54, 74, 162, 208, 324, 416', alt: alt
+                          echo media.preview_image | image_url: width: 208 | image_tag: loading: 'lazy', fetchpriority: 'low', id: image_id, sizes: sizes, widths: '54, 74, 108, 162, 208, 260, 324', alt: alt
                         -%}
                       </button>
                     </li>
@@ -808,7 +820,7 @@
                         {%- liquid
                           assign image_id = 'Thumbnail-all-' | append: section.id | append: '-' | append: forloop.index
                           assign alt = media.alt | escape | split: '#' | first
-                          echo media.preview_image | image_url: width: 416 | image_tag: loading: 'eager', id: image_id, sizes: sizes, widths: '54, 74, 162, 208, 324, 416', alt: alt
+                          echo media.preview_image | image_url: width: 208 | image_tag: loading: 'lazy', fetchpriority: 'low', id: image_id, sizes: sizes, widths: '54, 74, 108, 162, 208, 260, 324', alt: alt
                         -%}
                       </button>
                     </li>
@@ -1407,7 +1419,12 @@
                   style="--icon-size: {{ block.settings.icon_size }}px; --icon-size-mob: {{ block.settings.icon_size_mob }}px;"
                 >
                   {% if block.settings.icon != blank %}
-                    <img src="{{ block.settings.icon | image_url }}" width="" height="" alt="Icon">
+                    <img
+                      src="{{ block.settings.icon | image_url }}"
+                      width="{{ block.settings.icon.width }}"
+                      height="{{ block.settings.icon.height }}"
+                      alt="Icon"
+                    >
                   {% endif %}
                   {% if block.settings.icon_richtext != blank %}
                     <div
@@ -1850,8 +1867,10 @@
                       }
 
                       initSwiper() {
-                        if (this.swiperContainer && typeof Swiper !== 'undefined') {
-                          this.swiperInstance = new Swiper(this.swiperContainer, {
+                        if (!this.swiperContainer) return;
+                        const self = this;
+                        window.SwiperReady(function() {
+                          self.swiperInstance = new Swiper(self.swiperContainer, {
                             slidesPerView: 3.5,
                             spaceBetween: 8,
                             grabCursor: true,
@@ -1862,7 +1881,7 @@
                               }
                             }
                           });
-                        }
+                        });
                       }
 
                       initObserver() {
@@ -2390,7 +2409,7 @@
                   </div>
 
                   <script>
-                    document.addEventListener('DOMContentLoaded', function() {
+                    window.SwiperReady(function() {
                       new Swiper('.pairs-well-swiper-{{ block.id }}', {
                         slidesPerView: 1,
                         spaceBetween: 10,

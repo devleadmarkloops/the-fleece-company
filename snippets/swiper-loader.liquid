@@ -1,0 +1,66 @@
+{%- comment -%}
+SWIPER LOADER
+Carrega Swiper CSS/JS apenas uma vez, mesmo se múltiplos componentes o renderizarem.
+Expõe window.SwiperReady(callback) para que cada section inicialize com segurança,
+independente de quando o script terminar de baixar.
+
+CWV FIX (L3):
+  - <link rel="preconnect"> para cdn.jsdelivr.net economiza 1 RTT (DNS+TCP+TLS)
+    ao abrir conexão assim que o browser encontra o HTML.
+  - CSS já vem com media="print" onload=this.media='all' (não-blocking).
+  - JS injetado via document.createElement é async por padrão; adicionamos
+    fetchpriority="low" porque Swiper atende componentes below-the-fold
+    (pairs_well / video_reels) e não deve competir com LCP.
+{%- endcomment -%}
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+<script>
+  // Fila de callbacks aguardando Swiper
+  if (!window.SwiperReady) {
+    var _swiperQueue = [];
+
+    window.SwiperReady = function(callback) {
+      if (typeof window.Swiper !== 'undefined') {
+        // Swiper já carregado — executa imediatamente
+        callback();
+      } else {
+        // Swiper ainda não chegou — enfileira
+        _swiperQueue.push(callback);
+      }
+    };
+
+    function _flushSwiperQueue() {
+      while (_swiperQueue.length) {
+        _swiperQueue.shift()();
+      }
+    }
+
+    // Injetar CSS apenas uma vez (não-blocking via media=print + onload)
+    if (!document.querySelector('link[data-swiper-css]')) {
+      var css = document.createElement('link');
+      css.rel = 'stylesheet';
+      css.setAttribute('data-swiper-css', '');
+      css.href = 'https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css';
+      css.media = 'print';
+      css.onload = function() { this.media = 'all'; };
+      document.head.appendChild(css);
+    }
+
+    // Injetar JS apenas uma vez (async implícito + fetchpriority=low)
+    if (!document.querySelector('script[data-swiper-js]')) {
+      var js = document.createElement('script');
+      js.src = 'https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js';
+      js.setAttribute('data-swiper-js', '');
+      if ('fetchPriority' in js) {
+        js.fetchPriority = 'low';
+      } else {
+        js.setAttribute('fetchpriority', 'low');
+      }
+      js.onload = function() {
+        _flushSwiperQueue();
+      };
+      document.head.appendChild(js);
+    }
+  }
+</script>

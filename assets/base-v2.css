@@ -3363,6 +3363,13 @@ use-animate {
   opacity: 1;
 }
 
+/* CWV FIX (LCP): wrapper especial usado pela featured/eager image em
+   snippets/product-image.liquid. NÃO usa <use-animate>, então o img é
+   pintado imediatamente (sem opacity:0 → JS attribute → animation). */
+.product-media-wrapper--lcp { display: block; }
+.product-media-wrapper--lcp .product__media { opacity: 1 !important; }
+.product-media-img--lcp { opacity: 1 !important; }
+
 @keyframes zoom-fade {
   0% {
     opacity: 0;

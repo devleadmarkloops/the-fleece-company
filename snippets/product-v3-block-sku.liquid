@@ -1,0 +1,18 @@
+{% comment %}
+  Renders the product SKU block.
+
+  Accepts:
+  - block:   {Object} Block object
+  - product: {Object} Product object
+  - section: {Object} Section object (for section.id)
+
+  Mechanical extraction of the 'sku' case from main-product-v2.liquid (lines 1289-1296).
+{% endcomment %}
+
+<p
+  class="product__sku{% if block.settings.sku_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.sku_style == 'subtitle' %} subtitle{% endif %}"
+  id="Sku-{{ section.id }}"
+  {{ block.shopify_attributes }}
+>
+  {{- product.selected_or_first_available_variant.sku -}}
+</p>

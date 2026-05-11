@@ -1,0 +1,12 @@
+{% comment %}
+  Thin wrapper around the existing product-variant-picker snippet.
+
+  Accepts:
+  - block:            {Object} Block object
+  - product:          {Object} Product object
+  - product_form_id:  {String} Shared form id
+
+  Mechanical extraction of the 'variant_picker' case from main-product-v2.liquid (lines 2165-2166).
+{% endcomment %}
+
+{% render 'product-variant-picker', block: block, product: product, product_form_id: product_form_id %}

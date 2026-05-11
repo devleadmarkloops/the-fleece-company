@@ -1,0 +1,49 @@
+{% comment %}
+  Renders the related_buttons block (quick scroll anchors to details/images).
+
+  Accepts:
+  - block:   {Object} Block object
+  - product: {Object} Product object
+
+  Mechanical extraction of the 'related_buttons' case from main-product-v2.liquid (lines 2255-2294).
+{% endcomment %}
+
+<div
+  class="product-link__button product__accordion accordion small-hide"
+  {{ block.shopify_attributes }}
+>
+  <related-buttons data-scrollto="#ProductDetails">
+    <a href="#ProductDetails">
+      <span class="summary__title">
+        {%- liquid
+          if block.settings.show_icons
+            render 'icon', icon: 'info'
+          endif
+        -%}
+        <span class="accordion__title">{{ 'products.product.view_info' | t }}</span>
+      </span>
+      {%- liquid
+        unless block.settings.show_icons
+          render 'icon', icon: 'caret'
+        endunless
+      -%}
+    </a>
+    {%- if product.media.size > 0 -%}
+      <a href="#ProductImages">
+        <span class="summary__title">
+          {%- liquid
+            if block.settings.show_icons
+              render 'icon', icon: 'images'
+            endif
+          -%}
+          <span class="accordion__title">{{ 'products.product.view_images' | t }}</span>
+        </span>
+        {%- liquid
+          unless block.settings.show_icons
+            render 'icon', icon: 'caret'
+          endunless
+        -%}
+      </a>
+    {%- endif -%}
+  </related-buttons>
+</div>

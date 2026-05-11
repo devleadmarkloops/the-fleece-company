@@ -1,0 +1,109 @@
+{% comment %}
+  Renders the line_item_property block (checkbox, text, textarea, radio, select).
+
+  Accepts:
+  - block:            {Object} Block object
+  - product_form_id:  {String} Shared product form id
+  - section:          {Object} Section object
+
+  Mechanical extraction of the 'line_item_property' case from main-product-v2.liquid (lines 2582-2680).
+{% endcomment %}
+
+<div class="product-form__input" {{ block.shopify_attributes }}>
+  {%- if block.settings.type == 'checkbox' -%}
+    <label for="line-item-{{ section.id }}-{{ block.id }}" class="form__facet-checkbox">
+      <input
+        type="hidden"
+        name="properties[{{ block.settings.label | escape }}]"
+        value="{{ block.settings.unchecked_value | escape }}"
+        form="{{ product_form_id }}"
+      >
+      <input
+        id="line-item-{{ section.id }}-{{ block.id }}"
+        type="checkbox"
+        name="properties[{{ block.settings.label | escape }}]"
+        value="{{ block.settings.checked_value | escape }}"
+        {% if block.settings.required %}
+          required
+        {% endif %}
+        form="{{ product_form_id }}"
+      >
+      {% render 'icon', icon: 'checkmark' %}
+      {{ block.settings.label | escape }}
+    </label>
+  {%- else -%}
+    <label class="form__label" for="line-item-{{ section.id }}-{{ block.id }}">
+      {{- block.settings.label | escape -}}
+    </label>
+    {%- case block.settings.type -%}
+      {%- when 'text' -%}
+        <input
+          class="field__input"
+          id="line-item-{{ section.id }}-{{ block.id }}"
+          type="text"
+          name="properties[{{ block.settings.label | escape }}]"
+          {% if block.settings.required %}
+            required
+          {% endif %}
+          form="{{ product_form_id }}"
+        >
+      {%- when 'textarea' -%}
+        <textarea
+          class="text-area field__input"
+          id="line-item-{{ section.id }}-{{ block.id }}"
+          name="properties[{{ block.settings.label | escape }}]"
+          {% if block.settings.required %}
+            required
+          {% endif %}
+          form="{{ product_form_id }}"
+        ></textarea>
+      {%- when 'radio' -%}
+        {%- assign options = block.settings.radio_options | split: ',' -%}
+        {%- if options.size > 1 -%}
+          <fieldset class="product-form__input">
+            {%- for option in options -%}
+              <label
+                class="form__facet-radio"
+                for="line-item-{{ section.id }}-{{ block.id }}-{{ forloop.index0 }}"
+              >
+                <input
+                  id="line-item-{{ section.id }}-{{ block.id }}-{{ forloop.index0 }}"
+                  type="radio"
+                  name="properties[{{ block.settings.label | escape }}]"
+                  value="{{ option | strip | escape }}"
+                  {% if block.settings.required %}
+                    required
+                  {% endif %}
+                  form="{{ product_form_id }}"
+                >
+                <span class="icon"></span>
+                {{ option | strip | escape }}
+              </label>
+            {%- endfor -%}
+          </fieldset>
+        {%- endif -%}
+      {%- when 'select' -%}
+        {%- assign options = block.settings.select_options | split: ',' -%}
+        {%- if options.size > 1 -%}
+          <select-wrapper class="select">
+            <select
+              class="select__select"
+              id="line-item-{{ section.id }}-{{ block.id }}"
+              name="properties[{{ block.settings.label | escape }}]"
+              {% if block.settings.required %}
+                required
+              {% endif %}
+              form="{{ product_form_id }}"
+            >
+              {%- for option in options -%}
+                <option value="{{ option | strip | escape }}">
+                  {{ option | strip | escape }}
+                </option>
+              {%- endfor -%}
+            </select>
+            {% render 'icon', icon: 'caret' %}
+          </select-wrapper>
+        {%- endif -%}
+    {%- endcase -%}
+  {%- endif -%}
+</div>

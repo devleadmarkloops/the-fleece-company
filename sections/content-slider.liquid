@@ -99,11 +99,15 @@
                     {%- capture sizes -%}100vw{%- endcapture -%}
                   {%- endif -%}
                   {%- liquid
+                    assign image_element = 'lazy-image'
+                    if forloop.first and section.index == 1
+                      assign image_element = 'direct-image'
+                    endif
                     if block.settings.image_mobile == blank
-                      echo block.settings.image | image_url: width: 3840 | image_tag: loading: loading, fetchpriority: fetchpriority, sizes: sizes, widths: widths, is: 'lazy-image'
+                      echo block.settings.image | image_url: width: 2000 | image_tag: loading: loading, fetchpriority: fetchpriority, sizes: sizes, widths: widths, is: image_element
                     else
-                      echo block.settings.image_mobile | image_url: width: 3840 | image_tag: loading: loading, fetchpriority: fetchpriority, class: 'medium-hide large-up-hide', sizes: sizes, widths: widths, is: 'lazy-image'
-                      echo block.settings.image | image_url: width: 3840 | image_tag: loading: loading, fetchpriority: fetchpriority, class: 'small-hide', sizes: sizes, widths: widths, is: 'lazy-image'
+                      echo block.settings.image_mobile | image_url: width: 1000 | image_tag: loading: loading, fetchpriority: fetchpriority, class: 'medium-hide large-up-hide', sizes: sizes, widths: widths, is: image_element
+                      echo block.settings.image | image_url: width: 2000 | image_tag: loading: loading, fetchpriority: fetchpriority, class: 'small-hide', sizes: sizes, widths: widths, is: image_element
                     endif
                   -%}
                 </div>

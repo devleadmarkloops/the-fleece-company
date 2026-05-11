@@ -1,0 +1,85 @@
+<style>
+  /* Esconde o nome da cor/tamanho no trigger */
+  .product__info-container .kaching-bundles .kaching-bundles__bar-variant-select > span:not([class]) {
+    display: none !important;
+  }
+  /* Swatch quadrado no trigger */
+  .product__info-container .kaching-bundles .kaching-bundles__swatch {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    border-radius: 4px !important;
+    border: 1px solid rgba(var(--color-foreground), 0.15) !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* ── Listbox: grid horizontal sem nomes ── */
+  .kaching-bundles__swatch-dropdown__options[role="listbox"] {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.8rem !important;
+    padding: 1rem !important;
+    width: max-content !important;
+    max-width: 22rem !important;
+    background: white !important;
+    border: 1px solid rgba(var(--color-foreground), 0.15) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
+    /* Safari fix: garante que o dropdown flutue acima de tudo */
+    position: absolute !important;
+    z-index: 9999 !important;
+  }
+  /* Cada opção: só o swatch */
+  .kaching-bundles__swatch-dropdown__option {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    border-radius: 4px !important;
+    outline: 1px solid transparent !important;
+    outline-offset: 2px !important;
+    cursor: pointer !important;
+    min-width: 0 !important;
+    width: auto !important;
+  }
+  .kaching-bundles__swatch-dropdown__option[aria-selected="true"],
+  .kaching-bundles__swatch-dropdown__option:hover {
+    outline: 1px solid rgb(var(--color-foreground)) !important;
+  }
+  /* Esconde o texto do nome dentro de cada opção */
+  .kaching-bundles__swatch-dropdown__option > span:not([class]),
+  .kaching-bundles__swatch-dropdown__option .kaching-bundles__option-label,
+  .kaching-bundles__swatch-dropdown__option .kaching-bundles-option-value__label {
+    display: none !important;
+  }
+  /* Swatch dentro da opção */
+  .kaching-bundles__swatch-dropdown__option .kaching-bundles__swatch {
+    width: 2.4rem !important;
+    height: 2.4rem !important;
+    border-radius: 4px !important;
+    border: 1px solid rgba(var(--color-foreground), 0.15) !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+  }
+
+  @media screen and (max-width: 749px) {
+    /* SAFARI FIX + LAYOUT MALEÁVEL:
+       1ª track `minmax(0, 1fr)` = flexível, encolhe até 0 quando precisa de
+       espaço. 2ª track `auto` = tamanho do conteúdo do select de tamanho
+       (ex.: "Full 50x60 in" mostra inteiro). O 1º dropdown (Color) é o que
+       sacrifica espaço quando o card está apertado.
+       `min-width: 0` no container e nos itens libera o "auto min-width" do
+       grid (que no Safari permite items estourarem a track). */
+    .product__info-container .kaching-bundles .kaching-bundles__bar-variant-selects {
+      grid-template-columns: minmax(0, 1fr) auto;
+      min-width: 0;
+    }
+    .product__info-container .kaching-bundles .kaching-bundles__bar-variant-select {
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      /* overflow: hidden removido — cortava o listbox absoluto no Safari */
+      overflow: visible;
+      position: relative; /* ancora o listbox ao seletor correto */
+    }
+  }
+</style>

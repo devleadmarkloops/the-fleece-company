@@ -83,12 +83,14 @@
                 {%- liquid
                   assign loading = 'lazy'
                   assign fetchpriority = 'low'
+                  assign image_element = 'lazy-image'
                   if section.index == 1
                     assign loading = 'eager'
                     assign fetchpriority = 'high'
+                    assign image_element = 'direct-image'
                   endif
                 -%}
-                {%- echo image | image_url: width: 3840 | image_tag: loading: loading, class: image_class, sizes: sizes, widths: widths, is: 'lazy-image', fetchpriority: fetchpriority -%}
+                {%- echo image | image_url: width: 2000 | image_tag: loading: loading, class: image_class, sizes: sizes, widths: widths, is: image_element, fetchpriority: fetchpriority -%}
               </picture>
             </div>
           </use-animate>
@@ -130,7 +132,7 @@
                   -%}
                   <source media="(max-width: 749px)" srcset="{{ srcset_mobile_2 }}" sizes="{{ sizes_2nd }}">
                 {%- endif -%}
-                {%- echo image_2nd | image_url: width: 3840 | image_tag: loading: 'lazy', class: image_class_2nd, sizes: sizes_2nd, widths: widths, is: 'lazy-image' -%}
+                {%- echo image_2nd | image_url: width: 2000 | image_tag: loading: 'lazy', class: image_class_2nd, sizes: sizes_2nd, widths: widths, is: 'lazy-image' -%}
               </picture>
             </div>
           </use-animate>

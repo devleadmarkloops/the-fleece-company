@@ -1,0 +1,537 @@
+{% comment %}
+  Renders the head/setup assets for main-product-v3:
+  - Inline CSS overrides (kaching bundles, media-gallery touch, complementary products, etc.)
+  - ResizeObserver + thumb drag-scroll script for vertical_slider gallery
+  - CSS stylesheet_tag calls (section/accordion/price/rte/slider/rating)
+  - Deferred CSS links (component-deferred-media, component-product-review)
+  - Inline <style> block with section-padding + first_image_ratio vars
+  - Conditional 3D model stylesheets (when product has a model media)
+  - Defer scripts: product-info.js, product-form.js (+ volume pricing scripts)
+
+  Accepts:
+  - product: {Object} Product object (for quantity_price_breaks_configured?, media, metafields, first_image_ratio)
+  - section: {Object} Section object (for section.id, section.settings.*)
+
+  NOTE: a abertura de <product-info ...> e o fechamento </product-info> ficam
+  ambos em sections/main-product-v3.liquid (parser de section exige que
+  abertura e fechamento estejam no mesmo arquivo). Este snippet é renderizado
+  DENTRO do custom element pela section.
+
+  Mechanical extraction of lines 3-227 of main-product-v2.liquid.
+{% endcomment %}
+
+{%- comment -%}
+  CWV FIX (F2): regras CSS que só se aplicam quando o bloco correspondente
+  está presente foram movidas para dentro dos respectivos snippets.
+    - .complementary-products / #com-form-d5 / .varian-selector-d5
+      → snippets/product-v3-block-complementary.liquid
+  Aqui ficam apenas regras globais da PDP (product-info / Kaching / gallery
+  touch-action), que cabem em todo rendering desta section.
+{%- endcomment -%}
+<style>
+  .kaching-bundles__bar-radio, .kaching-bundles__swatch{
+    display: block !important;
+  }
+  #MainProduct-{{ section.id }} .quick-view__summary{
+    transform: none;
+  }
+  @media(min-width: 750px){
+    product-info .slider-buttons.no-js-hidden{
+      display: none !important;
+    }
+  }
+
+  /* CWV FIX (C7): Kaching Bundles é um Vue app third-party que injeta
+     .kaching-bundles após o hydrate. Reservamos min-height no container
+     para que a renderização do Vue não empurre o conteúdo abaixo (CLS).
+     Valor dimensionado para 3 deals padrão do app (~280px mobile / 260px
+     desktop). Se o deal count diferir, o shift residual é pequeno.
+     contain:layout isola o reflow interno do resto da árvore. */
+  #MainProduct-{{ section.id }} .kaching-bundles,
+  #MainProduct-{{ section.id }} .kaching-bundles__block {
+    min-height: 280px;
+    contain: layout;
+  }
+  @media (min-width: 750px) {
+    #MainProduct-{{ section.id }} .kaching-bundles,
+    #MainProduct-{{ section.id }} .kaching-bundles__block {
+      min-height: 260px;
+    }
+  }
+  /* Depois que o Vue monta (.kaching-bundles__bars existe dentro), soltamos
+     o min-height para o app controlar a altura final. */
+  #MainProduct-{{ section.id }} .kaching-bundles:has(.kaching-bundles__bar),
+  #MainProduct-{{ section.id }} .kaching-bundles__block:has(.kaching-bundles__bar) {
+    min-height: 0;
+  }
+</style>
+<style>
+  media-gallery,
+  media-gallery .product__media-list,
+  media-gallery .thumbnail-list,
+  media-gallery use-animate {
+    touch-action: pan-y !important;
+  }
+</style>
+
+{%- comment -%}
+  CWV FIX (F3): ResizeObserver + drag-scroll da thumbnail-list foram movidos
+  para assets/product-v3-gallery-vertical.js e são carregados apenas quando
+  o layout vertical_slider está em uso — evita custo de parse inline no
+  <head> e bundle inútil para galerias stacked/thumbnail_slider.
+{%- endcomment -%}
+{%- if section.settings.gallery_layout == 'vertical_slider' -%}
+  <script src="{{ 'product-v3-gallery-vertical.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+{%- comment -%}
+  A abertura de <product-info> foi movida para sections/main-product-v3.liquid
+  para que o theme parser veja abertura e fechamento no mesmo arquivo de
+  section. Todos os <link>/<style>/<script> abaixo permanecem emitidos por
+  este snippet — a section os envolve dentro do custom element.
+{%- endcomment -%}
+    {%- comment -%}
+      CWV FIX (L4 + PSI render-blocking): antes os 3 CSS "críticos"
+      (section-main-product-v2, component-price-v2, component-slider-v2)
+      eram emitidos via stylesheet_tag síncrono. PSI (Economia ~40ms)
+      flagrava-os como "Renderizar solicitações de bloqueio" porque o
+      parser precisa baixá-los antes de pintar qualquer coisa.
+
+      Nova estratégia:
+      1. Critical CSS **inline** cobre o above-the-fold (grid do produto,
+         wrapper da galeria, LCP image, preço e slider básico). Zero round-trip,
+         pinta antes do 1º TCP ACK dos CSS completos.
+      2. Os 3 arquivos completos são carregados **assíncronos** via
+         rel=preload + onload swap. Quando prontos, aplicam regras finais
+         sem bloquear o parser.
+      3. Fallback <noscript> preserva SEO/acessibilidade quando JS desativado.
+
+      Estudo de impacto esperado:
+        - LCP: -40 a -120ms (varia com RTT do cliente)
+        - FCP: -40ms (removidas solicitações da árvore crítica)
+        - Risco de FOUC: mitigado pelo inline crítico; arquivos remotos
+          apenas refinam tipografia/hover/breakpoints fora da dobra.
+
+      Não-crítico (continua async como antes):
+        - component-accordion-v2.css / component-rte-v2.css
+        - component-rating-v2.css / component-volume-pricing.css
+    {%- endcomment -%}
+
+    {%- comment -%} --- Critical CSS inline (above-the-fold) --- {%- endcomment -%}
+    {%- style -%}
+      /* section-main-product-v2.css (crítico) */
+      product-info{display:block}
+      .product{margin:0;column-gap:0}
+      .product__media-wrapper{padding-bottom:0;position:relative}
+      .product__thumbnails-wrapper,.no-js .product__thumbnails-wrapper{display:none}
+      media-gallery{display:block}
+      media-gallery .media-wrapper.media-wrapper--intrinsic-size{padding-left:calc((100% - var(--intrinsic-width)) / 2);padding-right:calc((100% - var(--intrinsic-width)) / 2);background-color:transparent}
+      @media(max-width:767px){html{overflow-x:hidden}}
+      @media screen and (min-width:750px){
+        .product--right{flex-direction:row-reverse}
+        .product--right .product__info-container{padding-inline-start:0;padding-inline-end:5rem}
+        .product__info-container{padding-inline-start:5rem}
+        .product__media-wrapper .slider-buttons{display:none}
+      }
+      @media screen and (min-width:990px){
+        .product--right .product__info-container{padding-inline-start:0;padding-inline-end:7rem}
+        .product__info-container{padding-inline-start:5rem}
+        .product--large:not(.product--no-media) .product__media-wrapper,
+        .product--small:not(.product--no-media) .product__info-wrapper{max-width:55%;width:calc(55% - var(--grid-horizontal-spacing) / 2)}
+        .product--large:not(.product--no-media) .product__info-wrapper,
+        .product--small:not(.product--no-media) .product__media-wrapper{max-width:45%;width:calc(45% - var(--grid-horizontal-spacing) / 2)}
+        .product--medium:not(.product--no-media) .product__media-wrapper,
+        .product--medium:not(.product--no-media) .product__info-wrapper{max-width:50%;width:calc(50% - var(--grid-horizontal-spacing) / 2)}
+      }
+
+      /* component-slider-v2.css (crítico para a galeria hero) */
+      .slider-mobile-gutter{position:relative;display:block}
+      .slider__slide{scroll-snap-align:start;flex-shrink:0}
+      /* CWV FIX (CLS 0.494): o caminho LCP em snippets/product-image.liquid
+         foi achatado para <div.media-wrapper.product-media-wrapper--lcp> >
+         <img.product-media-img--lcp> (sem .product__media intermediário).
+         A <img> auto-reserva espaço via attrs `width`/`height` nativos +
+         `width:100%;height:auto`. O `aspect-ratio:auto` explícito garante
+         que nenhuma regra externa (inclusive `.media > img` do base-v2.css
+         async, que NÃO aplica aqui mas serve de defesa) force outra razão.
+         `contain:layout` isola o wrapper do reflow dos demais slides do
+         <ul.product__media-list> quando o async CSS finaliza o scroller. */
+      .product-media-wrapper--lcp{display:block;width:100%;position:relative;overflow:hidden;contain:layout}
+      .product-media-img--lcp{display:block;width:100%;height:auto;max-width:100%;aspect-ratio:auto}
+      @media screen and (max-width:749px){
+        .slider.slider--mobile{position:relative;flex-wrap:inherit;overflow-y:hidden;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
+        .product__media-list.slider.slider--mobile{touch-action:pan-x;overscroll-behavior-x:contain}
+        .slider.slider--mobile .slider__slide{margin-bottom:0;padding-bottom:0}
+      }
+
+      /* CWV FIX (CLS): base-v2.css e section-main-product-v2.css são carregados
+         de forma assíncrona (stylesheet_tag: preload: true + preload+onload swap),
+         então no primeiro paint a galeria/thumbnails/swatches aparecem sem layout
+         e empurram o conteúdo abaixo quando o CSS chega. As regras abaixo
+         inlinam apenas o mínimo para reservar geometria estável desde o HTML.
+         Insight do Lighthouse (Layout shift culprits):
+           - product-gallery#GalleryViewer ............. 0.086
+           - fieldset.product-form__input--swatch ..... 0.036 + 0.011
+           - ul#Slider-Thumbnails ...................... 0.024
+           Total endereçado: ~0.157 pt de CLS. */
+
+      /* 0) Custom elements + visually-hidden — fix mais importante do CLS
+           do <product-gallery>. Sem estas regras:
+           - <media-gallery>, <use-animate>, <product-gallery> são HTMLUnknownElement
+             → display:inline por padrão. Quando o CSS chega, transicionam para
+             display:block e refluem a galeria inteira (0.086 de CLS observado).
+           - <a class="skip-to-content-link visually-hidden"> e <div id="GalleryStatus"
+             class="visually-hidden"> aparecem como conteúdo visível no primeiro
+             paint (link com texto + div block) porque .visually-hidden está em
+             base-v2.css (async). Quando o CSS os esconde, tudo abaixo sobe. */
+      .visually-hidden{position:absolute!important;overflow:hidden;width:.1rem;height:.1rem;margin:-.1rem;padding:0;border:0;clip:rect(0 0 0 0);word-wrap:normal!important}
+      media-gallery,use-animate,product-gallery,deferred-media,modal-opener,product-thumbnails,slider-component,product-info{display:block}
+      product-recently-viewed{display:none}
+      product-gallery{overflow:hidden;position:relative}
+
+      /* 0.a) PAGE SHELL CRITICAL — base-v2.css é async; sem as regras abaixo
+         o primeiro paint renderiza a PDP em 1-col stacked (galeria 100vw +
+         info 100vw empilhados) e quando o CSS chega faz snap para 2-col
+         55/45 no desktop. Esse é o shift dominante (~0.3+ do CLS total)
+         que os fixes anteriores (img LCP, swatch, thumbnails) não cobriam.
+         Fontes base-v2.css:
+           - linha 1040: --grid-horizontal-spacing responsivo
+           - linha 1163: .flex-grid--2-col-tablet .flex-grid__item width
+           - linha 85:   .page-width
+           - linha 198:  .hidden */
+      :root{--grid-horizontal-spacing:1rem}
+      @media screen and (min-width:990px){:root{--grid-horizontal-spacing:3rem}}
+      .hidden{display:none!important}
+      @media screen and (min-width:750px){
+        .flex-grid--2-col-tablet .flex-grid__item{width:calc(50% - var(--grid-horizontal-spacing) / 2)}
+      }
+      .product__info-wrapper{padding-bottom:0}
+      /* `contain:layout` isola shifts INTERNOS do info-container (accordions
+         abrindo, Kaching Bundles hidratando, rating widgets carregando) do
+         grid principal. Sem isto, qualquer expansão interna propaga p/ cima
+         e reconta como CLS. `style` complementa a contenção de pseudo-
+         elementos e var lookups. Não usamos `size` nem `paint` pra não
+         criar stacking context inesperado. */
+      .product__info-container{contain:layout style}
+
+      /* 0.b) TITLE/PRICE/RATING — reserva dimensão de tipografia pra
+         evitar CLS no momento em que section-main-product-v2.css (async)
+         substitui as font-sizes. Espelha section-main-product-v2.css:
+           - l.2210: .product__title .h1{font-size:3.9rem}
+           - l.2214: .product__title .h2{font-size:3.1rem}
+           - l.2937: .h2 override {font-size:3rem}
+           - l.2233: .rating-static-wr .stars-wr svg{1.84rem quadrado} */
+      .product__title .h1{font-size:3.9rem;line-height:1.2;color:#121212}
+      .product__title .h2{font-size:3rem;line-height:1.2;color:#121212;letter-spacing:0}
+      .rating-static-wr{display:flex;justify-content:flex-start}
+      .rating-static-wr .stars-wr{display:inline-flex;align-items:center}
+      .rating-static-wr .stars-wr svg{width:1.5rem;height:1.5rem}
+      .rating-static-wr .r-text{font-size:1.4rem;font-weight:400;letter-spacing:0}
+      /* <thumbnail-slider> é HTMLUnknownElement → display:inline por padrão.
+         Promovemos a flex no mínimo — direção/alinhamento/justify ficam a
+         cargo do layout específico (c.1 vertical_slider, c.2 thumbnail_slider
+         horizontal) para evitar regra global que quebre o vertical_slider.
+         `min-width:0` previne flex-overflow em containers row-reverse. */
+      thumbnail-slider{display:flex;min-width:0}
+      @media screen and (max-width:749px){
+        .product .product__media-wrapper{width:calc(100% + 3rem);margin-inline-start:-1.5rem}
+        .product .product__media-wrapper product-gallery{width:calc(100% + 3rem)}
+      }
+
+      /* a) media/media-wrapper — reserva aspect-ratio das mídias não-LCP */
+      .list-unstyled{margin:0;padding:0;list-style:none}
+      .media{display:block;position:relative;overflow:hidden}
+      .media--square{padding-bottom:100%}
+      .media--adapt{position:relative;height:0;padding-bottom:var(--image-ratio-percent)}
+      .media-wrapper{display:block;position:relative;overflow:hidden}
+      @media screen and (max-width:749px){
+        .media-mobile--adapt{position:relative;height:0;padding-bottom:var(--image-ratio-percent)}
+        .media-mobile--square{padding-bottom:100%}
+      }
+
+      /* b) gallery slider — <ul class="product__media-list flex-grid ...">
+            precisa ser flex para não empilhar slides em coluna (cada slide
+            ocupando 100vh) antes do CSS assíncrono entrar. */
+      .flex-grid{display:flex;flex-wrap:wrap;margin-bottom:2rem;padding:0;list-style:none}
+      .product__media-item{padding-inline-start:0;padding-bottom:0}
+      .product__media-item>*{display:block;position:relative}
+      @media screen and (max-width:749px){
+        .product .product__media-wrapper .product__media-list .product__media-item{width:calc(100% - 3rem)}
+      }
+
+      /* c) thumbnail list — mínimo necessário pra CLS, layout-agnóstico.
+            O section-main-product-v2.css trata de forma MUITO diferente cada
+            valor de gallery_layout:
+              - thumbnail_slider (horizontal, abaixo da galeria):
+                  items com `width:calc(20% - .7rem)`, `.thumbnail-list` em
+                  linha com `max-width:27rem` e gap `.6rem`.
+              - vertical_slider (coluna à esquerda da imagem):
+                  `media-gallery{display:flex;flex-direction:row-reverse}`,
+                  `thumbnail-slider{width:12rem;flex-shrink:0}`,
+                  `.thumbnail-list.slider--tablet-up{flex-direction:column;
+                    gap:1rem; max-width:100% !important}` e items
+                  `.thumbnail-list__item.slider__slide{width:100% !important}`.
+              - stacked (default): `.product__thumbnails-wrapper` absoluto
+                sobre `.product__media-wrapper` a partir de 750px.
+
+            Na versão anterior deste bloco crítico eu copiei apenas o layout
+            horizontal (thumbnail_slider), o que quebrava o vertical_slider:
+            items ficavam com `width:calc(20% - .7rem)` em vez de 100% da
+            coluna, a list com max-width:27rem em vez de 100%, e o
+            `flex-direction:row` (default) em vez de `column`. Como o async
+            sobrescreve só parcialmente (alguns `!important`, outros não),
+            o render final colapsava a coluna e as thumbs sumiam.
+
+            Estratégia nova: inline apenas o essencial pra CLS (display:flex
+            no <ul>, reset de list, remove default margin) e REPLICA
+            TAMBÉM o bloco do vertical_slider, gated pelo mesmo attr
+            `[data-desktop-layout="vertical_slider"]` usado pelo async. */
+      .thumbnail-list{display:flex;margin:0;padding:0;list-style:none;flex-wrap:nowrap}
+      .thumbnail-list__item{position:relative;flex-shrink:0}
+      /* CWV FIX (thumbnail sizing): NÃO definir `padding:0` aqui — a square
+         reservation do thumbnail vem de `.media--square{padding-bottom:100%}`,
+         e com mesma especificidade o `padding:0` posterior venceria, zerando
+         a reserva e colapsando o <img> interno (~7px de altura). A regra
+         original em section-main-product-v2.css também omite `padding` por
+         essa razão. O reset de bg/border é suficiente pra aparência. */
+      .thumbnail{width:100%;cursor:pointer;border:0;background:transparent;display:block}
+
+      /* c.1) vertical_slider — thumbnails em coluna à esquerda da imagem (≥990px).
+              Espelha section-main-product-v2.css linhas 2775-2828. */
+      @media screen and (min-width:990px){
+        media-gallery[data-desktop-layout="vertical_slider"]{
+          display:flex;flex-direction:row-reverse;align-items:flex-start;gap:2rem;
+        }
+        media-gallery[data-desktop-layout="vertical_slider"] use-animate{
+          flex:1;width:100%;min-width:0;
+        }
+        media-gallery[data-desktop-layout="vertical_slider"] thumbnail-slider{
+          width:12rem;flex-shrink:0;
+        }
+        media-gallery[data-desktop-layout="vertical_slider"] .thumbnail-list.slider--tablet-up{
+          flex-direction:column;gap:1rem;width:100%;max-width:100%;
+        }
+        media-gallery[data-desktop-layout="vertical_slider"] .thumbnail-list__item.slider__slide{
+          width:100%;
+        }
+      }
+
+      /* c.2) thumbnail_slider (horizontal) — usado quando layout != vertical_slider.
+              Mantém a largura dos itens e o max-width do container só quando
+              NÃO é vertical_slider, para não conflitar com c.1. */
+      @media screen and (min-width:750px){
+        media-gallery:not([data-desktop-layout="vertical_slider"]) .thumbnail-list{
+          max-width:27rem;padding:.6rem;column-gap:.6rem;background:rgb(var(--color-background));
+        }
+        media-gallery:not([data-desktop-layout="vertical_slider"]) .thumbnail-list.slider--tablet-up .thumbnail-list__item.slider__slide{
+          width:6rem;
+        }
+      }
+
+      /* c.3) mobile — galeria sempre horizontal, independente de layout. */
+      @media screen and (max-width:749px){
+        .thumbnail-list{max-width:25.6rem;padding:.6rem;column-gap:.6rem;background:rgb(var(--color-background))}
+        .thumbnail-list[data-media-count="2"]{max-width:10.6rem}
+        .thumbnail-list[data-media-count="3"]{max-width:15.6rem}
+        .thumbnail-list[data-media-count="4"]{max-width:20.6rem}
+        .thumbnail-list__item.slider__slide{width:4.4rem}
+      }
+
+      /* d) swatch picker — sem a regra `input[type=radio]{clip:rect(0,0,0,0)}`
+            o <input> renderiza com tamanho nativo (~13px) ao lado do <label>.
+            E sem `.swatch{--swatch--size:...; aspect-ratio:1/1}` o label é
+            inline com 0 de largura. O resultado: o picker inicia curto, depois
+            o CSS aplica círculos de 6.1rem e empurra ~40-50px de conteúdo. */
+      .product-form__input{--swatch-input--size:4.4rem;flex:0 0 100%;padding:0;margin:0 0 1.2rem;min-width:fit-content;border:0;display:flex;flex-wrap:wrap}
+      .product-form__input input[type=radio]{clip:rect(0,0,0,0);overflow:hidden;position:absolute;height:.1rem;width:.1rem}
+      .product-form__input .swatch{--swatch--size:var(--swatch-input--size,4.4rem);display:block;width:var(--swatch--size);max-width:100%;aspect-ratio:1/1;border:1px solid rgba(59,59,59,.15);border-radius:var(--swatch-input--border-radius,50%);box-sizing:border-box;overflow:hidden;background-size:cover;background-origin:border-box}
+      .product-form__input .swatch-input__input+.swatch-input__label{padding:0;min-width:auto;min-height:auto;box-shadow:none;display:inline-flex;align-items:center;justify-content:center;position:relative;margin:1rem 1rem .2rem 0}
+      .product-form__input .swatch-input__input+.swatch-input__label.swatch-input__label--variant{--swatch-input--size:6.1rem;margin-inline-end:1.2rem;margin-block-end:.2rem}
+      .product-form__input.small .swatch-input__input+.swatch-input__label.swatch-input__label--variant{--swatch-input--size:4.6rem;margin-inline-end:1.1rem;margin-block-end:.1rem}
+      .product-form__input.large .swatch-input__input+.swatch-input__label.swatch-input__label--variant{--swatch-input--size:7.6rem;margin-inline-end:1.3rem;margin-block-end:.3rem}
+      @media screen and (max-width:749px){
+        .product-form__input .swatch-input__input+.swatch-input__label.swatch-input__label--variant{--swatch-input--size:5.1rem}
+        .product-form__input.small .swatch-input__input+.swatch-input__label.swatch-input__label--variant{--swatch-input--size:4.4rem}
+        .product-form__input.large .swatch-input__input+.swatch-input__label.swatch-input__label--variant{--swatch-input--size:6.6rem}
+      }
+
+      /* e) icon-text-wr / icon-text-grid-wrapper — MAIOR CULPRIT do CLS
+            (Lighthouse: 0.074 + 0.045 + ~0.01 atribuídos a este <img>).
+            O bloco icon-text renderiza <img width="{{ icon.width }}"
+            height="{{ icon.height }}"> com o tamanho *original* do asset
+            (ex.: 512×512). No primeiro paint o browser reserva 512×512.
+            Quando section-main-product-v2.css chega (async) e aplica
+            `.icon-text-wr img{width:var(--icon-size);height:auto}`, o box
+            colapsa para ~20-30px, empurrando o painel inteiro para cima e
+            movendo o <product-gallery> e o <fieldset.swatch> (daí o
+            Lighthouse atribuir o shift a esses elementos vizinhos).
+            A regra abaixo inlina exatamente o sizing final desde o primeiro
+            paint. `--icon-size` / `--icon-size-mob` vêm da `style="..."` do
+            snippet product-v3-block-icon-text[-grid].liquid no próprio .icon-text-wr. */
+      .icon-text-wr{display:flex;justify-content:flex-start;align-items:center;gap:.9rem}
+      .icon-text-wr img{width:var(--icon-size);height:auto;max-width:var(--icon-size)}
+      .icon-text-grid-wrapper{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+      .icon-text-grid-wrapper .icon-text-wr{margin-bottom:0}
+      @media screen and (max-width:749px){
+        .icon-text-wr{gap:.7rem}
+        .icon-text-wr img{width:var(--icon-size-mob);max-width:var(--icon-size-mob)}
+        .icon-text-grid-wrapper{gap:1rem}
+      }
+
+      /* component-price-v2.css (crítico — preço visível acima da dobra) */
+      .price{display:flex;font-size:1.5rem;font-weight:700;letter-spacing:.1rem;color:var(--color-price)}
+      @media screen and (max-width:749px){.price{font-size:1.3rem}}
+      .price.price--unavailable{visibility:hidden}
+      .price bdi{line-height:1;font-size:calc(var(--font-price-scale) * 1.4rem);font-family:var(--font-price-family)}
+      @media screen and (min-width:750px){.price,.price bdi{font-size:calc(var(--font-price-scale) * 1.6rem)}}
+    {%- endstyle -%}
+
+    {%- comment -%}
+      CWV FIX (CLS 0.565 → ~0): REVERTIDO para render-blocking síncrono
+      =================================================================
+      Antes estes 6 CSS eram carregados async via `preload + onload swap`
+      pra economizar ~40ms em LCP (PSI "Renderizar solicitações de
+      bloqueio"). Na prática isso custava 0.5+ de CLS — o primeiro paint
+      acontecia com critical CSS inline apenas, depois o CSS completo
+      chegava e fazia snap em todas as dimensões above-the-fold.
+
+      Diagnóstico via Lighthouse (Layout shift culprits):
+        - div.media-wrapper.product-media-wrapper--lcp ........ 0.532
+        - img.product-media-img--lcp ......................... Unsized
+        - fieldset.product-form__input--swatch ............... 0.015
+        Total: 0.565
+
+      Causa raiz: o wrapper LCP tem aspect-ratio inline correto, mas a
+      LARGURA do wrapper (55% no desktop) depende de regras que não
+      estavam no critical CSS E que o critical replica imperfeitamente
+      (padding-inline, gap, margens de blocos vizinhos, line-heights da
+      tipografia). Qualquer mudança na largura do wrapper muda a ALTURA
+      (porque aspect-ratio é fixo) → shift vertical → CLS gigante.
+
+      `main-product-v2.liquid` sempre fez render-blocking — e tem CLS
+      ~0. Como v3 é refatoração de v2 (mesma funcionalidade, mesmos
+      snippets menores), replica a mesma estratégia de carregamento.
+
+      Trade-off aceito: +40ms de LCP (dentro do budget "good" de 2.5s)
+      em troca de CLS < 0.1 ("good"). Bom negócio no score total.
+
+      O critical CSS inline acima é mantido como defense-in-depth —
+      cobre o caso em que o CSS externo demore/falhe e é útil para
+      repaints do bfcache.
+    {%- endcomment -%}
+    {{ 'section-main-product-v2.css' | asset_url | stylesheet_tag }}
+    {{ 'component-accordion-v2.css' | asset_url | stylesheet_tag }}
+    {{ 'component-price-v2.css' | asset_url | stylesheet_tag }}
+    {{ 'component-rte-v2.css' | asset_url | stylesheet_tag }}
+    {{ 'component-slider-v2.css' | asset_url | stylesheet_tag }}
+    {{ 'component-rating-v2.css' | asset_url | stylesheet_tag }}
+
+  {%- if product.quantity_price_breaks_configured? -%}
+    <link rel="stylesheet" href="{{ 'component-volume-pricing.css' | asset_url }}" media="print" onload="this.media='all'">
+    <noscript>{{ 'component-volume-pricing.css' | asset_url | stylesheet_tag }}</noscript>
+  {%- endif -%}
+
+  <link
+    rel="stylesheet"
+    href="{{ 'component-deferred-media.css' | asset_url }}"
+    media="print"
+    onload="this.media='all'"
+  >
+  <link
+    rel="stylesheet"
+    href="{{ 'component-product-review.css' | asset_url }}"
+    media="print"
+    onload="this.media='all'"
+  >
+
+  {%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+
+    {%- liquid
+      comment if product.metafields.custom.featured_image_as_default
+      assign featured_media = product.media.first
+      else
+      assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media
+      endif
+      endcomment
+
+      assign first_image = featured_media | default: product.media.first
+
+      assign first_image_ratio = 1 | divided_by: first_image.aspect_ratio | times: 100
+    -%}
+
+
+    #Slider-Gallery-{{ section.id }} {
+      /* --force-image-ratio-percent: {{ first_image_ratio }}%; */
+    }
+
+    /* CWV FIX (C1): manter padding-bottom% como fallback; navegadores
+       modernos (>=95% de share) usam aspect-ratio nativo, que reserva o
+       mesmo espaço sem depender do hack de container + abs-positioned
+       child. Isso reduz recálculo de layout e elimina CLS causado por
+       subpixel rounding. */
+    @media screen and (max-width: 749px) {
+      #Slider-Gallery-{{ section.id }} .media-mobile--adapt_first {
+        padding-bottom: {{ first_image_ratio }}%;
+      }
+    }
+
+    @media screen and (min-width: 750px) {
+      .product--thumbnail_slider #Slider-Gallery-{{ section.id }} .media--adapt_first,
+      .product--columns #Slider-Gallery-{{ section.id }} .media--adapt_first {
+        padding-bottom: {{ first_image_ratio }}%;
+      }
+    }
+
+    @supports (aspect-ratio: 1 / 1) {
+      @media screen and (max-width: 749px) {
+        #Slider-Gallery-{{ section.id }} .media-mobile--adapt_first {
+          padding-bottom: 0;
+          aspect-ratio: {{ first_image.aspect_ratio | default: 1 }};
+        }
+      }
+
+      @media screen and (min-width: 750px) {
+        .product--thumbnail_slider #Slider-Gallery-{{ section.id }} .media--adapt_first,
+        .product--columns #Slider-Gallery-{{ section.id }} .media--adapt_first {
+          padding-bottom: 0;
+          aspect-ratio: {{ first_image.aspect_ratio | default: 1 }};
+        }
+      }
+    }
+  {%- endstyle -%}
+
+  {%- assign first_3d_model = product.media | where: 'media_type', 'model' | first -%}
+  {%- if first_3d_model -%}
+    {{ 'component-product-model.css' | asset_url | stylesheet_tag }}
+    <link
+      id="ModelViewerStyle"
+      rel="stylesheet"
+      href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"
+      media="print"
+      onload="this.media='all'"
+    >
+    <link
+      id="ModelViewerOverride"
+      rel="stylesheet"
+      href="{{ 'component-model-viewer-ui.css' | asset_url }}"
+      media="print"
+      onload="this.media='all'"
+    >
+  {%- endif -%}
+
+  <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+  {%- if product.quantity_price_breaks_configured? -%}
+    <script src="{{ 'vp-show-more.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}

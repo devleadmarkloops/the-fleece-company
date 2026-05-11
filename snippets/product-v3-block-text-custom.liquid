@@ -1,0 +1,19 @@
+{% comment %}
+  Renders the text_custom block.
+
+  Accepts:
+  - block: {Object} Block object
+
+  Mechanical extraction of the 'text_custom' case from main-product-v2.liquid (lines 1431-1441).
+{% endcomment %}
+
+<div
+  class="text-custom-wr {% if block.settings.enable_circle %} blink-circle{% endif %}{% if block.settings.enable_normal %} normal{% endif %}"
+  {{ block.shopify_attributes }}
+  style="--text-size: {{ block.settings.text_size }}px; --text-size-mob: {{ block.settings.text_size_mob }}px; --text-color: {{ block.settings.text_color }};"
+>
+  {% capture sale_d5 %}
+<strong>New Year Sale</strong>
+  {% endcapture %}
+  <p>{{ block.settings.text_custom }}</p>
+</div>
