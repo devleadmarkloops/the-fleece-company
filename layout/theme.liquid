@@ -366,7 +366,7 @@
     {% endif %}
 
     {%- comment -%}SiteSpeed FIX: Defer optimizer.js to avoid render-blocking{%- endcomment -%}
-    <script src="//cdn.shopify.com/s/files/1/0690/1995/9522/files/optimizer.js?v=1709233602" type="text/javascript" defer></script>
+    {% comment %} <script src="//cdn.shopify.com/s/files/1/0690/1995/9522/files/optimizer.js?v=1709233602" type="text/javascript" defer></script> {% endcomment %}
     {% if template.name == "checkout" and checkout.order_id %}
       <script>
       gtag('event', 'purchase', {

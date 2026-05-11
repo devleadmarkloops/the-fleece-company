@@ -64,6 +64,66 @@
         "padding_bottom": 0
       }
     },
+    "announcement_bar_multi_fnqCHy": {
+      "type": "announcement-bar-multi",
+      "blocks": {
+        "announcement_PpixfR": {
+          "type": "announcement",
+          "settings": {
+            "text": "Fast & Tracked Shipping On All Orders",
+            "link": "",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "announcement_YcCVVK": {
+          "type": "announcement",
+          "settings": {
+            "text": "30-day returns",
+            "link": "",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "announcement_WaJVkn": {
+          "type": "announcement",
+          "settings": {
+            "text": "Easy returns · Hassle-free process",
+            "link": "",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_PpixfR",
+        "announcement_YcCVVK",
+        "announcement_WaJVkn"
+      ],
+      "disabled": true,
+      "custom_css": [],
+      "name": "Announcement Bar Multi",
+      "settings": {
+        "only_homepage": false,
+        "effect": "slide",
+        "autorotate": true,
+        "autorotate_speed": 5,
+        "speed": 1000,
+        "show_navigation": true,
+        "show_navigation_mobile": true,
+        "show_pagination": false,
+        "show_pagination_mobile": false,
+        "font_family": "var(--font-body-family)",
+        "font_size": 14,
+        "font_size_mobile": 12,
+        "colors_text": "#ffffff",
+        "colors_background": "#1a1b18",
+        "gradient_background": "",
+        "colors_highlight": "#ffb503",
+        "padding_top": 12,
+        "padding_bottom": 12
+      }
+    },
     "announcement_custom_8Ckjmm": {
       "type": "announcement-custom",
       "custom_css": [
@@ -311,6 +371,7 @@
   },
   "order": [
     "announcement-bar",
+    "announcement_bar_multi_fnqCHy",
     "announcement_custom_8Ckjmm",
     "scrolling_promotion_Ekxczy",
     "header"

@@ -124,70 +124,6 @@
       });
     }
 
-    // ---- Sync slider container height to active slide (mobile only) ----
-    // Problema: cada slide tem `aspect-ratio` inline com a proporção natural da
-    // imagem. Todos os slides ficam empilhados na mesma grid-area ("stack") e
-    // a célula do grid tem a altura do slide mais alto — deixando espaço em
-    // branco quando o slide ativo é mais "largo" que os demais.
-    //
-    // Solução para slider--fade (display:grid + overflow:visible!important):
-    //   Colapsar os slides não-ativos para height:0 para que não inflem a
-    //   célula do grid. O slide ativo determina a altura livremente.
-    //
-    // Solução para slider horizontal (sem slider--fade):
-    //   Aplicar o aspect-ratio do slide ativo no container (ul) com
-    //   overflow-y:hidden para clicar os slides mais altos.
-    function syncGalleryHeight() {
-      var mediaList = gallery.querySelector('.product__media-list');
-      if (!mediaList) return;
-
-      // Em desktop limpa overrides e sai
-      if (window.matchMedia('(min-width: 750px)').matches) {
-        mediaList.style.aspectRatio = '';
-        mediaList.style.overflowY = '';
-        var slidesClean = mediaList.querySelectorAll('.slider__slide');
-        for (var k = 0; k < slidesClean.length; k++) {
-          slidesClean[k].style.height = '';
-          slidesClean[k].style.overflow = '';
-        }
-        return;
-      }
-
-      var isFade = mediaList.classList.contains('slider--fade');
-      var activeSlide = mediaList.querySelector('.product__media-item.is-active');
-      if (!activeSlide) return;
-
-      var wrapper = activeSlide.querySelector('[style*="aspect-ratio"]');
-      if (!wrapper) return;
-
-      var styleStr = wrapper.getAttribute('style') || '';
-      var match = styleStr.match(/aspect-ratio\s*:\s*([\d.]+)/i);
-      if (!match) return;
-
-      var ratio = parseFloat(match[1]);
-      if (!ratio || ratio <= 0) return;
-
-      if (isFade) {
-        // slider--fade usa display:grid + overflow:visible!important →
-        // overflow-y:hidden seria anulado. Colapsamos os slides não-ativos
-        // para que não inflem a célula do grid.
-        var slides = mediaList.querySelectorAll('.slider__slide');
-        for (var i = 0; i < slides.length; i++) {
-          if (slides[i].classList.contains('is-active')) {
-            slides[i].style.height = '';
-            slides[i].style.overflow = '';
-          } else {
-            slides[i].style.height = '0';
-            slides[i].style.overflow = 'hidden';
-          }
-        }
-      } else {
-        // Slider horizontal padrão
-        mediaList.style.aspectRatio = String(ratio);
-        mediaList.style.overflowY = 'hidden';
-      }
-    }
-
     function updateUI() {
       var buttonsWrapper = gallery.querySelector('product-gallery .slider-buttons');
       if (!buttonsWrapper) return;
@@ -230,9 +166,6 @@
         prevBtn.style.opacity = hasPrev ? '1' : '0.3';
         prevBtn.style.cursor = hasPrev ? 'pointer' : 'not-allowed';
       }
-
-      // Ajusta a altura do container ao slide ativo (elimina espaço em branco)
-      syncGalleryHeight();
     }
 
     // First paint: schedule after layout settles

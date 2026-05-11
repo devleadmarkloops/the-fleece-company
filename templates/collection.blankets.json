@@ -78,7 +78,7 @@
       ],
       "name": "Image banner v2",
       "settings": {
-        "image": "shopify://shop_images/Blanket_banners_1.png",
+        "image": "shopify://shop_images/Blanket_banners_1_0cf21bd8-e46b-4db2-8d1a-0523325e7d56.png",
         "image_position": "center center",
         "text_box_position": "middle-left",
         "text_alignment": "left",
@@ -91,7 +91,7 @@
         "enable_banner_height_tablet": false,
         "banner_height_tablet": "auto",
         "image_behavior": "none",
-        "mobile_image": "shopify://shop_images/Blanket_banners_2.png",
+        "mobile_image": "shopify://shop_images/Blanket_banners_2_96aaf819-c402-47a3-9221-419d7f5b6f64.png",
         "mobile_text_alignment": "center",
         "mobile_content_alignment": "bottom",
         "mobile_image_ratio": "400px",
