@@ -97,10 +97,7 @@
   # ≥1 block `trust_item` na section — sem toggle extra (a presença dos
   # blocks já é o sinal de intenção).
   assign trust_blocks = section.blocks | where: 'type', 'trust_item'
-  assign show_trust = false
-  if trust_blocks.size > 0
-    assign show_trust = true
-  endif
+  assign show_trust = section.settings.enable_trust_strip
 -%}
 
 {%- if show_trust -%}
