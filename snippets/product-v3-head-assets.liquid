@@ -212,6 +212,7 @@
          elementos e var lookups. Não usamos `size` nem `paint` pra não
          criar stacking context inesperado. */
       .product__info-container{contain:layout style}
+      product-info .product__info-container{overflow:visible}
 
       /* 0.b) TITLE/PRICE/RATING — reserva dimensão de tipografia pra
          evitar CLS no momento em que section-main-product-v2.css (async)
