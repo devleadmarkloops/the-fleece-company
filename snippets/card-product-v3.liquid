@@ -359,4 +359,18 @@
       </div>
     </div>
   </div>
+
+  {%- if settings.quick_view_enabled and enable_quick_view -%}
+    <quick-view-drawer>
+      <details>
+        <summary class="quick-view__summary" tabindex="-1">
+          <span class="visually-hidden">{{ 'products.product.quick_view' | t }}</span>
+          {% render 'icon', icon: 'search-alt' %}
+        </summary>
+        <quick-view class="quick-view" data-product-url="{{ card_url }}">
+          <div role="dialog" aria-label="{{ 'products.product.choose_product_options' | t: product_name: card_product.title | escape }}" aria-modal="true" class="quick-view__content" tabindex="-1"></div>
+        </quick-view>
+      </details>
+    </quick-view-drawer>
+  {%- endif -%}
 </div>

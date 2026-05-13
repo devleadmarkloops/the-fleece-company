@@ -353,8 +353,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.SwiperReady(function() {
     var swipers = sectionEl.querySelectorAll('.swiper');
+    var swiperInstances = [];
     swipers.forEach(function(swiperEl) {
-      new Swiper(swiperEl, {
+      swiperInstances.push(new Swiper(swiperEl, {
         slidesPerView: 2.07,
         spaceBetween: 8,
         observer: true,
@@ -387,8 +388,9 @@ document.addEventListener('DOMContentLoaded', function() {
             spaceBetween: 15
           }
         }
-      });
+      }));
     });
+    if (window.jdgm) jdgm.reinit();
   });
 });
 </script>
@@ -429,6 +431,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const targetPanel = sectionEl.querySelector('#' + targetId);
         if (targetPanel) {
           targetPanel.classList.add('is-active');
+          if (window.jdgm) jdgm.reinit();
         }
       });
     });
@@ -437,6 +440,44 @@ document.addEventListener('DOMContentLoaded', function() {
       const currentActive = sectionEl.querySelector('.fc-tab-btn.is-active');
       if (currentActive) updateIndicator(currentActive);
     }, { passive: true });
+
+    // Fix: Swiper applies transform:translate3d() on .swiper-wrapper, creating a stacking context
+    // that traps position:fixed children. Teleport <quick-view> to <body> on open so the modal
+    // renders at viewport level with correct dimensions, then restore it after close.
+    sectionEl.addEventListener('click', function(e) {
+      const summary = e.target.closest('.quick-view__summary');
+      if (!summary) return;
+
+      const drawer = summary.closest('quick-view-drawer');
+      if (!drawer) return;
+
+      const details = drawer.querySelector('details');
+      if (!details) return;
+
+      const qv = details.querySelector('quick-view');
+      if (!qv) return;
+
+      // Placeholder keeps QuickViewDrawer's close handler (.querySelector('.quick-view__content'))
+      // from throwing when the real element is on body
+      const placeholder = document.createElement('div');
+      placeholder.className = 'quick-view__content';
+      placeholder.setAttribute('data-qv-placeholder', '');
+      drawer.appendChild(placeholder);
+
+      document.body.appendChild(qv);
+
+      document.addEventListener('quickview:close', function restore() {
+        document.removeEventListener('quickview:close', restore);
+        const content = qv.querySelector('.quick-view__content');
+        if (content) {
+          content.innerHTML = '';
+          content.classList.remove('hide-cover');
+        }
+        const ph = drawer.querySelector('[data-qv-placeholder]');
+        if (ph) ph.remove();
+        details.appendChild(qv);
+      });
+    }, true);
   });
 </script>
 <script>

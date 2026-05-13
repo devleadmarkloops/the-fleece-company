@@ -287,6 +287,8 @@ details[open].menu-opening > .quick-view .quick-view__content::after {
 
 .quick-view__content .quick-view__left {
   background-color: rgb(var(--color-background-dark));
+  overflow: hidden;
+  max-width: 50%;
 }
 
 .quick-view__content .quick-view__right {

@@ -101,6 +101,29 @@
       <div class="card-v2-price">
         {% render 'price', product: card_product, use_variant: true %}
       </div>
+      {%- if show_rating and card_product.metafields.reviews.rating.value != blank -%}
+        {%- liquid
+          assign rating_decimal = 0
+          assign decimal = card_product.metafields.reviews.rating.value.rating | modulo: 1
+          if decimal >= 0.3 and decimal <= 0.7
+            assign rating_decimal = 0.5
+          elsif decimal > 0.7
+            assign rating_decimal = 1
+          endif
+        -%}
+        <div class="card-v2-rating">
+          <div class="rating" role="img" aria-label="{{ 'accessibility.star_reviews_info' | t: rating_value: card_product.metafields.reviews.rating.value, rating_max: card_product.metafields.reviews.rating.value.scale_max }}">
+            <span aria-hidden="true" class="rating-star" style="--rating: {{ card_product.metafields.reviews.rating.value.rating | floor }}; --rating-max: {{ card_product.metafields.reviews.rating.value.scale_max }}; --rating-decimal: {{ rating_decimal }};"></span>
+          </div>
+          <span class="rating-text caption">
+            <span aria-hidden="true">{{ card_product.metafields.reviews.rating.value }} / {{ card_product.metafields.reviews.rating.value.scale_max }}</span>
+          </span>
+          <span class="rating-count caption">
+            <span aria-hidden="true">({{ card_product.metafields.reviews.rating_count }})</span>
+            <span class="visually-hidden">{{ card_product.metafields.reviews.rating_count }} {{ "accessibility.total_reviews" | t }}</span>
+          </span>
+        </div>
+      {%- endif -%}
       <div class="card-v2-bottom-aligner">
         {%- unless card_product.has_only_default_variant -%}
           <card-v2-variant-selector>
@@ -280,4 +303,18 @@
       </div>
     </div>
   </div>
+
+  {%- if settings.quick_view_enabled and enable_quick_view -%}
+    <quick-view-drawer>
+      <details>
+        <summary class="quick-view__summary" tabindex="-1">
+          <span class="visually-hidden">{{ 'products.product.quick_view' | t }}</span>
+          {% render 'icon', icon: 'search-alt' %}
+        </summary>
+        <quick-view class="quick-view" data-product-url="{{ card_url }}">
+          <div role="dialog" aria-label="{{ 'products.product.choose_product_options' | t: product_name: card_product.title | escape }}" aria-modal="true" class="quick-view__content" tabindex="-1"></div>
+        </quick-view>
+      </details>
+    </quick-view-drawer>
+  {%- endif -%}
 </div>

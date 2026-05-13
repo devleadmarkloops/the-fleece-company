@@ -26,13 +26,36 @@
 }
 
 .card-product-v2 .card-v2-price {
-  margin-bottom: 1rem;
+  margin-bottom: 0.35rem;
 }
 
 .card-product-v2 .card-v2-price .price bdi {
   font-family: var(--new-font-body-family);
   font-weight: 500;
   letter-spacing: 0;
+}
+
+/* component-card.css esconde rating no card; aqui reativamos e alinhamos numa linha */
+.card-product-v2 .card-information__wrapper .card-v2-rating {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 0.5rem;
+  row-gap: 0.2rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-product-v2 .card-information .rating {
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.card-product-v2 .card-information .rating-text,
+.card-product-v2 .card-information .rating-count {
+  display: inline;
+  margin: 0;
+  line-height: 1;
 }
 
 .card-product-v2 .card-v2-bottom-aligner {
