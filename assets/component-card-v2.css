@@ -52,7 +52,7 @@
 }
 
 .card-product-v2 .card-information .rating-star::before {
-  background: linear-gradient(90deg, rgb(var(--color-foreground)) var(--percent), rgba(var(--color-foreground), 0.15) var(--percent));
+  background: linear-gradient(90deg, rgb(var(--color-foreground)) 100%, rgba(var(--color-foreground), 0.15) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -65,16 +65,12 @@
   line-height: 1;
 }
 
-.card-product-v2 .card-v2-bottom-aligner {
-  margin-top: auto;
-  width: 100%;
-  margin-top: 0 !important;
-}
-
-.card-product-v2 card-v2-variant-selector,
-.card-product-v2 .card-v2-form-wrapper {
-  display: block;
-  width: 100%;
+.card-product-v2 .jdgm-star::before,
+.card-product-v2 .jdgm-star--half::before,
+.card-product-v2 .jdgm-star--empty::before {
+  content: '\e000' !important;
+  color: rgb(var(--color-foreground)) !important;
+  opacity: 1 !important;
 }
 
 .card-product-v2 .card-v2-swatches-wrapper,
