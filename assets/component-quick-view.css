@@ -328,6 +328,21 @@ details[open].menu-opening > .quick-view .quick-view__content::after {
   .quick-view .product__media-item > .media-wrapper {
     height: 100%;
   }
+
+  /* Prevent aspect-ratio from constraining the slide width.
+     When height:100% is set via CSS and width is auto (block default),
+     the browser uses aspect-ratio to derive width = height × ratio,
+     making the slide narrower than the left panel. */
+  .quick-view use-animate.media-wrapper {
+    width: 100%;
+  }
+
+  /* Remove the padding-bottom trick used on the product page for
+     aspect-ratio sizing — in the quick-view the container is already
+     height:100%, so padding-bottom only adds unwanted extra height. */
+  .quick-view .product__media.media--adapt {
+    padding-bottom: 0;
+  }
 }
 
 .quick-view .product__media-wrapper .slider-buttons {
