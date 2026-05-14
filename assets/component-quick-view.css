@@ -2,6 +2,13 @@
   width: 100%;
 }
 
+.quick-view .product-form__input .swatch {
+  border: 1px solid rgba(59, 59, 59, .15) !important;
+}
+.quick-view .product__info-container .product-form__input.product-form__input-size input[type=radio]+label {
+  padding: 1.5rem 2rem !important;
+}
+
 @media screen and (min-width: 750px) {
   .quick-view product-info {
     display: flex;

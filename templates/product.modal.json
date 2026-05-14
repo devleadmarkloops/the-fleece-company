@@ -44,7 +44,11 @@
           "settings": {
             "show_variant_labels": true,
             "picker_type": "button",
-            "swatch_type": "round",
+            "swatch_source": "native",
+            "swatch_type": "square",
+            "swatch_size": "medium",
+            "enable_limited": true,
+            "limited_heading": "Limited Edition",
             "size_chart": ""
           }
         },
