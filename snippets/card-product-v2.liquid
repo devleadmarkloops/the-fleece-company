@@ -115,11 +115,8 @@
           <div class="rating" role="img" aria-label="{{ 'accessibility.star_reviews_info' | t: rating_value: card_product.metafields.reviews.rating.value, rating_max: card_product.metafields.reviews.rating.value.scale_max }}">
             <span aria-hidden="true" class="rating-star" style="--rating: {{ card_product.metafields.reviews.rating.value.rating | floor }}; --rating-max: {{ card_product.metafields.reviews.rating.value.scale_max }}; --rating-decimal: {{ rating_decimal }};"></span>
           </div>
-          <span class="rating-text caption">
-            <span aria-hidden="true">{{ card_product.metafields.reviews.rating.value }} / {{ card_product.metafields.reviews.rating.value.scale_max }}</span>
-          </span>
           <span class="rating-count caption">
-            <span aria-hidden="true">({{ card_product.metafields.reviews.rating_count }})</span>
+            <span aria-hidden="true">{{ card_product.metafields.reviews.rating_count }} reviews</span>
             <span class="visually-hidden">{{ card_product.metafields.reviews.rating_count }} {{ "accessibility.total_reviews" | t }}</span>
           </span>
         </div>

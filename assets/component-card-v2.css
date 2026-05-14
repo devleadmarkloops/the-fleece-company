@@ -51,6 +51,13 @@
   flex-shrink: 0;
 }
 
+.card-product-v2 .card-information .rating-star::before {
+  background: linear-gradient(90deg, rgb(var(--color-foreground)) var(--percent), rgba(var(--color-foreground), 0.15) var(--percent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .card-product-v2 .card-information .rating-text,
 .card-product-v2 .card-information .rating-count {
   display: inline;
