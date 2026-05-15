@@ -65,13 +65,13 @@
     assign full_width = '(min-width: 750px) 120vw, 60vw'
     assign stacked_sizes = '(min-width: 750px) 60vw, 60vw'
     assign widths_mobile = '375, 450, 600, 800, 1100, 1400'
-    assign widths_desktop = '900, 1200, 1600, 2000, 2400'
+    assign widths_desktop = '900, 1200, 1600, 2000, 2400, 2880, 3000'
   else
     assign half_width = '(min-width: 750px) 50vw, 25vw'
     assign full_width = '(min-width: 750px) 100vw, 50vw'
     assign stacked_sizes = '(min-width: 750px) 50vw, 50vw'
     assign widths_mobile = '300, 375, 450, 500, 650, 850, 1100'
-    assign widths_desktop = '750, 1000, 1300, 1700, 2200'
+    assign widths_desktop = '750, 1000, 1300, 1700, 2200, 2880, 3000'
   endif
   assign widths_mobile_list = widths_mobile | split: ', '
   assign widths_desktop_list = widths_desktop | split: ', '
@@ -574,7 +574,7 @@
               <div class="image-animate image-animate--priority media media--{{ section.settings.image_ratio }} media-mobile--{{ section.settings.mobile_image_ratio }}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}">
                 <picture class="motion-reduce">
                   <source media="(max-width: 749px)" srcset="{{ mobile_srcset_1 | strip_newlines | strip }}" sizes="{{ sizes }}">
-                  {%- echo image | image_url: width: 1100, format: 'webp' | image_tag:
+                  {%- echo image | image_url: width: 3000, format: 'webp' | image_tag:
                       loading: 'eager',
                       fetchpriority: 'high',
                       decoding: 'sync',
@@ -590,7 +590,7 @@
               <div class="image-animate media media--{{ section.settings.image_ratio }} media-mobile--{{ section.settings.mobile_image_ratio }}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}">
                 <picture class="motion-reduce">
                   <source media="(max-width: 749px)" srcset="{{ mobile_srcset_1 | strip_newlines | strip }}" sizes="{{ sizes }}">
-                  {%- echo image | image_url: width: 1100, format: 'webp' | image_tag:
+                  {%- echo image | image_url: width: 3000, format: 'webp' | image_tag:
                       loading: 'lazy',
                       fetchpriority: 'low',
                       decoding: 'async',
@@ -636,7 +636,7 @@
             <div class="image-animate media media--{{ section.settings.image_ratio }} media-mobile--{{ section.settings.mobile_image_ratio }}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}">
               <picture class="motion-reduce">
                 <source media="(max-width: 749px)" srcset="{{ mobile_srcset_2 | strip_newlines | strip }}" sizes="{{ sizes_2nd }}">
-                {%- echo image_2nd | image_url: width: 1100, format: 'webp' | image_tag:
+                {%- echo image_2nd | image_url: width: 3000, format: 'webp' | image_tag:
                     loading: 'lazy',
                     fetchpriority: 'low',
                     decoding: 'async',
