@@ -464,10 +464,25 @@ document.addEventListener('DOMContentLoaded', function() {
       placeholder.setAttribute('data-qv-placeholder', '');
       drawer.appendChild(placeholder);
 
+      // After teleporting qv to body it is no longer inside quick-view-drawer, so
+      // onBodyClick (which checks this.contains(event.target)) would close the modal
+      // on every click inside it. stopProp prevents those clicks from reaching body.
+      const stopProp = ev => ev.stopPropagation();
+      // The X button dispatches drawer:force-close which can no longer bubble to the
+      // drawer naturally — relay it so the modal still closes via the close button.
+      const relayClose = ev => {
+        ev.stopPropagation();
+        drawer.dispatchEvent(new CustomEvent('drawer:force-close', { bubbles: true, cancelable: true, composed: true }));
+      };
+
+      qv.addEventListener('click', stopProp);
+      qv.addEventListener('drawer:force-close', relayClose);
       document.body.appendChild(qv);
 
       document.addEventListener('quickview:close', function restore() {
         document.removeEventListener('quickview:close', restore);
+        qv.removeEventListener('click', stopProp);
+        qv.removeEventListener('drawer:force-close', relayClose);
         const content = qv.querySelector('.quick-view__content');
         if (content) {
           content.innerHTML = '';

@@ -215,6 +215,16 @@
   }
 }
 
+@media screen and (min-width: 1440px) {
+  .quick-view__left {
+    flex: 0 0 40%;
+  }
+
+  .quick-view__right {
+    flex: 0 0 60%;
+  }
+}
+
 .quick-view__content {
   border-top-left-radius: 0.8rem;
   border-top-right-radius: 0.8rem;
@@ -295,7 +305,6 @@ details[open].menu-opening > .quick-view .quick-view__content::after {
 .quick-view__content .quick-view__left {
   background-color: rgb(var(--color-background-dark));
   overflow: hidden;
-  max-width: 50%;
 }
 
 .quick-view__content .quick-view__right {
@@ -354,6 +363,12 @@ details[open].menu-opening > .quick-view .quick-view__content::after {
 
 .quick-view .product__media-wrapper .slider-buttons {
   display: flex;
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  top: auto;
+  z-index: 5;
+  pointer-events: auto;
 }
 
 .quick-view .product__modal-opener {
